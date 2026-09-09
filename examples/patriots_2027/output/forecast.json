@@ -1,0 +1,71 @@
+{
+  "id": "forecast_ne_lxi",
+  "kind": "forecast",
+  "input_ids": [
+    "q_ne_lxi_v1",
+    "b_reviewed",
+    "checks"
+  ],
+  "probability": 0.04271133548480065,
+  "information_as_of": "2026-09-09T10:12:45Z",
+  "issued_at": "2026-09-09T10:14:23.337917+00:00",
+  "scope": "local_workflow_demonstration",
+  "external_submission": false,
+  "input_manifest": {
+    "c_calendar": "cd0c53c4501c77caf67eec424cbbef9283633c3de9dad5cbdc907c9ed6b75e56",
+    "q_ne_lxi_v1": "662974bd6087ed916d74ecb7c1b44d6a41b4793e15a29d505f5bab8707b72682",
+    "b_prior": "8d08110c411e31485f405101eb45e881664a6cc7f1baa62d862549694d17440c",
+    "drivers": "0f82ac8e5b19400259b6a2e0a849d7f8b771af408110b48aed896f664c5c3e3a",
+    "c_betus": "c4abc2ee49dbe68d9e6b79cc16eb149d4343c0f3cf3e6cba026bc645a2a54659",
+    "calc_betus": "1d6eac23725701b7664bf921c6d0579c67fd1afb2382bf080eb6e20ac22eb07a",
+    "c_covers": "2c3d695899bbcb685af13e5a0dc2108a31c526be1bc47a2d070a7b9a360dd0e2",
+    "f_betus_quote": "24bae0947d0366897956043d703ac184f94400b2f93b717a1307f48a45959063",
+    "f_covers_quote": "5b662795b276af3c3470685aa63c105f0319cad4a902ba7c53999cb5457a2fed",
+    "research_market": "fc01d0cfc64d4892073e724c5744df4bffb2d386f349af1029b25c6c43e9cc1f",
+    "conflicts": "e622ad0869463d2629f7af82a1bdca74fc2e74e364ae6658b455639d21d04c0f",
+    "c_fanduel": "cf91491f44ee9660897f8bb9e5c15d57404ff310d05ed209d9e7e913d65bd011",
+    "calc_fanduel": "11cab609cb30049661dc1bda9940362e397730f3fe642ceee710e4b5787f2f40",
+    "f_fanduel_quote": "ee248f4bb397500a8fdb29e152d2716594753008f66d712101b713c2f38032f6",
+    "research_reconcile": "035d3e7656edd940335f55e354019ddf3327a537d68f7aed30d189379da30cf4",
+    "c_health": "30af9f7672c691fb58ec6180a1f307979cba14cc7f26771f1db89c06621e4e38",
+    "f_opening_injuries": "0b6d69c6bfafeb49e491a00260fb4c3ed0d8c67d9f4774b4b8dcd886c9661bdd",
+    "research_health": "74e67ffa528a639f12022170701ec818e7c92422fd74d520d9c6533e6575ba52",
+    "b_updated": "a2e5a41b86731eaa99a5cc77c9b83945f998f2bca37719978d90ca06cbac5971",
+    "review": "1d9e7a232dcc2df7067e2d863e5aaebf080e93c58849e9dbe6c35c1d871f564a",
+    "b_reviewed": "24d69796ddecc87548a15337400c0f93ed6d6783054454fa8dc9c093397ce322",
+    "checks": "906bc90cb28e9306579590590257ae180b1be886c47b7321bed60e726737d33d"
+  },
+  "manifest_sha256": "c793cbfb7766f4ca051120357b6c03de26a2fbe181d669de9bcf2b3e532d8c4e",
+  "stopping_reason": "Three replay research tasks completed. Source timing and injury duration remain uncertain; further specialist analysis is outside this bounded simulation.",
+  "review_at": "2026-09-10T12:00:00Z",
+  "triggers": [
+    {
+      "id": "t_prices",
+      "kind": "source_change",
+      "source_ids": [
+        "c_betus",
+        "c_fanduel",
+        "c_covers"
+      ],
+      "instruction": "Acquire comparable timestamped complete boards; recalculate and review."
+    },
+    {
+      "id": "t_health",
+      "kind": "source_change",
+      "source_ids": [
+        "c_health"
+      ],
+      "instruction": "Assess material changes in availability; avoid automatic numerical adjustments."
+    },
+    {
+      "id": "t_results",
+      "kind": "scheduled_review",
+      "instruction": "After the opening game, review new prices, team performance, and injuries without treating one game as the full season."
+    },
+    {
+      "id": "t_resolution",
+      "kind": "official_result",
+      "instruction": "Resolve only with an official final championship result under the original question criteria."
+    }
+  ]
+}

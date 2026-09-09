@@ -1,0 +1,218 @@
+{
+  "evaluation_id": "evaluation_faa66ef5f74f4a1b87ce",
+  "policy": {
+    "question_versions": [
+      {
+        "question_id": "factory_east",
+        "version": 1
+      },
+      {
+        "question_id": "factory_west",
+        "version": 1
+      }
+    ],
+    "forecasters": [
+      "agent:fixture",
+      "baseline:half"
+    ],
+    "cutoff": "2026-09-09T13:46:05.095293+00:00",
+    "resolution_as_of": "2026-09-09T13:46:05.095302+00:00",
+    "mode": "simulation"
+  },
+  "cohort": [
+    {
+      "question_id": "factory_east",
+      "version": 1,
+      "event_group": "factory_east"
+    },
+    {
+      "question_id": "factory_west",
+      "version": 1,
+      "event_group": "factory_west"
+    }
+  ],
+  "selected": [
+    {
+      "question_id": "factory_east",
+      "question_version": 1,
+      "event_group": "factory_east",
+      "forecaster": "agent:fixture",
+      "forecast_id": "forecast_e0c8775e746e493d8b50",
+      "resolution_id": "resolution_bee5db4479a249b3ba89",
+      "probability": 0.75,
+      "outcome": 1,
+      "brier": 0.0625,
+      "cost_usd": 0,
+      "method": "documented synthetic judgment"
+    },
+    {
+      "question_id": "factory_east",
+      "question_version": 1,
+      "event_group": "factory_east",
+      "forecaster": "baseline:half",
+      "forecast_id": "forecast_097c2dd5a8cc489682c6",
+      "resolution_id": "resolution_bee5db4479a249b3ba89",
+      "probability": 0.5,
+      "outcome": 1,
+      "brier": 0.25,
+      "cost_usd": 0,
+      "method": "documented synthetic judgment"
+    },
+    {
+      "question_id": "factory_west",
+      "question_version": 1,
+      "event_group": "factory_west",
+      "forecaster": "agent:fixture",
+      "forecast_id": "forecast_6ce75c576ee84fe581ff",
+      "resolution_id": "resolution_1b87eac290f540538e16",
+      "probability": 0.3,
+      "outcome": 0,
+      "brier": 0.09,
+      "cost_usd": 0,
+      "method": "documented synthetic judgment"
+    },
+    {
+      "question_id": "factory_west",
+      "question_version": 1,
+      "event_group": "factory_west",
+      "forecaster": "baseline:half",
+      "forecast_id": "forecast_ec7c55782aca41a7ad2e",
+      "resolution_id": "resolution_1b87eac290f540538e16",
+      "probability": 0.5,
+      "outcome": 0,
+      "brier": 0.25,
+      "cost_usd": 0,
+      "method": "documented synthetic judgment"
+    }
+  ],
+  "exclusions": [],
+  "summaries": {
+    "agent:fixture": {
+      "available_n": 2,
+      "available_brier": 0.07625,
+      "matched_n": 2,
+      "matched_brier": 0.07625,
+      "selected_run_cost_usd": 0.0,
+      "calibration": [
+        {
+          "lower": 0.0,
+          "upper": 0.2,
+          "count": 0,
+          "mean_probability": null,
+          "outcome_frequency": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.4,
+          "count": 1,
+          "mean_probability": 0.3,
+          "outcome_frequency": 0.0
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.6,
+          "count": 0,
+          "mean_probability": null,
+          "outcome_frequency": null
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.8,
+          "count": 1,
+          "mean_probability": 0.75,
+          "outcome_frequency": 1.0
+        },
+        {
+          "lower": 0.8,
+          "upper": 1.0,
+          "count": 0,
+          "mean_probability": null,
+          "outcome_frequency": null
+        }
+      ]
+    },
+    "baseline:half": {
+      "available_n": 2,
+      "available_brier": 0.25,
+      "matched_n": 2,
+      "matched_brier": 0.25,
+      "selected_run_cost_usd": 0.0,
+      "calibration": [
+        {
+          "lower": 0.0,
+          "upper": 0.2,
+          "count": 0,
+          "mean_probability": null,
+          "outcome_frequency": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.4,
+          "count": 0,
+          "mean_probability": null,
+          "outcome_frequency": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.6,
+          "count": 2,
+          "mean_probability": 0.5,
+          "outcome_frequency": 0.5
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.8,
+          "count": 0,
+          "mean_probability": null,
+          "outcome_frequency": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 1.0,
+          "count": 0,
+          "mean_probability": null,
+          "outcome_frequency": null
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "left": "agent:fixture",
+      "right": "baseline:half",
+      "n": 2,
+      "event_groups": 2,
+      "mean_brier_difference": -0.17375000000000002,
+      "by_question": [
+        {
+          "question_id": "factory_east",
+          "version": 1,
+          "event_group": "factory_east",
+          "brier_difference": -0.1875
+        },
+        {
+          "question_id": "factory_west",
+          "version": 1,
+          "event_group": "factory_west",
+          "brier_difference": -0.16
+        }
+      ],
+      "interpretation": "Negative favors left; no significance claim."
+    }
+  ],
+  "created_at": "2026-09-09T13:46:05.125982Z",
+  "input_manifest": {
+    "forecast_097c2dd5a8cc489682c6": "275e72518e7d287dc06d4a97012c0055d50f13cdc3b05b6f53ee7310afa441ed",
+    "forecast_6ce75c576ee84fe581ff": "bf21322cabb6e424bab2c810acefe718c4054b52ab2f21d2924269a3f2504f6f",
+    "forecast_e0c8775e746e493d8b50": "23e54df37c12c7a5ca9677b568287fd6238da0f56c13250a8cdbc63d48baa2fa",
+    "forecast_ec7c55782aca41a7ad2e": "7fc973d3a497b85dc174f59e5e6d4e606bf1efeb09b5ac171c45907343ceaa5e",
+    "resolution_1b87eac290f540538e16": "ae2620a38318ba87a0c74c538339f243d7ffbdbea79b2131b9ae34538c2ffc3f",
+    "resolution_bee5db4479a249b3ba89": "21da838e38b00cb2bfe22f9daeced7f102d441ed9ef4c5170ae99c2083592759"
+  },
+  "limitations": [
+    "Calibration bins are descriptive; inspect counts.",
+    "Related events are labeled but no cluster uncertainty interval is estimated.",
+    "Recorded mode and timestamps do not certify freedom from hindsight or training contamination.",
+    "Reported costs cover selected runs, not all prior revisions or shared research."
+  ]
+}

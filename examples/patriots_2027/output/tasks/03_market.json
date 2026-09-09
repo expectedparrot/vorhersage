@@ -1,0 +1,141 @@
+{
+  "disposition": "actionable",
+  "revision": 3,
+  "task": {
+    "id": "market",
+    "kind": "research_and_calculation",
+    "instruction": "Read a complete title-odds board and inspect a comparison quote.",
+    "input_ids": [
+      "q_ne_lxi_v1",
+      "drivers"
+    ],
+    "required_fields": [
+      "capture_ids",
+      "findings",
+      "conflicts"
+    ],
+    "completion_condition": "Record board, locations, timing uncertainty, and discrepancies."
+  },
+  "result_schema": {
+    "type": "object",
+    "required": [
+      "task_id",
+      "expected_revision",
+      "idempotency_key",
+      "disposition",
+      "payload"
+    ],
+    "payload_required": [
+      "capture_ids",
+      "findings",
+      "conflicts"
+    ],
+    "disposition_enum": [
+      "completed",
+      "inconclusive"
+    ]
+  },
+  "budget": {
+    "max_research_tasks": 3,
+    "used_research_tasks": 0
+  },
+  "context": {
+    "c_calendar": {
+      "id": "c_calendar",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://operations.nfl.com/calendar-events/nfl-important-dates",
+      "title": "NFL Football Operations important dates",
+      "observed_at": "2026-09-09T10:12:45Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "2027 calendar: February 14",
+      "observation": {
+        "event": "Super Bowl LXI",
+        "scheduled_date": "2027-02-14",
+        "venue": "SoFi Stadium"
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded at the end of the research pass; this is not the publisher's quote-update time.",
+      "content_sha256": "ef7bc76494a4e3822a21ae97cc518d94fe596aec5fc8e809901e397fe88f1a0d"
+    },
+    "q_ne_lxi_v1": {
+      "id": "q_ne_lxi_v1",
+      "kind": "question_version",
+      "input_ids": [
+        "c_calendar"
+      ],
+      "specification": {
+        "id": "q_ne_lxi_v1",
+        "event_id": "super_bowl_lxi",
+        "season": 2026,
+        "target_type": "binary",
+        "text": "Will the New England Patriots be the official winner of Super Bowl LXI, the championship game for the 2026 NFL season?",
+        "scheduled_date": "2027-02-14",
+        "yes": "The NFL's official final result names the New England Patriots as winner of Super Bowl LXI.",
+        "no": "The NFL's official final result names another team as winner of Super Bowl LXI.",
+        "void": "No official winner is declared by 2027-03-31T23:59:59Z, including cancellation or an unresolved final-result dispute.",
+        "rescheduling": "Follow the named championship if rescheduled within the resolution deadline.",
+        "resolution_deadline": "2027-03-31T23:59:59Z",
+        "resolution_source": "https://www.nfl.com/super-bowl/",
+        "forecast_information_as_of": "2026-09-09T10:12:45Z"
+      }
+    },
+    "b_prior": {
+      "id": "b_prior",
+      "kind": "belief_revision",
+      "input_ids": [
+        "q_ne_lxi_v1"
+      ],
+      "probability": 0.03125,
+      "basis": "symmetry_assumption_not_empirical_reference_class",
+      "rationale": "Exactly one of 32 teams is champion if the competition completes. Before considering relative strength, equal weighting supplies a transparent baseline; team exchangeability is a simplifying assumption."
+    },
+    "drivers": {
+      "id": "drivers",
+      "kind": "driver_map",
+      "input_ids": [
+        "q_ne_lxi_v1"
+      ],
+      "drivers": [
+        {
+          "id": "d_playoffs",
+          "event": "Reach the playoffs",
+          "depends_on": [
+            "regular-season strength",
+            "quarterback availability",
+            "division and conference competition"
+          ],
+          "probability": null
+        },
+        {
+          "id": "d_afc",
+          "event": "Win the AFC conditional on reaching the playoffs",
+          "depends_on": [
+            "seeding",
+            "opponents",
+            "health"
+          ],
+          "probability": null
+        },
+        {
+          "id": "d_title",
+          "event": "Win the Super Bowl conditional on winning the AFC",
+          "depends_on": [
+            "NFC opponent",
+            "relative team strength",
+            "health"
+          ],
+          "probability": null
+        }
+      ],
+      "probability_identity": "P(title)=P(playoffs)*P(AFC title|playoffs)*P(Super Bowl win|AFC title). Conditional on a completed competition.",
+      "unestimated": [
+        "No independent team-strength or season simulation has been fitted.",
+        "No season-level injury effect has been estimated.",
+        "No empirical reference class of comparable Patriots teams was assembled."
+      ]
+    }
+  }
+}

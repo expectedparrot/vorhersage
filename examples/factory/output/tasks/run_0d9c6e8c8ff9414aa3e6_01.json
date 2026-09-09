@@ -1,0 +1,356 @@
+{
+  "disposition": "actionable",
+  "run_id": "run_0d9c6e8c8ff9414aa3e6",
+  "revision": 1,
+  "task": {
+    "id": "task_0de2dd3a98fa47669b52",
+    "instruction": "Map mechanisms and necessary steps, including concrete paths to YES and NO. Identify important unknowns.",
+    "kind": "drivers"
+  },
+  "submission_schema": {
+    "type": "object",
+    "properties": {
+      "task_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "expected_revision": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "idempotency_key": {
+        "type": "string",
+        "minLength": 1
+      },
+      "payload": {
+        "type": "object"
+      },
+      "usage": {
+        "type": "object",
+        "properties": {
+          "searches": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "cost_usd": {
+            "type": "number",
+            "minimum": 0
+          },
+          "model_calls": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "searches",
+          "cost_usd",
+          "model_calls"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "task_id",
+      "expected_revision",
+      "idempotency_key",
+      "payload"
+    ],
+    "additionalProperties": false
+  },
+  "payload_schema": {
+    "type": "object",
+    "properties": {
+      "drivers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "mechanism": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "packet_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "record_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "packet_id",
+                  "record_id"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0
+            }
+          },
+          "required": [
+            "name",
+            "mechanism",
+            "evidence_refs"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 1
+      },
+      "yes_path": {
+        "type": "string",
+        "minLength": 1
+      },
+      "no_path": {
+        "type": "string",
+        "minLength": 1
+      },
+      "unknowns": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 0
+      }
+    },
+    "required": [
+      "drivers",
+      "yes_path",
+      "no_path",
+      "unknowns"
+    ],
+    "additionalProperties": false
+  },
+  "budget": {
+    "searches_remaining": 4,
+    "extra_tasks_remaining": 1,
+    "reported_cost_usd": 0,
+    "reported_model_calls": 0
+  },
+  "context": {
+    "run": {
+      "created_at": "2026-09-09T13:46:02.656458Z",
+      "forecaster": "agent:fixture",
+      "id": "run_0d9c6e8c8ff9414aa3e6",
+      "information_as_of": "2026-09-09T13:46:02.623851+00:00",
+      "max_extra_tasks": 1,
+      "max_searches": 4,
+      "method": "documented synthetic judgment",
+      "mode": "simulation",
+      "previous_forecast_id": "forecast_60c733f18bb84f25b013",
+      "profile": {
+        "description": "General binary event research",
+        "domains": [
+          "base_rates",
+          "current_state",
+          "actors_and_process",
+          "contrary_evidence"
+        ],
+        "id": "general"
+      },
+      "question": {
+        "domain": "operations",
+        "event_deadline": "2026-09-10T13:46:00.882225+00:00",
+        "event_group": "factory_east",
+        "id": "factory_east",
+        "kind": "simulation",
+        "no": "The fixture establishes that no qualifying shipment will occur by the deadline.",
+        "profile": "general",
+        "resolution_source": "urn:vorhersage:fictional:dispatch",
+        "resolve_after": "2026-09-11T13:46:00.882235+00:00",
+        "text": "Will fictional factory east ship by its deadline?",
+        "void": "The fictional event is withdrawn.",
+        "yes": "The fixture records a qualifying shipment by the deadline."
+      },
+      "question_id": "factory_east",
+      "question_version": 1,
+      "workflow_version": "1"
+    },
+    "coverage": {},
+    "current_probability": 0.5,
+    "artifacts": {
+      "forecast_60c733f18bb84f25b013": {
+        "cost_usd": 0,
+        "coverage": {
+          "actors_and_process": {
+            "conflicts": [],
+            "disposition": "assessed",
+            "evidence_refs": [
+              {
+                "packet_id": "pkt_778d8d2909e241547514d976",
+                "record_id": "readiness"
+              }
+            ],
+            "interpretation": "The fictional source informs this domain; uncertainty remains.",
+            "sources_checked": [
+              "Fictional fixture"
+            ],
+            "task_id": "task_130d9f9871ae4db7ae45",
+            "unknowns": [
+              "Execution risk."
+            ]
+          },
+          "base_rates": {
+            "conflicts": [],
+            "disposition": "assessed",
+            "evidence_refs": [
+              {
+                "packet_id": "pkt_778d8d2909e241547514d976",
+                "record_id": "readiness"
+              }
+            ],
+            "interpretation": "The fictional source informs this domain; uncertainty remains.",
+            "sources_checked": [
+              "Fictional fixture"
+            ],
+            "task_id": "task_fd34d1900d544685af31",
+            "unknowns": [
+              "Execution risk."
+            ]
+          },
+          "contrary_evidence": {
+            "conflicts": [],
+            "disposition": "assessed",
+            "evidence_refs": [
+              {
+                "packet_id": "pkt_778d8d2909e241547514d976",
+                "record_id": "readiness"
+              }
+            ],
+            "interpretation": "The fictional source informs this domain; uncertainty remains.",
+            "sources_checked": [
+              "Fictional fixture"
+            ],
+            "task_id": "task_06b20d90c44d45f5bead",
+            "unknowns": [
+              "Execution risk."
+            ]
+          },
+          "current_state": {
+            "conflicts": [],
+            "disposition": "assessed",
+            "evidence_refs": [
+              {
+                "packet_id": "pkt_778d8d2909e241547514d976",
+                "record_id": "readiness"
+              }
+            ],
+            "interpretation": "The fictional source informs this domain; uncertainty remains.",
+            "sources_checked": [
+              "Fictional fixture"
+            ],
+            "task_id": "task_3e017a429970401badb3",
+            "unknowns": [
+              "Execution risk."
+            ]
+          }
+        },
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_778d8d2909e241547514d976",
+            "record_id": "readiness"
+          }
+        ],
+        "forecaster": "agent:fixture",
+        "information_as_of": "2026-09-09T13:46:01.750924+00:00",
+        "input_manifest": {
+          "pkt_778d8d2909e241547514d976": "681712290465e54e7ee04be5f89e0fb711330244dc7ef8b1204be34aae9d5a0a",
+          "task_result_0c13917100d743389781": "4a6f01c8808bc313338637cb0b9dbd312d1a45e864dc99b234f58c813c1ca88e",
+          "task_result_34266bc6423744f5b975": "ae1334c138e3cbae1c9059340e9948f8994dc5113a80c2f9162ee375a54183cc",
+          "task_result_3effed9041814a0b9dcf": "17c4027c04530d909111adf2915af5cca7ec16a9675515840fe9456249b6bc32",
+          "task_result_624a160cfa104e0c9fe7": "bab5a746ca9b6f408cfeec305771cc29970dd0d0494e30d123de0bf9a9590a79",
+          "task_result_824c34a9fe974da6878e": "36dd849c0a29480592df24734eeee773f84e65311f70318a1854f2c27d2bbd47",
+          "task_result_894935b1dd404a419804": "8f9a2d094ddc7e447f53d0a394080589343ea70495c8c6915322347822bf9f36",
+          "task_result_ac17182a25164395ba90": "1f3112d1a1230f3e290752f5446273ba4fb34882f649c9bf73309678c200eb7b",
+          "task_result_cebc4985e163424eaaea": "6f9980ab6466a0284724fd3cfa7b5e6f3230d0dfc723c6aa08bbbdb86488e5fa"
+        },
+        "issued_at": "2026-09-09T13:46:02.468479Z",
+        "manifest_sha256": "eb5ccd36cf973db9d14094cabdbfc5e4c30f4f1355166fdea591dd6eabbc75d3",
+        "method": "documented synthetic judgment",
+        "mode": "simulation",
+        "model_calls": 0,
+        "previous_forecast_id": null,
+        "probability": 0.4,
+        "profile": {
+          "description": "General binary event research",
+          "domains": [
+            "base_rates",
+            "current_state",
+            "actors_and_process",
+            "contrary_evidence"
+          ],
+          "id": "general"
+        },
+        "question": {
+          "domain": "operations",
+          "event_deadline": "2026-09-10T13:46:00.882225+00:00",
+          "event_group": "factory_east",
+          "id": "factory_east",
+          "kind": "simulation",
+          "no": "The fixture establishes that no qualifying shipment will occur by the deadline.",
+          "profile": "general",
+          "resolution_source": "urn:vorhersage:fictional:dispatch",
+          "resolve_after": "2026-09-11T13:46:00.882235+00:00",
+          "text": "Will fictional factory east ship by its deadline?",
+          "void": "The fictional event is withdrawn.",
+          "yes": "The fixture records a qualifying shipment by the deadline."
+        },
+        "question_id": "factory_east",
+        "question_version": 1,
+        "review_at": "2026-09-10T01:46:02.434108+00:00",
+        "run_id": "run_d503c0d7e46741eabdf2",
+        "searches": 0,
+        "stopping_reason": "Bounded fixture research completed.",
+        "triggers": [
+          {
+            "description": "New information about dispatch.",
+            "evidence_refs": [
+              {
+                "packet_id": "pkt_778d8d2909e241547514d976",
+                "record_id": "readiness"
+              }
+            ]
+          }
+        ],
+        "workflow_version": "1"
+      },
+      "task_result_b15f984465ab42e19aca": {
+        "calculation": {
+          "probability": 0.5,
+          "sample_size": 0
+        },
+        "payload": {
+          "evidence_refs": [],
+          "limitations": [
+            "Not an empirical reference class."
+          ],
+          "method": "judgment",
+          "probability": 0.5,
+          "rationale": "An assumed neutral starting point."
+        },
+        "revision": 1,
+        "submitted_at": "2026-09-09T13:46:02.734223Z",
+        "task": {
+          "id": "task_c5eb95e74540472d93c0",
+          "instruction": "Establish a labeled judgmental prior or a reference class with cases and evidence. Explain comparability and limitations.",
+          "kind": "prior"
+        },
+        "usage": {
+          "cost_usd": 0,
+          "model_calls": 0,
+          "searches": 0
+        }
+      }
+    },
+    "evidence": []
+  }
+}

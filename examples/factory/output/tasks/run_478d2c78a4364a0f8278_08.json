@@ -1,0 +1,537 @@
+{
+  "disposition": "actionable",
+  "run_id": "run_478d2c78a4364a0f8278",
+  "revision": 8,
+  "task": {
+    "id": "task_c8c01e189b8b432b8ce2",
+    "instruction": "Freeze the estimate with a stopping reason, review date, and observable update triggers.",
+    "kind": "issue"
+  },
+  "submission_schema": {
+    "type": "object",
+    "properties": {
+      "task_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "expected_revision": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "idempotency_key": {
+        "type": "string",
+        "minLength": 1
+      },
+      "payload": {
+        "type": "object"
+      },
+      "usage": {
+        "type": "object",
+        "properties": {
+          "searches": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "cost_usd": {
+            "type": "number",
+            "minimum": 0
+          },
+          "model_calls": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "searches",
+          "cost_usd",
+          "model_calls"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "task_id",
+      "expected_revision",
+      "idempotency_key",
+      "payload"
+    ],
+    "additionalProperties": false
+  },
+  "payload_schema": {
+    "type": "object",
+    "properties": {
+      "stopping_reason": {
+        "type": "string",
+        "minLength": 1
+      },
+      "review_at": {
+        "type": "string",
+        "minLength": 1,
+        "format": "date-time"
+      },
+      "triggers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "packet_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "record_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "packet_id",
+                  "record_id"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0
+            }
+          },
+          "required": [
+            "description",
+            "evidence_refs"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 1
+      }
+    },
+    "required": [
+      "stopping_reason",
+      "review_at",
+      "triggers"
+    ],
+    "additionalProperties": false
+  },
+  "budget": {
+    "searches_remaining": 4,
+    "extra_tasks_remaining": 1,
+    "reported_cost_usd": 0,
+    "reported_model_calls": 0
+  },
+  "context": {
+    "run": {
+      "created_at": "2026-09-09T13:46:03.554887Z",
+      "forecaster": "baseline:half",
+      "id": "run_478d2c78a4364a0f8278",
+      "information_as_of": "2026-09-09T13:46:03.523619+00:00",
+      "max_extra_tasks": 1,
+      "max_searches": 4,
+      "method": "documented synthetic judgment",
+      "mode": "simulation",
+      "profile": {
+        "description": "General binary event research",
+        "domains": [
+          "base_rates",
+          "current_state",
+          "actors_and_process",
+          "contrary_evidence"
+        ],
+        "id": "general"
+      },
+      "question": {
+        "domain": "operations",
+        "event_deadline": "2026-09-10T13:46:03.486709+00:00",
+        "event_group": "factory_west",
+        "id": "factory_west",
+        "kind": "simulation",
+        "no": "The fixture establishes that no qualifying shipment will occur by the deadline.",
+        "profile": "general",
+        "resolution_source": "urn:vorhersage:fictional:dispatch",
+        "resolve_after": "2026-09-11T13:46:03.486721+00:00",
+        "text": "Will fictional factory west ship by its deadline?",
+        "void": "The fictional event is withdrawn.",
+        "yes": "The fixture records a qualifying shipment by the deadline."
+      },
+      "question_id": "factory_west",
+      "question_version": 1,
+      "workflow_version": "1"
+    },
+    "coverage": {
+      "actors_and_process": {
+        "conflicts": [],
+        "disposition": "assessed",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_778d8d2909e241547514d976",
+            "record_id": "readiness"
+          }
+        ],
+        "interpretation": "The fictional source informs this domain; uncertainty remains.",
+        "sources_checked": [
+          "Fictional fixture"
+        ],
+        "task_id": "task_7e0114460f8f4382a1ba",
+        "unknowns": [
+          "Execution risk."
+        ]
+      },
+      "base_rates": {
+        "conflicts": [],
+        "disposition": "assessed",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_778d8d2909e241547514d976",
+            "record_id": "readiness"
+          }
+        ],
+        "interpretation": "The fictional source informs this domain; uncertainty remains.",
+        "sources_checked": [
+          "Fictional fixture"
+        ],
+        "task_id": "task_aa64ad31d47345d5957e",
+        "unknowns": [
+          "Execution risk."
+        ]
+      },
+      "contrary_evidence": {
+        "conflicts": [],
+        "disposition": "assessed",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_778d8d2909e241547514d976",
+            "record_id": "readiness"
+          }
+        ],
+        "interpretation": "The fictional source informs this domain; uncertainty remains.",
+        "sources_checked": [
+          "Fictional fixture"
+        ],
+        "task_id": "task_5b6a70ea1b7e403ca463",
+        "unknowns": [
+          "Execution risk."
+        ]
+      },
+      "current_state": {
+        "conflicts": [],
+        "disposition": "assessed",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_778d8d2909e241547514d976",
+            "record_id": "readiness"
+          }
+        ],
+        "interpretation": "The fictional source informs this domain; uncertainty remains.",
+        "sources_checked": [
+          "Fictional fixture"
+        ],
+        "task_id": "task_c37f69ee904f4eaa8fa8",
+        "unknowns": [
+          "Execution risk."
+        ]
+      }
+    },
+    "current_probability": 0.5,
+    "artifacts": {
+      "task_result_f3b704bf82be44eab911": {
+        "calculation": {
+          "probability": 0.5,
+          "sample_size": 0
+        },
+        "payload": {
+          "evidence_refs": [],
+          "limitations": [
+            "Not an empirical reference class."
+          ],
+          "method": "judgment",
+          "probability": 0.5,
+          "rationale": "An assumed neutral starting point."
+        },
+        "revision": 1,
+        "submitted_at": "2026-09-09T13:46:03.626453Z",
+        "task": {
+          "id": "task_9f368c2cb47d44d78d65",
+          "instruction": "Establish a labeled judgmental prior or a reference class with cases and evidence. Explain comparability and limitations.",
+          "kind": "prior"
+        },
+        "usage": {
+          "cost_usd": 0,
+          "model_calls": 0,
+          "searches": 0
+        }
+      },
+      "task_result_6ad6f97888c04e928fa4": {
+        "calculation": null,
+        "payload": {
+          "drivers": [
+            {
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_778d8d2909e241547514d976",
+                  "record_id": "readiness"
+                }
+              ],
+              "mechanism": "Dispatch needs a ready production line.",
+              "name": "Readiness"
+            }
+          ],
+          "no_path": "A remaining dependency blocks it.",
+          "unknowns": [
+            "Delay duration."
+          ],
+          "yes_path": "Readiness permits a shipment."
+        },
+        "revision": 2,
+        "submitted_at": "2026-09-09T13:46:03.698047Z",
+        "task": {
+          "id": "task_d2212ba6ffa343c687f4",
+          "instruction": "Map mechanisms and necessary steps, including concrete paths to YES and NO. Identify important unknowns.",
+          "kind": "drivers"
+        },
+        "usage": {
+          "cost_usd": 0,
+          "model_calls": 0,
+          "searches": 0
+        }
+      },
+      "task_result_4ef45d780cce45378738": {
+        "calculation": null,
+        "payload": {
+          "conflicts": [],
+          "disposition": "assessed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_778d8d2909e241547514d976",
+              "record_id": "readiness"
+            }
+          ],
+          "interpretation": "The fictional source informs this domain; uncertainty remains.",
+          "sources_checked": [
+            "Fictional fixture"
+          ],
+          "unknowns": [
+            "Execution risk."
+          ]
+        },
+        "revision": 3,
+        "submitted_at": "2026-09-09T13:46:03.770194Z",
+        "task": {
+          "domain": "base_rates",
+          "id": "task_aa64ad31d47345d5957e",
+          "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+          "kind": "research"
+        },
+        "usage": {
+          "cost_usd": 0,
+          "model_calls": 0,
+          "searches": 0
+        }
+      },
+      "task_result_9273c3addef544759b95": {
+        "calculation": null,
+        "payload": {
+          "conflicts": [],
+          "disposition": "assessed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_778d8d2909e241547514d976",
+              "record_id": "readiness"
+            }
+          ],
+          "interpretation": "The fictional source informs this domain; uncertainty remains.",
+          "sources_checked": [
+            "Fictional fixture"
+          ],
+          "unknowns": [
+            "Execution risk."
+          ]
+        },
+        "revision": 4,
+        "submitted_at": "2026-09-09T13:46:03.841913Z",
+        "task": {
+          "domain": "current_state",
+          "id": "task_c37f69ee904f4eaa8fa8",
+          "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+          "kind": "research"
+        },
+        "usage": {
+          "cost_usd": 0,
+          "model_calls": 0,
+          "searches": 0
+        }
+      },
+      "task_result_5fcb370bdc324d82a6a0": {
+        "calculation": null,
+        "payload": {
+          "conflicts": [],
+          "disposition": "assessed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_778d8d2909e241547514d976",
+              "record_id": "readiness"
+            }
+          ],
+          "interpretation": "The fictional source informs this domain; uncertainty remains.",
+          "sources_checked": [
+            "Fictional fixture"
+          ],
+          "unknowns": [
+            "Execution risk."
+          ]
+        },
+        "revision": 5,
+        "submitted_at": "2026-09-09T13:46:03.912659Z",
+        "task": {
+          "domain": "actors_and_process",
+          "id": "task_7e0114460f8f4382a1ba",
+          "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+          "kind": "research"
+        },
+        "usage": {
+          "cost_usd": 0,
+          "model_calls": 0,
+          "searches": 0
+        }
+      },
+      "task_result_d76a5f3f503b4b439685": {
+        "calculation": null,
+        "payload": {
+          "conflicts": [],
+          "disposition": "assessed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_778d8d2909e241547514d976",
+              "record_id": "readiness"
+            }
+          ],
+          "interpretation": "The fictional source informs this domain; uncertainty remains.",
+          "sources_checked": [
+            "Fictional fixture"
+          ],
+          "unknowns": [
+            "Execution risk."
+          ]
+        },
+        "revision": 6,
+        "submitted_at": "2026-09-09T13:46:03.985268Z",
+        "task": {
+          "domain": "contrary_evidence",
+          "id": "task_5b6a70ea1b7e403ca463",
+          "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+          "kind": "research"
+        },
+        "usage": {
+          "cost_usd": 0,
+          "model_calls": 0,
+          "searches": 0
+        }
+      },
+      "task_result_3861332b67f54338803e": {
+        "calculation": {
+          "assumptions_are_agent_supplied": true,
+          "method": "judgment",
+          "probability": 0.5
+        },
+        "payload": {
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_778d8d2909e241547514d976",
+              "record_id": "readiness"
+            }
+          ],
+          "limitations": [
+            "Exercises software behavior only."
+          ],
+          "method": "judgment",
+          "probability": 0.5,
+          "rationale": "An unfitted judgment supplied by this fixture."
+        },
+        "revision": 7,
+        "submitted_at": "2026-09-09T13:46:04.058415Z",
+        "task": {
+          "id": "task_c2404716198d426b831b",
+          "instruction": "Form a probability from the researched evidence. Label judgments; supply nested conditionals or exact ensemble membership when used. State limitations.",
+          "kind": "assessment"
+        },
+        "usage": {
+          "cost_usd": 0,
+          "model_calls": 0,
+          "searches": 0
+        }
+      },
+      "task_result_91fd07f096ca4aef924a": {
+        "calculation": {
+          "decision": "retain",
+          "probability": 0.5
+        },
+        "payload": {
+          "decision": "retain",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_778d8d2909e241547514d976",
+              "record_id": "readiness"
+            }
+          ],
+          "objections": [
+            {
+              "direction": "too_high",
+              "objection": "Dispatch may fail.",
+              "response": "The estimate allows failure."
+            },
+            {
+              "direction": "too_low",
+              "objection": "Readiness may suffice.",
+              "response": "The estimate allows success."
+            }
+          ],
+          "rationale": "Retain the fixture's probability after considering both directions."
+        },
+        "revision": 8,
+        "submitted_at": "2026-09-09T13:46:04.131352Z",
+        "task": {
+          "id": "task_9e02cb38ee934dbfabdc",
+          "instruction": "Challenge the estimate in both directions. Retain or revise with reasons, or request bounded additional research.",
+          "kind": "review"
+        },
+        "usage": {
+          "cost_usd": 0,
+          "model_calls": 0,
+          "searches": 0
+        }
+      }
+    },
+    "evidence": [
+      {
+        "reference": {
+          "packet_id": "pkt_778d8d2909e241547514d976",
+          "record_id": "readiness"
+        },
+        "record": {
+          "claim": "Fictional initial status: preparation is underway; dispatch remains uncertain.",
+          "entity_ids": [
+            "fictional_factory"
+          ],
+          "id": "readiness",
+          "observed_at": "2026-09-09T13:46:00.839727+00:00",
+          "provenance": {
+            "synthetic": true
+          },
+          "sources": [
+            {
+              "excerpt": "Fictional initial status: preparation is underway; dispatch remains uncertain.",
+              "id": "readiness",
+              "retrieved_at": "2026-09-09T13:46:00.839727+00:00",
+              "title": "Fictional factory fixture",
+              "url": "urn:vorhersage:fictional:readiness"
+            }
+          ],
+          "value": "Fictional initial status: preparation is underway; dispatch remains uncertain."
+        }
+      }
+    ]
+  }
+}

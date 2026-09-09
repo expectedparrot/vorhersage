@@ -1,0 +1,36 @@
+{
+  "task_id": "task_513853c7f40e433a82ae",
+  "expected_revision": 7,
+  "idempotency_key": "task_513853c7f40e433a82ae",
+  "payload": {
+    "decision": "retain",
+    "rationale": "Retain the fixture's probability after considering both directions.",
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_778d8d2909e241547514d976",
+        "record_id": "readiness"
+      },
+      {
+        "packet_id": "pkt_18709b35dbcd0b0d199c60d0",
+        "record_id": "readiness_update"
+      }
+    ],
+    "objections": [
+      {
+        "direction": "too_high",
+        "objection": "Dispatch may fail.",
+        "response": "The estimate allows failure."
+      },
+      {
+        "direction": "too_low",
+        "objection": "Readiness may suffice.",
+        "response": "The estimate allows success."
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "cost_usd": 0,
+    "model_calls": 0
+  }
+}

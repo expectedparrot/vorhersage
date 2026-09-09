@@ -1,0 +1,79 @@
+{
+  "task_id": "market",
+  "expected_revision": 4,
+  "idempotency_key": "demo_market",
+  "disposition": "completed",
+  "payload": {
+    "capture_ids": [
+      "c_betus",
+      "c_covers"
+    ],
+    "conflicts": [
+      {
+        "id": "conflict_betus",
+        "kind": "same_page_disagreement",
+        "source_ids": [
+          "c_betus"
+        ],
+        "detail": "Use of +1800 versus +2000 changes the implied probability; the page does not establish which quote was updated last."
+      },
+      {
+        "id": "conflict_covers",
+        "kind": "unmatched_comparison",
+        "source_ids": [
+          "c_betus",
+          "c_covers"
+        ],
+        "detail": "Comparison differs in price, with unverified timestamp and underlying book; do not pool raw implied probabilities."
+      }
+    ],
+    "findings": [
+      {
+        "claim": "BetUS's title table displays NE +2000; its narrative displays +1800.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_betus_quote",
+        "role": "market_input_and_conflict",
+        "source_ids": [
+          "c_betus"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_betus_quote",
+          "record_sha256": "a917aa6f23d7290712a3006687331a03003c38781bd171c500a0dc2e901f3602",
+          "claim_ids": [
+            "clm_642f10e5ce894314"
+          ],
+          "evidence_ids": [
+            "evd_1498bfff24e54522"
+          ]
+        }
+      },
+      {
+        "claim": "Covers displays NE +1400, with no verified quote timestamp or complete board in this observation.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_covers_quote",
+        "role": "comparison_only",
+        "source_ids": [
+          "c_covers"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_covers_quote",
+          "record_sha256": "43fa7a6aa0e32b966c85edfaaf8092490218624a6ad2f5fe9a77341d20aae5bc",
+          "claim_ids": [
+            "clm_dbb7866629734e5f"
+          ],
+          "evidence_ids": [
+            "evd_6512d7728a254b8e"
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "disposition": "actionable",
+  "revision": 1,
+  "task": {
+    "id": "prior",
+    "kind": "agent_and_calculation",
+    "instruction": "Choose and label an initial baseline.",
+    "input_ids": [
+      "q_ne_lxi_v1"
+    ],
+    "required_fields": [
+      "method",
+      "rationale"
+    ],
+    "completion_condition": "Explicitly label the equal-team baseline as a symmetry assumption."
+  },
+  "result_schema": {
+    "type": "object",
+    "required": [
+      "task_id",
+      "expected_revision",
+      "idempotency_key",
+      "disposition",
+      "payload"
+    ],
+    "payload_required": [
+      "method",
+      "rationale"
+    ],
+    "disposition_enum": [
+      "completed",
+      "inconclusive"
+    ]
+  },
+  "budget": {
+    "max_research_tasks": 3,
+    "used_research_tasks": 0
+  },
+  "context": {
+    "c_calendar": {
+      "id": "c_calendar",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://operations.nfl.com/calendar-events/nfl-important-dates",
+      "title": "NFL Football Operations important dates",
+      "observed_at": "2026-09-09T10:12:45Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "2027 calendar: February 14",
+      "observation": {
+        "event": "Super Bowl LXI",
+        "scheduled_date": "2027-02-14",
+        "venue": "SoFi Stadium"
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded at the end of the research pass; this is not the publisher's quote-update time.",
+      "content_sha256": "ef7bc76494a4e3822a21ae97cc518d94fe596aec5fc8e809901e397fe88f1a0d"
+    },
+    "q_ne_lxi_v1": {
+      "id": "q_ne_lxi_v1",
+      "kind": "question_version",
+      "input_ids": [
+        "c_calendar"
+      ],
+      "specification": {
+        "id": "q_ne_lxi_v1",
+        "event_id": "super_bowl_lxi",
+        "season": 2026,
+        "target_type": "binary",
+        "text": "Will the New England Patriots be the official winner of Super Bowl LXI, the championship game for the 2026 NFL season?",
+        "scheduled_date": "2027-02-14",
+        "yes": "The NFL's official final result names the New England Patriots as winner of Super Bowl LXI.",
+        "no": "The NFL's official final result names another team as winner of Super Bowl LXI.",
+        "void": "No official winner is declared by 2027-03-31T23:59:59Z, including cancellation or an unresolved final-result dispute.",
+        "rescheduling": "Follow the named championship if rescheduled within the resolution deadline.",
+        "resolution_deadline": "2027-03-31T23:59:59Z",
+        "resolution_source": "https://www.nfl.com/super-bowl/",
+        "forecast_information_as_of": "2026-09-09T10:12:45Z"
+      }
+    }
+  }
+}

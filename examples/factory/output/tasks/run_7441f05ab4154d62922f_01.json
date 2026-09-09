@@ -1,0 +1,210 @@
+{
+  "disposition": "actionable",
+  "run_id": "run_7441f05ab4154d62922f",
+  "revision": 1,
+  "task": {
+    "id": "task_eb3b6e62786448eda163",
+    "instruction": "Map mechanisms and necessary steps, including concrete paths to YES and NO. Identify important unknowns.",
+    "kind": "drivers"
+  },
+  "submission_schema": {
+    "type": "object",
+    "properties": {
+      "task_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "expected_revision": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "idempotency_key": {
+        "type": "string",
+        "minLength": 1
+      },
+      "payload": {
+        "type": "object"
+      },
+      "usage": {
+        "type": "object",
+        "properties": {
+          "searches": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "cost_usd": {
+            "type": "number",
+            "minimum": 0
+          },
+          "model_calls": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "searches",
+          "cost_usd",
+          "model_calls"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "task_id",
+      "expected_revision",
+      "idempotency_key",
+      "payload"
+    ],
+    "additionalProperties": false
+  },
+  "payload_schema": {
+    "type": "object",
+    "properties": {
+      "drivers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "mechanism": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "packet_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "record_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "packet_id",
+                  "record_id"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0
+            }
+          },
+          "required": [
+            "name",
+            "mechanism",
+            "evidence_refs"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 1
+      },
+      "yes_path": {
+        "type": "string",
+        "minLength": 1
+      },
+      "no_path": {
+        "type": "string",
+        "minLength": 1
+      },
+      "unknowns": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 0
+      }
+    },
+    "required": [
+      "drivers",
+      "yes_path",
+      "no_path",
+      "unknowns"
+    ],
+    "additionalProperties": false
+  },
+  "budget": {
+    "searches_remaining": 4,
+    "extra_tasks_remaining": 1,
+    "reported_cost_usd": 0,
+    "reported_model_calls": 0
+  },
+  "context": {
+    "run": {
+      "created_at": "2026-09-09T13:46:04.279352Z",
+      "forecaster": "agent:fixture",
+      "id": "run_7441f05ab4154d62922f",
+      "information_as_of": "2026-09-09T13:46:04.248234+00:00",
+      "max_extra_tasks": 1,
+      "max_searches": 4,
+      "method": "documented synthetic judgment",
+      "mode": "simulation",
+      "profile": {
+        "description": "General binary event research",
+        "domains": [
+          "base_rates",
+          "current_state",
+          "actors_and_process",
+          "contrary_evidence"
+        ],
+        "id": "general"
+      },
+      "question": {
+        "domain": "operations",
+        "event_deadline": "2026-09-10T13:46:03.486709+00:00",
+        "event_group": "factory_west",
+        "id": "factory_west",
+        "kind": "simulation",
+        "no": "The fixture establishes that no qualifying shipment will occur by the deadline.",
+        "profile": "general",
+        "resolution_source": "urn:vorhersage:fictional:dispatch",
+        "resolve_after": "2026-09-11T13:46:03.486721+00:00",
+        "text": "Will fictional factory west ship by its deadline?",
+        "void": "The fictional event is withdrawn.",
+        "yes": "The fixture records a qualifying shipment by the deadline."
+      },
+      "question_id": "factory_west",
+      "question_version": 1,
+      "workflow_version": "1"
+    },
+    "coverage": {},
+    "current_probability": 0.5,
+    "artifacts": {
+      "task_result_82b22701f2af4524ba58": {
+        "calculation": {
+          "probability": 0.5,
+          "sample_size": 0
+        },
+        "payload": {
+          "evidence_refs": [],
+          "limitations": [
+            "Not an empirical reference class."
+          ],
+          "method": "judgment",
+          "probability": 0.5,
+          "rationale": "An assumed neutral starting point."
+        },
+        "revision": 1,
+        "submitted_at": "2026-09-09T13:46:04.357544Z",
+        "task": {
+          "id": "task_3f7cced2a1934475be7e",
+          "instruction": "Establish a labeled judgmental prior or a reference class with cases and evidence. Explain comparability and limitations.",
+          "kind": "prior"
+        },
+        "usage": {
+          "cost_usd": 0,
+          "model_calls": 0,
+          "searches": 0
+        }
+      }
+    },
+    "evidence": []
+  }
+}

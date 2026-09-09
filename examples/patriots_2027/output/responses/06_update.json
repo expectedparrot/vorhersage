@@ -1,0 +1,25 @@
+{
+  "task_id": "update",
+  "expected_revision": 6,
+  "idempotency_key": "demo_update",
+  "disposition": "completed",
+  "payload": {
+    "calculation_ids": [
+      "calc_betus",
+      "calc_fanduel"
+    ],
+    "weights": [
+      0.5,
+      0.5
+    ],
+    "adjustment": 0,
+    "rationale": "Use a transparent market-informed baseline. There is no independently estimated incremental signal that warrants departing from it.",
+    "limitations": [
+      "Two public web observations with unknown quote-update times.",
+      "Proportional normalization is one margin-allocation assumption.",
+      "Correlated market estimates do not give two independent measurements.",
+      "No calibrated confidence interval or independent football model.",
+      "The 3.125% baseline is replaced, not treated as independent evidence to average with market estimates."
+    ]
+  }
+}

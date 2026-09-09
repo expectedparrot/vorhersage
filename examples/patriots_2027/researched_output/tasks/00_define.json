@@ -1,0 +1,36 @@
+{
+  "disposition": "actionable",
+  "revision": 0,
+  "task": {
+    "id": "define",
+    "kind": "agent",
+    "instruction": "Operationalize the named championship and resolution rule.",
+    "input_ids": [],
+    "required_fields": [
+      "question"
+    ],
+    "completion_condition": "A binary question with explicit YES, NO, and void rules."
+  },
+  "result_schema": {
+    "type": "object",
+    "required": [
+      "task_id",
+      "expected_revision",
+      "idempotency_key",
+      "disposition",
+      "payload"
+    ],
+    "payload_required": [
+      "question"
+    ],
+    "disposition_enum": [
+      "completed",
+      "inconclusive"
+    ]
+  },
+  "budget": {
+    "max_research_tasks": 4,
+    "used_research_tasks": 0
+  },
+  "context": {}
+}

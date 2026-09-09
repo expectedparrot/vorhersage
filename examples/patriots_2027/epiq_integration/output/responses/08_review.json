@@ -1,0 +1,37 @@
+{
+  "task_id": "review",
+  "expected_revision": 8,
+  "idempotency_key": "demo_review",
+  "disposition": "completed",
+  "payload": {
+    "objections": [
+      {
+        "direction": "too_high",
+        "objection": "Last-season wins and QB statistics may exaggerate repeatable strength without opponent adjustment.",
+        "response": "The 70% qualification estimate already allows substantial regression; test a 60% alternative. A fitted team-strength model remains a material gap."
+      },
+      {
+        "direction": "too_high",
+        "objection": "A.J. Brown is not a pure addition to an otherwise unchanged offense.",
+        "response": "Keep the Diggs departure, line changes and other turnover in the same assessment; no standalone Brown percentage-point bonus is applied."
+      },
+      {
+        "direction": "too_low",
+        "objection": "A strong young quarterback, continuity and better receiving options could support a higher ceiling.",
+        "response": "Evaluate the optimistic conditional assumptions explicitly rather than treating upside as the central case."
+      },
+      {
+        "direction": "either",
+        "objection": "The conditional probabilities are subjective and may reflect the already-seen market.",
+        "response": "Label the model as elicited and not blind; a small numerical difference from the market is not a validated edge."
+      },
+      {
+        "direction": "either",
+        "objection": "The runner-up reference class has only one success and repeated franchises.",
+        "response": "Use it as descriptive context and show recent-window sensitivity; do not treat 4% as a precise prior or average it as independent evidence."
+      }
+    ],
+    "decision": "retain",
+    "rationale": "Keep the explicit 6.048% scenario as a rounded 6% working judgment. The uncertainty in the assumptions matters more than the extra decimal places."
+  }
+}

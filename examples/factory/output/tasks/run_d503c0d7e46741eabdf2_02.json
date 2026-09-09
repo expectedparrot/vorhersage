@@ -1,0 +1,291 @@
+{
+  "disposition": "actionable",
+  "run_id": "run_d503c0d7e46741eabdf2",
+  "revision": 2,
+  "task": {
+    "domain": "base_rates",
+    "id": "task_fd34d1900d544685af31",
+    "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+    "kind": "research"
+  },
+  "submission_schema": {
+    "type": "object",
+    "properties": {
+      "task_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "expected_revision": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "idempotency_key": {
+        "type": "string",
+        "minLength": 1
+      },
+      "payload": {
+        "type": "object"
+      },
+      "usage": {
+        "type": "object",
+        "properties": {
+          "searches": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "cost_usd": {
+            "type": "number",
+            "minimum": 0
+          },
+          "model_calls": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "searches",
+          "cost_usd",
+          "model_calls"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "task_id",
+      "expected_revision",
+      "idempotency_key",
+      "payload"
+    ],
+    "additionalProperties": false
+  },
+  "payload_schema": {
+    "type": "object",
+    "properties": {
+      "disposition": {
+        "enum": [
+          "assessed",
+          "unknown"
+        ]
+      },
+      "interpretation": {
+        "type": "string",
+        "minLength": 1
+      },
+      "evidence_refs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "packet_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "record_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "packet_id",
+            "record_id"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 0
+      },
+      "sources_checked": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 0
+      },
+      "unknowns": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 0
+      },
+      "conflicts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "enum": [
+                "resolved",
+                "unresolved"
+              ]
+            },
+            "decision": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "description",
+            "status",
+            "decision"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 0
+      }
+    },
+    "required": [
+      "disposition",
+      "interpretation",
+      "evidence_refs",
+      "sources_checked",
+      "unknowns",
+      "conflicts"
+    ],
+    "additionalProperties": false
+  },
+  "budget": {
+    "searches_remaining": 4,
+    "extra_tasks_remaining": 1,
+    "reported_cost_usd": 0,
+    "reported_model_calls": 0
+  },
+  "context": {
+    "run": {
+      "created_at": "2026-09-09T13:46:01.786953Z",
+      "forecaster": "agent:fixture",
+      "id": "run_d503c0d7e46741eabdf2",
+      "information_as_of": "2026-09-09T13:46:01.750924+00:00",
+      "max_extra_tasks": 1,
+      "max_searches": 4,
+      "method": "documented synthetic judgment",
+      "mode": "simulation",
+      "profile": {
+        "description": "General binary event research",
+        "domains": [
+          "base_rates",
+          "current_state",
+          "actors_and_process",
+          "contrary_evidence"
+        ],
+        "id": "general"
+      },
+      "question": {
+        "domain": "operations",
+        "event_deadline": "2026-09-10T13:46:00.882225+00:00",
+        "event_group": "factory_east",
+        "id": "factory_east",
+        "kind": "simulation",
+        "no": "The fixture establishes that no qualifying shipment will occur by the deadline.",
+        "profile": "general",
+        "resolution_source": "urn:vorhersage:fictional:dispatch",
+        "resolve_after": "2026-09-11T13:46:00.882235+00:00",
+        "text": "Will fictional factory east ship by its deadline?",
+        "void": "The fictional event is withdrawn.",
+        "yes": "The fixture records a qualifying shipment by the deadline."
+      },
+      "question_id": "factory_east",
+      "question_version": 1,
+      "workflow_version": "1"
+    },
+    "coverage": {},
+    "current_probability": 0.5,
+    "artifacts": {
+      "task_result_ac17182a25164395ba90": {
+        "calculation": {
+          "probability": 0.5,
+          "sample_size": 0
+        },
+        "payload": {
+          "evidence_refs": [],
+          "limitations": [
+            "Not an empirical reference class."
+          ],
+          "method": "judgment",
+          "probability": 0.5,
+          "rationale": "An assumed neutral starting point."
+        },
+        "revision": 1,
+        "submitted_at": "2026-09-09T13:46:01.867988Z",
+        "task": {
+          "id": "task_c788f9fc3eae4994a08e",
+          "instruction": "Establish a labeled judgmental prior or a reference class with cases and evidence. Explain comparability and limitations.",
+          "kind": "prior"
+        },
+        "usage": {
+          "cost_usd": 0,
+          "model_calls": 0,
+          "searches": 0
+        }
+      },
+      "task_result_0c13917100d743389781": {
+        "calculation": null,
+        "payload": {
+          "drivers": [
+            {
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_778d8d2909e241547514d976",
+                  "record_id": "readiness"
+                }
+              ],
+              "mechanism": "Dispatch needs a ready production line.",
+              "name": "Readiness"
+            }
+          ],
+          "no_path": "A remaining dependency blocks it.",
+          "unknowns": [
+            "Delay duration."
+          ],
+          "yes_path": "Readiness permits a shipment."
+        },
+        "revision": 2,
+        "submitted_at": "2026-09-09T13:46:01.946449Z",
+        "task": {
+          "id": "task_34ad53774edc463dbaae",
+          "instruction": "Map mechanisms and necessary steps, including concrete paths to YES and NO. Identify important unknowns.",
+          "kind": "drivers"
+        },
+        "usage": {
+          "cost_usd": 0,
+          "model_calls": 0,
+          "searches": 0
+        }
+      }
+    },
+    "evidence": [
+      {
+        "reference": {
+          "packet_id": "pkt_778d8d2909e241547514d976",
+          "record_id": "readiness"
+        },
+        "record": {
+          "claim": "Fictional initial status: preparation is underway; dispatch remains uncertain.",
+          "entity_ids": [
+            "fictional_factory"
+          ],
+          "id": "readiness",
+          "observed_at": "2026-09-09T13:46:00.839727+00:00",
+          "provenance": {
+            "synthetic": true
+          },
+          "sources": [
+            {
+              "excerpt": "Fictional initial status: preparation is underway; dispatch remains uncertain.",
+              "id": "readiness",
+              "retrieved_at": "2026-09-09T13:46:00.839727+00:00",
+              "title": "Fictional factory fixture",
+              "url": "urn:vorhersage:fictional:readiness"
+            }
+          ],
+          "value": "Fictional initial status: preparation is underway; dispatch remains uncertain."
+        }
+      }
+    ]
+  }
+}

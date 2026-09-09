@@ -1,0 +1,53 @@
+{
+  "created_at": "2026-09-09T17:16:13.601185Z",
+  "cases_sha256": "20bf1dfb8b24c77a7199d6ef1b2e746e9e03e7998ea138a3995818528581c39c",
+  "requests_sha256": "d8dd908186fb532d77665500e75cd3ad46336b3a6393ff32b77a155e3af24b02",
+  "jobs_sha256": "d8f95425bceaabd61bf823f33a171d601ab9ba2d2eb4e4640ea4c0d4699e8414",
+  "models": [
+    {
+      "model": "gemini-2.5-flash",
+      "parameters": {
+        "temperature": 0.2,
+        "topP": 1,
+        "topK": 1,
+        "maxOutputTokens": 8192,
+        "stopSequences": [],
+        "thinking_budget": null
+      },
+      "inference_service": "google",
+      "edsl_version": "1.0.8.dev1",
+      "edsl_class_name": "gemini-2.5-flash"
+    },
+    {
+      "model": "gemini-3.1-pro-preview",
+      "parameters": {
+        "temperature": 0.2,
+        "topP": 1,
+        "topK": 1,
+        "maxOutputTokens": 8192,
+        "stopSequences": [],
+        "thinking_budget": null
+      },
+      "inference_service": "google",
+      "edsl_version": "1.0.8.dev1",
+      "edsl_class_name": "gemini-3.1-pro-preview"
+    }
+  ],
+  "conditions": [
+    "plain",
+    "structured"
+  ],
+  "repetitions": 1,
+  "questions": 20,
+  "planned_interviews": 80,
+  "design": "one independent model completion per case/condition/model; structured fields replayed through workflow",
+  "selection": "entire existing 20-case development cohort; no outcome-based exclusions",
+  "limitations": [
+    "Question-only replay, no archived research supplied.",
+    "Historical wording and training contamination unaudited; five questions lack separate criteria.",
+    "Structured condition is one completion, not an interactive research agent.",
+    "Same output cap per condition; actual tokens and cost can differ.",
+    "Malformed outputs remain failures; no answer repair or probability imputation.",
+    "No model substitutions or automatic experiment-level retries."
+  ]
+}

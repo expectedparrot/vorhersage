@@ -1,0 +1,29 @@
+{
+  "task_id": "task_eb3b6e62786448eda163",
+  "expected_revision": 1,
+  "idempotency_key": "task_eb3b6e62786448eda163",
+  "payload": {
+    "drivers": [
+      {
+        "name": "Readiness",
+        "mechanism": "Dispatch needs a ready production line.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_778d8d2909e241547514d976",
+            "record_id": "readiness"
+          }
+        ]
+      }
+    ],
+    "yes_path": "Readiness permits a shipment.",
+    "no_path": "A remaining dependency blocks it.",
+    "unknowns": [
+      "Delay duration."
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "cost_usd": 0,
+    "model_calls": 0
+  }
+}

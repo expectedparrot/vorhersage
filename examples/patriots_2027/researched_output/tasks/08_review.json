@@ -1,0 +1,2016 @@
+{
+  "disposition": "actionable",
+  "revision": 8,
+  "task": {
+    "id": "review",
+    "kind": "agent",
+    "instruction": "Challenge the estimate in both directions and answer each objection.",
+    "input_ids": [
+      "b_updated",
+      "drivers"
+    ],
+    "required_fields": [
+      "objections",
+      "decision",
+      "rationale"
+    ],
+    "completion_condition": "A reasoned no-change decision is valid."
+  },
+  "result_schema": {
+    "type": "object",
+    "required": [
+      "task_id",
+      "expected_revision",
+      "idempotency_key",
+      "disposition",
+      "payload"
+    ],
+    "payload_required": [
+      "objections",
+      "decision",
+      "rationale"
+    ],
+    "disposition_enum": [
+      "completed",
+      "inconclusive"
+    ]
+  },
+  "budget": {
+    "max_research_tasks": 4,
+    "used_research_tasks": 4
+  },
+  "context": {
+    "c_calendar": {
+      "id": "c_calendar",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://operations.nfl.com/calendar-events/nfl-important-dates",
+      "title": "NFL Football Operations important dates",
+      "observed_at": "2026-09-09T10:12:45Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "2027 calendar: February 14",
+      "observation": {
+        "event": "Super Bowl LXI",
+        "scheduled_date": "2027-02-14",
+        "venue": "SoFi Stadium"
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded at the end of the research pass; this is not the publisher's quote-update time.",
+      "content_sha256": "ef7bc76494a4e3822a21ae97cc518d94fe596aec5fc8e809901e397fe88f1a0d"
+    },
+    "q_ne_lxi_v1": {
+      "id": "q_ne_lxi_v1",
+      "kind": "question_version",
+      "input_ids": [
+        "c_calendar"
+      ],
+      "specification": {
+        "id": "q_ne_lxi_v1",
+        "event_id": "super_bowl_lxi",
+        "season": 2026,
+        "target_type": "binary",
+        "text": "Will the New England Patriots be the official winner of Super Bowl LXI, the championship game for the 2026 NFL season?",
+        "scheduled_date": "2027-02-14",
+        "yes": "The NFL's official final result names the New England Patriots as winner of Super Bowl LXI.",
+        "no": "The NFL's official final result names another team as winner of Super Bowl LXI.",
+        "void": "No official winner is declared by 2027-03-31T23:59:59Z, including cancellation or an unresolved final-result dispute.",
+        "rescheduling": "Follow the named championship if rescheduled within the resolution deadline.",
+        "resolution_deadline": "2027-03-31T23:59:59Z",
+        "resolution_source": "https://www.nfl.com/super-bowl/",
+        "forecast_information_as_of": "2026-09-09T10:27:04Z"
+      }
+    },
+    "c_history": {
+      "id": "c_history",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.profootballhof.com/football-history/hall-of-famers-in-the-super-bowl",
+      "title": "Pro Football Hall of Fame championship results",
+      "observed_at": "2026-09-09T10:27:04Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "Super Bowls XXXV–LX; winner and runner-up only",
+      "observation": {
+        "super_bowl_results": [
+          {
+            "season": 2000,
+            "winner": "BAL",
+            "runner_up": "NYG"
+          },
+          {
+            "season": 2001,
+            "winner": "NE",
+            "runner_up": "LAR"
+          },
+          {
+            "season": 2002,
+            "winner": "TB",
+            "runner_up": "LV"
+          },
+          {
+            "season": 2003,
+            "winner": "NE",
+            "runner_up": "CAR"
+          },
+          {
+            "season": 2004,
+            "winner": "NE",
+            "runner_up": "PHI"
+          },
+          {
+            "season": 2005,
+            "winner": "PIT",
+            "runner_up": "SEA"
+          },
+          {
+            "season": 2006,
+            "winner": "IND",
+            "runner_up": "CHI"
+          },
+          {
+            "season": 2007,
+            "winner": "NYG",
+            "runner_up": "NE"
+          },
+          {
+            "season": 2008,
+            "winner": "PIT",
+            "runner_up": "ARI"
+          },
+          {
+            "season": 2009,
+            "winner": "NO",
+            "runner_up": "IND"
+          },
+          {
+            "season": 2010,
+            "winner": "GB",
+            "runner_up": "PIT"
+          },
+          {
+            "season": 2011,
+            "winner": "NYG",
+            "runner_up": "NE"
+          },
+          {
+            "season": 2012,
+            "winner": "BAL",
+            "runner_up": "SF"
+          },
+          {
+            "season": 2013,
+            "winner": "SEA",
+            "runner_up": "DEN"
+          },
+          {
+            "season": 2014,
+            "winner": "NE",
+            "runner_up": "SEA"
+          },
+          {
+            "season": 2015,
+            "winner": "DEN",
+            "runner_up": "CAR"
+          },
+          {
+            "season": 2016,
+            "winner": "NE",
+            "runner_up": "ATL"
+          },
+          {
+            "season": 2017,
+            "winner": "PHI",
+            "runner_up": "NE"
+          },
+          {
+            "season": 2018,
+            "winner": "NE",
+            "runner_up": "LAR"
+          },
+          {
+            "season": 2019,
+            "winner": "KC",
+            "runner_up": "SF"
+          },
+          {
+            "season": 2020,
+            "winner": "TB",
+            "runner_up": "KC"
+          },
+          {
+            "season": 2021,
+            "winner": "LAR",
+            "runner_up": "CIN"
+          },
+          {
+            "season": 2022,
+            "winner": "KC",
+            "runner_up": "PHI"
+          },
+          {
+            "season": 2023,
+            "winner": "KC",
+            "runner_up": "SF"
+          },
+          {
+            "season": 2024,
+            "winner": "PHI",
+            "runner_up": "KC"
+          },
+          {
+            "season": 2025,
+            "winner": "SEA",
+            "runner_up": "NE"
+          }
+        ],
+        "season_convention": "Season year; the Super Bowl is normally in the following calendar year.",
+        "franchise_mapping": "LAR includes St. Louis Rams; LV includes Oakland Raiders."
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded after research; page publication time is separate and can be unknown.",
+      "content_sha256": "1f8e7538bab9f65a434b748ffba39752e4cc6869741a32ee603a629af750a316"
+    },
+    "c_season": {
+      "id": "c_season",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.pro-football-reference.com/teams/nwe/2025/gamelog",
+      "title": "Patriots 2025 game-log statistical header",
+      "observed_at": "2026-09-09T10:27:04Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "Indexed page header; team main-page open failed with 403",
+      "observation": {
+        "wins": 14,
+        "losses": 3,
+        "points_for": 490,
+        "points_against": 320,
+        "scoring_rank": 2,
+        "points_allowed_rank": 4,
+        "opponent_adjusted": false
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded after research; page publication time is separate and can be unknown.",
+      "content_sha256": "39dbc83b949a8164b7445be679953618bdef529351c205c33e7b57c5be74d429"
+    },
+    "c_maye": {
+      "id": "c_maye",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.patriots.com/team/players-roster/drake-maye/logs/",
+      "title": "Drake Maye 2025 season review",
+      "observed_at": "2026-09-09T10:27:04Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "Biography / Seasonal Reviews / 2025",
+      "observation": {
+        "passing_yards": 4394,
+        "passing_tds": 31,
+        "interceptions": 8,
+        "completion_pct": 72,
+        "passer_rating": 113.5,
+        "mvp_voting_finish": 2,
+        "regular_season": true
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded after research; page publication time is separate and can be unknown.",
+      "content_sha256": "2c95949402214e8afb9f9ad42e82c64004ee5f24017660e76cbe7ec0f0008552"
+    },
+    "c_mcdaniels": {
+      "id": "c_mcdaniels",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.patriots.com/team/coaches-roster/josh-mcdaniels",
+      "title": "Josh McDaniels coaching biography",
+      "observed_at": "2026-09-09T10:27:04Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "Coaching / 2025 performance and 2026 role",
+      "observation": {
+        "role_2025": "offensive coordinator",
+        "role_2026": "offensive coordinator",
+        "offense_2025_points": 490
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded after research; page publication time is separate and can be unknown.",
+      "content_sha256": "87dfeef468c383e98557c798580604c3469b01c7a32d0af21e215a9effaebe35"
+    },
+    "c_kuhr": {
+      "id": "c_kuhr",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.patriots.com/team/coaches-roster/zak-kuhr",
+      "title": "Zak Kuhr coaching biography",
+      "observed_at": "2026-09-09T10:27:04Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "Coaching / 2025 responsibilities and 2026 role",
+      "observation": {
+        "role_2026": "defensive coordinator",
+        "role_2025": "inside linebackers coach who assumed defensive play-calling",
+        "defensive_points_allowed_2025": 320
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded after research; page publication time is separate and can be unknown.",
+      "content_sha256": "860c11b4055389e4b87b4df7bb3bacdfb020396d1b8fd1dc405beaa61e649564"
+    },
+    "c_brown": {
+      "id": "c_brown",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.patriots.com/news/patriots-acquire-wr-a-j-brown-in-a-trade-with-the-philadelphia-eagles",
+      "title": "Patriots acquire A.J. Brown",
+      "observed_at": "2026-09-09T10:27:04Z",
+      "published_at": "2026-06-01T20:31:00Z",
+      "price_as_of": null,
+      "locator": "Official transaction announcement",
+      "observation": {
+        "transaction": "A.J. Brown acquired from Philadelphia",
+        "date": "2026-06-01",
+        "receiving_yards_2025": 1003,
+        "receiving_tds_2025": 7
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded after research; page publication time is separate and can be unknown.",
+      "content_sha256": "3315271ac86677339fac3f9ae15c630d53df49bf0cd7312536cac1ae428e5761"
+    },
+    "c_departures": {
+      "id": "c_departures",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.patriots.com/news/patriots-trade-c-garrett-bradbury-to-bears-announce-additional-roster-moves",
+      "title": "Patriots announce departures",
+      "observed_at": "2026-09-09T10:27:04Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "Announcement of roster moves",
+      "observation": {
+        "released": [
+          "Stefon Diggs",
+          "Anfernee Jennings",
+          "Jahlani Tavai"
+        ],
+        "traded": [
+          "Garrett Bradbury"
+        ]
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded after research; page publication time is separate and can be unknown.",
+      "content_sha256": "238edf29f2d450247fccea866aefca351665ee63ab06dbaa2f84b133b188cd49"
+    },
+    "c_turnover": {
+      "id": "c_turnover",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.patriots.com/news/2026-patriots-free-agent-tracker",
+      "title": "Patriots free-agent tracker",
+      "observed_at": "2026-09-09T10:27:04Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "Arrivals and departures sections",
+      "observation": {
+        "additions": [
+          "Romeo Doubs",
+          "Kevin Byard",
+          "Dre'Mont Jones",
+          "Reggie Gilliam"
+        ],
+        "departures": [
+          "K'Lavon Chaisson",
+          "Khyiris Tonga",
+          "Vederian Lowe"
+        ]
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded after research; page publication time is separate and can be unknown.",
+      "content_sha256": "ea5c5e1e199a115a3eb9093bb378b0ad1142774c41f022ed4236a0d50f8ec7c6"
+    },
+    "c_protection": {
+      "id": "c_protection",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.patriots.com/news/patriots-gameplan-3-keys-to-victory-in-super-bowl-rematch-vs-the-seahawks-in-week-1",
+      "title": "Patriots Seattle matchup analysis",
+      "observed_at": "2026-09-09T10:27:04Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "Offense key / pressure and line changes",
+      "observation": {
+        "super_bowl_lx_maye_sacks": 6,
+        "super_bowl_lx_pressure_rate_pct": 52.8,
+        "offensive_line_changes": [
+          "Alijah Vera-Tucker at left guard",
+          "Jared Wilson moving to center"
+        ],
+        "attribution": "Team staff analysis citing Next Gen Stats; observational, not an estimated causal effect."
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded after research; page publication time is separate and can be unknown.",
+      "content_sha256": "0330a00543aea1e2c19f1adff2145ca1666e89b8a569e372e2bec06e6487180b"
+    },
+    "c_schedule": {
+      "id": "c_schedule",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.patriots.com/news/analysis-patriots-2026-schedule-ready-for-prime-time-littered-with-tough-road-tests",
+      "title": "Patriots 2026 schedule analysis",
+      "observed_at": "2026-09-09T10:27:04Z",
+      "published_at": "2026-05-14T23:31:00Z",
+      "price_as_of": null,
+      "locator": "Road Warriors and AFC Post-Bye Tests",
+      "observation": {
+        "road_opponents_selected": [
+          "Seattle",
+          "Jacksonville",
+          "Buffalo",
+          "Chicago",
+          "Los Angeles Chargers",
+          "Kansas City"
+        ],
+        "neutral_site_opponent": "Detroit in Munich",
+        "travel_rank_reported": 5,
+        "attribution": "Writer's schedule analysis; opponent strength in 2026 is uncertain."
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded after research; page publication time is separate and can be unknown.",
+      "content_sha256": "182009eac2e89f03d03859f31e2bfc621aacdced83bfa11880c1498576b9686a"
+    },
+    "c_old_schedule": {
+      "id": "c_old_schedule",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.patriots.com/news/analysis-breaking-down-the-new-england-patriots-2025-schedule",
+      "title": "Patriots 2025 preseason schedule analysis",
+      "observed_at": "2026-09-09T10:27:04Z",
+      "published_at": "2025-05-22T19:43:00Z",
+      "price_as_of": null,
+      "locator": "Third-Easiest Strength of Schedule",
+      "observation": {
+        "opponents_prior_year_win_pct": 0.429,
+        "rank_hardest_to_easiest": 30,
+        "measurement": "2025 opponents' 2024 records; this is a preseason projection, not realized 2025 schedule strength."
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded after research; page publication time is separate and can be unknown.",
+      "content_sha256": "e8897dc6f407d0de01f2c00447f86c6186bce6f51da30857b31089c01d1b57c4"
+    },
+    "f_season": {
+      "id": "f_season",
+      "kind": "finding",
+      "input_ids": [
+        "c_season"
+      ],
+      "claim": "The 2025 regular season ended 14–3, with 490 points scored and 320 allowed.",
+      "role": "prior_strength",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "f_maye": {
+      "id": "f_maye",
+      "kind": "finding",
+      "input_ids": [
+        "c_maye"
+      ],
+      "claim": "Maye's 2025 regular-season passing line was 4,394 yards, 31 touchdowns and 8 interceptions.",
+      "role": "quarterback_strength",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "f_offensive_continuity": {
+      "id": "f_offensive_continuity",
+      "kind": "finding",
+      "input_ids": [
+        "c_mcdaniels"
+      ],
+      "claim": "McDaniels remains offensive coordinator in 2026 after returning in 2025.",
+      "role": "coaching_continuity",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "f_defensive_continuity": {
+      "id": "f_defensive_continuity",
+      "kind": "finding",
+      "input_ids": [
+        "c_kuhr"
+      ],
+      "claim": "Kuhr becomes defensive coordinator after already assuming play-calling in 2025.",
+      "role": "coaching_continuity",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "f_brown_addition": {
+      "id": "f_brown_addition",
+      "kind": "finding",
+      "input_ids": [
+        "c_brown"
+      ],
+      "claim": "New England acquired A.J. Brown on June 1, 2026.",
+      "role": "roster_gain",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "f_departures": {
+      "id": "f_departures",
+      "kind": "finding",
+      "input_ids": [
+        "c_departures"
+      ],
+      "claim": "Diggs was released and Bradbury traded; Brown joins a changed offense.",
+      "role": "roster_offset",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "f_other_turnover": {
+      "id": "f_other_turnover",
+      "kind": "finding",
+      "input_ids": [
+        "c_turnover"
+      ],
+      "claim": "Arrivals include Doubs, Byard and Dre'Mont Jones; departures include Chaisson and Tonga.",
+      "role": "net_roster_assessment",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "f_protection": {
+      "id": "f_protection",
+      "kind": "finding",
+      "input_ids": [
+        "c_protection"
+      ],
+      "claim": "The Super Bowl loss included six sacks and heavy pressure; the 2026 line has personnel changes.",
+      "role": "playoff_risk",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "f_schedule": {
+      "id": "f_schedule",
+      "kind": "finding",
+      "input_ids": [
+        "c_schedule"
+      ],
+      "claim": "The 2026 schedule includes several difficult away assignments and Detroit in Munich.",
+      "role": "qualification_and_seeding",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "f_old_schedule": {
+      "id": "f_old_schedule",
+      "kind": "finding",
+      "input_ids": [
+        "c_old_schedule"
+      ],
+      "claim": "The 2025 schedule looked favorable using opponents' 2024 records; that measure is not a realized 2025 adjustment.",
+      "role": "reference_class_caution",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "f_runner_up_status": {
+      "id": "f_runner_up_status",
+      "kind": "finding",
+      "input_ids": [
+        "c_history"
+      ],
+      "claim": "New England was runner-up for the 2025 season, making prior runners-up a candidate reference class.",
+      "role": "reference_class_membership",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "research_fundamentals": {
+      "id": "research_fundamentals",
+      "kind": "research_result",
+      "input_ids": [
+        "c_history",
+        "c_season",
+        "c_maye",
+        "c_mcdaniels",
+        "c_kuhr",
+        "c_brown",
+        "c_departures",
+        "c_turnover",
+        "c_protection",
+        "c_schedule",
+        "c_old_schedule"
+      ],
+      "result": {
+        "capture_ids": [
+          "c_history",
+          "c_season",
+          "c_maye",
+          "c_mcdaniels",
+          "c_kuhr",
+          "c_brown",
+          "c_departures",
+          "c_turnover",
+          "c_protection",
+          "c_schedule",
+          "c_old_schedule"
+        ],
+        "findings": [
+          {
+            "id": "f_season",
+            "claim": "The 2025 regular season ended 14–3, with 490 points scored and 320 allowed.",
+            "source_ids": [
+              "c_season"
+            ],
+            "role": "prior_strength",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          },
+          {
+            "id": "f_maye",
+            "claim": "Maye's 2025 regular-season passing line was 4,394 yards, 31 touchdowns and 8 interceptions.",
+            "source_ids": [
+              "c_maye"
+            ],
+            "role": "quarterback_strength",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          },
+          {
+            "id": "f_offensive_continuity",
+            "claim": "McDaniels remains offensive coordinator in 2026 after returning in 2025.",
+            "source_ids": [
+              "c_mcdaniels"
+            ],
+            "role": "coaching_continuity",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          },
+          {
+            "id": "f_defensive_continuity",
+            "claim": "Kuhr becomes defensive coordinator after already assuming play-calling in 2025.",
+            "source_ids": [
+              "c_kuhr"
+            ],
+            "role": "coaching_continuity",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          },
+          {
+            "id": "f_brown_addition",
+            "claim": "New England acquired A.J. Brown on June 1, 2026.",
+            "source_ids": [
+              "c_brown"
+            ],
+            "role": "roster_gain",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          },
+          {
+            "id": "f_departures",
+            "claim": "Diggs was released and Bradbury traded; Brown joins a changed offense.",
+            "source_ids": [
+              "c_departures"
+            ],
+            "role": "roster_offset",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          },
+          {
+            "id": "f_other_turnover",
+            "claim": "Arrivals include Doubs, Byard and Dre'Mont Jones; departures include Chaisson and Tonga.",
+            "source_ids": [
+              "c_turnover"
+            ],
+            "role": "net_roster_assessment",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          },
+          {
+            "id": "f_protection",
+            "claim": "The Super Bowl loss included six sacks and heavy pressure; the 2026 line has personnel changes.",
+            "source_ids": [
+              "c_protection"
+            ],
+            "role": "playoff_risk",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          },
+          {
+            "id": "f_schedule",
+            "claim": "The 2026 schedule includes several difficult away assignments and Detroit in Munich.",
+            "source_ids": [
+              "c_schedule"
+            ],
+            "role": "qualification_and_seeding",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          },
+          {
+            "id": "f_old_schedule",
+            "claim": "The 2025 schedule looked favorable using opponents' 2024 records; that measure is not a realized 2025 adjustment.",
+            "source_ids": [
+              "c_old_schedule"
+            ],
+            "role": "reference_class_caution",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          },
+          {
+            "id": "f_runner_up_status",
+            "claim": "New England was runner-up for the 2025 season, making prior runners-up a candidate reference class.",
+            "source_ids": [
+              "c_history"
+            ],
+            "role": "reference_class_membership",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          }
+        ],
+        "coverage": {
+          "prior_performance": {
+            "disposition": "assessed",
+            "finding_ids": [
+              "f_season",
+              "f_runner_up_status",
+              "f_old_schedule"
+            ],
+            "interpretation": "A strong season and title-game appearance establish contention, but raw results are not opponent-adjusted and the comparable cohort is small."
+          },
+          "quarterback": {
+            "disposition": "assessed",
+            "finding_ids": [
+              "f_maye",
+              "f_protection"
+            ],
+            "interpretation": "Elite regular-season production supports a high ceiling. The playoff protection failure limits confidence against elite opponents."
+          },
+          "coaching": {
+            "disposition": "assessed",
+            "finding_ids": [
+              "f_offensive_continuity",
+              "f_defensive_continuity"
+            ],
+            "interpretation": "Treat coaching as continuity, not two new-coach upgrades; title changes alone are not incremental performance."
+          },
+          "roster_changes": {
+            "disposition": "assessed",
+            "finding_ids": [
+              "f_brown_addition",
+              "f_departures",
+              "f_other_turnover",
+              "f_protection"
+            ],
+            "interpretation": "Brown and other arrivals create upside, while departures, fit, line health and defensive turnover prevent a simple additions-only adjustment."
+          },
+          "schedule": {
+            "disposition": "assessed",
+            "finding_ids": [
+              "f_schedule",
+              "f_old_schedule"
+            ],
+            "interpretation": "The road slate and travel temper assumptions about repeating the record and securing advantageous seeding. Prior-year opponent records are an imperfect measure."
+          }
+        }
+      }
+    },
+    "coverage": {
+      "id": "coverage",
+      "kind": "research_coverage",
+      "input_ids": [
+        "f_season",
+        "f_maye",
+        "f_offensive_continuity",
+        "f_defensive_continuity",
+        "f_brown_addition",
+        "f_departures",
+        "f_other_turnover",
+        "f_protection",
+        "f_schedule",
+        "f_old_schedule",
+        "f_runner_up_status"
+      ],
+      "domains": {
+        "prior_performance": {
+          "disposition": "assessed",
+          "finding_ids": [
+            "f_season",
+            "f_runner_up_status",
+            "f_old_schedule"
+          ],
+          "interpretation": "A strong season and title-game appearance establish contention, but raw results are not opponent-adjusted and the comparable cohort is small."
+        },
+        "quarterback": {
+          "disposition": "assessed",
+          "finding_ids": [
+            "f_maye",
+            "f_protection"
+          ],
+          "interpretation": "Elite regular-season production supports a high ceiling. The playoff protection failure limits confidence against elite opponents."
+        },
+        "coaching": {
+          "disposition": "assessed",
+          "finding_ids": [
+            "f_offensive_continuity",
+            "f_defensive_continuity"
+          ],
+          "interpretation": "Treat coaching as continuity, not two new-coach upgrades; title changes alone are not incremental performance."
+        },
+        "roster_changes": {
+          "disposition": "assessed",
+          "finding_ids": [
+            "f_brown_addition",
+            "f_departures",
+            "f_other_turnover",
+            "f_protection"
+          ],
+          "interpretation": "Brown and other arrivals create upside, while departures, fit, line health and defensive turnover prevent a simple additions-only adjustment."
+        },
+        "schedule": {
+          "disposition": "assessed",
+          "finding_ids": [
+            "f_schedule",
+            "f_old_schedule"
+          ],
+          "interpretation": "The road slate and travel temper assumptions about repeating the record and securing advantageous seeding. Prior-year opponent records are an imperfect measure."
+        }
+      }
+    },
+    "reference_class": {
+      "id": "reference_class",
+      "kind": "reference_class",
+      "input_ids": [
+        "c_history"
+      ],
+      "cases": [
+        {
+          "season": 2000,
+          "runner_up": "NYG",
+          "next_winner": "NE",
+          "won_next": false
+        },
+        {
+          "season": 2001,
+          "runner_up": "LAR",
+          "next_winner": "TB",
+          "won_next": false
+        },
+        {
+          "season": 2002,
+          "runner_up": "LV",
+          "next_winner": "NE",
+          "won_next": false
+        },
+        {
+          "season": 2003,
+          "runner_up": "CAR",
+          "next_winner": "NE",
+          "won_next": false
+        },
+        {
+          "season": 2004,
+          "runner_up": "PHI",
+          "next_winner": "PIT",
+          "won_next": false
+        },
+        {
+          "season": 2005,
+          "runner_up": "SEA",
+          "next_winner": "IND",
+          "won_next": false
+        },
+        {
+          "season": 2006,
+          "runner_up": "CHI",
+          "next_winner": "NYG",
+          "won_next": false
+        },
+        {
+          "season": 2007,
+          "runner_up": "NE",
+          "next_winner": "PIT",
+          "won_next": false
+        },
+        {
+          "season": 2008,
+          "runner_up": "ARI",
+          "next_winner": "NO",
+          "won_next": false
+        },
+        {
+          "season": 2009,
+          "runner_up": "IND",
+          "next_winner": "GB",
+          "won_next": false
+        },
+        {
+          "season": 2010,
+          "runner_up": "PIT",
+          "next_winner": "NYG",
+          "won_next": false
+        },
+        {
+          "season": 2011,
+          "runner_up": "NE",
+          "next_winner": "BAL",
+          "won_next": false
+        },
+        {
+          "season": 2012,
+          "runner_up": "SF",
+          "next_winner": "SEA",
+          "won_next": false
+        },
+        {
+          "season": 2013,
+          "runner_up": "DEN",
+          "next_winner": "NE",
+          "won_next": false
+        },
+        {
+          "season": 2014,
+          "runner_up": "SEA",
+          "next_winner": "DEN",
+          "won_next": false
+        },
+        {
+          "season": 2015,
+          "runner_up": "CAR",
+          "next_winner": "NE",
+          "won_next": false
+        },
+        {
+          "season": 2016,
+          "runner_up": "ATL",
+          "next_winner": "PHI",
+          "won_next": false
+        },
+        {
+          "season": 2017,
+          "runner_up": "NE",
+          "next_winner": "NE",
+          "won_next": true
+        },
+        {
+          "season": 2018,
+          "runner_up": "LAR",
+          "next_winner": "KC",
+          "won_next": false
+        },
+        {
+          "season": 2019,
+          "runner_up": "SF",
+          "next_winner": "TB",
+          "won_next": false
+        },
+        {
+          "season": 2020,
+          "runner_up": "KC",
+          "next_winner": "LAR",
+          "won_next": false
+        },
+        {
+          "season": 2021,
+          "runner_up": "CIN",
+          "next_winner": "KC",
+          "won_next": false
+        },
+        {
+          "season": 2022,
+          "runner_up": "PHI",
+          "next_winner": "KC",
+          "won_next": false
+        },
+        {
+          "season": 2023,
+          "runner_up": "SF",
+          "next_winner": "PHI",
+          "won_next": false
+        },
+        {
+          "season": 2024,
+          "runner_up": "KC",
+          "next_winner": "SEA",
+          "won_next": false
+        }
+      ],
+      "frequency": 0.04,
+      "sample_size": 25,
+      "limitations": [
+        "Small selected class; repeated franchises; era and roster differences; not a calibrated Patriots probability."
+      ]
+    },
+    "b_prior": {
+      "id": "b_prior",
+      "kind": "belief_revision",
+      "input_ids": [
+        "q_ne_lxi_v1",
+        "reference_class"
+      ],
+      "probability": 0.04,
+      "basis": "raw_reference_class_frequency",
+      "rationale": "The target team is a returning runner-up. Use the last 25 eligible season pairs as a transparent descriptive class; its small size, repeated franchises, and changing rosters limit predictive value."
+    },
+    "drivers": {
+      "id": "drivers",
+      "kind": "driver_map",
+      "input_ids": [
+        "q_ne_lxi_v1"
+      ],
+      "drivers": [
+        {
+          "id": "d_playoffs",
+          "event": "Reach the playoffs",
+          "depends_on": [
+            "regular-season strength",
+            "quarterback availability",
+            "division and conference competition"
+          ],
+          "probability": null
+        },
+        {
+          "id": "d_afc",
+          "event": "Win the AFC conditional on reaching the playoffs",
+          "depends_on": [
+            "seeding",
+            "opponents",
+            "health"
+          ],
+          "probability": null
+        },
+        {
+          "id": "d_title",
+          "event": "Win the Super Bowl conditional on winning the AFC",
+          "depends_on": [
+            "NFC opponent",
+            "relative team strength",
+            "health"
+          ],
+          "probability": null
+        }
+      ],
+      "probability_identity": "P(title)=P(playoffs)*P(AFC title|playoffs)*P(Super Bowl win|AFC title). Conditional on a completed competition.",
+      "unestimated": [
+        "No fitted opponent-adjusted 2026 team ratings.",
+        "No quantified causal player/coaching effects.",
+        "No season-and-seeding simulation; component probabilities will be labeled judgments."
+      ]
+    },
+    "c_betus": {
+      "id": "c_betus",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.betus.com.pa/sportsbook/nfl/super-bowl/",
+      "title": "BetUS Super Bowl LXI winner board",
+      "observed_at": "2026-09-09T10:12:45Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "2027 Super Bowl LXI Winner table, rows 1001–1032; separate Reigning Divisional Champs prose",
+      "observation": {
+        "board": [
+          {
+            "team": "SEA",
+            "american_odds": 1200
+          },
+          {
+            "team": "LAR",
+            "american_odds": 500
+          },
+          {
+            "team": "BAL",
+            "american_odds": 1100
+          },
+          {
+            "team": "BUF",
+            "american_odds": 1000
+          },
+          {
+            "team": "DET",
+            "american_odds": 1800
+          },
+          {
+            "team": "GB",
+            "american_odds": 2000
+          },
+          {
+            "team": "LAC",
+            "american_odds": 1700
+          },
+          {
+            "team": "NE",
+            "american_odds": 2000
+          },
+          {
+            "team": "PHI",
+            "american_odds": 1700
+          },
+          {
+            "team": "KC",
+            "american_odds": 1600
+          },
+          {
+            "team": "SF",
+            "american_odds": 1800
+          },
+          {
+            "team": "DEN",
+            "american_odds": 2000
+          },
+          {
+            "team": "HOU",
+            "american_odds": 1800
+          },
+          {
+            "team": "JAX",
+            "american_odds": 3300
+          },
+          {
+            "team": "CHI",
+            "american_odds": 2500
+          },
+          {
+            "team": "CIN",
+            "american_odds": 2000
+          },
+          {
+            "team": "DAL",
+            "american_odds": 2500
+          },
+          {
+            "team": "TB",
+            "american_odds": 5000
+          },
+          {
+            "team": "IND",
+            "american_odds": 6500
+          },
+          {
+            "team": "WAS",
+            "american_odds": 6500
+          },
+          {
+            "team": "ATL",
+            "american_odds": 10000
+          },
+          {
+            "team": "MIN",
+            "american_odds": 5000
+          },
+          {
+            "team": "NYG",
+            "american_odds": 6500
+          },
+          {
+            "team": "PIT",
+            "american_odds": 6000
+          },
+          {
+            "team": "CAR",
+            "american_odds": 10000
+          },
+          {
+            "team": "NO",
+            "american_odds": 9000
+          },
+          {
+            "team": "CLE",
+            "american_odds": 25000
+          },
+          {
+            "team": "LV",
+            "american_odds": 15000
+          },
+          {
+            "team": "TEN",
+            "american_odds": 15000
+          },
+          {
+            "team": "ARI",
+            "american_odds": 50000
+          },
+          {
+            "team": "MIA",
+            "american_odds": 50000
+          },
+          {
+            "team": "NYJ",
+            "american_odds": 22500
+          }
+        ],
+        "prose_ne_american_odds": 1800
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded at the end of the research pass; this is not the publisher's quote-update time.",
+      "content_sha256": "aa75393e25507faf1bfd5946f5442d67f699350ad6eea311d655c200cb57af6d"
+    },
+    "calc_betus": {
+      "id": "calc_betus",
+      "kind": "market_calculation",
+      "input_ids": [
+        "c_betus"
+      ],
+      "raw_implied": {
+        "SEA": 0.07692307692307693,
+        "LAR": 0.16666666666666666,
+        "BAL": 0.08333333333333333,
+        "BUF": 0.09090909090909091,
+        "DET": 0.05263157894736842,
+        "GB": 0.047619047619047616,
+        "LAC": 0.05555555555555555,
+        "NE": 0.047619047619047616,
+        "PHI": 0.05555555555555555,
+        "KC": 0.058823529411764705,
+        "SF": 0.05263157894736842,
+        "DEN": 0.047619047619047616,
+        "HOU": 0.05263157894736842,
+        "JAX": 0.029411764705882353,
+        "CHI": 0.038461538461538464,
+        "CIN": 0.047619047619047616,
+        "DAL": 0.038461538461538464,
+        "TB": 0.0196078431372549,
+        "IND": 0.015151515151515152,
+        "WAS": 0.015151515151515152,
+        "ATL": 0.009900990099009901,
+        "MIN": 0.0196078431372549,
+        "NYG": 0.015151515151515152,
+        "PIT": 0.01639344262295082,
+        "CAR": 0.009900990099009901,
+        "NO": 0.01098901098901099,
+        "CLE": 0.00398406374501992,
+        "LV": 0.006622516556291391,
+        "TEN": 0.006622516556291391,
+        "ARI": 0.001996007984031936,
+        "MIA": 0.001996007984031936,
+        "NYJ": 0.004424778761061947
+      },
+      "implied_sum": 1.199973134428064,
+      "overround": 0.19997313442806397,
+      "normalized": {
+        "SEA": 0.0641039992614004,
+        "LAR": 0.13889199839970084,
+        "BAL": 0.06944599919985042,
+        "BUF": 0.07575927185438228,
+        "DET": 0.043860631073589736,
+        "GB": 0.03968342811420024,
+        "LAC": 0.04629733279990028,
+        "NE": 0.03968342811420024,
+        "PHI": 0.04629733279990028,
+        "KC": 0.04902070531754148,
+        "SF": 0.043860631073589736,
+        "DEN": 0.03968342811420024,
+        "HOU": 0.043860631073589736,
+        "JAX": 0.02451035265877074,
+        "CHI": 0.0320519996307002,
+        "CIN": 0.03968342811420024,
+        "DAL": 0.0320519996307002,
+        "TB": 0.01634023510584716,
+        "IND": 0.012626545309063713,
+        "WAS": 0.012626545309063713,
+        "ATL": 0.008251009805922822,
+        "MIN": 0.01634023510584716,
+        "NYG": 0.012626545309063713,
+        "PIT": 0.013661508039314837,
+        "CAR": 0.008251009805922822,
+        "NO": 0.009157714180200057,
+        "CLE": 0.0033201274517856774,
+        "LV": 0.005518887353630497,
+        "TEN": 0.005518887353630497,
+        "ARI": 0.0016633772263437226,
+        "MIA": 0.0016633772263437226,
+        "NYJ": 0.003687398187602677
+      },
+      "method": "proportional_normalization",
+      "assumption": "Allocate the entire margin proportionally across teams; this is not a unique fair-probability estimate."
+    },
+    "c_covers": {
+      "id": "c_covers",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.covers.com/sport/football/nfl/teams/main/new-england-patriots/odds",
+      "title": "Covers Patriots futures display",
+      "observed_at": "2026-09-09T10:12:45Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "Futures / Super Bowl Winner",
+      "observation": {
+        "team": "NE",
+        "american_odds": 1400,
+        "complete_board_available_in_this_capture": false,
+        "underlying_book_verified": false
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded at the end of the research pass; this is not the publisher's quote-update time.",
+      "content_sha256": "7bf7597f496cc82698f272c62d9305aa05ea220bc739d9d2dd94aa7364e04453"
+    },
+    "f_betus_quote": {
+      "id": "f_betus_quote",
+      "kind": "finding",
+      "input_ids": [
+        "c_betus"
+      ],
+      "claim": "BetUS's title table displays NE +2000; its narrative displays +1800.",
+      "role": "market_input_and_conflict",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "f_covers_quote": {
+      "id": "f_covers_quote",
+      "kind": "finding",
+      "input_ids": [
+        "c_covers"
+      ],
+      "claim": "Covers displays NE +1400, with no verified quote timestamp or complete board in this observation.",
+      "role": "comparison_only",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "research_market": {
+      "id": "research_market",
+      "kind": "research_result",
+      "input_ids": [
+        "c_betus",
+        "c_covers"
+      ],
+      "result": {
+        "capture_ids": [
+          "c_betus",
+          "c_covers"
+        ],
+        "findings": [
+          {
+            "id": "f_betus_quote",
+            "claim": "BetUS's title table displays NE +2000; its narrative displays +1800.",
+            "source_ids": [
+              "c_betus"
+            ],
+            "role": "market_input_and_conflict",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          },
+          {
+            "id": "f_covers_quote",
+            "claim": "Covers displays NE +1400, with no verified quote timestamp or complete board in this observation.",
+            "source_ids": [
+              "c_covers"
+            ],
+            "role": "comparison_only",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          }
+        ],
+        "conflicts": [
+          {
+            "id": "conflict_betus",
+            "kind": "same_page_disagreement",
+            "source_ids": [
+              "c_betus"
+            ],
+            "detail": "Use of +1800 versus +2000 changes the implied probability; the page does not establish which quote was updated last."
+          },
+          {
+            "id": "conflict_covers",
+            "kind": "unmatched_comparison",
+            "source_ids": [
+              "c_betus",
+              "c_covers"
+            ],
+            "detail": "Comparison differs in price, with unverified timestamp and underlying book; do not pool raw implied probabilities."
+          }
+        ]
+      }
+    },
+    "conflicts": {
+      "id": "conflicts",
+      "kind": "source_conflicts",
+      "input_ids": [
+        "c_betus",
+        "c_covers"
+      ],
+      "items": [
+        {
+          "id": "conflict_betus",
+          "kind": "same_page_disagreement",
+          "source_ids": [
+            "c_betus"
+          ],
+          "detail": "Use of +1800 versus +2000 changes the implied probability; the page does not establish which quote was updated last."
+        },
+        {
+          "id": "conflict_covers",
+          "kind": "unmatched_comparison",
+          "source_ids": [
+            "c_betus",
+            "c_covers"
+          ],
+          "detail": "Comparison differs in price, with unverified timestamp and underlying book; do not pool raw implied probabilities."
+        }
+      ]
+    },
+    "c_fanduel": {
+      "id": "c_fanduel",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.fanduel.com/research/super-bowl-odds-for-every-team-entering-week-1",
+      "title": "FanDuel Research: Super Bowl Odds for Every Team Entering Week 1",
+      "observed_at": "2026-09-09T10:12:45Z",
+      "published_at": null,
+      "price_as_of": null,
+      "locator": "Super Bowl Odds This Year / Super Bowl LXI Winner table",
+      "observation": {
+        "board": [
+          {
+            "team": "LAR",
+            "american_odds": 550
+          },
+          {
+            "team": "BUF",
+            "american_odds": 1000
+          },
+          {
+            "team": "SEA",
+            "american_odds": 1100
+          },
+          {
+            "team": "BAL",
+            "american_odds": 1300
+          },
+          {
+            "team": "LAC",
+            "american_odds": 1600
+          },
+          {
+            "team": "KC",
+            "american_odds": 1600
+          },
+          {
+            "team": "HOU",
+            "american_odds": 1600
+          },
+          {
+            "team": "NE",
+            "american_odds": 1700
+          },
+          {
+            "team": "PHI",
+            "american_odds": 1800
+          },
+          {
+            "team": "SF",
+            "american_odds": 1800
+          },
+          {
+            "team": "DET",
+            "american_odds": 1900
+          },
+          {
+            "team": "DEN",
+            "american_odds": 1900
+          },
+          {
+            "team": "DAL",
+            "american_odds": 1900
+          },
+          {
+            "team": "CIN",
+            "american_odds": 2000
+          },
+          {
+            "team": "GB",
+            "american_odds": 2200
+          },
+          {
+            "team": "CHI",
+            "american_odds": 2700
+          },
+          {
+            "team": "JAX",
+            "american_odds": 3000
+          },
+          {
+            "team": "TB",
+            "american_odds": 4500
+          },
+          {
+            "team": "IND",
+            "american_odds": 4500
+          },
+          {
+            "team": "MIN",
+            "american_odds": 4500
+          },
+          {
+            "team": "PIT",
+            "american_odds": 6000
+          },
+          {
+            "team": "WAS",
+            "american_odds": 6500
+          },
+          {
+            "team": "NYG",
+            "american_odds": 6500
+          },
+          {
+            "team": "CAR",
+            "american_odds": 8000
+          },
+          {
+            "team": "NO",
+            "american_odds": 8000
+          },
+          {
+            "team": "ATL",
+            "american_odds": 10000
+          },
+          {
+            "team": "LV",
+            "american_odds": 12500
+          },
+          {
+            "team": "TEN",
+            "american_odds": 15000
+          },
+          {
+            "team": "CLE",
+            "american_odds": 35000
+          },
+          {
+            "team": "NYJ",
+            "american_odds": 40000
+          },
+          {
+            "team": "MIA",
+            "american_odds": 75000
+          },
+          {
+            "team": "ARI",
+            "american_odds": 100000
+          }
+        ],
+        "header_lar_american_odds": 500,
+        "table_lar_american_odds": 550
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded at the end of the research pass; this is not the publisher's quote-update time.",
+      "content_sha256": "2a57849d99be7ec1e0b9b9d08f75b737fddc21aac2fa3f1bc0797fbe7b6c1d64"
+    },
+    "calc_fanduel": {
+      "id": "calc_fanduel",
+      "kind": "market_calculation",
+      "input_ids": [
+        "c_fanduel"
+      ],
+      "raw_implied": {
+        "LAR": 0.15384615384615385,
+        "BUF": 0.09090909090909091,
+        "SEA": 0.08333333333333333,
+        "BAL": 0.07142857142857142,
+        "LAC": 0.058823529411764705,
+        "KC": 0.058823529411764705,
+        "HOU": 0.058823529411764705,
+        "NE": 0.05555555555555555,
+        "PHI": 0.05263157894736842,
+        "SF": 0.05263157894736842,
+        "DET": 0.05,
+        "DEN": 0.05,
+        "DAL": 0.05,
+        "CIN": 0.047619047619047616,
+        "GB": 0.043478260869565216,
+        "CHI": 0.03571428571428571,
+        "JAX": 0.03225806451612903,
+        "TB": 0.021739130434782608,
+        "IND": 0.021739130434782608,
+        "MIN": 0.021739130434782608,
+        "PIT": 0.01639344262295082,
+        "WAS": 0.015151515151515152,
+        "NYG": 0.015151515151515152,
+        "CAR": 0.012345679012345678,
+        "NO": 0.012345679012345678,
+        "ATL": 0.009900990099009901,
+        "LV": 0.007936507936507936,
+        "TEN": 0.006622516556291391,
+        "CLE": 0.002849002849002849,
+        "NYJ": 0.0024937655860349127,
+        "MIA": 0.0013315579227696406,
+        "ARI": 0.000999000999000999
+      },
+      "implied_sum": 1.2146146741254016,
+      "overround": 0.21461467412540158,
+      "normalized": {
+        "LAR": 0.12666251867649525,
+        "BUF": 0.07484603376338354,
+        "SEA": 0.06860886428310158,
+        "BAL": 0.05880759795694421,
+        "LAC": 0.04842978655277759,
+        "KC": 0.04842978655277759,
+        "HOU": 0.04842978655277759,
+        "NE": 0.045739242855401055,
+        "PHI": 0.04333191428406415,
+        "SF": 0.04333191428406415,
+        "DET": 0.04116531856986095,
+        "DEN": 0.04116531856986095,
+        "DAL": 0.04116531856986095,
+        "CIN": 0.03920506530462947,
+        "GB": 0.035795929191183434,
+        "CHI": 0.029403798978472104,
+        "JAX": 0.02655827004507158,
+        "TB": 0.017897964595591717,
+        "IND": 0.017897964595591717,
+        "MIN": 0.017897964595591717,
+        "PIT": 0.013496825760610148,
+        "WAS": 0.012474338960563925,
+        "NYG": 0.012474338960563925,
+        "CAR": 0.010164276190089123,
+        "NO": 0.010164276190089123,
+        "ATL": 0.008151548231655634,
+        "LV": 0.006534177550771579,
+        "TEN": 0.005452360075478272,
+        "CLE": 0.0023456021977128747,
+        "NYJ": 0.002053133095753663,
+        "MIA": 0.0010962801217006912,
+        "ARI": 0.0008224838875097093
+      },
+      "method": "proportional_normalization",
+      "assumption": "Allocate the entire margin proportionally across teams; this is not a unique fair-probability estimate."
+    },
+    "f_fanduel_quote": {
+      "id": "f_fanduel_quote",
+      "kind": "finding",
+      "input_ids": [
+        "c_fanduel"
+      ],
+      "claim": "The FanDuel title table displays NE +1700. Its Rams table/header prices also differ.",
+      "role": "market_input_and_conflict",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "research_reconcile": {
+      "id": "research_reconcile",
+      "kind": "research_result",
+      "input_ids": [
+        "c_fanduel"
+      ],
+      "result": {
+        "capture_ids": [
+          "c_fanduel"
+        ],
+        "findings": [
+          {
+            "id": "f_fanduel_quote",
+            "claim": "The FanDuel title table displays NE +1700. Its Rams table/header prices also differ.",
+            "source_ids": [
+              "c_fanduel"
+            ],
+            "role": "market_input_and_conflict",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          }
+        ],
+        "decisions": [
+          {
+            "action": "use_complete_tables",
+            "reason": "Apply one declared extraction rule to each board; this does not prove either table is the latest executable price."
+          },
+          {
+            "action": "exclude_covers_from_pool",
+            "reason": "No matching complete board or verified quote timestamp; retain it as a reason for sensitivity and later checking."
+          },
+          {
+            "action": "retain_two_book_dependence",
+            "reason": "Books use overlapping information; equal weighting is a simple baseline, not an independent-evidence update."
+          }
+        ],
+        "remaining_unknowns": [
+          "Exact market quote times and executable prices.",
+          "Whether page discrepancies reflect caching, stale prose, or another cause.",
+          "How much each team's margin differs from proportional allocation."
+        ]
+      }
+    },
+    "c_health": {
+      "id": "c_health",
+      "kind": "source_observation",
+      "input_ids": [],
+      "url": "https://www.patriots.com/news/week-1-injury-report-patriots-at-seahawks",
+      "title": "Patriots Week 1 injury report",
+      "observed_at": "2026-09-09T10:12:45Z",
+      "published_at": "2026-09-08T20:50:00Z",
+      "price_as_of": null,
+      "locator": "Tuesday September 8, New England Patriots section",
+      "observation": {
+        "game": "2026 Week 1 at Seattle",
+        "out": [
+          {
+            "player": "Ben Brown",
+            "injury": "knee"
+          },
+          {
+            "player": "TreVeyon Henderson",
+            "injury": "ankle"
+          }
+        ],
+        "no_game_status": [
+          {
+            "player": "Christian Barmore",
+            "practice": "full"
+          }
+        ],
+        "return_dates_reported": false
+      },
+      "capture_kind": "analyst_structured_observation_from_web_results",
+      "raw_page_archived": false,
+      "observation_time_note": "Recorded at the end of the research pass; this is not the publisher's quote-update time.",
+      "content_sha256": "806f2e973d93ca0224d5c259e7ac3203ea94b47f48fad5fbf01ffcaabeef3f8b"
+    },
+    "f_opening_injuries": {
+      "id": "f_opening_injuries",
+      "kind": "finding",
+      "input_ids": [
+        "c_health"
+      ],
+      "claim": "The official opening-game report lists Brown and Henderson out; it does not provide their return dates.",
+      "role": "monitoring",
+      "entity_ids": [
+        "team_ne",
+        "super_bowl_lxi"
+      ]
+    },
+    "research_health": {
+      "id": "research_health",
+      "kind": "research_result",
+      "input_ids": [
+        "c_health"
+      ],
+      "result": {
+        "capture_ids": [
+          "c_health"
+        ],
+        "findings": [
+          {
+            "id": "f_opening_injuries",
+            "claim": "The official opening-game report lists Brown and Henderson out; it does not provide their return dates.",
+            "source_ids": [
+              "c_health"
+            ],
+            "role": "monitoring",
+            "entity_ids": [
+              "team_ne",
+              "super_bowl_lxi"
+            ]
+          }
+        ],
+        "unknowns": [
+          "The probability impact over an entire season is unestimated.",
+          "The public report may already be incorporated in the market prices."
+        ]
+      }
+    },
+    "conditional_path": {
+      "id": "conditional_path",
+      "kind": "elicited_probability_model",
+      "input_ids": [
+        "b_prior",
+        "drivers",
+        "coverage",
+        "research_health",
+        "f_brown_addition",
+        "f_defensive_continuity",
+        "f_departures",
+        "f_maye",
+        "f_offensive_continuity",
+        "f_opening_injuries",
+        "f_other_turnover",
+        "f_protection",
+        "f_schedule",
+        "f_season"
+      ],
+      "assumptions": {
+        "playoffs": {
+          "value": 0.7,
+          "basis": "agent_judgment_not_fitted",
+          "finding_ids": [
+            "f_season",
+            "f_maye",
+            "f_offensive_continuity",
+            "f_brown_addition",
+            "f_departures",
+            "f_schedule",
+            "f_opening_injuries"
+          ],
+          "rationale": "More likely than not to qualify given last-season performance and QB continuity; allow substantial regression, stronger competition and health uncertainty. 70% is elicited, not estimated from historical data."
+        },
+        "afc_given_playoffs": {
+          "value": 0.18,
+          "basis": "agent_judgment_not_fitted",
+          "finding_ids": [
+            "f_protection",
+            "f_schedule",
+            "f_other_turnover",
+            "f_defensive_continuity"
+          ],
+          "rationale": "Conditional on qualifying, consider New England a credible but non-dominant conference contender. Difficult seeding/matchups and line performance temper the estimate; 18% is a judgment."
+        },
+        "title_given_afc": {
+          "value": 0.48,
+          "basis": "agent_judgment_not_fitted",
+          "finding_ids": [
+            "f_maye",
+            "f_brown_addition",
+            "f_protection"
+          ],
+          "rationale": "Reaching the final selects for a successful Patriots season. Use near-even chances against an unknown NFC champion, modestly tempered by demonstrated protection risk. 48% is a judgment."
+        }
+      },
+      "sensitivity_scenarios": [
+        {
+          "label": "cautious_assumptions_not_confidence_bound",
+          "values": {
+            "playoffs": 0.6,
+            "afc_given_playoffs": 0.12,
+            "title_given_afc": 0.4
+          },
+          "title_probability": 0.0288
+        },
+        {
+          "label": "central_elicitation",
+          "values": {
+            "playoffs": 0.7,
+            "afc_given_playoffs": 0.18,
+            "title_given_afc": 0.48
+          },
+          "title_probability": 0.06048
+        },
+        {
+          "label": "optimistic_assumptions_not_confidence_bound",
+          "values": {
+            "playoffs": 0.8,
+            "afc_given_playoffs": 0.25,
+            "title_given_afc": 0.55
+          },
+          "title_probability": 0.11000000000000001
+        }
+      ],
+      "probability": 0.06048,
+      "identity": "P(title)=P(playoffs)*P(AFC|playoffs)*P(title|AFC)",
+      "scope": "Conditional on a completed championship; no independence assumption is required.",
+      "limitations": [
+        "Parameters are subjective and unfitted; linked facts do not uniquely imply the selected numbers.",
+        "Market prices were already seen, leaving anchoring possible.",
+        "Several sources are team-authored analysis rather than independent causal evaluation.",
+        "No new post-market private information has been established.",
+        "No numerical player/coaching bonuses are added to already informed market prices.",
+        "Assumes the championship completes; cancellation follows the question's void policy."
+      ]
+    },
+    "b_updated": {
+      "id": "b_updated",
+      "kind": "belief_revision",
+      "input_ids": [
+        "b_prior",
+        "conditional_path"
+      ],
+      "probability": 0.06048,
+      "previous_id": "b_prior",
+      "agent_synthesis": {
+        "method": "elicited_conditional_path",
+        "calculation_ids": [],
+        "weights": [],
+        "adjustment": 0,
+        "assumptions": {
+          "playoffs": {
+            "value": 0.7,
+            "basis": "agent_judgment_not_fitted",
+            "finding_ids": [
+              "f_season",
+              "f_maye",
+              "f_offensive_continuity",
+              "f_brown_addition",
+              "f_departures",
+              "f_schedule",
+              "f_opening_injuries"
+            ],
+            "rationale": "More likely than not to qualify given last-season performance and QB continuity; allow substantial regression, stronger competition and health uncertainty. 70% is elicited, not estimated from historical data."
+          },
+          "afc_given_playoffs": {
+            "value": 0.18,
+            "basis": "agent_judgment_not_fitted",
+            "finding_ids": [
+              "f_protection",
+              "f_schedule",
+              "f_other_turnover",
+              "f_defensive_continuity"
+            ],
+            "rationale": "Conditional on qualifying, consider New England a credible but non-dominant conference contender. Difficult seeding/matchups and line performance temper the estimate; 18% is a judgment."
+          },
+          "title_given_afc": {
+            "value": 0.48,
+            "basis": "agent_judgment_not_fitted",
+            "finding_ids": [
+              "f_maye",
+              "f_brown_addition",
+              "f_protection"
+            ],
+            "rationale": "Reaching the final selects for a successful Patriots season. Use near-even chances against an unknown NFC champion, modestly tempered by demonstrated protection risk. 48% is a judgment."
+          }
+        },
+        "rationale": "Form an explicit football assessment from the recorded evidence and compare with the earlier market baseline afterward. These judgments were made with prior awareness of the odds, so the result is not a blind forecast.",
+        "limitations": [
+          "Parameters are subjective and unfitted; linked facts do not uniquely imply the selected numbers.",
+          "Market prices were already seen, leaving anchoring possible.",
+          "Several sources are team-authored analysis rather than independent causal evaluation.",
+          "No new post-market private information has been established.",
+          "No numerical player/coaching bonuses are added to already informed market prices.",
+          "Assumes the championship completes; cancellation follows the question's void policy."
+        ],
+        "sensitivity_scenarios": [
+          {
+            "label": "cautious_assumptions_not_confidence_bound",
+            "values": {
+              "playoffs": 0.6,
+              "afc_given_playoffs": 0.12,
+              "title_given_afc": 0.4
+            }
+          },
+          {
+            "label": "central_elicitation",
+            "values": {
+              "playoffs": 0.7,
+              "afc_given_playoffs": 0.18,
+              "title_given_afc": 0.48
+            }
+          },
+          {
+            "label": "optimistic_assumptions_not_confidence_bound",
+            "values": {
+              "playoffs": 0.8,
+              "afc_given_playoffs": 0.25,
+              "title_given_afc": 0.55
+            }
+          }
+        ]
+      }
+    }
+  }
+}

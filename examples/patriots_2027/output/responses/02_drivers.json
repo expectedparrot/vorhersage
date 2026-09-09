@@ -1,0 +1,46 @@
+{
+  "task_id": "drivers",
+  "expected_revision": 2,
+  "idempotency_key": "demo_drivers",
+  "disposition": "completed",
+  "payload": {
+    "drivers": [
+      {
+        "id": "d_playoffs",
+        "event": "Reach the playoffs",
+        "depends_on": [
+          "regular-season strength",
+          "quarterback availability",
+          "division and conference competition"
+        ],
+        "probability": null
+      },
+      {
+        "id": "d_afc",
+        "event": "Win the AFC conditional on reaching the playoffs",
+        "depends_on": [
+          "seeding",
+          "opponents",
+          "health"
+        ],
+        "probability": null
+      },
+      {
+        "id": "d_title",
+        "event": "Win the Super Bowl conditional on winning the AFC",
+        "depends_on": [
+          "NFC opponent",
+          "relative team strength",
+          "health"
+        ],
+        "probability": null
+      }
+    ],
+    "probability_identity": "P(title)=P(playoffs)*P(AFC title|playoffs)*P(Super Bowl win|AFC title). Conditional on a completed competition.",
+    "unestimated": [
+      "No independent team-strength or season simulation has been fitted.",
+      "No season-level injury effect has been estimated.",
+      "No empirical reference class of comparable Patriots teams was assembled."
+    ]
+  }
+}

@@ -1,0 +1,4586 @@
+{
+  "evaluation_id": "replay_evaluation_17b12f5ec3594c8da755",
+  "evaluation_kind": "historical_replay",
+  "created_at": "2026-09-09T15:14:32.029582Z",
+  "policy": {
+    "forecast_ids": [
+      "forecast_7cf8407dc2a64e16a3e6",
+      "forecast_a83382a9f26a4b9fa8fe",
+      "forecast_7930708ac98749adb0f2",
+      "forecast_a013207c15ec4bf6990f",
+      "forecast_cebf3ab0a6b14e69bd49",
+      "forecast_7edca62f208448e7b7fa",
+      "forecast_7589cf88a6fd4845ba03",
+      "forecast_df4d160f7105439bb702",
+      "forecast_d622a222dc254b09addd",
+      "forecast_c5ed569a22684dfd9dd8",
+      "forecast_c72541b27e20470cb5bc",
+      "forecast_a320e379518a4b6c975f",
+      "forecast_2e2301befe1b4ff5bcda",
+      "forecast_28eabf1497d04f4091c0",
+      "forecast_5a924cb1a9c944379fe3",
+      "forecast_def3d435cd5048cd9072",
+      "forecast_29e13de9e30c42a78289",
+      "forecast_357e50db573e4ed48af2",
+      "forecast_edabbf4c4c93466f9c38",
+      "forecast_2c9c1274a0214fb6b85b"
+    ],
+    "forecasters": [
+      "control:workflow_half",
+      "baseline:half",
+      "baseline:crowd"
+    ],
+    "experiment": "Software smoke test on real historical questions; no model calls.",
+    "contamination_assessment": "No model evaluated; historical wording and evidence remain unaudited."
+  },
+  "cases_bundle": {
+    "schema_version": "vorhersage.replay.v1",
+    "source": {
+      "dataset": "YuehHanChen/forecasting",
+      "revision": "c88acc8705f03c8a6526b0b057200c1f0b1b8505",
+      "split": "validation",
+      "file_sha256": "589a966ea2051d950d3704f30bf4a3686ac09a72dbd10b42fe4a96ca39549de6",
+      "url": "https://huggingface.co/datasets/YuehHanChen/forecasting/blob/c88acc8705f03c8a6526b0b057200c1f0b1b8505/validation.json"
+    },
+    "selection": {
+      "seed": "vorhersage-1",
+      "limit": 20,
+      "days_after_open": 7,
+      "categories": [
+        "Arts & Recreation",
+        "Environment & Energy",
+        "Science & Tech",
+        "Sports"
+      ],
+      "ranking": "sha256 of seed and source URL",
+      "purpose": "development_smoke_test"
+    },
+    "limitations": [
+      "Historical replay; not prospective forecasting performance.",
+      "Question text and criteria may contain later edits; historical wording is not certified.",
+      "No archived research corpus is supplied; model training may contain outcomes.",
+      "Dataset resolution dates do not establish the earliest time the outcome was knowable.",
+      "Date-only crowd values are averaged within the latest available day, not treated as ordered intraday quotes.",
+      "Event groups initially identify source questions only; related-event clustering needs review."
+    ],
+    "cases": [
+      {
+        "id": "halawi_e751db7fc65620103248",
+        "question": {
+          "id": "halawi_e751db7fc65620103248",
+          "text": "Will Los Angeles Chargers advance to the divisional round of the 2023 NFL playoffs?",
+          "yes": "This question will resolve as Yes for the 8 teams below which advance to divisional round of the 2022-2023 NFL playoffs, according to the National Football League. All other teams will resolve as No.\nFine Print\nIf the divisional round of the 2022-2023 NFL playoffs is not held by April 1, 2023, or is officially cancelled, all teams will resolve as Ambiguous.\nThe results on the respective game days will be used for resolution. Any rulings by the NFL occurring more than 24 hours after the end of the game will be disregarded for the resolution of this question.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-02-02T23:59:59.999999Z",
+          "resolve_after": "2023-02-02T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/12414/",
+          "event_group": "source_aecbb22c9805a94026b4",
+          "domain": "Sports",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2022-09-07T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_1b51e7e23df6b7df57bf",
+        "question": {
+          "id": "halawi_1b51e7e23df6b7df57bf",
+          "text": "Will New York City break its record by going more than 332 days without measurable snow?",
+          "yes": "This question will resolve as \"No\" if there is measurable snowfall at Central Park (KNYC weather station) at any point between the question's launch and the end of the day on February 4th, 2023. We will rely on New York Metro Weather to supply information about snowfall in Central Park.\nThis question will resolve as \"Yes\" if either the New York Times or New York Metro Weather report, via their websites or Twitter accounts, that New York City has broken the record for most days without measurable snowfall.\nIf there is uncertainty about the resolution, we will defer to public statements from New York Metro Weather and the New York Times.\nOnly an affirmative statement that New York City has broken the record for snowless days will suffice for a positive resolution. If public statements indicate the city has tied the record, but has not broken it, then the question resolves as \"No.\" If there is no evidence of snow, but Metaculus administrators cannot find affirmative statements that the record has been broken by the time of resolution, then the question resolves as \"Ambiguous.\"\n*This question is part of the Beginner Tournament, a set of questions designed to be an introduction to forecasting for those who are relatively new.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-02-03T23:59:59.999999Z",
+          "resolve_after": "2023-02-03T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/14821/",
+          "event_group": "source_5358df6ce2a35e829ef3",
+          "domain": "Environment & Energy",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-01-31T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_42090406b8ea80f6cf82",
+        "question": {
+          "id": "halawi_42090406b8ea80f6cf82",
+          "text": "Will the Golden State Warriors win Game 5 of the 2023 NBA Western Conference Semifinals vs. the Los Angeles Lakers?",
+          "yes": "Source question resolves YES; separate criteria unavailable; manual review required.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-05-11T23:59:59.999999Z",
+          "resolve_after": "2023-05-11T23:59:59.999999Z",
+          "resolution_source": "https://manifold.markets/KevinBurke/will-the-golden-state-warriors-win-a1fa55232f21",
+          "event_group": "source_77b778b0c9320062bc79",
+          "domain": "Sports",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-05-09T00:00:00+00:00",
+        "criteria_available": false,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_e8b132220f3614eb3ab6",
+        "question": {
+          "id": "halawi_e8b132220f3614eb3ab6",
+          "text": "Will the Dallas Stars win the 2022-23 Stanley Cup?",
+          "yes": "The team that is crowned the champion after Game 4, 5, 6, or 7 of the NHL Stanley Cup Finals set to begin on June 8th and end no later than June 18 (or June 19th, in the case where the game goes past 12a ET).\nFine Print\nThis question will resolve as early as the evening of Game 4 (precise date not yet confirmed, but will be between June 8-18) and as late as the evening of June 18 (perhaps the early morning of June 19th, if the game is hosted by a west coast-based team) based on the winner being announced by reputable sources and/or NHL.com.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-06-19T23:59:59.999999Z",
+          "resolve_after": "2023-06-19T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/15774/",
+          "event_group": "source_6bf09c27bc13f87ba484",
+          "domain": "Sports",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-04-12T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_ad49e6ced92a8fb23963",
+        "question": {
+          "id": "halawi_ad49e6ced92a8fb23963",
+          "text": "Will the Edmonton Oilers win the 2022-23 Stanley Cup?",
+          "yes": "The team that is crowned the champion after Game 4, 5, 6, or 7 of the NHL Stanley Cup Finals set to begin on June 8th and end no later than June 18 (or June 19th, in the case where the game goes past 12a ET).\nFine Print\nThis question will resolve as early as the evening of Game 4 (precise date not yet confirmed, but will be between June 8-18) and as late as the evening of June 18 (perhaps the early morning of June 19th, if the game is hosted by a west coast-based team) based on the winner being announced by reputable sources and/or NHL.com.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-06-19T23:59:59.999999Z",
+          "resolve_after": "2023-06-19T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/15737/",
+          "event_group": "source_a6f07c03a5f387c8cb8a",
+          "domain": "Sports",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-04-10T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_8a6d7df59f21aac491ad",
+        "question": {
+          "id": "halawi_8a6d7df59f21aac491ad",
+          "text": "Will Dallas Cowboys advance to the divisional round of the 2023 NFL playoffs?",
+          "yes": "This question will resolve as Yes for the 8 teams below which advance to divisional round of the 2022-2023 NFL playoffs, according to the National Football League. All other teams will resolve as No.\nFine Print\nIf the divisional round of the 2022-2023 NFL playoffs is not held by April 1, 2023, or is officially cancelled, all teams will resolve as Ambiguous.\nThe results on the respective game days will be used for resolution. Any rulings by the NFL occurring more than 24 hours after the end of the game will be disregarded for the resolution of this question.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-02-02T23:59:59.999999Z",
+          "resolve_after": "2023-02-02T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/12415/",
+          "event_group": "source_f1bcfd0b685f8e94d593",
+          "domain": "Sports",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2022-09-07T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_b8a2a63d598d44bc7ff4",
+        "question": {
+          "id": "halawi_b8a2a63d598d44bc7ff4",
+          "text": "Will the LA Kings win the 2022-23 Stanley Cup?",
+          "yes": "The team that is crowned the champion after Game 4, 5, 6, or 7 of the NHL Stanley Cup Finals set to begin on June 8th and end no later than June 18 (or June 19th, in the case where the game goes past 12a ET).\nFine Print\nThis question will resolve as early as the evening of Game 4 (precise date not yet confirmed, but will be between June 8-18) and as late as the evening of June 18 (perhaps the early morning of June 19th, if the game is hosted by a west coast-based team) based on the winner being announced by reputable sources and/or NHL.com.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-06-19T23:59:59.999999Z",
+          "resolve_after": "2023-06-19T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/15736/",
+          "event_group": "source_50897e8533e2c61c4c37",
+          "domain": "Sports",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-04-10T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_bf75ac284430c9c8ca5e",
+        "question": {
+          "id": "halawi_bf75ac284430c9c8ca5e",
+          "text": "Will GPT-4 input and/or output images? (Input Yes, Output Yes)",
+          "yes": "The listed option which matches the image input and output capabilities of GPT-4 will resolve as Yes and all others will resolve as No. If OpenAI releases it under a different name but makes it clear that it is also \"GPT-4\", this would count.\nResolution will be determined according to information provided in the first announcement describing the release of GPT-4 which contains details about the model (for example a blog post would be used while a Tweet or brief press release would not). Capabilities from all described versions or tiers will be used. For example, if a free text-only version is released along with a paid version capable of image input and image generation then GPT-4 would be considered to be capable of both image input and generation. A limited or restricted-access release of GPT-4 will be used for resolution so long as details about the model's capabilities are made public by OpenAI.\nIf GPT-4 is not released before January 1, 2025, all subquestions resolves as Ambiguous",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2025-01-01T23:59:59.999999Z",
+          "resolve_after": "2025-01-01T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/14628/",
+          "event_group": "source_06c9acce0ae623704188",
+          "domain": "Science & Tech",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-01-26T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_4fff839a073c79e6fe32",
+        "question": {
+          "id": "halawi_4fff839a073c79e6fe32",
+          "text": "Will SpaceX receive a launch license for Starship from the FAA before April 15th, 2023?",
+          "yes": "This question will resolve Yes if SpaceX receives a launch license before April 15, 2023, as indicated by:\nA statement from SpaceX or a SpaceX spokesperson\nA statement from the FAA\nAt least two credible media reports",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-04-14T23:59:59.999999Z",
+          "resolve_after": "2023-04-14T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/15688/",
+          "event_group": "source_84794186ddf4992cb22b",
+          "domain": "Science & Tech",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-04-08T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_2256f87c55c1104beb67",
+        "question": {
+          "id": "halawi_2256f87c55c1104beb67",
+          "text": "Will Magnus Carlsen win the FIDE World Fischer Random Chess Championship 2022?",
+          "yes": "This question will resolve as Yes for the player who wins the FIDE World Fischer Random Chess Championship 2022, according to FIDE. All other players will resolve as No.\nFine Print\nIf a player is officially replaced by FIDE before the tournament begins on October 25, that player will resolve as Ambiguous, a new sub-question will be created for the replacement player.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2022-10-31T23:59:59.999999Z",
+          "resolve_after": "2022-10-31T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/13092/",
+          "event_group": "source_a3046126b44e50860c4d",
+          "domain": "Sports",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2022-10-18T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_3be5aedc17a39782c9e8",
+        "question": {
+          "id": "halawi_3be5aedc17a39782c9e8",
+          "text": "Will there be another well-recognized letter/statement on AI risk by May 31, 2023?",
+          "yes": "Source question resolves YES; separate criteria unavailable; manual review required.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-05-30T23:59:59.999999Z",
+          "resolve_after": "2023-05-30T23:59:59.999999Z",
+          "resolution_source": "https://manifold.markets/_T_Grass/will-there-be-another-wellrecognize",
+          "event_group": "source_5d5150b36e176bfbbb74",
+          "domain": "Science & Tech",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-05-26T00:00:00+00:00",
+        "criteria_available": false,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_c45dc3d0aa785561ec9d",
+        "question": {
+          "id": "halawi_c45dc3d0aa785561ec9d",
+          "text": "Will SpaceX launch Starship into orbit before 1 April 2023?",
+          "yes": "Source question resolves YES; separate criteria unavailable; manual review required.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-04-01T23:59:59.999999Z",
+          "resolve_after": "2023-04-01T23:59:59.999999Z",
+          "resolution_source": "https://www.infer-pub.com/questions/1235",
+          "event_group": "source_2b5d3dbd4872afe96c48",
+          "domain": "Science & Tech",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-03-15T00:00:00+00:00",
+        "criteria_available": false,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_dea83b6749a53ab172fd",
+        "question": {
+          "id": "halawi_dea83b6749a53ab172fd",
+          "text": "Will San Francisco 49ers advance to the divisional round of the 2023 NFL playoffs?",
+          "yes": "This question will resolve as Yes for the 8 teams below which advance to divisional round of the 2022-2023 NFL playoffs, according to the National Football League. All other teams will resolve as No.\nFine Print\nIf the divisional round of the 2022-2023 NFL playoffs is not held by April 1, 2023, or is officially cancelled, all teams will resolve as Ambiguous.\nThe results on the respective game days will be used for resolution. Any rulings by the NFL occurring more than 24 hours after the end of the game will be disregarded for the resolution of this question.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-02-02T23:59:59.999999Z",
+          "resolve_after": "2023-02-02T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/12429/",
+          "event_group": "source_d4a38de39f8608249fa0",
+          "domain": "Sports",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2022-09-07T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_43940472f3f837a60a4e",
+        "question": {
+          "id": "halawi_43940472f3f837a60a4e",
+          "text": "Will the Kakhovka dam be breached before May 2023?",
+          "yes": "The Dnieper, or Dnipro, is a major European river that flows through the middle of Ukraine, discharging into the Black Sea in the South. The Kakhovka dam, about 50 miles upstream of Kherson, interrupts its flow and creates the large Kakhovka reservoir on its upstream side.\nAs of late October 2022, Russian forces occupied the area of Kherson oblast and the Kakhovka dam, but were not expected to hold for long against the oncoming Ukrainian offensive. As evacuations and military preparations continued, the Russians began accusing the Ukrainian side of plotting to attack the Kakhovka dam, which could cause massive flooding downstream. Some interpreted this as a preparatory move before Russia itself potentially demolished the dam and blamed Ukraine.\nWill the Kakhovka dam be breached before 1 May 2023?\nResolves as Yes if the dam suffers a significant breach or failure at any time before 00:00 local 1 May 2023.\nResolves as No if available evidence shows the Kakhovka dam remains intact at 00:00 local time, 1 May 2023, and there are no confirmed reports of a previous significant breach or failure.\nA \"significant\" breach or failure is defined as one that releases at least 0.2 cubic kilometres of water or 1% of the Kakhovka reservoir capacity, whichever is lower.\nMetaculus Admins will use their best judgement and the best available sources in determining resolution, including reputable sources such as the Institute for the Study of War and similar analysts, especially those relying on publicly available commercial satellite photos.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-04-30T23:59:59.999999Z",
+          "resolve_after": "2023-04-30T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/13176/",
+          "event_group": "source_73a464fe1800de0b11bc",
+          "domain": "Environment & Energy",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2022-10-27T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_c58344c6fef52d9f4dfb",
+        "question": {
+          "id": "halawi_c58344c6fef52d9f4dfb",
+          "text": "Will a Boeing Starliner spacecraft successfully dock with the International Space Station (ISS) before 15 June 2022?",
+          "yes": "Source question resolves YES; separate criteria unavailable; manual review required.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2022-05-21T23:59:59.999999Z",
+          "resolve_after": "2022-05-21T23:59:59.999999Z",
+          "resolution_source": "https://www.gjopen.com/questions/2320",
+          "event_group": "source_6e0bc8435c1a23af771a",
+          "domain": "Science & Tech",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2022-03-24T00:00:00+00:00",
+        "criteria_available": false,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_9ccd160a1e5310bf906e",
+        "question": {
+          "id": "halawi_9ccd160a1e5310bf906e",
+          "text": "Will the Minnesota Wild win the 2022-23 Stanley Cup?",
+          "yes": "The team that is crowned the champion after Game 4, 5, 6, or 7 of the NHL Stanley Cup Finals set to begin on June 8th and end no later than June 18 (or June 19th, in the case where the game goes past 12a ET).\nFine Print\nThis question will resolve as early as the evening of Game 4 (precise date not yet confirmed, but will be between June 8-18) and as late as the evening of June 18 (perhaps the early morning of June 19th, if the game is hosted by a west coast-based team) based on the winner being announced by reputable sources and/or NHL.com.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-06-19T23:59:59.999999Z",
+          "resolve_after": "2023-06-19T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/15775/",
+          "event_group": "source_8db22b8da3ab9e1d5b5c",
+          "domain": "Sports",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-04-12T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_34a52d58645a0632b4ee",
+        "question": {
+          "id": "halawi_34a52d58645a0632b4ee",
+          "text": "Will China launch more orbital rockets than the U.S. in January 2023?",
+          "yes": "Source question resolves YES; separate criteria unavailable; manual review required.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-02-01T23:59:59.999999Z",
+          "resolve_after": "2023-02-01T23:59:59.999999Z",
+          "resolution_source": "https://www.infer-pub.com/questions/1211",
+          "event_group": "source_723f82d5b68945d9eec8",
+          "domain": "Science & Tech",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-01-11T00:00:00+00:00",
+        "criteria_available": false,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_4bebc5e7329eadc6f3b0",
+        "question": {
+          "id": "halawi_4bebc5e7329eadc6f3b0",
+          "text": "Will either of last year's disc golf champions, Kristin Tattar or Calvin Heimburg, win 1st place in Jonesboro again this year?",
+          "yes": "This question will resolve yes if either or both of Kristin Tattar or Calvin Heimburg place first in the Play It Again Sports Jonesboro Open.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-04-28T23:59:59.999999Z",
+          "resolve_after": "2023-04-28T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/16033/",
+          "event_group": "source_da6e41fd0143adff6850",
+          "domain": "Sports",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-04-25T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_6ac4d3e2ad196947ed59",
+        "question": {
+          "id": "halawi_6ac4d3e2ad196947ed59",
+          "text": "In 2023, will a non-European team win the FIFA Club World Cup for the first time since 2012?",
+          "yes": "The question will resolve as \"Yes\" if a team other than Real Madrid, the European representative, wins the 2022 FIFA Club World Cup.\nThe question will resolve as \"No\" if Real Madrid wins the FIFA Club World Cup, or if for any reason FIFA does not name a winner of the tournament.\n*This question is part of the Beginner Tournament, a set of questions designed to be an introduction to forecasting for those who are relatively new.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2023-02-11T23:59:59.999999Z",
+          "resolve_after": "2023-02-11T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/15005/",
+          "event_group": "source_e564169405c7aecfc1ce",
+          "domain": "Sports",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2023-02-09T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      },
+      {
+        "id": "halawi_3b1f8b76e5c9ad6ef86f",
+        "question": {
+          "id": "halawi_3b1f8b76e5c9ad6ef86f",
+          "text": "Will Nodirbek Abdusattorov win the FIDE World Fischer Random Chess Championship 2022?",
+          "yes": "This question will resolve as Yes for the player who wins the FIDE World Fischer Random Chess Championship 2022, according to FIDE. All other players will resolve as No.\nFine Print\nIf a player is officially replaced by FIDE before the tournament begins on October 25, that player will resolve as Ambiguous, a new sub-question will be created for the replacement player.",
+          "no": "Source question resolves NO under its original criteria.",
+          "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+          "event_deadline": "2022-10-31T23:59:59.999999Z",
+          "resolve_after": "2022-10-31T23:59:59.999999Z",
+          "resolution_source": "https://www.metaculus.com/api2/questions/13097/",
+          "event_group": "source_7c34109252f13d49adf8",
+          "domain": "Sports",
+          "profile": "general",
+          "kind": "real"
+        },
+        "information_as_of": "2022-10-18T00:00:00+00:00",
+        "criteria_available": true,
+        "historical_wording_audit": "unverified",
+        "evidence_status": "no_archived_research_supplied"
+      }
+    ]
+  },
+  "labels_bundle": {
+    "schema_version": "vorhersage.replay.v1",
+    "cases_sha256": "20bf1dfb8b24c77a7199d6ef1b2e746e9e03e7998ea138a3995818528581c39c",
+    "labels": [
+      {
+        "case_id": "halawi_e751db7fc65620103248",
+        "outcome": 0,
+        "resolution_date": "2023-01-15",
+        "source_url": "https://www.metaculus.com/api2/questions/12414/",
+        "source_row": 696,
+        "crowd": {
+          "probability": 0.18144444444444444,
+          "available_at": "2022-09-06T23:59:59.999999Z",
+          "observations": 9,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_1b51e7e23df6b7df57bf",
+        "outcome": 0,
+        "resolution_date": "2023-02-01",
+        "source_url": "https://www.metaculus.com/api2/questions/14821/",
+        "source_row": 839,
+        "crowd": {
+          "probability": 0.6697272727272727,
+          "available_at": "2023-01-30T23:59:59.999999Z",
+          "observations": 22,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_42090406b8ea80f6cf82",
+        "outcome": 1,
+        "resolution_date": "2023-05-11",
+        "source_url": "https://manifold.markets/KevinBurke/will-the-golden-state-warriors-win-a1fa55232f21",
+        "source_row": 124,
+        "crowd": {
+          "probability": 0.5361356699687327,
+          "available_at": "2023-05-02T23:59:59.999999Z",
+          "observations": 2,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_e8b132220f3614eb3ab6",
+        "outcome": 0,
+        "resolution_date": "2023-05-30",
+        "source_url": "https://www.metaculus.com/api2/questions/15774/",
+        "source_row": 463,
+        "crowd": {
+          "probability": 0.0955,
+          "available_at": "2023-04-09T23:59:59.999999Z",
+          "observations": 2,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_ad49e6ced92a8fb23963",
+        "outcome": 0,
+        "resolution_date": "2023-05-15",
+        "source_url": "https://www.metaculus.com/api2/questions/15737/",
+        "source_row": 459,
+        "crowd": {
+          "probability": 0.10875,
+          "available_at": "2023-04-09T23:59:59.999999Z",
+          "observations": 4,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_8a6d7df59f21aac491ad",
+        "outcome": 1,
+        "resolution_date": "2023-01-17",
+        "source_url": "https://www.metaculus.com/api2/questions/12415/",
+        "source_row": 697,
+        "crowd": {
+          "probability": 0.19983333333333334,
+          "available_at": "2022-09-06T23:59:59.999999Z",
+          "observations": 6,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_b8a2a63d598d44bc7ff4",
+        "outcome": 0,
+        "resolution_date": "2023-04-30",
+        "source_url": "https://www.metaculus.com/api2/questions/15736/",
+        "source_row": 458,
+        "crowd": {
+          "probability": 0.0815,
+          "available_at": "2023-04-09T23:59:59.999999Z",
+          "observations": 4,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_bf75ac284430c9c8ca5e",
+        "outcome": 0,
+        "resolution_date": "2023-03-14",
+        "source_url": "https://www.metaculus.com/api2/questions/14628/",
+        "source_row": 837,
+        "crowd": null
+      },
+      {
+        "case_id": "halawi_4fff839a073c79e6fe32",
+        "outcome": 1,
+        "resolution_date": "2023-04-14",
+        "source_url": "https://www.metaculus.com/api2/questions/15688/",
+        "source_row": 441,
+        "crowd": {
+          "probability": 0.6392,
+          "available_at": "2023-04-07T23:59:59.999999Z",
+          "observations": 10,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_2256f87c55c1104beb67",
+        "outcome": 0,
+        "resolution_date": "2022-10-29",
+        "source_url": "https://www.metaculus.com/api2/questions/13092/",
+        "source_row": 741,
+        "crowd": {
+          "probability": 0.3315,
+          "available_at": "2022-10-17T23:59:59.999999Z",
+          "observations": 4,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_3be5aedc17a39782c9e8",
+        "outcome": 1,
+        "resolution_date": "2023-05-30",
+        "source_url": "https://manifold.markets/_T_Grass/will-there-be-another-wellrecognize",
+        "source_row": 161,
+        "crowd": null
+      },
+      {
+        "case_id": "halawi_c45dc3d0aa785561ec9d",
+        "outcome": 0,
+        "resolution_date": "2023-04-04",
+        "source_url": "https://www.infer-pub.com/questions/1235",
+        "source_row": 481,
+        "crowd": {
+          "probability": 0.09101666666666668,
+          "available_at": "2023-03-14T23:59:59.999999Z",
+          "observations": 6,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_dea83b6749a53ab172fd",
+        "outcome": 1,
+        "resolution_date": "2023-01-15",
+        "source_url": "https://www.metaculus.com/api2/questions/12429/",
+        "source_row": 711,
+        "crowd": {
+          "probability": 0.22366666666666668,
+          "available_at": "2022-09-06T23:59:59.999999Z",
+          "observations": 6,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_43940472f3f837a60a4e",
+        "outcome": 0,
+        "resolution_date": "2023-05-01",
+        "source_url": "https://www.metaculus.com/api2/questions/13176/",
+        "source_row": 757,
+        "crowd": {
+          "probability": 0.52,
+          "available_at": "2022-10-25T23:59:59.999999Z",
+          "observations": 1,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_c58344c6fef52d9f4dfb",
+        "outcome": 1,
+        "resolution_date": "2022-05-21",
+        "source_url": "https://www.gjopen.com/questions/2320",
+        "source_row": 590,
+        "crowd": {
+          "probability": 0.12142857142857144,
+          "available_at": "2022-03-23T23:59:59.999999Z",
+          "observations": 7,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_9ccd160a1e5310bf906e",
+        "outcome": 0,
+        "resolution_date": "2023-04-29",
+        "source_url": "https://www.metaculus.com/api2/questions/15775/",
+        "source_row": 464,
+        "crowd": {
+          "probability": 0.07625,
+          "available_at": "2023-04-09T23:59:59.999999Z",
+          "observations": 4,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_34a52d58645a0632b4ee",
+        "outcome": 0,
+        "resolution_date": "2023-02-06",
+        "source_url": "https://www.infer-pub.com/questions/1211",
+        "source_row": 539,
+        "crowd": {
+          "probability": 0.048600000000000004,
+          "available_at": "2023-01-10T23:59:59.999999Z",
+          "observations": 2,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_4bebc5e7329eadc6f3b0",
+        "outcome": 1,
+        "resolution_date": "2023-05-01",
+        "source_url": "https://www.metaculus.com/api2/questions/16033/",
+        "source_row": 467,
+        "crowd": {
+          "probability": 0.71275,
+          "available_at": "2023-04-24T23:59:59.999999Z",
+          "observations": 8,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_6ac4d3e2ad196947ed59",
+        "outcome": 0,
+        "resolution_date": "2023-02-11",
+        "source_url": "https://www.metaculus.com/api2/questions/15005/",
+        "source_row": 400,
+        "crowd": {
+          "probability": 0.23704999999999998,
+          "available_at": "2023-02-08T23:59:59.999999Z",
+          "observations": 20,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      },
+      {
+        "case_id": "halawi_3b1f8b76e5c9ad6ef86f",
+        "outcome": 0,
+        "resolution_date": "2022-10-29",
+        "source_url": "https://www.metaculus.com/api2/questions/13097/",
+        "source_row": 746,
+        "crowd": {
+          "probability": 0.1046,
+          "available_at": "2022-10-17T23:59:59.999999Z",
+          "observations": 5,
+          "method": "mean of all supplied values on latest complete day at cutoff"
+        }
+      }
+    ]
+  },
+  "bundle_manifest": {
+    "schema_version": "vorhersage.replay.v1",
+    "created_at": "2026-09-09T15:14:09.018916Z",
+    "source": {
+      "dataset": "YuehHanChen/forecasting",
+      "revision": "c88acc8705f03c8a6526b0b057200c1f0b1b8505",
+      "split": "validation",
+      "file_sha256": "589a966ea2051d950d3704f30bf4a3686ac09a72dbd10b42fe4a96ca39549de6",
+      "url": "https://huggingface.co/datasets/YuehHanChen/forecasting/blob/c88acc8705f03c8a6526b0b057200c1f0b1b8505/validation.json"
+    },
+    "cases_sha256": "20bf1dfb8b24c77a7199d6ef1b2e746e9e03e7998ea138a3995818528581c39c",
+    "labels_sha256": "bace3f3e30dcff6c663b2aeaa5c485c208c0f1a788133d80250074e56c77ca83",
+    "source_rows": 840,
+    "eligible_rows": 146,
+    "selected_rows": 20,
+    "exclusion_counts": {
+      "category_filter": 375,
+      "insufficient_open_window": 90,
+      "not_binary": 229
+    },
+    "exclusions": [
+      {
+        "source_row": 0,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 1,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 5,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 7,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 8,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 9,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 10,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 12,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 13,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 15,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 16,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 19,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 20,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 21,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 22,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 23,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 24,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 25,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 26,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 27,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 28,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 29,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 30,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 32,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 33,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 34,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 35,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 36,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 37,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 38,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 39,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 40,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 41,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 44,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 47,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 48,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 49,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 50,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 51,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 52,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 53,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 54,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 55,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 56,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 57,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 59,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 60,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 61,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 62,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 63,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 64,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 65,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 66,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 67,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 70,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 72,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 73,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 75,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 77,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 78,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 79,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 80,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 81,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 82,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 83,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 84,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 85,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 86,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 90,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 91,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 92,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 93,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 95,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 96,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 98,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 100,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 101,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 102,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 103,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 104,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 105,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 106,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 107,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 108,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 109,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 110,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 111,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 113,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 114,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 115,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 116,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 118,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 119,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 120,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 121,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 122,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 123,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 125,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 126,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 127,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 128,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 131,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 132,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 135,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 136,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 137,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 139,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 140,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 141,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 142,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 145,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 146,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 149,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 150,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 151,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 152,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 153,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 154,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 155,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 158,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 159,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 160,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 162,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 163,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 164,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 165,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 166,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 167,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 168,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 169,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 170,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 171,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 172,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 173,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 174,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 175,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 176,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 177,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 178,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 179,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 180,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 181,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 182,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 183,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 184,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 185,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 186,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 187,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 188,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 189,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 190,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 191,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 192,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 193,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 194,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 195,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 196,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 197,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 198,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 199,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 200,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 201,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 202,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 203,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 204,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 205,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 206,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 207,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 208,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 209,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 210,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 211,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 212,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 213,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 214,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 215,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 216,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 217,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 218,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 219,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 220,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 221,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 222,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 223,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 224,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 225,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 226,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 227,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 228,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 229,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 230,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 231,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 232,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 233,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 234,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 235,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 236,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 237,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 238,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 239,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 240,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 241,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 242,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 243,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 244,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 245,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 246,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 247,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 248,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 249,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 250,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 251,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 252,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 253,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 254,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 255,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 256,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 257,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 258,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 259,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 260,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 261,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 262,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 263,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 264,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 265,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 266,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 267,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 268,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 269,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 270,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 271,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 272,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 273,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 274,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 275,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 276,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 277,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 278,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 279,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 280,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 281,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 282,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 283,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 284,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 285,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 286,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 287,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 288,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 289,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 290,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 291,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 292,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 293,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 294,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 295,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 296,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 297,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 298,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 299,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 300,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 301,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 302,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 303,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 304,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 305,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 306,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 307,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 308,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 309,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 310,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 311,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 312,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 313,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 314,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 315,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 316,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 317,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 318,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 319,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 320,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 321,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 322,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 323,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 324,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 325,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 326,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 327,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 328,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 329,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 330,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 331,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 332,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 333,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 334,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 335,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 336,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 337,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 338,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 339,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 340,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 341,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 342,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 343,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 344,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 345,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 346,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 347,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 348,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 349,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 350,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 351,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 352,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 353,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 354,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 355,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 356,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 357,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 358,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 359,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 360,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 361,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 362,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 363,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 364,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 365,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 366,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 367,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 368,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 369,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 370,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 371,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 372,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 373,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 374,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 375,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 376,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 377,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 378,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 379,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 380,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 381,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 382,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 383,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 384,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 385,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 386,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 387,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 388,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 389,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 390,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 391,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 392,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 393,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 394,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 395,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 396,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 397,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 398,
+        "reason": "not_binary"
+      },
+      {
+        "source_row": 401,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 402,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 403,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 404,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 405,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 406,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 407,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 408,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 409,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 410,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 411,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 412,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 413,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 414,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 415,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 416,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 417,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 418,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 419,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 420,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 421,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 422,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 423,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 424,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 427,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 428,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 429,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 430,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 431,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 432,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 433,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 434,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 435,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 436,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 437,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 438,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 439,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 440,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 465,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 466,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 468,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 470,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 471,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 473,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 475,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 476,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 478,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 479,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 482,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 483,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 484,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 485,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 486,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 487,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 488,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 489,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 490,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 491,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 492,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 493,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 494,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 495,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 496,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 497,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 498,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 499,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 500,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 501,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 502,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 503,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 504,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 505,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 506,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 507,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 508,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 509,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 510,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 511,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 512,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 513,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 514,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 515,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 517,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 518,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 519,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 520,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 522,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 523,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 524,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 525,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 526,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 528,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 530,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 531,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 532,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 533,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 534,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 535,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 536,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 537,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 538,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 540,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 541,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 542,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 543,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 544,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 545,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 546,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 548,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 549,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 550,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 551,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 552,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 553,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 554,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 555,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 556,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 558,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 560,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 561,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 563,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 564,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 565,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 566,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 567,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 568,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 569,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 570,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 571,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 572,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 573,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 574,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 575,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 576,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 578,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 579,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 580,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 582,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 584,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 585,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 586,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 587,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 588,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 589,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 591,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 592,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 593,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 594,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 595,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 596,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 597,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 598,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 599,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 600,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 602,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 603,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 604,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 605,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 606,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 608,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 609,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 610,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 611,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 612,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 613,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 614,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 615,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 616,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 617,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 618,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 619,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 620,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 621,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 622,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 623,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 624,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 626,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 627,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 628,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 629,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 630,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 631,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 632,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 633,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 634,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 635,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 636,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 637,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 638,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 639,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 640,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 641,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 642,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 643,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 644,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 645,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 646,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 647,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 648,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 649,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 650,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 652,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 653,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 655,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 656,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 657,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 658,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 659,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 660,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 661,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 662,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 663,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 664,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 667,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 668,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 669,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 670,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 671,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 673,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 674,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 675,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 676,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 677,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 678,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 679,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 680,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 681,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 682,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 683,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 684,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 685,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 686,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 687,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 688,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 689,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 713,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 714,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 715,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 716,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 717,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 718,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 719,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 720,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 721,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 722,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 723,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 724,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 725,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 726,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 727,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 729,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 730,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 731,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 732,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 733,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 734,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 735,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 736,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 737,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 738,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 739,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 749,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 750,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 751,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 752,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 753,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 754,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 755,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 756,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 758,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 759,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 760,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 761,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 762,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 763,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 764,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 765,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 766,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 767,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 768,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 769,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 770,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 771,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 772,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 773,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 774,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 776,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 778,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 779,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 780,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 781,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 782,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 783,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 784,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 785,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 786,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 787,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 788,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 790,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 797,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 799,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 800,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 801,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 802,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 803,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 804,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 805,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 806,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 807,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 808,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 809,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 810,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 811,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 812,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 813,
+        "reason": "insufficient_open_window"
+      },
+      {
+        "source_row": 814,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 815,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 816,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 817,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 818,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 819,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 820,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 821,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 822,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 823,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 824,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 825,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 826,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 827,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 828,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 829,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 830,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 832,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 833,
+        "reason": "category_filter"
+      },
+      {
+        "source_row": 838,
+        "reason": "category_filter"
+      }
+    ]
+  },
+  "selected": [
+    {
+      "forecast_id": "forecast_7cf8407dc2a64e16a3e6",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:18.185323Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_e751db7fc65620103248",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2022-09-07T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_e751db7fc65620103248",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2022-09-07T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.18144444444444444,
+      "available_at": "2022-09-06T23:59:59.999999Z",
+      "observations": 9,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_e751db7fc65620103248",
+      "forecaster": "baseline:crowd",
+      "outcome": 0,
+      "simulated_forecast_at": "2022-09-07T00:00:00+00:00",
+      "brier": 0.03292208641975308
+    },
+    {
+      "forecast_id": "forecast_a83382a9f26a4b9fa8fe",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:18.892951Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_1b51e7e23df6b7df57bf",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-01-31T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_1b51e7e23df6b7df57bf",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-01-31T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.6697272727272727,
+      "available_at": "2023-01-30T23:59:59.999999Z",
+      "observations": 22,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_1b51e7e23df6b7df57bf",
+      "forecaster": "baseline:crowd",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-01-31T00:00:00+00:00",
+      "brier": 0.44853461983471077
+    },
+    {
+      "forecast_id": "forecast_7930708ac98749adb0f2",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:19.608686Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_42090406b8ea80f6cf82",
+      "forecaster": "control:workflow_half",
+      "outcome": 1,
+      "simulated_forecast_at": "2023-05-09T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_42090406b8ea80f6cf82",
+      "forecaster": "baseline:half",
+      "outcome": 1,
+      "simulated_forecast_at": "2023-05-09T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5361356699687327,
+      "available_at": "2023-05-02T23:59:59.999999Z",
+      "observations": 2,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_42090406b8ea80f6cf82",
+      "forecaster": "baseline:crowd",
+      "outcome": 1,
+      "simulated_forecast_at": "2023-05-09T00:00:00+00:00",
+      "brier": 0.21517011667535643
+    },
+    {
+      "forecast_id": "forecast_a013207c15ec4bf6990f",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:20.317657Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_e8b132220f3614eb3ab6",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-04-12T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_e8b132220f3614eb3ab6",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-04-12T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.0955,
+      "available_at": "2023-04-09T23:59:59.999999Z",
+      "observations": 2,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_e8b132220f3614eb3ab6",
+      "forecaster": "baseline:crowd",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-04-12T00:00:00+00:00",
+      "brier": 0.00912025
+    },
+    {
+      "forecast_id": "forecast_cebf3ab0a6b14e69bd49",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:21.027535Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_ad49e6ced92a8fb23963",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-04-10T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_ad49e6ced92a8fb23963",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-04-10T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.10875,
+      "available_at": "2023-04-09T23:59:59.999999Z",
+      "observations": 4,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_ad49e6ced92a8fb23963",
+      "forecaster": "baseline:crowd",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-04-10T00:00:00+00:00",
+      "brier": 0.0118265625
+    },
+    {
+      "forecast_id": "forecast_7edca62f208448e7b7fa",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:21.734109Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_8a6d7df59f21aac491ad",
+      "forecaster": "control:workflow_half",
+      "outcome": 1,
+      "simulated_forecast_at": "2022-09-07T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_8a6d7df59f21aac491ad",
+      "forecaster": "baseline:half",
+      "outcome": 1,
+      "simulated_forecast_at": "2022-09-07T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.19983333333333334,
+      "available_at": "2022-09-06T23:59:59.999999Z",
+      "observations": 6,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_8a6d7df59f21aac491ad",
+      "forecaster": "baseline:crowd",
+      "outcome": 1,
+      "simulated_forecast_at": "2022-09-07T00:00:00+00:00",
+      "brier": 0.6402666944444445
+    },
+    {
+      "forecast_id": "forecast_7589cf88a6fd4845ba03",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:22.443319Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_b8a2a63d598d44bc7ff4",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-04-10T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_b8a2a63d598d44bc7ff4",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-04-10T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.0815,
+      "available_at": "2023-04-09T23:59:59.999999Z",
+      "observations": 4,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_b8a2a63d598d44bc7ff4",
+      "forecaster": "baseline:crowd",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-04-10T00:00:00+00:00",
+      "brier": 0.006642250000000001
+    },
+    {
+      "forecast_id": "forecast_df4d160f7105439bb702",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:23.183172Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_bf75ac284430c9c8ca5e",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-01-26T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_bf75ac284430c9c8ca5e",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-01-26T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "forecast_id": "forecast_d622a222dc254b09addd",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:23.936212Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_4fff839a073c79e6fe32",
+      "forecaster": "control:workflow_half",
+      "outcome": 1,
+      "simulated_forecast_at": "2023-04-08T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_4fff839a073c79e6fe32",
+      "forecaster": "baseline:half",
+      "outcome": 1,
+      "simulated_forecast_at": "2023-04-08T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.6392,
+      "available_at": "2023-04-07T23:59:59.999999Z",
+      "observations": 10,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_4fff839a073c79e6fe32",
+      "forecaster": "baseline:crowd",
+      "outcome": 1,
+      "simulated_forecast_at": "2023-04-08T00:00:00+00:00",
+      "brier": 0.13017664
+    },
+    {
+      "forecast_id": "forecast_c5ed569a22684dfd9dd8",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:24.639797Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_2256f87c55c1104beb67",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2022-10-18T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_2256f87c55c1104beb67",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2022-10-18T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.3315,
+      "available_at": "2022-10-17T23:59:59.999999Z",
+      "observations": 4,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_2256f87c55c1104beb67",
+      "forecaster": "baseline:crowd",
+      "outcome": 0,
+      "simulated_forecast_at": "2022-10-18T00:00:00+00:00",
+      "brier": 0.10989225000000001
+    },
+    {
+      "forecast_id": "forecast_c72541b27e20470cb5bc",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:25.347027Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_3be5aedc17a39782c9e8",
+      "forecaster": "control:workflow_half",
+      "outcome": 1,
+      "simulated_forecast_at": "2023-05-26T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_3be5aedc17a39782c9e8",
+      "forecaster": "baseline:half",
+      "outcome": 1,
+      "simulated_forecast_at": "2023-05-26T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "forecast_id": "forecast_a320e379518a4b6c975f",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:26.054781Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_c45dc3d0aa785561ec9d",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-03-15T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_c45dc3d0aa785561ec9d",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-03-15T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.09101666666666668,
+      "available_at": "2023-03-14T23:59:59.999999Z",
+      "observations": 6,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_c45dc3d0aa785561ec9d",
+      "forecaster": "baseline:crowd",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-03-15T00:00:00+00:00",
+      "brier": 0.008284033611111113
+    },
+    {
+      "forecast_id": "forecast_2e2301befe1b4ff5bcda",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:26.763966Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_dea83b6749a53ab172fd",
+      "forecaster": "control:workflow_half",
+      "outcome": 1,
+      "simulated_forecast_at": "2022-09-07T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_dea83b6749a53ab172fd",
+      "forecaster": "baseline:half",
+      "outcome": 1,
+      "simulated_forecast_at": "2022-09-07T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.22366666666666668,
+      "available_at": "2022-09-06T23:59:59.999999Z",
+      "observations": 6,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_dea83b6749a53ab172fd",
+      "forecaster": "baseline:crowd",
+      "outcome": 1,
+      "simulated_forecast_at": "2022-09-07T00:00:00+00:00",
+      "brier": 0.6026934444444444
+    },
+    {
+      "forecast_id": "forecast_28eabf1497d04f4091c0",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:27.470718Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_43940472f3f837a60a4e",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2022-10-27T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_43940472f3f837a60a4e",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2022-10-27T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.52,
+      "available_at": "2022-10-25T23:59:59.999999Z",
+      "observations": 1,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_43940472f3f837a60a4e",
+      "forecaster": "baseline:crowd",
+      "outcome": 0,
+      "simulated_forecast_at": "2022-10-27T00:00:00+00:00",
+      "brier": 0.27040000000000003
+    },
+    {
+      "forecast_id": "forecast_5a924cb1a9c944379fe3",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:28.284528Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_c58344c6fef52d9f4dfb",
+      "forecaster": "control:workflow_half",
+      "outcome": 1,
+      "simulated_forecast_at": "2022-03-24T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_c58344c6fef52d9f4dfb",
+      "forecaster": "baseline:half",
+      "outcome": 1,
+      "simulated_forecast_at": "2022-03-24T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.12142857142857144,
+      "available_at": "2022-03-23T23:59:59.999999Z",
+      "observations": 7,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_c58344c6fef52d9f4dfb",
+      "forecaster": "baseline:crowd",
+      "outcome": 1,
+      "simulated_forecast_at": "2022-03-24T00:00:00+00:00",
+      "brier": 0.7718877551020408
+    },
+    {
+      "forecast_id": "forecast_def3d435cd5048cd9072",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:29.048641Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_9ccd160a1e5310bf906e",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-04-12T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_9ccd160a1e5310bf906e",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-04-12T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.07625,
+      "available_at": "2023-04-09T23:59:59.999999Z",
+      "observations": 4,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_9ccd160a1e5310bf906e",
+      "forecaster": "baseline:crowd",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-04-12T00:00:00+00:00",
+      "brier": 0.0058140625
+    },
+    {
+      "forecast_id": "forecast_29e13de9e30c42a78289",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:29.786190Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_34a52d58645a0632b4ee",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-01-11T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_34a52d58645a0632b4ee",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-01-11T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.048600000000000004,
+      "available_at": "2023-01-10T23:59:59.999999Z",
+      "observations": 2,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_34a52d58645a0632b4ee",
+      "forecaster": "baseline:crowd",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-01-11T00:00:00+00:00",
+      "brier": 0.0023619600000000006
+    },
+    {
+      "forecast_id": "forecast_357e50db573e4ed48af2",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:30.505843Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_4bebc5e7329eadc6f3b0",
+      "forecaster": "control:workflow_half",
+      "outcome": 1,
+      "simulated_forecast_at": "2023-04-25T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_4bebc5e7329eadc6f3b0",
+      "forecaster": "baseline:half",
+      "outcome": 1,
+      "simulated_forecast_at": "2023-04-25T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.71275,
+      "available_at": "2023-04-24T23:59:59.999999Z",
+      "observations": 8,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_4bebc5e7329eadc6f3b0",
+      "forecaster": "baseline:crowd",
+      "outcome": 1,
+      "simulated_forecast_at": "2023-04-25T00:00:00+00:00",
+      "brier": 0.0825125625
+    },
+    {
+      "forecast_id": "forecast_edabbf4c4c93466f9c38",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:31.242617Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_6ac4d3e2ad196947ed59",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-02-09T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_6ac4d3e2ad196947ed59",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-02-09T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.23704999999999998,
+      "available_at": "2023-02-08T23:59:59.999999Z",
+      "observations": 20,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_6ac4d3e2ad196947ed59",
+      "forecaster": "baseline:crowd",
+      "outcome": 0,
+      "simulated_forecast_at": "2023-02-09T00:00:00+00:00",
+      "brier": 0.05619270249999999
+    },
+    {
+      "forecast_id": "forecast_2c9c1274a0214fb6b85b",
+      "probability": 0.5,
+      "issued_at": "2026-09-09T15:14:31.953105Z",
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_3b1f8b76e5c9ad6ef86f",
+      "forecaster": "control:workflow_half",
+      "outcome": 0,
+      "simulated_forecast_at": "2022-10-18T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.5,
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "method": "constant probability; computed at evaluation time",
+      "case_id": "halawi_3b1f8b76e5c9ad6ef86f",
+      "forecaster": "baseline:half",
+      "outcome": 0,
+      "simulated_forecast_at": "2022-10-18T00:00:00+00:00",
+      "brier": 0.25
+    },
+    {
+      "probability": 0.1046,
+      "available_at": "2022-10-17T23:59:59.999999Z",
+      "observations": 5,
+      "method": "mean of all supplied values on latest complete day at cutoff",
+      "issued_at": null,
+      "selected_run_cost_usd": 0,
+      "case_id": "halawi_3b1f8b76e5c9ad6ef86f",
+      "forecaster": "baseline:crowd",
+      "outcome": 0,
+      "simulated_forecast_at": "2022-10-18T00:00:00+00:00",
+      "brier": 0.01094116
+    }
+  ],
+  "exclusions": [
+    {
+      "case_id": "halawi_bf75ac284430c9c8ca5e",
+      "forecaster": "baseline:crowd",
+      "reason": "missing_forecast"
+    },
+    {
+      "case_id": "halawi_3be5aedc17a39782c9e8",
+      "forecaster": "baseline:crowd",
+      "reason": "missing_forecast"
+    }
+  ],
+  "summaries": {
+    "control:workflow_half": {
+      "available_n": 20,
+      "available_brier": 0.25,
+      "matched_n": 18,
+      "matched_brier": 0.25,
+      "selected_run_cost_usd": 0
+    },
+    "baseline:half": {
+      "available_n": 20,
+      "available_brier": 0.25,
+      "matched_n": 18,
+      "matched_brier": 0.25,
+      "selected_run_cost_usd": 0
+    },
+    "baseline:crowd": {
+      "available_n": 18,
+      "available_brier": 0.1897577305851034,
+      "matched_n": 18,
+      "matched_brier": 0.1897577305851034,
+      "selected_run_cost_usd": 0
+    }
+  },
+  "comparisons": [
+    {
+      "left": "control:workflow_half",
+      "right": "baseline:half",
+      "n": 18,
+      "by_case": [
+        {
+          "case_id": "halawi_1b51e7e23df6b7df57bf",
+          "event_group": "source_5358df6ce2a35e829ef3",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_2256f87c55c1104beb67",
+          "event_group": "source_a3046126b44e50860c4d",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_34a52d58645a0632b4ee",
+          "event_group": "source_723f82d5b68945d9eec8",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_3b1f8b76e5c9ad6ef86f",
+          "event_group": "source_7c34109252f13d49adf8",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_42090406b8ea80f6cf82",
+          "event_group": "source_77b778b0c9320062bc79",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_43940472f3f837a60a4e",
+          "event_group": "source_73a464fe1800de0b11bc",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_4bebc5e7329eadc6f3b0",
+          "event_group": "source_da6e41fd0143adff6850",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_4fff839a073c79e6fe32",
+          "event_group": "source_84794186ddf4992cb22b",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_6ac4d3e2ad196947ed59",
+          "event_group": "source_e564169405c7aecfc1ce",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_8a6d7df59f21aac491ad",
+          "event_group": "source_f1bcfd0b685f8e94d593",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_9ccd160a1e5310bf906e",
+          "event_group": "source_8db22b8da3ab9e1d5b5c",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_ad49e6ced92a8fb23963",
+          "event_group": "source_a6f07c03a5f387c8cb8a",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_b8a2a63d598d44bc7ff4",
+          "event_group": "source_50897e8533e2c61c4c37",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_c45dc3d0aa785561ec9d",
+          "event_group": "source_2b5d3dbd4872afe96c48",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_c58344c6fef52d9f4dfb",
+          "event_group": "source_6e0bc8435c1a23af771a",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_dea83b6749a53ab172fd",
+          "event_group": "source_d4a38de39f8608249fa0",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_e751db7fc65620103248",
+          "event_group": "source_aecbb22c9805a94026b4",
+          "difference": 0.0
+        },
+        {
+          "case_id": "halawi_e8b132220f3614eb3ab6",
+          "event_group": "source_6bf09c27bc13f87ba484",
+          "difference": 0.0
+        }
+      ],
+      "mean_brier_difference": 0.0,
+      "interpretation": "Negative favors left; no significance claim."
+    },
+    {
+      "left": "control:workflow_half",
+      "right": "baseline:crowd",
+      "n": 18,
+      "by_case": [
+        {
+          "case_id": "halawi_1b51e7e23df6b7df57bf",
+          "event_group": "source_5358df6ce2a35e829ef3",
+          "difference": -0.19853461983471077
+        },
+        {
+          "case_id": "halawi_2256f87c55c1104beb67",
+          "event_group": "source_a3046126b44e50860c4d",
+          "difference": 0.14010774999999998
+        },
+        {
+          "case_id": "halawi_34a52d58645a0632b4ee",
+          "event_group": "source_723f82d5b68945d9eec8",
+          "difference": 0.24763804
+        },
+        {
+          "case_id": "halawi_3b1f8b76e5c9ad6ef86f",
+          "event_group": "source_7c34109252f13d49adf8",
+          "difference": 0.23905884
+        },
+        {
+          "case_id": "halawi_42090406b8ea80f6cf82",
+          "event_group": "source_77b778b0c9320062bc79",
+          "difference": 0.03482988332464357
+        },
+        {
+          "case_id": "halawi_43940472f3f837a60a4e",
+          "event_group": "source_73a464fe1800de0b11bc",
+          "difference": -0.02040000000000003
+        },
+        {
+          "case_id": "halawi_4bebc5e7329eadc6f3b0",
+          "event_group": "source_da6e41fd0143adff6850",
+          "difference": 0.1674874375
+        },
+        {
+          "case_id": "halawi_4fff839a073c79e6fe32",
+          "event_group": "source_84794186ddf4992cb22b",
+          "difference": 0.11982335999999999
+        },
+        {
+          "case_id": "halawi_6ac4d3e2ad196947ed59",
+          "event_group": "source_e564169405c7aecfc1ce",
+          "difference": 0.1938072975
+        },
+        {
+          "case_id": "halawi_8a6d7df59f21aac491ad",
+          "event_group": "source_f1bcfd0b685f8e94d593",
+          "difference": -0.3902666944444445
+        },
+        {
+          "case_id": "halawi_9ccd160a1e5310bf906e",
+          "event_group": "source_8db22b8da3ab9e1d5b5c",
+          "difference": 0.2441859375
+        },
+        {
+          "case_id": "halawi_ad49e6ced92a8fb23963",
+          "event_group": "source_a6f07c03a5f387c8cb8a",
+          "difference": 0.2381734375
+        },
+        {
+          "case_id": "halawi_b8a2a63d598d44bc7ff4",
+          "event_group": "source_50897e8533e2c61c4c37",
+          "difference": 0.24335775
+        },
+        {
+          "case_id": "halawi_c45dc3d0aa785561ec9d",
+          "event_group": "source_2b5d3dbd4872afe96c48",
+          "difference": 0.2417159663888889
+        },
+        {
+          "case_id": "halawi_c58344c6fef52d9f4dfb",
+          "event_group": "source_6e0bc8435c1a23af771a",
+          "difference": -0.5218877551020408
+        },
+        {
+          "case_id": "halawi_dea83b6749a53ab172fd",
+          "event_group": "source_d4a38de39f8608249fa0",
+          "difference": -0.3526934444444444
+        },
+        {
+          "case_id": "halawi_e751db7fc65620103248",
+          "event_group": "source_aecbb22c9805a94026b4",
+          "difference": 0.21707791358024692
+        },
+        {
+          "case_id": "halawi_e8b132220f3614eb3ab6",
+          "event_group": "source_6bf09c27bc13f87ba484",
+          "difference": 0.24087975
+        }
+      ],
+      "mean_brier_difference": 0.060242269414896604,
+      "interpretation": "Negative favors left; no significance claim."
+    },
+    {
+      "left": "baseline:half",
+      "right": "baseline:crowd",
+      "n": 18,
+      "by_case": [
+        {
+          "case_id": "halawi_1b51e7e23df6b7df57bf",
+          "event_group": "source_5358df6ce2a35e829ef3",
+          "difference": -0.19853461983471077
+        },
+        {
+          "case_id": "halawi_2256f87c55c1104beb67",
+          "event_group": "source_a3046126b44e50860c4d",
+          "difference": 0.14010774999999998
+        },
+        {
+          "case_id": "halawi_34a52d58645a0632b4ee",
+          "event_group": "source_723f82d5b68945d9eec8",
+          "difference": 0.24763804
+        },
+        {
+          "case_id": "halawi_3b1f8b76e5c9ad6ef86f",
+          "event_group": "source_7c34109252f13d49adf8",
+          "difference": 0.23905884
+        },
+        {
+          "case_id": "halawi_42090406b8ea80f6cf82",
+          "event_group": "source_77b778b0c9320062bc79",
+          "difference": 0.03482988332464357
+        },
+        {
+          "case_id": "halawi_43940472f3f837a60a4e",
+          "event_group": "source_73a464fe1800de0b11bc",
+          "difference": -0.02040000000000003
+        },
+        {
+          "case_id": "halawi_4bebc5e7329eadc6f3b0",
+          "event_group": "source_da6e41fd0143adff6850",
+          "difference": 0.1674874375
+        },
+        {
+          "case_id": "halawi_4fff839a073c79e6fe32",
+          "event_group": "source_84794186ddf4992cb22b",
+          "difference": 0.11982335999999999
+        },
+        {
+          "case_id": "halawi_6ac4d3e2ad196947ed59",
+          "event_group": "source_e564169405c7aecfc1ce",
+          "difference": 0.1938072975
+        },
+        {
+          "case_id": "halawi_8a6d7df59f21aac491ad",
+          "event_group": "source_f1bcfd0b685f8e94d593",
+          "difference": -0.3902666944444445
+        },
+        {
+          "case_id": "halawi_9ccd160a1e5310bf906e",
+          "event_group": "source_8db22b8da3ab9e1d5b5c",
+          "difference": 0.2441859375
+        },
+        {
+          "case_id": "halawi_ad49e6ced92a8fb23963",
+          "event_group": "source_a6f07c03a5f387c8cb8a",
+          "difference": 0.2381734375
+        },
+        {
+          "case_id": "halawi_b8a2a63d598d44bc7ff4",
+          "event_group": "source_50897e8533e2c61c4c37",
+          "difference": 0.24335775
+        },
+        {
+          "case_id": "halawi_c45dc3d0aa785561ec9d",
+          "event_group": "source_2b5d3dbd4872afe96c48",
+          "difference": 0.2417159663888889
+        },
+        {
+          "case_id": "halawi_c58344c6fef52d9f4dfb",
+          "event_group": "source_6e0bc8435c1a23af771a",
+          "difference": -0.5218877551020408
+        },
+        {
+          "case_id": "halawi_dea83b6749a53ab172fd",
+          "event_group": "source_d4a38de39f8608249fa0",
+          "difference": -0.3526934444444444
+        },
+        {
+          "case_id": "halawi_e751db7fc65620103248",
+          "event_group": "source_aecbb22c9805a94026b4",
+          "difference": 0.21707791358024692
+        },
+        {
+          "case_id": "halawi_e8b132220f3614eb3ab6",
+          "event_group": "source_6bf09c27bc13f87ba484",
+          "difference": 0.24087975
+        }
+      ],
+      "mean_brier_difference": 0.060242269414896604,
+      "interpretation": "Negative favors left; no significance claim."
+    }
+  ],
+  "input_manifest": {
+    "forecast_7cf8407dc2a64e16a3e6": "4414aa93a4494de0b7df3f842bfe9ddd0af3bec6ed836d18429e7bfceb914c06",
+    "forecast_a83382a9f26a4b9fa8fe": "c57df95b8b1fc6a248365c8e5b1357309d7ad176a55ffb7d7fdf68bf124d73fb",
+    "forecast_7930708ac98749adb0f2": "6f2919cf74d6a7886442599a8c8831e4ff0ac98874c7153b1661ddb9ed56fce6",
+    "forecast_a013207c15ec4bf6990f": "594d45c7b7bfb40606d9acb1ca90cd7b1730ca6f4878b8bb81239c9267c92a59",
+    "forecast_cebf3ab0a6b14e69bd49": "d324f2c2ca9339c1809ba117c37b251d41e31f18ddcff5ec6b3b7ce7a8ebf42c",
+    "forecast_7edca62f208448e7b7fa": "b006f07cd6e4521fc705269760be517405f515400e66023dbc984b47615ca153",
+    "forecast_7589cf88a6fd4845ba03": "df96fe913083cafddb933d22d199055e62ed89954da12efc7f54d26018f28126",
+    "forecast_df4d160f7105439bb702": "dbcc26fa026fe1f6ef7b5f9dcdc34a417208db120f90bdb8737eda219c9e4fee",
+    "forecast_d622a222dc254b09addd": "54ed7d401cab027dd434351400b427404cf94829fd40e6df802bf6e53b1b7cf2",
+    "forecast_c5ed569a22684dfd9dd8": "001dce231412e9e636c5fa88fe96e30bb53590248f2b0bb36f8bbcac0c57c0f1",
+    "forecast_c72541b27e20470cb5bc": "b4dc3c1c214e8ace56cccddc2a78ed128736676ed962f7d4c751076676a1da1e",
+    "forecast_a320e379518a4b6c975f": "ee4bd5a5f0553c0a5a7bc303f5e726d37f87d3254fbcb895080ad53730534820",
+    "forecast_2e2301befe1b4ff5bcda": "a8b518418c001704843d82f17b648a7966ec5c54d05bc3dc30a20efbaa99f34b",
+    "forecast_28eabf1497d04f4091c0": "823d7045c9e60ca6dfe3e4e5bf83480c2aeda3fb664e228d3d02d025ff365069",
+    "forecast_5a924cb1a9c944379fe3": "30d01983658827847d559d49e6cb6f9add901086a5408420ab08da9b69ab77a7",
+    "forecast_def3d435cd5048cd9072": "fb39695100981d31edd3c8f72b10837a30e6e17a64a1c6d6696ed96343c37cd1",
+    "forecast_29e13de9e30c42a78289": "8563bc6da9633470632e2d2cdc300a494411aa201b8f90799af8dd3c5e5634e7",
+    "forecast_357e50db573e4ed48af2": "b58b737e09d7204cf58ae3b7d54ffaa6037ea4632779912d52e61727d5e974cc",
+    "forecast_edabbf4c4c93466f9c38": "0243adbda1a71d9ce9fd7b66db312e00fd559d672c8de00e459b0543cee75a20",
+    "forecast_2c9c1274a0214fb6b85b": "c73df19dec5d8d9e3d5242f178b4fef899227e2790f4bf6a76de13966f5d5dd2"
+  },
+  "limitations": [
+    "Historical replay; not prospective forecasting performance.",
+    "Question text and criteria may contain later edits; historical wording is not certified.",
+    "No archived research corpus is supplied; model training may contain outcomes.",
+    "Dataset resolution dates do not establish the earliest time the outcome was knowable.",
+    "Date-only crowd values are averaged within the latest available day, not treated as ordered intraday quotes.",
+    "Event groups initially identify source questions only; related-event clustering needs review.",
+    "Label separation is a process convention, not a filesystem sandbox.",
+    "No calibration or group uncertainty estimates on this smoke cohort."
+  ]
+}

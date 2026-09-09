@@ -1,0 +1,57 @@
+{
+  "task_id": "market",
+  "expected_revision": 3,
+  "idempotency_key": "demo_market",
+  "disposition": "completed",
+  "payload": {
+    "capture_ids": [
+      "c_betus",
+      "c_covers"
+    ],
+    "findings": [
+      {
+        "id": "f_betus_quote",
+        "claim": "BetUS's title table displays NE +2000; its narrative displays +1800.",
+        "source_ids": [
+          "c_betus"
+        ],
+        "role": "market_input_and_conflict",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ]
+      },
+      {
+        "id": "f_covers_quote",
+        "claim": "Covers displays NE +1400, with no verified quote timestamp or complete board in this observation.",
+        "source_ids": [
+          "c_covers"
+        ],
+        "role": "comparison_only",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "conflict_betus",
+        "kind": "same_page_disagreement",
+        "source_ids": [
+          "c_betus"
+        ],
+        "detail": "Use of +1800 versus +2000 changes the implied probability; the page does not establish which quote was updated last."
+      },
+      {
+        "id": "conflict_covers",
+        "kind": "unmatched_comparison",
+        "source_ids": [
+          "c_betus",
+          "c_covers"
+        ],
+        "detail": "Comparison differs in price, with unverified timestamp and underlying book; do not pool raw implied probabilities."
+      }
+    ]
+  }
+}

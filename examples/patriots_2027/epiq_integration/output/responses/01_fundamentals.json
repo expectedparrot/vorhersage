@@ -1,0 +1,321 @@
+{
+  "task_id": "fundamentals",
+  "expected_revision": 1,
+  "idempotency_key": "demo_fundamentals",
+  "disposition": "completed",
+  "payload": {
+    "capture_ids": [
+      "c_history",
+      "c_season",
+      "c_maye",
+      "c_mcdaniels",
+      "c_kuhr",
+      "c_brown",
+      "c_departures",
+      "c_turnover",
+      "c_protection",
+      "c_schedule",
+      "c_old_schedule"
+    ],
+    "coverage": {
+      "prior_performance": {
+        "disposition": "assessed",
+        "finding_ids": [
+          "f_season",
+          "f_runner_up_status",
+          "f_old_schedule"
+        ],
+        "interpretation": "A strong season and title-game appearance establish contention, but raw results are not opponent-adjusted and the comparable cohort is small."
+      },
+      "quarterback": {
+        "disposition": "assessed",
+        "finding_ids": [
+          "f_maye",
+          "f_protection"
+        ],
+        "interpretation": "Elite regular-season production supports a high ceiling. The playoff protection failure limits confidence against elite opponents."
+      },
+      "coaching": {
+        "disposition": "assessed",
+        "finding_ids": [
+          "f_offensive_continuity",
+          "f_defensive_continuity"
+        ],
+        "interpretation": "Treat coaching as continuity, not two new-coach upgrades; title changes alone are not incremental performance."
+      },
+      "roster_changes": {
+        "disposition": "assessed",
+        "finding_ids": [
+          "f_brown_addition",
+          "f_departures",
+          "f_other_turnover",
+          "f_protection"
+        ],
+        "interpretation": "Brown and other arrivals create upside, while departures, fit, line health and defensive turnover prevent a simple additions-only adjustment."
+      },
+      "schedule": {
+        "disposition": "assessed",
+        "finding_ids": [
+          "f_schedule",
+          "f_old_schedule"
+        ],
+        "interpretation": "The road slate and travel temper assumptions about repeating the record and securing advantageous seeding. Prior-year opponent records are an imperfect measure."
+      }
+    },
+    "findings": [
+      {
+        "claim": "The 2025 regular season ended 14–3, with 490 points scored and 320 allowed.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_season",
+        "role": "prior_strength",
+        "source_ids": [
+          "c_season"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_season",
+          "record_sha256": "171a907684d2c253b76bb8b47dcca76d676f34f475f7f682793e1c55fa3bef82",
+          "claim_ids": [
+            "clm_d573f432fe70466e"
+          ],
+          "evidence_ids": [
+            "evd_619b4da274434996"
+          ]
+        }
+      },
+      {
+        "claim": "Maye's 2025 regular-season passing line was 4,394 yards, 31 touchdowns and 8 interceptions.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_maye",
+        "role": "quarterback_strength",
+        "source_ids": [
+          "c_maye"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_maye",
+          "record_sha256": "9b76a84754036ca3d3e8719c8ff1fd2e0fa997930f542762d0bd67acaf6953ab",
+          "claim_ids": [
+            "clm_81b7892f107d4c2b"
+          ],
+          "evidence_ids": [
+            "evd_6f2fbafeecf845ab"
+          ]
+        }
+      },
+      {
+        "claim": "McDaniels remains offensive coordinator in 2026 after returning in 2025.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_offensive_continuity",
+        "role": "coaching_continuity",
+        "source_ids": [
+          "c_mcdaniels"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_offensive_continuity",
+          "record_sha256": "76212a5aad935fb9932f04cae48122f861df89478ddeb2b08d621a5a0c6d019d",
+          "claim_ids": [
+            "clm_14b64039a8804c90"
+          ],
+          "evidence_ids": [
+            "evd_2c326482b9074413"
+          ]
+        }
+      },
+      {
+        "claim": "Kuhr becomes defensive coordinator after already assuming play-calling in 2025.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_defensive_continuity",
+        "role": "coaching_continuity",
+        "source_ids": [
+          "c_kuhr"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_defensive_continuity",
+          "record_sha256": "27a16ad68cfeb4f31a777cea70b84bae03ace2e6945813ce468ffb3c84f60783",
+          "claim_ids": [
+            "clm_38e4f04707f449c6"
+          ],
+          "evidence_ids": [
+            "evd_526c58c9d00644a4"
+          ]
+        }
+      },
+      {
+        "claim": "New England acquired A.J. Brown on June 1, 2026.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_brown_addition",
+        "role": "roster_gain",
+        "source_ids": [
+          "c_brown"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_brown_addition",
+          "record_sha256": "0a3c2adc2b64389825f48d3faa0673507738f80d965dbbd212400f284b7dd39a",
+          "claim_ids": [
+            "clm_a91c763955064aa5"
+          ],
+          "evidence_ids": [
+            "evd_d1997d00c1214cae"
+          ]
+        }
+      },
+      {
+        "claim": "Diggs was released and Bradbury traded; Brown joins a changed offense.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_departures",
+        "role": "roster_offset",
+        "source_ids": [
+          "c_departures"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_departures",
+          "record_sha256": "93f409f5ebde93b54d5cd4d16621d9476be7e3976d7d3b21fe793549f784351e",
+          "claim_ids": [
+            "clm_84504379269540a2"
+          ],
+          "evidence_ids": [
+            "evd_bc49bcdc499f4e58"
+          ]
+        }
+      },
+      {
+        "claim": "Arrivals include Doubs, Byard and Dre'Mont Jones; departures include Chaisson and Tonga.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_other_turnover",
+        "role": "net_roster_assessment",
+        "source_ids": [
+          "c_turnover"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_other_turnover",
+          "record_sha256": "4cbca059543e70ddb277caa5f5f7fcd5676c49e3ceb474370ac20ad623c64f6c",
+          "claim_ids": [
+            "clm_52aed5d779004e87"
+          ],
+          "evidence_ids": [
+            "evd_029ada21fd824c4b"
+          ]
+        }
+      },
+      {
+        "claim": "The Super Bowl loss included six sacks and heavy pressure; the 2026 line has personnel changes.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_protection",
+        "role": "playoff_risk",
+        "source_ids": [
+          "c_protection"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_protection",
+          "record_sha256": "f12b748f15079699d801bbe197e7bef9b0e6b424ec58a0ddf6b764bb0be6784c",
+          "claim_ids": [
+            "clm_a506de6028de4fc8"
+          ],
+          "evidence_ids": [
+            "evd_588fca269efc463a"
+          ]
+        }
+      },
+      {
+        "claim": "The 2026 schedule includes several difficult away assignments and Detroit in Munich.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_schedule",
+        "role": "qualification_and_seeding",
+        "source_ids": [
+          "c_schedule"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_schedule",
+          "record_sha256": "42f2569a34fd61c3476b353c331893726768bca9d5e2457798fe641a2653bc3a",
+          "claim_ids": [
+            "clm_82d6c0d9e91448d2"
+          ],
+          "evidence_ids": [
+            "evd_82ee6c18d77742bf"
+          ]
+        }
+      },
+      {
+        "claim": "The 2025 schedule looked favorable using opponents' 2024 records; that measure is not a realized 2025 adjustment.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_old_schedule",
+        "role": "reference_class_caution",
+        "source_ids": [
+          "c_old_schedule"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_old_schedule",
+          "record_sha256": "44d096984e536a9659b52f2d5ac7f4b364827db164c22093cadf124f68c8287f",
+          "claim_ids": [
+            "clm_934e8e7e89f14be5"
+          ],
+          "evidence_ids": [
+            "evd_1d1782188b2a4367"
+          ]
+        }
+      },
+      {
+        "claim": "New England was runner-up for the 2025 season, making prior runners-up a candidate reference class.",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ],
+        "id": "f_runner_up_status",
+        "role": "reference_class_membership",
+        "source_ids": [
+          "c_history"
+        ],
+        "epiq_reference": {
+          "project_id": "prj_68e120f906da43bb",
+          "record_key": "finding:f_runner_up_status",
+          "record_sha256": "c8ba4dbe7cfcdcb5775188f7565893dbb561df9fc519b896dd68ee69f6aeef06",
+          "claim_ids": [
+            "clm_2751a54be03742c0"
+          ],
+          "evidence_ids": [
+            "evd_3660a596a41c4bfe"
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "kind": "software_control_only",
+  "questions": 20,
+  "model_calls": 0,
+  "evaluation_id": "replay_evaluation_17b12f5ec3594c8da755",
+  "summaries": {
+    "control:workflow_half": {
+      "available_n": 20,
+      "available_brier": 0.25,
+      "matched_n": 18,
+      "matched_brier": 0.25,
+      "selected_run_cost_usd": 0
+    },
+    "baseline:half": {
+      "available_n": 20,
+      "available_brier": 0.25,
+      "matched_n": 18,
+      "matched_brier": 0.25,
+      "selected_run_cost_usd": 0
+    },
+    "baseline:crowd": {
+      "available_n": 18,
+      "available_brier": 0.1897577305851034,
+      "matched_n": 18,
+      "matched_brier": 0.1897577305851034,
+      "selected_run_cost_usd": 0
+    }
+  },
+  "doctor": {
+    "ok": true,
+    "artifacts_checked": 201,
+    "sqlite_integrity": "ok"
+  },
+  "limitations": [
+    "Historical replay; not prospective forecasting performance.",
+    "Question text and criteria may contain later edits; historical wording is not certified.",
+    "No archived research corpus is supplied; model training may contain outcomes.",
+    "Dataset resolution dates do not establish the earliest time the outcome was knowable.",
+    "Date-only crowd values are averaged within the latest available day, not treated as ordered intraday quotes.",
+    "Event groups initially identify source questions only; related-event clustering needs review.",
+    "Label separation is a process convention, not a filesystem sandbox.",
+    "No calibration or group uncertainty estimates on this smoke cohort."
+  ]
+}

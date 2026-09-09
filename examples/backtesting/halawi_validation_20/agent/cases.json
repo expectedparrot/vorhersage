@@ -1,0 +1,453 @@
+{
+  "schema_version": "vorhersage.replay.v1",
+  "source": {
+    "dataset": "YuehHanChen/forecasting",
+    "revision": "c88acc8705f03c8a6526b0b057200c1f0b1b8505",
+    "split": "validation",
+    "file_sha256": "589a966ea2051d950d3704f30bf4a3686ac09a72dbd10b42fe4a96ca39549de6",
+    "url": "https://huggingface.co/datasets/YuehHanChen/forecasting/blob/c88acc8705f03c8a6526b0b057200c1f0b1b8505/validation.json"
+  },
+  "selection": {
+    "seed": "vorhersage-1",
+    "limit": 20,
+    "days_after_open": 7,
+    "categories": [
+      "Arts & Recreation",
+      "Environment & Energy",
+      "Science & Tech",
+      "Sports"
+    ],
+    "ranking": "sha256 of seed and source URL",
+    "purpose": "development_smoke_test"
+  },
+  "limitations": [
+    "Historical replay; not prospective forecasting performance.",
+    "Question text and criteria may contain later edits; historical wording is not certified.",
+    "No archived research corpus is supplied; model training may contain outcomes.",
+    "Dataset resolution dates do not establish the earliest time the outcome was knowable.",
+    "Date-only crowd values are averaged within the latest available day, not treated as ordered intraday quotes.",
+    "Event groups initially identify source questions only; related-event clustering needs review."
+  ],
+  "cases": [
+    {
+      "id": "halawi_e751db7fc65620103248",
+      "question": {
+        "id": "halawi_e751db7fc65620103248",
+        "text": "Will Los Angeles Chargers advance to the divisional round of the 2023 NFL playoffs?",
+        "yes": "This question will resolve as Yes for the 8 teams below which advance to divisional round of the 2022-2023 NFL playoffs, according to the National Football League. All other teams will resolve as No.\nFine Print\nIf the divisional round of the 2022-2023 NFL playoffs is not held by April 1, 2023, or is officially cancelled, all teams will resolve as Ambiguous.\nThe results on the respective game days will be used for resolution. Any rulings by the NFL occurring more than 24 hours after the end of the game will be disregarded for the resolution of this question.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-02-02T23:59:59.999999Z",
+        "resolve_after": "2023-02-02T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/12414/",
+        "event_group": "source_aecbb22c9805a94026b4",
+        "domain": "Sports",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2022-09-07T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_1b51e7e23df6b7df57bf",
+      "question": {
+        "id": "halawi_1b51e7e23df6b7df57bf",
+        "text": "Will New York City break its record by going more than 332 days without measurable snow?",
+        "yes": "This question will resolve as \"No\" if there is measurable snowfall at Central Park (KNYC weather station) at any point between the question's launch and the end of the day on February 4th, 2023. We will rely on New York Metro Weather to supply information about snowfall in Central Park.\nThis question will resolve as \"Yes\" if either the New York Times or New York Metro Weather report, via their websites or Twitter accounts, that New York City has broken the record for most days without measurable snowfall.\nIf there is uncertainty about the resolution, we will defer to public statements from New York Metro Weather and the New York Times.\nOnly an affirmative statement that New York City has broken the record for snowless days will suffice for a positive resolution. If public statements indicate the city has tied the record, but has not broken it, then the question resolves as \"No.\" If there is no evidence of snow, but Metaculus administrators cannot find affirmative statements that the record has been broken by the time of resolution, then the question resolves as \"Ambiguous.\"\n*This question is part of the Beginner Tournament, a set of questions designed to be an introduction to forecasting for those who are relatively new.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-02-03T23:59:59.999999Z",
+        "resolve_after": "2023-02-03T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/14821/",
+        "event_group": "source_5358df6ce2a35e829ef3",
+        "domain": "Environment & Energy",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-01-31T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_42090406b8ea80f6cf82",
+      "question": {
+        "id": "halawi_42090406b8ea80f6cf82",
+        "text": "Will the Golden State Warriors win Game 5 of the 2023 NBA Western Conference Semifinals vs. the Los Angeles Lakers?",
+        "yes": "Source question resolves YES; separate criteria unavailable; manual review required.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-05-11T23:59:59.999999Z",
+        "resolve_after": "2023-05-11T23:59:59.999999Z",
+        "resolution_source": "https://manifold.markets/KevinBurke/will-the-golden-state-warriors-win-a1fa55232f21",
+        "event_group": "source_77b778b0c9320062bc79",
+        "domain": "Sports",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-05-09T00:00:00+00:00",
+      "criteria_available": false,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_e8b132220f3614eb3ab6",
+      "question": {
+        "id": "halawi_e8b132220f3614eb3ab6",
+        "text": "Will the Dallas Stars win the 2022-23 Stanley Cup?",
+        "yes": "The team that is crowned the champion after Game 4, 5, 6, or 7 of the NHL Stanley Cup Finals set to begin on June 8th and end no later than June 18 (or June 19th, in the case where the game goes past 12a ET).\nFine Print\nThis question will resolve as early as the evening of Game 4 (precise date not yet confirmed, but will be between June 8-18) and as late as the evening of June 18 (perhaps the early morning of June 19th, if the game is hosted by a west coast-based team) based on the winner being announced by reputable sources and/or NHL.com.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-06-19T23:59:59.999999Z",
+        "resolve_after": "2023-06-19T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/15774/",
+        "event_group": "source_6bf09c27bc13f87ba484",
+        "domain": "Sports",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-04-12T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_ad49e6ced92a8fb23963",
+      "question": {
+        "id": "halawi_ad49e6ced92a8fb23963",
+        "text": "Will the Edmonton Oilers win the 2022-23 Stanley Cup?",
+        "yes": "The team that is crowned the champion after Game 4, 5, 6, or 7 of the NHL Stanley Cup Finals set to begin on June 8th and end no later than June 18 (or June 19th, in the case where the game goes past 12a ET).\nFine Print\nThis question will resolve as early as the evening of Game 4 (precise date not yet confirmed, but will be between June 8-18) and as late as the evening of June 18 (perhaps the early morning of June 19th, if the game is hosted by a west coast-based team) based on the winner being announced by reputable sources and/or NHL.com.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-06-19T23:59:59.999999Z",
+        "resolve_after": "2023-06-19T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/15737/",
+        "event_group": "source_a6f07c03a5f387c8cb8a",
+        "domain": "Sports",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-04-10T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_8a6d7df59f21aac491ad",
+      "question": {
+        "id": "halawi_8a6d7df59f21aac491ad",
+        "text": "Will Dallas Cowboys advance to the divisional round of the 2023 NFL playoffs?",
+        "yes": "This question will resolve as Yes for the 8 teams below which advance to divisional round of the 2022-2023 NFL playoffs, according to the National Football League. All other teams will resolve as No.\nFine Print\nIf the divisional round of the 2022-2023 NFL playoffs is not held by April 1, 2023, or is officially cancelled, all teams will resolve as Ambiguous.\nThe results on the respective game days will be used for resolution. Any rulings by the NFL occurring more than 24 hours after the end of the game will be disregarded for the resolution of this question.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-02-02T23:59:59.999999Z",
+        "resolve_after": "2023-02-02T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/12415/",
+        "event_group": "source_f1bcfd0b685f8e94d593",
+        "domain": "Sports",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2022-09-07T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_b8a2a63d598d44bc7ff4",
+      "question": {
+        "id": "halawi_b8a2a63d598d44bc7ff4",
+        "text": "Will the LA Kings win the 2022-23 Stanley Cup?",
+        "yes": "The team that is crowned the champion after Game 4, 5, 6, or 7 of the NHL Stanley Cup Finals set to begin on June 8th and end no later than June 18 (or June 19th, in the case where the game goes past 12a ET).\nFine Print\nThis question will resolve as early as the evening of Game 4 (precise date not yet confirmed, but will be between June 8-18) and as late as the evening of June 18 (perhaps the early morning of June 19th, if the game is hosted by a west coast-based team) based on the winner being announced by reputable sources and/or NHL.com.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-06-19T23:59:59.999999Z",
+        "resolve_after": "2023-06-19T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/15736/",
+        "event_group": "source_50897e8533e2c61c4c37",
+        "domain": "Sports",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-04-10T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_bf75ac284430c9c8ca5e",
+      "question": {
+        "id": "halawi_bf75ac284430c9c8ca5e",
+        "text": "Will GPT-4 input and/or output images? (Input Yes, Output Yes)",
+        "yes": "The listed option which matches the image input and output capabilities of GPT-4 will resolve as Yes and all others will resolve as No. If OpenAI releases it under a different name but makes it clear that it is also \"GPT-4\", this would count.\nResolution will be determined according to information provided in the first announcement describing the release of GPT-4 which contains details about the model (for example a blog post would be used while a Tweet or brief press release would not). Capabilities from all described versions or tiers will be used. For example, if a free text-only version is released along with a paid version capable of image input and image generation then GPT-4 would be considered to be capable of both image input and generation. A limited or restricted-access release of GPT-4 will be used for resolution so long as details about the model's capabilities are made public by OpenAI.\nIf GPT-4 is not released before January 1, 2025, all subquestions resolves as Ambiguous",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2025-01-01T23:59:59.999999Z",
+        "resolve_after": "2025-01-01T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/14628/",
+        "event_group": "source_06c9acce0ae623704188",
+        "domain": "Science & Tech",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-01-26T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_4fff839a073c79e6fe32",
+      "question": {
+        "id": "halawi_4fff839a073c79e6fe32",
+        "text": "Will SpaceX receive a launch license for Starship from the FAA before April 15th, 2023?",
+        "yes": "This question will resolve Yes if SpaceX receives a launch license before April 15, 2023, as indicated by:\nA statement from SpaceX or a SpaceX spokesperson\nA statement from the FAA\nAt least two credible media reports",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-04-14T23:59:59.999999Z",
+        "resolve_after": "2023-04-14T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/15688/",
+        "event_group": "source_84794186ddf4992cb22b",
+        "domain": "Science & Tech",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-04-08T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_2256f87c55c1104beb67",
+      "question": {
+        "id": "halawi_2256f87c55c1104beb67",
+        "text": "Will Magnus Carlsen win the FIDE World Fischer Random Chess Championship 2022?",
+        "yes": "This question will resolve as Yes for the player who wins the FIDE World Fischer Random Chess Championship 2022, according to FIDE. All other players will resolve as No.\nFine Print\nIf a player is officially replaced by FIDE before the tournament begins on October 25, that player will resolve as Ambiguous, a new sub-question will be created for the replacement player.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2022-10-31T23:59:59.999999Z",
+        "resolve_after": "2022-10-31T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/13092/",
+        "event_group": "source_a3046126b44e50860c4d",
+        "domain": "Sports",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2022-10-18T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_3be5aedc17a39782c9e8",
+      "question": {
+        "id": "halawi_3be5aedc17a39782c9e8",
+        "text": "Will there be another well-recognized letter/statement on AI risk by May 31, 2023?",
+        "yes": "Source question resolves YES; separate criteria unavailable; manual review required.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-05-30T23:59:59.999999Z",
+        "resolve_after": "2023-05-30T23:59:59.999999Z",
+        "resolution_source": "https://manifold.markets/_T_Grass/will-there-be-another-wellrecognize",
+        "event_group": "source_5d5150b36e176bfbbb74",
+        "domain": "Science & Tech",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-05-26T00:00:00+00:00",
+      "criteria_available": false,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_c45dc3d0aa785561ec9d",
+      "question": {
+        "id": "halawi_c45dc3d0aa785561ec9d",
+        "text": "Will SpaceX launch Starship into orbit before 1 April 2023?",
+        "yes": "Source question resolves YES; separate criteria unavailable; manual review required.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-04-01T23:59:59.999999Z",
+        "resolve_after": "2023-04-01T23:59:59.999999Z",
+        "resolution_source": "https://www.infer-pub.com/questions/1235",
+        "event_group": "source_2b5d3dbd4872afe96c48",
+        "domain": "Science & Tech",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-03-15T00:00:00+00:00",
+      "criteria_available": false,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_dea83b6749a53ab172fd",
+      "question": {
+        "id": "halawi_dea83b6749a53ab172fd",
+        "text": "Will San Francisco 49ers advance to the divisional round of the 2023 NFL playoffs?",
+        "yes": "This question will resolve as Yes for the 8 teams below which advance to divisional round of the 2022-2023 NFL playoffs, according to the National Football League. All other teams will resolve as No.\nFine Print\nIf the divisional round of the 2022-2023 NFL playoffs is not held by April 1, 2023, or is officially cancelled, all teams will resolve as Ambiguous.\nThe results on the respective game days will be used for resolution. Any rulings by the NFL occurring more than 24 hours after the end of the game will be disregarded for the resolution of this question.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-02-02T23:59:59.999999Z",
+        "resolve_after": "2023-02-02T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/12429/",
+        "event_group": "source_d4a38de39f8608249fa0",
+        "domain": "Sports",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2022-09-07T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_43940472f3f837a60a4e",
+      "question": {
+        "id": "halawi_43940472f3f837a60a4e",
+        "text": "Will the Kakhovka dam be breached before May 2023?",
+        "yes": "The Dnieper, or Dnipro, is a major European river that flows through the middle of Ukraine, discharging into the Black Sea in the South. The Kakhovka dam, about 50 miles upstream of Kherson, interrupts its flow and creates the large Kakhovka reservoir on its upstream side.\nAs of late October 2022, Russian forces occupied the area of Kherson oblast and the Kakhovka dam, but were not expected to hold for long against the oncoming Ukrainian offensive. As evacuations and military preparations continued, the Russians began accusing the Ukrainian side of plotting to attack the Kakhovka dam, which could cause massive flooding downstream. Some interpreted this as a preparatory move before Russia itself potentially demolished the dam and blamed Ukraine.\nWill the Kakhovka dam be breached before 1 May 2023?\nResolves as Yes if the dam suffers a significant breach or failure at any time before 00:00 local 1 May 2023.\nResolves as No if available evidence shows the Kakhovka dam remains intact at 00:00 local time, 1 May 2023, and there are no confirmed reports of a previous significant breach or failure.\nA \"significant\" breach or failure is defined as one that releases at least 0.2 cubic kilometres of water or 1% of the Kakhovka reservoir capacity, whichever is lower.\nMetaculus Admins will use their best judgement and the best available sources in determining resolution, including reputable sources such as the Institute for the Study of War and similar analysts, especially those relying on publicly available commercial satellite photos.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-04-30T23:59:59.999999Z",
+        "resolve_after": "2023-04-30T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/13176/",
+        "event_group": "source_73a464fe1800de0b11bc",
+        "domain": "Environment & Energy",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2022-10-27T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_c58344c6fef52d9f4dfb",
+      "question": {
+        "id": "halawi_c58344c6fef52d9f4dfb",
+        "text": "Will a Boeing Starliner spacecraft successfully dock with the International Space Station (ISS) before 15 June 2022?",
+        "yes": "Source question resolves YES; separate criteria unavailable; manual review required.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2022-05-21T23:59:59.999999Z",
+        "resolve_after": "2022-05-21T23:59:59.999999Z",
+        "resolution_source": "https://www.gjopen.com/questions/2320",
+        "event_group": "source_6e0bc8435c1a23af771a",
+        "domain": "Science & Tech",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2022-03-24T00:00:00+00:00",
+      "criteria_available": false,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_9ccd160a1e5310bf906e",
+      "question": {
+        "id": "halawi_9ccd160a1e5310bf906e",
+        "text": "Will the Minnesota Wild win the 2022-23 Stanley Cup?",
+        "yes": "The team that is crowned the champion after Game 4, 5, 6, or 7 of the NHL Stanley Cup Finals set to begin on June 8th and end no later than June 18 (or June 19th, in the case where the game goes past 12a ET).\nFine Print\nThis question will resolve as early as the evening of Game 4 (precise date not yet confirmed, but will be between June 8-18) and as late as the evening of June 18 (perhaps the early morning of June 19th, if the game is hosted by a west coast-based team) based on the winner being announced by reputable sources and/or NHL.com.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-06-19T23:59:59.999999Z",
+        "resolve_after": "2023-06-19T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/15775/",
+        "event_group": "source_8db22b8da3ab9e1d5b5c",
+        "domain": "Sports",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-04-12T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_34a52d58645a0632b4ee",
+      "question": {
+        "id": "halawi_34a52d58645a0632b4ee",
+        "text": "Will China launch more orbital rockets than the U.S. in January 2023?",
+        "yes": "Source question resolves YES; separate criteria unavailable; manual review required.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-02-01T23:59:59.999999Z",
+        "resolve_after": "2023-02-01T23:59:59.999999Z",
+        "resolution_source": "https://www.infer-pub.com/questions/1211",
+        "event_group": "source_723f82d5b68945d9eec8",
+        "domain": "Science & Tech",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-01-11T00:00:00+00:00",
+      "criteria_available": false,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_4bebc5e7329eadc6f3b0",
+      "question": {
+        "id": "halawi_4bebc5e7329eadc6f3b0",
+        "text": "Will either of last year's disc golf champions, Kristin Tattar or Calvin Heimburg, win 1st place in Jonesboro again this year?",
+        "yes": "This question will resolve yes if either or both of Kristin Tattar or Calvin Heimburg place first in the Play It Again Sports Jonesboro Open.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-04-28T23:59:59.999999Z",
+        "resolve_after": "2023-04-28T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/16033/",
+        "event_group": "source_da6e41fd0143adff6850",
+        "domain": "Sports",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-04-25T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_6ac4d3e2ad196947ed59",
+      "question": {
+        "id": "halawi_6ac4d3e2ad196947ed59",
+        "text": "In 2023, will a non-European team win the FIFA Club World Cup for the first time since 2012?",
+        "yes": "The question will resolve as \"Yes\" if a team other than Real Madrid, the European representative, wins the 2022 FIFA Club World Cup.\nThe question will resolve as \"No\" if Real Madrid wins the FIFA Club World Cup, or if for any reason FIFA does not name a winner of the tournament.\n*This question is part of the Beginner Tournament, a set of questions designed to be an introduction to forecasting for those who are relatively new.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2023-02-11T23:59:59.999999Z",
+        "resolve_after": "2023-02-11T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/15005/",
+        "event_group": "source_e564169405c7aecfc1ce",
+        "domain": "Sports",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2023-02-09T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    },
+    {
+      "id": "halawi_3b1f8b76e5c9ad6ef86f",
+      "question": {
+        "id": "halawi_3b1f8b76e5c9ad6ef86f",
+        "text": "Will Nodirbek Abdusattorov win the FIDE World Fischer Random Chess Championship 2022?",
+        "yes": "This question will resolve as Yes for the player who wins the FIDE World Fischer Random Chess Championship 2022, according to FIDE. All other players will resolve as No.\nFine Print\nIf a player is officially replaced by FIDE before the tournament begins on October 25, that player will resolve as Ambiguous, a new sub-question will be created for the replacement player.",
+        "no": "Source question resolves NO under its original criteria.",
+        "void": "Ambiguous criteria or invalid source resolution; exclude from substantive evaluation.",
+        "event_deadline": "2022-10-31T23:59:59.999999Z",
+        "resolve_after": "2022-10-31T23:59:59.999999Z",
+        "resolution_source": "https://www.metaculus.com/api2/questions/13097/",
+        "event_group": "source_7c34109252f13d49adf8",
+        "domain": "Sports",
+        "profile": "general",
+        "kind": "real"
+      },
+      "information_as_of": "2022-10-18T00:00:00+00:00",
+      "criteria_available": true,
+      "historical_wording_audit": "unverified",
+      "evidence_status": "no_archived_research_supplied"
+    }
+  ]
+}

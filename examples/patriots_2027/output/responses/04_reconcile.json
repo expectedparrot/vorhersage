@@ -1,0 +1,44 @@
+{
+  "task_id": "reconcile",
+  "expected_revision": 4,
+  "idempotency_key": "demo_reconcile",
+  "disposition": "inconclusive",
+  "payload": {
+    "capture_ids": [
+      "c_fanduel"
+    ],
+    "findings": [
+      {
+        "id": "f_fanduel_quote",
+        "claim": "The FanDuel title table displays NE +1700. Its Rams table/header prices also differ.",
+        "source_ids": [
+          "c_fanduel"
+        ],
+        "role": "market_input_and_conflict",
+        "entity_ids": [
+          "team_ne",
+          "super_bowl_lxi"
+        ]
+      }
+    ],
+    "decisions": [
+      {
+        "action": "use_complete_tables",
+        "reason": "Apply one declared extraction rule to each board; this does not prove either table is the latest executable price."
+      },
+      {
+        "action": "exclude_covers_from_pool",
+        "reason": "No matching complete board or verified quote timestamp; retain it as a reason for sensitivity and later checking."
+      },
+      {
+        "action": "retain_two_book_dependence",
+        "reason": "Books use overlapping information; equal weighting is a simple baseline, not an independent-evidence update."
+      }
+    ],
+    "remaining_unknowns": [
+      "Exact market quote times and executable prices.",
+      "Whether page discrepancies reflect caching, stale prose, or another cause.",
+      "How much each team's margin differs from proportional allocation."
+    ]
+  }
+}

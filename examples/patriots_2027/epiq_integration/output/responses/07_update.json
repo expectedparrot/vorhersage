@@ -1,0 +1,84 @@
+{
+  "task_id": "update",
+  "expected_revision": 7,
+  "idempotency_key": "demo_update",
+  "disposition": "completed",
+  "payload": {
+    "method": "elicited_conditional_path",
+    "calculation_ids": [],
+    "weights": [],
+    "adjustment": 0,
+    "assumptions": {
+      "playoffs": {
+        "value": 0.7,
+        "basis": "agent_judgment_not_fitted",
+        "finding_ids": [
+          "f_season",
+          "f_maye",
+          "f_offensive_continuity",
+          "f_brown_addition",
+          "f_departures",
+          "f_schedule",
+          "f_opening_injuries"
+        ],
+        "rationale": "More likely than not to qualify given last-season performance and QB continuity; allow substantial regression, stronger competition and health uncertainty. 70% is elicited, not estimated from historical data."
+      },
+      "afc_given_playoffs": {
+        "value": 0.18,
+        "basis": "agent_judgment_not_fitted",
+        "finding_ids": [
+          "f_protection",
+          "f_schedule",
+          "f_other_turnover",
+          "f_defensive_continuity"
+        ],
+        "rationale": "Conditional on qualifying, consider New England a credible but non-dominant conference contender. Difficult seeding/matchups and line performance temper the estimate; 18% is a judgment."
+      },
+      "title_given_afc": {
+        "value": 0.48,
+        "basis": "agent_judgment_not_fitted",
+        "finding_ids": [
+          "f_maye",
+          "f_brown_addition",
+          "f_protection"
+        ],
+        "rationale": "Reaching the final selects for a successful Patriots season. Use near-even chances against an unknown NFC champion, modestly tempered by demonstrated protection risk. 48% is a judgment."
+      }
+    },
+    "rationale": "Form an explicit football assessment from the recorded evidence and compare with the earlier market baseline afterward. These judgments were made with prior awareness of the odds, so the result is not a blind forecast.",
+    "limitations": [
+      "Parameters are subjective and unfitted; linked facts do not uniquely imply the selected numbers.",
+      "Market prices were already seen, leaving anchoring possible.",
+      "Several sources are team-authored analysis rather than independent causal evaluation.",
+      "No new post-market private information has been established.",
+      "No numerical player/coaching bonuses are added to already informed market prices.",
+      "Assumes the championship completes; cancellation follows the question's void policy."
+    ],
+    "sensitivity_scenarios": [
+      {
+        "label": "cautious_assumptions_not_confidence_bound",
+        "values": {
+          "playoffs": 0.6,
+          "afc_given_playoffs": 0.12,
+          "title_given_afc": 0.4
+        }
+      },
+      {
+        "label": "central_elicitation",
+        "values": {
+          "playoffs": 0.7,
+          "afc_given_playoffs": 0.18,
+          "title_given_afc": 0.48
+        }
+      },
+      {
+        "label": "optimistic_assumptions_not_confidence_bound",
+        "values": {
+          "playoffs": 0.8,
+          "afc_given_playoffs": 0.25,
+          "title_given_afc": 0.55
+        }
+      }
+    ]
+  }
+}
