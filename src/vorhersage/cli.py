@@ -20,6 +20,7 @@ from .schemas import SCHEMAS
 from .store import Store
 from .workflow import Workflow
 from .reference import add as add_reference, query as query_reference
+from . import experiments
 
 GUIDE = """Create a project, register a precise binary question, and start a run.
 Repeat next --run ID, author the returned payload schema, then submit --run ID --from FILE.
@@ -35,6 +36,7 @@ Use research capture and packet audit to preserve provenance and source relation
 Use scenario for optional mixtures/sensitivity, relation for implications, coherence to audit.
 Use reference add/query for reusable observed episodes with deadline-specific censoring.
 Use watch add/tick/run for polling and optional configured research/agent subprocesses.
+Use method add and experiment add/start/run/status/evaluate for frozen-packet methodology comparisons.
 Worker commands are explicit executable argv arrays, receive JSON on stdin, and return JSON.
 Research/model usage is agent-reported. No web service or model is selected automatically.
 Read schema NAME for the complete input shape. All timestamps must include a timezone.
@@ -85,7 +87,20 @@ def parser():
             ap.add_argument("--cycles", type=int, default=0, help="0 runs until interrupted")
     schema = commands.add_parser("schema")
     schema.add_argument("name", nargs="?", choices=list(SCHEMAS))
+    experiment = commands.add_parser("experiment")
+    sub = experiment.add_subparsers(dest="action", required=True)
+    ap = sub.add_parser("add")
+    ap.add_argument("--from", dest="input", required=True)
+    sub.add_parser("list")
+    for action in ("show", "start", "status", "run", "evaluate"):
+        ap = sub.add_parser(action)
+        ap.add_argument("id")
+        if action == "run":
+            ap.add_argument("--max-tasks", type=int, default=20)
+        if action == "evaluate":
+            ap.add_argument("--resolution-as-of", required=True)
     for name, actions in (("profile", ["add", "list"]), ("question", ["add", "revise", "list"]),
+                          ("method", ["add", "show", "list"]),
                           ("run", ["start", "list"]), ("packet", ["import", "show", "list", "audit"]),
                           ("forecast", ["show", "list"]), ("evaluation", ["show", "list"]),
                           ("replay_evaluation", ["show", "list"])):
@@ -161,6 +176,22 @@ def dispatch(args):
         return {"$schema": "https://json-schema.org/draft/2020-12/schema", **SCHEMAS[args.name]} if args.name else {"schemas": list(SCHEMAS)}
     if command == "scenario":
         return calculate_scenario(load(args.input))
+    if command == "method":
+        if args.action == "add":
+            return experiments.add_method(s, load(args.input))
+        with s.connect() as c:
+            return Store.artifact(c, args.id, "method") if args.action == "show" else Store.all(c, "method")
+    if command == "experiment":
+        if args.action == "add":
+            return experiments.add_experiment(s, load(args.input))
+        if args.action in ("show", "list"):
+            with s.connect() as c:
+                return Store.artifact(c, args.id, "experiment") if args.action == "show" else Store.all(c, "experiment")
+        if args.action == "run":
+            return experiments.execute(args.project, args.id, args.max_tasks)
+        if args.action == "evaluate":
+            return experiments.score(args.project, args.id, args.resolution_as_of)
+        return getattr(experiments, args.action)(args.project, args.id)
     if command == "research":
         return w.import_packet(capture_bundle(load(args.input)))
     if command == "reference":

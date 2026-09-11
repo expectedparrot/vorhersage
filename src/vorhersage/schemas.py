@@ -32,7 +32,7 @@ QUESTION = obj({
     "event_deadline": TIME, "resolve_after": TIME, "resolution_source": TEXT,
     "event_group": TEXT, "domain": TEXT, "profile": TEXT, "kind": enum("real", "simulation"),
 })
-RUN = obj({"question_id": TEXT, "forecaster": TEXT, "method": TEXT,
+RUN = obj({"question_id": TEXT, "question_version": {"type": "integer", "minimum": 1}, "forecaster": TEXT, "method": TEXT,
            "mode": enum("prospective", "retrospective", "simulation"), "information_as_of": TIME,
            "max_searches": COUNT, "max_extra_tasks": COUNT,
            "cutoff_policy": enum("live", "fixed"),
@@ -130,13 +130,37 @@ REFERENCE_CASE = obj({"id": TEXT, "description": TEXT, "tags": array(TEXT, 1),
 REFERENCE_QUERY = obj({"tags": array(TEXT, 1), "horizon_days": {"type": "number", "minimum": 0.000001},
                        "known_as_of": TIME, "selection_rule": TEXT})
 
+METHOD = obj({
+    "id": TEXT, "version": {"type": "integer", "minimum": 1}, "description": TEXT,
+    "instructions": TEXT,
+    "task_instructions": obj({kind: TEXT for kind in ("prior", "drivers", "research", "assessment", "review", "issue")}, []),
+    "prior_method": enum("judgment", "reference_class"),
+    "assessment_method": enum("judgment", "conditional_path", "scenario_mixture"),
+    "research_domains": array(TEXT, 1),
+    "worker": obj({"command": array(TEXT, 1), "config": {"type": "object"},
+                   "timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 60}}),
+    "budget": obj({"max_searches": COUNT, "max_extra_tasks": COUNT,
+                   "max_model_calls": {"type": "integer", "minimum": 1},
+                   "max_cost_usd": {"type": "number", "minimum": 0}}),
+})
+EXPERIMENT = obj({
+    "id": TEXT, "version": {"type": "integer", "minimum": 1}, "description": TEXT,
+    "questions": array(obj({"question_id": TEXT, "version": {"type": "integer", "minimum": 1},
+                            "packet_ids": array(TEXT)}), 1),
+    "method_ids": array(TEXT, 1), "repetitions": {"type": "integer", "minimum": 1, "maximum": 100},
+    "mode": enum("prospective", "retrospective", "simulation"),
+    "information_as_of": TIME, "forecast_cutoff": TIME,
+    "evidence_policy": enum("frozen_packets"), "order_seed": TEXT,
+})
+
 SCHEMAS = {"question": QUESTION, "profile": PROFILE, "run": RUN, "submit": SUBMIT,
            "prior": PRIOR, "drivers": DRIVERS, "research": RESEARCH, "assessment": ASSESSMENT,
            "review": REVIEW, "issue": ISSUE, "resolution": RESOLUTION, "signal": SIGNAL,
            "evaluation": EVALUATION, "replay_evaluation": REPLAY_EVALUATION,
            "packet": PACKET, "epiq_selection": SELECTION, "scenario_mixture": MIXTURE,
            "relation": RELATION, "watch": WATCH, "research_bundle": BUNDLE,
-           "reference_case": REFERENCE_CASE, "reference_query": REFERENCE_QUERY}
+           "reference_case": REFERENCE_CASE, "reference_query": REFERENCE_QUERY,
+           "method": METHOD, "experiment": EXPERIMENT}
 
 
 def validate(value, schema, path="$"):

@@ -11,7 +11,7 @@ def average(values):
     return math.fsum(values) / len(values) if values else None
 
 
-def evaluate(store, policy):
+def evaluate(store, policy, *, forecast_ids=None, input_ids=()):
     check(policy, "evaluation")
     require(len(set(policy["forecasters"])) == len(policy["forecasters"]), "Duplicate forecasters.")
     keys = [(q["question_id"], q["version"]) for q in policy["question_versions"]]
@@ -19,6 +19,9 @@ def evaluate(store, policy):
     require(time(policy["cutoff"]) <= time(now()) and time(policy["resolution_as_of"]) <= time(now()), "Evaluation cutoffs cannot be in the future.")
     with store.connect(True) as c:
         forecasts = Store.all(c, "forecast")
+        if forecast_ids is not None:
+            allowed = set(forecast_ids)
+            forecasts = [f for f in forecasts if f["id"] in allowed]
         resolutions = Store.all(c, "resolution")
         selected, exclusions, cohort = [], [], []
         for question_id, version in keys:
@@ -80,7 +83,7 @@ def evaluate(store, policy):
                                     "mean_brier_difference": average([r["brier_difference"] for r in differences]),
                                     "by_question": differences, "interpretation": "Negative favors left; no significance claim."})
         inputs = sorted({r[k] for r in selected for k in ("forecast_id", "resolution_id")}
-                        | {r["resolution_id"] for r in exclusions if r.get("resolution_id")})
+                        | {r["resolution_id"] for r in exclusions if r.get("resolution_id")} | set(input_ids))
         manifest = {id: digest(Store.artifact(c, id)) for id in inputs}
         body = {"policy": policy, "cohort": cohort, "selected": selected, "exclusions": exclusions,
                 "summaries": summaries, "comparisons": comparisons, "created_at": now(), "input_manifest": manifest,
@@ -88,5 +91,7 @@ def evaluate(store, policy):
                                 "Related events are labeled but no cluster uncertainty interval is estimated.",
                                 "Recorded mode and timestamps do not certify freedom from hindsight or training contamination.",
                                 "Reported costs cover selected runs, not all prior revisions or shared research."]}
+        if forecast_ids is not None:
+            body["eligible_forecast_ids"] = sorted(set(forecast_ids))
         id = Store.put(c, "evaluation", body)
         return {"evaluation_id": id, **body}

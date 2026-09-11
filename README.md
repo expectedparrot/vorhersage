@@ -8,7 +8,7 @@
   <img src="docs/assets/vorhersage-artwork.png" width="800" alt="Vorhersage artwork: a green parrot connected to sensors in a glass tank, framed by expectation brackets">
 </p>
 
-A forecasting workbench for agents. **Version 0.2 is implemented:** a Python CLI
+A forecasting workbench for agents. **Version 0.3 is implemented:** a Python CLI
 for binary questions, durable research workflows, Epiq evidence packets,
 probability calculations, revisions, resolution and matched evaluation.
 
@@ -55,6 +55,7 @@ new research while active; each accepted step records its information cutoff.
 - Scheduled review detection, evidence signals, resolution corrections and Brier scoring.
 - Matched comparisons, descriptive calibration bins, missingness and event-group labels.
 - Separate prospective, retrospective and simulation evaluation modes.
+- Versioned forecasting methods and frozen-packet experiments, with repeated trials, resumable workers, and matched method scores.
 - Halawi benchmark import, fixed historical replay, and separate replay scoring.
 - Research bundles, captured-text integrity checks, source dependence and contradiction audits.
 - Explicit starting-judgment timing; legacy or after-research judgments are not labeled original priors.
@@ -65,11 +66,16 @@ new research while active; each accepted step records its information cutoff.
 
 The [research and monitoring guide](docs/RESEARCH_AND_MONITORING.md) documents these
 extensions, runnable commands, worker protocols, and their limitations.
+The [method comparison guide](docs/EXPERIMENTS.md) explains versioned procedures,
+experiment registration, repeated trials, and controlled evidence inputs.
 
 Shared factual research stays in Epiq. Vorhersage stores its own workflow state
 and frozen evidence copies in each project's `.vorhersage/state.sqlite`.
 
 ## Executed examples
+
+- [Method comparison](examples/method_comparison/README.md): two methods, two fictional
+  questions, two repetitions; pauses and resumes workers, then scores all eight trials.
 
 - [Historical benchmark walkthrough](examples/backtesting/README.md): 20 Halawi
   validation questions pass through the task loop with a constant-50% control;
@@ -102,7 +108,7 @@ Run checks:
 python3 -m unittest discover -s examples/patriots_2027 -p 'test_*.py'
 ```
 
-There are **56 package/integration tests and 21 earlier prototype tests**. Local Epiq tests
+There are **65 package/integration tests and 21 earlier prototype tests**. Local Epiq tests
 explicitly skip if their optional checkout/database fixtures are unavailable.
 The CLI has also been installed and a distributable wheel built locally.
 See the [validation record](docs/VALIDATION.md) for checks and their limits.

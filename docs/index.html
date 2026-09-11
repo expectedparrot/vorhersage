@@ -19,25 +19,25 @@
   <section class="hero" aria-labelledby="hero-title">
     <div>
       <p class="eyebrow">Expected Parrot / Research tools</p>
-      <h1 id="hero-title">Make a forecast.<br><em>Keep the reasoning.</em></h1>
-      <p class="lead">A forecasting workbench for agents. Turn a question into a probability with explicit evidence, a reviewable process, and a record you can revisit when the world changes.</p>
-      <div class="actions"><a class="button" href="#quickstart">Start forecasting <span aria-hidden="true">→</span></a><a class="text-link" href="#workflow">Explore the workflow</a></div>
-      <p class="meta">v0.2.0 <span>·</span> Python 3.11+ <span>·</span> No runtime dependencies</p>
+      <h1 id="hero-title">From a question<br><em>to a scored forecast.</em></h1>
+      <p class="lead">Learn Vorhersage by forecasting a fictional factory shipment. Define the event, attach evidence, issue a probability, update it, and compare forecasting methods with a record of every step.</p>
+      <div class="actions"><a class="button" href="#quickstart">Start forecasting <span aria-hidden="true">→</span></a><a class="text-link" href="#define-event">Follow the walkthrough</a></div>
+      <p class="meta">v0.3.0 <span>·</span> Python 3.11+ <span>·</span> No runtime dependencies</p>
     </div>
     <div class="forecast-card" aria-label="Illustrative forecast record">
       <div class="card-top"><span class="eyebrow">Forecast record</span><span class="badge">Illustrative</span></div>
-      <p class="forecast-question">Will the system succeed <br>by the deadline?</p>
-      <div class="forecast-value">52<span>%</span><div class="probability-track"><div></div></div></div>
+      <p class="forecast-question">Will factory East ship <br>by tomorrow?</p>
+      <div class="forecast-value">75<span>%</span><div class="probability-track"><div></div></div></div>
       <dl class="record-list"><div><dt>Event</dt><dd>Defined &amp; versioned</dd></div><div><dt>Evidence</dt><dd>Sources &amp; assumptions</dd></div><div><dt>Review</dt><dd>Challenged both ways</dd></div><div><dt>Next</dt><dd>Revisit on new evidence</dd></div></dl>
-      <div class="card-footer"><span class="status-dot" aria-hidden="true"></span> The estimate changes. The history stays.</div>
+      <div class="card-footer"><span class="status-dot" aria-hidden="true"></span> 40% → new evidence → 75% → outcome → score</div>
     </div>
   </section>
 
   <div class="content-layout">
-    <aside class="sidebar"><nav aria-label="On this page"><p class="eyebrow">In this guide</p><a href="#overview">What it does</a><a href="#quickstart">Install &amp; try it</a><a href="#workflow">The agent workflow</a><a href="#evidence">Evidence &amp; provenance</a><a href="#scenarios">Explore a scenario</a><a href="#monitoring">Monitor &amp; revise</a><a href="#evaluation">Evaluate forecasts</a><a href="#reference">Command reference</a><a href="#examples">Worked examples</a></nav><p class="sidebar-note">Vorhersage<br><span>German for “forecast.”</span></p></aside>
+    <aside class="sidebar"><nav aria-label="On this page"><p class="eyebrow">Walk through the tool</p><a href="#overview">What you’ll learn</a><a href="#quickstart">Install &amp; try it</a><a href="#define-event">1. Define the event</a><a href="#evidence">2. Attach evidence</a><a href="#workflow">3. Start the run</a><a href="#assessment">4. Research &amp; issue</a><a href="#monitoring">5. Revise the forecast</a><a href="#evaluation">6. Resolve &amp; score</a><a href="#experiments">7. Compare methods</a><a href="#scenarios">Optional calculations</a><a href="#reference">Command reference</a><a href="#examples">More examples</a></nav><p class="sidebar-note">Vorhersage<br><span>German for “forecast.”</span></p></aside>
     <div class="content">
       <section id="overview" class="section">
-        <p class="eyebrow">01 / The workbench</p><h2>A process an agent can resume.</h2>
+        <p class="eyebrow">The workbench</p><h2>A process an agent can resume.</h2>
         <p>The agent researches the world and supplies judgments. Vorhersage stores the state, supplies the next task, validates its inputs, performs declared calculations, and preserves the resulting forecast.</p>
         <div class="feature-grid">
           <article><span class="feature-number">01</span><h3>Define the event</h3><p>Fix YES, NO, and void rules, a deadline, and a resolution source before interpreting the probability.</p></article>
@@ -48,64 +48,334 @@
         <div class="note"><strong>A clear boundary.</strong> The CLI does not choose a model or web service. Agents and configured workers collect evidence and interpret it. A complete workflow establishes an audit trail; forecasting accuracy still needs evaluation.</div>
       </section>
 
-      <section id="quickstart" class="section">
-        <p class="eyebrow">02 / Get started</p><h2>Run a complete example offline.</h2>
-        <p>Install from the repository in a Python 3.11+ environment. The core package needs no API keys or additional runtime libraries.</p>
-        <div class="code-block"><div class="code-heading"><span>Terminal / install</span><button class="copy" data-copy="install-code" type="button">Copy</button></div><pre><code id="install-code">git clone https://github.com/expectedparrot/vorhersage.git
+      <section id="quickstart" class="section"><p class="eyebrow">Get started / Python 3.11+</p><h2>Install, then choose how to follow along.</h2>
+<p>From a terminal, install the checkout in a virtual environment. The package has no additional runtime dependencies.</p><div class="code-block"><div class="code-heading"><span>Terminal / install</span><button class="copy" data-copy="install-code" type="button">Copy</button></div><pre><code id="install-code">git clone https://github.com/expectedparrot/vorhersage.git
 cd vorhersage
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e .
 vorhersage version</code></pre></div>
-        <p>The fictional factory walkthrough uses separate CLI processes to create questions, issue forecasts, revise them, resolve outcomes, and calculate matched scores.</p>
-        <div class="code-block"><div class="code-heading"><span>Terminal / offline walkthrough</span><button class="copy" data-copy="demo-code" type="button">Copy</button></div><pre><code id="demo-code">python examples/factory/walkthrough.py /tmp/vorhersage-demo
-vorhersage --project /tmp/vorhersage-demo status
-vorhersage --project /tmp/vorhersage-demo doctor</code></pre></div>
-        <p class="caption">Use a new destination directory for each walkthrough. Its fictional probabilities and scores demonstrate software behavior, not forecasting skill.</p>
-        <details><summary>Start your own project</summary><div class="details-body"><p>Global <code>--project</code> goes before the command. Inspect each schema, then author the corresponding JSON file.</p><pre><code>vorhersage init ./my-study --name "My forecast study"
-vorhersage schema question
-vorhersage --project ./my-study question add --from question.json
-vorhersage schema run
-vorhersage --project ./my-study run start --from run.json</code></pre><p>Use <code>kind: "real"</code> and <code>mode: "prospective"</code> for a live event. All timestamps need a timezone. Record whether research has already started with <code>research_status</code>.</p><a href="https://github.com/expectedparrot/vorhersage/blob/main/docs/AGENT_GUIDE.md">Full question and run instructions →</a></div></details>
-      </section>
+<div class="feature-grid compact"><article><h3>Walk through the commands</h3><p><a href="#define-event">Start at step 1</a> to create your own temporary study and follow every input through evidence, review, revision, and scoring. All data is fictional.</p></article><article><h3>Run the existing example</h3><p>Run the factory portfolio below to see the full result first. It creates two questions, a baseline, an updated forecast, and a matched evaluation.</p></article></div><div class="code-block"><div class="code-heading"><span>Terminal / existing factory example</span><button class="copy" data-copy="demo-code" type="button">Copy</button></div><pre><code id="demo-code">forecast_demo=$(mktemp -d &quot;${TMPDIR:-/tmp}/vorhersage-demo.XXXXXX&quot;)
+python examples/factory/walkthrough.py &quot;$forecast_demo&quot;
+vorhersage --project &quot;$forecast_demo&quot; report --question factory_east --format markdown
+python -m json.tool &quot;$forecast_demo/summary.json&quot;</code></pre></div>
+<p><strong>Expected:</strong> two resolved questions, a successful integrity check, and matched Brier losses of <code>0.07625</code> for the fixture agent and <code>0.25</code> for the 50% baseline. Every input and task response is saved in the output directory. No model calls or API keys are involved.</p>
+<p>The numbered walkthrough creates a separate project, so you can run both paths. Keep commands in the same terminal; the later snippets reuse the shell variables introduced in step 1.</p></section>
 
-      <section id="workflow" class="section">
-        <p class="eyebrow">03 / The operating loop</p><h2>One explicit step at a time.</h2>
-        <ol class="workflow"><li><strong>Prior</strong><span>Label the starting judgment or reference class.</span></li><li><strong>Drivers</strong><span>Describe paths to YES and NO.</span></li><li><strong>Research</strong><span>Cover each required domain; explain unknowns.</span></li><li><strong>Assessment</strong><span>Supply a judgment or a declared calculation.</span></li><li><strong>Review</strong><span>Challenge the estimate in both directions.</span></li><li><strong>Issue</strong><span>Freeze the forecast and set review triggers.</span></li></ol>
-        <div class="code-block"><div class="code-heading"><span>Terminal / resume and submit</span><button class="copy" data-copy="loop-code" type="button">Copy</button></div><pre><code id="loop-code">vorhersage --project ./my-study next --run RUN_ID
-vorhersage --project ./my-study submit --run RUN_ID --from result.json</code></pre></div>
-        <p><code>next</code> is read-only. It returns the task, payload schema, budget, context, and exact revision. The agent supplies the requested payload; <code>submit</code> accepts it atomically. Identical retries are idempotent, and stale revisions are rejected.</p>
-        <details><summary>What an agent submits</summary><div class="details-body"><pre><code>{
-  "task_id": "task_FROM_NEXT",
-  "expected_revision": 0,
-  "idempotency_key": "my-unique-submission",
-  "payload": {
-    "method": "judgment",
-    "probability": 0.3,
-    "rationale": "An explicitly subjective starting estimate.",
-    "limitations": ["No adequate reference class yet."],
-    "evidence_refs": []
-  }
-}</code></pre><p>This is an illustrative prior response. Replace task IDs and revisions with the values returned by <code>next</code>. Subsequent tasks have different payload schemas.</p></div></details>
-        <div class="note"><strong>Keep prior timing honest.</strong> Set <code>research_status</code> to <code>not_started</code>, <code>in_progress</code>, or <code>completed</code> when opening a run. Research done before registration does not become a pre-research prior merely because a task is named “prior.”</div>
-      </section>
-
-      <section id="evidence" class="section">
-        <p class="eyebrow">04 / Research you can inspect</p><h2>Keep claims connected to their sources.</h2>
-        <p>Use <a href="https://github.com/expectedparrot/epiq">Epiq</a> as the shared factual store, then freeze selected answers into portable evidence packets. Or import source-linked findings from any research provider using a research bundle.</p>
-        <div class="code-block"><div class="code-heading"><span>Terminal / capture and audit</span><button class="copy" data-copy="evidence-code" type="button">Copy</button></div><pre><code id="evidence-code">vorhersage schema research_bundle
-vorhersage --project ./my-study research capture --from bundle.json
-vorhersage --project ./my-study packet audit PACKET_ID
-
+      <section id="define-event" class="section"><p class="eyebrow">01 / Define the question</p><h2>Start with an event we can resolve.</h2>
+<p>We will forecast a shipment from fictional factory East, following the <a href="https://github.com/expectedparrot/vorhersage/tree/main/examples/factory">factory portfolio example</a>. You will issue 40%, revise it to 75% after a fictional update, then record a YES outcome and score the final forecast.</p>
+<p>Run the numbered steps in order, in the same Bash or Zsh terminal with the virtual environment active. They use Python’s standard library to read JSON; no <code>jq</code>, model service, or API key is needed. The commands create a fresh temporary study and generate timestamps at runtime.</p>
+<div class="note"><strong>Prefer to run everything first?</strong> From the repository root, run <code>bash docs/assets/factory-walkthrough.sh</code>, or <a href="assets/factory-walkthrough.sh" download>download these commands as a script</a>. The numbered sections below explain the same commands.</div>
+<div class="code-block"><div class="code-heading"><span>Terminal / keep this shell open</span><button class="copy" data-copy="setup-code" type="button">Copy</button></div><pre><code id="setup-code" data-walkthrough="factory">forecast_project=$(mktemp -d &quot;${TMPDIR:-/tmp}/vorhersage-guide.XXXXXX&quot;)
+vf() { vorhersage --project &quot;$forecast_project&quot; &quot;$@&quot;; }
+json_field() {
+  python -c &#x27;import json,sys; print(json.load(sys.stdin)[&quot;data&quot;][sys.argv[1]])&#x27; &quot;$1&quot;
+}
+forecast_time() {
+  python -c &#x27;import sys; from datetime import datetime,timedelta,timezone; print((datetime.now(timezone.utc)+timedelta(days=float(sys.argv[1]))).isoformat())&#x27; &quot;${1:-0}&quot;
+}
+forecast_deadline=$(forecast_time 1)
+forecast_review=$(forecast_time 0.5)
+vf init --name &quot;Factory tutorial&quot;
+printf &#x27;Study directory: %s\n&#x27; &quot;$forecast_project&quot;</code></pre></div><p><code>vf</code> is a shell shorthand for <code>vorhersage --project "$forecast_project"</code>. The two small helpers read returned identifiers and create timezone-aware timestamps. <code>init</code> creates the study’s SQLite store.</p>
+<div class="code-block"><div class="code-heading"><span>Terminal / register a precise event</span><button class="copy" data-copy="question-code" type="button">Copy</button></div><pre><code id="question-code" data-walkthrough="factory">vf question add --from - &lt;&lt;JSON
+{
+  &quot;id&quot;: &quot;factory_east&quot;,
+  &quot;text&quot;: &quot;Will fictional factory East ship by tomorrow?&quot;,
+  &quot;yes&quot;: &quot;A qualifying shipment is recorded by the deadline.&quot;,
+  &quot;no&quot;: &quot;No qualifying shipment occurs by the deadline.&quot;,
+  &quot;void&quot;: &quot;The fictional event is withdrawn.&quot;,
+  &quot;event_deadline&quot;: &quot;$forecast_deadline&quot;,
+  &quot;resolve_after&quot;: &quot;$forecast_deadline&quot;,
+  &quot;resolution_source&quot;: &quot;urn:vorhersage:fictional:dispatch&quot;,
+  &quot;event_group&quot;: &quot;factory_east&quot;,
+  &quot;domain&quot;: &quot;operations&quot;,
+  &quot;profile&quot;: &quot;general&quot;,
+  &quot;kind&quot;: &quot;simulation&quot;
+}
+JSON</code></pre></div><p><strong>Expected:</strong> <code>data.question_id</code> is <code>factory_east</code> and <code>data.version</code> is <code>1</code>. The <code>general</code> profile requires research on base rates, current state, actors and process, and contrary evidence. These will become four separate tasks.</p>
+<p>The simulation label describes this example honestly. For a real event, use <code>kind: "real"</code>, a verifiable resolution source, and concrete YES/NO rules. New wording creates a new question version; it does not rewrite an issued forecast.</p></section>
+<section id="evidence" class="section"><p class="eyebrow">02 / Preserve the research</p><h2>Attach a finding to its source.</h2>
+<p>In a real forecast, an agent gathers this information from sources or Epiq. Here we author a clearly fictional observation. <code>research capture</code> packages the source and finding, preserves their relationship, and returns an evidence reference.</p><div class="code-block"><div class="code-heading"><span>Terminal / freeze the initial evidence</span><button class="copy" data-copy="capture-code" type="button">Copy</button></div><pre><code id="capture-code" data-walkthrough="factory">vf research capture --from - &gt; &quot;$forecast_project/packet.json&quot; &lt;&lt;JSON
+{
+  &quot;sources&quot;: [{
+    &quot;id&quot;: &quot;initial&quot;,
+    &quot;url&quot;: &quot;urn:vorhersage:fictional:initial&quot;,
+    &quot;title&quot;: &quot;Fictional factory status&quot;,
+    &quot;excerpt&quot;: &quot;Preparation is underway; dispatch remains uncertain.&quot;,
+    &quot;retrieved_at&quot;: &quot;$(forecast_time)&quot;
+  }],
+  &quot;findings&quot;: [{
+    &quot;id&quot;: &quot;readiness&quot;,
+    &quot;claim&quot;: &quot;Preparation is underway; dispatch remains uncertain.&quot;,
+    &quot;claim_type&quot;: &quot;observation&quot;,
+    &quot;source_ids&quot;: [&quot;initial&quot;]
+  }],
+  &quot;limitations&quot;: [&quot;Entirely fictional tutorial evidence.&quot;]
+}
+JSON
+forecast_packet=$(json_field packet_id &lt; &quot;$forecast_project/packet.json&quot;)
+vf packet show &quot;$forecast_packet&quot;
+vf packet audit &quot;$forecast_packet&quot;</code></pre></div>
+<p><strong>Keep two identifiers:</strong> the returned <code>packet_id</code>, saved as <code>forecast_packet</code>, and the finding’s <code>record_id</code>, <code>readiness</code>. Later tasks cite them together as <code>{"packet_id": "…", "record_id": "readiness"}</code>.</p>
+<p>The audit may identify missing publication or capture details in this manual fixture. A packet hash verifies content identity; it does not verify that a claim is true. When several reports repeat one original source, record that relationship rather than counting each as independent confirmation.</p>
+<details><summary>Use your existing Epiq research instead</summary><div class="details-body"><p>Freeze selected cells into the same portable packet format. Replace the database path and author <code>selection.json</code> using the published schema.</p><div class="code-block"><div class="code-heading"><span>Optional / requires an Epiq database</span><button class="copy" data-copy="epiq-code" type="button">Copy</button></div><pre><code id="epiq-code">vorhersage schema epiq_selection
 vorhersage --project ./my-study epiq freeze \
-  --db /path/to/research.sqlite --from selection.json</code></pre></div>
-        <div class="table-scroll"><table><caption>What the evidence record preserves</caption><thead><tr><th>Field</th><th>Purpose</th></tr></thead><tbody><tr><td>Claim type</td><td>Separate reporting, official statements, observations, and inferences.</td></tr><tr><td>Publication &amp; retrieval times</td><td>Distinguish when information appeared from when it was collected.</td></tr><tr><td>Capture &amp; supporting text</td><td>Verify supplied content hashes and quoted excerpt membership.</td></tr><tr><td>Source relationships</td><td>Record repetitions, declared independent confirmations, and contradictions.</td></tr><tr><td>Evidence references</td><td>Connect the source record to the tasks and forecasts that used it.</td></tr></tbody></table></div>
-        <p>Audits flag provenance gaps and conflicting claims of source independence. Distinct source groups are not automatically independent, and source counts are not probability multipliers.</p>
-        <p><a href="https://github.com/expectedparrot/vorhersage/blob/main/docs/RESEARCH_AND_MONITORING.md#capture-and-inspect-evidence">Bundle format and Epiq integration →</a></p>
-      </section>
+  --db /path/to/research.sqlite --from selection.json</code></pre></div><p><a href="https://github.com/expectedparrot/vorhersage/blob/main/docs/RESEARCH_AND_MONITORING.md#capture-and-inspect-evidence">Selection format, provenance, and source relationships →</a></p></div></details></section>
+<section id="workflow" class="section"><p class="eyebrow">03 / Start the agent loop</p><h2>Read the task. Supply the judgment.</h2>
+<ol class="workflow"><li><strong>Prior</strong><span>Label the starting judgment or reference class.</span></li><li><strong>Drivers</strong><span>Describe paths to YES and NO.</span></li><li><strong>Research</strong><span>Cover every domain; explain unknowns.</span></li><li><strong>Assessment</strong><span>Supply the probability and its reasoning.</span></li><li><strong>Review</strong><span>Challenge the estimate in both directions.</span></li><li><strong>Issue</strong><span>Freeze the forecast and set review triggers.</span></li></ol>
+<div class="code-block"><div class="code-heading"><span>Terminal / start and read the first task</span><button class="copy" data-copy="start-code" type="button">Copy</button></div><pre><code id="start-code" data-walkthrough="factory">vf run start --from - &gt; &quot;$forecast_project/run.json&quot; &lt;&lt;JSON
+{
+  &quot;question_id&quot;: &quot;factory_east&quot;,
+  &quot;question_version&quot;: 1,
+  &quot;forecaster&quot;: &quot;agent:tutorial&quot;,
+  &quot;method&quot;: &quot;fictional researched judgment&quot;,
+  &quot;mode&quot;: &quot;simulation&quot;,
+  &quot;information_as_of&quot;: &quot;$(forecast_time)&quot;,
+  &quot;research_status&quot;: &quot;completed&quot;,
+  &quot;max_searches&quot;: 0,
+  &quot;max_extra_tasks&quot;: 0
+}
+JSON
+forecast_run=$(json_field run_id &lt; &quot;$forecast_project/run.json&quot;)
+vf next --run &quot;$forecast_run&quot;</code></pre></div><p><strong>Expected:</strong> <code>data.disposition</code> is <code>actionable</code>, <code>data.task.kind</code> is <code>prior</code>, and <code>data.revision</code> is <code>0</code>. <code>next</code> also provides the task’s payload schema, remaining budget, and accumulated context. It does not change state.</p>
+<p>We captured the evidence before starting, so <code>research_status: "completed"</code> prevents this starting judgment being labeled a pre-research prior. Simulation runs have a fixed information cutoff; a later evidence update will require a new run.</p>
+<p>An agent normally authors a submission envelope containing the task ID, revision, idempotency key, payload, and usage. Define this convenience function once: it fills in the envelope from <code>next</code>, saves each payload for the later revision, and calls <code>submit</code>. It makes no probability judgments.</p>
+<div class="code-block"><div class="code-heading"><span>Terminal / define once for the remaining steps</span><button class="copy" data-copy="submit-helper-code" type="button">Copy</button></div><pre><code id="submit-helper-code" data-walkthrough="factory">submit_payload() {
+  vf next --run &quot;$forecast_run&quot; &gt; &quot;$forecast_project/next.json&quot;
+  python -c &#x27;
+import json, sys
+from pathlib import Path
+root = Path(sys.argv[1])
+step = json.loads((root / &quot;next.json&quot;).read_text())[&quot;data&quot;]
+payload = json.load(sys.stdin)
+(root / (step[&quot;task&quot;][&quot;kind&quot;] + &quot;.json&quot;)).write_text(json.dumps(payload))
+print(json.dumps({
+    &quot;task_id&quot;: step[&quot;task&quot;][&quot;id&quot;],
+    &quot;expected_revision&quot;: step[&quot;revision&quot;],
+    &quot;idempotency_key&quot;: step[&quot;task&quot;][&quot;id&quot;],
+    &quot;payload&quot;: payload,
+    &quot;usage&quot;: {&quot;searches&quot;: 0, &quot;cost_usd&quot;: 0, &quot;model_calls&quot;: 0}
+}))
+&#x27; &quot;$forecast_project&quot; | vf submit --run &quot;$forecast_run&quot; --from -
+}</code></pre></div><div class="code-block"><div class="code-heading"><span>Terminal / supply the starting judgment</span><button class="copy" data-copy="prior-code" type="button">Copy</button></div><pre><code id="prior-code" data-walkthrough="factory">submit_payload &lt;&lt;&#x27;JSON&#x27;
+{
+  &quot;method&quot;: &quot;judgment&quot;,
+  &quot;probability&quot;: 0.5,
+  &quot;rationale&quot;: &quot;An assumed neutral starting point for this fixture.&quot;,
+  &quot;limitations&quot;: [&quot;Not an empirical base rate or a blind prior.&quot;],
+  &quot;evidence_refs&quot;: []
+}
+JSON</code></pre></div><p><strong>Expected:</strong> <code>data.accepted</code> is <code>true</code> and the revision becomes <code>1</code>. Identical retries are idempotent; changed content under an old key or a stale revision is rejected. Outside this tutorial, reported usage must reflect the agent’s actual work.</p></section>
+<section id="assessment" class="section"><p class="eyebrow">04 / Research, assess, and issue</p><h2>Turn the evidence into a reviewable estimate.</h2>
+<div class="code-block"><div class="code-heading"><span>Terminal / map mechanisms and failure paths</span><button class="copy" data-copy="drivers-code" type="button">Copy</button></div><pre><code id="drivers-code" data-walkthrough="factory">submit_payload &lt;&lt;JSON
+{
+  &quot;drivers&quot;: [{
+    &quot;name&quot;: &quot;Readiness&quot;,
+    &quot;mechanism&quot;: &quot;Dispatch needs a ready production line.&quot;,
+    &quot;evidence_refs&quot;: [{&quot;packet_id&quot;: &quot;$forecast_packet&quot;, &quot;record_id&quot;: &quot;readiness&quot;}]
+  }],
+  &quot;yes_path&quot;: &quot;Preparation finishes and a shipment is dispatched.&quot;,
+  &quot;no_path&quot;: &quot;A remaining dependency blocks dispatch past the deadline.&quot;,
+  &quot;unknowns&quot;: [&quot;Time needed to finish preparation.&quot;]
+}
+JSON</code></pre></div><p>The next four tasks come from the <code>general</code> profile. This short fixture reuses one source to exercise the loop. A real agent should investigate each domain separately and use <code>disposition: "unknown"</code> with an explanation when it cannot assess a domain.</p><div class="code-block"><div class="code-heading"><span>Terminal / complete the four required research tasks</span><button class="copy" data-copy="research-code" type="button">Copy</button></div><pre><code id="research-code" data-walkthrough="factory">for forecast_domain in base_rates current_state actors_and_process contrary_evidence; do
+  submit_payload &lt;&lt;JSON
+{
+  &quot;disposition&quot;: &quot;assessed&quot;,
+  &quot;interpretation&quot;: &quot;The fictional readiness report informs this review; it does not settle the timing.&quot;,
+  &quot;evidence_refs&quot;: [{&quot;packet_id&quot;: &quot;$forecast_packet&quot;, &quot;record_id&quot;: &quot;readiness&quot;}],
+  &quot;sources_checked&quot;: [&quot;Fictional factory status&quot;],
+  &quot;unknowns&quot;: [&quot;No additional fixture evidence for $forecast_domain.&quot;],
+  &quot;conflicts&quot;: []
+}
+JSON
+done</code></pre></div>
+<p>The package validates coverage and references. The agent is responsible for substantive research quality. Next, supply a 40% judgment and objections that it could be too high and too low.</p><div class="code-block"><div class="code-heading"><span>Terminal / estimate and challenge the probability</span><button class="copy" data-copy="assessment-code" type="button">Copy</button></div><pre><code id="assessment-code" data-walkthrough="factory">submit_payload &lt;&lt;JSON
+{
+  &quot;method&quot;: &quot;judgment&quot;,
+  &quot;probability&quot;: 0.4,
+  &quot;rationale&quot;: &quot;Preparation is unfinished; this fixture assigns a substantial chance of delay.&quot;,
+  &quot;limitations&quot;: [&quot;Authored fictional probability; not fitted from data.&quot;],
+  &quot;evidence_refs&quot;: [{&quot;packet_id&quot;: &quot;$forecast_packet&quot;, &quot;record_id&quot;: &quot;readiness&quot;}]
+}
+JSON
+submit_payload &lt;&lt;&#x27;JSON&#x27;
+{
+  &quot;decision&quot;: &quot;retain&quot;,
+  &quot;rationale&quot;: &quot;Retain the estimate after checking both directions.&quot;,
+  &quot;objections&quot;: [
+    {&quot;direction&quot;: &quot;too_high&quot;, &quot;objection&quot;: &quot;Dispatch could fail after preparation.&quot;, &quot;response&quot;: &quot;The estimate allows substantial failure risk.&quot;},
+    {&quot;direction&quot;: &quot;too_low&quot;, &quot;objection&quot;: &quot;Preparation might finish quickly.&quot;, &quot;response&quot;: &quot;Success is plausible but remains uncertain.&quot;}
+  ],
+  &quot;evidence_refs&quot;: []
+}
+JSON</code></pre></div>
+<p>Review can retain the probability, revise it with a rationale, or request bounded additional research. This run has no extra research budget, so we retain the estimate and issue it.</p><div class="code-block"><div class="code-heading"><span>Terminal / freeze the first forecast</span><button class="copy" data-copy="issue-code" type="button">Copy</button></div><pre><code id="issue-code" data-walkthrough="factory">submit_payload &lt;&lt;JSON
+{
+  &quot;stopping_reason&quot;: &quot;The available fictional evidence has been reviewed.&quot;,
+  &quot;review_at&quot;: &quot;$forecast_review&quot;,
+  &quot;triggers&quot;: [{&quot;description&quot;: &quot;A new report about factory readiness.&quot;, &quot;evidence_refs&quot;: []}]
+}
+JSON
+forecast_first=$(vf next --run &quot;$forecast_run&quot; | json_field forecast_id)
+vf forecast show &quot;$forecast_first&quot;
+vf report --question factory_east --format markdown</code></pre></div>
+<p><strong>Expected:</strong> the report contains <strong>40%</strong> for <code>agent:tutorial</code>. <code>next</code> now says <code>waiting</code> and returns a <code>forecast_id</code>. This completes the forecast, not the event: no outcome has been recorded yet.</p>
+<p>The forecast freezes its question version, probability, research coverage, prior timing, evidence references, and input hashes. You can inspect the individual records with <code>forecast show</code> and verify their integrity with <code>doctor</code>.</p></section>
+
+
+
+
+
+      <section id="monitoring" class="section"><p class="eyebrow">05 / Update on new evidence</p><h2>Revise the estimate. Keep the first record.</h2>
+<p>The original factory example revises East from 40% to 75% after a readiness update. Let’s do the same. Add the new evidence, then register a signal to put the issued forecast in the review queue.</p><div class="code-block"><div class="code-heading"><span>Terminal / record a change and request review</span><button class="copy" data-copy="update-code" type="button">Copy</button></div><pre><code id="update-code" data-walkthrough="factory">vf research capture --from - &gt; &quot;$forecast_project/update.json&quot; &lt;&lt;JSON
+{
+  &quot;sources&quot;: [{
+    &quot;id&quot;: &quot;update&quot;,
+    &quot;url&quot;: &quot;urn:vorhersage:fictional:update&quot;,
+    &quot;title&quot;: &quot;Fictional readiness update&quot;,
+    &quot;excerpt&quot;: &quot;The remaining readiness dependency is now complete.&quot;,
+    &quot;retrieved_at&quot;: &quot;$(forecast_time)&quot;
+  }],
+  &quot;findings&quot;: [{
+    &quot;id&quot;: &quot;ready_now&quot;,
+    &quot;claim&quot;: &quot;The remaining readiness dependency is now complete.&quot;,
+    &quot;claim_type&quot;: &quot;observation&quot;,
+    &quot;source_ids&quot;: [&quot;update&quot;]
+  }],
+  &quot;limitations&quot;: [&quot;Entirely fictional tutorial evidence.&quot;]
+}
+JSON
+forecast_update=$(json_field packet_id &lt; &quot;$forecast_project/update.json&quot;)
+vf signal --from - &lt;&lt;JSON
+{
+  &quot;question_id&quot;: &quot;factory_east&quot;,
+  &quot;reason&quot;: &quot;A fictional readiness dependency was completed.&quot;,
+  &quot;idempotency_key&quot;: &quot;factory-readiness-update&quot;,
+  &quot;evidence_refs&quot;: [{&quot;packet_id&quot;: &quot;$forecast_update&quot;, &quot;record_id&quot;: &quot;ready_now&quot;}]
+}
+JSON
+vf monitor</code></pre></div>
+<p><strong>Expected:</strong> <code>monitor</code> lists the first forecast as due because of the signal. It does not update the probability. A revision is another run with the same question version, mode, and forecaster, plus <code>previous_forecast_id</code>.</p><div class="code-block"><div class="code-heading"><span>Terminal / start a linked revision and reuse reviewed payloads</span><button class="copy" data-copy="revision-code" type="button">Copy</button></div><pre><code id="revision-code" data-walkthrough="factory">vf run start --from - &gt; &quot;$forecast_project/revision.json&quot; &lt;&lt;JSON
+{
+  &quot;question_id&quot;: &quot;factory_east&quot;,
+  &quot;question_version&quot;: 1,
+  &quot;forecaster&quot;: &quot;agent:tutorial&quot;,
+  &quot;method&quot;: &quot;fictional researched judgment&quot;,
+  &quot;mode&quot;: &quot;simulation&quot;,
+  &quot;information_as_of&quot;: &quot;$(forecast_time)&quot;,
+  &quot;research_status&quot;: &quot;completed&quot;,
+  &quot;previous_forecast_id&quot;: &quot;$forecast_first&quot;,
+  &quot;max_searches&quot;: 0,
+  &quot;max_extra_tasks&quot;: 0
+}
+JSON
+forecast_run=$(json_field run_id &lt; &quot;$forecast_project/revision.json&quot;)
+python - &quot;$forecast_project&quot; &quot;$forecast_update&quot; &lt;&lt;&#x27;PYTHON&#x27;
+import json, sys
+from pathlib import Path
+root = Path(sys.argv[1])
+new_ref = {&quot;packet_id&quot;: sys.argv[2], &quot;record_id&quot;: &quot;ready_now&quot;}
+for kind in (&quot;research&quot;, &quot;assessment&quot;):
+    path = root / (kind + &quot;.json&quot;)
+    payload = json.loads(path.read_text())
+    payload[&quot;evidence_refs&quot;].append(new_ref)
+    if kind == &quot;research&quot;:
+        payload[&quot;interpretation&quot;] = &quot;Readiness has improved; dispatch still carries execution risk.&quot;
+        payload[&quot;sources_checked&quot;].append(&quot;Fictional readiness update&quot;)
+        payload[&quot;unknowns&quot;] = [&quot;Remaining dispatch risk.&quot;]
+    else:
+        payload[&quot;probability&quot;] = 0.75
+        payload[&quot;rationale&quot;] = &quot;The completed dependency supports a higher fictional estimate.&quot;
+    path.write_text(json.dumps(payload))
+PYTHON
+for forecast_task in prior drivers research research research research assessment review issue; do
+  submit_payload &lt; &quot;$forecast_project/$forecast_task.json&quot;
+done
+vf report --question factory_east --format markdown</code></pre></div>
+<p><strong>Expected:</strong> the report now lists <strong>40%</strong> and <strong>75%</strong>. The new forecast links to its predecessor. The small Python block above authors the revised fixture inputs; Vorhersage does not infer the 75% probability from the update. A real agent would reconsider every task, including its objections and unknowns.</p>
+<details><summary>Automate future checks with a watch</summary><div class="details-body"><p>For a prospective real-event study, configure an Epiq source or research worker and optionally an agent worker. These commands are a template for that separate study; they are not part of the simulation above.</p><div class="code-block"><div class="code-heading"><span>Optional / configure workers before polling</span><button class="copy" data-copy="watch-code" type="button">Copy</button></div><pre><code id="watch-code">vorhersage schema watch
+vorhersage --project ./my-study watch add --from watch.json
+vorhersage --project ./my-study watch tick
+vorhersage --project ./my-study watch run --interval 30</code></pre></div><p><code>watch run</code> polls while its process runs; no OS service is installed. Workers receive and return JSON. After the deadline, the work becomes resolution research, not an automatic NO. Polling requires macOS or Linux.</p><a href="https://github.com/expectedparrot/vorhersage/blob/main/docs/RESEARCH_AND_MONITORING.md#running-monitoring">Watch configuration and worker protocol →</a></div></details></section>
+
+      <section id="evaluation" class="section"><p class="eyebrow">06 / Resolve and score</p><h2>Check the forecast against the outcome.</h2>
+<p>Only now do we introduce the fictional outcome. A YES can resolve before the deadline when qualifying evidence establishes that the event already happened. Record when the outcome became known honestly; later forecasts must not enter the ordinary score.</p><div class="code-block"><div class="code-heading"><span>Terminal / add outcome evidence, then resolve</span><button class="copy" data-copy="resolution-code" type="button">Copy</button></div><pre><code id="resolution-code" data-walkthrough="factory">vf research capture --from - &gt; &quot;$forecast_project/outcome.json&quot; &lt;&lt;JSON
+{
+  &quot;sources&quot;: [{
+    &quot;id&quot;: &quot;shipment&quot;,
+    &quot;url&quot;: &quot;urn:vorhersage:fictional:shipment&quot;,
+    &quot;title&quot;: &quot;Fictional dispatch record&quot;,
+    &quot;excerpt&quot;: &quot;A qualifying shipment occurred before the deadline.&quot;,
+    &quot;retrieved_at&quot;: &quot;$(forecast_time)&quot;
+  }],
+  &quot;findings&quot;: [{
+    &quot;id&quot;: &quot;shipment_occurred&quot;,
+    &quot;claim&quot;: &quot;A qualifying shipment occurred before the deadline.&quot;,
+    &quot;claim_type&quot;: &quot;observation&quot;,
+    &quot;source_ids&quot;: [&quot;shipment&quot;]
+  }],
+  &quot;limitations&quot;: [&quot;Entirely fictional tutorial evidence.&quot;]
+}
+JSON
+forecast_outcome=$(json_field packet_id &lt; &quot;$forecast_project/outcome.json&quot;)
+vf resolve --from - &lt;&lt;JSON
+{
+  &quot;question_id&quot;: &quot;factory_east&quot;,
+  &quot;question_version&quot;: 1,
+  &quot;outcome&quot;: &quot;yes&quot;,
+  &quot;reason&quot;: &quot;The fictional dispatch record meets the YES criterion.&quot;,
+  &quot;known_at&quot;: &quot;$(forecast_time)&quot;,
+  &quot;evidence_refs&quot;: [{&quot;packet_id&quot;: &quot;$forecast_outcome&quot;, &quot;record_id&quot;: &quot;shipment_occurred&quot;}],
+  &quot;previous_resolution_id&quot;: null,
+  &quot;idempotency_key&quot;: &quot;resolve-factory-east&quot;
+}
+JSON</code></pre></div><div class="code-block"><div class="code-heading"><span>Terminal / score the latest eligible forecast</span><button class="copy" data-copy="score-code" type="button">Copy</button></div><pre><code id="score-code" data-walkthrough="factory">vf evaluate --from - &gt; &quot;$forecast_project/evaluation.json&quot; &lt;&lt;JSON
+{
+  &quot;question_versions&quot;: [{&quot;question_id&quot;: &quot;factory_east&quot;, &quot;version&quot;: 1}],
+  &quot;forecasters&quot;: [&quot;agent:tutorial&quot;],
+  &quot;cutoff&quot;: &quot;$(forecast_time)&quot;,
+  &quot;resolution_as_of&quot;: &quot;$(forecast_time)&quot;,
+  &quot;mode&quot;: &quot;simulation&quot;
+}
+JSON
+python - &quot;$forecast_project/evaluation.json&quot; &lt;&lt;&#x27;PYTHON&#x27;
+import json, sys
+report = json.load(open(sys.argv[1]))[&quot;data&quot;]
+print(json.dumps(report[&quot;summaries&quot;], indent=2))
+PYTHON
+vf doctor</code></pre></div>
+<p><strong>Expected:</strong> <code>matched_n</code> is <code>1</code>, <code>matched_brier</code> is <code>0.0625</code>, and <code>doctor</code> returns <code>ok: true</code>. The evaluator selects the latest eligible forecast: 75%, not the earlier 40%.</p>
+<div class="note"><strong>Read the score.</strong> For a binary outcome, Brier loss is <code>(probability − outcome)²</code>, with YES = 1 and NO = 0. Here <code>(0.75 − 1)² = 0.0625</code>. Lower is better. One authored fictional outcome establishes arithmetic, not forecasting skill.</div>
+<p>The complete factory example adds a second question and a 50% baseline. Its final agent probabilities are 75% for East (YES) and 30% for West (NO), giving mean Brier loss <code>0.07625</code>, versus <code>0.25</code> for the baseline.</p>
+<p>Real comparisons should specify the same question versions, forecasters, mode, and cutoffs. Inspect exclusions for missing forecasts and void, disputed, or unresolved questions. Calibration bins are descriptive; related questions and repeated forecasts are not independent observations.</p></section>
+
+      <section id="experiments" class="section"><p class="eyebrow">07 / Compare procedures</p><h2>Run the same questions through different methods.</h2>
+<p>The <a href="https://github.com/expectedparrot/vorhersage/tree/main/examples/method_comparison">method-comparison example</a> uses the same factory setting. It registers direct judgment and conditional decomposition, then runs two questions × two methods × two repetitions: eight trials. Each question’s evidence is shared across methods.</p><div class="code-block"><div class="code-heading"><span>Terminal / run the eight-trial method example</span><button class="copy" data-copy="experiment-demo-code" type="button">Copy</button></div><pre><code id="experiment-demo-code">forecast_methods=$(mktemp -d &quot;${TMPDIR:-/tmp}/vorhersage-methods.XXXXXX&quot;)
+python examples/method_comparison/walkthrough.py &quot;$forecast_methods&quot;
+vorhersage --project &quot;$forecast_methods&quot; method list
+vorhersage --project &quot;$forecast_methods&quot; experiment list
+python -m json.tool &quot;$forecast_methods/summary.json&quot;</code></pre></div>
+<div class="table-scroll"><table><caption>Expected output from the offline method example</caption><thead><tr><th>Method</th><th>Authored calculation</th><th>Matched Brier</th></tr></thead><tbody><tr><td>Direct judgment</td><td>50% for each question</td><td>0.25</td></tr><tr><td>Conditional decomposition</td><td>0.80 × 0.75 = 60% for each question</td><td>0.26</td></tr></tbody></table></div>
+<p><strong>Inspect the saved files:</strong> <code>started.json</code> contains eight trial IDs; <code>partial.json</code> records the pause after three worker tasks; <code>completed.json</code> shows all eight forecasts; <code>evaluation.json</code> preserves method scores and the underlying selected forecasts. The fictional scores do not establish a better procedure.</p>
+<ol class="workflow"><li><strong>Method</strong><span>Freeze instructions, task prompts, calculation type, research domains, worker configuration, and budget.</span></li><li><strong>Experiment</strong><span>Pin question versions, method IDs, evidence packets, cutoffs, and repetitions.</span></li><li><strong>Run</strong><span>Execute bounded rounds. Resume with the same experiment ID.</span></li><li><strong>Evaluate</strong><span>Average repeated Brier losses within question, then compare methods on their common cohort.</span></li></ol>
+<details><summary>Register your own agent methods</summary><div class="details-body"><p>This is a template for a separate study. Author the JSON files with the published schemas, use the returned immutable method IDs in the experiment, and replace the uppercase placeholders. <code>experiment run</code> invokes the worker commands you registered; registration and <code>start</code> make no model calls.</p><div class="code-block"><div class="code-heading"><span>Template / use the experiment ID returned by add</span><button class="copy" data-copy="experiment-commands-code" type="button">Copy</button></div><pre><code id="experiment-commands-code">vorhersage schema method
+vorhersage --project ./my-study method add --from direct.json
+vorhersage --project ./my-study method add --from outside-view.json
+vorhersage schema experiment
+vorhersage --project ./my-study experiment add --from experiment.json
+vorhersage --project ./my-study experiment start EXPERIMENT_ID
+vorhersage --project ./my-study experiment run EXPERIMENT_ID --max-tasks 20
+vorhersage --project ./my-study experiment status EXPERIMENT_ID
+# After recording outcomes, supply your resolution snapshot timestamp:
+vorhersage --project ./my-study experiment evaluate EXPERIMENT_ID \
+  --resolution-as-of RESOLUTION_TIMESTAMP</code></pre></div><p>Changing a registered method requires a new version. Its instructions are supplied to the worker, and submitted prior and assessment types are validated. Each method/repetition has its own forecaster identity, so runs cannot silently replace another arm’s result.</p></div></details>
+<div class="note"><strong>Current scope.</strong> Methods use the existing workflow sequence and frozen evidence packets. Workers are trusted subprocesses; external access is not isolated, and usage limits depend on reported counts and costs. Incomplete repetitions can reduce the common scoring cohort.</div>
+<p><a href="https://github.com/expectedparrot/vorhersage/blob/main/docs/EXPERIMENTS.md">Complete method and experiment schemas, worker protocol, and scoring rules →</a></p></section>
 
       <section id="scenarios" class="section">
-        <p class="eyebrow">05 / An optional calculation</p><h2>See which assumptions move the answer.</h2>
+        <p class="eyebrow">Optional / Inspect assumptions</p><h2>See which assumptions move the answer.</h2>
         <p>A scenario mixture combines mutually exclusive possibilities. The agent defines the scenarios and their probabilities; the tool checks the weights and computes the result. No domain-specific model is required.</p>
         <div class="scenario-lab">
           <div class="lab-header"><span class="eyebrow">Try it / fictional example</span><button id="reset-scenario" class="reset" type="button">Reset</button></div>
@@ -116,40 +386,18 @@ vorhersage --project ./my-study epiq freeze \
         <div class="code-block"><div class="code-heading"><span>Terminal / calculate without issuing a forecast</span><button class="copy" data-copy="scenario-code" type="button">Copy</button></div><pre><code id="scenario-code">vorhersage scenario --from examples/workbench_extensions/mixture.json</code></pre></div>
         <p>To use the calculation in a workflow, choose <code>method: "scenario_mixture"</code> for the assessment. Simple judgments, nested conditional paths, and explicit ensembles remain available. <a href="https://github.com/expectedparrot/vorhersage/blob/main/docs/RESEARCH_AND_MONITORING.md#optional-scenario-mixtures">Read the assumptions and sensitivity rules →</a></p>
       </section>
-
-      <section id="monitoring" class="section">
-        <p class="eyebrow">06 / After issuance</p><h2>A forecast is a record you revisit.</h2>
-        <p>Each issued forecast has a review time and observable update triggers. A revision starts a new run linked by <code>previous_forecast_id</code>, preserving the original estimate and its evidence.</p>
-        <div class="code-block"><div class="code-heading"><span>Terminal / review queue and polling</span><button class="copy" data-copy="watch-code" type="button">Copy</button></div><pre><code id="watch-code">vorhersage --project ./my-study monitor
-vorhersage schema watch
-vorhersage --project ./my-study watch add --from watch.json
-vorhersage --project ./my-study watch tick
-vorhersage --project ./my-study watch run --interval 30</code></pre></div>
-        <p><code>monitor</code> lists due work without changing state. A configured watch can check Epiq or collect fresh evidence through a research worker, register changes, and start or resume a revision. An optional agent worker supplies validated responses through review and issuance.</p>
-        <p>Workers receive JSON on stdin and return JSON on stdout. Failed calls are recorded for retry. A fresh retrieval timestamp alone is not a new finding. After a deadline, due work goes to resolution research; the tool never infers a NO outcome from silence alone.</p>
-        <div class="note"><strong>Running the loop.</strong> <code>watch run</code> polls while the process runs; <code>watch tick</code> fits an external scheduler. Configure your workers first. No OS service is installed automatically. Polling currently requires macOS or Linux.</div>
-        <p><a href="https://github.com/expectedparrot/vorhersage/blob/main/docs/RESEARCH_AND_MONITORING.md#running-monitoring">Watch configuration and worker protocols →</a></p>
-      </section>
-
-      <section id="evaluation" class="section">
-        <p class="eyebrow">07 / Check the forecast</p><h2>Compare like with like.</h2>
-        <p>Resolve the exact question version with outcome evidence. Evaluation selects eligible forecasts at a stated cutoff, computes Brier scores, and reports matched comparisons, missingness, and descriptive calibration bins. Prospective, retrospective, and simulation forecasts are kept separate.</p>
-        <div class="feature-grid compact"><article><h3>Build reference classes</h3><p>Store historical episodes with <code>reference add</code>. Query a chosen horizon and knowledge cutoff. Cases observed too briefly are reported as censored.</p></article><article><h3>Check related events</h3><p>Register version-specific implications with <code>relation</code>. <code>coherence</code> checks probability ordering, including transitive relationships.</p></article></div>
-        <p>Historical replay can be contaminated by a model’s knowledge of the outcome. The included model pilot documents that limitation. Completing a structured process is useful evidence of software behavior; it does not establish superior predictive accuracy.</p>
-      </section>
-
-      <section id="reference" class="section">
-        <p class="eyebrow">08 / Command reference</p><h2>JSON in. Reviewable records out.</h2>
+<section id="reference" class="section">
+        <p class="eyebrow">Reference / Discover the interface</p><h2>JSON in. Reviewable records out.</h2>
         <p>Use <code>vorhersage guide</code>, <code>vorhersage schema NAME</code>, and command-level <code>--help</code> to discover the interface. Ordinary output is a JSON envelope; errors go to stderr with a nonzero exit code. <code>--from -</code> accepts stdin.</p>
-        <div class="table-scroll"><table><caption>Commands by task</caption><thead><tr><th>Task</th><th>Commands</th></tr></thead><tbody><tr><td>Set up a study</td><td><code>init</code>, <code>question add/revise</code>, <code>profile add</code>, <code>run start</code></td></tr><tr><td>Drive the process</td><td><code>next</code>, <code>submit</code>, <code>status</code></td></tr><tr><td>Preserve evidence</td><td><code>research capture</code>, <code>packet import/audit</code>, <code>epiq search/freeze/check</code></td></tr><tr><td>Inspect assumptions</td><td><code>scenario</code>, <code>reference add/query</code>, <code>relation</code>, <code>coherence</code></td></tr><tr><td>Revisit &amp; resolve</td><td><code>monitor</code>, <code>signal</code>, <code>watch add/tick/run/disable</code>, <code>resolve</code></td></tr><tr><td>Inspect &amp; evaluate</td><td><code>report</code>, <code>forecast show</code>, <code>doctor</code>, <code>evaluate</code>, <code>benchmark</code></td></tr></tbody></table></div>
+        <div class="table-scroll"><table><caption>Commands by task</caption><thead><tr><th>Task</th><th>Commands</th></tr></thead><tbody><tr><td>Set up a study</td><td><code>init</code>, <code>question add/revise</code>, <code>profile add</code>, <code>run start</code></td></tr><tr><td>Drive the process</td><td><code>next</code>, <code>submit</code>, <code>status</code></td></tr><tr><td>Preserve evidence</td><td><code>research capture</code>, <code>packet import/audit</code>, <code>epiq search/freeze/check</code></td></tr><tr><td>Inspect assumptions</td><td><code>scenario</code>, <code>reference add/query</code>, <code>relation</code>, <code>coherence</code></td></tr><tr><td>Revisit &amp; resolve</td><td><code>monitor</code>, <code>signal</code>, <code>watch add/tick/run/disable</code>, <code>resolve</code></td></tr><tr><td>Compare methods</td><td><code>method add/show/list</code>, <code>experiment add/start/run/status/evaluate</code></td></tr><tr><td>Inspect &amp; evaluate</td><td><code>report</code>, <code>forecast show</code>, <code>doctor</code>, <code>evaluate</code>, <code>benchmark</code></td></tr></tbody></table></div>
         <p>Project state lives in <code>.vorhersage/state.sqlite</code>. Evidence packets, issued forecasts, and task results retain their history. The package is intended for small portfolios; large-scale performance has not been established.</p>
         <div class="resource-links"><a href="https://github.com/expectedparrot/vorhersage/blob/main/docs/AGENT_GUIDE.md">Full agent guide <span>↗</span></a><a href="https://github.com/expectedparrot/vorhersage/blob/main/docs/RESEARCH_AND_MONITORING.md">Research &amp; monitoring <span>↗</span></a><a href="https://github.com/expectedparrot/vorhersage/blob/main/docs/VALIDATION.md">Validation record <span>↗</span></a></div>
       </section>
 
       <section id="examples" class="section">
-        <p class="eyebrow">09 / Worked examples</p><h2>Explore the records behind the numbers.</h2>
-        <div class="example-grid"><a href="https://github.com/expectedparrot/vorhersage/tree/main/examples/factory"><span class="eyebrow">Offline / fictional</span><h3>Factory portfolio <span>↗</span></h3><p>A complete CLI walkthrough, from initial forecast to revision, resolution, and scoring.</p></a><a href="https://github.com/expectedparrot/vorhersage/tree/main/examples/listen_labs_salesforce_2026"><span class="eyebrow">Prospective / recorded Sept. 10, 2026</span><h3>Listen Labs &amp; Salesforce <span>↗</span></h3><p>Separate acquisition-announcement and completion contracts, with sources, objections, and update triggers.</p></a><a href="https://github.com/expectedparrot/vorhersage/tree/main/examples/backtesting"><span class="eyebrow">Historical replay</span><h3>Benchmark walkthrough <span>↗</span></h3><p>Twenty validation questions, an explicit control, and separate outcome and forecast records.</p></a><a href="https://github.com/expectedparrot/vorhersage/blob/main/examples/backtesting/model_pilot_01/RESULTS.md"><span class="eyebrow">Model experiment</span><h3>What the pilot revealed <span>↗</span></h3><p>Eighty completions expose format failures and outcome recognition that limit accuracy comparisons.</p></a></div>
-        <p class="caption">Examples are dated records, not continuously updated recommendations. See each example’s mode, information cutoff, and limitations.</p>
+        <p class="eyebrow">Examples / Continue exploring</p><h2>Explore the records behind the numbers.</h2>
+        <div class="example-grid"><a href="https://github.com/expectedparrot/vorhersage/tree/main/examples/method_comparison"><span class="eyebrow">Offline / repeated trials</span><h3>Method comparison <span>↗</span></h3><p>Two procedures, two questions, two repetitions, and a worker run that pauses and resumes.</p></a><a href="https://github.com/expectedparrot/vorhersage/tree/main/examples/factory"><span class="eyebrow">Offline / fictional</span><h3>Factory portfolio <span>↗</span></h3><p>A complete CLI walkthrough, from initial forecast to revision, resolution, and scoring.</p></a><a href="https://github.com/expectedparrot/vorhersage/tree/main/examples/listen_labs_salesforce_2026"><span class="eyebrow">Prospective / recorded Sept. 10, 2026</span><h3>Listen Labs &amp; Salesforce <span>↗</span></h3><p>Separate acquisition-announcement and completion contracts, with sources, objections, and update triggers.</p></a><a href="https://github.com/expectedparrot/vorhersage/tree/main/examples/backtesting"><span class="eyebrow">Historical replay</span><h3>Benchmark walkthrough <span>↗</span></h3><p>Twenty validation questions, an explicit control, and separate outcome and forecast records.</p></a><a href="https://github.com/expectedparrot/vorhersage/blob/main/examples/backtesting/model_pilot_01/RESULTS.md"><span class="eyebrow">Model experiment</span><h3>What the pilot revealed <span>↗</span></h3><p>Eighty completions expose format failures and outcome recognition that limit accuracy comparisons.</p></a></div>
+        <p class="caption">The Listen Labs example shows why announcement and completion need separate contracts. Historical replays also require an explicit contamination assessment. Examples are dated records, not continuously updated recommendations. See each example’s mode, information cutoff, and limitations.</p>
       </section>
     </div>
   </div>

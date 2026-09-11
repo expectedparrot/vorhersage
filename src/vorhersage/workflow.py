@@ -85,37 +85,46 @@ class Workflow:
                 "records": [{"record_id": r["id"], "claim": r["claim"], "evidence_ref": {"packet_id": id, "record_id": r["id"]}} for r in packet["records"]]}
 
     def start(self, spec):
+        with self.store.connect(True) as c:
+            return self._start(c, spec)
+
+    def _start(self, c, spec, protocol=None):
+        """Internal transactional start, also used for atomic experiment creation."""
         check(spec, "run")
         require(time(spec["information_as_of"]) <= time(now()), "Information cutoff cannot be in the future.")
-        with self.store.connect(True) as c:
-            question = Store.question(c, spec["question_id"])
-            q = question["specification"]
-            require((q["kind"] == "simulation") == (spec["mode"] == "simulation"), "Question kind and run mode disagree.")
-            cutoff_policy = spec.get("cutoff_policy", "live" if spec["mode"] == "prospective" else "fixed")
-            require(cutoff_policy != "live" or spec["mode"] == "prospective", "Live cutoffs require prospective mode.")
-            if spec["mode"] == "prospective":
-                require(time(now()) < time(q["event_deadline"]), "Prospective forecasting deadline has passed.")
-                require(not self._resolutions(c, q["id"], question["version"]), "Question already has a resolution; use a retrospective run.")
-            previous = spec.get("previous_forecast_id")
-            if previous:
-                old = Store.artifact(c, previous, "forecast")
-                require(old["question_id"] == q["id"] and old["question_version"] == question["version"], "A revision must retain the exact question version.")
-                require(old["forecaster"] == spec["forecaster"] and old["mode"] == spec["mode"], "Revision forecaster/mode changed.")
-                require(time(spec["information_as_of"]) >= time(old["information_as_of"]), "Revision cutoff precedes the previous forecast.")
-                latest = self._latest(c, q["id"], question["version"], spec["forecaster"], spec["mode"])
-                require(latest and latest["id"] == previous, "Revise the latest forecast.")
-            profile = json.loads(c.execute("SELECT body FROM profiles WHERE id=?", (q["profile"],)).fetchone()[0])
-            id = identifier("run")
-            body = {**spec, "cutoff_policy": cutoff_policy, "id": id, "question_version": question["version"], "question": q,
-                    "research_status": spec.get("research_status", "unspecified"),
-                    "profile": profile, "created_at": now(), "workflow_version": "1"}
-            state = {"pending": [task("prior"), task("drivers"), *[task("research", domain=d) for d in profile["domains"]],
-                                 task("assessment"), task("review"), task("issue")],
-                     "artifact_ids": [previous] if previous else [], "evidence_refs": [], "coverage": {},
-                     "used_searches": 0, "cost_usd": 0, "model_calls": 0, "extra_tasks": 0,
-                     "probability": None, "forecast_id": None, "information_as_of": spec["information_as_of"]}
-            c.execute("INSERT INTO runs VALUES (?,?,?,0)", (id, canonical(body), canonical(state)))
-            Store.event(c, "run.start", body)
+        question = Store.question(c, spec["question_id"], spec.get("question_version"))
+        q = question["specification"]
+        require((q["kind"] == "simulation") == (spec["mode"] == "simulation"), "Question kind and run mode disagree.")
+        cutoff_policy = spec.get("cutoff_policy", "live" if spec["mode"] == "prospective" else "fixed")
+        require(cutoff_policy != "live" or spec["mode"] == "prospective", "Live cutoffs require prospective mode.")
+        if spec["mode"] == "prospective":
+            require(time(now()) < time(q["event_deadline"]), "Prospective forecasting deadline has passed.")
+            require(not self._resolutions(c, q["id"], question["version"]), "Question already has a resolution; use a retrospective run.")
+        previous = spec.get("previous_forecast_id")
+        if previous:
+            old = Store.artifact(c, previous, "forecast")
+            require(old["question_id"] == q["id"] and old["question_version"] == question["version"], "A revision must retain the exact question version.")
+            require(old["forecaster"] == spec["forecaster"] and old["mode"] == spec["mode"], "Revision forecaster/mode changed.")
+            require(time(spec["information_as_of"]) >= time(old["information_as_of"]), "Revision cutoff precedes the previous forecast.")
+            latest = self._latest(c, q["id"], question["version"], spec["forecaster"], spec["mode"])
+            require(latest and latest["id"] == previous, "Revise the latest forecast.")
+        profile = json.loads(c.execute("SELECT body FROM profiles WHERE id=?", (q["profile"],)).fetchone()[0])
+        if protocol:
+            profile = {"id": protocol["method_spec_id"], "description": "Frozen method research domains",
+                       "domains": protocol["method_spec"]["research_domains"]}
+        id = identifier("run")
+        body = {**spec, "cutoff_policy": cutoff_policy, "id": id, "question_version": question["version"], "question": q,
+                "research_status": spec.get("research_status", "unspecified"),
+                "profile": profile, "created_at": now(), "workflow_version": "1", **(protocol or {})}
+        state = {"pending": [task("prior"), task("drivers"), *[task("research", domain=d) for d in profile["domains"]],
+                             task("assessment"), task("review"), task("issue")],
+                 "artifact_ids": [previous] if previous else [], "evidence_refs": [], "coverage": {},
+                 "used_searches": 0, "cost_usd": 0, "model_calls": 0, "extra_tasks": 0,
+                 "probability": None, "forecast_id": None, "information_as_of": spec["information_as_of"]}
+        if protocol:
+            state["artifact_ids"].extend([protocol["method_spec_id"], protocol["experiment_id"], *protocol["packet_ids"]])
+        c.execute("INSERT INTO runs VALUES (?,?,?,0)", (id, canonical(body), canonical(state)))
+        Store.event(c, "run.start", body)
         return {"run_id": id, "revision": 0}
 
     @staticmethod
@@ -141,7 +150,13 @@ class Workflow:
                     or self._resolutions(c, run["question_id"], run["question_version"])):
                 return {"disposition": "blocked", "run_id": run_id, "revision": revision,
                         "reason": "Prospective deadline passed or a resolution was recorded. Preserve this run; any hindsight work needs a separate retrospective run."}
-            selected = state["pending"][0]
+            selected = copy.deepcopy(state["pending"][0])
+            if run.get("method_spec"):
+                method = run["method_spec"]
+                selected["instruction"] += "\n" + method["instructions"] + "\n" + method["task_instructions"].get(selected["kind"], "")
+                if time(now()) >= time(run["forecast_cutoff"]):
+                    return {"disposition": "blocked", "run_id": run_id, "revision": revision,
+                            "reason": "Experiment forecast cutoff passed."}
             packet_ids = sorted({r["packet_id"] for r in state["evidence_refs"]})
             return {"disposition": "actionable", "run_id": run_id, "revision": revision,
                     "task": selected, "submission_schema": SCHEMAS["submit"], "payload_schema": SCHEMAS[selected["kind"]],
@@ -175,6 +190,17 @@ class Workflow:
                 state["information_as_of"] = run["information_as_of"]
             refs = evidence_refs(p)
             verify_refs(c, refs, run["information_as_of"])
+            if run.get("method_spec"):
+                require(time(now()) < time(run["forecast_cutoff"]), "Experiment forecast cutoff passed.")
+                method = run["method_spec"]
+                require(all(ref["packet_id"] in run["packet_ids"] for ref in refs), "Experiment requires registered frozen packets.")
+                if selected["kind"] in ("prior", "assessment"):
+                    require(p["method"] == method[selected["kind"] + "_method"], "Submission does not follow the registered method.")
+                require("usage" in result, "Experiment submissions must report usage.")
+                usage = result["usage"]
+                require(state["model_calls"] + usage["model_calls"] <= method["budget"]["max_model_calls"] and
+                        state["cost_usd"] + usage["cost_usd"] <= method["budget"]["max_cost_usd"],
+                        "Experiment reported model/cost budget exhausted.", "budget_exhausted")
             usage = result.get("usage", {"searches": 0, "cost_usd": 0, "model_calls": 0})
             require(state["used_searches"] + usage["searches"] <= run["max_searches"], "Research budget exhausted; submit existing evidence or explicit unknowns.", "budget_exhausted")
             state["used_searches"] += usage["searches"]
@@ -299,6 +325,8 @@ class Workflow:
                         "evidence_refs": state["evidence_refs"], "cost_usd": state["cost_usd"],
                         "prior_record": state.get("prior_record", {"timing": "unspecified"}),
                         "searches": state["used_searches"], "model_calls": state["model_calls"], **p}
+            if run.get("experiment_id"):
+                forecast.update({key: run[key] for key in ("experiment_id", "method_spec_id", "trial_id", "repetition")})
             coherence = coherence_audit(c, {**forecast, "id": "pending"})
             require(run.get("coherence_policy", "warn") != "strict" or not coherence["violations"],
                     "Forecast violates a registered implication; revise or use the warn policy with review.", "incoherent_forecast")
@@ -402,10 +430,14 @@ class Workflow:
                 body = Store.artifact(c, row["id"])
                 if row["kind"] == "packet":
                     validate_packet(body)
-                if row["kind"] in ("forecast", "evaluation", "replay_evaluation"):
+                if row["kind"] in ("forecast", "evaluation", "replay_evaluation", "experiment", "experiment_evaluation"):
                     if row["kind"] == "forecast":
                         require(digest(body["input_manifest"]) == body["manifest_sha256"], "Forecast manifest hash mismatch.")
                     for id, expected in body["input_manifest"].items():
                         require(digest(Store.artifact(c, id)) == expected, "Forecast input has changed.", "integrity_error")
+                if row["kind"] == "experiment":
+                    for q in body["questions"]:
+                        require(digest(Store.question(c, q["question_id"], q["version"])) == q["sha256"],
+                                "Experiment question has changed.", "integrity_error")
                 count += 1
             return {"ok": True, "artifacts_checked": count, "sqlite_integrity": integrity}
