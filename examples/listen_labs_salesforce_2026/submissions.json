@@ -1,0 +1,1314 @@
+{
+  "announced": [
+    {
+      "task": {
+        "id": "task_cc536f0fe19a43be9c14",
+        "instruction": "Establish a labeled judgmental prior or a reference class with cases and evidence. Explain comparability and limitations.",
+        "kind": "prior"
+      },
+      "request": {
+        "task_id": "task_cc536f0fe19a43be9c14",
+        "expected_revision": 0,
+        "idempotency_key": "announced-0",
+        "payload": {
+          "method": "judgment",
+          "probability": 0.4,
+          "rationale": "Starting judgment after the research session; no unobserved pre-research prior is reconstructed. 40% for an official agreement announcement in this window. Real transaction interest and a plausible conference occasion make an announcement substantial, but unverified negotiation readiness and the short deadline keep it below even odds. A reasonable judgment sensitivity range is 25–55%, not a statistical confidence interval.",
+          "limitations": [
+            "Subjective agent judgment; no fitted model, representative base rate, market price, or independent forecasting panel.",
+            "Research preceded workflow registration. The prior task records an evidence-conditioned starting judgment, not a preregistered pre-research probability. Repeated evidence is not treated as a new Bayesian update.",
+            "Unknown negotiation maturity dominates uncertainty; conference timing is only a hypothesis.",
+            "Both forecasts share the same evidence and event group; they are not independent evaluation cases.",
+            "The external research session used 16 search queries plus page opens/finds. Search count is charged once to the announcement run. Tool and assistant costs were unavailable; zero recorded dollars/model calls means no separately metered inference, not free research."
+          ],
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "talks"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "financing_change"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "conference"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "buyer_appetite"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "seller_funding"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "product"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "official_check"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "fast_example"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "failed_example"
+            }
+          ]
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_9d719ece1679448881fc",
+        "revision": 1,
+        "artifact_id": "task_result_a1dbdf4e2e69460fb3ae",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "id": "task_56baf6b728ee49a39743",
+        "instruction": "Map mechanisms and necessary steps, including concrete paths to YES and NO. Identify important unknowns.",
+        "kind": "drivers"
+      },
+      "request": {
+        "task_id": "task_56baf6b728ee49a39743",
+        "expected_revision": 1,
+        "idempotency_key": "announced-1",
+        "payload": {
+          "drivers": [
+            {
+              "name": "Negotiation readiness",
+              "mechanism": "Settled substantive terms and approvals would permit a short announcement timetable; unknown readiness creates substantial delay risk.",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "talks"
+                },
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "official_check"
+                }
+              ]
+            },
+            {
+              "name": "Buyer fit and seller alternatives",
+              "mechanism": "Potential complementary products encourage a deal, while a viable standalone business can reject unsatisfactory terms.",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "product"
+                },
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "buyer_appetite"
+                },
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "seller_funding"
+                },
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "financing_change"
+                }
+              ]
+            },
+            {
+              "name": "Calendar and completion",
+              "mechanism": "A nearby conference could concentrate announcements, but it does not eliminate negotiations or closing conditions.",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "conference"
+                },
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "buyer_appetite"
+                }
+              ]
+            }
+          ],
+          "yes_path": "The parties settle terms, authorize the transaction, and make a qualifying public statement before the deadline.",
+          "no_path": "Talks fail, remain unresolved, or produce a statement after September 21.",
+          "unknowns": [
+            "Current negotiation stage.",
+            "Terms, approvals, exclusivity, and announcement timetable.",
+            "Any plans connecting this deal to Dreamforce."
+          ]
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_9d719ece1679448881fc",
+        "revision": 2,
+        "artifact_id": "task_result_eb66fa312e84491b9461",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "domain": "source_provenance",
+        "id": "task_524e7cc1d8f84dad9d7a",
+        "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+        "kind": "research"
+      },
+      "request": {
+        "task_id": "task_524e7cc1d8f84dad9d7a",
+        "expected_revision": 2,
+        "idempotency_key": "announced-2",
+        "payload": {
+          "disposition": "assessed",
+          "interpretation": "Treat the original report as one source cluster. The additional independently reported fact has a separate provenance group, but the underlying anonymous informants may overlap. Repeated headlines receive no extra weight.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "talks"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "financing_change"
+            }
+          ],
+          "sources_checked": [
+            "https://www.businessinsider.com/salesforce-acquire-ai-startup-listen-labs-2026-9",
+            "https://techcrunch.com/2026/09/09/ai-research-startup-listen-labs-scrubbed-a-1-5b-funding-round-for-salesforce-talks/",
+            "https://www.investing.com/news/stock-market-news/salesforce-in-talks-to-acquire-ai-platform-listen-labs-for-2-billion--report-4894402"
+          ],
+          "unknowns": [
+            "Informant identities, motivations, and overlap."
+          ],
+          "conflicts": []
+        },
+        "usage": {
+          "searches": 16,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_9d719ece1679448881fc",
+        "revision": 3,
+        "artifact_id": "task_result_a5f991fc4b834b33b8e1",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "domain": "negotiation_stage",
+        "id": "task_b1f93d33b0224b319e36",
+        "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+        "kind": "research"
+      },
+      "request": {
+        "task_id": "task_b1f93d33b0224b319e36",
+        "expected_revision": 3,
+        "idempotency_key": "announced-3",
+        "payload": {
+          "disposition": "unknown",
+          "interpretation": "The evidence supports a real possibility of a transaction but does not establish how close the parties are to signature. Do not turn a general uncertainty caveat into a factual claim that talks are either preliminary or advanced.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "talks"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "official_check"
+            }
+          ],
+          "sources_checked": [
+            "https://www.businessinsider.com/salesforce-acquire-ai-startup-listen-labs-2026-9",
+            "https://www.salesforce.com/news/topics/mergers-and-acquisitions/",
+            "https://listenlabs.ai/"
+          ],
+          "unknowns": [
+            "Whether a binding agreement exists privately.",
+            "Whether diligence, price, retention terms, and board approvals are settled.",
+            "Whether discussions are current or have already stalled."
+          ],
+          "conflicts": [
+            {
+              "description": "Some secondary coverage labels the talks preliminary or advanced without support for that stage in the original report.",
+              "status": "resolved",
+              "decision": "Code the negotiation stage as unknown; do not inherit secondary embellishments."
+            }
+          ]
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_9d719ece1679448881fc",
+        "revision": 4,
+        "artifact_id": "task_result_9f0c331a97414858b243",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "domain": "buyer_and_seller",
+        "id": "task_54a48abd7ced44b1a85a",
+        "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+        "kind": "research"
+      },
+      "request": {
+        "task_id": "task_54a48abd7ced44b1a85a",
+        "expected_revision": 4,
+        "idempotency_key": "announced-4",
+        "payload": {
+          "disposition": "assessed",
+          "interpretation": "Inference: customer research could complement Salesforce distribution and customer software; demonstrated willingness to buy adjacent AI businesses raises plausibility. Recent seller financing supports an independent operating alternative but does not establish current cash runway. Strategic fit does not settle price or timing.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "buyer_appetite"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "seller_funding"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "product"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "financing_change"
+            }
+          ],
+          "sources_checked": [
+            "https://www.salesforce.com/news/press-releases/2026/06/15/salesforce-signs-definitive-agreement-to-acquire-fin/",
+            "https://www.prnewswire.com/news-releases/listen-labs-raises-69-million-series-b-to-bring-customer-voices-into-every-decision-302661000.html",
+            "https://pear.vc/listen-labs-series-b/",
+            "https://listenlabs.ai/",
+            "https://techcrunch.com/2026/09/09/ai-research-startup-listen-labs-scrubbed-a-1-5b-funding-round-for-salesforce-talks/"
+          ],
+          "unknowns": [
+            "Current cash balance, burn, founder preferences, and willingness to accept transaction terms.",
+            "Competing offers or renewed financing options.",
+            "Internal Salesforce acquisition priorities."
+          ],
+          "conflicts": []
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_9d719ece1679448881fc",
+        "revision": 5,
+        "artifact_id": "task_result_03857966492a49b18d5d",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "domain": "deadline_and_closing",
+        "id": "task_347ba9d460074997b99f",
+        "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+        "kind": "research"
+      },
+      "request": {
+        "task_id": "task_347ba9d460074997b99f",
+        "expected_revision": 5,
+        "idempotency_key": "announced-5",
+        "payload": {
+          "disposition": "assessed",
+          "interpretation": "Dreamforce provides a plausible near-term announcement occasion, an inference with no verified connection to this transaction. The forecast window is about eleven days. Fin illustrates why signing and closing must be separated; its timetable is not assumed to apply mechanically to this smaller private target.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "conference"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "buyer_appetite"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "official_check"
+            }
+          ],
+          "sources_checked": [
+            "https://www.salesforce.com/dreamforce/faq/",
+            "https://www.salesforce.com/news/press-releases/2026/06/15/salesforce-signs-definitive-agreement-to-acquire-fin/",
+            "https://www.salesforce.com/news/topics/mergers-and-acquisitions/",
+            "https://listenlabs.ai/"
+          ],
+          "unknowns": [
+            "Any company plan to announce at Dreamforce.",
+            "Transaction-specific approvals, filing status, and ability to sign and close together."
+          ],
+          "conflicts": []
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_9d719ece1679448881fc",
+        "revision": 6,
+        "artifact_id": "task_result_e171fb72854f4dca88ab",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "domain": "base_rates_and_contrary_evidence",
+        "id": "task_5a328e41963a430da409",
+        "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+        "kind": "research"
+      },
+      "request": {
+        "task_id": "task_5a328e41963a430da409",
+        "expected_revision": 6,
+        "idempotency_key": "announced-6",
+        "payload": {
+          "disposition": "assessed",
+          "interpretation": "The two historical episodes demonstrate that fast announcements and failed negotiations are both possible. They are not a representative reference class, and their success fraction is not a prior. A long negotiation or an independent financing path can yield NO even if the strategic rationale is strong. No empirical rumor-to-announcement rate was estimated.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "fast_example"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "failed_example"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "seller_funding"
+            }
+          ],
+          "sources_checked": [
+            "https://www.sec.gov/Archives/edgar/data/1764925/000119312521022117/d13689ddefm14a.htm",
+            "https://investor.salesforce.com/news/news-details/2020/Salesforce-Signs-Definitive-Agreement-to-Acquire-Slack/default.aspx",
+            "https://www.investing.com/news/stock-market-news/salesforces-talks-to-buy-informatica-fizzle-wsj-reports-3387719",
+            "https://www.prnewswire.com/news-releases/listen-labs-raises-69-million-series-b-to-bring-customer-voices-into-every-decision-302661000.html",
+            "https://pear.vc/listen-labs-series-b/"
+          ],
+          "unknowns": [
+            "Success rate and time-to-announcement distribution for comparable private AI acquisition rumors."
+          ],
+          "conflicts": []
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_9d719ece1679448881fc",
+        "revision": 7,
+        "artifact_id": "task_result_aec06a3af8984b2f80fc",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "id": "task_9de3dd03354a41979763",
+        "instruction": "Form a probability from the researched evidence. Label judgments; supply nested conditionals or exact ensemble membership when used. State limitations.",
+        "kind": "assessment"
+      },
+      "request": {
+        "task_id": "task_9de3dd03354a41979763",
+        "expected_revision": 7,
+        "idempotency_key": "announced-7",
+        "payload": {
+          "method": "judgment",
+          "probability": 0.4,
+          "rationale": "40% for an official agreement announcement in this window. Real transaction interest and a plausible conference occasion make an announcement substantial, but unverified negotiation readiness and the short deadline keep it below even odds. A reasonable judgment sensitivity range is 25–55%, not a statistical confidence interval.",
+          "limitations": [
+            "Subjective agent judgment; no fitted model, representative base rate, market price, or independent forecasting panel.",
+            "Research preceded workflow registration. The prior task records an evidence-conditioned starting judgment, not a preregistered pre-research probability. Repeated evidence is not treated as a new Bayesian update.",
+            "Unknown negotiation maturity dominates uncertainty; conference timing is only a hypothesis.",
+            "Both forecasts share the same evidence and event group; they are not independent evaluation cases.",
+            "The external research session used 16 search queries plus page opens/finds. Search count is charged once to the announcement run. Tool and assistant costs were unavailable; zero recorded dollars/model calls means no separately metered inference, not free research."
+          ],
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "talks"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "financing_change"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "conference"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "buyer_appetite"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "seller_funding"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "product"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "official_check"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "fast_example"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "failed_example"
+            }
+          ]
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_9d719ece1679448881fc",
+        "revision": 8,
+        "artifact_id": "task_result_1b49b0bcbfb4415c9c4f",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "id": "task_5e5d445795dc4f729ac0",
+        "instruction": "Challenge the estimate in both directions. Retain or revise with reasons, or request bounded additional research.",
+        "kind": "review"
+      },
+      "request": {
+        "task_id": "task_5e5d445795dc4f729ac0",
+        "expected_revision": 8,
+        "idempotency_key": "announced-8",
+        "payload": {
+          "decision": "retain",
+          "rationale": "Retain the rounded subjective estimate. Avoid counting copied reporting twice or treating the conference hypothesis as confirmed. Distinguish deadline failure from permanent deal failure.",
+          "objections": [
+            {
+              "direction": "too_high",
+              "objection": "The forecast may overweight strategic fit and a salient calendar event without knowing whether terms are close.",
+              "response": "Keep agreement odds below 50%; assign much lower probability to completed acquisition. Continued silence after the conference should prompt a lower near-term estimate."
+            },
+            {
+              "direction": "too_low",
+              "objection": "The public record could lag a substantially finished private process.",
+              "response": "Allow a meaningful announcement chance and a small completion chance; raise the estimate materially if reporting establishes agreement on terms or an imminent announcement."
+            }
+          ],
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "talks"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "financing_change"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "conference"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "buyer_appetite"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "seller_funding"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "product"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "official_check"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "fast_example"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "failed_example"
+            }
+          ]
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_9d719ece1679448881fc",
+        "revision": 9,
+        "artifact_id": "task_result_4b153b5d39434f1795f6",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "id": "task_e31f1db6f2d84e098a12",
+        "instruction": "Freeze the estimate with a stopping reason, review date, and observable update triggers.",
+        "kind": "issue"
+      },
+      "request": {
+        "task_id": "task_e31f1db6f2d84e098a12",
+        "expected_revision": 9,
+        "idempotency_key": "announced-9",
+        "payload": {
+          "stopping_reason": "Original reporting and relevant official sources checked; remaining uncertainty concerns private negotiation status. More repetitions of the same rumor would not resolve it. Issue now and update on new information.",
+          "review_at": "2026-09-11T09:00:00-04:00",
+          "triggers": [
+            {
+              "description": "A qualifying official statement: resolve the relevant contract immediately; a signing announcement does not resolve the completion contract YES.",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "official_check"
+                }
+              ]
+            },
+            {
+              "description": "Credible new reporting establishes exclusivity, agreed terms, an imminent announcement, regulatory progress, failed talks, or another buyer: reassess.",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "talks"
+                }
+              ]
+            },
+            {
+              "description": "Dreamforce ends September 17 without a qualifying announcement: recheck sources and reduce the short-deadline estimate if no offsetting evidence appears.",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "conference"
+                }
+              ]
+            },
+            {
+              "description": "September 21 deadline passes: perform resolution research using publication timestamps; do not count a late announcement.",
+              "evidence_refs": []
+            }
+          ]
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_9d719ece1679448881fc",
+        "revision": 10,
+        "artifact_id": "task_result_235c5217b0d440e5b3be",
+        "forecast_id": "forecast_38efcb90eb934d539cb5"
+      }
+    }
+  ],
+  "completed": [
+    {
+      "task": {
+        "id": "task_98edee1d35ed4a10ac8d",
+        "instruction": "Establish a labeled judgmental prior or a reference class with cases and evidence. Explain comparability and limitations.",
+        "kind": "prior"
+      },
+      "request": {
+        "task_id": "task_98edee1d35ed4a10ac8d",
+        "expected_revision": 0,
+        "idempotency_key": "completed-0",
+        "payload": {
+          "method": "judgment",
+          "probability": 0.05,
+          "rationale": "Starting judgment after the research session; no unobserved pre-research prior is reconstructed. 5% for completion and public confirmation in this window. This requires both a transaction and unusually rapid readiness to close. The estimate leaves room for an undisclosed advanced process; no transaction-specific closing schedule is verified. Judgment sensitivity range 1–10%, not a statistical confidence interval.",
+          "limitations": [
+            "Subjective agent judgment; no fitted model, representative base rate, market price, or independent forecasting panel.",
+            "Research preceded workflow registration. The prior task records an evidence-conditioned starting judgment, not a preregistered pre-research probability. Repeated evidence is not treated as a new Bayesian update.",
+            "Unknown negotiation maturity dominates uncertainty; conference timing is only a hypothesis.",
+            "Both forecasts share the same evidence and event group; they are not independent evaluation cases.",
+            "The external research session used 16 search queries plus page opens/finds. Search count is charged once to the announcement run. Tool and assistant costs were unavailable; zero recorded dollars/model calls means no separately metered inference, not free research."
+          ],
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "talks"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "financing_change"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "conference"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "buyer_appetite"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "seller_funding"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "product"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "official_check"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "fast_example"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "failed_example"
+            }
+          ]
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_54d744e465a34a808df3",
+        "revision": 1,
+        "artifact_id": "task_result_019a8864b8c44bf48e39",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "id": "task_d9a059f11ab048348bb2",
+        "instruction": "Map mechanisms and necessary steps, including concrete paths to YES and NO. Identify important unknowns.",
+        "kind": "drivers"
+      },
+      "request": {
+        "task_id": "task_d9a059f11ab048348bb2",
+        "expected_revision": 1,
+        "idempotency_key": "completed-1",
+        "payload": {
+          "drivers": [
+            {
+              "name": "Negotiation readiness",
+              "mechanism": "Settled substantive terms and approvals would permit a short announcement timetable; unknown readiness creates substantial delay risk.",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "talks"
+                },
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "official_check"
+                }
+              ]
+            },
+            {
+              "name": "Buyer fit and seller alternatives",
+              "mechanism": "Potential complementary products encourage a deal, while a viable standalone business can reject unsatisfactory terms.",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "product"
+                },
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "buyer_appetite"
+                },
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "seller_funding"
+                },
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "financing_change"
+                }
+              ]
+            },
+            {
+              "name": "Calendar and completion",
+              "mechanism": "A nearby conference could concentrate announcements, but it does not eliminate negotiations or closing conditions.",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "conference"
+                },
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "buyer_appetite"
+                }
+              ]
+            }
+          ],
+          "yes_path": "The parties settle terms, authorize the transaction, and make a qualifying public statement before the deadline. Closing must also occur before the statement.",
+          "no_path": "Talks fail, remain unresolved, or produce a statement after September 21. A signed agreement awaiting closing also yields NO.",
+          "unknowns": [
+            "Current negotiation stage.",
+            "Terms, approvals, exclusivity, and announcement timetable.",
+            "Any plans connecting this deal to Dreamforce."
+          ]
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_54d744e465a34a808df3",
+        "revision": 2,
+        "artifact_id": "task_result_033921f24b794b6db3b5",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "domain": "source_provenance",
+        "id": "task_064e7f883a2e469db290",
+        "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+        "kind": "research"
+      },
+      "request": {
+        "task_id": "task_064e7f883a2e469db290",
+        "expected_revision": 2,
+        "idempotency_key": "completed-2",
+        "payload": {
+          "disposition": "assessed",
+          "interpretation": "Treat the original report as one source cluster. The additional independently reported fact has a separate provenance group, but the underlying anonymous informants may overlap. Repeated headlines receive no extra weight.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "talks"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "financing_change"
+            }
+          ],
+          "sources_checked": [
+            "https://www.businessinsider.com/salesforce-acquire-ai-startup-listen-labs-2026-9",
+            "https://techcrunch.com/2026/09/09/ai-research-startup-listen-labs-scrubbed-a-1-5b-funding-round-for-salesforce-talks/",
+            "https://www.investing.com/news/stock-market-news/salesforce-in-talks-to-acquire-ai-platform-listen-labs-for-2-billion--report-4894402"
+          ],
+          "unknowns": [
+            "Informant identities, motivations, and overlap."
+          ],
+          "conflicts": []
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_54d744e465a34a808df3",
+        "revision": 3,
+        "artifact_id": "task_result_2d1cebc4904f46ba961b",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "domain": "negotiation_stage",
+        "id": "task_5fd1fb0eb98b47d088c7",
+        "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+        "kind": "research"
+      },
+      "request": {
+        "task_id": "task_5fd1fb0eb98b47d088c7",
+        "expected_revision": 3,
+        "idempotency_key": "completed-3",
+        "payload": {
+          "disposition": "unknown",
+          "interpretation": "The evidence supports a real possibility of a transaction but does not establish how close the parties are to signature. Do not turn a general uncertainty caveat into a factual claim that talks are either preliminary or advanced.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "talks"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "official_check"
+            }
+          ],
+          "sources_checked": [
+            "https://www.businessinsider.com/salesforce-acquire-ai-startup-listen-labs-2026-9",
+            "https://www.salesforce.com/news/topics/mergers-and-acquisitions/",
+            "https://listenlabs.ai/"
+          ],
+          "unknowns": [
+            "Whether a binding agreement exists privately.",
+            "Whether diligence, price, retention terms, and board approvals are settled.",
+            "Whether discussions are current or have already stalled."
+          ],
+          "conflicts": [
+            {
+              "description": "Some secondary coverage labels the talks preliminary or advanced without support for that stage in the original report.",
+              "status": "resolved",
+              "decision": "Code the negotiation stage as unknown; do not inherit secondary embellishments."
+            }
+          ]
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_54d744e465a34a808df3",
+        "revision": 4,
+        "artifact_id": "task_result_6db66c031d3548dea3fa",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "domain": "buyer_and_seller",
+        "id": "task_c5df3f11ce8c44d9bcb4",
+        "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+        "kind": "research"
+      },
+      "request": {
+        "task_id": "task_c5df3f11ce8c44d9bcb4",
+        "expected_revision": 4,
+        "idempotency_key": "completed-4",
+        "payload": {
+          "disposition": "assessed",
+          "interpretation": "Inference: customer research could complement Salesforce distribution and customer software; demonstrated willingness to buy adjacent AI businesses raises plausibility. Recent seller financing supports an independent operating alternative but does not establish current cash runway. Strategic fit does not settle price or timing.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "buyer_appetite"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "seller_funding"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "product"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "financing_change"
+            }
+          ],
+          "sources_checked": [
+            "https://www.salesforce.com/news/press-releases/2026/06/15/salesforce-signs-definitive-agreement-to-acquire-fin/",
+            "https://www.prnewswire.com/news-releases/listen-labs-raises-69-million-series-b-to-bring-customer-voices-into-every-decision-302661000.html",
+            "https://pear.vc/listen-labs-series-b/",
+            "https://listenlabs.ai/",
+            "https://techcrunch.com/2026/09/09/ai-research-startup-listen-labs-scrubbed-a-1-5b-funding-round-for-salesforce-talks/"
+          ],
+          "unknowns": [
+            "Current cash balance, burn, founder preferences, and willingness to accept transaction terms.",
+            "Competing offers or renewed financing options.",
+            "Internal Salesforce acquisition priorities."
+          ],
+          "conflicts": []
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_54d744e465a34a808df3",
+        "revision": 5,
+        "artifact_id": "task_result_144157f4f5354a5691f2",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "domain": "deadline_and_closing",
+        "id": "task_96b88a264e664f488528",
+        "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+        "kind": "research"
+      },
+      "request": {
+        "task_id": "task_96b88a264e664f488528",
+        "expected_revision": 5,
+        "idempotency_key": "completed-5",
+        "payload": {
+          "disposition": "assessed",
+          "interpretation": "Dreamforce provides a plausible near-term announcement occasion, an inference with no verified connection to this transaction. The forecast window is about eleven days. Fin illustrates why signing and closing must be separated; its timetable is not assumed to apply mechanically to this smaller private target.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "conference"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "buyer_appetite"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "official_check"
+            }
+          ],
+          "sources_checked": [
+            "https://www.salesforce.com/dreamforce/faq/",
+            "https://www.salesforce.com/news/press-releases/2026/06/15/salesforce-signs-definitive-agreement-to-acquire-fin/",
+            "https://www.salesforce.com/news/topics/mergers-and-acquisitions/",
+            "https://listenlabs.ai/"
+          ],
+          "unknowns": [
+            "Any company plan to announce at Dreamforce.",
+            "Transaction-specific approvals, filing status, and ability to sign and close together."
+          ],
+          "conflicts": []
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_54d744e465a34a808df3",
+        "revision": 6,
+        "artifact_id": "task_result_8a459b22d00e4c6f8eab",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "domain": "base_rates_and_contrary_evidence",
+        "id": "task_5629aadfc56141498fd8",
+        "instruction": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
+        "kind": "research"
+      },
+      "request": {
+        "task_id": "task_5629aadfc56141498fd8",
+        "expected_revision": 6,
+        "idempotency_key": "completed-6",
+        "payload": {
+          "disposition": "assessed",
+          "interpretation": "The two historical episodes demonstrate that fast announcements and failed negotiations are both possible. They are not a representative reference class, and their success fraction is not a prior. A long negotiation or an independent financing path can yield NO even if the strategic rationale is strong. No empirical rumor-to-announcement rate was estimated.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "fast_example"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "failed_example"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "seller_funding"
+            }
+          ],
+          "sources_checked": [
+            "https://www.sec.gov/Archives/edgar/data/1764925/000119312521022117/d13689ddefm14a.htm",
+            "https://investor.salesforce.com/news/news-details/2020/Salesforce-Signs-Definitive-Agreement-to-Acquire-Slack/default.aspx",
+            "https://www.investing.com/news/stock-market-news/salesforces-talks-to-buy-informatica-fizzle-wsj-reports-3387719",
+            "https://www.prnewswire.com/news-releases/listen-labs-raises-69-million-series-b-to-bring-customer-voices-into-every-decision-302661000.html",
+            "https://pear.vc/listen-labs-series-b/"
+          ],
+          "unknowns": [
+            "Success rate and time-to-announcement distribution for comparable private AI acquisition rumors."
+          ],
+          "conflicts": []
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_54d744e465a34a808df3",
+        "revision": 7,
+        "artifact_id": "task_result_3ec5b5cd948945b8afe9",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "id": "task_ddfdd80885d8460ba9d2",
+        "instruction": "Form a probability from the researched evidence. Label judgments; supply nested conditionals or exact ensemble membership when used. State limitations.",
+        "kind": "assessment"
+      },
+      "request": {
+        "task_id": "task_ddfdd80885d8460ba9d2",
+        "expected_revision": 7,
+        "idempotency_key": "completed-7",
+        "payload": {
+          "method": "judgment",
+          "probability": 0.05,
+          "rationale": "5% for completion and public confirmation in this window. This requires both a transaction and unusually rapid readiness to close. The estimate leaves room for an undisclosed advanced process; no transaction-specific closing schedule is verified. Judgment sensitivity range 1–10%, not a statistical confidence interval.",
+          "limitations": [
+            "Subjective agent judgment; no fitted model, representative base rate, market price, or independent forecasting panel.",
+            "Research preceded workflow registration. The prior task records an evidence-conditioned starting judgment, not a preregistered pre-research probability. Repeated evidence is not treated as a new Bayesian update.",
+            "Unknown negotiation maturity dominates uncertainty; conference timing is only a hypothesis.",
+            "Both forecasts share the same evidence and event group; they are not independent evaluation cases.",
+            "The external research session used 16 search queries plus page opens/finds. Search count is charged once to the announcement run. Tool and assistant costs were unavailable; zero recorded dollars/model calls means no separately metered inference, not free research."
+          ],
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "talks"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "financing_change"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "conference"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "buyer_appetite"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "seller_funding"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "product"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "official_check"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "fast_example"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "failed_example"
+            }
+          ]
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_54d744e465a34a808df3",
+        "revision": 8,
+        "artifact_id": "task_result_15d4b43b721142a597ca",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "id": "task_4230fd3bd4ea40468e00",
+        "instruction": "Challenge the estimate in both directions. Retain or revise with reasons, or request bounded additional research.",
+        "kind": "review"
+      },
+      "request": {
+        "task_id": "task_4230fd3bd4ea40468e00",
+        "expected_revision": 8,
+        "idempotency_key": "completed-8",
+        "payload": {
+          "decision": "retain",
+          "rationale": "Retain the rounded subjective estimate. Avoid counting copied reporting twice or treating the conference hypothesis as confirmed. Distinguish deadline failure from permanent deal failure.",
+          "objections": [
+            {
+              "direction": "too_high",
+              "objection": "The forecast may overweight strategic fit and a salient calendar event without knowing whether terms are close.",
+              "response": "Keep agreement odds below 50%; assign much lower probability to completed acquisition. Continued silence after the conference should prompt a lower near-term estimate."
+            },
+            {
+              "direction": "too_low",
+              "objection": "The public record could lag a substantially finished private process.",
+              "response": "Allow a meaningful announcement chance and a small completion chance; raise the estimate materially if reporting establishes agreement on terms or an imminent announcement."
+            }
+          ],
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "talks"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "financing_change"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "conference"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "buyer_appetite"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "seller_funding"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "product"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "official_check"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "fast_example"
+            },
+            {
+              "packet_id": "pkt_985cac6c0b576456b54fd96a",
+              "record_id": "failed_example"
+            }
+          ]
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_54d744e465a34a808df3",
+        "revision": 9,
+        "artifact_id": "task_result_55f793314b6447969392",
+        "forecast_id": null
+      }
+    },
+    {
+      "task": {
+        "id": "task_dc8ac02e2f1e4944b1a3",
+        "instruction": "Freeze the estimate with a stopping reason, review date, and observable update triggers.",
+        "kind": "issue"
+      },
+      "request": {
+        "task_id": "task_dc8ac02e2f1e4944b1a3",
+        "expected_revision": 9,
+        "idempotency_key": "completed-9",
+        "payload": {
+          "stopping_reason": "Original reporting and relevant official sources checked; remaining uncertainty concerns private negotiation status. More repetitions of the same rumor would not resolve it. Issue now and update on new information.",
+          "review_at": "2026-09-11T09:00:00-04:00",
+          "triggers": [
+            {
+              "description": "A qualifying official statement: resolve the relevant contract immediately; a signing announcement does not resolve the completion contract YES.",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "official_check"
+                }
+              ]
+            },
+            {
+              "description": "Credible new reporting establishes exclusivity, agreed terms, an imminent announcement, regulatory progress, failed talks, or another buyer: reassess.",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "talks"
+                }
+              ]
+            },
+            {
+              "description": "Dreamforce ends September 17 without a qualifying announcement: recheck sources and reduce the short-deadline estimate if no offsetting evidence appears.",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_985cac6c0b576456b54fd96a",
+                  "record_id": "conference"
+                }
+              ]
+            },
+            {
+              "description": "September 21 deadline passes: perform resolution research using publication timestamps; do not count a late announcement.",
+              "evidence_refs": []
+            }
+          ]
+        },
+        "usage": {
+          "searches": 0,
+          "cost_usd": 0,
+          "model_calls": 0
+        }
+      },
+      "receipt": {
+        "accepted": true,
+        "duplicate": false,
+        "run_id": "run_54d744e465a34a808df3",
+        "revision": 10,
+        "artifact_id": "task_result_71aa2bda116f41bbb6f5",
+        "forecast_id": "forecast_f36c122ec0274f719a47"
+      }
+    }
+  ]
+}

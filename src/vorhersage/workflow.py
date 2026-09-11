@@ -5,7 +5,9 @@ import json
 import math
 
 from .common import canonical, digest, identifier, now, probability, require, time
-from .evidence import validate_packet
+from .evidence import validate_packet, audit as evidence_audit
+from .scenarios import calculate as scenario_calculate
+from .relations import audit as coherence_audit
 from .schemas import SCHEMAS, check
 from .store import Store
 
@@ -105,6 +107,7 @@ class Workflow:
             profile = json.loads(c.execute("SELECT body FROM profiles WHERE id=?", (q["profile"],)).fetchone()[0])
             id = identifier("run")
             body = {**spec, "cutoff_policy": cutoff_policy, "id": id, "question_version": question["version"], "question": q,
+                    "research_status": spec.get("research_status", "unspecified"),
                     "profile": profile, "created_at": now(), "workflow_version": "1"}
             state = {"pending": [task("prior"), task("drivers"), *[task("research", domain=d) for d in profile["domains"]],
                                  task("assessment"), task("review"), task("issue")],
@@ -139,6 +142,7 @@ class Workflow:
                 return {"disposition": "blocked", "run_id": run_id, "revision": revision,
                         "reason": "Prospective deadline passed or a resolution was recorded. Preserve this run; any hindsight work needs a separate retrospective run."}
             selected = state["pending"][0]
+            packet_ids = sorted({r["packet_id"] for r in state["evidence_refs"]})
             return {"disposition": "actionable", "run_id": run_id, "revision": revision,
                     "task": selected, "submission_schema": SCHEMAS["submit"], "payload_schema": SCHEMAS[selected["kind"]],
                     "budget": {"searches_remaining": run["max_searches"] - state["used_searches"],
@@ -146,7 +150,9 @@ class Workflow:
                                "reported_cost_usd": state["cost_usd"], "reported_model_calls": state["model_calls"]},
                     "context": {"run": run, "coverage": state["coverage"], "current_probability": state["probability"],
                                 "artifacts": {id: Store.artifact(c, id) for id in state["artifact_ids"]},
-                                "evidence": verify_refs(c, state["evidence_refs"], run["information_as_of"])}}
+                                "evidence": verify_refs(c, state["evidence_refs"], run["information_as_of"]),
+                                "evidence_audits": {id: evidence_audit(Store.artifact(c, id, "packet")) for id in packet_ids},
+                                "prior_record": state.get("prior_record")}}
 
     def submit(self, run_id, result):
         check(result, "submit")
@@ -191,6 +197,11 @@ class Workflow:
     def _apply(self, c, run, state, selected, p):
         kind = selected["kind"]
         if kind == "prior":
+            status = run.get("research_status", "unspecified")
+            state["prior_record"] = {"research_status_at_run_start": status, "recorded_at": now(),
+                                     "timing": "declared_before_research" if status == "not_started" else
+                                     ("after_research_started" if status in ("in_progress", "completed") else "unspecified"),
+                                     "qualification": "Research status is an agent declaration; external research history is not independently observable."}
             if p["method"] == "judgment":
                 require("probability" in p and "cases" not in p, "Judgment prior needs a probability, without reference-class cases.")
                 value = p["probability"]
@@ -201,7 +212,7 @@ class Workflow:
                 require("probability" not in p or math.isclose(value, p["probability"]), "Claimed reference-class rate differs from cases.")
             state["probability"] = probability(value)
             state["probability_basis"] = "prior_" + p["method"]
-            return {"probability": value, "sample_size": len(p.get("cases", []))}
+            return {"probability": value, "sample_size": len(p.get("cases", [])), "prior_record": state["prior_record"]}
         if kind == "research":
             require(p["disposition"] != "assessed" or bool(p["evidence_refs"]), "Assessed research needs evidence.")
             require(p["disposition"] != "unknown" or bool(p["unknowns"]), "Unknown research needs an explicit unresolved question/reason.")
@@ -209,6 +220,8 @@ class Workflow:
         if kind == "assessment":
             require(set(run["profile"]["domains"]) <= set(state["coverage"]), "Required research coverage is incomplete.")
             method = p["method"]
+            if method != "scenario_mixture":
+                require(not any(k in p for k in ("scenarios", "partition_justification")), "Scenario fields require scenario_mixture method.")
             if method == "judgment":
                 require("probability" in p and not any(k in p for k in ("components", "members", "weights")), "Judgment assessment requires only its supplied probability.")
                 value = p["probability"]
@@ -223,6 +236,11 @@ class Workflow:
                     ids.add(previous)
                 require(previous == "target", "Final conditional component must be named target.")
                 value = math.prod(component["probability"] for component in p["components"])
+            elif method == "scenario_mixture":
+                require(not any(k in p for k in ("components", "members", "weights", "nested_events_justification")), "Scenario mixture cannot include path or ensemble fields.")
+                require("scenarios" in p and "partition_justification" in p, "Scenario mixture needs scenarios and partition justification.")
+                calculation = scenario_calculate({k: p[k] for k in ("scenarios", "partition_justification")})
+                value = calculation["probability"]
             else:
                 require(bool(p.get("members")) and "components" not in p, "Ensemble needs forecast member IDs.")
                 members = [Store.artifact(c, id, "forecast") for id in p["members"]]
@@ -239,7 +257,8 @@ class Workflow:
             require("probability" not in p or math.isclose(p["probability"], value), "Supplied probability differs from computed estimate.")
             state["probability"] = value
             state["probability_basis"] = method
-            return {"probability": value, "method": method, "assumptions_are_agent_supplied": True}
+            return {"probability": value, "method": method, "assumptions_are_agent_supplied": True,
+                    **({"scenario_analysis": calculation} if method == "scenario_mixture" else {})}
         if kind == "review":
             require({o["direction"] for o in p["objections"]} == {"too_high", "too_low"}, "Review must challenge the estimate in both directions.")
             if p["decision"] == "research":
@@ -278,7 +297,19 @@ class Workflow:
                         "previous_forecast_id": run.get("previous_forecast_id"), "coverage": state["coverage"],
                         "input_manifest": manifest, "manifest_sha256": digest(manifest),
                         "evidence_refs": state["evidence_refs"], "cost_usd": state["cost_usd"],
+                        "prior_record": state.get("prior_record", {"timing": "unspecified"}),
                         "searches": state["used_searches"], "model_calls": state["model_calls"], **p}
+            coherence = coherence_audit(c, {**forecast, "id": "pending"})
+            require(run.get("coherence_policy", "warn") != "strict" or not coherence["violations"],
+                    "Forecast violates a registered implication; revise or use the warn policy with review.", "incoherent_forecast")
+            forecast["coherence"] = coherence
+            for comparison in coherence["comparisons"]:
+                for rid in comparison["relation_ids"]:
+                    manifest[rid] = digest(Store.artifact(c, rid))
+                for fid in (comparison["antecedent_forecast"], comparison["consequent_forecast"]):
+                    if fid != "pending":
+                        manifest[fid] = digest(Store.artifact(c, fid))
+            forecast["manifest_sha256"] = digest(manifest)
             state["forecast_id"] = Store.put(c, "forecast", forecast, run["id"])
             return {"forecast_id": state["forecast_id"], "probability": state["probability"]}
         return None
@@ -317,6 +348,9 @@ class Workflow:
             reasons = [s["reason"] for s in signals if f["id"] in s["affected_forecast_ids"]]
             if time(f["review_at"]) <= time(now()):
                 reasons.append("Scheduled review is due.")
+            for trigger in f["triggers"]:
+                if trigger.get("at") and time(f["issued_at"]) < time(trigger["at"]) <= time(now()):
+                    reasons.append("Calendar trigger: " + trigger["description"])
             if time(f["question"]["resolve_after"]) <= time(now()):
                 reasons.append("Resolution research is due.")
             if reasons:

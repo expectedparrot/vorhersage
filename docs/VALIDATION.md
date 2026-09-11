@@ -1,4 +1,26 @@
-# Version 0.1 validation
+# Validation history
+
+## Version 0.2
+
+`python -m unittest discover -s tests`: **56 tests passed**. The added acceptance
+coverage checks scenario partitions and bounded extrema; capture hashes and quote
+membership; transitive repetitions and conflicting independence assertions;
+prior timing declarations; version-pinned transitive implication checks;
+reference-case horizons and censoring; timer triggers; worker failure recovery;
+partial-run resumption; early outcome resolution; and deadline routing. A real subprocess fixture completes
+a monitored revision through issuance. CLI capture, audit, scenario, reference,
+and finite polling commands are exercised in separate processes.
+
+The existing optional Epiq roundtrip test passed with the local checkout. These
+tests establish software behavior, not forecast accuracy or source authenticity.
+They do not measure web-service reliability, empirical calibration, large-scale
+performance, or the quality of a particular external research/model worker.
+
+Built `vorhersage-0.2.0-py3-none-any.whl` without dependencies/build isolation and
+verified its CLI version with site packages disabled. Wheel SHA-256:
+`69b5d9fe21fbc1a867fbf8f03205026ea401caf535417690bf026a8712bfe308`.
+
+## Version 0.1
 
 Completed September 9, 2026.
 

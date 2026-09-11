@@ -1,6 +1,10 @@
 # Vorhersage
 
-A forecasting workbench for agents. **Version 0.1 is implemented:** a Python CLI
+[Documentation](https://expectedparrot.github.io/vorhersage/) ·
+[Source](https://github.com/expectedparrot/vorhersage) ·
+[Expected Parrot tools](https://expectedparrot.github.io/directory/)
+
+A forecasting workbench for agents. **Version 0.2 is implemented:** a Python CLI
 for binary questions, durable research workflows, Epiq evidence packets,
 probability calculations, revisions, resolution and matched evaluation.
 
@@ -48,6 +52,15 @@ new research while active; each accepted step records its information cutoff.
 - Matched comparisons, descriptive calibration bins, missingness and event-group labels.
 - Separate prospective, retrospective and simulation evaluation modes.
 - Halawi benchmark import, fixed historical replay, and separate replay scoring.
+- Research bundles, captured-text integrity checks, source dependence and contradiction audits.
+- Explicit starting-judgment timing; legacy or after-research judgments are not labeled original priors.
+- Optional generic scenario mixtures, probability-mass checks and bounded sensitivity analysis.
+- Version-pinned question implications, transitive coherence checks and optional strict issuance.
+- Reusable historical episodes with horizon-specific outcomes and censored-case reporting.
+- Persistent monitoring with Epiq or configured research workers, resumable agent execution and resolution routing.
+
+The [research and monitoring guide](docs/RESEARCH_AND_MONITORING.md) documents these
+extensions, runnable commands, worker protocols, and their limitations.
 
 Shared factual research stays in Epiq. Vorhersage stores its own workflow state
 and frozen evidence copies in each project's `.vorhersage/state.sqlite`.
@@ -67,6 +80,10 @@ and frozen evidence copies in each project's `.vorhersage/state.sqlite`.
   recorded 6.048% judgment. It is labeled retrospective, with the outcome unresolved.
 - [Initial live research queue](examples/live_portfolio/README.md): three related
   NFL questions are registered and ready for research, with no probabilities issued.
+- [Listen Labs / Salesforce](examples/listen_labs_salesforce_2026/README.md): original
+  prospective announcement and completion forecasts, with research and provenance.
+- [Generic scenario input](examples/workbench_extensions/mixture.json): fictional
+  readiness assumptions for the optional mixture calculator.
 
 Run the acceptance walkthrough in a new directory:
 
@@ -81,14 +98,15 @@ Run checks:
 python3 -m unittest discover -s examples/patriots_2027 -p 'test_*.py'
 ```
 
-There are **38 package/integration tests and 21 earlier prototype tests**. Local Epiq tests
+There are **56 package/integration tests and 21 earlier prototype tests**. Local Epiq tests
 explicitly skip if their optional checkout/database fixtures are unavailable.
 The CLI has also been installed and a distributable wheel built locally.
 See the [validation record](docs/VALIDATION.md) for checks and their limits.
 
-This release does not browse, run language models, poll in the background,
-learn calibration, or establish predictive superiority. Monitoring is invoked
-by the driving agent or an external scheduler. Resource use is agent-reported.
+The package does not select a web service or model, learn calibration, or establish
+predictive superiority. Configured research/agent workers perform collection and
+judgment. `watch run` keeps polling while running; `watch tick` can be invoked by an
+external scheduler. No OS service is installed automatically. Resource use is agent-reported.
 The implementation is intended for small portfolios; scale testing and database
 migrations remain future work.
 

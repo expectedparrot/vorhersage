@@ -1,6 +1,7 @@
 """Portable evidence snapshots. Epiq remains the shared research store."""
 
 import copy
+import hashlib
 import json
 import os
 import subprocess
@@ -19,10 +20,31 @@ def validate_packet(value):
     require(supplied is None or supplied == digest(packet), "Evidence packet hash mismatch.", "integrity_error")
     cutoff = time(packet["information_as_of"])
     require(len({r["id"] for r in packet["records"]}) == len(packet["records"]), "Duplicate evidence record IDs.")
+    ids = {r["id"] for r in packet["records"]}
+    links = set()
+    for link in packet.get("relationships", []):
+        require(link["from_record"] in ids and link["to_record"] in ids, "Evidence relationship references an unknown record.")
+        require(link["from_record"] != link["to_record"], "Evidence relationships cannot be self-links.")
+        signature = (link["from_record"], link["to_record"], link["relation"])
+        require(signature not in links, "Duplicate evidence relationship.")
+        links.add(signature)
     for record in packet["records"]:
         require(time(record["observed_at"]) <= cutoff, "Evidence observation is after packet cutoff.")
         for source in record["sources"]:
             require(time(source["retrieved_at"]) <= cutoff, "Source retrieval is after packet cutoff.")
+            capture = source.get("capture", {})
+            if capture.get("captured_at"):
+                require(time(capture["captured_at"]) <= time(source["retrieved_at"]), "Capture time is after retrieval.")
+            if capture.get("method") == "fetched":
+                require(capture.get("content") and capture.get("captured_at"), "Fetched capture requires content and a capture time.")
+            if capture.get("method") == "discovery":
+                require("content" not in capture and "content_sha256" not in capture,
+                        "Discovery metadata cannot claim a captured page body.")
+            if "content" in capture:
+                computed = hashlib.sha256(capture["content"].encode()).hexdigest()
+                require(capture.get("content_sha256") == computed, "Captured content hash mismatch.")
+                if source.get("excerpt_kind") == "quotation":
+                    require(source["excerpt"] in capture["content"], "Quoted excerpt does not occur in captured content.")
         if packet["kind"] == "epiq":
             provenance = record["provenance"]
             require(provenance.get("project_id") == packet["epiq"]["project"]["project_id"], "Epiq project identity mismatch.")
@@ -40,6 +62,88 @@ def validate_packet(value):
                     require(event["payload"]["value"] == link["value"], "Epiq assertion differs from projected lineage.")
     packet["sha256"] = digest(packet)
     return packet
+
+
+def fingerprint(packet):
+    """Substance identity for polling; fresh retrieval timestamps alone are not news."""
+    records = copy.deepcopy(packet["records"])
+    for record in records:
+        record.pop("observed_at", None)
+        for source in record["sources"]:
+            source.pop("retrieved_at", None)
+            source.get("capture", {}).pop("captured_at", None)
+        record["sources"].sort(key=lambda s: canonical(s))
+    return digest({"records": sorted(records, key=lambda r: r["id"]),
+                   "relationships": sorted(packet.get("relationships", []), key=canonical)})
+
+
+def capture_bundle(spec):
+    """Normalize source-linked findings from any research provider, without retyping sources."""
+    check(spec, "research_bundle")
+    sources = {s["id"]: copy.deepcopy(s) for s in spec["sources"]}
+    require(len(sources) == len(spec["sources"]), "Research source IDs must be unique.")
+    for s in sources.values():
+        capture = s.get("capture", {})
+        if "content" in capture and "content_sha256" not in capture:
+            capture["content_sha256"] = hashlib.sha256(capture["content"].encode()).hexdigest()
+    records = []
+    for f in spec["findings"]:
+        require(set(f["source_ids"]) <= set(sources), "Finding references an unknown source.")
+        selected = [sources[id] for id in dict.fromkeys(f["source_ids"])]
+        records.append({"id": f["id"], "claim": f["claim"], "claim_type": f["claim_type"],
+                        "value": f.get("value"), "entity_ids": f.get("entity_ids", []),
+                        "sources": selected, "observed_at": max((s["retrieved_at"] for s in selected), key=time),
+                        "provenance": {"adapter": "vorhersage.research_bundle.v1"}})
+    return validate_packet({"schema_version": "vorhersage.evidence.v1", "kind": "manual",
+                            "information_as_of": spec.get("information_as_of", now()), "created_at": now(),
+                            "records": records, "relationships": spec.get("relationships", []),
+                            "limitations": spec["limitations"]})
+
+
+def audit(packet):
+    """Expose dependence and missing provenance without inventing likelihood ratios."""
+    packet = validate_packet(packet)
+    rows = {r["id"]: r for r in packet["records"]}
+    parents = {id: id for id in rows}
+    def root(id):
+        while parents[id] != id:
+            id = parents[id]
+        return id
+    def join(a, b):
+        parents[root(a)] = root(b)
+    origins = {}
+    for id, r in rows.items():
+        for s in r["sources"]:
+            # Shared URL or explicit original-report ID establishes dependence,
+            # not independence between all other sources.
+            for origin in (s["url"], s.get("origin_id")):
+                if origin:
+                    if origin in origins:
+                        join(id, origins[origin])
+                    origins[origin] = id
+    for link in packet.get("relationships", []):
+        if link["relation"] == "repeats":
+            join(link["from_record"], link["to_record"])
+    groups = {}
+    for id in rows:
+        groups.setdefault(root(id), []).append(id)
+    confirmations = [l for l in packet.get("relationships", []) if l["relation"] == "independently_confirms"]
+    conflicts = [l for l in confirmations if root(l["from_record"]) == root(l["to_record"])]
+    gaps = []
+    for id, r in rows.items():
+        if r.get("claim_type", "unknown") == "unknown":
+            gaps.append({"record_id": id, "missing": "claim_type"})
+        for s in r["sources"]:
+            for field in ("published_at", "excerpt_kind", "capture"):
+                if not s.get(field):
+                    gaps.append({"record_id": id, "source_id": s["id"], "missing": field})
+    return {"dependence_groups": sorted(sorted(g) for g in groups.values()),
+            "declared_independent_confirmations": confirmations, "independence_conflicts": conflicts,
+            "contradictions": [l for l in packet.get("relationships", []) if l["relation"] == "contradicts"],
+            "inference_records": [id for id, r in rows.items() if r.get("claim_type") == "inference"],
+            "provenance_gaps": gaps,
+            "limitations": ["Distinct groups are not proven independent sources. Counts are not probability multipliers.",
+                            "Capture integrity verifies supplied text, not its truth or its origin on the claimed website."]}
 
 
 class Epiq:
@@ -104,11 +208,16 @@ class Epiq:
                     sources.append({"id": link["evidence_id"], "url": source["url"],
                                     "title": source["title"], "excerpt": link["excerpt"],
                                     "retrieved_at": dated(source["retrieved_at"]),
-                                    "published_at": source.get("published_at"), "origin_id": source["url"]})
+                                    "published_at": source.get("published_at"), "origin_id": source["url"],
+                                    "capture": {"method": "epiq", "metadata": {
+                                        "provenance": link.get("provenance", {}), "support": link.get("support", []),
+                                        "review": link.get("review", {}), "source_type": source.get("source_type"),
+                                        "locator": source.get("locator", {})}}})
                 record_id = "cell_" + digest([project["project_id"], row["entity_id"], selected["question"]])[:20]
                 records.append({"id": record_id, "claim": row["name"] + " / " + selected["question"],
                                 "value": cell["values"] if cardinality == "many" else cell["value"], "entity_ids": [row["entity_id"]],
                                 "observed_at": max((s["retrieved_at"] for s in sources), key=time),
+                                "claim_type": "inference" if any(x.get("derivation") or x["source"].get("source_type") == "model" for x in lineage) else "unknown",
                                 "sources": sources, "provenance": {"project_id": project["project_id"],
                                 "selection": selected, "lineage": lineage, "cardinality": cardinality,
                                 "assertion_events": [assertion_events[id] for id in sorted({x["claim_id"] for x in lineage})]}})
@@ -137,8 +246,11 @@ class Epiq:
                 old_claims = sorted({x["claim_id"] for x in old["provenance"]["lineage"]})
                 new_claims = sorted({x["claim_id"] for x in current.get("lineage", [])})
                 current_value = current.get("values") if old["provenance"].get("cardinality") == "many" else current.get("value")
-                if current["state"] != "Answered" or current_value != old["value"] or old_claims != new_claims:
+                previous_lineage = digest(old["provenance"]["lineage"])
+                current_lineage = digest(current.get("lineage", []))
+                if current["state"] != "Answered" or current_value != old["value"] or old_claims != new_claims or previous_lineage != current_lineage:
                     changes.append({"record_id": old["id"], "selection": selected, "state": current["state"],
-                                    "previous_claim_ids": old_claims, "current_claim_ids": new_claims})
+                                    "previous_claim_ids": old_claims, "current_claim_ids": new_claims,
+                                    "previous_lineage_sha256": previous_lineage, "current_lineage_sha256": current_lineage})
             return {"changes": changes, "checked_at": now(), "selection": selection,
                     "limitations": ["Checks selected cells only; newly relevant subjects require research or a question-level signal."]}

@@ -1,0 +1,27 @@
+{
+  "partition_justification": "In this fictional example, the system is either ready or not ready at the cutoff. This is a software demonstration, not an empirical forecast.",
+  "scenarios": [
+    {
+      "id": "ready",
+      "description": "System ready at the cutoff",
+      "weight": 0.6,
+      "probability": 0.8,
+      "weight_range": [0.2, 0.8],
+      "probability_range": [0.7, 0.9],
+      "rationale": "Illustrative conditional success probability.",
+      "evidence_refs": [],
+      "unknowns": ["Readiness is unobserved in the fixture."]
+    },
+    {
+      "id": "not_ready",
+      "description": "System not ready at the cutoff",
+      "weight": 0.4,
+      "probability": 0.1,
+      "weight_range": [0.2, 0.8],
+      "probability_range": [0, 0.2],
+      "rationale": "Illustrative chance of recovery before the deadline.",
+      "evidence_refs": [],
+      "unknowns": ["Recovery time is unspecified in the fixture."]
+    }
+  ]
+}

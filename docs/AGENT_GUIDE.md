@@ -1,4 +1,9 @@
-# Operating Vorhersage 0.1
+# Operating Vorhersage 0.2
+
+For research capture, provenance audits, optional scenario mixtures, reference-case
+queries, related-question checks, and executable monitoring, see
+[Research and monitoring](RESEARCH_AND_MONITORING.md). Existing 0.1 projects remain
+readable; the original commands below continue to work.
 
 Vorhersage is a deterministic Python CLI for binary-event forecasting. The
 driving agent searches, interprets evidence and supplies probability judgments.
@@ -112,6 +117,11 @@ The prior may be a judgment or a reference class. An empirical prior requires
 unique case IDs, outcomes, evidence, a selection rule and comparability caveats.
 The package computes its frequency. Drivers describe mechanisms and paths to
 both YES and NO.
+
+Declare `research_status` when starting a run: `not_started`, `in_progress`,
+`completed`, or `unspecified`. The prior task preserves this declaration and its
+actual submission time in `prior_record`. Research completed before registration
+must not be presented as an original pre-research prior.
 
 Research usage is reported by the agent. `max_searches` limits submitted search
 counts; it does not control external browsing. Existing evidence can still be
@@ -229,9 +239,11 @@ issued prevents another run from overwriting that successor. Signals target
 existing forecasts, so a completed successor is not perpetually marked due by
 the old signal.
 
-There is no background daemon, automatic fact interpretation, or automatic
-probability propagation. Call monitoring periodically from the driving agent or
-an external scheduler. A fixed-cutoff run needs a new run when later information
+`watch run` provides a persistent polling loop; `watch tick` integrates with an
+external scheduler. Configured research and agent workers can collect changes,
+start/resume a revision and submit validated tasks through issuance. No OS service
+is installed and no probability propagation is inferred automatically. See the
+worker protocol in the extension guide. A fixed-cutoff run needs a new run when later information
 is required; an active prospective live run admits it at the next submission.
 
 ## Resolve and compare

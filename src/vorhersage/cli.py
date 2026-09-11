@@ -5,16 +5,21 @@ import json
 import sqlite3
 import subprocess
 import sys
+import time as clock
 from pathlib import Path
 
 from . import __version__
 from .common import Error, load, require
 from .backtesting import prepare_halawi, start_case, evaluate_replay
 from .evaluation import evaluate
-from .evidence import Epiq
+from .evidence import Epiq, audit as audit_evidence, capture_bundle
+from .scenarios import calculate as calculate_scenario
+from .relations import add as add_relation, audit as audit_relations
+from .monitoring import configure, configs, disable, tick
 from .schemas import SCHEMAS
 from .store import Store
 from .workflow import Workflow
+from .reference import add as add_reference, query as query_reference
 
 GUIDE = """Create a project, register a precise binary question, and start a run.
 Repeat next --run ID, author the returned payload schema, then submit --run ID --from FILE.
@@ -25,7 +30,13 @@ When monitoring is due, start a run with previous_forecast_id or resolve the exa
 Use simulation questions for fixtures and retrospective mode for hindsight work.
 Evaluate selects the latest eligible forecast per forecaster and question at a fixed cutoff.
 Use benchmark import-halawi/start/evaluate for explicit historical replay; it preserves actual issue times.
-Research/model usage is agent-reported. This CLI does not browse or call a model.
+Declare research_status at run start; an after-research judgment is not a pre-research prior.
+Use research capture and packet audit to preserve provenance and source relationships.
+Use scenario for optional mixtures/sensitivity, relation for implications, coherence to audit.
+Use reference add/query for reusable observed episodes with deadline-specific censoring.
+Use watch add/tick/run for polling and optional configured research/agent subprocesses.
+Worker commands are explicit executable argv arrays, receive JSON on stdin, and return JSON.
+Research/model usage is agent-reported. No web service or model is selected automatically.
 Read schema NAME for the complete input shape. All timestamps must include a timezone.
 """
 
@@ -42,12 +53,40 @@ def parser():
     init = commands.add_parser("init")
     init.add_argument("path", nargs="?", type=Path)
     init.add_argument("--name", default="Forecast portfolio")
-    for name in ("version", "guide", "status", "monitor", "doctor"):
+    for name in ("version", "guide", "status", "monitor", "doctor", "coherence"):
         commands.add_parser(name)
+    scenario = commands.add_parser("scenario")
+    scenario.add_argument("--from", dest="input", required=True)
+    relation = commands.add_parser("relation")
+    relation.add_argument("--from", dest="input", required=True)
+    research = commands.add_parser("research")
+    sub = research.add_subparsers(dest="action", required=True)
+    ap = sub.add_parser("capture")
+    ap.add_argument("--from", dest="input", required=True)
+    reference = commands.add_parser("reference")
+    sub = reference.add_subparsers(dest="action", required=True)
+    for action in ("add", "query"):
+        ap = sub.add_parser(action)
+        ap.add_argument("--from", dest="input", required=True)
+    watch = commands.add_parser("watch")
+    sub = watch.add_subparsers(dest="action", required=True)
+    ap = sub.add_parser("add")
+    ap.add_argument("--from", dest="input", required=True)
+    sub.add_parser("list")
+    ap = sub.add_parser("disable")
+    ap.add_argument("id")
+    for action in ("tick", "run"):
+        ap = sub.add_parser(action)
+        ap.add_argument("--id")
+        if action == "tick":
+            ap.add_argument("--force", action="store_true")
+        else:
+            ap.add_argument("--interval", type=int, default=30)
+            ap.add_argument("--cycles", type=int, default=0, help="0 runs until interrupted")
     schema = commands.add_parser("schema")
     schema.add_argument("name", nargs="?", choices=list(SCHEMAS))
     for name, actions in (("profile", ["add", "list"]), ("question", ["add", "revise", "list"]),
-                          ("run", ["start", "list"]), ("packet", ["import", "show", "list"]),
+                          ("run", ["start", "list"]), ("packet", ["import", "show", "list", "audit"]),
                           ("forecast", ["show", "list"]), ("evaluation", ["show", "list"]),
                           ("replay_evaluation", ["show", "list"])):
         group = commands.add_parser(name)
@@ -58,7 +97,7 @@ def parser():
                 ap.add_argument("--from", dest="input", required=True)
             if action == "revise":
                 ap.add_argument("--expected-version", type=int, required=True)
-            if action == "show":
+            if action in ("show", "audit"):
                 ap.add_argument("id")
     nxt = commands.add_parser("next")
     nxt.add_argument("--run", required=True)
@@ -120,6 +159,26 @@ def dispatch(args):
                 "workflow": ["question add", "run start", "next", "submit", "monitor", "resolve", "evaluate"]}
     if command == "schema":
         return {"$schema": "https://json-schema.org/draft/2020-12/schema", **SCHEMAS[args.name]} if args.name else {"schemas": list(SCHEMAS)}
+    if command == "scenario":
+        return calculate_scenario(load(args.input))
+    if command == "research":
+        return w.import_packet(capture_bundle(load(args.input)))
+    if command == "reference":
+        return (add_reference if args.action == "add" else query_reference)(s, load(args.input))
+    if command == "relation":
+        return add_relation(s, load(args.input))
+    if command == "coherence":
+        with s.connect() as c:
+            return audit_relations(c)
+    if command == "watch":
+        if args.action == "add":
+            return configure(s, load(args.input))
+        if args.action == "list":
+            return configs(s)
+        if args.action == "disable":
+            return disable(s, args.id)
+        if args.action == "tick":
+            return tick(args.project, args.id, args.force)
     if command == "init":
         return Store(args.path or args.project).init(args.name)
     if command in ("status", "monitor", "doctor"):
@@ -141,6 +200,9 @@ def dispatch(args):
         return w.start(load(args.input)) if args.action == "start" else w.status()["runs"]
     if command == "packet" and args.action == "import":
         return w.import_packet(load(args.input))
+    if command == "packet" and args.action == "audit":
+        with s.connect() as c:
+            return audit_evidence(Store.artifact(c, args.id, "packet"))
     if command in ("packet", "forecast", "evaluation", "replay_evaluation"):
         with s.connect() as c:
             return Store.artifact(c, args.id, command) if args.action == "show" else Store.all(c, command)
@@ -180,6 +242,20 @@ def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     try:
         args = parser().parse_args(argv)
+        if args.command == "watch" and args.action == "run":
+            require(1 <= args.interval <= 60 and args.cycles >= 0, "Polling interval must be 1..60 seconds and cycles nonnegative.")
+            cycle = 0
+            try:
+                while args.cycles == 0 or cycle < args.cycles:
+                    print(json.dumps({"schema_version": "1", "status": "ok", "command": "watch",
+                                      "data": tick(args.project, args.id), "warnings": [], "errors": [],
+                                      "next_actions": []}, allow_nan=False), flush=True)
+                    cycle += 1
+                    if args.cycles == 0 or cycle < args.cycles:
+                        clock.sleep(args.interval)
+            except KeyboardInterrupt:
+                pass
+            return
         data = dispatch(args)
         if args.command == "report" and args.format == "markdown":
             print("# " + data["question"]["specification"]["text"] + "\n")
