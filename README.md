@@ -4,6 +4,10 @@
 [Source](https://github.com/expectedparrot/vorhersage) ·
 [Expected Parrot tools](https://expectedparrot.github.io/directory/)
 
+<p align="center">
+  <img src="docs/assets/vorhersage-artwork.png" width="800" alt="Vorhersage artwork: a green parrot connected to sensors in a glass tank, framed by expectation brackets">
+</p>
+
 A forecasting workbench for agents. **Version 0.2 is implemented:** a Python CLI
 for binary questions, durable research workflows, Epiq evidence packets,
 probability calculations, revisions, resolution and matched evaluation.
