@@ -1,0 +1,220 @@
+{
+  "models": [
+    {
+      "key": "astra",
+      "name": "GPT-6 Astra",
+      "status": "complete",
+      "questions": 35,
+      "cost": 8.45982,
+      "turns": 11,
+      "research": {
+        "counts": {
+          "minimum_research_calls": 21,
+          "minimum_page_reads": 13,
+          "minimum_unique_page_reads": 9,
+          "minimum_unique_searches": 8,
+          "minimum_recent_searches": 4,
+          "minimum_followup_turns": 1
+        },
+        "missing": {},
+        "ready": true
+      },
+      "failed_tools": 1,
+      "quantiles": {
+        "p10": 172,
+        "p25": 175,
+        "p50": 179,
+        "p75": 184,
+        "p90": 192
+      },
+      "violations": 0,
+      "comparisons": 72324,
+      "settings": {
+        "model": "gpt-6-astra",
+        "parameters": {
+          "temperature": 0,
+          "max_tokens": 64000,
+          "top_p": 1,
+          "frequency_penalty": 0,
+          "presence_penalty": 0,
+          "logprobs": false,
+          "top_logprobs": 3,
+          "reasoning_effort": "xhigh"
+        },
+        "inference_service": "openai",
+        "edsl_version": "1.0.8.dev1",
+        "edsl_class_name": "LanguageModel"
+      },
+      "started": "2026-09-12T11:22:30.404004Z",
+      "finalized": "2026-09-12T13:39:38.435761Z",
+      "failures": [
+        "INVALID_JSON",
+        "INVALID_JSON"
+      ]
+    },
+    {
+      "key": "opus",
+      "name": "Opus 5",
+      "status": "complete",
+      "questions": 35,
+      "cost": 5.572095,
+      "turns": 10,
+      "research": {
+        "counts": {
+          "minimum_research_calls": 17,
+          "minimum_page_reads": 7,
+          "minimum_unique_page_reads": 7,
+          "minimum_unique_searches": 10,
+          "minimum_recent_searches": 9,
+          "minimum_followup_turns": 1
+        },
+        "missing": {},
+        "ready": true
+      },
+      "failed_tools": 1,
+      "quantiles": {
+        "p10": 172,
+        "p25": 174.5,
+        "p50": 177,
+        "p75": 180.5,
+        "p90": 184
+      },
+      "violations": 0,
+      "comparisons": 72324,
+      "settings": {
+        "model": "claude-opus-5",
+        "parameters": {
+          "temperature": 0.5,
+          "max_tokens": 20000,
+          "top_p": 1,
+          "frequency_penalty": 0,
+          "presence_penalty": 0,
+          "logprobs": false,
+          "top_logprobs": 3,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "high"
+          }
+        },
+        "inference_service": "anthropic",
+        "edsl_version": "1.0.8.dev1",
+        "edsl_class_name": "Claudeopus5"
+      },
+      "started": "2026-09-12T11:22:31.686892Z",
+      "finalized": "2026-09-12T13:45:15.662540Z",
+      "failures": [
+        "NONSTREAMING_SDK_LIMIT",
+        "THINKING_EXHAUSTED_OUTPUT"
+      ]
+    },
+    {
+      "key": "fable",
+      "name": "Fable 5.1",
+      "status": "refused",
+      "questions": 0,
+      "cost": 3.17417,
+      "turns": 5,
+      "research": {
+        "counts": {
+          "minimum_research_calls": 18,
+          "minimum_page_reads": 7,
+          "minimum_unique_page_reads": 6,
+          "minimum_unique_searches": 11,
+          "minimum_recent_searches": 8,
+          "minimum_followup_turns": 1
+        },
+        "missing": {},
+        "ready": true
+      },
+      "failed_tools": 0,
+      "quantiles": null,
+      "violations": null,
+      "comparisons": null,
+      "settings": {
+        "model": "claude-fable-5-1",
+        "parameters": {
+          "temperature": 0.5,
+          "max_tokens": 20000,
+          "top_p": 1,
+          "frequency_penalty": 0,
+          "presence_penalty": 0,
+          "logprobs": false,
+          "top_logprobs": 3,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "max"
+          }
+        },
+        "inference_service": "anthropic",
+        "edsl_version": "1.0.8.dev1",
+        "edsl_class_name": "Claudefable51"
+      },
+      "started": "2026-09-12T11:22:31.785122Z",
+      "finalized": null,
+      "failures": [
+        "NONSTREAMING_SDK_LIMIT"
+      ]
+    },
+    {
+      "key": "gemini",
+      "name": "Gemini 3.1 Pro Preview",
+      "status": "complete",
+      "questions": 35,
+      "cost": 2.10398,
+      "turns": 8,
+      "research": {
+        "counts": {
+          "minimum_research_calls": 16,
+          "minimum_page_reads": 6,
+          "minimum_unique_page_reads": 6,
+          "minimum_unique_searches": 10,
+          "minimum_recent_searches": 4,
+          "minimum_followup_turns": 1
+        },
+        "missing": {},
+        "ready": true
+      },
+      "failed_tools": 2,
+      "quantiles": {
+        "p10": 172,
+        "p25": 174,
+        "p50": 176,
+        "p75": 178,
+        "p90": 182
+      },
+      "violations": 0,
+      "comparisons": 72324,
+      "settings": {
+        "model": "gemini-3.1-pro-preview",
+        "parameters": {
+          "temperature": 0.2,
+          "topP": 1,
+          "topK": 1,
+          "maxOutputTokens": 65536,
+          "stopSequences": [],
+          "thinking_budget": null
+        },
+        "inference_service": "google",
+        "edsl_version": "1.0.8.dev1",
+        "edsl_class_name": "gemini-3.1-pro-preview"
+      },
+      "started": "2026-09-12T11:22:31.851342Z",
+      "finalized": "2026-09-12T13:32:34.843299Z",
+      "failures": []
+    }
+  ],
+  "horizons": [
+    "6mo",
+    "12mo",
+    "2028",
+    "2030",
+    "2050",
+    "2100"
+  ],
+  "generated_at": "2026-09-12T13:48:32.871456Z",
+  "total_cost": 19.310065
+}

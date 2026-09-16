@@ -1,0 +1,184 @@
+{
+  "model": "claude-opus-5",
+  "session_id": "session_9043d3957b4295b2c3f9f88d",
+  "started_at": "2026-09-12T11:22:31.686892Z",
+  "finalized_at": "2026-09-12T13:45:15.662540Z",
+  "probabilities": 2940,
+  "questions": 35,
+  "conditions": 14,
+  "usage": {
+    "model_calls": 10,
+    "searches": 10,
+    "cost_usd": 5.572095
+  },
+  "research_calls": 18,
+  "successful_research_calls": 17,
+  "successful_page_reads": 7,
+  "partial_submission_turns": 5,
+  "eci_forecast": {
+    "p10": 172,
+    "p25": 174.5,
+    "p50": 177,
+    "p75": 180.5,
+    "p90": 184
+  },
+  "coherence_comparisons": 72324,
+  "coherence_violations": 0,
+  "rationale": "My ECI median (177 by 2027-03-10) extrapolates Epoch's ~14 points/year reasoning-frontier trend from GPT-6 Astra's 169.2, with modest upside for a compressed release cadence and downside if the next OpenAI/Anthropic/Google frontier releases slip past March. Low rungs of the ladder are already near-saturated empirically: IBM's 2026 breach report attributes a quarter of malicious breaches to AI-driven attacks, Anthropic's September 2026 threat report documents multi-victim AI-orchestrated state and criminal campaigns, and GovAI's cybercrime baseline puts global damages near $500B/yr, so $220M and $2.2B AI-attributable cumulative thresholds are near-certain within months and $22B likely within a couple of years. Misalignment ladders are anchored on documented but low-damage incidents (METR's 44 agent incidents, Anthropic's four real-internet cyber-eval incidents including the Mythos 5 PyPI upload, OpenAI's 'wiki incident'), which imply rapid growth in frequency but only gradual growth in severity; bio ladders stay much lower because physical execution, not information, remains the bottleneck per recent biosecurity reviews. Catastrophe and disempowerment numbers sit near LEAP Wave 9 expert/superforecaster medians (~1-5% AI catastrophe by 2050, ~2-10% by 2100), tilted by capability condition. Policy conditions shift risk modestly and monotonically (strongest reduction under the P5 bundle and binding US-China measures, near-neutral for preemption), and capability conditions move tail risk far more than the low rungs; none of these conditional contrasts should be read as identified causal effects.",
+  "key_sources": [
+    "https://epoch.ai/data-insights/eci-frontier-trend",
+    "https://leap.forecastingresearch.org/reports/wave9",
+    "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents",
+    "https://evals.alignment.org/agent-incidents/",
+    "https://openai.com/index/safety-overview-gpt-6-astra/",
+    "https://www.anthropic.com/threat-intelligence-report-september-2026",
+    "https://www.governance.ai/research-paper/report-assessing-the-risk-of-ai-enabled-computer-worms"
+  ],
+  "doctor": {
+    "ok": true,
+    "artifacts_checked": 513,
+    "sqlite_integrity": "ok"
+  },
+  "limitations": [
+    "One separately elicited model session; panel aggregation is a separate operation.",
+    "Current-information forecast of the original fixed windows; not a rolling redate.",
+    "JSON action bridge and full text transcript replay, not native provider tool calling.",
+    "Page extraction can omit content; read windows and failed requests are recorded.",
+    "Transport retries/caching inside EDSL may occur; all returned records retained.",
+    "Controller limits are recorded in registration; failures stay failures, without probability repair.",
+    "The cost stop checks returned model costs before another call; it is not a provider-enforced spending cap.",
+    "Expanded research minimums are additional constraints, not the authors' literal tool gate.",
+    "The authors used Tavily; this session uses a different research provider."
+  ],
+  "transport_failures": [
+    "NONSTREAMING_SDK_LIMIT",
+    "THINKING_EXHAUSTED_OUTPUT"
+  ],
+  "transport_amendments": [
+    {
+      "recorded_at": "2026-09-12T11:39:33.787720Z",
+      "failure": "NONSTREAMING_SDK_LIMIT",
+      "failed_turn": "turn-01",
+      "system_delivery": "TRANSPORT REQUIREMENT: This endpoint has NO native function tools.\nDo NOT emit native function calls, function_call objects, tool-call tokens, or\nspecial function syntax. Your entire response must be ordinary TEXT containing\none valid JSON object with an actions array, as described in the user's EDSL\nTRANSPORT INSTRUCTIONS. The external controller executes those text requests.\nThe earlier references to calling web_search/read_page/submit tools mean sending\nthat JSON text. They do not authorize native provider function calls.",
+      "model": {
+        "model": "claude-opus-5",
+        "parameters": {
+          "temperature": 0.5,
+          "max_tokens": 20000,
+          "top_p": 1,
+          "frequency_penalty": 0,
+          "presence_penalty": 0,
+          "logprobs": false,
+          "top_logprobs": 3,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "max"
+          }
+        },
+        "inference_service": "anthropic",
+        "edsl_version": "1.0.8.dev1",
+        "edsl_class_name": "Claudeopus5"
+      },
+      "reason": "EDSL's non-streaming Anthropic adapter rejected 64,000 tokens before inference. Use 20,000; adaptive thinking/max effort retained.",
+      "status_sha256": "88070e47bf73a86cb2438e56d6d62ebffe300449a5453bac77e0d90820114757",
+      "error_sha256": "5b6a07a5281c642b035be514bcb48f31283154be3a3ecf12c5b4f6946e9876c2"
+    },
+    {
+      "recorded_at": "2026-09-12T12:29:32.513375Z",
+      "failure": "THINKING_EXHAUSTED_OUTPUT",
+      "failed_turn": "turn-05",
+      "system_delivery": "TRANSPORT REQUIREMENT: This endpoint has NO native function tools.\nDo NOT emit native function calls, function_call objects, tool-call tokens, or\nspecial function syntax. Your entire response must be ordinary TEXT containing\none valid JSON object with an actions array, as described in the user's EDSL\nTRANSPORT INSTRUCTIONS. The external controller executes those text requests.\nThe earlier references to calling web_search/read_page/submit tools mean sending\nthat JSON text. They do not authorize native provider function calls.",
+      "model": {
+        "model": "claude-opus-5",
+        "parameters": {
+          "temperature": 0.5,
+          "max_tokens": 20000,
+          "top_p": 1,
+          "frequency_penalty": 0,
+          "presence_penalty": 0,
+          "logprobs": false,
+          "top_logprobs": 3,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "high"
+          }
+        },
+        "inference_service": "anthropic",
+        "edsl_version": "1.0.8.dev1",
+        "edsl_class_name": "Claudeopus5"
+      },
+      "reason": "The provider exhausted the entire 20,000-token allowance on thinking and returned no text. No actions were executed. The controller has lowered effort from max to high to leave room for an answer in this non-streaming adapter. This is a recorded deviation from the authors' configuration. Deliver at most seven question rows in valid JSON."
+    }
+  ],
+  "final_model_configuration": {
+    "model": "claude-opus-5",
+    "parameters": {
+      "temperature": 0.5,
+      "max_tokens": 20000,
+      "top_p": 1,
+      "frequency_penalty": 0,
+      "presence_penalty": 0,
+      "logprobs": false,
+      "top_logprobs": 3,
+      "thinking": {
+        "type": "adaptive"
+      },
+      "output_config": {
+        "effort": "high"
+      }
+    },
+    "inference_service": "anthropic",
+    "edsl_version": "1.0.8.dev1",
+    "edsl_class_name": "Claudeopus5"
+  },
+  "remote_job_ids": [
+    "657c9bb4-6846-4689-88a4-c6c379ee0810",
+    "5313fa86-a724-4be6-bc46-e77d977a3c1d",
+    "a7ce9e98-9474-41f5-bbf5-495d5c9eb859",
+    "8127fd8f-c383-4c63-ac9e-ed884f05302c",
+    "562f0f55-0ac9-4dbe-a98f-a6702e0ec0ce",
+    "4b864933-a88e-486e-8722-717123166885",
+    "2c46c485-8cca-4e53-a76f-fe1c97d60a98",
+    "d946ce0a-4ef4-4bb0-9383-1982b8d9eafc",
+    "df6a8809-df72-4210-bb01-ca7ddb0d4572",
+    "53cea94f-4bbf-45cc-8d79-ca9bcbfd980b"
+  ],
+  "submission_action_sizes": [
+    7,
+    7,
+    7,
+    7,
+    7
+  ],
+  "distinct_search_queries": 10,
+  "search_after_page_read": true,
+  "searches_with_recency_filter": 9,
+  "source_titles": {
+    "https://epoch.ai/data-insights/eci-frontier-trend": "The ECI frontier has advanced by 14 points per year since the introduction of reasoning models | Epoch AI",
+    "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents": "An alignment assessment of recent cybersecurity incidents \\ Anthropic",
+    "https://leap.forecastingresearch.org/reports/wave9": "Longitudinal Expert AI Panel",
+    "https://evals.alignment.org/agent-incidents/": "Documented AI Agent Incidents - METR",
+    "https://openai.com/index/safety-overview-gpt-6-astra/": "Safety overview: GPT-6 Astra | OpenAI",
+    "https://www.governance.ai/research-paper/report-assessing-the-risk-of-ai-enabled-computer-worms": "Assessing the Risk of AI-Enabled Computer Worms | GovAI",
+    "https://www.anthropic.com/threat-intelligence-report-september-2026": "Countering misuse of AI: September 2026 / Anthropic \\ Anthropic"
+  },
+  "protocol_deviations": [],
+  "research_gate": {
+    "counts": {
+      "minimum_research_calls": 17,
+      "minimum_page_reads": 7,
+      "minimum_unique_page_reads": 7,
+      "minimum_unique_searches": 10,
+      "minimum_recent_searches": 9,
+      "minimum_followup_turns": 1
+    },
+    "missing": {},
+    "ready": true
+  },
+  "research_provider": "web.run",
+  "research_profile": "expanded"
+}

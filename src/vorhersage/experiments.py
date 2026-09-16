@@ -21,6 +21,8 @@ def _register(c, kind, spec, extra=None):
 
 def add_method(store, spec):
     check(spec, "method")
+    require((spec["prior_method"] == "none") == (spec["assessment_method"] == "timeline_model"),
+            "Timeline methods use prior_method=none; other methods require a prior.")
     require(len(set(spec["research_domains"])) == len(spec["research_domains"]), "Duplicate research domains.")
     # This first runner compares procedures on identical packets, without search.
     require(spec["budget"]["max_searches"] == 0, "Frozen-packet methods require max_searches=0.")

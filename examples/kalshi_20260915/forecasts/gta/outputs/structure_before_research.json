@@ -1,0 +1,263 @@
+{
+  "id": "gta_structure",
+  "version": 1,
+  "question": {
+    "question_id": "kalshi_gta_20260915",
+    "version": 1
+  },
+  "information_as_of": "2026-09-16T01:18:50.871952+00:00",
+  "deadline": "2026-12-01T00:00:00-05:00",
+  "deadline_rule": "before",
+  "description": "Independent pre-research milestone structure; no starting probability. All future inputs unresolved.",
+  "target": "contract_yes",
+  "parameters": [
+    {
+      "id": "content_ready",
+      "kind": "duration_days",
+      "description": "Remaining elapsed days until launch-quality content is ready at the cutoff"
+    },
+    {
+      "id": "platform_ready",
+      "kind": "duration_days",
+      "description": "Remaining elapsed days until at least one qualifying US platform is certified and distributable"
+    },
+    {
+      "id": "launch_slot",
+      "kind": "date",
+      "description": "Earliest intended commercial full US launch slot"
+    },
+    {
+      "id": "announcement_trigger",
+      "kind": "date",
+      "description": "Announced release date that passes without indication of delay; never if delayed before passing"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "content_ready",
+      "kind": "task",
+      "completion_condition": "Remaining elapsed days until launch-quality content is ready at the cutoff",
+      "parents": [],
+      "parameter_id": "content_ready",
+      "state": "pending",
+      "rationale": "Unresolved before research; work durations start at the actual information cutoff and represent remaining work.",
+      "evidence_refs": []
+    },
+    {
+      "id": "platform_ready",
+      "kind": "task",
+      "completion_condition": "Remaining elapsed days until at least one qualifying US platform is certified and distributable",
+      "parents": [],
+      "parameter_id": "platform_ready",
+      "state": "pending",
+      "rationale": "Unresolved before research; work durations start at the actual information cutoff and represent remaining work.",
+      "evidence_refs": []
+    },
+    {
+      "id": "launch_slot",
+      "kind": "event",
+      "completion_condition": "Earliest intended commercial full US launch slot",
+      "parents": [],
+      "parameter_id": "launch_slot",
+      "state": "pending",
+      "rationale": "Unresolved before research; work durations start at the actual information cutoff and represent remaining work.",
+      "evidence_refs": []
+    },
+    {
+      "id": "announcement_trigger",
+      "kind": "event",
+      "completion_condition": "Announced release date that passes without indication of delay; never if delayed before passing",
+      "parents": [],
+      "parameter_id": "announcement_trigger",
+      "state": "pending",
+      "rationale": "Unresolved before research; work durations start at the actual information cutoff and represent remaining work.",
+      "evidence_refs": []
+    },
+    {
+      "id": "full_release",
+      "kind": "all",
+      "completion_condition": "First full US release on PS5, Xbox Series X/S, or Windows; no alpha or beta",
+      "parents": [
+        "content_ready",
+        "platform_ready",
+        "launch_slot"
+      ],
+      "state": "pending",
+      "rationale": "Full release needs launch readiness on at least one qualifying platform and commercial availability.",
+      "evidence_refs": []
+    },
+    {
+      "id": "contract_yes",
+      "kind": "any",
+      "completion_condition": "Full qualifying US release OR announced release date passes without indication of delay",
+      "parents": [
+        "full_release",
+        "announcement_trigger"
+      ],
+      "state": "pending",
+      "rationale": "Frozen contract expressly includes both routes.",
+      "evidence_refs": []
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "scheduled",
+      "description": "Current schedule holds and full qualifying release occurs",
+      "assessments": [
+        {
+          "parameter_id": "content_ready",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "platform_ready",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "launch_slot",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "announcement_trigger",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "brief_delay",
+      "description": "Announced delay followed by a release by deadline",
+      "assessments": [
+        {
+          "parameter_id": "content_ready",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "platform_ready",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "launch_slot",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "announcement_trigger",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "long_delay",
+      "description": "Delay announcement and full release after deadline",
+      "assessments": [
+        {
+          "parameter_id": "content_ready",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "platform_ready",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "launch_slot",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "announcement_trigger",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "silent_date",
+      "description": "Announced date passes with no indication of delay despite no verified full release by deadline",
+      "assessments": [
+        {
+          "parameter_id": "content_ready",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "platform_ready",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "launch_slot",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "announcement_trigger",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "disruption",
+      "description": "Cancellation or exceptional disruption, no qualifying release and delay indicated",
+      "assessments": [
+        {
+          "parameter_id": "content_ready",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "platform_ready",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "launch_slot",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "announcement_trigger",
+          "basis": "unresolved",
+          "rationale": "Research required before assignment.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    }
+  ],
+  "limitations": [
+    "Scenario categories may require refinement after learning current schedule; all weights absent.",
+    "No empirical calibration is implied by milestone bookkeeping."
+  ]
+}

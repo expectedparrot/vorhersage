@@ -23,8 +23,8 @@ def add(store, spec):
         return {"relation_id": id}
 
 
-def audit(c, candidate=None):
-    relations = Store.all(c, "relation")
+def implications(relations):
+    """Return the transitive implication paths for an explicit relation snapshot."""
     graph = {}
     for r in relations:
         graph.setdefault(key(r["antecedent"]), []).append((key(r["consequent"]), r["id"]))
@@ -39,6 +39,11 @@ def audit(c, candidate=None):
                     visited.add(target)
                     paths[start, target] = path + [rid]
                     queue.append((target, path + [rid]))
+    return paths
+
+
+def audit(c, candidate=None):
+    paths = implications(Store.all(c, "relation"))
     latest = {}
     for f in Store.all(c, "forecast"):
         k = (f["question_id"], f["question_version"], f["forecaster"], f["mode"])

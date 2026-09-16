@@ -1,0 +1,1024 @@
+{
+  "engine_version": "timeline.v1",
+  "model_sha256": "2b7a52eea169f7747f376abb368dd7ddff70fbe33af797e4efaca75c08a17fa0",
+  "question": {
+    "question_id": "waymo_boston_public_paid_driverless_before_2029",
+    "version": 1
+  },
+  "information_as_of": "2026-09-16T00:34:03+00:00",
+  "deadline": "2029-01-01T00:00:00-05:00",
+  "deadline_rule": "before",
+  "probability": 0.39,
+  "probability_bounds": [
+    0.39,
+    0.39
+  ],
+  "disposition": "weighted",
+  "scenarios": [
+    {
+      "scenario_id": "early_normal",
+      "description": "No corporate or severe technical disruption; enabling effective through 2027, with ordinary Boston approvals.",
+      "weight": 0.22,
+      "status": "finite",
+      "launch_at": "2027-12-28T12:00:00+00:00",
+      "meets_deadline": true,
+      "controlling_milestones": [
+        "state_permission",
+        "local_permission",
+        "public_access"
+      ],
+      "schedule": [
+        {
+          "node_id": "fleet",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-07-13T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "state_permission",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2027-06-01T12:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "technical",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-06-13T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "remaining_at_cutoff"
+        },
+        {
+          "node_id": "local_permission",
+          "status": "finite",
+          "start_at": "2027-06-01T12:00:00+00:00",
+          "finish_at": "2027-09-29T12:00:00+00:00",
+          "controlling_parents": [
+            "state_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "validation",
+          "status": "finite",
+          "start_at": "2027-06-13T00:34:03+00:00",
+          "finish_at": "2027-09-11T00:34:03+00:00",
+          "controlling_parents": [
+            "technical"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "public_access",
+          "status": "finite",
+          "start_at": "2027-09-29T12:00:00+00:00",
+          "finish_at": "2027-12-28T12:00:00+00:00",
+          "controlling_parents": [
+            "local_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        }
+      ]
+    },
+    {
+      "scenario_id": "early_local_delay",
+      "description": "Same early state cohort, but persistent Boston-specific legal, operating or implementation friction.",
+      "weight": 0.08,
+      "status": "finite",
+      "launch_at": "2029-04-21T12:00:00+00:00",
+      "meets_deadline": false,
+      "controlling_milestones": [
+        "state_permission",
+        "local_permission",
+        "public_access"
+      ],
+      "schedule": [
+        {
+          "node_id": "fleet",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-09-16T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "state_permission",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2027-06-01T12:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "technical",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-07-13T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "remaining_at_cutoff"
+        },
+        {
+          "node_id": "local_permission",
+          "status": "finite",
+          "start_at": "2027-06-01T12:00:00+00:00",
+          "finish_at": "2029-01-21T12:00:00+00:00",
+          "controlling_parents": [
+            "state_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "validation",
+          "status": "finite",
+          "start_at": "2027-07-13T00:34:03+00:00",
+          "finish_at": "2027-11-10T00:34:03+00:00",
+          "controlling_parents": [
+            "technical"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "public_access",
+          "status": "finite",
+          "start_at": "2029-01-21T12:00:00+00:00",
+          "finish_at": "2029-04-21T12:00:00+00:00",
+          "controlling_parents": [
+            "local_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        }
+      ]
+    },
+    {
+      "scenario_id": "mid2028_normal",
+      "description": "Enabling effective in first half of 2028; ordinary readiness and approvals.",
+      "weight": 0.12,
+      "status": "finite",
+      "launch_at": "2028-09-28T12:00:00+00:00",
+      "meets_deadline": true,
+      "controlling_milestones": [
+        "state_permission",
+        "local_permission",
+        "validation",
+        "public_access"
+      ],
+      "schedule": [
+        {
+          "node_id": "fleet",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-09-16T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "state_permission",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2028-04-01T12:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "technical",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-12-10T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "remaining_at_cutoff"
+        },
+        {
+          "node_id": "local_permission",
+          "status": "finite",
+          "start_at": "2028-04-01T12:00:00+00:00",
+          "finish_at": "2028-06-30T12:00:00+00:00",
+          "controlling_parents": [
+            "state_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "validation",
+          "status": "finite",
+          "start_at": "2028-04-01T12:00:00+00:00",
+          "finish_at": "2028-06-30T12:00:00+00:00",
+          "controlling_parents": [
+            "state_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "public_access",
+          "status": "finite",
+          "start_at": "2028-06-30T12:00:00+00:00",
+          "finish_at": "2028-09-28T12:00:00+00:00",
+          "controlling_parents": [
+            "local_permission",
+            "validation"
+          ],
+          "duration_semantics": "after_prerequisites"
+        }
+      ]
+    },
+    {
+      "scenario_id": "late2028_accelerated",
+      "description": "Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout.",
+      "weight": 0.05,
+      "status": "finite",
+      "launch_at": "2028-10-30T12:00:00+00:00",
+      "meets_deadline": true,
+      "controlling_milestones": [
+        "state_permission",
+        "local_permission",
+        "validation",
+        "public_access"
+      ],
+      "schedule": [
+        {
+          "node_id": "fleet",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-12-10T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "state_permission",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2028-08-01T12:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "technical",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-12-10T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "remaining_at_cutoff"
+        },
+        {
+          "node_id": "local_permission",
+          "status": "finite",
+          "start_at": "2028-08-01T12:00:00+00:00",
+          "finish_at": "2028-09-15T12:00:00+00:00",
+          "controlling_parents": [
+            "state_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "validation",
+          "status": "finite",
+          "start_at": "2028-08-01T12:00:00+00:00",
+          "finish_at": "2028-09-15T12:00:00+00:00",
+          "controlling_parents": [
+            "state_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "public_access",
+          "status": "finite",
+          "start_at": "2028-09-15T12:00:00+00:00",
+          "finish_at": "2028-10-30T12:00:00+00:00",
+          "controlling_parents": [
+            "local_permission",
+            "validation"
+          ],
+          "duration_semantics": "after_prerequisites"
+        }
+      ]
+    },
+    {
+      "scenario_id": "late2028_ordinary",
+      "description": "Enabling effective in third quarter 2028 with ordinary residual approval and public-access work.",
+      "weight": 0.05,
+      "status": "finite",
+      "launch_at": "2029-05-13T12:00:00+00:00",
+      "meets_deadline": false,
+      "controlling_milestones": [
+        "state_permission",
+        "local_permission",
+        "validation",
+        "public_access"
+      ],
+      "schedule": [
+        {
+          "node_id": "fleet",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-12-10T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "state_permission",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2028-09-15T12:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "technical",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-12-10T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "remaining_at_cutoff"
+        },
+        {
+          "node_id": "local_permission",
+          "status": "finite",
+          "start_at": "2028-09-15T12:00:00+00:00",
+          "finish_at": "2029-01-13T12:00:00+00:00",
+          "controlling_parents": [
+            "state_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "validation",
+          "status": "finite",
+          "start_at": "2028-09-15T12:00:00+00:00",
+          "finish_at": "2029-01-13T12:00:00+00:00",
+          "controlling_parents": [
+            "state_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "public_access",
+          "status": "finite",
+          "start_at": "2029-01-13T12:00:00+00:00",
+          "finish_at": "2029-05-13T12:00:00+00:00",
+          "controlling_parents": [
+            "local_permission",
+            "validation"
+          ],
+          "duration_semantics": "after_prerequisites"
+        }
+      ]
+    },
+    {
+      "scenario_id": "technical_operational_tail",
+      "description": "Timely state path but major Boston technical or operating problems persist despite company continuation.",
+      "weight": 0.05,
+      "status": "finite",
+      "launch_at": "2029-11-09T00:34:03+00:00",
+      "meets_deadline": false,
+      "controlling_milestones": [
+        "technical",
+        "validation",
+        "public_access"
+      ],
+      "schedule": [
+        {
+          "node_id": "fleet",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2028-11-24T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "state_permission",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2027-06-01T12:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "technical",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2029-01-13T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "remaining_at_cutoff"
+        },
+        {
+          "node_id": "local_permission",
+          "status": "finite",
+          "start_at": "2027-06-01T12:00:00+00:00",
+          "finish_at": "2027-09-29T12:00:00+00:00",
+          "controlling_parents": [
+            "state_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "validation",
+          "status": "finite",
+          "start_at": "2029-01-13T00:34:03+00:00",
+          "finish_at": "2029-07-12T00:34:03+00:00",
+          "controlling_parents": [
+            "technical"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "public_access",
+          "status": "finite",
+          "start_at": "2029-07-12T00:34:03+00:00",
+          "finish_at": "2029-11-09T00:34:03+00:00",
+          "controlling_parents": [
+            "validation"
+          ],
+          "duration_semantics": "after_prerequisites"
+        }
+      ]
+    },
+    {
+      "scenario_id": "state_delay",
+      "description": "Company continues, but no effective enabling route by September 30, 2028; encompasses legislative inertia, prohibition and delayed administrative implementation.",
+      "weight": 0.4,
+      "status": "finite",
+      "launch_at": "2030-01-27T12:00:00+00:00",
+      "meets_deadline": false,
+      "controlling_milestones": [
+        "state_permission",
+        "local_permission",
+        "validation",
+        "public_access"
+      ],
+      "schedule": [
+        {
+          "node_id": "fleet",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-12-10T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "state_permission",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2029-07-01T12:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "technical",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-12-10T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "remaining_at_cutoff"
+        },
+        {
+          "node_id": "local_permission",
+          "status": "finite",
+          "start_at": "2029-07-01T12:00:00+00:00",
+          "finish_at": "2029-10-29T12:00:00+00:00",
+          "controlling_parents": [
+            "state_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "validation",
+          "status": "finite",
+          "start_at": "2029-07-01T12:00:00+00:00",
+          "finish_at": "2029-10-29T12:00:00+00:00",
+          "controlling_parents": [
+            "state_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "public_access",
+          "status": "finite",
+          "start_at": "2029-10-29T12:00:00+00:00",
+          "finish_at": "2030-01-27T12:00:00+00:00",
+          "controlling_parents": [
+            "local_permission",
+            "validation"
+          ],
+          "duration_semantics": "after_prerequisites"
+        }
+      ]
+    },
+    {
+      "scenario_id": "corporate_or_national_disruption",
+      "description": "Priority class: corporate withdrawal from Boston or a nationwide disruption prevents service within the horizon.",
+      "weight": 0.03,
+      "status": "never",
+      "launch_at": null,
+      "meets_deadline": false,
+      "controlling_milestones": [
+        "public_access"
+      ],
+      "schedule": [
+        {
+          "node_id": "fleet",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "state_permission",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2027-06-01T12:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "technical",
+          "status": "finite",
+          "start_at": "2026-09-16T00:34:03+00:00",
+          "finish_at": "2027-12-10T00:34:03+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "remaining_at_cutoff"
+        },
+        {
+          "node_id": "local_permission",
+          "status": "finite",
+          "start_at": "2027-06-01T12:00:00+00:00",
+          "finish_at": "2027-09-29T12:00:00+00:00",
+          "controlling_parents": [
+            "state_permission"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "validation",
+          "status": "finite",
+          "start_at": "2027-12-10T00:34:03+00:00",
+          "finish_at": "2028-04-08T00:34:03+00:00",
+          "controlling_parents": [
+            "technical"
+          ],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "public_access",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        }
+      ]
+    }
+  ],
+  "gaps": {
+    "unresolved": [],
+    "assumed_inputs": [
+      {
+        "scenario_id": "early_normal",
+        "parameter_id": "state_permission",
+        "description": "Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "affected_milestones": [
+          "state_permission"
+        ],
+        "research_task": "Determine Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: No corporate or severe technical disruption; enabling effective through 2027, with ordinary Boston approvals."
+      },
+      {
+        "scenario_id": "early_normal",
+        "parameter_id": "fleet",
+        "description": "Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "affected_milestones": [
+          "fleet"
+        ],
+        "research_task": "Determine Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: No corporate or severe technical disruption; enabling effective through 2027, with ordinary Boston approvals."
+      },
+      {
+        "scenario_id": "early_normal",
+        "parameter_id": "local_permission",
+        "description": "Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "affected_milestones": [
+          "local_permission"
+        ],
+        "research_task": "Determine Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: No corporate or severe technical disruption; enabling effective through 2027, with ordinary Boston approvals."
+      },
+      {
+        "scenario_id": "early_local_delay",
+        "parameter_id": "state_permission",
+        "description": "Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "affected_milestones": [
+          "state_permission"
+        ],
+        "research_task": "Determine Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Same early state cohort, but persistent Boston-specific legal, operating or implementation friction."
+      },
+      {
+        "scenario_id": "early_local_delay",
+        "parameter_id": "fleet",
+        "description": "Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "affected_milestones": [
+          "fleet"
+        ],
+        "research_task": "Determine Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Same early state cohort, but persistent Boston-specific legal, operating or implementation friction."
+      },
+      {
+        "scenario_id": "early_local_delay",
+        "parameter_id": "local_permission",
+        "description": "Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "affected_milestones": [
+          "local_permission"
+        ],
+        "research_task": "Determine Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Same early state cohort, but persistent Boston-specific legal, operating or implementation friction."
+      },
+      {
+        "scenario_id": "mid2028_normal",
+        "parameter_id": "state_permission",
+        "description": "Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "affected_milestones": [
+          "state_permission"
+        ],
+        "research_task": "Determine Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Enabling effective in first half of 2028; ordinary readiness and approvals."
+      },
+      {
+        "scenario_id": "mid2028_normal",
+        "parameter_id": "fleet",
+        "description": "Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "affected_milestones": [
+          "fleet"
+        ],
+        "research_task": "Determine Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Enabling effective in first half of 2028; ordinary readiness and approvals."
+      },
+      {
+        "scenario_id": "mid2028_normal",
+        "parameter_id": "local_permission",
+        "description": "Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "affected_milestones": [
+          "local_permission"
+        ],
+        "research_task": "Determine Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Enabling effective in first half of 2028; ordinary readiness and approvals."
+      },
+      {
+        "scenario_id": "late2028_accelerated",
+        "parameter_id": "state_permission",
+        "description": "Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "affected_milestones": [
+          "state_permission"
+        ],
+        "research_task": "Determine Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout."
+      },
+      {
+        "scenario_id": "late2028_accelerated",
+        "parameter_id": "technical",
+        "description": "Remaining Boston mapping, adaptation and pre-driverless technical readiness at cutoff",
+        "affected_milestones": [
+          "technical"
+        ],
+        "research_task": "Determine Remaining Boston mapping, adaptation and pre-driverless technical readiness at cutoff",
+        "rationale": "Evidence-informed remaining-work estimate: Boston preparation predates cutoff and Denver progressed from 2025 entry to selected rides in September 2026. Boston-specific readiness is unobserved; long tails and scenario dependence are subjective. Joint case: Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout."
+      },
+      {
+        "scenario_id": "late2028_accelerated",
+        "parameter_id": "fleet",
+        "description": "Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "affected_milestones": [
+          "fleet"
+        ],
+        "research_task": "Determine Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout."
+      },
+      {
+        "scenario_id": "late2028_accelerated",
+        "parameter_id": "local_permission",
+        "description": "Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "affected_milestones": [
+          "local_permission"
+        ],
+        "research_task": "Determine Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout."
+      },
+      {
+        "scenario_id": "late2028_accelerated",
+        "parameter_id": "validation",
+        "description": "Driverless validation and restricted passenger phase after state and technical readiness",
+        "affected_milestones": [
+          "validation"
+        ],
+        "research_task": "Determine Driverless validation and restricted passenger phase after state and technical readiness",
+        "rationale": "Evidence-informed, not sampled: Miami driverless operations to open access took 148 days; Denver employee phase preceded selected public riders. This parameter covers validation/restricted rides, with open-access ramp separately represented. Joint case: Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout."
+      },
+      {
+        "scenario_id": "late2028_accelerated",
+        "parameter_id": "public_access",
+        "description": "Final ramp to paid access for general public with Boston municipal pickup and dropoff",
+        "affected_milestones": [
+          "public_access"
+        ],
+        "research_task": "Determine Final ramp to paid access for general public with Boston municipal pickup and dropoff",
+        "rationale": "Orlando selected-to-unrestricted access took 50 days; multi-city staged openings establish an extra access gate. Estimates of 45-120 remaining days after prerequisites are approximate and exclude citywide or all-weather requirements. Joint case: Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout."
+      },
+      {
+        "scenario_id": "late2028_ordinary",
+        "parameter_id": "state_permission",
+        "description": "Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "affected_milestones": [
+          "state_permission"
+        ],
+        "research_task": "Determine Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Enabling effective in third quarter 2028 with ordinary residual approval and public-access work."
+      },
+      {
+        "scenario_id": "late2028_ordinary",
+        "parameter_id": "fleet",
+        "description": "Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "affected_milestones": [
+          "fleet"
+        ],
+        "research_task": "Determine Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Enabling effective in third quarter 2028 with ordinary residual approval and public-access work."
+      },
+      {
+        "scenario_id": "late2028_ordinary",
+        "parameter_id": "local_permission",
+        "description": "Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "affected_milestones": [
+          "local_permission"
+        ],
+        "research_task": "Determine Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Enabling effective in third quarter 2028 with ordinary residual approval and public-access work."
+      },
+      {
+        "scenario_id": "technical_operational_tail",
+        "parameter_id": "state_permission",
+        "description": "Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "affected_milestones": [
+          "state_permission"
+        ],
+        "research_task": "Determine Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Timely state path but major Boston technical or operating problems persist despite company continuation."
+      },
+      {
+        "scenario_id": "technical_operational_tail",
+        "parameter_id": "technical",
+        "description": "Remaining Boston mapping, adaptation and pre-driverless technical readiness at cutoff",
+        "affected_milestones": [
+          "technical"
+        ],
+        "research_task": "Determine Remaining Boston mapping, adaptation and pre-driverless technical readiness at cutoff",
+        "rationale": "Evidence-informed remaining-work estimate: Boston preparation predates cutoff and Denver progressed from 2025 entry to selected rides in September 2026. Boston-specific readiness is unobserved; long tails and scenario dependence are subjective. Joint case: Timely state path but major Boston technical or operating problems persist despite company continuation."
+      },
+      {
+        "scenario_id": "technical_operational_tail",
+        "parameter_id": "fleet",
+        "description": "Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "affected_milestones": [
+          "fleet"
+        ],
+        "research_task": "Determine Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Timely state path but major Boston technical or operating problems persist despite company continuation."
+      },
+      {
+        "scenario_id": "technical_operational_tail",
+        "parameter_id": "local_permission",
+        "description": "Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "affected_milestones": [
+          "local_permission"
+        ],
+        "research_task": "Determine Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Timely state path but major Boston technical or operating problems persist despite company continuation."
+      },
+      {
+        "scenario_id": "technical_operational_tail",
+        "parameter_id": "validation",
+        "description": "Driverless validation and restricted passenger phase after state and technical readiness",
+        "affected_milestones": [
+          "validation"
+        ],
+        "research_task": "Determine Driverless validation and restricted passenger phase after state and technical readiness",
+        "rationale": "Evidence-informed, not sampled: Miami driverless operations to open access took 148 days; Denver employee phase preceded selected public riders. This parameter covers validation/restricted rides, with open-access ramp separately represented. Joint case: Timely state path but major Boston technical or operating problems persist despite company continuation."
+      },
+      {
+        "scenario_id": "technical_operational_tail",
+        "parameter_id": "public_access",
+        "description": "Final ramp to paid access for general public with Boston municipal pickup and dropoff",
+        "affected_milestones": [
+          "public_access"
+        ],
+        "research_task": "Determine Final ramp to paid access for general public with Boston municipal pickup and dropoff",
+        "rationale": "Orlando selected-to-unrestricted access took 50 days; multi-city staged openings establish an extra access gate. Estimates of 45-120 remaining days after prerequisites are approximate and exclude citywide or all-weather requirements. Joint case: Timely state path but major Boston technical or operating problems persist despite company continuation."
+      },
+      {
+        "scenario_id": "state_delay",
+        "parameter_id": "state_permission",
+        "description": "Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "affected_milestones": [
+          "state_permission"
+        ],
+        "research_task": "Determine Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Company continues, but no effective enabling route by September 30, 2028; encompasses legislative inertia, prohibition and delayed administrative implementation."
+      },
+      {
+        "scenario_id": "state_delay",
+        "parameter_id": "fleet",
+        "description": "Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "affected_milestones": [
+          "fleet"
+        ],
+        "research_task": "Determine Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Company continues, but no effective enabling route by September 30, 2028; encompasses legislative inertia, prohibition and delayed administrative implementation."
+      },
+      {
+        "scenario_id": "state_delay",
+        "parameter_id": "local_permission",
+        "description": "Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "affected_milestones": [
+          "local_permission"
+        ],
+        "research_task": "Determine Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Company continues, but no effective enabling route by September 30, 2028; encompasses legislative inertia, prohibition and delayed administrative implementation."
+      },
+      {
+        "scenario_id": "corporate_or_national_disruption",
+        "parameter_id": "state_permission",
+        "description": "Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "affected_milestones": [
+          "state_permission"
+        ],
+        "research_task": "Determine Legally effective state enabling framework allowing driverless validation and a path to paid public service",
+        "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Priority class: corporate withdrawal from Boston or a nationwide disruption prevents service within the horizon."
+      },
+      {
+        "scenario_id": "corporate_or_national_disruption",
+        "parameter_id": "fleet",
+        "description": "Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "affected_milestones": [
+          "fleet"
+        ],
+        "research_task": "Determine Elapsed remaining fleet, depot, support and fare-system preparation from cutoff",
+        "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Priority class: corporate withdrawal from Boston or a nationwide disruption prevents service within the horizon."
+      },
+      {
+        "scenario_id": "corporate_or_national_disruption",
+        "parameter_id": "local_permission",
+        "description": "Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "affected_milestones": [
+          "local_permission"
+        ],
+        "research_task": "Determine Final Boston-specific commercial authorization and operating arrangements after state framework",
+        "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Priority class: corporate withdrawal from Boston or a nationwide disruption prevents service within the horizon."
+      }
+    ],
+    "unweighted": false,
+    "structural_assumptions": [
+      {
+        "node_id": "state_permission",
+        "parents": [],
+        "rationale": "Enabling text and testing rules establish state permission as a gate; event date includes legal effectiveness, not just bill passage.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "state_testing"
+          },
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "house_bill"
+          },
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "senate_bill"
+          },
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "boston_return"
+          }
+        ]
+      },
+      {
+        "node_id": "technical",
+        "parents": [],
+        "rationale": "Waymo returned by February 5; all durations here are remaining at cutoff, not time since first Boston mapping.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "boston_return"
+          },
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "denver_entry"
+          },
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "denver_selected"
+          }
+        ]
+      },
+      {
+        "node_id": "fleet",
+        "parents": [],
+        "rationale": "Physical and support preparation can proceed before final permission; no Boston completion date verified. This parallelism is assumed.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "capital"
+          }
+        ]
+      },
+      {
+        "node_id": "local_permission",
+        "parents": [
+          "state_permission"
+        ],
+        "rationale": "Separate final Boston arrangements from state permission because current local rules and eventual preemption are uncertain. Preparatory dialogue can happen earlier; this duration is the residual after enabling.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "boston_proposal"
+          },
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "boston_status"
+          },
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "preemption_proposal"
+          }
+        ]
+      },
+      {
+        "node_id": "validation",
+        "parents": [
+          "state_permission",
+          "technical"
+        ],
+        "rationale": "Driverless work follows state permission and technical readiness. Assume it may overlap the residual commercial approval process; if local approval also gates all driverless tests, use serial-approval sensitivity.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "state_testing"
+          },
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "miami_driverless"
+          },
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "denver_driverless"
+          },
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "denver_selected"
+          }
+        ]
+      },
+      {
+        "node_id": "public_access",
+        "parents": [
+          "local_permission",
+          "validation",
+          "fleet"
+        ],
+        "rationale": "Paid unrestricted access needs all permissions, sufficient operations, and driverless validation. Selected riders and free trials do not qualify; ramp duration starts only after the three prerequisites.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "orlando_selected"
+          },
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "florida_open"
+          },
+          {
+            "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+            "record_id": "denver_selected"
+          }
+        ]
+      }
+    ],
+    "note": "A complete declaration is not proof of adequate evidence or a correct dependency structure."
+  },
+  "limitations": [
+    "Dates, durations, dependencies and scenario weights are supplied, not inferred from evidence.",
+    "Each scenario is one joint assignment. No independent sampling or equal weighting is implicit.",
+    "Unweighted scenario counts are not probabilities. Weighted scenarios require a declared exhaustive partition.",
+    "Durations are elapsed days of 86400 seconds. Resource contention and working-day calendars are not modeled.",
+    "Sensitivity is a declared-input stress test, not a confidence interval or an estimate of research value.",
+    "Independent question-only run; no conversation history or prior forecasts supplied.",
+    "Web extracts and opened pages are evidence snapshots, not exhaustive legal research. Repeated Waymo statements share a corporate origin.",
+    "No empirical estimate of Massachusetts legislation timing, local approval time, Boston depot completion, or launch probability was available; scenario weights and legal/operational timing are subjective assumptions.",
+    "No qualifying Boston launch or paid-driverless permit was verified. No Boston depot or fleet readiness dates were verified.",
+    "Ballot placement of the earlier AV petition and replacement Boston legislation were not verified; neither is assumed enacted.",
+    "Research and model costs were unmetered, not zero-cost; engine zero counters are placeholders.",
+    "Representative joint scenarios compress within-class date variation; displayed calendar precision is arithmetic, not predictive precision.",
+    "Local commercial permission overlapping driverless validation is an assumption, exposed in structural sensitivity.",
+    "A small Boston geofence and weather restrictions qualify; Cambridge-only, invitation access, and free rides do not.",
+    "Severe failures are assigned explicitly and elapsed Boston work is not added again."
+  ]
+}

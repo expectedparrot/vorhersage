@@ -1,0 +1,526 @@
+{
+  "name": "evaluate",
+  "argv": [
+    "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+    "-m",
+    "vorhersage",
+    "--project",
+    "/private/tmp/vorhersage-docs-tutorial-run-v2/forecast-study",
+    "session",
+    "evaluate",
+    "--from",
+    "/private/tmp/vorhersage-docs-tutorial-run-v2/forecast-study/evaluation.json"
+  ],
+  "elapsed_seconds": 0.063,
+  "output": {
+    "schema_version": "1",
+    "status": "ok",
+    "command": "session",
+    "data": {
+      "evaluation_id": "session_evaluation_064b478e4b604a039aae",
+      "policy": {
+        "session_ids": [
+          "session_fd5b8a19854f8f02d507c88f",
+          "session_ebbafe6b9278b8850bb9f249",
+          "session_533a1185f1d980bc14a2ade3",
+          "session_23abaa288b6648a2c5317a9f"
+        ],
+        "cutoff": "2026-09-12T15:23:17.689989+00:00",
+        "resolution_as_of": "2026-09-12T15:23:17.796669+00:00",
+        "allow_source_reported": false
+      },
+      "selected": [
+        {
+          "session_id": "session_fd5b8a19854f8f02d507c88f",
+          "question_id": "readiness",
+          "version": 1,
+          "probability": 0.25,
+          "outcome": 1,
+          "brier": 0.5625,
+          "event_group": "factory",
+          "resolution_id": "resolution_6ab415a4c9f947d89a1f"
+        },
+        {
+          "session_id": "session_ebbafe6b9278b8850bb9f249",
+          "question_id": "readiness",
+          "version": 1,
+          "probability": 0.75,
+          "outcome": 1,
+          "brier": 0.0625,
+          "event_group": "factory",
+          "resolution_id": "resolution_6ab415a4c9f947d89a1f"
+        },
+        {
+          "session_id": "session_533a1185f1d980bc14a2ade3",
+          "question_id": "readiness",
+          "version": 1,
+          "probability": 0.75,
+          "outcome": 1,
+          "brier": 0.0625,
+          "event_group": "factory",
+          "resolution_id": "resolution_6ab415a4c9f947d89a1f"
+        },
+        {
+          "session_id": "session_23abaa288b6648a2c5317a9f",
+          "question_id": "readiness",
+          "version": 1,
+          "probability": 0.25,
+          "outcome": 1,
+          "brier": 0.5625,
+          "event_group": "factory",
+          "resolution_id": "resolution_6ab415a4c9f947d89a1f"
+        }
+      ],
+      "exclusions": [],
+      "summaries": [
+        {
+          "session_id": "session_fd5b8a19854f8f02d507c88f",
+          "forecaster": "a",
+          "repetition": 2,
+          "available_n": 1,
+          "matched_n": 1,
+          "available_brier": 0.5625,
+          "matched_brier": 0.5625,
+          "calibration": [
+            {
+              "rank_bin": 0,
+              "n": 1,
+              "mean_probability": 0.25,
+              "frequency": 1,
+              "wilson_95": [
+                0.20654931437723745,
+                1
+              ]
+            },
+            {
+              "rank_bin": 1,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 2,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 3,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 4,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 5,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 6,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 7,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 8,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 9,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            }
+          ],
+          "session_usage": {
+            "searches": 1,
+            "model_calls": 2,
+            "cost_usd": 0.025
+          },
+          "unknown_usage_attempts": []
+        },
+        {
+          "session_id": "session_ebbafe6b9278b8850bb9f249",
+          "forecaster": "b",
+          "repetition": 1,
+          "available_n": 1,
+          "matched_n": 1,
+          "available_brier": 0.0625,
+          "matched_brier": 0.0625,
+          "calibration": [
+            {
+              "rank_bin": 0,
+              "n": 1,
+              "mean_probability": 0.75,
+              "frequency": 1,
+              "wilson_95": [
+                0.20654931437723745,
+                1
+              ]
+            },
+            {
+              "rank_bin": 1,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 2,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 3,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 4,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 5,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 6,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 7,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 8,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 9,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            }
+          ],
+          "session_usage": {
+            "searches": 1,
+            "model_calls": 2,
+            "cost_usd": 0.025
+          },
+          "unknown_usage_attempts": []
+        },
+        {
+          "session_id": "session_533a1185f1d980bc14a2ade3",
+          "forecaster": "b",
+          "repetition": 2,
+          "available_n": 1,
+          "matched_n": 1,
+          "available_brier": 0.0625,
+          "matched_brier": 0.0625,
+          "calibration": [
+            {
+              "rank_bin": 0,
+              "n": 1,
+              "mean_probability": 0.75,
+              "frequency": 1,
+              "wilson_95": [
+                0.20654931437723745,
+                1
+              ]
+            },
+            {
+              "rank_bin": 1,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 2,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 3,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 4,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 5,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 6,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 7,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 8,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 9,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            }
+          ],
+          "session_usage": {
+            "searches": 1,
+            "model_calls": 2,
+            "cost_usd": 0.025
+          },
+          "unknown_usage_attempts": []
+        },
+        {
+          "session_id": "session_23abaa288b6648a2c5317a9f",
+          "forecaster": "a",
+          "repetition": 1,
+          "available_n": 1,
+          "matched_n": 1,
+          "available_brier": 0.5625,
+          "matched_brier": 0.5625,
+          "calibration": [
+            {
+              "rank_bin": 0,
+              "n": 1,
+              "mean_probability": 0.25,
+              "frequency": 1,
+              "wilson_95": [
+                0.20654931437723745,
+                1
+              ]
+            },
+            {
+              "rank_bin": 1,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 2,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 3,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 4,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 5,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 6,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 7,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 8,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            },
+            {
+              "rank_bin": 9,
+              "n": 0,
+              "mean_probability": null,
+              "frequency": null,
+              "wilson_95": null
+            }
+          ],
+          "session_usage": {
+            "searches": 1,
+            "model_calls": 2,
+            "cost_usd": 0.025
+          },
+          "unknown_usage_attempts": []
+        }
+      ],
+      "arms": [
+        {
+          "forecaster": "a",
+          "repetitions": 2,
+          "matched_questions": 1,
+          "mean_session_brier": 0.5625
+        },
+        {
+          "forecaster": "b",
+          "repetitions": 2,
+          "matched_questions": 1,
+          "mean_session_brier": 0.0625
+        }
+      ],
+      "input_manifest": {
+        "session_fd5b8a19854f8f02d507c88f": "c835fa29170c4a9de470172e095294f05cf2c23f8fffefbf898cac3a0fa7cf23",
+        "joint_event_f7f43052893d6924274f6401": "b6cb500793eafbaa7004dfff69a0da5a10e2906c20a98e6d3740c87747b56172",
+        "joint_event_0a514e6cc2ff1ba1f9774615": "16b603c1de2a03b97ce3e8c9f746cf5d096747322ba8231ca86bdd2b17fc3941",
+        "joint_event_0a3baf4021379fcd31f365e8": "158c80b8c7294fd6f67546244644976160746025fabfd960a92d726b03c10de0",
+        "joint_event_82826749ce7cc2e39a824b9a": "cd29a39cb07120e38ba326445d14a9b944c1ee273f100fac6b022a90a31e3922",
+        "joint_event_4f9a01066d4259e1839a0d41": "0a7c9fda9b35fd869371753aa582bc566c61584b4079b8e77d64c0f0755e397f",
+        "joint_event_8a86d4528cf04eef566bf495": "1ec8d77bec86c806c0cc6dfa00dfa2c8d38e7781a04894d07f3b0feb497f7d79",
+        "joint_event_0789973af7529e02e3d39854": "19a64d786182303dc86dc286ce5e12ec981216eae7baeafd1e250adc4f5bb5ce",
+        "joint_event_930dc2c837c8b0cad01e96b9": "1c5aabcae83c91fd1509b889b451f70295bfe460856b4463f7e92da2bf75936c",
+        "joint_event_12c49a846b040caa267f142a": "93d3b8f2fa1f844bdcd289a78d20284821f6b3b0ea49761a2e35c9c83e6e1f1a",
+        "joint_event_3e3af58e51f1991cb9452cd2": "6fc0bd35d1801f38ee74f70f8d15946b99be3ab2d64e11ce72d918f0e2954481",
+        "joint_event_edcb0b66d6118e8ac56c6302": "b90a0dc2ee4abe0192cb94394deace10421d53f7731cfc3c032a4f891e922681",
+        "joint_event_f47c51972316f85afbaa85a3": "5680a17cc508cae534afe4db3939f2daa1b996d9f57e33c58f89807cd8c42cf3",
+        "joint_submission_da97ad33bcb456e75d26e653": "44656c0186cf414bba6c9fb6c2289d64c767c14abe0a07c248e7e9ea5d89d94e",
+        "joint_finalization_a1054dbb7a842cbfc1be3016": "c34a73a10717d489ef521be1e698c403bb2034503e50c65c1b6279ece2fa8de5",
+        "resolution_6ab415a4c9f947d89a1f": "861c3a3a4ca7c6e59dab29404a76ee8e776ea0b5548fd3fe6927dbb850ad070d",
+        "session_ebbafe6b9278b8850bb9f249": "f67a1eacf25c4956556110aaaf9adac4029be68fafb37d75dc26a2e9203be021",
+        "joint_event_2b0227dc5f5bd1b4ce540562": "f19359cca6d1709cb40942ed6992c0c140e3c255ebc03713421585873b776855",
+        "joint_event_b7d71dfe3c8f1e41479eb740": "98e9fba4238320997a217d9144d0f7e9585baeb8b321f1d69c18ece0dfcfdb94",
+        "joint_event_b9d22fe686581370015c9422": "a2b2e5818c898b852f6b0bd5cdc3c5a456eb5fd2d7a0f775101c996ed4876d50",
+        "joint_event_566c00c397413b0ac89c33bd": "07ccf2cff73eca76c0440bd14cdad47adde599982b0f5050d440abccc538d04e",
+        "joint_event_be52c64c75c74ac699f4c29a": "c1971cd52d70d49ebce6e71135ce1cbbcaf6a72b8aea4935c24e53672c80e962",
+        "joint_event_30c9e6180dbf3edc3160c963": "ce6d1eb91ef7b2a9617cfb911dd0f5b07380836b400244439d01b9b479be746d",
+        "joint_event_02034b6aa9857234aa7f7133": "7911e7c13b7f59d5584eccc17309980c8802133343b4f19f2fa86826da580efb",
+        "joint_event_effe991060287b8ae5df35cf": "f007ab57f70c0141fef8bc601341fa3ca67ee285cff7c5e508ad8bcb515e8e10",
+        "joint_event_ad09a1376e342677e2c4dccf": "d5e3e3fabe33f747d2ca825c20c66fe05631498121d13fa9e665ad7b375d332d",
+        "joint_event_15658f08b02f1a84ad42de9e": "e3b6c2f9afb8c6d6b5a379446ad4c7d0a129dae6818fcff508416e417bd066e9",
+        "joint_event_5808a1e90b6faae65dd863e3": "48b516aff647d81a56e09089a77c8a42546f8a1d882272bc179920ee23cfeb71",
+        "joint_event_279ba1490eb53c59d298a849": "ad50407d1bb7df3883464ddffb116aca1ee8ad0325bc334ea6989b21260439aa",
+        "joint_submission_3a78f6cac43e4eacd5f722d4": "78bcc0f2e1d9938e84b65a8e05238f5e9311f1ef872c7f6b96c0184197db43f5",
+        "joint_finalization_3b4d393611061246bd9c8518": "05cbeb211d50e0c05a7c0e2242c359335b5e62c593dc42e2bf513931d223851f",
+        "session_533a1185f1d980bc14a2ade3": "071254204f274ff01e17784473bdfe814e645f052d14e7432a5dafb2ca6d3577",
+        "joint_event_d01ea4dec4989250bfebc096": "bd8e873a0d34b85193b6e0d016b8302d3ff9f7dd86637b6f3247cc45a4e1d232",
+        "joint_event_057b7609aa224a558ac474bc": "faf240500f00da192cccb4991bd780e47febda695a68cedfde356d93ab4806bd",
+        "joint_event_7655653f1d501da72f173075": "ef8bd53bccc2cf6afbc5d21a6b67ab95d15ef07458bccb6bff307c77802c16ec",
+        "joint_event_a7eafb20e2c7ffaaaa5f9eef": "1f02eede302ac0231c33bd970bc7d87ce25117fb7fbd112c61021c1dc0e2f7eb",
+        "joint_event_4dbfc542a57ac3394bee5bd0": "1d845e25cbee41c7cbb61c90a36cb4e89420ac05c9acd2f0c0d9794274262970",
+        "joint_event_f5625f9516b41acd6f2c55e5": "3c3fb2450c96ad326b250f86086a33ba14d19e0b5d8e6da2fa957d92dfcb4f0a",
+        "joint_event_4228b7434e823ea424deb6be": "96d7d4998ba01bf4523b23dab1c8cee133a6a5975751bbc949c01136dca7e755",
+        "joint_event_bebeba57513de4f5ad4a8a7c": "dcbd10db21f4df2838869596902c053a321eae0b6d96cc3b6669ddd480d81603",
+        "joint_event_f82bb254a86bc85a9e1eee19": "1784a194a2086293d623e68312ee68b72098729a58fd68078115722bd5197ae2",
+        "joint_event_80a930a2980e47ba6cfbab32": "fffa0eb8f205d7ed9000c5512a6e9bf7ecdf509f17922226a174f625a4a42cd1",
+        "joint_event_6b5aadba0e7d3c617ad56654": "0dcdb22dc2cb85749cbd32fbdad1780531262a7b6f1d16374839d55acae4a87c",
+        "joint_event_9eee6186ce9d66b55c4b2455": "6e2f3a07d8a1047c3fe4d7db26161bb313a21aa811e3336dd9aa070ba8cd09bf",
+        "joint_submission_d835c633f69d74938c1aa734": "59b4a0fda804cfc62fce0493f968d1db69ee18a2b0d75004d3d0501f4b93dbff",
+        "joint_finalization_4dd65cdd13abf7c29a5ecd42": "8c30a4bfbbddf80c5d6abb4a67648d14b69e327fc2377f73efdc3af99b11336f",
+        "session_23abaa288b6648a2c5317a9f": "079e789946e0dd952e07b1cf62919745384d4dd33d39d4ad30b21ca868a8a5e1",
+        "joint_event_0124b03a699fe1a234d56c13": "0b7b780c9cc0e5d069ccb47c58a1b21c63aecd3ecbe1e04799bbcc0a8e91e40d",
+        "joint_event_f3830e9cc7d60eb685141a4a": "ae5cea630da4c7602f36586d7c34ec9e6aca9f7b399ceb3125931adf20bb8bd9",
+        "joint_event_0bbc73c61ace3c36ae7c84ee": "c07c673b751730a7a657de5f5bf76cdee760bbda5bc6c752cb6c9ae9c98d0e07",
+        "joint_event_de803d44b3144fb6ea9f08c9": "b17d93e0475f052c0009aa291a0df170b848e7cf9343e5be32544ee1c0ee5878",
+        "joint_event_1bd85ed6fb05d32ca92eb7a6": "c701148c3e9b19a4b5cf4ebc03183d83cfd618027ffc984cf836ef2fa1fa5c72",
+        "joint_event_0185a67c1a0dcf767599f287": "a939740c74f26708801bda5f9afb6446fc25a1a852c0c5694bf7a2eb2ee279b6",
+        "joint_event_ae86c4d452b3d4e2949c8500": "9a4e1b2f1e26a32048593d40872fe72eff28ac372917571c539cf25316b043bf",
+        "joint_event_8c83a9fca49527c89324db2c": "201f7447a1d05c27928dbd1ee0c5d641f2cc4175bab3fff5f90488bc6254cbab",
+        "joint_event_dc8260988a2f32b377216b34": "e5a834e5ac098efe6872873106ef7ef5ac2f54789d905ce1d10a2799cdc8e636",
+        "joint_event_5c2c520591170333f6d5166a": "1cc9f63414006645e0b944004366038402f27a5bedba305e009007995b513b36",
+        "joint_event_ac2c84a6d39d417e7bd73e42": "d8c40a21e243f24023893988b08c62d9e82f3226a5228b3a12ca699887a4b575",
+        "joint_event_2377c985fce13d47d6ac3e99": "7edbde4a073f86b3269eda64895186401ef8316e13799b28fbbd851864ff5d34",
+        "joint_submission_c39c5592e3b4ed0104af74fd": "472048cb0510324e88049a481a5b7eadc887ef2e680090781b26ba3555ec7a5a",
+        "joint_finalization_d270d68cce912c648ce42931": "61ff7e1c586317800b542100ea9e54e22a8fee142b6b50bb0a027a5c395d6534"
+      },
+      "created_at": "2026-09-12T15:23:17.856029Z",
+      "limitations": [
+        "Only unconditional cells are eligible; interventions and information conditions remain unscored.",
+        "Brier is averaged across session losses, not scored after averaging forecasts.",
+        "Wilson intervals are descriptive binomial intervals, not cluster-adjusted uncertainty.",
+        "Recorded timing and modes do not certify absence of hindsight or training contamination."
+      ]
+    },
+    "warnings": [],
+    "errors": [],
+    "next_actions": []
+  }
+}

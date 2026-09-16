@@ -1,0 +1,638 @@
+{
+  "engine_version": "timeline.v1",
+  "model_sha256": "3da3e8f6518317550803b76d59fd6a70196fe25730e5042b2d51315c27c5fb9c",
+  "question": {
+    "question_id": "kalshi_gta_20260915",
+    "version": 1
+  },
+  "information_as_of": "2026-09-16T01:19:27+00:00",
+  "deadline": "2026-12-01T00:00:00-05:00",
+  "deadline_rule": "before",
+  "probability": 0.91,
+  "probability_bounds": [
+    0.91,
+    0.91
+  ],
+  "disposition": "weighted",
+  "scenarios": [
+    {
+      "scenario_id": "scheduled",
+      "description": "First qualifying full US release occurs on or before November 19, 2026.",
+      "weight": 0.88,
+      "status": "finite",
+      "launch_at": "2026-11-19T17:00:00+00:00",
+      "meets_deadline": true,
+      "controlling_milestones": [
+        "launch_slot",
+        "full_release",
+        "contract_yes"
+      ],
+      "schedule": [
+        {
+          "node_id": "announcement_trigger",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-11-20T05:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "content_ready",
+          "status": "finite",
+          "start_at": "2026-09-16T01:19:27+00:00",
+          "finish_at": "2026-10-31T01:19:27+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "launch_slot",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-11-19T17:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "platform_ready",
+          "status": "finite",
+          "start_at": "2026-09-16T01:19:27+00:00",
+          "finish_at": "2026-11-11T01:19:27+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "full_release",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-11-19T17:00:00+00:00",
+          "controlling_parents": [
+            "launch_slot"
+          ],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "contract_yes",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-11-19T17:00:00+00:00",
+          "controlling_parents": [
+            "full_release"
+          ],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "brief_delay",
+      "description": "First qualifying full US release occurs November 20–30, 2026.",
+      "weight": 0.025,
+      "status": "finite",
+      "launch_at": "2026-11-27T17:00:00+00:00",
+      "meets_deadline": true,
+      "controlling_milestones": [
+        "launch_slot",
+        "full_release",
+        "contract_yes"
+      ],
+      "schedule": [
+        {
+          "node_id": "announcement_trigger",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-11-28T05:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "content_ready",
+          "status": "finite",
+          "start_at": "2026-09-16T01:19:27+00:00",
+          "finish_at": "2026-11-23T01:19:27+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "launch_slot",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-11-27T17:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "platform_ready",
+          "status": "finite",
+          "start_at": "2026-09-16T01:19:27+00:00",
+          "finish_at": "2026-11-27T01:19:27+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "full_release",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-11-27T17:00:00+00:00",
+          "controlling_parents": [
+            "launch_slot"
+          ],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "contract_yes",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-11-27T17:00:00+00:00",
+          "controlling_parents": [
+            "full_release"
+          ],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "long_delay",
+      "description": "No qualifying full release by November 30 and no announced-date YES; full release occurs later.",
+      "weight": 0.085,
+      "status": "finite",
+      "launch_at": "2027-02-18T17:00:00+00:00",
+      "meets_deadline": false,
+      "controlling_milestones": [
+        "launch_slot",
+        "full_release",
+        "contract_yes"
+      ],
+      "schedule": [
+        {
+          "node_id": "announcement_trigger",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "content_ready",
+          "status": "finite",
+          "start_at": "2026-09-16T01:19:27+00:00",
+          "finish_at": "2027-01-14T01:19:27+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "launch_slot",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2027-02-18T17:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "platform_ready",
+          "status": "finite",
+          "start_at": "2026-09-16T01:19:27+00:00",
+          "finish_at": "2027-01-29T01:19:27+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "full_release",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2027-02-18T17:00:00+00:00",
+          "controlling_parents": [
+            "launch_slot"
+          ],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "contract_yes",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2027-02-18T17:00:00+00:00",
+          "controlling_parents": [
+            "full_release"
+          ],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "silent_date",
+      "description": "No qualifying full release by deadline, but an announced release date passes before the deadline without any indication of delay.",
+      "weight": 0.005,
+      "status": "finite",
+      "launch_at": "2026-11-20T05:00:00+00:00",
+      "meets_deadline": true,
+      "controlling_milestones": [
+        "announcement_trigger",
+        "contract_yes"
+      ],
+      "schedule": [
+        {
+          "node_id": "announcement_trigger",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-11-20T05:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "content_ready",
+          "status": "finite",
+          "start_at": "2026-09-16T01:19:27+00:00",
+          "finish_at": "2026-12-15T01:19:27+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "launch_slot",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2027-01-15T17:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "platform_ready",
+          "status": "finite",
+          "start_at": "2026-09-16T01:19:27+00:00",
+          "finish_at": "2026-12-22T01:19:27+00:00",
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "full_release",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2027-01-15T17:00:00+00:00",
+          "controlling_parents": [
+            "launch_slot"
+          ],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "contract_yes",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-11-20T05:00:00+00:00",
+          "controlling_parents": [
+            "announcement_trigger"
+          ],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "disruption",
+      "description": "No announced-date YES by deadline and no eventual qualifying full US release.",
+      "weight": 0.005,
+      "status": "never",
+      "launch_at": null,
+      "meets_deadline": false,
+      "controlling_milestones": [
+        "contract_yes"
+      ],
+      "schedule": [
+        {
+          "node_id": "announcement_trigger",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "content_ready",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "launch_slot",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "platform_ready",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": "after_prerequisites"
+        },
+        {
+          "node_id": "full_release",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": null
+        },
+        {
+          "node_id": "contract_yes",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": null
+        }
+      ]
+    }
+  ],
+  "gaps": {
+    "unresolved": [],
+    "assumed_inputs": [
+      {
+        "scenario_id": "scheduled",
+        "parameter_id": "content_ready",
+        "description": "Remaining elapsed days until launch-quality content is ready at the cutoff",
+        "affected_milestones": [
+          "content_ready"
+        ],
+        "research_task": "Determine Remaining elapsed days until launch-quality content is ready at the cutoff",
+        "rationale": "Representative remaining elapsed days from cutoff to content readiness. Exact internal state unobserved. Joint branch assumption chosen to represent on-time, brief-slip, longer rework or terminal paths; not a measured duration."
+      },
+      {
+        "scenario_id": "scheduled",
+        "parameter_id": "platform_ready",
+        "description": "Remaining elapsed days until at least one qualifying US platform is certified and distributable",
+        "affected_milestones": [
+          "platform_ready"
+        ],
+        "research_task": "Determine Remaining elapsed days until at least one qualifying US platform is certified and distributable",
+        "rationale": "Representative remaining elapsed days to the first qualifying platform becoming distributable; includes certification, preload and distribution readiness in parallel with content work. No internal certification milestone observed. Digital-first boxed codes reduce disc-manufacturing dependence, not software-readiness risk."
+      },
+      {
+        "scenario_id": "scheduled",
+        "parameter_id": "announcement_trigger",
+        "description": "Announced release date that passes without indication of delay; never if delayed before passing",
+        "affected_milestones": [
+          "announcement_trigger"
+        ],
+        "research_task": "Determine Announced release date that passes without indication of delay; never if delayed before passing",
+        "rationale": "Applies only when an applicable announced release date has passed with no indication of delay. Modeled at next US Eastern midnight. Never means this alternative route does not trigger in the scenario, not that full release is impossible."
+      },
+      {
+        "scenario_id": "brief_delay",
+        "parameter_id": "content_ready",
+        "description": "Remaining elapsed days until launch-quality content is ready at the cutoff",
+        "affected_milestones": [
+          "content_ready"
+        ],
+        "research_task": "Determine Remaining elapsed days until launch-quality content is ready at the cutoff",
+        "rationale": "Representative remaining elapsed days from cutoff to content readiness. Exact internal state unobserved. Joint branch assumption chosen to represent on-time, brief-slip, longer rework or terminal paths; not a measured duration."
+      },
+      {
+        "scenario_id": "brief_delay",
+        "parameter_id": "platform_ready",
+        "description": "Remaining elapsed days until at least one qualifying US platform is certified and distributable",
+        "affected_milestones": [
+          "platform_ready"
+        ],
+        "research_task": "Determine Remaining elapsed days until at least one qualifying US platform is certified and distributable",
+        "rationale": "Representative remaining elapsed days to the first qualifying platform becoming distributable; includes certification, preload and distribution readiness in parallel with content work. No internal certification milestone observed. Digital-first boxed codes reduce disc-manufacturing dependence, not software-readiness risk."
+      },
+      {
+        "scenario_id": "brief_delay",
+        "parameter_id": "launch_slot",
+        "description": "Earliest intended commercial full US launch slot",
+        "affected_milestones": [
+          "launch_slot"
+        ],
+        "research_task": "Determine Earliest intended commercial full US launch slot",
+        "rationale": "Representative full-release commercial gate. On-time November date is evidence-informed, but noon US Eastern is only a modeling convention; late dates are assumptions, not announced revisions."
+      },
+      {
+        "scenario_id": "brief_delay",
+        "parameter_id": "announcement_trigger",
+        "description": "Announced release date that passes without indication of delay; never if delayed before passing",
+        "affected_milestones": [
+          "announcement_trigger"
+        ],
+        "research_task": "Determine Announced release date that passes without indication of delay; never if delayed before passing",
+        "rationale": "Applies only when an applicable announced release date has passed with no indication of delay. Modeled at next US Eastern midnight. Never means this alternative route does not trigger in the scenario, not that full release is impossible."
+      },
+      {
+        "scenario_id": "long_delay",
+        "parameter_id": "content_ready",
+        "description": "Remaining elapsed days until launch-quality content is ready at the cutoff",
+        "affected_milestones": [
+          "content_ready"
+        ],
+        "research_task": "Determine Remaining elapsed days until launch-quality content is ready at the cutoff",
+        "rationale": "Representative remaining elapsed days from cutoff to content readiness. Exact internal state unobserved. Joint branch assumption chosen to represent on-time, brief-slip, longer rework or terminal paths; not a measured duration."
+      },
+      {
+        "scenario_id": "long_delay",
+        "parameter_id": "platform_ready",
+        "description": "Remaining elapsed days until at least one qualifying US platform is certified and distributable",
+        "affected_milestones": [
+          "platform_ready"
+        ],
+        "research_task": "Determine Remaining elapsed days until at least one qualifying US platform is certified and distributable",
+        "rationale": "Representative remaining elapsed days to the first qualifying platform becoming distributable; includes certification, preload and distribution readiness in parallel with content work. No internal certification milestone observed. Digital-first boxed codes reduce disc-manufacturing dependence, not software-readiness risk."
+      },
+      {
+        "scenario_id": "long_delay",
+        "parameter_id": "launch_slot",
+        "description": "Earliest intended commercial full US launch slot",
+        "affected_milestones": [
+          "launch_slot"
+        ],
+        "research_task": "Determine Earliest intended commercial full US launch slot",
+        "rationale": "Representative full-release commercial gate. On-time November date is evidence-informed, but noon US Eastern is only a modeling convention; late dates are assumptions, not announced revisions."
+      },
+      {
+        "scenario_id": "long_delay",
+        "parameter_id": "announcement_trigger",
+        "description": "Announced release date that passes without indication of delay; never if delayed before passing",
+        "affected_milestones": [
+          "announcement_trigger"
+        ],
+        "research_task": "Determine Announced release date that passes without indication of delay; never if delayed before passing",
+        "rationale": "Applies only when an applicable announced release date has passed with no indication of delay. Modeled at next US Eastern midnight. Never means this alternative route does not trigger in the scenario, not that full release is impossible."
+      },
+      {
+        "scenario_id": "silent_date",
+        "parameter_id": "content_ready",
+        "description": "Remaining elapsed days until launch-quality content is ready at the cutoff",
+        "affected_milestones": [
+          "content_ready"
+        ],
+        "research_task": "Determine Remaining elapsed days until launch-quality content is ready at the cutoff",
+        "rationale": "Representative remaining elapsed days from cutoff to content readiness. Exact internal state unobserved. Joint branch assumption chosen to represent on-time, brief-slip, longer rework or terminal paths; not a measured duration."
+      },
+      {
+        "scenario_id": "silent_date",
+        "parameter_id": "platform_ready",
+        "description": "Remaining elapsed days until at least one qualifying US platform is certified and distributable",
+        "affected_milestones": [
+          "platform_ready"
+        ],
+        "research_task": "Determine Remaining elapsed days until at least one qualifying US platform is certified and distributable",
+        "rationale": "Representative remaining elapsed days to the first qualifying platform becoming distributable; includes certification, preload and distribution readiness in parallel with content work. No internal certification milestone observed. Digital-first boxed codes reduce disc-manufacturing dependence, not software-readiness risk."
+      },
+      {
+        "scenario_id": "silent_date",
+        "parameter_id": "launch_slot",
+        "description": "Earliest intended commercial full US launch slot",
+        "affected_milestones": [
+          "launch_slot"
+        ],
+        "research_task": "Determine Earliest intended commercial full US launch slot",
+        "rationale": "Representative full-release commercial gate. On-time November date is evidence-informed, but noon US Eastern is only a modeling convention; late dates are assumptions, not announced revisions."
+      },
+      {
+        "scenario_id": "silent_date",
+        "parameter_id": "announcement_trigger",
+        "description": "Announced release date that passes without indication of delay; never if delayed before passing",
+        "affected_milestones": [
+          "announcement_trigger"
+        ],
+        "research_task": "Determine Announced release date that passes without indication of delay; never if delayed before passing",
+        "rationale": "Applies only when an applicable announced release date has passed with no indication of delay. Modeled at next US Eastern midnight. Never means this alternative route does not trigger in the scenario, not that full release is impossible."
+      },
+      {
+        "scenario_id": "disruption",
+        "parameter_id": "content_ready",
+        "description": "Remaining elapsed days until launch-quality content is ready at the cutoff",
+        "affected_milestones": [
+          "content_ready"
+        ],
+        "research_task": "Determine Remaining elapsed days until launch-quality content is ready at the cutoff",
+        "rationale": "Representative remaining elapsed days from cutoff to content readiness. Exact internal state unobserved. Joint branch assumption chosen to represent on-time, brief-slip, longer rework or terminal paths; not a measured duration."
+      },
+      {
+        "scenario_id": "disruption",
+        "parameter_id": "platform_ready",
+        "description": "Remaining elapsed days until at least one qualifying US platform is certified and distributable",
+        "affected_milestones": [
+          "platform_ready"
+        ],
+        "research_task": "Determine Remaining elapsed days until at least one qualifying US platform is certified and distributable",
+        "rationale": "Representative remaining elapsed days to the first qualifying platform becoming distributable; includes certification, preload and distribution readiness in parallel with content work. No internal certification milestone observed. Digital-first boxed codes reduce disc-manufacturing dependence, not software-readiness risk."
+      },
+      {
+        "scenario_id": "disruption",
+        "parameter_id": "launch_slot",
+        "description": "Earliest intended commercial full US launch slot",
+        "affected_milestones": [
+          "launch_slot"
+        ],
+        "research_task": "Determine Earliest intended commercial full US launch slot",
+        "rationale": "Representative full-release commercial gate. On-time November date is evidence-informed, but noon US Eastern is only a modeling convention; late dates are assumptions, not announced revisions."
+      },
+      {
+        "scenario_id": "disruption",
+        "parameter_id": "announcement_trigger",
+        "description": "Announced release date that passes without indication of delay; never if delayed before passing",
+        "affected_milestones": [
+          "announcement_trigger"
+        ],
+        "research_task": "Determine Announced release date that passes without indication of delay; never if delayed before passing",
+        "rationale": "Applies only when an applicable announced release date has passed with no indication of delay. Modeled at next US Eastern midnight. Never means this alternative route does not trigger in the scenario, not that full release is impossible."
+      }
+    ],
+    "unweighted": false,
+    "structural_assumptions": [
+      {
+        "node_id": "content_ready",
+        "parents": [],
+        "rationale": "Unresolved before research; work durations start at the actual information cutoff and represent remaining work.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+            "record_id": "rockstar_current"
+          },
+          {
+            "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+            "record_id": "may_delay"
+          }
+        ]
+      },
+      {
+        "node_id": "platform_ready",
+        "parents": [],
+        "rationale": "Unresolved before research; work durations start at the actual information cutoff and represent remaining work.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+            "record_id": "support"
+          },
+          {
+            "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+            "record_id": "xbox"
+          }
+        ]
+      },
+      {
+        "node_id": "launch_slot",
+        "parents": [],
+        "rationale": "Unresolved before research; work durations start at the actual information cutoff and represent remaining work.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+            "record_id": "rockstar_current"
+          },
+          {
+            "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+            "record_id": "q1_2027"
+          }
+        ]
+      },
+      {
+        "node_id": "announcement_trigger",
+        "parents": [],
+        "rationale": "Unresolved before research; work durations start at the actual information cutoff and represent remaining work.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+            "record_id": "nov_delay"
+          },
+          {
+            "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+            "record_id": "may_delay"
+          }
+        ]
+      },
+      {
+        "node_id": "full_release",
+        "parents": [
+          "content_ready",
+          "platform_ready",
+          "launch_slot"
+        ],
+        "rationale": "Full release needs launch readiness on at least one qualifying platform and commercial availability.",
+        "evidence_refs": []
+      },
+      {
+        "node_id": "contract_yes",
+        "parents": [
+          "full_release",
+          "announcement_trigger"
+        ],
+        "rationale": "Frozen contract expressly includes both routes.",
+        "evidence_refs": []
+      }
+    ],
+    "note": "A complete declaration is not proof of adequate evidence or a correct dependency structure."
+  },
+  "limitations": [
+    "Dates, durations, dependencies and scenario weights are supplied, not inferred from evidence.",
+    "Each scenario is one joint assignment. No independent sampling or equal weighting is implicit.",
+    "Unweighted scenario counts are not probabilities. Weighted scenarios require a declared exhaustive partition.",
+    "Durations are elapsed days of 86400 seconds. Resource contention and working-day calendars are not modeled.",
+    "Sensitivity is a declared-input stress test, not a confidence interval or an estimate of research value.",
+    "Retrieved text is represented by accurate paraphrases, not a full-page archive.",
+    "Live pages and search indexing can be stale; no verified internal build, completion, certification or gold milestone was found.",
+    "Two Newswire article opens returned zero extractable lines; the official product page and Take-Two releases supplied accessible corroboration.",
+    "Rockstar, its parent Take-Two, and storefronts may share one publisher schedule; agreement is not independent multiplication of evidence.",
+    "Costs and model calls are unmetered. Workflow numeric zero counters mean unreported usage, not zero cost.",
+    "No calibrated delay reference class was fitted; weights and milestone timings are subjective judgments."
+  ]
+}

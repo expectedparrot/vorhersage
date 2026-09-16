@@ -1,0 +1,202 @@
+{
+  "id": "starship_independent",
+  "version": 2,
+  "question": {
+    "question_id": "kalshi_starship_20260915",
+    "version": 1
+  },
+  "information_as_of": "2026-09-16T01:22:00.806628+00:00",
+  "deadline": "2026-10-01T00:00:00-05:00",
+  "deadline_rule": "before",
+  "description": "Post-research structure: same parallel vehicle and regulatory readiness dependencies. Flight 14 verified upcoming in current official operator content. All durations are remaining work from cutoff.",
+  "target": "launch",
+  "parameters": [
+    {
+      "id": "vehicle_ready",
+      "kind": "duration_days",
+      "description": "Remaining vehicle checks, repairs and integrated readiness from cutoff"
+    },
+    {
+      "id": "permission_ready",
+      "kind": "date",
+      "description": "Flight 14 launch authorization and operational range readiness"
+    },
+    {
+      "id": "launch_delay",
+      "kind": "duration_days",
+      "description": "Countdown preparation and weather/scrub recovery after readiness"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "vehicle",
+      "kind": "task",
+      "completion_condition": "Flight 14 vehicles and pad ready",
+      "parents": [],
+      "state": "pending",
+      "parameter_id": "vehicle_ready",
+      "rationale": "Remaining work only, pending represents unobserved completion of readiness.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "operator"
+        }
+      ]
+    },
+    {
+      "id": "permission",
+      "kind": "event",
+      "completion_condition": "Authorization and operational range ready for Flight 14",
+      "parents": [],
+      "state": "pending",
+      "parameter_id": "permission_ready",
+      "rationale": "Can progress in parallel with hardware.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "operator"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "faa_plan"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "environment"
+        }
+      ]
+    },
+    {
+      "id": "launch",
+      "kind": "task",
+      "completion_condition": "Exactly Flight 14 lifts off with sustained ascent after issuance",
+      "parents": [
+        "vehicle",
+        "permission"
+      ],
+      "state": "pending",
+      "parameter_id": "launch_delay",
+      "rationale": "Both readiness branches required; a post-liftoff failure still counts.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "operator"
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "rapid",
+      "description": "Rapid campaign: qualifying Flight 14 by September 23 local, represented by September 22.",
+      "assessments": [
+        {
+          "parameter_id": "vehicle_ready",
+          "basis": "unresolved",
+          "rationale": "Research required; no starting value.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "permission_ready",
+          "basis": "unresolved",
+          "rationale": "Research required; no starting value.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "launch_delay",
+          "basis": "unresolved",
+          "rationale": "Research required; no starting value.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "moderate",
+      "description": "Moderate delay: no qualifying launch by September 23, then launch September 24–30 local, represented by September 28.",
+      "assessments": [
+        {
+          "parameter_id": "vehicle_ready",
+          "basis": "unresolved",
+          "rationale": "Research required; no starting value.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "permission_ready",
+          "basis": "unresolved",
+          "rationale": "Research required; no starting value.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "launch_delay",
+          "basis": "unresolved",
+          "rationale": "Research required; no starting value.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "late",
+      "description": "Long delay: no qualifying launch by September 30, then launch during October, represented by October 7.",
+      "assessments": [
+        {
+          "parameter_id": "vehicle_ready",
+          "basis": "unresolved",
+          "rationale": "Research required; no starting value.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "permission_ready",
+          "basis": "unresolved",
+          "rationale": "Research required; no starting value.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "launch_delay",
+          "basis": "unresolved",
+          "rationale": "Research required; no starting value.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "no_launch",
+      "description": "Severe interruption: no qualifying launch by October 31, represented by November campaign recovery; includes cancellation mass conservatively for this deadline.",
+      "assessments": [
+        {
+          "parameter_id": "vehicle_ready",
+          "basis": "unresolved",
+          "rationale": "Research required; no starting value.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "permission_ready",
+          "basis": "unresolved",
+          "rationale": "Research required; no starting value.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "launch_delay",
+          "basis": "unresolved",
+          "rationale": "Research required; no starting value.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    }
+  ],
+  "limitations": [
+    "Small independent paper forecast; subjective scenario weights and timings are not empirically calibrated.",
+    "Only exactly Flight 14 counts, after 2026-07-30T22:26:00Z and strictly before 2026-10-01T00:00:00-05:00 at Starbase. Trading close differs from event deadline and is not used.",
+    "No claim that planned launch, environmental review or static fire alone satisfies the contract.",
+    "No complete independent inventory of hardware readiness, final license, local closures or forecast weather was obtained.",
+    "SpaceX rendered pages returned no text and X returned 403; official mission content was retrieved directly from the public website content API.",
+    "Search snippets included qualitative community timing expectations; no numerical event probabilities or market prices were observed.",
+    "Model calls and costs are unmetered. Numeric zero counters in package records are unreported placeholders, not evidence of zero cost.",
+    "Scenario timestamps are representative points in a coarse discrete forecast distribution; omitted within-bin timing variation is a material limitation.",
+    "A reproducible computation and clean doctor result establish arithmetic and provenance integrity, not calibrated accuracy."
+  ],
+  "previous_model_id": "timeline_model_2e4c2ce5b54e4ebdb99a"
+}

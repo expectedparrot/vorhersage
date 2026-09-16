@@ -38,6 +38,7 @@ RUN = obj({"question_id": TEXT, "question_version": {"type": "integer", "minimum
            "cutoff_policy": enum("live", "fixed"),
            "research_status": enum("not_started", "in_progress", "completed", "unspecified"),
            "coherence_policy": enum("warn", "strict"),
+           "workflow": enum("standard", "timeline"),
            "previous_forecast_id": TEXT},
           ["question_id", "forecaster", "method", "mode", "information_as_of", "max_searches", "max_extra_tasks"])
 PRIOR = obj({"method": enum("judgment", "reference_class"), "rationale": TEXT,
@@ -58,12 +59,27 @@ SCENARIO = obj({"id": TEXT, "description": TEXT, "weight": PROB, "probability": 
                 "weight_range": RANGE, "probability_range": RANGE},
                ["id", "description", "weight", "probability", "rationale", "evidence_refs", "unknowns"])
 MIXTURE = obj({"scenarios": array(SCENARIO, 2), "partition_justification": TEXT})
-ASSESSMENT = obj({"method": enum("judgment", "conditional_path", "ensemble", "scenario_mixture"),
+LR = {"type": "number", "exclusiveMinimum": 0}
+ODDS_TERM = {"lr": LR, "lr_range": array(LR, 2),
+             "direction": enum("supports", "opposes", "neutral"), "rationale": TEXT}
+ODDS_LEDGER = obj({
+    "anchor": obj({"probability": PROB, "basis": enum("assumed", "empirical"),
+                   "prior_artifact_id": TEXT, "rationale": TEXT},
+                  ["probability", "basis", "rationale"]),
+    "entries": array(obj({"finding_id": TEXT, "evidence_refs": array(REF, 1),
+                          "dependence_group": TEXT, **ODDS_TERM},
+                         ["finding_id", "evidence_refs", "dependence_group", "lr", "direction", "rationale"])),
+    "joint_declarations": array(obj({"dependence_group": TEXT, "finding_ids": array(TEXT, 2), **ODDS_TERM},
+                                    ["dependence_group", "finding_ids", "lr", "direction", "rationale"])),
+    "independence_rationale": TEXT, "comparison_probability": PROB,
+}, ["anchor", "entries", "joint_declarations", "independence_rationale"])
+ASSESSMENT = obj({"method": enum("judgment", "conditional_path", "ensemble", "scenario_mixture", "odds_ledger", "timeline_model"),
                   "rationale": TEXT, "limitations": array(), "evidence_refs": REFS,
                   "probability": PROB, "components": array(COMPONENT, 1),
                   "nested_events_justification": TEXT, "members": array(TEXT, 1),
                   "weights": array({"type": "number", "minimum": 0}, 1),
-                  "scenarios": array(SCENARIO, 2), "partition_justification": TEXT},
+                  "scenarios": array(SCENARIO, 2), "partition_justification": TEXT,
+                  "odds_ledger": ODDS_LEDGER, "timeline_model_id": TEXT},
                  ["method", "rationale", "limitations", "evidence_refs"])
 REVIEW = obj({"decision": enum("retain", "revise", "research"), "rationale": TEXT,
               "objections": array(obj({"direction": enum("too_high", "too_low"), "objection": TEXT, "response": TEXT}), 2),
@@ -130,12 +146,36 @@ REFERENCE_CASE = obj({"id": TEXT, "description": TEXT, "tags": array(TEXT, 1),
 REFERENCE_QUERY = obj({"tags": array(TEXT, 1), "horizon_days": {"type": "number", "minimum": 0.000001},
                        "known_as_of": TIME, "selection_rule": TEXT})
 
+TIMELINE_PARAMETER = obj({"id": TEXT, "kind": enum("date", "duration_days"), "description": TEXT})
+TIMELINE_VALUE = obj({"parameter_id": TEXT, "basis": enum("observed", "estimated", "assumed", "unresolved"),
+                      "value": {"type": ["string", "number"]}, "rationale": TEXT, "evidence_refs": REFS},
+                     ["parameter_id", "basis", "rationale", "evidence_refs"])
+TIMELINE_NODE = obj({"id": TEXT, "kind": enum("event", "task", "all", "any"),
+                     "completion_condition": TEXT, "parents": array(), "parameter_id": TEXT,
+                     "state": enum("pending", "in_progress", "completed"), "not_before": TIME,
+                     "started_at": TIME, "completed_at": TIME, "rationale": TEXT, "evidence_refs": REFS},
+                    ["id", "kind", "completion_condition", "parents", "state", "rationale", "evidence_refs"])
+TIMELINE_SCENARIO = obj({"id": TEXT, "description": TEXT, "assessments": array(TIMELINE_VALUE),
+                         "weight": PROB, "weight_rationale": TEXT, "evidence_refs": REFS},
+                        ["id", "description", "assessments", "evidence_refs"])
+TIMELINE_MODEL = obj({"id": TEXT, "version": {"type": "integer", "minimum": 1},
+                      "question": QUESTION_REF, "information_as_of": TIME, "deadline": TIME,
+                      "deadline_rule": enum("before", "on_or_before"), "description": TEXT,
+                      "target": TEXT, "parameters": array(TIMELINE_PARAMETER), "nodes": array(TIMELINE_NODE, 1),
+                      "scenarios": array(TIMELINE_SCENARIO, 1), "partition_justification": TEXT,
+                      "limitations": array(), "previous_model_id": TEXT, "derived_from_model_id": TEXT},
+                     ["id", "version", "question", "information_as_of", "deadline", "deadline_rule", "description",
+                      "target", "parameters", "nodes", "scenarios", "limitations"])
+TIMELINE_STRUCTURE = obj({"timeline_model_id": TEXT, "rationale": TEXT})
+TIMELINE_RESEARCH = obj({"assessments": array(obj({"scenario_id": TEXT, "assessment": TIMELINE_VALUE}), 1),
+                         "rationale": TEXT})
+
 METHOD = obj({
     "id": TEXT, "version": {"type": "integer", "minimum": 1}, "description": TEXT,
     "instructions": TEXT,
-    "task_instructions": obj({kind: TEXT for kind in ("prior", "drivers", "research", "assessment", "review", "issue")}, []),
-    "prior_method": enum("judgment", "reference_class"),
-    "assessment_method": enum("judgment", "conditional_path", "scenario_mixture"),
+    "task_instructions": obj({kind: TEXT for kind in ("prior", "drivers", "research", "assessment", "review", "issue", "timeline_structure", "timeline_research")}, []),
+    "prior_method": enum("judgment", "reference_class", "none"),
+    "assessment_method": enum("judgment", "conditional_path", "scenario_mixture", "odds_ledger", "timeline_model"),
     "research_domains": array(TEXT, 1),
     "worker": obj({"command": array(TEXT, 1), "config": {"type": "object"},
                    "timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 60}}),
@@ -153,14 +193,132 @@ EXPERIMENT = obj({
     "evidence_policy": enum("frozen_packets"), "order_seed": TEXT,
 })
 
+# Joint sessions are separate from ordinary workflow forecasts and evaluations.
+NUMBER = {"type": "number"}
+BINDING = obj({"variable": TEXT, "unit": TEXT, "target_at": TIME, "vintage": TEXT,
+               "quantile": PROB, "tolerance": {"type": "number", "minimum": 0}})
+CONDITION = obj({"id": TEXT, "version": {"type": "integer", "minimum": 1},
+                 "kind": enum("unconditional", "intervention", "information"),
+                 "description": TEXT, "binding": BINDING},
+                ["id", "version", "kind", "description"])
+NUMERIC_FORECAST = obj({"variable": TEXT, "unit": TEXT, "target_at": TIME, "vintage": TEXT,
+                        "quantiles": array(obj({"level": PROB, "value": NUMBER}), 1)})
+JOINT_SESSION = obj({
+    "id": TEXT, "wave": TEXT, "forecaster": TEXT, "protocol": TEXT,
+    "repetition": {"type": "integer", "minimum": 1},
+    "mode": enum("prospective", "retrospective", "simulation"), "information_as_of": TIME,
+    "questions": COHORT, "condition_ids": array(TEXT, 1), "packet_ids": array(TEXT),
+    "relation_ids": array(TEXT), "numeric_forecasts": array(NUMERIC_FORECAST),
+    "bindings": array(obj({"condition_id": TEXT, "value": NUMBER})),
+    "provenance": obj({"kind": enum("native", "external"), "source": TEXT}),
+    "configuration": {"type": "object"},
+})
+JOINT_CELL = obj({"question_id": TEXT, "version": {"type": "integer", "minimum": 1},
+                  "condition_id": TEXT, "probability": PROB, "evidence_refs": REFS})
+JOINT_SUBMIT = obj({"expected_revision": COUNT, "idempotency_key": TEXT,
+                    "cells": array(JOINT_CELL, 1), "usage": USAGE, "raw_record": {"type": "object"}})
+JOINT_FINALIZE = obj({"expected_revision": COUNT, "idempotency_key": TEXT, "rationale": TEXT})
+JOINT_IMPORT = obj({"session": JOINT_SESSION,
+                    "submissions": array(obj({"submitted_at": TIME, "cells": array(JOINT_CELL, 1),
+                                               "usage": USAGE, "raw_record": {"type": "object"}}), 1),
+                    "finalized_at": TIME, "rationale": TEXT})
+JOINT_AGGREGATION = obj({"session_ids": array(TEXT, 1), "expected_forecasters": array(TEXT, 1),
+                         "baseline_condition_id": TEXT}, ["session_ids", "expected_forecasters"])
+
+SESSION_WORKER = obj({"command": array(TEXT, 1), "config": {"type": "object"},
+                      "timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 60}})
+SESSION_BUDGET = obj({"max_model_calls": COUNT, "max_searches": COUNT,
+                      "max_cost_usd": {"type": "number", "minimum": 0}})
+SESSION_RESEARCH = obj({"minimum_successful_tools": COUNT, "minimum_unique_pages": COUNT,
+                        "domains": array(TEXT), "minimum_unique_searches": COUNT,
+                        "minimum_recent_searches": COUNT, "minimum_followup_searches": COUNT},
+                       ["minimum_successful_tools", "minimum_unique_pages", "domains"])
+SESSION_EXECUTION = obj({"evidence_policy": enum("fixed", "live"), "defer_bindings": {"type": "boolean"},
+                         "budget": SESSION_BUDGET, "research": SESSION_RESEARCH,
+                         "requirements": array(obj({"id": TEXT, "description": TEXT, "expected": {"type": "object"}})),
+                         "worker": SESSION_WORKER, "tool_worker": SESSION_WORKER},
+                        ["evidence_policy", "defer_bindings", "budget", "research", "requirements"])
+# Optional and opt-in: old session specifications and hashes retain their identity.
+JOINT_SESSION["properties"]["execution"] = SESSION_EXECUTION
+SESSION_PAYLOADS = {
+    "tool_request": obj({"request_id": TEXT, "tool": TEXT, "arguments": {"type": "object"}}),
+    "evidence": obj({"packet_ids": array(TEXT, 1), "information_as_of": TIME}),
+    "bindings": obj({"numeric_forecasts": array(NUMERIC_FORECAST),
+                      "bindings": array(obj({"condition_id": TEXT, "value": NUMBER}))}),
+    "attempt_start": obj({"attempt_id": TEXT, "kind": enum("model", "tool"), "request": {"type": "object"}}),
+    "attempt_result": obj({"attempt_id": TEXT,
+                            "status": enum("waiting", "completed", "truncated", "refused", "error"),
+                            "usage": {"type": ["object", "null"]}, "continuation": {"type": "object"},
+                            "raw_record": {"type": "object"}}),
+    "usage": obj({"attempt_id": TEXT, "usage": USAGE, "reason": TEXT}),
+    "research": obj({"attempt_id": TEXT, "tool": TEXT, "ok": {"type": "boolean"},
+                      "url": TEXT, "evidence_refs": REFS, "note": TEXT, "query": TEXT,
+                      "recent_days": {"type": "integer", "minimum": 1}},
+                     ["attempt_id", "tool", "ok", "evidence_refs", "note"]),
+    "assessment": obj({"domain": TEXT, "disposition": enum("assessed", "unknown"),
+                        "rationale": TEXT, "evidence_refs": REFS}),
+    "observation": obj({"requirement_id": TEXT, "actual": {"type": ["object", "null"]},
+                         "basis": enum("worker_reported", "provider_reported", "external_audit"),
+                         "failed": {"type": "boolean"}, "note": TEXT, "evidence_refs": REFS}),
+    "amendment": obj({"reason": TEXT, "budget": SESSION_BUDGET, "research": SESSION_RESEARCH,
+                       "configuration": {"type": "object"}}, ["reason"]),
+    "transition": obj({"status": enum("open", "failed", "refused", "budget_exhausted"), "reason": TEXT}),
+}
+SESSION_EVENT = obj({"expected_revision": COUNT, "idempotency_key": TEXT,
+                     "kind": enum(*SESSION_PAYLOADS), "payload": {"type": "object"}})
+SESSION_STUDY = obj({"id": TEXT, "version": {"type": "integer", "minimum": 1}, "description": TEXT,
+                     "session_template": JOINT_SESSION, "repetitions": {"type": "integer", "minimum": 1, "maximum": 100},
+                     "arms": array(obj({"id": TEXT, "configuration": {"type": "object"}, "execution": SESSION_EXECUTION}), 2),
+                     "order_seed": TEXT, "evidence_policy": enum("frozen", "independent_live")})
+SESSION_EVALUATION = obj({"session_ids": array(TEXT, 1), "cutoff": TIME, "resolution_as_of": TIME,
+                          "allow_source_reported": {"type": "boolean"}})
+
+WORKBENCH_START = obj({
+    "question": QUESTION_REF, "venue": enum("kalshi", "polymarket"), "market_id": TEXT,
+    "mode": enum("prospective", "simulation"), "method": TEXT,
+    "eligibility_rationale": TEXT, "contract_match_rationale": TEXT,
+    "max_spread": PROB, "min_contracts_each_side": {"type": "number", "exclusiveMinimum": 0},
+}, ["question", "venue", "market_id", "mode", "method", "eligibility_rationale", "contract_match_rationale"])
+WORKBENCH_INITIAL = obj({"probability": PROB, "rationale": TEXT, "assumptions": array(TEXT, 1),
+                         "uncertainties": array(TEXT, 1),
+                         "research_status": enum("not_started", "in_progress", "completed"),
+                         "evidence_refs": REFS, "model_artifact_ids": array()},
+                        ["probability", "rationale", "assumptions", "uncertainties", "research_status", "evidence_refs"])
+WORKBENCH_PLAN = obj({"uncertainty": TEXT, "why_it_matters": TEXT, "higher_if": TEXT,
+                      "lower_if": TEXT, "search_plan": TEXT, "stopping_rule": TEXT})
+WORKBENCH_CHECKPOINT = obj({"probability": PROB, "rationale": TEXT, "findings": TEXT,
+                            "changed_assumptions": array(), "remaining_uncertainties": array(),
+                            "sources_checked": array(), "evidence_refs": REFS, "limitations": array(),
+                            "model_artifact_ids": array(), "usage": USAGE},
+                           ["probability", "rationale", "findings", "changed_assumptions", "remaining_uncertainties",
+                            "sources_checked", "evidence_refs", "limitations"])
+WORKBENCH_FINISH = obj({"stopping_reason": TEXT, "outcome_status": enum("unresolved", "known", "uncertain"),
+                        "market_exposure": enum("none", "possible", "observed"), "exposure_notes": TEXT})
+WORKBENCH_EXPOSURE = obj({"kind": enum("market_probability", "outcome"), "description": TEXT, "occurred_at": TIME})
+WORKBENCH_REFLECTION = obj({"what_helped": TEXT, "what_did_not": TEXT, "next_method_change": TEXT})
+WORKBENCH_SUBMIT = obj({"kind": enum("initial", "plan", "checkpoint", "finish", "exposure", "reflection"),
+                        "expected_revision": COUNT, "idempotency_key": TEXT, "payload": {"type": "object"}})
+
 SCHEMAS = {"question": QUESTION, "profile": PROFILE, "run": RUN, "submit": SUBMIT,
            "prior": PRIOR, "drivers": DRIVERS, "research": RESEARCH, "assessment": ASSESSMENT,
            "review": REVIEW, "issue": ISSUE, "resolution": RESOLUTION, "signal": SIGNAL,
            "evaluation": EVALUATION, "replay_evaluation": REPLAY_EVALUATION,
            "packet": PACKET, "epiq_selection": SELECTION, "scenario_mixture": MIXTURE,
+           "odds_ledger": ODDS_LEDGER, "timeline_model": TIMELINE_MODEL,
+           "timeline_structure": TIMELINE_STRUCTURE, "timeline_research": TIMELINE_RESEARCH,
            "relation": RELATION, "watch": WATCH, "research_bundle": BUNDLE,
            "reference_case": REFERENCE_CASE, "reference_query": REFERENCE_QUERY,
-           "method": METHOD, "experiment": EXPERIMENT}
+           "method": METHOD, "experiment": EXPERIMENT, "condition": CONDITION,
+           "session": JOINT_SESSION, "session_submit": JOINT_SUBMIT,
+           "session_finalize": JOINT_FINALIZE, "session_import": JOINT_IMPORT,
+           "session_aggregation": JOINT_AGGREGATION, "session_event": SESSION_EVENT,
+           "session_execution": SESSION_EXECUTION, "session_study": SESSION_STUDY,
+           "session_evaluation": SESSION_EVALUATION,
+           "workbench_start": WORKBENCH_START, "workbench_submit": WORKBENCH_SUBMIT,
+           "workbench_initial": WORKBENCH_INITIAL, "workbench_plan": WORKBENCH_PLAN,
+           "workbench_checkpoint": WORKBENCH_CHECKPOINT, "workbench_finish": WORKBENCH_FINISH,
+           "workbench_exposure": WORKBENCH_EXPOSURE, "workbench_reflection": WORKBENCH_REFLECTION,
+           **{"session_" + k: v for k, v in SESSION_PAYLOADS.items()}}
 
 
 def validate(value, schema, path="$"):
@@ -170,7 +328,7 @@ def validate(value, schema, path="$"):
     kinds = [kinds] if isinstance(kinds, str) else kinds
     predicates = {"object": lambda x: isinstance(x, dict), "array": lambda x: isinstance(x, list),
                   "string": lambda x: isinstance(x, str), "null": lambda x: x is None,
-                  "integer": lambda x: type(x) is int,
+                  "integer": lambda x: type(x) is int, "boolean": lambda x: type(x) is bool,
                   "number": lambda x: type(x) in (int, float) and math.isfinite(x)}
     if kinds:
         require(any(predicates[k](value) for k in kinds), path + ": expected " + "/".join(kinds))
@@ -193,6 +351,7 @@ def validate(value, schema, path="$"):
     if type(value) in (int, float):
         require(math.isfinite(value), path + ": number must be finite")
         require(value >= schema.get("minimum", -math.inf) and value <= schema.get("maximum", math.inf), path + ": number out of bounds")
+        require(value > schema.get("exclusiveMinimum", -math.inf), path + ": number must exceed exclusive minimum")
 
 
 def check(value, name):

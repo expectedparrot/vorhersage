@@ -1,0 +1,524 @@
+{
+  "name": "resume",
+  "argv": [
+    "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+    "-m",
+    "vorhersage",
+    "--project",
+    "/private/tmp/vorhersage-docs-tutorial-run-v2/forecast-study",
+    "session-study",
+    "run",
+    "session_study_3b7697cdcd7c013c0f338bc3",
+    "--max-steps",
+    "20"
+  ],
+  "elapsed_seconds": 0.7133,
+  "output": {
+    "schema_version": "1",
+    "status": "ok",
+    "command": "session-study",
+    "data": {
+      "study_id": "session_study_3b7697cdcd7c013c0f338bc3",
+      "specification": {
+        "arms": [
+          {
+            "configuration": {
+              "fixture_probability": 0.25
+            },
+            "execution": {
+              "budget": {
+                "max_cost_usd": 1,
+                "max_model_calls": 5,
+                "max_searches": 5
+              },
+              "defer_bindings": true,
+              "evidence_policy": "live",
+              "requirements": [
+                {
+                  "description": "No real network calls",
+                  "expected": {
+                    "network_calls": 0
+                  },
+                  "id": "fixture"
+                }
+              ],
+              "research": {
+                "domains": [
+                  "readiness"
+                ],
+                "minimum_successful_tools": 1,
+                "minimum_unique_pages": 1
+              },
+              "tool_worker": {
+                "command": [
+                  "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                  "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                ],
+                "config": {},
+                "timeout_seconds": 10
+              },
+              "worker": {
+                "command": [
+                  "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                  "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                ],
+                "config": {
+                  "probability": 0.25
+                },
+                "timeout_seconds": 10
+              }
+            },
+            "id": "a"
+          },
+          {
+            "configuration": {
+              "fixture_probability": 0.75
+            },
+            "execution": {
+              "budget": {
+                "max_cost_usd": 1,
+                "max_model_calls": 5,
+                "max_searches": 5
+              },
+              "defer_bindings": true,
+              "evidence_policy": "live",
+              "requirements": [
+                {
+                  "description": "No real network calls",
+                  "expected": {
+                    "network_calls": 0
+                  },
+                  "id": "fixture"
+                }
+              ],
+              "research": {
+                "domains": [
+                  "readiness"
+                ],
+                "minimum_successful_tools": 1,
+                "minimum_unique_pages": 1
+              },
+              "tool_worker": {
+                "command": [
+                  "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                  "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                ],
+                "config": {},
+                "timeout_seconds": 10
+              },
+              "worker": {
+                "command": [
+                  "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                  "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                ],
+                "config": {
+                  "probability": 0.75
+                },
+                "timeout_seconds": 10
+              }
+            },
+            "id": "b"
+          }
+        ],
+        "description": "Four sessions through research, resumption, and scoring",
+        "evidence_policy": "independent_live",
+        "id": "tutorial-study",
+        "order_seed": "tutorial-1",
+        "repetitions": 2,
+        "session_template": {
+          "bindings": [],
+          "condition_ids": [
+            "condition_b1dbf5055d22a0fb8cef1031"
+          ],
+          "configuration": {},
+          "forecaster": "fixture",
+          "id": "template",
+          "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+          "mode": "simulation",
+          "numeric_forecasts": [],
+          "packet_ids": [],
+          "protocol": "synthetic-v1",
+          "provenance": {
+            "kind": "native",
+            "source": "Deterministic documentation fixture"
+          },
+          "questions": [
+            {
+              "question_id": "readiness",
+              "version": 1
+            }
+          ],
+          "relation_ids": [],
+          "repetition": 1,
+          "wave": "tutorial"
+        },
+        "version": 1
+      },
+      "trials": [
+        {
+          "id": "session_trial_f5f686ba115e12d7f1021e83",
+          "arm": "a",
+          "input_manifest": {
+            "session_fd5b8a19854f8f02d507c88f": "c835fa29170c4a9de470172e095294f05cf2c23f8fffefbf898cac3a0fa7cf23"
+          },
+          "position": 0,
+          "repetition": 2,
+          "session_id": "session_fd5b8a19854f8f02d507c88f",
+          "study_id": "session_study_3b7697cdcd7c013c0f338bc3",
+          "disposition": "finalized",
+          "revision": 14,
+          "cells": 1,
+          "expected_cells": 1,
+          "usage": {
+            "searches": 1,
+            "model_calls": 2,
+            "cost_usd": 0.025
+          },
+          "unknown_usage_attempts": [],
+          "protocol_audit": {
+            "requirements": [
+              {
+                "description": "No real network calls",
+                "expected": {
+                  "network_calls": 0
+                },
+                "id": "fixture",
+                "status": "matched",
+                "observation": {
+                  "actual": {
+                    "network_calls": 0
+                  },
+                  "basis": "worker_reported",
+                  "evidence_refs": [],
+                  "failed": false,
+                  "note": "Deterministic fixture",
+                  "requirement_id": "fixture",
+                  "event_id": "joint_event_f47c51972316f85afbaa85a3"
+                }
+              }
+            ],
+            "amendments": [],
+            "protocol_fidelity": "matched",
+            "research": {
+              "counts": {
+                "minimum_successful_tools": 1,
+                "minimum_unique_pages": 1,
+                "minimum_unique_searches": 0,
+                "minimum_recent_searches": 0,
+                "minimum_followup_searches": 0
+              },
+              "missing": {},
+              "domains": [
+                {
+                  "domain": "readiness",
+                  "disposition": "assessed",
+                  "evidence_refs": [
+                    {
+                      "packet_id": "pkt_8aa4f1c9b9baec369ce5db29",
+                      "record_id": "status"
+                    }
+                  ],
+                  "rationale": "The synthetic packet establishes readiness in this fixture.",
+                  "event_id": "joint_event_edcb0b66d6118e8ac56c6302"
+                }
+              ],
+              "ready": true,
+              "limitations": [
+                "Receipts and assessments are caller-reported; counts do not establish research quality.",
+                "Unknown domain assessments count as explicit coverage, not evidence of knowledge."
+              ]
+            },
+            "complete_grid": true,
+            "disposition": "finalized",
+            "usage": {
+              "searches": 1,
+              "model_calls": 2,
+              "cost_usd": 0.025
+            },
+            "unknown_usage_attempts": [],
+            "limitations": [
+              "Matching is against registered requirements and reported observations, not independent certification.",
+              "Grid completeness, protocol fidelity, and predictive accuracy are separate properties."
+            ]
+          }
+        },
+        {
+          "id": "session_trial_b94b25d10af8e578a8532e3f",
+          "arm": "b",
+          "input_manifest": {
+            "session_ebbafe6b9278b8850bb9f249": "f67a1eacf25c4956556110aaaf9adac4029be68fafb37d75dc26a2e9203be021"
+          },
+          "position": 1,
+          "repetition": 1,
+          "session_id": "session_ebbafe6b9278b8850bb9f249",
+          "study_id": "session_study_3b7697cdcd7c013c0f338bc3",
+          "disposition": "finalized",
+          "revision": 14,
+          "cells": 1,
+          "expected_cells": 1,
+          "usage": {
+            "searches": 1,
+            "model_calls": 2,
+            "cost_usd": 0.025
+          },
+          "unknown_usage_attempts": [],
+          "protocol_audit": {
+            "requirements": [
+              {
+                "description": "No real network calls",
+                "expected": {
+                  "network_calls": 0
+                },
+                "id": "fixture",
+                "status": "matched",
+                "observation": {
+                  "actual": {
+                    "network_calls": 0
+                  },
+                  "basis": "worker_reported",
+                  "evidence_refs": [],
+                  "failed": false,
+                  "note": "Deterministic fixture",
+                  "requirement_id": "fixture",
+                  "event_id": "joint_event_279ba1490eb53c59d298a849"
+                }
+              }
+            ],
+            "amendments": [],
+            "protocol_fidelity": "matched",
+            "research": {
+              "counts": {
+                "minimum_successful_tools": 1,
+                "minimum_unique_pages": 1,
+                "minimum_unique_searches": 0,
+                "minimum_recent_searches": 0,
+                "minimum_followup_searches": 0
+              },
+              "missing": {},
+              "domains": [
+                {
+                  "domain": "readiness",
+                  "disposition": "assessed",
+                  "evidence_refs": [
+                    {
+                      "packet_id": "pkt_31ea6dd68da946f8bbc7737f",
+                      "record_id": "status"
+                    }
+                  ],
+                  "rationale": "The synthetic packet establishes readiness in this fixture.",
+                  "event_id": "joint_event_5808a1e90b6faae65dd863e3"
+                }
+              ],
+              "ready": true,
+              "limitations": [
+                "Receipts and assessments are caller-reported; counts do not establish research quality.",
+                "Unknown domain assessments count as explicit coverage, not evidence of knowledge."
+              ]
+            },
+            "complete_grid": true,
+            "disposition": "finalized",
+            "usage": {
+              "searches": 1,
+              "model_calls": 2,
+              "cost_usd": 0.025
+            },
+            "unknown_usage_attempts": [],
+            "limitations": [
+              "Matching is against registered requirements and reported observations, not independent certification.",
+              "Grid completeness, protocol fidelity, and predictive accuracy are separate properties."
+            ]
+          }
+        },
+        {
+          "id": "session_trial_d6ebf716cb6e36910d186116",
+          "arm": "b",
+          "input_manifest": {
+            "session_533a1185f1d980bc14a2ade3": "071254204f274ff01e17784473bdfe814e645f052d14e7432a5dafb2ca6d3577"
+          },
+          "position": 2,
+          "repetition": 2,
+          "session_id": "session_533a1185f1d980bc14a2ade3",
+          "study_id": "session_study_3b7697cdcd7c013c0f338bc3",
+          "disposition": "finalized",
+          "revision": 14,
+          "cells": 1,
+          "expected_cells": 1,
+          "usage": {
+            "searches": 1,
+            "model_calls": 2,
+            "cost_usd": 0.025
+          },
+          "unknown_usage_attempts": [],
+          "protocol_audit": {
+            "requirements": [
+              {
+                "description": "No real network calls",
+                "expected": {
+                  "network_calls": 0
+                },
+                "id": "fixture",
+                "status": "matched",
+                "observation": {
+                  "actual": {
+                    "network_calls": 0
+                  },
+                  "basis": "worker_reported",
+                  "evidence_refs": [],
+                  "failed": false,
+                  "note": "Deterministic fixture",
+                  "requirement_id": "fixture",
+                  "event_id": "joint_event_9eee6186ce9d66b55c4b2455"
+                }
+              }
+            ],
+            "amendments": [],
+            "protocol_fidelity": "matched",
+            "research": {
+              "counts": {
+                "minimum_successful_tools": 1,
+                "minimum_unique_pages": 1,
+                "minimum_unique_searches": 0,
+                "minimum_recent_searches": 0,
+                "minimum_followup_searches": 0
+              },
+              "missing": {},
+              "domains": [
+                {
+                  "domain": "readiness",
+                  "disposition": "assessed",
+                  "evidence_refs": [
+                    {
+                      "packet_id": "pkt_9bdaa4d477bf1c65e7194fc8",
+                      "record_id": "status"
+                    }
+                  ],
+                  "rationale": "The synthetic packet establishes readiness in this fixture.",
+                  "event_id": "joint_event_6b5aadba0e7d3c617ad56654"
+                }
+              ],
+              "ready": true,
+              "limitations": [
+                "Receipts and assessments are caller-reported; counts do not establish research quality.",
+                "Unknown domain assessments count as explicit coverage, not evidence of knowledge."
+              ]
+            },
+            "complete_grid": true,
+            "disposition": "finalized",
+            "usage": {
+              "searches": 1,
+              "model_calls": 2,
+              "cost_usd": 0.025
+            },
+            "unknown_usage_attempts": [],
+            "limitations": [
+              "Matching is against registered requirements and reported observations, not independent certification.",
+              "Grid completeness, protocol fidelity, and predictive accuracy are separate properties."
+            ]
+          }
+        },
+        {
+          "id": "session_trial_499f64167a6ca88e732fa69f",
+          "arm": "a",
+          "input_manifest": {
+            "session_23abaa288b6648a2c5317a9f": "079e789946e0dd952e07b1cf62919745384d4dd33d39d4ad30b21ca868a8a5e1"
+          },
+          "position": 3,
+          "repetition": 1,
+          "session_id": "session_23abaa288b6648a2c5317a9f",
+          "study_id": "session_study_3b7697cdcd7c013c0f338bc3",
+          "disposition": "finalized",
+          "revision": 14,
+          "cells": 1,
+          "expected_cells": 1,
+          "usage": {
+            "searches": 1,
+            "model_calls": 2,
+            "cost_usd": 0.025
+          },
+          "unknown_usage_attempts": [],
+          "protocol_audit": {
+            "requirements": [
+              {
+                "description": "No real network calls",
+                "expected": {
+                  "network_calls": 0
+                },
+                "id": "fixture",
+                "status": "matched",
+                "observation": {
+                  "actual": {
+                    "network_calls": 0
+                  },
+                  "basis": "worker_reported",
+                  "evidence_refs": [],
+                  "failed": false,
+                  "note": "Deterministic fixture",
+                  "requirement_id": "fixture",
+                  "event_id": "joint_event_2377c985fce13d47d6ac3e99"
+                }
+              }
+            ],
+            "amendments": [],
+            "protocol_fidelity": "matched",
+            "research": {
+              "counts": {
+                "minimum_successful_tools": 1,
+                "minimum_unique_pages": 1,
+                "minimum_unique_searches": 0,
+                "minimum_recent_searches": 0,
+                "minimum_followup_searches": 0
+              },
+              "missing": {},
+              "domains": [
+                {
+                  "domain": "readiness",
+                  "disposition": "assessed",
+                  "evidence_refs": [
+                    {
+                      "packet_id": "pkt_fdbb72f8d5548222f2ea8136",
+                      "record_id": "status"
+                    }
+                  ],
+                  "rationale": "The synthetic packet establishes readiness in this fixture.",
+                  "event_id": "joint_event_ac2c84a6d39d417e7bd73e42"
+                }
+              ],
+              "ready": true,
+              "limitations": [
+                "Receipts and assessments are caller-reported; counts do not establish research quality.",
+                "Unknown domain assessments count as explicit coverage, not evidence of knowledge."
+              ]
+            },
+            "complete_grid": true,
+            "disposition": "finalized",
+            "usage": {
+              "searches": 1,
+              "model_calls": 2,
+              "cost_usd": 0.025
+            },
+            "unknown_usage_attempts": [],
+            "limitations": [
+              "Matching is against registered requirements and reported observations, not independent certification.",
+              "Grid completeness, protocol fidelity, and predictive accuracy are separate properties."
+            ]
+          }
+        }
+      ],
+      "complete": true,
+      "next_position": 1,
+      "usage": {
+        "searches": 4,
+        "model_calls": 8,
+        "cost_usd": 0.1
+      },
+      "limitations": [
+        "A repetition is a whole session; its cells are dependent observations.",
+        "Frozen packets constrain accepted evidence; trusted workers require external isolation to prevent outside access.",
+        "Independent live research arms may observe different evidence and do not isolate transport effects."
+      ]
+    },
+    "warnings": [],
+    "errors": [],
+    "next_actions": []
+  }
+}

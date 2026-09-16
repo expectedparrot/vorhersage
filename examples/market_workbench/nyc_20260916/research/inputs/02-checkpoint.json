@@ -1,0 +1,36 @@
+{
+  "kind": "checkpoint",
+  "payload": {
+    "probability": 0.2576462938849167,
+    "rationale": "Retain center80F and SD3F: current evidence confirms plausibility and eligibility but supplies no calibrated reason to change either number. Do not shrink uncertainty solely because two correlated NWS products agree.",
+    "findings": "NWS observed62.1F at06:51EDT; overnight readings shown are61\u201364F. The07:02EDT discussion leaves the forecast broadly unchanged, with dry ridging and a possible southerly wind shift.",
+    "changed_assumptions": [],
+    "remaining_uncertainties": [
+      "Uncalibrated3F residual SD",
+      "TWC versus NWS measurement/rounding relationship",
+      "Exact afternoon sea-breeze effect"
+    ],
+    "sources_checked": [
+      "https://forecast.weather.gov/data/obhistory/KNYC.html",
+      "https://forecast.weather.gov/product.php?site=OKX&issuedby=OKX&product=AFD&format=CI&version=1&glossary=1",
+      "https://weather.com/kalshi",
+      "https://api.weather.gov/points/40.781,-73.966"
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_72933450ceaa54cf5a0ba4da",
+        "record_id": "elapsed"
+      },
+      {
+        "packet_id": "pkt_72933450ceaa54cf5a0ba4da",
+        "record_id": "regime"
+      }
+    ],
+    "limitations": [
+      "Text-only point-forecast and api.weather.gov opens failed in web retrieval. TWC page also inaccessible. Exact TWC daily rounding remains unverified. NWS hourly records do not fully substitute for the final TWC extreme.",
+      "Model/tool costs unmetered; no numeric usage counters claimed."
+    ]
+  },
+  "expected_revision": 2,
+  "idempotency_key": "nyc-2-checkpoint"
+}

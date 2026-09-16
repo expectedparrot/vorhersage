@@ -1,0 +1,468 @@
+{
+  "name": "first-run",
+  "argv": [
+    "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+    "-m",
+    "vorhersage",
+    "--project",
+    "/private/tmp/vorhersage-docs-tutorial-run-v2/forecast-study",
+    "session-study",
+    "run",
+    "session_study_3b7697cdcd7c013c0f338bc3",
+    "--max-steps",
+    "5"
+  ],
+  "elapsed_seconds": 0.3261,
+  "output": {
+    "schema_version": "1",
+    "status": "ok",
+    "command": "session-study",
+    "data": {
+      "study_id": "session_study_3b7697cdcd7c013c0f338bc3",
+      "specification": {
+        "arms": [
+          {
+            "configuration": {
+              "fixture_probability": 0.25
+            },
+            "execution": {
+              "budget": {
+                "max_cost_usd": 1,
+                "max_model_calls": 5,
+                "max_searches": 5
+              },
+              "defer_bindings": true,
+              "evidence_policy": "live",
+              "requirements": [
+                {
+                  "description": "No real network calls",
+                  "expected": {
+                    "network_calls": 0
+                  },
+                  "id": "fixture"
+                }
+              ],
+              "research": {
+                "domains": [
+                  "readiness"
+                ],
+                "minimum_successful_tools": 1,
+                "minimum_unique_pages": 1
+              },
+              "tool_worker": {
+                "command": [
+                  "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                  "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                ],
+                "config": {},
+                "timeout_seconds": 10
+              },
+              "worker": {
+                "command": [
+                  "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                  "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                ],
+                "config": {
+                  "probability": 0.25
+                },
+                "timeout_seconds": 10
+              }
+            },
+            "id": "a"
+          },
+          {
+            "configuration": {
+              "fixture_probability": 0.75
+            },
+            "execution": {
+              "budget": {
+                "max_cost_usd": 1,
+                "max_model_calls": 5,
+                "max_searches": 5
+              },
+              "defer_bindings": true,
+              "evidence_policy": "live",
+              "requirements": [
+                {
+                  "description": "No real network calls",
+                  "expected": {
+                    "network_calls": 0
+                  },
+                  "id": "fixture"
+                }
+              ],
+              "research": {
+                "domains": [
+                  "readiness"
+                ],
+                "minimum_successful_tools": 1,
+                "minimum_unique_pages": 1
+              },
+              "tool_worker": {
+                "command": [
+                  "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                  "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                ],
+                "config": {},
+                "timeout_seconds": 10
+              },
+              "worker": {
+                "command": [
+                  "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                  "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                ],
+                "config": {
+                  "probability": 0.75
+                },
+                "timeout_seconds": 10
+              }
+            },
+            "id": "b"
+          }
+        ],
+        "description": "Four sessions through research, resumption, and scoring",
+        "evidence_policy": "independent_live",
+        "id": "tutorial-study",
+        "order_seed": "tutorial-1",
+        "repetitions": 2,
+        "session_template": {
+          "bindings": [],
+          "condition_ids": [
+            "condition_b1dbf5055d22a0fb8cef1031"
+          ],
+          "configuration": {},
+          "forecaster": "fixture",
+          "id": "template",
+          "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+          "mode": "simulation",
+          "numeric_forecasts": [],
+          "packet_ids": [],
+          "protocol": "synthetic-v1",
+          "provenance": {
+            "kind": "native",
+            "source": "Deterministic documentation fixture"
+          },
+          "questions": [
+            {
+              "question_id": "readiness",
+              "version": 1
+            }
+          ],
+          "relation_ids": [],
+          "repetition": 1,
+          "wave": "tutorial"
+        },
+        "version": 1
+      },
+      "trials": [
+        {
+          "id": "session_trial_f5f686ba115e12d7f1021e83",
+          "arm": "a",
+          "input_manifest": {
+            "session_fd5b8a19854f8f02d507c88f": "c835fa29170c4a9de470172e095294f05cf2c23f8fffefbf898cac3a0fa7cf23"
+          },
+          "position": 0,
+          "repetition": 2,
+          "session_id": "session_fd5b8a19854f8f02d507c88f",
+          "study_id": "session_study_3b7697cdcd7c013c0f338bc3",
+          "disposition": "waiting",
+          "revision": 5,
+          "cells": 0,
+          "expected_cells": 1,
+          "usage": {
+            "searches": 0,
+            "model_calls": 1,
+            "cost_usd": 0.01
+          },
+          "unknown_usage_attempts": [
+            "attempt_0a3baf4021379fcd31f365e8"
+          ],
+          "protocol_audit": {
+            "requirements": [
+              {
+                "description": "No real network calls",
+                "expected": {
+                  "network_calls": 0
+                },
+                "id": "fixture",
+                "status": "unverifiable",
+                "observation": null
+              }
+            ],
+            "amendments": [],
+            "protocol_fidelity": "unverifiable",
+            "research": {
+              "counts": {
+                "minimum_successful_tools": 0,
+                "minimum_unique_pages": 0,
+                "minimum_unique_searches": 0,
+                "minimum_recent_searches": 0,
+                "minimum_followup_searches": 0
+              },
+              "missing": {
+                "minimum_successful_tools": 1,
+                "minimum_unique_pages": 1
+              },
+              "domains": [
+                {
+                  "domain": "readiness",
+                  "disposition": "missing"
+                }
+              ],
+              "ready": false,
+              "limitations": [
+                "Receipts and assessments are caller-reported; counts do not establish research quality.",
+                "Unknown domain assessments count as explicit coverage, not evidence of knowledge."
+              ]
+            },
+            "complete_grid": false,
+            "disposition": "waiting",
+            "usage": {
+              "searches": 0,
+              "model_calls": 1,
+              "cost_usd": 0.01
+            },
+            "unknown_usage_attempts": [
+              "attempt_0a3baf4021379fcd31f365e8"
+            ],
+            "limitations": [
+              "Matching is against registered requirements and reported observations, not independent certification.",
+              "Grid completeness, protocol fidelity, and predictive accuracy are separate properties."
+            ]
+          }
+        },
+        {
+          "id": "session_trial_b94b25d10af8e578a8532e3f",
+          "arm": "b",
+          "input_manifest": {
+            "session_ebbafe6b9278b8850bb9f249": "f67a1eacf25c4956556110aaaf9adac4029be68fafb37d75dc26a2e9203be021"
+          },
+          "position": 1,
+          "repetition": 1,
+          "session_id": "session_ebbafe6b9278b8850bb9f249",
+          "study_id": "session_study_3b7697cdcd7c013c0f338bc3",
+          "disposition": "open",
+          "revision": 3,
+          "cells": 0,
+          "expected_cells": 1,
+          "usage": {
+            "searches": 0,
+            "model_calls": 1,
+            "cost_usd": 0.01
+          },
+          "unknown_usage_attempts": [],
+          "protocol_audit": {
+            "requirements": [
+              {
+                "description": "No real network calls",
+                "expected": {
+                  "network_calls": 0
+                },
+                "id": "fixture",
+                "status": "unverifiable",
+                "observation": null
+              }
+            ],
+            "amendments": [],
+            "protocol_fidelity": "unverifiable",
+            "research": {
+              "counts": {
+                "minimum_successful_tools": 0,
+                "minimum_unique_pages": 0,
+                "minimum_unique_searches": 0,
+                "minimum_recent_searches": 0,
+                "minimum_followup_searches": 0
+              },
+              "missing": {
+                "minimum_successful_tools": 1,
+                "minimum_unique_pages": 1
+              },
+              "domains": [
+                {
+                  "domain": "readiness",
+                  "disposition": "missing"
+                }
+              ],
+              "ready": false,
+              "limitations": [
+                "Receipts and assessments are caller-reported; counts do not establish research quality.",
+                "Unknown domain assessments count as explicit coverage, not evidence of knowledge."
+              ]
+            },
+            "complete_grid": false,
+            "disposition": "open",
+            "usage": {
+              "searches": 0,
+              "model_calls": 1,
+              "cost_usd": 0.01
+            },
+            "unknown_usage_attempts": [],
+            "limitations": [
+              "Matching is against registered requirements and reported observations, not independent certification.",
+              "Grid completeness, protocol fidelity, and predictive accuracy are separate properties."
+            ]
+          }
+        },
+        {
+          "id": "session_trial_d6ebf716cb6e36910d186116",
+          "arm": "b",
+          "input_manifest": {
+            "session_533a1185f1d980bc14a2ade3": "071254204f274ff01e17784473bdfe814e645f052d14e7432a5dafb2ca6d3577"
+          },
+          "position": 2,
+          "repetition": 2,
+          "session_id": "session_533a1185f1d980bc14a2ade3",
+          "study_id": "session_study_3b7697cdcd7c013c0f338bc3",
+          "disposition": "open",
+          "revision": 3,
+          "cells": 0,
+          "expected_cells": 1,
+          "usage": {
+            "searches": 0,
+            "model_calls": 1,
+            "cost_usd": 0.01
+          },
+          "unknown_usage_attempts": [],
+          "protocol_audit": {
+            "requirements": [
+              {
+                "description": "No real network calls",
+                "expected": {
+                  "network_calls": 0
+                },
+                "id": "fixture",
+                "status": "unverifiable",
+                "observation": null
+              }
+            ],
+            "amendments": [],
+            "protocol_fidelity": "unverifiable",
+            "research": {
+              "counts": {
+                "minimum_successful_tools": 0,
+                "minimum_unique_pages": 0,
+                "minimum_unique_searches": 0,
+                "minimum_recent_searches": 0,
+                "minimum_followup_searches": 0
+              },
+              "missing": {
+                "minimum_successful_tools": 1,
+                "minimum_unique_pages": 1
+              },
+              "domains": [
+                {
+                  "domain": "readiness",
+                  "disposition": "missing"
+                }
+              ],
+              "ready": false,
+              "limitations": [
+                "Receipts and assessments are caller-reported; counts do not establish research quality.",
+                "Unknown domain assessments count as explicit coverage, not evidence of knowledge."
+              ]
+            },
+            "complete_grid": false,
+            "disposition": "open",
+            "usage": {
+              "searches": 0,
+              "model_calls": 1,
+              "cost_usd": 0.01
+            },
+            "unknown_usage_attempts": [],
+            "limitations": [
+              "Matching is against registered requirements and reported observations, not independent certification.",
+              "Grid completeness, protocol fidelity, and predictive accuracy are separate properties."
+            ]
+          }
+        },
+        {
+          "id": "session_trial_499f64167a6ca88e732fa69f",
+          "arm": "a",
+          "input_manifest": {
+            "session_23abaa288b6648a2c5317a9f": "079e789946e0dd952e07b1cf62919745384d4dd33d39d4ad30b21ca868a8a5e1"
+          },
+          "position": 3,
+          "repetition": 1,
+          "session_id": "session_23abaa288b6648a2c5317a9f",
+          "study_id": "session_study_3b7697cdcd7c013c0f338bc3",
+          "disposition": "open",
+          "revision": 3,
+          "cells": 0,
+          "expected_cells": 1,
+          "usage": {
+            "searches": 0,
+            "model_calls": 1,
+            "cost_usd": 0.01
+          },
+          "unknown_usage_attempts": [],
+          "protocol_audit": {
+            "requirements": [
+              {
+                "description": "No real network calls",
+                "expected": {
+                  "network_calls": 0
+                },
+                "id": "fixture",
+                "status": "unverifiable",
+                "observation": null
+              }
+            ],
+            "amendments": [],
+            "protocol_fidelity": "unverifiable",
+            "research": {
+              "counts": {
+                "minimum_successful_tools": 0,
+                "minimum_unique_pages": 0,
+                "minimum_unique_searches": 0,
+                "minimum_recent_searches": 0,
+                "minimum_followup_searches": 0
+              },
+              "missing": {
+                "minimum_successful_tools": 1,
+                "minimum_unique_pages": 1
+              },
+              "domains": [
+                {
+                  "domain": "readiness",
+                  "disposition": "missing"
+                }
+              ],
+              "ready": false,
+              "limitations": [
+                "Receipts and assessments are caller-reported; counts do not establish research quality.",
+                "Unknown domain assessments count as explicit coverage, not evidence of knowledge."
+              ]
+            },
+            "complete_grid": false,
+            "disposition": "open",
+            "usage": {
+              "searches": 0,
+              "model_calls": 1,
+              "cost_usd": 0.01
+            },
+            "unknown_usage_attempts": [],
+            "limitations": [
+              "Matching is against registered requirements and reported observations, not independent certification.",
+              "Grid completeness, protocol fidelity, and predictive accuracy are separate properties."
+            ]
+          }
+        }
+      ],
+      "complete": false,
+      "next_position": 1,
+      "usage": {
+        "searches": 0,
+        "model_calls": 4,
+        "cost_usd": 0.04
+      },
+      "limitations": [
+        "A repetition is a whole session; its cells are dependent observations.",
+        "Frozen packets constrain accepted evidence; trusted workers require external isolation to prevent outside access.",
+        "Independent live research arms may observe different evidence and do not isolate transport effects."
+      ]
+    },
+    "warnings": [],
+    "errors": [],
+    "next_actions": []
+  }
+}

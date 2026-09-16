@@ -1,0 +1,130 @@
+{
+  "research_started_at": "2026-09-16T01:18:02.783919+00:00",
+  "research_completed_at": "2026-09-16T01:22:00.806628+00:00",
+  "timestamp_note": "Exact clock-observed completion bounds retained; per-query second-level times were not separately instrumented. Retrieval dates are actual current dates; timestamps marked completed_by are bounds, not invented exact request times.",
+  "search_query_count": 7,
+  "queries": [
+    {
+      "query": "site.spacex.com \"Starship\" \"fourteenth\" 2026",
+      "result_summary": "No usable operator text; searches also returned FAA and secondary coverage; Flight 14 upcoming."
+    },
+    {
+      "query": "site.faa.gov \"Starship\" \"14\" September 2026",
+      "result_summary": "FAA September 13 plan, historical mishap statements, newer secondary September 22 target."
+    },
+    {
+      "query": "site.spacex.com \"Flight 14\" \"September 22\"",
+      "result_summary": "Secondary quotations located official September 15 SpaceX announcement and target."
+    },
+    {
+      "query": "site.x.com/SpaceX \"Flight 14\" \"static fire\"",
+      "result_summary": "Mirrors and reporting describe August static fires; direct primary test posts not verified, so not used as established facts in model."
+    },
+    {
+      "query": "\"site:spacex.com/launches/starship-flight-14\"",
+      "result_summary": "Official URL located via secondary quotations; webpage rendered empty."
+    },
+    {
+      "query": "site.faa.gov Starship Flight 14 license September 2026 approval",
+      "result_summary": "Environmental completion, licensing process and secondary headline claiming clearance; no definitive final Flight 14 license obtained."
+    },
+    {
+      "query": "site.spacex.com \"Flight 14\" \"filter\"",
+      "result_summary": "Subsequent direct content API retrieval confirmed flight-13-derived hardware/software changes."
+    }
+  ],
+  "accesses": [
+    {
+      "url": "https://content.spacex.com/api/spacex-website/missions/starship-flight-14",
+      "status": "primary text accessed",
+      "completed_by": "2026-09-16T01:19:38+00:00"
+    },
+    {
+      "url": "https://www.fly.faa.gov/adv/adv_spt",
+      "status": "primary text accessed",
+      "completed_by": "2026-09-16T01:18:13+00:00"
+    },
+    {
+      "url": "https://www.fly.faa.gov/adv/adv_otherdis?adv_date=09132026&advn=41&facId=ATCSCC&title=ATCSCC+ADVZY+041+DCC+09%2F13%2F2026+OPERATIONS+PLAN&titleDate=09%2F13%2F2026",
+      "status": "primary search result excerpt",
+      "completed_by": "2026-09-16T01:18:13+00:00"
+    },
+    {
+      "url": "https://www.faa.gov/space/stakeholder_engagement/spacex_starship",
+      "status": "primary text accessed",
+      "completed_by": "2026-09-16T01:19:15+00:00"
+    },
+    {
+      "url": "https://www.faa.gov/newsroom/statements/general-statements",
+      "status": "primary search result excerpt",
+      "completed_by": "2026-09-16T01:18:13+00:00"
+    },
+    {
+      "url": "https://www.spacex.com/launches",
+      "status": "HTML with zero extracted lines"
+    },
+    {
+      "url": "https://www.spacex.com/launches/mission/?missionId=starship-flight-14",
+      "status": "HTML with zero extracted lines; guessed legacy route not used as evidence"
+    },
+    {
+      "url": "https://www.spacex.com/launches/starship-flight-14",
+      "status": "Browser zero extracted lines. Initial curl DNS failure in sandbox; approved elevated curl retrieved JavaScript shell."
+    },
+    {
+      "url": "https://t.co/LwJ4g6dg9v",
+      "status": "Browser rejected redirect to spacex.com as unsafe"
+    },
+    {
+      "url": "https://x.com/SpaceX/status/2099912172146995456",
+      "status": "403 forbidden; second direct open internal error"
+    },
+    {
+      "url": "https://www.spacex.com/environment.js",
+      "status": "Fetched public CMS hostname"
+    },
+    {
+      "url": "https://www.spacex.com/main.d7d1373e1b935cc7.js",
+      "status": "Fetched public script; identified mission endpoint"
+    },
+    {
+      "url": "https://www.spacexfrance.com/starship-14/",
+      "status": "Secondary text accessed only to locate primary announcement; substantive claims rechecked at official API"
+    },
+    {
+      "url": "https://x-sou.com/en/u/SpaceX",
+      "status": "Mirror opened; not relied on as primary verification"
+    }
+  ],
+  "contradictory_evidence": [
+    "September 13 FAA plan listed September 18; newest plan September 22. Use latest, retain slippage as caution.",
+    "Aviation Week search headline says FAA clears test; SpaceX current official API explicitly says pending regulatory approval. Do not infer launch license from traffic planning.",
+    "FAA window extends to 14:14Z; operator 75-minute launch window ends 13:30Z. Operational airspace envelope and target window differ; use operator opening time."
+  ],
+  "exposure": {
+    "deliberately_sought_market_prices": false,
+    "numerical_market_prices_observed": false,
+    "numerical_external_event_probabilities_observed": false,
+    "incidental_exposure": [
+      {
+        "type": "qualitative timing predictions in search snippets",
+        "snippet": "Personally I think we will have a launch by the end of the first week of September",
+        "url": "https://www.reddit.com/r/SpaceXMasterrace/comments/1vt0ftw/when_do_you_think_we_will_get_starship_flight_14/",
+        "use": "Not used to assign weights."
+      },
+      {
+        "type": "nonmarket timing aggregate in search snippet",
+        "snippet": "Across all 13 Starship flights to date, the launch window has become publicly knowable 1\u201310 days before liftoff.",
+        "url": "https://thelaunchwindow.com/next-starship-launch",
+        "use": "Not used as a calibrated reference class."
+      },
+      {
+        "type": "community readiness wording",
+        "snippet": "GO for launch.",
+        "url": "https://www.reddit.com/r/spacex/comments/1wg1vqa/rspacex_flight_14_official_launch_discussion/",
+        "use": "Not treated as final authorization; operator caveat takes precedence."
+      }
+    ],
+    "other_note": "General SpaceX France navigation mentioned stock and Starlink pricing links without prices; no exchange page opened. Training knowledge remains; no earlier conversation or forecasts accessed."
+  }
+}

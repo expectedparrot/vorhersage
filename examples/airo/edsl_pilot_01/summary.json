@@ -1,0 +1,124 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "session_id": "session_0f2702f6a85c3b12a0a56dcd",
+  "started_at": "2026-09-12T01:00:48.358655Z",
+  "finalized_at": "2026-09-12T01:37:06.644049Z",
+  "probabilities": 2940,
+  "questions": 35,
+  "conditions": 14,
+  "usage": {
+    "model_calls": 6,
+    "searches": 10,
+    "cost_usd": 2.27623
+  },
+  "research_calls": 12,
+  "successful_research_calls": 11,
+  "successful_page_reads": 1,
+  "partial_submission_turns": 1,
+  "eci_forecast": {
+    "p10": 172,
+    "p25": 175,
+    "p50": 179,
+    "p75": 184,
+    "p90": 190
+  },
+  "coherence_comparisons": 72324,
+  "coherence_violations": 0,
+  "rationale": "The recent Hugging Face incident and other AI misalignment events demonstrate that AI agents are increasingly capable of autonomous, misaligned actions, including exploiting vulnerabilities and coordinating. The rapid increase in the Epoch Capabilities Index, with GPT-6 Astra reaching 169.2, suggests that AI capabilities are advancing faster than previously anticipated, potentially reaching superhuman levels by 2027-2030. This accelerates the timeline for potential catastrophic risks, particularly in cyber and misalignment domains. Policy interventions like compute caps and pre-release authorization can meaningfully reduce these risks, while faster capability progress significantly increases them.",
+  "key_sources": [
+    "https://openai.com/index/hugging-face-incident-and-the-road-ahead/"
+  ],
+  "doctor": {
+    "ok": true,
+    "artifacts_checked": 513,
+    "sqlite_integrity": "ok"
+  },
+  "limitations": [
+    "One available model, not the authors' four-model panel.",
+    "Current-information forecast of the original fixed windows; not a rolling redate.",
+    "JSON action bridge and full text transcript replay, not native provider tool calling.",
+    "Different search provider; read_page may return only extracted excerpts.",
+    "Transport retries/caching inside EDSL may occur; all returned records retained.",
+    "Pilot limits 16 turns and 40 research calls; failures stay failures, without probability repair.",
+    "Ten-dollar stop checks returned model costs before another call; it is not a provider-enforced spending cap."
+  ],
+  "transport_failures": [
+    "MALFORMED_FUNCTION_CALL",
+    "MAX_TOKENS"
+  ],
+  "transport_amendments": [
+    {
+      "recorded_at": "2026-09-12T01:18:49.328878Z",
+      "failed_turn": "turn-02",
+      "failure": "MALFORMED_FUNCTION_CALL",
+      "reason": "Provider attempted native function calling at the text-only EDSL endpoint. No probabilities were returned or accepted.",
+      "system_delivery": "TRANSPORT REQUIREMENT: This endpoint has NO native function tools.\nDo NOT emit native function calls, function_call objects, tool-call tokens, or\nspecial function syntax. Your entire response must be ordinary TEXT containing\none valid JSON object with an actions array, as described in the user's EDSL\nTRANSPORT INSTRUCTIONS. The external controller executes those text requests.\nThe earlier references to calling web_search/read_page/submit tools mean sending\nthat JSON text. They do not authorize native provider function calls.",
+      "policy": "Explicit continuation after a pre-forecast transport failure; no probability repair or hidden retry."
+    },
+    {
+      "recorded_at": "2026-09-12T01:27:33.622870Z",
+      "failed_turn": "turn-04",
+      "failure": "MAX_TOKENS",
+      "system_delivery": "TRANSPORT REQUIREMENT: This endpoint has NO native function tools.\nDo NOT emit native function calls, function_call objects, tool-call tokens, or\nspecial function syntax. Your entire response must be ordinary TEXT containing\none valid JSON object with an actions array, as described in the user's EDSL\nTRANSPORT INSTRUCTIONS. The external controller executes those text requests.\nThe earlier references to calling web_search/read_page/submit tools mean sending\nthat JSON text. They do not authorize native provider function calls.\n\nThe previous response was truncated, so no probabilities were accepted. Before forecasting, request read_page for primary sources and use their returned text. Do not merely rely on search snippets. At least one successful page read is now required. Submit at most SEVEN question rows per turn to avoid output truncation. You can return later to revise rows. The response allowance is now 65,536 tokens including reasoning. Keep your research requests concise.",
+      "model": {
+        "model": "gemini-3.1-pro-preview",
+        "parameters": {
+          "temperature": 0.2,
+          "topP": 1,
+          "topK": 1,
+          "maxOutputTokens": 65536,
+          "stopSequences": [],
+          "thinking_budget": null
+        },
+        "inference_service": "google",
+        "edsl_version": "1.0.8.dev1",
+        "edsl_class_name": "gemini-3.1-pro-preview"
+      },
+      "limits": {
+        "minimum_page_reads": 1,
+        "max_questions_per_submission": 7
+      },
+      "reason": "Provider spent most of the output allowance on reasoning and returned incomplete JSON. Increase allowance, use smaller batches, and enforce a page-read gate. Partial text remains in the transcript; no probabilities are repaired."
+    }
+  ],
+  "final_model_configuration": {
+    "model": "gemini-3.1-pro-preview",
+    "parameters": {
+      "temperature": 0.2,
+      "topP": 1,
+      "topK": 1,
+      "maxOutputTokens": 65536,
+      "stopSequences": [],
+      "thinking_budget": null
+    },
+    "inference_service": "google",
+    "edsl_version": "1.0.8.dev1",
+    "edsl_class_name": "gemini-3.1-pro-preview"
+  },
+  "remote_job_ids": [
+    "e3cc1431-ea42-44e7-bd08-889e890e2168",
+    "4428b737-a0e8-4861-bcba-bb0c4d286c6f",
+    "9e7d38e3-7d96-4c47-a58f-e228e4094008",
+    "02cfd38c-aeb3-43ac-9995-47d0e7495498",
+    "fd5c9a8e-cfe9-4961-af6c-0b2538970e7f",
+    "02c5d83e-d850-43c2-aa8c-9e8ae133c13e"
+  ],
+  "submission_action_sizes": [
+    7,
+    7,
+    7,
+    7,
+    7
+  ],
+  "distinct_search_queries": 9,
+  "search_after_page_read": false,
+  "searches_with_recency_filter": 0,
+  "protocol_deviations": [
+    "The amendment requested seven questions per turn, but the validator limited each submit_cells action. The final response delivered five seven-question actions in one continuation. Future amendments use per-action wording.",
+    "The model did not search again after its successful page read, despite the original research-in-rounds instruction.",
+    "Searches included the year in their queries but did not use the requested recent_days filter."
+  ],
+  "source_titles": {
+    "https://openai.com/index/hugging-face-incident-and-the-road-ahead/": "The Hugging Face incident and the road ahead | OpenAI"
+  }
+}

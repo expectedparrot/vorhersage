@@ -1,0 +1,88 @@
+{
+  "name": "audit",
+  "argv": [
+    "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+    "-m",
+    "vorhersage",
+    "--project",
+    "/private/tmp/vorhersage-docs-tutorial-run-v2/forecast-study",
+    "session",
+    "audit",
+    "session_fd5b8a19854f8f02d507c88f"
+  ],
+  "elapsed_seconds": 0.0566,
+  "output": {
+    "schema_version": "1",
+    "status": "ok",
+    "command": "session",
+    "data": {
+      "requirements": [
+        {
+          "description": "No real network calls",
+          "expected": {
+            "network_calls": 0
+          },
+          "id": "fixture",
+          "status": "matched",
+          "observation": {
+            "actual": {
+              "network_calls": 0
+            },
+            "basis": "worker_reported",
+            "evidence_refs": [],
+            "failed": false,
+            "note": "Deterministic fixture",
+            "requirement_id": "fixture",
+            "event_id": "joint_event_f47c51972316f85afbaa85a3"
+          }
+        }
+      ],
+      "amendments": [],
+      "protocol_fidelity": "matched",
+      "research": {
+        "counts": {
+          "minimum_successful_tools": 1,
+          "minimum_unique_pages": 1,
+          "minimum_unique_searches": 0,
+          "minimum_recent_searches": 0,
+          "minimum_followup_searches": 0
+        },
+        "missing": {},
+        "domains": [
+          {
+            "domain": "readiness",
+            "disposition": "assessed",
+            "evidence_refs": [
+              {
+                "packet_id": "pkt_8aa4f1c9b9baec369ce5db29",
+                "record_id": "status"
+              }
+            ],
+            "rationale": "The synthetic packet establishes readiness in this fixture.",
+            "event_id": "joint_event_edcb0b66d6118e8ac56c6302"
+          }
+        ],
+        "ready": true,
+        "limitations": [
+          "Receipts and assessments are caller-reported; counts do not establish research quality.",
+          "Unknown domain assessments count as explicit coverage, not evidence of knowledge."
+        ]
+      },
+      "complete_grid": true,
+      "disposition": "finalized",
+      "usage": {
+        "searches": 1,
+        "model_calls": 2,
+        "cost_usd": 0.025
+      },
+      "unknown_usage_attempts": [],
+      "limitations": [
+        "Matching is against registered requirements and reported observations, not independent certification.",
+        "Grid completeness, protocol fidelity, and predictive accuracy are separate properties."
+      ]
+    },
+    "warnings": [],
+    "errors": [],
+    "next_actions": []
+  }
+}

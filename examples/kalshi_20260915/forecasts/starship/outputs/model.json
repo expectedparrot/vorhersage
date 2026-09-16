@@ -1,0 +1,412 @@
+{
+  "deadline": "2026-10-01T00:00:00-05:00",
+  "deadline_rule": "before",
+  "derived_from_model_id": "timeline_model_9ec152081bec4f3a9982",
+  "description": "Post-research structure: same parallel vehicle and regulatory readiness dependencies. Flight 14 verified upcoming in current official operator content. All durations are remaining work from cutoff.",
+  "id": "timeline_run_5620c43e955a4956ae93_task_d6a81433a06c40e3adb1",
+  "information_as_of": "2026-09-16T01:22:00.806628+00:00",
+  "limitations": [
+    "Small independent paper forecast; subjective scenario weights and timings are not empirically calibrated.",
+    "Only exactly Flight 14 counts, after 2026-07-30T22:26:00Z and strictly before 2026-10-01T00:00:00-05:00 at Starbase. Trading close differs from event deadline and is not used.",
+    "No claim that planned launch, environmental review or static fire alone satisfies the contract.",
+    "No complete independent inventory of hardware readiness, final license, local closures or forecast weather was obtained.",
+    "SpaceX rendered pages returned no text and X returned 403; official mission content was retrieved directly from the public website content API.",
+    "Search snippets included qualitative community timing expectations; no numerical event probabilities or market prices were observed.",
+    "Model calls and costs are unmetered. Numeric zero counters in package records are unreported placeholders, not evidence of zero cost.",
+    "Scenario timestamps are representative points in a coarse discrete forecast distribution; omitted within-bin timing variation is a material limitation.",
+    "A reproducible computation and clean doctor result establish arithmetic and provenance integrity, not calibrated accuracy."
+  ],
+  "nodes": [
+    {
+      "completion_condition": "Flight 14 vehicles and pad ready",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "operator"
+        }
+      ],
+      "id": "vehicle",
+      "kind": "task",
+      "parameter_id": "vehicle_ready",
+      "parents": [],
+      "rationale": "Remaining work only, pending represents unobserved completion of readiness.",
+      "state": "pending"
+    },
+    {
+      "completion_condition": "Authorization and operational range ready for Flight 14",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "operator"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "faa_plan"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "environment"
+        }
+      ],
+      "id": "permission",
+      "kind": "event",
+      "parameter_id": "permission_ready",
+      "parents": [],
+      "rationale": "Can progress in parallel with hardware.",
+      "state": "pending"
+    },
+    {
+      "completion_condition": "Exactly Flight 14 lifts off with sustained ascent after issuance",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "operator"
+        }
+      ],
+      "id": "launch",
+      "kind": "task",
+      "parameter_id": "launch_delay",
+      "parents": [
+        "vehicle",
+        "permission"
+      ],
+      "rationale": "Both readiness branches required; a post-liftoff failure still counts.",
+      "state": "pending"
+    }
+  ],
+  "parameters": [
+    {
+      "description": "Remaining vehicle checks, repairs and integrated readiness from cutoff",
+      "id": "vehicle_ready",
+      "kind": "duration_days"
+    },
+    {
+      "description": "Flight 14 launch authorization and operational range readiness",
+      "id": "permission_ready",
+      "kind": "date"
+    },
+    {
+      "description": "Countdown preparation and weather/scrub recovery after readiness",
+      "id": "launch_delay",
+      "kind": "duration_days"
+    }
+  ],
+  "previous_model_id": "timeline_model_e69bb88736104fa4bbff",
+  "question": {
+    "question_id": "kalshi_starship_20260915",
+    "version": 1
+  },
+  "scenarios": [
+    {
+      "assessments": [
+        {
+          "basis": "estimated",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "operator"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_plan"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_prior"
+            }
+          ],
+          "parameter_id": "vehicle_ready",
+          "rationale": "Evidence-informed remaining-work estimate, not an observed completion date. Operator target and specified modifications support a near-ready case; 10/18/60-day alternatives explicitly cover discovered hardware work. Official static-fire posts were not verified, so engine-test completion is not assumed as fact.",
+          "value": 5
+        },
+        {
+          "basis": "estimated",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "operator"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_plan"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_prior"
+            }
+          ],
+          "parameter_id": "permission_ready",
+          "rationale": "Estimated clearance and usable range date. Operator says regulatory approval remains pending, whereas FAA plans September 22 with backup. Neither environmental assessment nor advisory is a final license. Later cases represent review or range delays.",
+          "value": "2026-09-21T12:15:00Z"
+        },
+        {
+          "basis": "assumed",
+          "evidence_refs": [],
+          "parameter_id": "launch_delay",
+          "rationale": "Assumed elapsed countdown/retry duration after both prerequisites. No local weather or empirical scrub-frequency calibration obtained; 1/2/3-day points are coarse and stress-tested.",
+          "value": 1
+        }
+      ],
+      "description": "Rapid campaign: qualifying Flight 14 by September 23 local, represented by September 22.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "operator"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "faa_plan"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "faa_prior"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "environment"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "mishap"
+        }
+      ],
+      "id": "rapid",
+      "weight": 0.55,
+      "weight_rationale": "Largest mass: current operator target is six days away, FAA has matching target and backup, and official mission describes specific next-flight fixes. Still reserve substantial slip risk because approval remains pending."
+    },
+    {
+      "assessments": [
+        {
+          "basis": "estimated",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "operator"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_plan"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_prior"
+            }
+          ],
+          "parameter_id": "vehicle_ready",
+          "rationale": "Evidence-informed remaining-work estimate, not an observed completion date. Operator target and specified modifications support a near-ready case; 10/18/60-day alternatives explicitly cover discovered hardware work. Official static-fire posts were not verified, so engine-test completion is not assumed as fact.",
+          "value": 10
+        },
+        {
+          "basis": "estimated",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "operator"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_plan"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_prior"
+            }
+          ],
+          "parameter_id": "permission_ready",
+          "rationale": "Estimated clearance and usable range date. Operator says regulatory approval remains pending, whereas FAA plans September 22 with backup. Neither environmental assessment nor advisory is a final license. Later cases represent review or range delays.",
+          "value": "2026-09-26T12:15:00Z"
+        },
+        {
+          "basis": "assumed",
+          "evidence_refs": [],
+          "parameter_id": "launch_delay",
+          "rationale": "Assumed elapsed countdown/retry duration after both prerequisites. No local weather or empirical scrub-frequency calibration obtained; 1/2/3-day points are coarse and stress-tested.",
+          "value": 2
+        }
+      ],
+      "description": "Moderate delay: no qualifying launch by September 23, then launch September 24–30 local, represented by September 28.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "operator"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "faa_plan"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "faa_prior"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "environment"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "mishap"
+        }
+      ],
+      "id": "moderate",
+      "weight": 0.25,
+      "weight_rationale": "Meaningful mass for several days of clearance, hardware or scrub delay beyond September 23; remaining September calendar provides recovery opportunities. Not an observed frequency."
+    },
+    {
+      "assessments": [
+        {
+          "basis": "estimated",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "operator"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_plan"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_prior"
+            }
+          ],
+          "parameter_id": "vehicle_ready",
+          "rationale": "Evidence-informed remaining-work estimate, not an observed completion date. Operator target and specified modifications support a near-ready case; 10/18/60-day alternatives explicitly cover discovered hardware work. Official static-fire posts were not verified, so engine-test completion is not assumed as fact.",
+          "value": 18
+        },
+        {
+          "basis": "estimated",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "operator"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_plan"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_prior"
+            }
+          ],
+          "parameter_id": "permission_ready",
+          "rationale": "Estimated clearance and usable range date. Operator says regulatory approval remains pending, whereas FAA plans September 22 with backup. Neither environmental assessment nor advisory is a final license. Later cases represent review or range delays.",
+          "value": "2026-10-05T12:15:00Z"
+        },
+        {
+          "basis": "assumed",
+          "evidence_refs": [],
+          "parameter_id": "launch_delay",
+          "rationale": "Assumed elapsed countdown/retry duration after both prerequisites. No local weather or empirical scrub-frequency calibration obtained; 1/2/3-day points are coarse and stress-tested.",
+          "value": 2
+        }
+      ],
+      "description": "Long delay: no qualifying launch by September 30, then launch during October, represented by October 7.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "operator"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "faa_plan"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "faa_prior"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "environment"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "mishap"
+        }
+      ],
+      "id": "late",
+      "weight": 0.15,
+      "weight_rationale": "Long delay receives material mass because first orbital profile approval is pending and schedule already moved four days in FAA planning; hardware and regulatory tails can compound."
+    },
+    {
+      "assessments": [
+        {
+          "basis": "estimated",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "operator"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_plan"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_prior"
+            }
+          ],
+          "parameter_id": "vehicle_ready",
+          "rationale": "Evidence-informed remaining-work estimate, not an observed completion date. Operator target and specified modifications support a near-ready case; 10/18/60-day alternatives explicitly cover discovered hardware work. Official static-fire posts were not verified, so engine-test completion is not assumed as fact.",
+          "value": 60
+        },
+        {
+          "basis": "estimated",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "operator"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_plan"
+            },
+            {
+              "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+              "record_id": "faa_prior"
+            }
+          ],
+          "parameter_id": "permission_ready",
+          "rationale": "Estimated clearance and usable range date. Operator says regulatory approval remains pending, whereas FAA plans September 22 with backup. Neither environmental assessment nor advisory is a final license. Later cases represent review or range delays.",
+          "value": "2026-10-05T12:15:00Z"
+        },
+        {
+          "basis": "assumed",
+          "evidence_refs": [],
+          "parameter_id": "launch_delay",
+          "rationale": "Assumed elapsed countdown/retry duration after both prerequisites. No local weather or empirical scrub-frequency calibration obtained; 1/2/3-day points are coarse and stress-tested.",
+          "value": 3
+        }
+      ],
+      "description": "Severe interruption: no qualifying launch by October 31, represented by November campaign recovery; includes cancellation mass conservatively for this deadline.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "operator"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "faa_plan"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "faa_prior"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "environment"
+        },
+        {
+          "packet_id": "pkt_0a9c371f50ba2f2a2c9aee8c",
+          "record_id": "mishap"
+        }
+      ],
+      "id": "no_launch",
+      "weight": 0.05,
+      "weight_rationale": "Small but nonzero severe campaign interruption mass: unexpected hardware damage, sustained authorization difficulty, cancellation or much longer repair. No current evidence such a disruption has happened."
+    }
+  ],
+  "target": "launch",
+  "version": 5,
+  "partition_justification": "Four mutually exclusive and exhaustive launch-date bins: by September 23; September 24–30; October; after October or never. Each is represented by one joint assignment of remaining hardware, regulatory/range date, and post-readiness delay. Finite discretization is explicit; weights are subjective distribution masses, not inferred by the engine. Binning near the deadline makes weighting partly a direct deadline judgment and must not be mistaken for empirical calibration."
+}

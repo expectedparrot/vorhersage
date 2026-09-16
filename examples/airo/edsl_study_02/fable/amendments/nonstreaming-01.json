@@ -1,0 +1,30 @@
+{
+  "recorded_at": "2026-09-12T11:39:34.889143Z",
+  "failure": "NONSTREAMING_SDK_LIMIT",
+  "failed_turn": "turn-01",
+  "system_delivery": "TRANSPORT REQUIREMENT: This endpoint has NO native function tools.\nDo NOT emit native function calls, function_call objects, tool-call tokens, or\nspecial function syntax. Your entire response must be ordinary TEXT containing\none valid JSON object with an actions array, as described in the user's EDSL\nTRANSPORT INSTRUCTIONS. The external controller executes those text requests.\nThe earlier references to calling web_search/read_page/submit tools mean sending\nthat JSON text. They do not authorize native provider function calls.",
+  "model": {
+    "model": "claude-fable-5-1",
+    "parameters": {
+      "temperature": 0.5,
+      "max_tokens": 20000,
+      "top_p": 1,
+      "frequency_penalty": 0,
+      "presence_penalty": 0,
+      "logprobs": false,
+      "top_logprobs": 3,
+      "thinking": {
+        "type": "adaptive"
+      },
+      "output_config": {
+        "effort": "max"
+      }
+    },
+    "inference_service": "anthropic",
+    "edsl_version": "1.0.8.dev1",
+    "edsl_class_name": "Claudefable51"
+  },
+  "reason": "EDSL's non-streaming Anthropic adapter rejected 64,000 tokens before inference. Use 20,000; adaptive thinking/max effort retained.",
+  "status_sha256": "1427082aa5794ddb2d53f3f5cca5dd5ea58b213c2e2563cd5b89173c293daed8",
+  "error_sha256": "a0bbd6757c88b0ce15707f250a0558ed47ae4ea6466b742911896067ec65cfce"
+}

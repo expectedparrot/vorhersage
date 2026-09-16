@@ -1,0 +1,42 @@
+{
+  "sources": [
+    {
+      "id": "obs",
+      "url": "https://forecast.weather.gov/data/obhistory/KNYC.html",
+      "title": "NWS Central Park hourly observations",
+      "excerpt": "September16 observations through06:51EDT range from61F to64F in the displayed hourly series;06:51 temperature62.1F. No displayed reading exceeds80F. The series is hourly, not a complete minute-by-minute daily extreme record.",
+      "retrieved_at": "2026-09-16T12:20:13.440822Z",
+      "excerpt_kind": "paraphrase"
+    },
+    {
+      "id": "afd",
+      "url": "https://forecast.weather.gov/product.php?site=OKX&issuedby=OKX&product=AFD&format=CI&version=1&glossary=1",
+      "title": "NWS New York area discussion issued07:02EDT September16",
+      "excerpt": "The morning update made no significant changes. A ridge supports mostly dry weather today; light southwest flow becomes more southerly in the afternoon. Timing of the metro-area wind shift may vary by one to two hours.",
+      "retrieved_at": "2026-09-16T12:20:13.440887Z",
+      "published_at": "2026-09-16T11:02:00Z",
+      "excerpt_kind": "paraphrase"
+    }
+  ],
+  "findings": [
+    {
+      "id": "elapsed",
+      "claim": "Observed overnight/morning temperatures do not establish the79\u201380F final-high event; afternoon maximum remains ahead.",
+      "source_ids": [
+        "obs"
+      ],
+      "claim_type": "observation"
+    },
+    {
+      "id": "regime",
+      "claim": "Fresh discussion supports the earlier fair-weather forecast but does not quantify station-specific temperature uncertainty.",
+      "source_ids": [
+        "afd"
+      ],
+      "claim_type": "official_statement"
+    }
+  ],
+  "limitations": [
+    "Text-only point-forecast and api.weather.gov opens failed in web retrieval. TWC page also inaccessible. Exact TWC daily rounding remains unverified. NWS hourly records do not fully substitute for the final TWC extreme."
+  ]
+}

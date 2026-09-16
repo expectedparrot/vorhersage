@@ -1,0 +1,27 @@
+{
+  "kind": "initial",
+  "payload": {
+    "probability": 0.2576462938849167,
+    "rationale": "NWS point forecast80F plus an explicitly assumed Gaussian residual SD3F gives P(78.5<=latent Tmax<80.5). This continuity correction approximates integer reported79\u201380F; provider rounding and residual SD are unverified. This is a starting model, not an empirical calibration.",
+    "assumptions": [
+      "Forecast center80F from NWS",
+      "Residual standard deviation3F, subjective and deliberately broad",
+      "Approximately unbiased Gaussian errors and nearest-integer final reporting",
+      "NWS Central Park forecast is a usable proxy for TWC CLINYC measurement"
+    ],
+    "uncertainties": [
+      "Current observed temperature and revised NWS forecast",
+      "Forecast residual spread at this station and short horizon",
+      "Provider/date/rounding alignment"
+    ],
+    "research_status": "in_progress",
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_9fb3c2b218bac923948abc3c",
+        "record_id": "point80"
+      }
+    ]
+  },
+  "expected_revision": 0,
+  "idempotency_key": "nyc-0-initial"
+}

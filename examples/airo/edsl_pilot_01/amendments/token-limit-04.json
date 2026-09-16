@@ -1,0 +1,25 @@
+{
+  "recorded_at": "2026-09-12T01:27:33.622870Z",
+  "failed_turn": "turn-04",
+  "failure": "MAX_TOKENS",
+  "system_delivery": "TRANSPORT REQUIREMENT: This endpoint has NO native function tools.\nDo NOT emit native function calls, function_call objects, tool-call tokens, or\nspecial function syntax. Your entire response must be ordinary TEXT containing\none valid JSON object with an actions array, as described in the user's EDSL\nTRANSPORT INSTRUCTIONS. The external controller executes those text requests.\nThe earlier references to calling web_search/read_page/submit tools mean sending\nthat JSON text. They do not authorize native provider function calls.\n\nThe previous response was truncated, so no probabilities were accepted. Before forecasting, request read_page for primary sources and use their returned text. Do not merely rely on search snippets. At least one successful page read is now required. Submit at most SEVEN question rows per turn to avoid output truncation. You can return later to revise rows. The response allowance is now 65,536 tokens including reasoning. Keep your research requests concise.",
+  "model": {
+    "model": "gemini-3.1-pro-preview",
+    "parameters": {
+      "temperature": 0.2,
+      "topP": 1,
+      "topK": 1,
+      "maxOutputTokens": 65536,
+      "stopSequences": [],
+      "thinking_budget": null
+    },
+    "inference_service": "google",
+    "edsl_version": "1.0.8.dev1",
+    "edsl_class_name": "gemini-3.1-pro-preview"
+  },
+  "limits": {
+    "minimum_page_reads": 1,
+    "max_questions_per_submission": 7
+  },
+  "reason": "Provider spent most of the output allowance on reasoning and returned incomplete JSON. Increase allowance, use smaller batches, and enforce a page-read gate. Partial text remains in the transcript; no probabilities are repaired."
+}

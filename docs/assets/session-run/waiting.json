@@ -1,0 +1,1327 @@
+{
+  "name": "waiting",
+  "argv": [
+    "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+    "-m",
+    "vorhersage",
+    "--project",
+    "/private/tmp/vorhersage-docs-tutorial-run-v2/forecast-study",
+    "session",
+    "show",
+    "session_fd5b8a19854f8f02d507c88f"
+  ],
+  "elapsed_seconds": 0.0576,
+  "output": {
+    "schema_version": "1",
+    "status": "ok",
+    "command": "session",
+    "data": {
+      "specification": {
+        "bindings": [],
+        "condition_ids": [
+          "condition_b1dbf5055d22a0fb8cef1031"
+        ],
+        "configuration": {
+          "fixture_probability": 0.25
+        },
+        "execution": {
+          "budget": {
+            "max_cost_usd": 1,
+            "max_model_calls": 5,
+            "max_searches": 5
+          },
+          "defer_bindings": true,
+          "evidence_policy": "live",
+          "requirements": [
+            {
+              "description": "No real network calls",
+              "expected": {
+                "network_calls": 0
+              },
+              "id": "fixture"
+            }
+          ],
+          "research": {
+            "domains": [
+              "readiness"
+            ],
+            "minimum_successful_tools": 1,
+            "minimum_unique_pages": 1
+          },
+          "tool_worker": {
+            "command": [
+              "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+              "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+            ],
+            "config": {},
+            "timeout_seconds": 10
+          },
+          "worker": {
+            "command": [
+              "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+              "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+            ],
+            "config": {
+              "probability": 0.25
+            },
+            "timeout_seconds": 10
+          }
+        },
+        "forecaster": "a",
+        "id": "session_study_3b7697cdcd7c013c0f338bc3:a:2",
+        "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+        "mode": "simulation",
+        "numeric_forecasts": [],
+        "packet_ids": [],
+        "protocol": "synthetic-v1:a",
+        "provenance": {
+          "kind": "native",
+          "source": "Deterministic documentation fixture"
+        },
+        "questions": [
+          {
+            "question_id": "readiness",
+            "version": 1
+          }
+        ],
+        "relation_ids": [],
+        "repetition": 2,
+        "wave": "session_study_3b7697cdcd7c013c0f338bc3"
+      },
+      "execution_disposition": "waiting",
+      "attempts": {
+        "attempt_b1ed2aabf8e9dd254013e32f": {
+          "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+          "kind": "model",
+          "request": {
+            "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+            "context": {
+              "assessments": {},
+              "attempt_usage": {
+                "cost_usd": 0,
+                "model_calls": 0,
+                "searches": 0
+              },
+              "attempts": {},
+              "cells": [],
+              "disposition": "open",
+              "events": [],
+              "execution_disposition": "open",
+              "expected_cells": 1,
+              "finalization": null,
+              "missing_cells": [
+                {
+                  "condition_id": "condition_b1dbf5055d22a0fb8cef1031",
+                  "question_id": "readiness",
+                  "version": 1
+                }
+              ],
+              "observations": {},
+              "recorded_at": "2026-09-12T15:23:16.366833Z",
+              "registered_specification": {
+                "bindings": [],
+                "condition_ids": [
+                  "condition_b1dbf5055d22a0fb8cef1031"
+                ],
+                "configuration": {
+                  "fixture_probability": 0.25
+                },
+                "execution": {
+                  "budget": {
+                    "max_cost_usd": 1,
+                    "max_model_calls": 5,
+                    "max_searches": 5
+                  },
+                  "defer_bindings": true,
+                  "evidence_policy": "live",
+                  "requirements": [
+                    {
+                      "description": "No real network calls",
+                      "expected": {
+                        "network_calls": 0
+                      },
+                      "id": "fixture"
+                    }
+                  ],
+                  "research": {
+                    "domains": [
+                      "readiness"
+                    ],
+                    "minimum_successful_tools": 1,
+                    "minimum_unique_pages": 1
+                  },
+                  "tool_worker": {
+                    "command": [
+                      "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                      "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                    ],
+                    "config": {},
+                    "timeout_seconds": 10
+                  },
+                  "worker": {
+                    "command": [
+                      "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                      "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                    ],
+                    "config": {
+                      "probability": 0.25
+                    },
+                    "timeout_seconds": 10
+                  }
+                },
+                "forecaster": "a",
+                "id": "session_study_3b7697cdcd7c013c0f338bc3:a:2",
+                "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+                "mode": "simulation",
+                "numeric_forecasts": [],
+                "packet_ids": [],
+                "protocol": "synthetic-v1:a",
+                "provenance": {
+                  "kind": "native",
+                  "source": "Deterministic documentation fixture"
+                },
+                "questions": [
+                  {
+                    "question_id": "readiness",
+                    "version": 1
+                  }
+                ],
+                "relation_ids": [],
+                "repetition": 2,
+                "wave": "session_study_3b7697cdcd7c013c0f338bc3"
+              },
+              "research_receipts": [],
+              "revision": 0,
+              "session_id": "session_fd5b8a19854f8f02d507c88f",
+              "specification": {
+                "bindings": [],
+                "condition_ids": [
+                  "condition_b1dbf5055d22a0fb8cef1031"
+                ],
+                "configuration": {
+                  "fixture_probability": 0.25
+                },
+                "execution": {
+                  "budget": {
+                    "max_cost_usd": 1,
+                    "max_model_calls": 5,
+                    "max_searches": 5
+                  },
+                  "defer_bindings": true,
+                  "evidence_policy": "live",
+                  "requirements": [
+                    {
+                      "description": "No real network calls",
+                      "expected": {
+                        "network_calls": 0
+                      },
+                      "id": "fixture"
+                    }
+                  ],
+                  "research": {
+                    "domains": [
+                      "readiness"
+                    ],
+                    "minimum_successful_tools": 1,
+                    "minimum_unique_pages": 1
+                  },
+                  "tool_worker": {
+                    "command": [
+                      "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                      "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                    ],
+                    "config": {},
+                    "timeout_seconds": 10
+                  },
+                  "worker": {
+                    "command": [
+                      "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                      "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                    ],
+                    "config": {
+                      "probability": 0.25
+                    },
+                    "timeout_seconds": 10
+                  }
+                },
+                "forecaster": "a",
+                "id": "session_study_3b7697cdcd7c013c0f338bc3:a:2",
+                "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+                "mode": "simulation",
+                "numeric_forecasts": [],
+                "packet_ids": [],
+                "protocol": "synthetic-v1:a",
+                "provenance": {
+                  "kind": "native",
+                  "source": "Deterministic documentation fixture"
+                },
+                "questions": [
+                  {
+                    "question_id": "readiness",
+                    "version": 1
+                  }
+                ],
+                "relation_ids": [],
+                "repetition": 2,
+                "wave": "session_study_3b7697cdcd7c013c0f338bc3"
+              },
+              "submissions": [],
+              "tool_requests": [],
+              "unknown_usage_attempts": [],
+              "usage": {
+                "cost_usd": 0,
+                "model_calls": 0,
+                "searches": 0
+              }
+            },
+            "packets": {},
+            "protocol": "vorhersage.session.worker.v1",
+            "session_id": "session_fd5b8a19854f8f02d507c88f",
+            "worker_config": {
+              "probability": 0.25
+            }
+          },
+          "status": "completed",
+          "usage": {
+            "cost_usd": 0.01,
+            "model_calls": 1,
+            "searches": 0
+          },
+          "started_at": "2026-09-12T15:23:16.431344Z",
+          "started_revision": 1,
+          "continuation": {},
+          "raw_record": {
+            "actions": [
+              {
+                "kind": "tool_request",
+                "payload": {
+                  "arguments": {
+                    "url": "urn:fixture:readiness"
+                  },
+                  "request_id": "research-1",
+                  "tool": "read_page"
+                }
+              }
+            ],
+            "worker_record": {
+              "fixture": true
+            }
+          }
+        },
+        "attempt_0a3baf4021379fcd31f365e8": {
+          "attempt_id": "attempt_0a3baf4021379fcd31f365e8",
+          "kind": "tool",
+          "request": {
+            "attempt_id": "attempt_0a3baf4021379fcd31f365e8",
+            "context": {
+              "assessments": {},
+              "attempt_usage": {
+                "cost_usd": 0.01,
+                "model_calls": 1,
+                "searches": 0
+              },
+              "attempts": {
+                "attempt_b1ed2aabf8e9dd254013e32f": {
+                  "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+                  "continuation": {},
+                  "kind": "model",
+                  "raw_record": {
+                    "actions": [
+                      {
+                        "kind": "tool_request",
+                        "payload": {
+                          "arguments": {
+                            "url": "urn:fixture:readiness"
+                          },
+                          "request_id": "research-1",
+                          "tool": "read_page"
+                        }
+                      }
+                    ],
+                    "worker_record": {
+                      "fixture": true
+                    }
+                  },
+                  "started_at": "2026-09-12T15:23:16.431344Z",
+                  "started_revision": 1,
+                  "status": "completed",
+                  "usage": {
+                    "cost_usd": 0.01,
+                    "model_calls": 1,
+                    "searches": 0
+                  }
+                }
+              },
+              "cells": [],
+              "disposition": "open",
+              "events": [
+                {
+                  "id": "joint_event_f7f43052893d6924274f6401",
+                  "input_manifest": {},
+                  "kind": "attempt_start",
+                  "payload": {
+                    "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+                    "kind": "model"
+                  },
+                  "recorded_at": "2026-09-12T15:23:16.431344Z",
+                  "revision": 1,
+                  "session_id": "session_fd5b8a19854f8f02d507c88f"
+                },
+                {
+                  "id": "joint_event_0a514e6cc2ff1ba1f9774615",
+                  "input_manifest": {},
+                  "kind": "attempt_result",
+                  "payload": {
+                    "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+                    "continuation": {},
+                    "raw_record": {
+                      "actions": [
+                        {
+                          "kind": "tool_request",
+                          "payload": {
+                            "arguments": {
+                              "url": "urn:fixture:readiness"
+                            },
+                            "request_id": "research-1",
+                            "tool": "read_page"
+                          }
+                        }
+                      ],
+                      "worker_record": {
+                        "fixture": true
+                      }
+                    },
+                    "status": "completed",
+                    "usage": {
+                      "cost_usd": 0.01,
+                      "model_calls": 1,
+                      "searches": 0
+                    }
+                  },
+                  "recorded_at": "2026-09-12T15:23:16.476492Z",
+                  "revision": 2,
+                  "session_id": "session_fd5b8a19854f8f02d507c88f"
+                },
+                {
+                  "id": "joint_event_0a3baf4021379fcd31f365e8",
+                  "input_manifest": {},
+                  "kind": "tool_request",
+                  "payload": {
+                    "arguments": {
+                      "url": "urn:fixture:readiness"
+                    },
+                    "request_id": "research-1",
+                    "tool": "read_page"
+                  },
+                  "recorded_at": "2026-09-12T15:23:16.479904Z",
+                  "revision": 3,
+                  "session_id": "session_fd5b8a19854f8f02d507c88f"
+                }
+              ],
+              "execution_disposition": "open",
+              "expected_cells": 1,
+              "finalization": null,
+              "missing_cells": [
+                {
+                  "condition_id": "condition_b1dbf5055d22a0fb8cef1031",
+                  "question_id": "readiness",
+                  "version": 1
+                }
+              ],
+              "observations": {},
+              "recorded_at": "2026-09-12T15:23:16.366833Z",
+              "registered_specification": {
+                "bindings": [],
+                "condition_ids": [
+                  "condition_b1dbf5055d22a0fb8cef1031"
+                ],
+                "configuration": {
+                  "fixture_probability": 0.25
+                },
+                "execution": {
+                  "budget": {
+                    "max_cost_usd": 1,
+                    "max_model_calls": 5,
+                    "max_searches": 5
+                  },
+                  "defer_bindings": true,
+                  "evidence_policy": "live",
+                  "requirements": [
+                    {
+                      "description": "No real network calls",
+                      "expected": {
+                        "network_calls": 0
+                      },
+                      "id": "fixture"
+                    }
+                  ],
+                  "research": {
+                    "domains": [
+                      "readiness"
+                    ],
+                    "minimum_successful_tools": 1,
+                    "minimum_unique_pages": 1
+                  },
+                  "tool_worker": {
+                    "command": [
+                      "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                      "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                    ],
+                    "config": {},
+                    "timeout_seconds": 10
+                  },
+                  "worker": {
+                    "command": [
+                      "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                      "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                    ],
+                    "config": {
+                      "probability": 0.25
+                    },
+                    "timeout_seconds": 10
+                  }
+                },
+                "forecaster": "a",
+                "id": "session_study_3b7697cdcd7c013c0f338bc3:a:2",
+                "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+                "mode": "simulation",
+                "numeric_forecasts": [],
+                "packet_ids": [],
+                "protocol": "synthetic-v1:a",
+                "provenance": {
+                  "kind": "native",
+                  "source": "Deterministic documentation fixture"
+                },
+                "questions": [
+                  {
+                    "question_id": "readiness",
+                    "version": 1
+                  }
+                ],
+                "relation_ids": [],
+                "repetition": 2,
+                "wave": "session_study_3b7697cdcd7c013c0f338bc3"
+              },
+              "research_receipts": [],
+              "revision": 3,
+              "session_id": "session_fd5b8a19854f8f02d507c88f",
+              "specification": {
+                "bindings": [],
+                "condition_ids": [
+                  "condition_b1dbf5055d22a0fb8cef1031"
+                ],
+                "configuration": {
+                  "fixture_probability": 0.25
+                },
+                "execution": {
+                  "budget": {
+                    "max_cost_usd": 1,
+                    "max_model_calls": 5,
+                    "max_searches": 5
+                  },
+                  "defer_bindings": true,
+                  "evidence_policy": "live",
+                  "requirements": [
+                    {
+                      "description": "No real network calls",
+                      "expected": {
+                        "network_calls": 0
+                      },
+                      "id": "fixture"
+                    }
+                  ],
+                  "research": {
+                    "domains": [
+                      "readiness"
+                    ],
+                    "minimum_successful_tools": 1,
+                    "minimum_unique_pages": 1
+                  },
+                  "tool_worker": {
+                    "command": [
+                      "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                      "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                    ],
+                    "config": {},
+                    "timeout_seconds": 10
+                  },
+                  "worker": {
+                    "command": [
+                      "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                      "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                    ],
+                    "config": {
+                      "probability": 0.25
+                    },
+                    "timeout_seconds": 10
+                  }
+                },
+                "forecaster": "a",
+                "id": "session_study_3b7697cdcd7c013c0f338bc3:a:2",
+                "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+                "mode": "simulation",
+                "numeric_forecasts": [],
+                "packet_ids": [],
+                "protocol": "synthetic-v1:a",
+                "provenance": {
+                  "kind": "native",
+                  "source": "Deterministic documentation fixture"
+                },
+                "questions": [
+                  {
+                    "question_id": "readiness",
+                    "version": 1
+                  }
+                ],
+                "relation_ids": [],
+                "repetition": 2,
+                "wave": "session_study_3b7697cdcd7c013c0f338bc3"
+              },
+              "submissions": [],
+              "tool_requests": [
+                {
+                  "arguments": {
+                    "url": "urn:fixture:readiness"
+                  },
+                  "request_id": "research-1",
+                  "requested_revision": 3,
+                  "tool": "read_page"
+                }
+              ],
+              "unknown_usage_attempts": [],
+              "usage": {
+                "cost_usd": 0.01,
+                "model_calls": 1,
+                "searches": 0
+              }
+            },
+            "packets": {},
+            "protocol": "vorhersage.session.worker.v1",
+            "session_id": "session_fd5b8a19854f8f02d507c88f",
+            "tool_request": {
+              "arguments": {
+                "url": "urn:fixture:readiness"
+              },
+              "request_id": "research-1",
+              "requested_revision": 3,
+              "tool": "read_page"
+            },
+            "worker_config": {}
+          },
+          "status": "waiting",
+          "usage": null,
+          "started_at": "2026-09-12T15:23:16.644526Z",
+          "started_revision": 4,
+          "continuation": {
+            "fixture_job_id": "attempt_0a3baf4021379fcd31f365e8"
+          },
+          "raw_record": {
+            "actions": [],
+            "worker_record": {
+              "fixture": true
+            }
+          }
+        }
+      },
+      "attempt_usage": {
+        "searches": 0,
+        "model_calls": 1,
+        "cost_usd": 0.01
+      },
+      "unknown_usage_attempts": [
+        "attempt_0a3baf4021379fcd31f365e8"
+      ],
+      "research_receipts": [],
+      "assessments": {},
+      "observations": {},
+      "tool_requests": [
+        {
+          "arguments": {
+            "url": "urn:fixture:readiness"
+          },
+          "request_id": "research-1",
+          "tool": "read_page",
+          "requested_revision": 3
+        }
+      ],
+      "session_id": "session_fd5b8a19854f8f02d507c88f",
+      "registered_specification": {
+        "bindings": [],
+        "condition_ids": [
+          "condition_b1dbf5055d22a0fb8cef1031"
+        ],
+        "configuration": {
+          "fixture_probability": 0.25
+        },
+        "execution": {
+          "budget": {
+            "max_cost_usd": 1,
+            "max_model_calls": 5,
+            "max_searches": 5
+          },
+          "defer_bindings": true,
+          "evidence_policy": "live",
+          "requirements": [
+            {
+              "description": "No real network calls",
+              "expected": {
+                "network_calls": 0
+              },
+              "id": "fixture"
+            }
+          ],
+          "research": {
+            "domains": [
+              "readiness"
+            ],
+            "minimum_successful_tools": 1,
+            "minimum_unique_pages": 1
+          },
+          "tool_worker": {
+            "command": [
+              "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+              "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+            ],
+            "config": {},
+            "timeout_seconds": 10
+          },
+          "worker": {
+            "command": [
+              "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+              "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+            ],
+            "config": {
+              "probability": 0.25
+            },
+            "timeout_seconds": 10
+          }
+        },
+        "forecaster": "a",
+        "id": "session_study_3b7697cdcd7c013c0f338bc3:a:2",
+        "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+        "mode": "simulation",
+        "numeric_forecasts": [],
+        "packet_ids": [],
+        "protocol": "synthetic-v1:a",
+        "provenance": {
+          "kind": "native",
+          "source": "Deterministic documentation fixture"
+        },
+        "questions": [
+          {
+            "question_id": "readiness",
+            "version": 1
+          }
+        ],
+        "relation_ids": [],
+        "repetition": 2,
+        "wave": "session_study_3b7697cdcd7c013c0f338bc3"
+      },
+      "events": [
+        {
+          "id": "joint_event_f7f43052893d6924274f6401",
+          "input_manifest": {},
+          "kind": "attempt_start",
+          "payload": {
+            "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+            "kind": "model",
+            "request": {
+              "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+              "context": {
+                "assessments": {},
+                "attempt_usage": {
+                  "cost_usd": 0,
+                  "model_calls": 0,
+                  "searches": 0
+                },
+                "attempts": {},
+                "cells": [],
+                "disposition": "open",
+                "events": [],
+                "execution_disposition": "open",
+                "expected_cells": 1,
+                "finalization": null,
+                "missing_cells": [
+                  {
+                    "condition_id": "condition_b1dbf5055d22a0fb8cef1031",
+                    "question_id": "readiness",
+                    "version": 1
+                  }
+                ],
+                "observations": {},
+                "recorded_at": "2026-09-12T15:23:16.366833Z",
+                "registered_specification": {
+                  "bindings": [],
+                  "condition_ids": [
+                    "condition_b1dbf5055d22a0fb8cef1031"
+                  ],
+                  "configuration": {
+                    "fixture_probability": 0.25
+                  },
+                  "execution": {
+                    "budget": {
+                      "max_cost_usd": 1,
+                      "max_model_calls": 5,
+                      "max_searches": 5
+                    },
+                    "defer_bindings": true,
+                    "evidence_policy": "live",
+                    "requirements": [
+                      {
+                        "description": "No real network calls",
+                        "expected": {
+                          "network_calls": 0
+                        },
+                        "id": "fixture"
+                      }
+                    ],
+                    "research": {
+                      "domains": [
+                        "readiness"
+                      ],
+                      "minimum_successful_tools": 1,
+                      "minimum_unique_pages": 1
+                    },
+                    "tool_worker": {
+                      "command": [
+                        "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                        "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                      ],
+                      "config": {},
+                      "timeout_seconds": 10
+                    },
+                    "worker": {
+                      "command": [
+                        "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                        "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                      ],
+                      "config": {
+                        "probability": 0.25
+                      },
+                      "timeout_seconds": 10
+                    }
+                  },
+                  "forecaster": "a",
+                  "id": "session_study_3b7697cdcd7c013c0f338bc3:a:2",
+                  "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+                  "mode": "simulation",
+                  "numeric_forecasts": [],
+                  "packet_ids": [],
+                  "protocol": "synthetic-v1:a",
+                  "provenance": {
+                    "kind": "native",
+                    "source": "Deterministic documentation fixture"
+                  },
+                  "questions": [
+                    {
+                      "question_id": "readiness",
+                      "version": 1
+                    }
+                  ],
+                  "relation_ids": [],
+                  "repetition": 2,
+                  "wave": "session_study_3b7697cdcd7c013c0f338bc3"
+                },
+                "research_receipts": [],
+                "revision": 0,
+                "session_id": "session_fd5b8a19854f8f02d507c88f",
+                "specification": {
+                  "bindings": [],
+                  "condition_ids": [
+                    "condition_b1dbf5055d22a0fb8cef1031"
+                  ],
+                  "configuration": {
+                    "fixture_probability": 0.25
+                  },
+                  "execution": {
+                    "budget": {
+                      "max_cost_usd": 1,
+                      "max_model_calls": 5,
+                      "max_searches": 5
+                    },
+                    "defer_bindings": true,
+                    "evidence_policy": "live",
+                    "requirements": [
+                      {
+                        "description": "No real network calls",
+                        "expected": {
+                          "network_calls": 0
+                        },
+                        "id": "fixture"
+                      }
+                    ],
+                    "research": {
+                      "domains": [
+                        "readiness"
+                      ],
+                      "minimum_successful_tools": 1,
+                      "minimum_unique_pages": 1
+                    },
+                    "tool_worker": {
+                      "command": [
+                        "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                        "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                      ],
+                      "config": {},
+                      "timeout_seconds": 10
+                    },
+                    "worker": {
+                      "command": [
+                        "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                        "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                      ],
+                      "config": {
+                        "probability": 0.25
+                      },
+                      "timeout_seconds": 10
+                    }
+                  },
+                  "forecaster": "a",
+                  "id": "session_study_3b7697cdcd7c013c0f338bc3:a:2",
+                  "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+                  "mode": "simulation",
+                  "numeric_forecasts": [],
+                  "packet_ids": [],
+                  "protocol": "synthetic-v1:a",
+                  "provenance": {
+                    "kind": "native",
+                    "source": "Deterministic documentation fixture"
+                  },
+                  "questions": [
+                    {
+                      "question_id": "readiness",
+                      "version": 1
+                    }
+                  ],
+                  "relation_ids": [],
+                  "repetition": 2,
+                  "wave": "session_study_3b7697cdcd7c013c0f338bc3"
+                },
+                "submissions": [],
+                "tool_requests": [],
+                "unknown_usage_attempts": [],
+                "usage": {
+                  "cost_usd": 0,
+                  "model_calls": 0,
+                  "searches": 0
+                }
+              },
+              "packets": {},
+              "protocol": "vorhersage.session.worker.v1",
+              "session_id": "session_fd5b8a19854f8f02d507c88f",
+              "worker_config": {
+                "probability": 0.25
+              }
+            }
+          },
+          "recorded_at": "2026-09-12T15:23:16.431344Z",
+          "revision": 1,
+          "session_id": "session_fd5b8a19854f8f02d507c88f"
+        },
+        {
+          "id": "joint_event_0a514e6cc2ff1ba1f9774615",
+          "input_manifest": {},
+          "kind": "attempt_result",
+          "payload": {
+            "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+            "continuation": {},
+            "raw_record": {
+              "actions": [
+                {
+                  "kind": "tool_request",
+                  "payload": {
+                    "arguments": {
+                      "url": "urn:fixture:readiness"
+                    },
+                    "request_id": "research-1",
+                    "tool": "read_page"
+                  }
+                }
+              ],
+              "worker_record": {
+                "fixture": true
+              }
+            },
+            "status": "completed",
+            "usage": {
+              "cost_usd": 0.01,
+              "model_calls": 1,
+              "searches": 0
+            }
+          },
+          "recorded_at": "2026-09-12T15:23:16.476492Z",
+          "revision": 2,
+          "session_id": "session_fd5b8a19854f8f02d507c88f"
+        },
+        {
+          "id": "joint_event_0a3baf4021379fcd31f365e8",
+          "input_manifest": {},
+          "kind": "tool_request",
+          "payload": {
+            "arguments": {
+              "url": "urn:fixture:readiness"
+            },
+            "request_id": "research-1",
+            "tool": "read_page"
+          },
+          "recorded_at": "2026-09-12T15:23:16.479904Z",
+          "revision": 3,
+          "session_id": "session_fd5b8a19854f8f02d507c88f"
+        },
+        {
+          "id": "joint_event_82826749ce7cc2e39a824b9a",
+          "input_manifest": {},
+          "kind": "attempt_start",
+          "payload": {
+            "attempt_id": "attempt_0a3baf4021379fcd31f365e8",
+            "kind": "tool",
+            "request": {
+              "attempt_id": "attempt_0a3baf4021379fcd31f365e8",
+              "context": {
+                "assessments": {},
+                "attempt_usage": {
+                  "cost_usd": 0.01,
+                  "model_calls": 1,
+                  "searches": 0
+                },
+                "attempts": {
+                  "attempt_b1ed2aabf8e9dd254013e32f": {
+                    "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+                    "continuation": {},
+                    "kind": "model",
+                    "raw_record": {
+                      "actions": [
+                        {
+                          "kind": "tool_request",
+                          "payload": {
+                            "arguments": {
+                              "url": "urn:fixture:readiness"
+                            },
+                            "request_id": "research-1",
+                            "tool": "read_page"
+                          }
+                        }
+                      ],
+                      "worker_record": {
+                        "fixture": true
+                      }
+                    },
+                    "started_at": "2026-09-12T15:23:16.431344Z",
+                    "started_revision": 1,
+                    "status": "completed",
+                    "usage": {
+                      "cost_usd": 0.01,
+                      "model_calls": 1,
+                      "searches": 0
+                    }
+                  }
+                },
+                "cells": [],
+                "disposition": "open",
+                "events": [
+                  {
+                    "id": "joint_event_f7f43052893d6924274f6401",
+                    "input_manifest": {},
+                    "kind": "attempt_start",
+                    "payload": {
+                      "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+                      "kind": "model"
+                    },
+                    "recorded_at": "2026-09-12T15:23:16.431344Z",
+                    "revision": 1,
+                    "session_id": "session_fd5b8a19854f8f02d507c88f"
+                  },
+                  {
+                    "id": "joint_event_0a514e6cc2ff1ba1f9774615",
+                    "input_manifest": {},
+                    "kind": "attempt_result",
+                    "payload": {
+                      "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+                      "continuation": {},
+                      "raw_record": {
+                        "actions": [
+                          {
+                            "kind": "tool_request",
+                            "payload": {
+                              "arguments": {
+                                "url": "urn:fixture:readiness"
+                              },
+                              "request_id": "research-1",
+                              "tool": "read_page"
+                            }
+                          }
+                        ],
+                        "worker_record": {
+                          "fixture": true
+                        }
+                      },
+                      "status": "completed",
+                      "usage": {
+                        "cost_usd": 0.01,
+                        "model_calls": 1,
+                        "searches": 0
+                      }
+                    },
+                    "recorded_at": "2026-09-12T15:23:16.476492Z",
+                    "revision": 2,
+                    "session_id": "session_fd5b8a19854f8f02d507c88f"
+                  },
+                  {
+                    "id": "joint_event_0a3baf4021379fcd31f365e8",
+                    "input_manifest": {},
+                    "kind": "tool_request",
+                    "payload": {
+                      "arguments": {
+                        "url": "urn:fixture:readiness"
+                      },
+                      "request_id": "research-1",
+                      "tool": "read_page"
+                    },
+                    "recorded_at": "2026-09-12T15:23:16.479904Z",
+                    "revision": 3,
+                    "session_id": "session_fd5b8a19854f8f02d507c88f"
+                  }
+                ],
+                "execution_disposition": "open",
+                "expected_cells": 1,
+                "finalization": null,
+                "missing_cells": [
+                  {
+                    "condition_id": "condition_b1dbf5055d22a0fb8cef1031",
+                    "question_id": "readiness",
+                    "version": 1
+                  }
+                ],
+                "observations": {},
+                "recorded_at": "2026-09-12T15:23:16.366833Z",
+                "registered_specification": {
+                  "bindings": [],
+                  "condition_ids": [
+                    "condition_b1dbf5055d22a0fb8cef1031"
+                  ],
+                  "configuration": {
+                    "fixture_probability": 0.25
+                  },
+                  "execution": {
+                    "budget": {
+                      "max_cost_usd": 1,
+                      "max_model_calls": 5,
+                      "max_searches": 5
+                    },
+                    "defer_bindings": true,
+                    "evidence_policy": "live",
+                    "requirements": [
+                      {
+                        "description": "No real network calls",
+                        "expected": {
+                          "network_calls": 0
+                        },
+                        "id": "fixture"
+                      }
+                    ],
+                    "research": {
+                      "domains": [
+                        "readiness"
+                      ],
+                      "minimum_successful_tools": 1,
+                      "minimum_unique_pages": 1
+                    },
+                    "tool_worker": {
+                      "command": [
+                        "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                        "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                      ],
+                      "config": {},
+                      "timeout_seconds": 10
+                    },
+                    "worker": {
+                      "command": [
+                        "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                        "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                      ],
+                      "config": {
+                        "probability": 0.25
+                      },
+                      "timeout_seconds": 10
+                    }
+                  },
+                  "forecaster": "a",
+                  "id": "session_study_3b7697cdcd7c013c0f338bc3:a:2",
+                  "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+                  "mode": "simulation",
+                  "numeric_forecasts": [],
+                  "packet_ids": [],
+                  "protocol": "synthetic-v1:a",
+                  "provenance": {
+                    "kind": "native",
+                    "source": "Deterministic documentation fixture"
+                  },
+                  "questions": [
+                    {
+                      "question_id": "readiness",
+                      "version": 1
+                    }
+                  ],
+                  "relation_ids": [],
+                  "repetition": 2,
+                  "wave": "session_study_3b7697cdcd7c013c0f338bc3"
+                },
+                "research_receipts": [],
+                "revision": 3,
+                "session_id": "session_fd5b8a19854f8f02d507c88f",
+                "specification": {
+                  "bindings": [],
+                  "condition_ids": [
+                    "condition_b1dbf5055d22a0fb8cef1031"
+                  ],
+                  "configuration": {
+                    "fixture_probability": 0.25
+                  },
+                  "execution": {
+                    "budget": {
+                      "max_cost_usd": 1,
+                      "max_model_calls": 5,
+                      "max_searches": 5
+                    },
+                    "defer_bindings": true,
+                    "evidence_policy": "live",
+                    "requirements": [
+                      {
+                        "description": "No real network calls",
+                        "expected": {
+                          "network_calls": 0
+                        },
+                        "id": "fixture"
+                      }
+                    ],
+                    "research": {
+                      "domains": [
+                        "readiness"
+                      ],
+                      "minimum_successful_tools": 1,
+                      "minimum_unique_pages": 1
+                    },
+                    "tool_worker": {
+                      "command": [
+                        "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                        "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                      ],
+                      "config": {},
+                      "timeout_seconds": 10
+                    },
+                    "worker": {
+                      "command": [
+                        "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+                        "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+                      ],
+                      "config": {
+                        "probability": 0.25
+                      },
+                      "timeout_seconds": 10
+                    }
+                  },
+                  "forecaster": "a",
+                  "id": "session_study_3b7697cdcd7c013c0f338bc3:a:2",
+                  "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+                  "mode": "simulation",
+                  "numeric_forecasts": [],
+                  "packet_ids": [],
+                  "protocol": "synthetic-v1:a",
+                  "provenance": {
+                    "kind": "native",
+                    "source": "Deterministic documentation fixture"
+                  },
+                  "questions": [
+                    {
+                      "question_id": "readiness",
+                      "version": 1
+                    }
+                  ],
+                  "relation_ids": [],
+                  "repetition": 2,
+                  "wave": "session_study_3b7697cdcd7c013c0f338bc3"
+                },
+                "submissions": [],
+                "tool_requests": [
+                  {
+                    "arguments": {
+                      "url": "urn:fixture:readiness"
+                    },
+                    "request_id": "research-1",
+                    "requested_revision": 3,
+                    "tool": "read_page"
+                  }
+                ],
+                "unknown_usage_attempts": [],
+                "usage": {
+                  "cost_usd": 0.01,
+                  "model_calls": 1,
+                  "searches": 0
+                }
+              },
+              "packets": {},
+              "protocol": "vorhersage.session.worker.v1",
+              "session_id": "session_fd5b8a19854f8f02d507c88f",
+              "tool_request": {
+                "arguments": {
+                  "url": "urn:fixture:readiness"
+                },
+                "request_id": "research-1",
+                "requested_revision": 3,
+                "tool": "read_page"
+              },
+              "worker_config": {}
+            }
+          },
+          "recorded_at": "2026-09-12T15:23:16.644526Z",
+          "revision": 4,
+          "session_id": "session_fd5b8a19854f8f02d507c88f"
+        },
+        {
+          "id": "joint_event_4f9a01066d4259e1839a0d41",
+          "input_manifest": {},
+          "kind": "attempt_result",
+          "payload": {
+            "attempt_id": "attempt_0a3baf4021379fcd31f365e8",
+            "continuation": {
+              "fixture_job_id": "attempt_0a3baf4021379fcd31f365e8"
+            },
+            "raw_record": {
+              "actions": [],
+              "worker_record": {
+                "fixture": true
+              }
+            },
+            "status": "waiting",
+            "usage": null
+          },
+          "recorded_at": "2026-09-12T15:23:16.690074Z",
+          "revision": 5,
+          "session_id": "session_fd5b8a19854f8f02d507c88f"
+        }
+      ],
+      "recorded_at": "2026-09-12T15:23:16.366833Z",
+      "revision": 5,
+      "disposition": "waiting",
+      "expected_cells": 1,
+      "cells": [],
+      "missing_cells": [
+        {
+          "question_id": "readiness",
+          "version": 1,
+          "condition_id": "condition_b1dbf5055d22a0fb8cef1031"
+        }
+      ],
+      "usage": {
+        "searches": 0,
+        "model_calls": 1,
+        "cost_usd": 0.01
+      },
+      "submissions": [],
+      "finalization": null
+    },
+    "warnings": [],
+    "errors": [],
+    "next_actions": []
+  }
+}

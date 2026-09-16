@@ -1,0 +1,645 @@
+{
+  "left_model_id": "timeline_model_0af1fd84a60145e88d93",
+  "right_model_id": "timeline_model_afdce5a6ce1d48638a21",
+  "left": {
+    "engine_version": "timeline.v1",
+    "model_sha256": "146f6e9408424903c9f475a861d20f716faf42defa011dbc642f50bc70ca1d94",
+    "question": {
+      "question_id": "waymo_boston_public_paid_driverless_before_2029",
+      "version": 1
+    },
+    "information_as_of": "2026-09-15T23:04:02Z",
+    "deadline": "2029-01-01T00:00:00-05:00",
+    "deadline_rule": "before",
+    "probability": null,
+    "probability_bounds": null,
+    "disposition": "unweighted",
+    "scenarios": [
+      {
+        "scenario_id": "early",
+        "description": "Hypothetical July 2027 permission",
+        "weight": null,
+        "status": "finite",
+        "launch_at": "2028-11-01T00:00:00+00:00",
+        "meets_deadline": true,
+        "controlling_milestones": [
+          "preparation",
+          "ready",
+          "public_launch"
+        ],
+        "schedule": [
+          {
+            "node_id": "authorization",
+            "status": "finite",
+            "start_at": null,
+            "finish_at": "2027-07-01T00:00:00+00:00",
+            "controlling_parents": [],
+            "duration_semantics": null
+          },
+          {
+            "node_id": "preparation",
+            "status": "finite",
+            "start_at": "2028-03-01T00:00:00+00:00",
+            "finish_at": "2028-09-01T00:00:00+00:00",
+            "controlling_parents": [],
+            "duration_semantics": "after_prerequisites"
+          },
+          {
+            "node_id": "ready",
+            "status": "finite",
+            "start_at": null,
+            "finish_at": "2028-09-01T00:00:00+00:00",
+            "controlling_parents": [
+              "preparation"
+            ],
+            "duration_semantics": null
+          },
+          {
+            "node_id": "public_launch",
+            "status": "finite",
+            "start_at": "2028-09-01T00:00:00+00:00",
+            "finish_at": "2028-11-01T00:00:00+00:00",
+            "controlling_parents": [
+              "ready"
+            ],
+            "duration_semantics": "after_prerequisites"
+          }
+        ]
+      },
+      {
+        "scenario_id": "late",
+        "description": "Hypothetical July 2028 permission",
+        "weight": null,
+        "status": "finite",
+        "launch_at": "2028-11-01T00:00:00+00:00",
+        "meets_deadline": true,
+        "controlling_milestones": [
+          "preparation",
+          "ready",
+          "public_launch"
+        ],
+        "schedule": [
+          {
+            "node_id": "authorization",
+            "status": "finite",
+            "start_at": null,
+            "finish_at": "2028-07-01T00:00:00+00:00",
+            "controlling_parents": [],
+            "duration_semantics": null
+          },
+          {
+            "node_id": "preparation",
+            "status": "finite",
+            "start_at": "2028-03-01T00:00:00+00:00",
+            "finish_at": "2028-09-01T00:00:00+00:00",
+            "controlling_parents": [],
+            "duration_semantics": "after_prerequisites"
+          },
+          {
+            "node_id": "ready",
+            "status": "finite",
+            "start_at": null,
+            "finish_at": "2028-09-01T00:00:00+00:00",
+            "controlling_parents": [
+              "preparation"
+            ],
+            "duration_semantics": null
+          },
+          {
+            "node_id": "public_launch",
+            "status": "finite",
+            "start_at": "2028-09-01T00:00:00+00:00",
+            "finish_at": "2028-11-01T00:00:00+00:00",
+            "controlling_parents": [
+              "ready"
+            ],
+            "duration_semantics": "after_prerequisites"
+          }
+        ]
+      },
+      {
+        "scenario_id": "never",
+        "description": "Hypothetical route that never obtains permission",
+        "weight": null,
+        "status": "never",
+        "launch_at": null,
+        "meets_deadline": false,
+        "controlling_milestones": [
+          "public_launch"
+        ],
+        "schedule": [
+          {
+            "node_id": "authorization",
+            "status": "never",
+            "start_at": null,
+            "finish_at": null,
+            "controlling_parents": [],
+            "duration_semantics": null
+          },
+          {
+            "node_id": "preparation",
+            "status": "finite",
+            "start_at": "2028-03-01T00:00:00+00:00",
+            "finish_at": "2028-09-01T00:00:00+00:00",
+            "controlling_parents": [],
+            "duration_semantics": "after_prerequisites"
+          },
+          {
+            "node_id": "ready",
+            "status": "never",
+            "start_at": null,
+            "finish_at": null,
+            "controlling_parents": [],
+            "duration_semantics": null
+          },
+          {
+            "node_id": "public_launch",
+            "status": "never",
+            "start_at": null,
+            "finish_at": null,
+            "controlling_parents": [],
+            "duration_semantics": "after_prerequisites"
+          }
+        ]
+      }
+    ],
+    "gaps": {
+      "unresolved": [],
+      "assumed_inputs": [
+        {
+          "scenario_id": "early",
+          "parameter_id": "authorization_date",
+          "description": "When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+          "affected_milestones": [
+            "authorization"
+          ],
+          "research_task": "Determine When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "early",
+          "parameter_id": "preparation_days",
+          "description": "Elapsed time to complete Boston operational preparation from its permitted start.",
+          "affected_milestones": [
+            "preparation"
+          ],
+          "research_task": "Determine Elapsed time to complete Boston operational preparation from its permitted start.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "early",
+          "parameter_id": "public_rollout_days",
+          "description": "Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+          "affected_milestones": [
+            "public_launch"
+          ],
+          "research_task": "Determine Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "late",
+          "parameter_id": "authorization_date",
+          "description": "When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+          "affected_milestones": [
+            "authorization"
+          ],
+          "research_task": "Determine When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "late",
+          "parameter_id": "preparation_days",
+          "description": "Elapsed time to complete Boston operational preparation from its permitted start.",
+          "affected_milestones": [
+            "preparation"
+          ],
+          "research_task": "Determine Elapsed time to complete Boston operational preparation from its permitted start.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "late",
+          "parameter_id": "public_rollout_days",
+          "description": "Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+          "affected_milestones": [
+            "public_launch"
+          ],
+          "research_task": "Determine Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "never",
+          "parameter_id": "authorization_date",
+          "description": "When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+          "affected_milestones": [
+            "authorization"
+          ],
+          "research_task": "Determine When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "never",
+          "parameter_id": "preparation_days",
+          "description": "Elapsed time to complete Boston operational preparation from its permitted start.",
+          "affected_milestones": [
+            "preparation"
+          ],
+          "research_task": "Determine Elapsed time to complete Boston operational preparation from its permitted start.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "never",
+          "parameter_id": "public_rollout_days",
+          "description": "Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+          "affected_milestones": [
+            "public_launch"
+          ],
+          "research_task": "Determine Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        }
+      ],
+      "unweighted": true,
+      "structural_assumptions": [
+        {
+          "node_id": "authorization",
+          "parents": [],
+          "rationale": "Permission is compressed into one hypothetical effective date; actual routes require research.",
+          "evidence_refs": []
+        },
+        {
+          "node_id": "preparation",
+          "parents": [],
+          "rationale": "Hypothesis: this preparation can occur before permission.",
+          "evidence_refs": []
+        },
+        {
+          "node_id": "ready",
+          "parents": [
+            "authorization",
+            "preparation"
+          ],
+          "rationale": "This model requires both milestones before public rollout.",
+          "evidence_refs": []
+        },
+        {
+          "node_id": "public_launch",
+          "parents": [
+            "ready"
+          ],
+          "rationale": "The rollout delay represents the gap to general public access, not merely selected-rider access.",
+          "evidence_refs": []
+        }
+      ],
+      "note": "A complete declaration is not proof of adequate evidence or a correct dependency structure."
+    },
+    "limitations": [
+      "Dates, durations, dependencies and scenario weights are supplied, not inferred from evidence.",
+      "Each scenario is one joint assignment. No independent sampling or equal weighting is implicit.",
+      "Unweighted scenario counts are not probabilities. Weighted scenarios require a declared exhaustive partition.",
+      "Durations are elapsed days of 86400 seconds. Resource contention and working-day calendars are not modeled.",
+      "Sensitivity is a declared-input stress test, not a confidence interval or an estimate of research value.",
+      "Illustrative structural comparison, not a new Waymo probability or an endorsement of either dependency hypothesis.",
+      "Scenarios are not an exhaustive partition and have no weights. Counts of successful cases have no probabilistic meaning.",
+      "March 2028 preparation start and 184/61 elapsed-day durations are invented for this example; they are not calendar-month estimates.",
+      "No new evidence was gathered. Authorization pathways, partial overlap, readiness, weather constraints and launch access need separate research."
+    ]
+  },
+  "right": {
+    "engine_version": "timeline.v1",
+    "model_sha256": "84ca8409a667effe3e1c4525e79a3bf63b1e699d5a5677482204a72ca0203232",
+    "question": {
+      "question_id": "waymo_boston_public_paid_driverless_before_2029",
+      "version": 1
+    },
+    "information_as_of": "2026-09-15T23:04:02Z",
+    "deadline": "2029-01-01T00:00:00-05:00",
+    "deadline_rule": "before",
+    "probability": null,
+    "probability_bounds": null,
+    "disposition": "unweighted",
+    "scenarios": [
+      {
+        "scenario_id": "early",
+        "description": "Hypothetical July 2027 permission",
+        "weight": null,
+        "status": "finite",
+        "launch_at": "2028-11-01T00:00:00+00:00",
+        "meets_deadline": true,
+        "controlling_milestones": [
+          "preparation",
+          "ready",
+          "public_launch"
+        ],
+        "schedule": [
+          {
+            "node_id": "authorization",
+            "status": "finite",
+            "start_at": null,
+            "finish_at": "2027-07-01T00:00:00+00:00",
+            "controlling_parents": [],
+            "duration_semantics": null
+          },
+          {
+            "node_id": "preparation",
+            "status": "finite",
+            "start_at": "2028-03-01T00:00:00+00:00",
+            "finish_at": "2028-09-01T00:00:00+00:00",
+            "controlling_parents": [],
+            "duration_semantics": "after_prerequisites"
+          },
+          {
+            "node_id": "ready",
+            "status": "finite",
+            "start_at": null,
+            "finish_at": "2028-09-01T00:00:00+00:00",
+            "controlling_parents": [
+              "preparation"
+            ],
+            "duration_semantics": null
+          },
+          {
+            "node_id": "public_launch",
+            "status": "finite",
+            "start_at": "2028-09-01T00:00:00+00:00",
+            "finish_at": "2028-11-01T00:00:00+00:00",
+            "controlling_parents": [
+              "ready"
+            ],
+            "duration_semantics": "after_prerequisites"
+          }
+        ]
+      },
+      {
+        "scenario_id": "late",
+        "description": "Hypothetical July 2028 permission",
+        "weight": null,
+        "status": "finite",
+        "launch_at": "2029-03-03T00:00:00+00:00",
+        "meets_deadline": false,
+        "controlling_milestones": [
+          "authorization",
+          "preparation",
+          "ready",
+          "public_launch"
+        ],
+        "schedule": [
+          {
+            "node_id": "authorization",
+            "status": "finite",
+            "start_at": null,
+            "finish_at": "2028-07-01T00:00:00+00:00",
+            "controlling_parents": [],
+            "duration_semantics": null
+          },
+          {
+            "node_id": "preparation",
+            "status": "finite",
+            "start_at": "2028-07-01T00:00:00+00:00",
+            "finish_at": "2029-01-01T00:00:00+00:00",
+            "controlling_parents": [
+              "authorization"
+            ],
+            "duration_semantics": "after_prerequisites"
+          },
+          {
+            "node_id": "ready",
+            "status": "finite",
+            "start_at": null,
+            "finish_at": "2029-01-01T00:00:00+00:00",
+            "controlling_parents": [
+              "preparation"
+            ],
+            "duration_semantics": null
+          },
+          {
+            "node_id": "public_launch",
+            "status": "finite",
+            "start_at": "2029-01-01T00:00:00+00:00",
+            "finish_at": "2029-03-03T00:00:00+00:00",
+            "controlling_parents": [
+              "ready"
+            ],
+            "duration_semantics": "after_prerequisites"
+          }
+        ]
+      },
+      {
+        "scenario_id": "never",
+        "description": "Hypothetical route that never obtains permission",
+        "weight": null,
+        "status": "never",
+        "launch_at": null,
+        "meets_deadline": false,
+        "controlling_milestones": [
+          "public_launch"
+        ],
+        "schedule": [
+          {
+            "node_id": "authorization",
+            "status": "never",
+            "start_at": null,
+            "finish_at": null,
+            "controlling_parents": [],
+            "duration_semantics": null
+          },
+          {
+            "node_id": "preparation",
+            "status": "never",
+            "start_at": null,
+            "finish_at": null,
+            "controlling_parents": [],
+            "duration_semantics": "after_prerequisites"
+          },
+          {
+            "node_id": "ready",
+            "status": "never",
+            "start_at": null,
+            "finish_at": null,
+            "controlling_parents": [],
+            "duration_semantics": null
+          },
+          {
+            "node_id": "public_launch",
+            "status": "never",
+            "start_at": null,
+            "finish_at": null,
+            "controlling_parents": [],
+            "duration_semantics": "after_prerequisites"
+          }
+        ]
+      }
+    ],
+    "gaps": {
+      "unresolved": [],
+      "assumed_inputs": [
+        {
+          "scenario_id": "early",
+          "parameter_id": "authorization_date",
+          "description": "When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+          "affected_milestones": [
+            "authorization"
+          ],
+          "research_task": "Determine When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "early",
+          "parameter_id": "preparation_days",
+          "description": "Elapsed time to complete Boston operational preparation from its permitted start.",
+          "affected_milestones": [
+            "preparation"
+          ],
+          "research_task": "Determine Elapsed time to complete Boston operational preparation from its permitted start.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "early",
+          "parameter_id": "public_rollout_days",
+          "description": "Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+          "affected_milestones": [
+            "public_launch"
+          ],
+          "research_task": "Determine Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "late",
+          "parameter_id": "authorization_date",
+          "description": "When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+          "affected_milestones": [
+            "authorization"
+          ],
+          "research_task": "Determine When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "late",
+          "parameter_id": "preparation_days",
+          "description": "Elapsed time to complete Boston operational preparation from its permitted start.",
+          "affected_milestones": [
+            "preparation"
+          ],
+          "research_task": "Determine Elapsed time to complete Boston operational preparation from its permitted start.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "late",
+          "parameter_id": "public_rollout_days",
+          "description": "Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+          "affected_milestones": [
+            "public_launch"
+          ],
+          "research_task": "Determine Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "never",
+          "parameter_id": "authorization_date",
+          "description": "When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+          "affected_milestones": [
+            "authorization"
+          ],
+          "research_task": "Determine When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "never",
+          "parameter_id": "preparation_days",
+          "description": "Elapsed time to complete Boston operational preparation from its permitted start.",
+          "affected_milestones": [
+            "preparation"
+          ],
+          "research_task": "Determine Elapsed time to complete Boston operational preparation from its permitted start.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "scenario_id": "never",
+          "parameter_id": "public_rollout_days",
+          "description": "Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+          "affected_milestones": [
+            "public_launch"
+          ],
+          "research_task": "Determine Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        }
+      ],
+      "unweighted": true,
+      "structural_assumptions": [
+        {
+          "node_id": "authorization",
+          "parents": [],
+          "rationale": "Permission is compressed into one hypothetical effective date; actual routes require research.",
+          "evidence_refs": []
+        },
+        {
+          "node_id": "preparation",
+          "parents": [
+            "authorization"
+          ],
+          "rationale": "Hypothesis: preparation waits for permission.",
+          "evidence_refs": []
+        },
+        {
+          "node_id": "ready",
+          "parents": [
+            "authorization",
+            "preparation"
+          ],
+          "rationale": "This model requires both milestones before public rollout.",
+          "evidence_refs": []
+        },
+        {
+          "node_id": "public_launch",
+          "parents": [
+            "ready"
+          ],
+          "rationale": "The rollout delay represents the gap to general public access, not merely selected-rider access.",
+          "evidence_refs": []
+        }
+      ],
+      "note": "A complete declaration is not proof of adequate evidence or a correct dependency structure."
+    },
+    "limitations": [
+      "Dates, durations, dependencies and scenario weights are supplied, not inferred from evidence.",
+      "Each scenario is one joint assignment. No independent sampling or equal weighting is implicit.",
+      "Unweighted scenario counts are not probabilities. Weighted scenarios require a declared exhaustive partition.",
+      "Durations are elapsed days of 86400 seconds. Resource contention and working-day calendars are not modeled.",
+      "Sensitivity is a declared-input stress test, not a confidence interval or an estimate of research value.",
+      "Illustrative structural comparison, not a new Waymo probability or an endorsement of either dependency hypothesis.",
+      "Scenarios are not an exhaustive partition and have no weights. Counts of successful cases have no probabilistic meaning.",
+      "March 2028 preparation start and 184/61 elapsed-day durations are invented for this example; they are not calendar-month estimates.",
+      "No new evidence was gathered. Authorization pathways, partial overlap, readiness, weather constraints and launch access need separate research."
+    ]
+  },
+  "matched_scenarios": [
+    {
+      "scenario_id": "early",
+      "left_launch_at": "2028-11-01T00:00:00+00:00",
+      "right_launch_at": "2028-11-01T00:00:00+00:00",
+      "left_meets_deadline": true,
+      "right_meets_deadline": true,
+      "changes_outcome": false
+    },
+    {
+      "scenario_id": "late",
+      "left_launch_at": "2028-11-01T00:00:00+00:00",
+      "right_launch_at": "2029-03-03T00:00:00+00:00",
+      "left_meets_deadline": true,
+      "right_meets_deadline": false,
+      "changes_outcome": true
+    },
+    {
+      "scenario_id": "never",
+      "left_launch_at": null,
+      "right_launch_at": null,
+      "left_meets_deadline": false,
+      "right_meets_deadline": false,
+      "changes_outcome": false
+    }
+  ],
+  "unmatched_left": [],
+  "unmatched_right": [],
+  "changed_fields": [
+    "nodes"
+  ],
+  "note": "Scenario IDs provide matching labels, not proof of equal assumptions; inspect changed fields and declarations."
+}

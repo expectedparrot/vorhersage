@@ -1,0 +1,374 @@
+{
+  "subjective_regime_weight_stress": [
+    {
+      "name": "baseline",
+      "regime_weights": {
+        "persistent": 0.58,
+        "disinflation": 0.25,
+        "labor_downturn": 0.12,
+        "acute_shock": 0.05
+      },
+      "probability": 0.21000000000000002
+    },
+    {
+      "name": "more_persistence",
+      "regime_weights": {
+        "persistent": 0.75,
+        "disinflation": 0.15,
+        "labor_downturn": 0.07,
+        "acute_shock": 0.03
+      },
+      "probability": 0.125
+    },
+    {
+      "name": "more_easing_and_shocks",
+      "regime_weights": {
+        "persistent": 0.35,
+        "disinflation": 0.35,
+        "labor_downturn": 0.2,
+        "acute_shock": 0.1
+      },
+      "probability": 0.328
+    }
+  ],
+  "conditional_response_stress": [
+    {
+      "case": "Inflation caution halves within-regime easing responses; move removed mass to each regime none branch.",
+      "probability": 0.105
+    },
+    {
+      "case": "Disinflation response 0.70, labor response 0.75, acute response 0.80; regime weights unchanged.",
+      "probability": 0.30500000000000005
+    }
+  ],
+  "date_stress": {
+    "shift_december_success_to_january_probability": 0.09,
+    "explanation": "December disinflation and labor branches jointly move beyond the deadline; all other weights unchanged."
+  },
+  "package_input_swaps": {
+    "substitutions": [
+      {
+        "scenario_id": "persistent_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-09-16T14:00:00-04:00",
+        "launch_at": "2026-09-16T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "persistent_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-10-28T14:00:00-04:00",
+        "launch_at": "2026-10-28T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "persistent_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-12-09T14:00:00-05:00",
+        "launch_at": "2026-12-09T19:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "persistent_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-11-15T12:00:00-05:00",
+        "launch_at": "2026-11-15T17:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "disinflation_sep",
+        "parameter_id": "first_cut_date",
+        "value": "never",
+        "launch_at": null,
+        "meets_deadline": false,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "disinflation_oct",
+        "parameter_id": "first_cut_date",
+        "value": "never",
+        "launch_at": null,
+        "meets_deadline": false,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "disinflation_dec",
+        "parameter_id": "first_cut_date",
+        "value": "never",
+        "launch_at": null,
+        "meets_deadline": false,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "disinflation_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-09-16T14:00:00-04:00",
+        "launch_at": "2026-09-16T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "disinflation_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-10-28T14:00:00-04:00",
+        "launch_at": "2026-10-28T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "disinflation_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-12-09T14:00:00-05:00",
+        "launch_at": "2026-12-09T19:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "disinflation_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-11-15T12:00:00-05:00",
+        "launch_at": "2026-11-15T17:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "labor_oct",
+        "parameter_id": "first_cut_date",
+        "value": "never",
+        "launch_at": null,
+        "meets_deadline": false,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "labor_dec",
+        "parameter_id": "first_cut_date",
+        "value": "never",
+        "launch_at": null,
+        "meets_deadline": false,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "labor_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-09-16T14:00:00-04:00",
+        "launch_at": "2026-09-16T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "labor_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-10-28T14:00:00-04:00",
+        "launch_at": "2026-10-28T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "labor_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-12-09T14:00:00-05:00",
+        "launch_at": "2026-12-09T19:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "labor_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-11-15T12:00:00-05:00",
+        "launch_at": "2026-11-15T17:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "shock_cut",
+        "parameter_id": "first_cut_date",
+        "value": "never",
+        "launch_at": null,
+        "meets_deadline": false,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "shock_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-09-16T14:00:00-04:00",
+        "launch_at": "2026-09-16T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "shock_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-10-28T14:00:00-04:00",
+        "launch_at": "2026-10-28T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "shock_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-12-09T14:00:00-05:00",
+        "launch_at": "2026-12-09T19:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "shock_none",
+        "parameter_id": "first_cut_date",
+        "value": "2026-11-15T12:00:00-05:00",
+        "launch_at": "2026-11-15T17:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": true
+      },
+      {
+        "scenario_id": "disinflation_sep",
+        "parameter_id": "first_cut_date",
+        "value": "2026-10-28T14:00:00-04:00",
+        "launch_at": "2026-10-28T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "disinflation_sep",
+        "parameter_id": "first_cut_date",
+        "value": "2026-12-09T14:00:00-05:00",
+        "launch_at": "2026-12-09T19:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "disinflation_sep",
+        "parameter_id": "first_cut_date",
+        "value": "2026-11-15T12:00:00-05:00",
+        "launch_at": "2026-11-15T17:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "disinflation_oct",
+        "parameter_id": "first_cut_date",
+        "value": "2026-09-16T14:00:00-04:00",
+        "launch_at": "2026-09-16T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "disinflation_oct",
+        "parameter_id": "first_cut_date",
+        "value": "2026-12-09T14:00:00-05:00",
+        "launch_at": "2026-12-09T19:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "disinflation_oct",
+        "parameter_id": "first_cut_date",
+        "value": "2026-11-15T12:00:00-05:00",
+        "launch_at": "2026-11-15T17:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "disinflation_dec",
+        "parameter_id": "first_cut_date",
+        "value": "2026-09-16T14:00:00-04:00",
+        "launch_at": "2026-09-16T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "disinflation_dec",
+        "parameter_id": "first_cut_date",
+        "value": "2026-10-28T14:00:00-04:00",
+        "launch_at": "2026-10-28T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "disinflation_dec",
+        "parameter_id": "first_cut_date",
+        "value": "2026-11-15T12:00:00-05:00",
+        "launch_at": "2026-11-15T17:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "labor_oct",
+        "parameter_id": "first_cut_date",
+        "value": "2026-09-16T14:00:00-04:00",
+        "launch_at": "2026-09-16T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "labor_oct",
+        "parameter_id": "first_cut_date",
+        "value": "2026-12-09T14:00:00-05:00",
+        "launch_at": "2026-12-09T19:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "labor_oct",
+        "parameter_id": "first_cut_date",
+        "value": "2026-11-15T12:00:00-05:00",
+        "launch_at": "2026-11-15T17:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "labor_dec",
+        "parameter_id": "first_cut_date",
+        "value": "2026-09-16T14:00:00-04:00",
+        "launch_at": "2026-09-16T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "labor_dec",
+        "parameter_id": "first_cut_date",
+        "value": "2026-10-28T14:00:00-04:00",
+        "launch_at": "2026-10-28T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "labor_dec",
+        "parameter_id": "first_cut_date",
+        "value": "2026-11-15T12:00:00-05:00",
+        "launch_at": "2026-11-15T17:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "shock_cut",
+        "parameter_id": "first_cut_date",
+        "value": "2026-09-16T14:00:00-04:00",
+        "launch_at": "2026-09-16T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "shock_cut",
+        "parameter_id": "first_cut_date",
+        "value": "2026-10-28T14:00:00-04:00",
+        "launch_at": "2026-10-28T18:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      },
+      {
+        "scenario_id": "shock_cut",
+        "parameter_id": "first_cut_date",
+        "value": "2026-12-09T14:00:00-05:00",
+        "launch_at": "2026-12-09T19:00:00+00:00",
+        "meets_deadline": true,
+        "changes_outcome": false
+      }
+    ],
+    "note": "One-input substitutions may break scenario dependence; they are stress tests, never new probability samples. Inconsistent observations are flagged."
+  },
+  "warning": "Declared subjective stress tests, not a confidence interval, calibration or value-of-information estimate."
+}

@@ -68,12 +68,19 @@ content requires a new version. Method names alone are not executable identifier
 Global and task-specific instructions are appended to the workflow task returned
 by `next`. Method research domains replace the question's default research profile
 for that run, allowing methods to use different domains on the exact same question
-version. Prior types are `judgment` and `reference_class`; assessment types in this
-runner are `judgment`, `conditional_path`, and `scenario_mixture`. Submission
+version. Prior types are `judgment`, `reference_class`, and `none` (timeline only).
+Assessment types include `judgment`, `conditional_path`, `scenario_mixture`,
+`odds_ledger`, and `timeline_model`. Submission
 validation enforces these types, the packet allowlist, and reported usage limits.
 Reference-class methods require suitable cases in the supplied evidence.
 
-The base sequence remains prior → drivers → research → assessment → review → issue.
+The standard sequence remains prior → drivers → research → assessment → review → issue.
+Timeline methods require `prior_method: "none"` and start with structure → parameter
+research → assessment → review → issue. Each trial gets a separate model revision
+family, so repeated trials can reuse a starting model without sharing mutable research
+state. Workers must support `timeline_structure` and `timeline_research`; method
+research domains are replaced by the model's parameters. See
+[the timeline guide](TIMELINE_MODELS.md).
 Review can revise the computed assessment probability, and can request bounded
 additional packet review. This is not yet an arbitrary task-graph or no-review
 ablation system. Existing ensemble calculations remain available in ordinary

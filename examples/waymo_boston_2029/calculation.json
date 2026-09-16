@@ -1,0 +1,88 @@
+{
+  "probability": 0.5555555555555556,
+  "log_odds": 0.22314355131420982,
+  "terms": [
+    {
+      "id": "delivery",
+      "finding_ids": [
+        "boston_intent",
+        "boston_weather",
+        "boston_not_live",
+        "multi_city_execution",
+        "expansion_capital",
+        "public_access_lag"
+      ],
+      "joint": true,
+      "lr": 2.5,
+      "lr_range": [
+        1.5,
+        4
+      ],
+      "rationale": "Jointly, explicit Boston preparation, financing and demonstrated multi-city execution support delivery within the horizon. Discount for corporate promotion, unfinished Boston validation, competing cities and time to remove a waitlist. Shared corporate evidence is counted once."
+    },
+    {
+      "id": "permission",
+      "finding_ids": [
+        "driver_requirement",
+        "house_study_order",
+        "senate_study_order",
+        "local_acceptance",
+        "competing_bills_stalled",
+        "no_av_ballot_item"
+      ],
+      "joint": true,
+      "lr": 0.5,
+      "lr_range": [
+        0.2,
+        1
+      ],
+      "rationale": "Jointly, the present driver-based testing framework, study-order outcomes for enabling legislation and local friction halve the odds. Counterweights are the remaining 2027-28 window, stalled competing proposals and absence of an AV restriction on the checked 2026 ballot list. These connected political observations are not multiplied separately."
+    }
+  ],
+  "waterfall": [
+    {
+      "id": "anchor",
+      "probability": 0.5,
+      "log_odds": 0.0
+    },
+    {
+      "id": "delivery",
+      "probability": 0.7142857142857143,
+      "log_odds": 0.9162907318741551
+    },
+    {
+      "id": "permission",
+      "probability": 0.5555555555555556,
+      "log_odds": 0.22314355131420982
+    }
+  ],
+  "sensitivity": [
+    {
+      "term_id": "permission",
+      "probability_range": [
+        0.3333333333333334,
+        0.7142857142857143
+      ],
+      "swing": 0.3809523809523809,
+      "lr_to_match_comparison": 0.39999999999999997,
+      "log_lr_to_match_comparison": -0.9162907318741551,
+      "crosses_comparison": true
+    },
+    {
+      "term_id": "delivery",
+      "probability_range": [
+        0.42857142857142855,
+        0.6666666666666666
+      ],
+      "swing": 0.23809523809523808,
+      "lr_to_match_comparison": 2.0,
+      "log_lr_to_match_comparison": 0.6931471805599453,
+      "crosses_comparison": true
+    }
+  ],
+  "limitations": [
+    "Likelihood ratios and independence across groups are agent declarations, not inferred from findings.",
+    "A joint ratio replaces all individual ratios in its group.",
+    "Sensitivity varies one declared ratio at a time; ranges are not confidence intervals."
+  ]
+}

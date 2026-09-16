@@ -1,0 +1,100 @@
+{
+  "sources": [
+    {
+      "id": "history",
+      "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KNYC&model=NBS&sts=2026-08-16T00%3A00Z&ets=2026-09-16T00%3A00Z&format=csv",
+      "title": "IEM archived NBS forecasts",
+      "excerpt": "All 31 selected dates have KNYC 06UTC forecasts, paired with next-day00UTC TXN for the same-day daytime maximum.",
+      "retrieved_at": "2026-09-16T12:26:04.710249Z",
+      "excerpt_kind": "paraphrase"
+    },
+    {
+      "id": "observed",
+      "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-08-16&ets=2026-09-15&network=NY_ASOS&stations=NYC&var=max_temp_f&format=csv",
+      "title": "IEM station daily maxima",
+      "excerpt": "31 completed station daily maxima are available for the predetermined August16 through September15 period. These are not TWC contract settlements.",
+      "retrieved_at": "2026-09-16T12:26:04.710249Z",
+      "excerpt_kind": "paraphrase"
+    },
+    {
+      "id": "current",
+      "url": "https://mesonet.agron.iastate.edu/api/1/mos.json?station=KNYC&model=NBS&runtime=2026-09-16T06%3A00Z",
+      "title": "Current KNYC NBS forecast",
+      "excerpt": "The September16 06UTC run predicts a79F high with XND2F for the period reported at September17 00UTC.",
+      "retrieved_at": "2026-09-16T12:26:04.710249Z",
+      "excerpt_kind": "paraphrase"
+    },
+    {
+      "id": "nws",
+      "url": "https://api.weather.gov/gridpoints/OKX/34,45/forecast",
+      "title": "NWS current Central Park grid forecast",
+      "excerpt": "API generated at10:30UTC September16 reports sunny with a high near79F today, south wind0to5mph.",
+      "retrieved_at": "2026-09-16T12:26:04.710249Z",
+      "excerpt_kind": "paraphrase"
+    },
+    {
+      "id": "definition",
+      "url": "https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0",
+      "title": "NOAA NBM text product definitions",
+      "excerpt": "TXN maxima cover12UTC currentday through06UTC nextday and are reported at00UTC nextday. XND is the maximum/minimum temperature standard deviation.",
+      "retrieved_at": "2026-09-16T12:26:04.710249Z",
+      "excerpt_kind": "paraphrase"
+    },
+    {
+      "id": "daily_definition",
+      "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?help=",
+      "title": "IEM daily-summary definition",
+      "excerpt": "Daily summaries mix computed values and explicit official totals. Airport station windows typically follow standard time and can differ from NBM daytime maximum windows.",
+      "retrieved_at": "2026-09-16T12:26:04.710249Z",
+      "excerpt_kind": "paraphrase"
+    }
+  ],
+  "findings": [
+    {
+      "id": "residuals",
+      "claim": "Predetermined 31-day proxy sample: observed minus NBS same-day forecast mean=-1.032258F, sample SD=1.816294F; no dates excluded. Forecasts averaged about1F warmer than station daily highs.",
+      "source_ids": [
+        "history",
+        "observed"
+      ],
+      "claim_type": "inference"
+    },
+    {
+      "id": "current_high",
+      "claim": "Current NBS and NWS point forecasts both center near79F; NBS XND is2F. They are correlated sources, not two independent votes.",
+      "source_ids": [
+        "current",
+        "nws"
+      ],
+      "claim_type": "observation"
+    },
+    {
+      "id": "mismatch",
+      "claim": "The weather-model daytime maximum and IEM station daily maximum are only approximate matches to the TWC final daily contract. Provider/window/rounding uncertainty remains.",
+      "source_ids": [
+        "definition",
+        "daily_definition"
+      ],
+      "claim_type": "inference"
+    },
+    {
+      "id": "calculation",
+      "claim": "Declared Gaussian approximation uses mean77.967742F, SD2.098891F including subjective1F provider/window error, and interval[78.5,80.5], yielding28.6088804%. Raw empirical residual frequency is7/31=22.580645%. Calculation JSON SHA256=07b91b063ba56cfcebd1b8aa4d0445afed8fc21ca86ce886cd59ceb733a503dd; raw inputs and executable analyze.py saved alongside case.",
+      "source_ids": [
+        "history",
+        "observed",
+        "current",
+        "definition"
+      ],
+      "claim_type": "inference"
+    }
+  ],
+  "limitations": [
+    "IEM station daily highs are a proxy, not TWC contract settlement records.",
+    "NBM maximum covers 12 UTC through 06 UTC; station daily summary windows can differ.",
+    "31 adjacent days are a small, serially correlated sample; no out-of-sample validation.",
+    "One-degree extra SD and normality are subjective; Gaussian smoothing differs from empirical frequency.",
+    "No adjustment for weather-regime or seasonal differences; no exact TWC rounding verification.",
+    "Retrieval timestamps conservatively use bundle capture time; current NWS and NBS forecasts were issued before the opening market snapshot. IEM data are live retrieved archives, not immutable as-of vintages."
+  ]
+}

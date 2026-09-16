@@ -7,6 +7,8 @@ import math
 from .common import canonical, digest, identifier, now, probability, require, time
 from .evidence import validate_packet, audit as evidence_audit
 from .scenarios import calculate as scenario_calculate
+from .odds import calculate as odds_calculate
+from . import timeline
 from .relations import audit as coherence_audit
 from .schemas import SCHEMAS, check
 from .store import Store
@@ -18,6 +20,8 @@ INSTRUCTIONS = {
     "assessment": "Form a probability from the researched evidence. Label judgments; supply nested conditionals or exact ensemble membership when used. State limitations.",
     "review": "Challenge the estimate in both directions. Retain or revise with reasons, or request bounded additional research.",
     "issue": "Freeze the estimate with a stopping reason, review date, and observable update triggers.",
+    "timeline_structure": "Register a deadline model and submit its timeline_model_id. Unresolved parameters and unweighted scenarios are valid. The package will create research tasks for its parameters; no starting probability is required.",
+    "timeline_research": "Assess the named model parameter in every scenario using evidence or an explicit assumption. Unresolved inputs remain unresolved. Durations for in-progress tasks mean remaining days at the model cutoff.",
 }
 
 
@@ -95,14 +99,21 @@ class Workflow:
         question = Store.question(c, spec["question_id"], spec.get("question_version"))
         q = question["specification"]
         require((q["kind"] == "simulation") == (spec["mode"] == "simulation"), "Question kind and run mode disagree.")
-        cutoff_policy = spec.get("cutoff_policy", "live" if spec["mode"] == "prospective" else "fixed")
+        previous = spec.get("previous_forecast_id")
+        old = Store.artifact(c, previous, "forecast") if previous else None
+        if protocol:
+            default_workflow = "timeline" if protocol["method_spec"]["assessment_method"] == "timeline_model" else "standard"
+        else:
+            default_workflow = "timeline" if old and old.get("timeline_model_id") else "standard"
+        workflow = spec.get("workflow", default_workflow)
+        if protocol:
+            require((workflow == "timeline") == (protocol["method_spec"]["assessment_method"] == "timeline_model"), "Workflow and registered method disagree.")
+        cutoff_policy = spec.get("cutoff_policy", "live" if spec["mode"] == "prospective" and workflow != "timeline" else "fixed")
         require(cutoff_policy != "live" or spec["mode"] == "prospective", "Live cutoffs require prospective mode.")
         if spec["mode"] == "prospective":
             require(time(now()) < time(q["event_deadline"]), "Prospective forecasting deadline has passed.")
             require(not self._resolutions(c, q["id"], question["version"]), "Question already has a resolution; use a retrospective run.")
-        previous = spec.get("previous_forecast_id")
         if previous:
-            old = Store.artifact(c, previous, "forecast")
             require(old["question_id"] == q["id"] and old["question_version"] == question["version"], "A revision must retain the exact question version.")
             require(old["forecaster"] == spec["forecaster"] and old["mode"] == spec["mode"], "Revision forecaster/mode changed.")
             require(time(spec["information_as_of"]) >= time(old["information_as_of"]), "Revision cutoff precedes the previous forecast.")
@@ -116,11 +127,18 @@ class Workflow:
         body = {**spec, "cutoff_policy": cutoff_policy, "id": id, "question_version": question["version"], "question": q,
                 "research_status": spec.get("research_status", "unspecified"),
                 "profile": profile, "created_at": now(), "workflow_version": "1", **(protocol or {})}
+        if workflow == "timeline":
+            body.update(workflow="timeline", workflow_version="timeline.v1")
         state = {"pending": [task("prior"), task("drivers"), *[task("research", domain=d) for d in profile["domains"]],
                              task("assessment"), task("review"), task("issue")],
                  "artifact_ids": [previous] if previous else [], "evidence_refs": [], "coverage": {},
                  "used_searches": 0, "cost_usd": 0, "model_calls": 0, "extra_tasks": 0,
                  "probability": None, "forecast_id": None, "information_as_of": spec["information_as_of"]}
+        if workflow == "timeline":
+            state["pending"] = [task("timeline_structure"), task("assessment"), task("review"), task("issue")]
+            state["prior_record"] = {"timing": "not_applicable", "qualification": "Timeline workflow has no starting-probability task."}
+            if old and old.get("timeline_model_id"):
+                self._bind_timeline(c, body, state, old["timeline_model_id"])
         if protocol:
             state["artifact_ids"].extend([protocol["method_spec_id"], protocol["experiment_id"], *protocol["packet_ids"]])
         c.execute("INSERT INTO runs VALUES (?,?,?,0)", (id, canonical(body), canonical(state)))
@@ -151,6 +169,10 @@ class Workflow:
                 return {"disposition": "blocked", "run_id": run_id, "revision": revision,
                         "reason": "Prospective deadline passed or a resolution was recorded. Preserve this run; any hindsight work needs a separate retrospective run."}
             selected = copy.deepcopy(state["pending"][0])
+            if state.get("timeline_model_id"):
+                spec = timeline.read(c, state["timeline_model_id"])["specification"]
+                selected["timeline_context"] = {"timeline_model_id": state["timeline_model_id"],
+                                                "model": spec, "analysis": timeline.analyze(spec)}
             if run.get("method_spec"):
                 method = run["method_spec"]
                 selected["instruction"] += "\n" + method["instructions"] + "\n" + method["task_instructions"].get(selected["kind"], "")
@@ -220,8 +242,50 @@ class Workflow:
             Store.event(c, "task.submit", {"run_id": run_id, **response})
             return response
 
+    def _bind_timeline(self, c, run, state, model_id):
+        body = timeline.read(c, model_id)
+        spec = body["specification"]
+        require(spec["question"] == {"question_id": run["question_id"], "version": run["question_version"]},
+                "Timeline targets a different question version.")
+        require(time(spec["information_as_of"]) <= time(run["information_as_of"]), "Timeline cutoff is after run cutoff.")
+        refs = evidence_refs(spec)
+        verify_refs(c, refs, run["information_as_of"])
+        if run.get("method_spec"):
+            require(all(r["packet_id"] in run["packet_ids"] for r in refs), "Experiment requires registered frozen packets.")
+        state["artifact_ids"] = list(dict.fromkeys(state["artifact_ids"] + [model_id] + list(body["input_manifest"])))
+        state["evidence_refs"] = list({canonical(r): r for r in state["evidence_refs"] + refs}.values())
+        state["timeline_model_id"] = model_id
+        return spec
+
     def _apply(self, c, run, state, selected, p):
         kind = selected["kind"]
+        if kind == "timeline_structure":
+            spec = self._bind_timeline(c, run, state, p["timeline_model_id"])
+            # Each structure pass owns its revisions, including repeated experiment trials.
+            spec = copy.deepcopy(spec)
+            spec.pop("previous_model_id", None)
+            spec.update(id="timeline_" + run["id"] + "_" + selected["id"], version=1,
+                        derived_from_model_id=p["timeline_model_id"])
+            model_id = timeline._add(c, spec)
+            self._bind_timeline(c, run, state, model_id)
+            state["pending"][1:1] = [task("timeline_research", parameter_id=param["id"], description=param["description"])
+                                       for param in spec["parameters"]]
+            return {"timeline_model_id": model_id, "gaps": timeline.gaps(spec)}
+        if kind == "timeline_research":
+            model_id = state["timeline_model_id"]
+            spec = copy.deepcopy(timeline.read(c, model_id)["specification"])
+            pid = selected["parameter_id"]
+            supplied = {a["scenario_id"]: a["assessment"] for a in p["assessments"]}
+            require(len(supplied) == len(p["assessments"]) and set(supplied) == {s["id"] for s in spec["scenarios"]},
+                    "Parameter research must cover each scenario exactly once.")
+            require(all(a["parameter_id"] == pid for a in supplied.values()), "Research targets the wrong parameter.")
+            for scenario in spec["scenarios"]:
+                scenario["assessments"] = [a for a in scenario["assessments"] if a["parameter_id"] != pid] + [supplied[scenario["id"]]]
+            spec.update(version=spec["version"] + 1, previous_model_id=model_id)
+            new_id = timeline._add(c, spec)
+            self._bind_timeline(c, run, state, new_id)
+            state["coverage"][pid] = {"task_id": selected["id"], **p}
+            return {"timeline_model_id": new_id, "gaps": timeline.gaps(spec)}
         if kind == "prior":
             status = run.get("research_status", "unspecified")
             state["prior_record"] = {"research_status_at_run_start": status, "recorded_at": now(),
@@ -244,10 +308,15 @@ class Workflow:
             require(p["disposition"] != "unknown" or bool(p["unknowns"]), "Unknown research needs an explicit unresolved question/reason.")
             state["coverage"][selected["domain"]] = {"task_id": selected["id"], **p}
         if kind == "assessment":
-            require(set(run["profile"]["domains"]) <= set(state["coverage"]), "Required research coverage is incomplete.")
+            if run.get("workflow") != "timeline":
+                require(set(run["profile"]["domains"]) <= set(state["coverage"]), "Required research coverage is incomplete.")
             method = p["method"]
+            require(run.get("workflow") != "timeline" or method == "timeline_model", "Timeline workflows require a timeline_model assessment.")
+            require(method == "timeline_model" or "timeline_model_id" not in p, "Timeline fields require timeline_model method.")
             if method != "scenario_mixture":
                 require(not any(k in p for k in ("scenarios", "partition_justification")), "Scenario fields require scenario_mixture method.")
+            if method != "odds_ledger":
+                require("odds_ledger" not in p, "Ledger fields require odds_ledger method.")
             if method == "judgment":
                 require("probability" in p and not any(k in p for k in ("components", "members", "weights")), "Judgment assessment requires only its supplied probability.")
                 value = p["probability"]
@@ -262,6 +331,40 @@ class Workflow:
                     ids.add(previous)
                 require(previous == "target", "Final conditional component must be named target.")
                 value = math.prod(component["probability"] for component in p["components"])
+            elif method == "timeline_model":
+                require("timeline_model_id" in p and not any(k in p for k in ("components", "members", "weights", "nested_events_justification")),
+                        "Timeline assessment needs a model ID without other calculation fields.")
+                if run.get("workflow") == "timeline":
+                    old = timeline.read(c, state["timeline_model_id"])["specification"]
+                    final = timeline.read(c, p["timeline_model_id"])["specification"]
+                    def researched_inputs(model):
+                        return {"nodes": model["nodes"], "parameters": model["parameters"], "target": model["target"],
+                                "information_as_of": model["information_as_of"], "deadline_rule": model["deadline_rule"],
+                                "scenarios": [{"id": s["id"], "assessments": s["assessments"]} for s in model["scenarios"]]}
+                    require(researched_inputs(old) == researched_inputs(final),
+                            "Assessment may add weights but cannot replace researched inputs; use a new structure/research pass.")
+                spec = self._bind_timeline(c, run, state, p["timeline_model_id"])
+                if run.get("workflow") == "timeline":
+                    require({param["id"] for param in spec["parameters"]} <= set(state["coverage"]), "Model has parameters without research tasks; submit structure first.")
+                calculation = timeline.analyze(spec)
+                require(calculation["probability"] is not None,
+                        "Timeline has no point probability: resolve target outcomes and declare scenario weights before issuing.", "incomplete_model")
+                value = calculation["probability"]
+            elif method == "odds_ledger":
+                require("odds_ledger" in p and not any(k in p for k in ("components", "members", "weights", "nested_events_justification")),
+                        "Odds ledger needs its declaration without path or ensemble fields.")
+                calculation = odds_calculate(p["odds_ledger"])
+                anchor = p["odds_ledger"]["anchor"]
+                if anchor.get("prior_artifact_id"):
+                    prior_id = anchor["prior_artifact_id"]
+                    require(prior_id in state["artifact_ids"], "Anchor must reference this run's prior task result.")
+                    prior = Store.artifact(c, prior_id, "task_result")
+                    require(prior["task"]["kind"] == "prior", "Anchor reference must be a prior task result.")
+                    require((anchor["basis"] == "empirical") == (prior["payload"]["method"] == "reference_class"),
+                            "Anchor basis differs from linked prior method.")
+                    require(math.isclose(anchor["probability"], prior["calculation"]["probability"], rel_tol=1e-9, abs_tol=0),
+                            "Anchor probability differs from linked prior.")
+                value = calculation["probability"]
             elif method == "scenario_mixture":
                 require(not any(k in p for k in ("components", "members", "weights", "nested_events_justification")), "Scenario mixture cannot include path or ensemble fields.")
                 require("scenarios" in p and "partition_justification" in p, "Scenario mixture needs scenarios and partition justification.")
@@ -284,6 +387,8 @@ class Workflow:
             state["probability"] = value
             state["probability_basis"] = method
             return {"probability": value, "method": method, "assumptions_are_agent_supplied": True,
+                    **({"timeline_analysis": calculation} if method == "timeline_model" else {}),
+                    **({"odds_analysis": calculation} if method == "odds_ledger" else {}),
                     **({"scenario_analysis": calculation} if method == "scenario_mixture" else {})}
         if kind == "review":
             require({o["direction"] for o in p["objections"]} == {"too_high", "too_low"}, "Review must challenge the estimate in both directions.")
@@ -292,7 +397,14 @@ class Workflow:
                 require(bool(more), "A research decision requires new tasks.")
                 require(state["extra_tasks"] + len(more) <= run["max_extra_tasks"], "Extra-task budget exhausted; retain or revise with limitations.", "budget_exhausted")
                 state["extra_tasks"] += len(more)
-                new = [task("research", domain=r["domain"], instruction=r["purpose"]) for r in more]
+                if run.get("workflow") == "timeline":
+                    spec = timeline.read(c, state["timeline_model_id"])["specification"]
+                    require(all(r["domain"] in {p["id"] for p in spec["parameters"]} or r["domain"] == "structure" for r in more),
+                            "Timeline review research domains must name parameters or structure.")
+                    new = ([task("timeline_structure")] if any(r["domain"] == "structure" for r in more) else
+                           [task("timeline_research", parameter_id=r["domain"], instruction=r["purpose"]) for r in more])
+                else:
+                    new = [task("research", domain=r["domain"], instruction=r["purpose"]) for r in more]
                 state["pending"][1:1] = [*new, task("assessment"), task("review")]
             elif p["decision"] == "revise":
                 require("probability" in p, "Revised review needs a probability.")
@@ -325,6 +437,8 @@ class Workflow:
                         "evidence_refs": state["evidence_refs"], "cost_usd": state["cost_usd"],
                         "prior_record": state.get("prior_record", {"timing": "unspecified"}),
                         "searches": state["used_searches"], "model_calls": state["model_calls"], **p}
+            if state.get("timeline_model_id"):
+                forecast["timeline_model_id"] = state["timeline_model_id"]
             if run.get("experiment_id"):
                 forecast.update({key: run[key] for key in ("experiment_id", "method_spec_id", "trial_id", "repetition")})
             coherence = coherence_audit(c, {**forecast, "id": "pending"})
@@ -430,7 +544,12 @@ class Workflow:
                 body = Store.artifact(c, row["id"])
                 if row["kind"] == "packet":
                     validate_packet(body)
-                if row["kind"] in ("forecast", "evaluation", "replay_evaluation", "experiment", "experiment_evaluation"):
+                if row["kind"] == "timeline_model":
+                    timeline.read(c, row["id"])
+                    timeline.analyze(body["specification"])
+                if row["kind"] in ("forecast", "evaluation", "replay_evaluation", "experiment", "experiment_evaluation",
+                                   "joint_session", "joint_finalization", "joint_import", "joint_aggregation",
+                                   "joint_event", "session_study", "session_study_trial", "session_evaluation"):
                     if row["kind"] == "forecast":
                         require(digest(body["input_manifest"]) == body["manifest_sha256"], "Forecast manifest hash mismatch.")
                     for id, expected in body["input_manifest"].items():
@@ -439,5 +558,11 @@ class Workflow:
                     for q in body["questions"]:
                         require(digest(Store.question(c, q["question_id"], q["version"])) == q["sha256"],
                                 "Experiment question has changed.", "integrity_error")
+                if row["kind"] == "joint_session":
+                    for q in body["questions"]:
+                        pinned = {k: v for k, v in q.items() if k != "sha256"}
+                        current = Store.question(c, q["specification"]["id"], q["version"])
+                        require(digest(pinned) == q["sha256"] == digest(current),
+                                "Session question has changed.", "integrity_error")
                 count += 1
             return {"ok": True, "artifacts_checked": count, "sqlite_integrity": integrity}

@@ -1,0 +1,1054 @@
+\documentclass[11pt]{article}
+\usepackage{tikz}\usetikzlibrary{positioning}
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage{longtable,array}
+\usepackage{xcolor}
+\definecolor{epgreen}{HTML}{428A5F}
+\definecolor{epdarkgreen}{HTML}{214D35}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\emergencystretch=3em
+\sloppy
+\title{Will New York’s high temperature land at 79–80°F?}
+\author{\href{https://www.expectedparrot.com/}{\textcolor{epgreen}{\textbf{Expected Parrot}}}\\{\small Open-source research tools}\\[4pt]{\small Vorhersage | Forecast research report}}
+\date{2026-09-16T13:29:10.549914Z}
+\begin{document}
+\maketitle
+{\color{epgreen}\hrule height 1.5pt}\vspace{8pt}
+\section*{\textcolor{epdarkgreen}{Assessment}}
+Our estimate was 28.6\%—about three chances in ten. We completed the forecast at 8:26 a.m. EDT on September 16, 2026, before seeing the market price and before the day’s high was known. It was close to Kalshi’s earlier 28\% quote. That agreement is encouraging for this case, but the forecast still rests on an imperfect match between our weather data and the contract’s settlement source.
+
+
+\section*{\textcolor{epdarkgreen}{What would count as a Yes?}}
+The question concerns the maximum temperature reported for New York City (CLINYC) on September 16, 2026. The contract pays Yes if that maximum is 79°F or 80°F; an ordinary final value outside that range pays No.
+
+
+The Weather Company’s final report determines settlement. A National Weather Service forecast helps us predict the temperature, but does not determine the result. This distinction matters when a one-degree difference can move the outcome into or out of the winning band.
+
+
+\clearpage
+\section*{\textcolor{epdarkgreen}{Methodology at a glance}}
+Read from top to bottom. The market quote is held outside the forecasting process until the estimate is sealed. Blue boxes identify evidence; amber identifies assumptions; green marks calculated results or a completed decision.
+
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm, every node/.style={font=\small}]
+\node[draw=black!35,rounded corners,align=center,text width=13cm,inner sep=5pt,fill=white] (flow0) {\textbf{1. Define the event and hide the market quote}\\ NYC high of 79–80°F on September 16. Save the opening quote in a separate store.};
+\node[draw=black!35,rounded corners,align=center,text width=13cm,inner sep=5pt,fill=white,below=of flow0] (flow1) {\textbf{2. Record a starting estimate and check current conditions}\\ Initial estimate: 25.8\%. Morning observations and discussion leave it unchanged.};
+\draw[->,thick,draw=black!55] (flow0.south) -- (flow1.north);
+\node[draw=black!35,rounded corners,align=center,text width=13cm,inner sep=5pt,fill=blue!5,below=of flow1] (flow2) {\textbf{3. Specify the reference class, then collect the data}\\ 31 consecutive days; Central Park; the same 06:00 UTC forecast run. Match each forecast to that day’s station high.};
+\draw[->,thick,draw=black!55] (flow1.south) -- (flow2.north);
+\node[draw=black!35,rounded corners,align=center,text width=13cm,inner sep=5pt,fill=blue!5,below=of flow2] (flow3) {\textbf{4. Estimate forecast errors}\\ Observed minus forecast: mean −1.03°F; sample spread 1.82°F. All 31 dates included.};
+\draw[->,thick,draw=black!55] (flow2.south) -- (flow3.north);
+\node[draw=black!35,rounded corners,align=center,text width=13cm,inner sep=5pt,fill=green!8,below=of flow3] (flow4) {\textbf{5. Build the temperature distribution}\\ Corrected center: 77.97°F. Combined spread: 2.10°F, including uncertainty in the estimated bias.\\{\footnotesize\colorbox{blue!5}{\strut\textbf{Evidence}} \textbf{Current forecast: 79°F} — Same station, model product and issuance time as the historical sample.}\\{\footnotesize\colorbox{orange!12}{\strut\textbf{Assumption}} \textbf{Declared modeling choices} — Normal errors; a separate, independent 1°F allowance for source and time-window differences.}};
+\draw[->,thick,draw=black!55] (flow3.south) -- (flow4.north);
+\node[draw=black!35,rounded corners,align=center,text width=13cm,inner sep=5pt,fill=green!8,below=of flow4] (flow5) {\textbf{6. Calculate the chance of landing in the band}\\ Assume whole-degree rounding. Probability between 78.5°F and 80.5°F: 28.6\%.};
+\draw[->,thick,draw=black!55] (flow4.south) -- (flow5.north);
+\node[draw=black!35,rounded corners,align=center,text width=13cm,inner sep=5pt,fill=green!8,below=of flow5] (flow6) {\textbf{7. Check sensitivity, then seal the forecast}\\ A ±1°F shift in the center gives 18.6–35.5\%. Save the final 28.6\% estimate at 8:26 a.m. EDT.};
+\draw[->,thick,draw=black!55] (flow5.south) -- (flow6.north);
+\node[draw=black!35,rounded corners,align=center,text width=13cm,inner sep=5pt,fill=white,below=of flow6] (flow7) {\textbf{8. Reveal the market and compare}\\ Opening midpoint: 28\%. Later midpoint: 31.5\%. Neither quote changes the sealed forecast.};
+\draw[->,thick,draw=black!55] (flow6.south) -- (flow7.north);
+\end{tikzpicture}
+\end{center}
+{\small This chart reconstructs the completed workflow. The sample window was specified before collecting historical outcomes; the distribution and extra uncertainty were chosen after inspecting the sample, but before revealing market prices.}
+\clearpage
+\section*{\textcolor{epdarkgreen}{How the estimate changed}}
+We started with a weather forecast, then investigated two specific uncertainties: whether the morning conditions changed the outlook, and how much error to expect in a same-day high-temperature forecast. The market price stayed hidden until the final estimate was saved.
+
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.283\linewidth}>{\raggedright\arraybackslash}p{0.283\linewidth}>{\raggedright\arraybackslash}p{0.283\linewidth}}
+\textbf{Stage} & \textbf{Estimate} & \textbf{What changed} \\ \hline\endhead
+Starting model & 25.8\% & An 80°F forecast with an assumed 3°F error spread. \\
+Morning weather check & 25.8\% & No quantified reason to change the model. \\
+Historical error analysis & 28.6\% & A narrower error spread, offset by a correction for forecasts running warm. \\
+\end{longtable}
+\section*{\textcolor{epdarkgreen}{Method: selection, timing, and price blinding}}
+This was a prospective, one-question development exercise. The target was the market’s opening probability, not the eventual temperature outcome. We selected an unresolved contract, saved its quote separately, recorded an initial estimate, declared each research step, and sealed the final estimate before revealing the quote. We did not use the day’s eventual maximum.
+
+
+Selection was practical rather than random. An initial contract for a high above 82°F failed the two-sided quote check. We switched to the 79–80°F bracket, which contained the NWS point forecast. That bracket initially failed a ten-contract depth requirement; we retried with a one-contract minimum. No prices were displayed by those failed checks. This selection history limits how representative the example is of other markets.
+
+
+The quote was captured at 8:18 a.m. EDT. The initial estimate at 8:19 already used a weather forecast encountered during screening, so it was not a judgment made before any research. The 31-day historical sample was specified at 8:20, before its outcomes were collected. The final estimate was sealed at 8:26; the market comparison was revealed at 8:30.
+
+
+The same assistant context conducted the work. Prices were kept in a separate store that was not inspected during research; no fresh model context or enforced access barrier was used. The historical sample window and forecast issuance time were declared before extraction. The normal distribution and extra 1°F uncertainty allowance were chosen after examining the sample, although still before seeing market odds. Thus the entire statistical procedure was not specified in advance.
+
+
+\section*{\textcolor{epdarkgreen}{The morning check did not warrant a revision}}
+The available Central Park observations showed overnight and early-morning temperatures around 61–64°F. The afternoon high was still ahead. The local forecast discussion supported fair weather and did not give us a numerical reason to change the starting estimate.
+
+
+This research was useful for checking that the event remained unresolved and the forecast was plausible. It did not justify increasing confidence simply because several related weather products agreed.
+
+
+\par{\small Source: \href{https://forecast.weather.gov/data/obhistory/KNYC.html}{NWS Central Park hourly observations}}
+\par{\small Source: \href{https://forecast.weather.gov/product.php?site=OKX\&issuedby=OKX\&product=AFD\&format=CI\&version=1\&glossary=1}{NWS New York area discussion issued07:02EDT September16}}
+\section*{\textcolor{epdarkgreen}{Method: constructing the reference class}}
+We used the Iowa Environmental Mesonet archive of the National Blend of Models’ short-range station forecasts, identified as NBS, for Central Park station KNYC. The historical window was every date from August 16 through September 15, 2026. The comparison holds the station and forecast issuance time fixed; it is not a collection of forecasts from different cities or different lead times.
+
+
+For each date, we selected the 06:00 UTC run—2 a.m. EDT—and its maximum-temperature value reported at 00:00 UTC the following day. The product calls this field TXN. According to its definition, that maximum covers 12:00 UTC on the forecast date through 06:00 UTC the next day. The current September 16 forecast uses the same run time and field.
+
+
+We joined each forecast to the same date’s NYC station daily maximum from the IEM daily-summary archive. Missing forecasts or observations would have been excluded and listed. All 31 dates had both values; there were no exclusions. Every date received equal weight. We did not select only sunny days, forecasts near 79°F, or cases with small errors.
+
+
+This matches station, date, and issuance time, but not necessarily the measurement window or provider. A station daily summary can cover different hours from TXN, and the contract settles from The Weather Company. The estimated errors may therefore combine forecasting error with measurement differences. We retrieved historical archives during the exercise; we did not establish that every historical value was an unrevised, as-issued vintage.
+
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.212\linewidth}>{\raggedright\arraybackslash}p{0.212\linewidth}>{\raggedright\arraybackslash}p{0.212\linewidth}>{\raggedright\arraybackslash}p{0.212\linewidth}}
+\textbf{Example date} & \textbf{Forecast high} & \textbf{Observed high} & \textbf{Error} \\ \hline\endhead
+August 16 & 81°F & 80°F & −1°F \\
+August 17 & 84°F & 81°F & −3°F \\
+August 18 & 85°F & 86°F & +1°F \\
+\end{longtable}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KNYC\&model=NBS\&sts=2026-08-16T00\%3A00Z\&ets=2026-09-16T00\%3A00Z\&format=csv}{IEM archived NBS forecasts}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-08-16\&ets=2026-09-15\&network=NY\_ASOS\&stations=NYC\&var=max\_temp\_f\&format=csv}{IEM station daily maxima}}
+\par{\small Source: \href{https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0}{NOAA NBM text product definitions}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?help=}{IEM daily-summary definition}}
+\section*{\textcolor{epdarkgreen}{Method: estimating bias and error spread}}
+For each paired day, error means observed high minus forecast high. A negative error means the forecast ran warm. For example, a forecast of 84°F followed by an observed 81°F gives an error of −3°F.
+
+
+The 31 errors sum to −32°F. Their average is therefore −32 / 31 = −1.0323°F. We apply the full average correction to the current 79°F forecast: expected high = 79 − 1.0323 = 77.9677°F. We did not partially shrink this correction toward zero or fit a trend.
+
+
+To measure spread, we subtract the average error from each daily error, square those differences, sum them, divide by 30 (the sample size minus one), and take the square root. This sample standard deviation is 1.8163°F. It measures variation around the average error; it is not the average absolute error or the uncertainty of the estimated average itself.
+
+
+Transporting these errors to September 16 assumes the recent month is informative about today’s forecast. We did not fit separate effects for wind, cloud cover, season, or forecast temperature. The current weather model also reported a 2°F spread, but the final calculation uses the historical residual estimate. We did not multiply agreement between NWS products as if it were independent evidence.
+
+
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KNYC\&model=NBS\&sts=2026-08-16T00\%3A00Z\&ets=2026-09-16T00\%3A00Z\&format=csv}{IEM archived NBS forecasts}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-08-16\&ets=2026-09-15\&network=NY\_ASOS\&stations=NYC\&var=max\_temp\_f\&format=csv}{IEM station daily maxima}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/api/1/mos.json?station=KNYC\&model=NBS\&runtime=2026-09-16T06\%3A00Z}{Current KNYC NBS forecast}}
+\par{\small Source: \href{https://api.weather.gov/gridpoints/OKX/34,45/forecast}{NWS current Central Park grid forecast}}
+\section*{\textcolor{epdarkgreen}{Method: specifying the predictive distribution}}
+We approximate the day’s high with a normal, bell-shaped distribution. Its center is 77.9677°F after the bias correction. Its spread must cover a new day’s forecast error, uncertainty in our estimate of the average bias, and differences between our data and the settlement process.
+
+
+Let s = 1.8163°F be the sample error spread and n = 31 the number of days. The declared predictive variance is s² + s²/n + 1². These terms are about 3.2989, 0.1064, and 1.0000 square degrees, respectively. Taking the square root of their sum gives a predictive standard deviation of 2.0989°F.
+
+
+The s²/n term is the usual variance of a sample mean under independent, similarly distributed errors. Adding it allows for our estimate of the average bias being imprecise. Adding the separate 1² term assumes an additional, independent error with mean zero and a 1°F standard deviation. This is why we combine squared spreads rather than simply adding 1°F to 1.8163°F.
+
+
+The 1°F allowance is subjective. It does not demonstrate that provider or time-window differences are actually centered at zero. The normal curve is also an approximation: we did not establish normality, account fully for uncertainty in the estimated spread, or use a Student-t predictive distribution. Correlation among adjacent days could make s²/n too small.
+
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.283\linewidth}>{\raggedright\arraybackslash}p{0.283\linewidth}>{\raggedright\arraybackslash}p{0.283\linewidth}}
+\textbf{Model ingredient} & \textbf{Value} & \textbf{Basis} \\ \hline\endhead
+Current forecast high & 79°F & Weather-model forecast for Central Park \\
+Bias correction & −1.03°F & Average observed minus forecast temperature over 31 days \\
+Historical error spread & 1.82°F & Standard deviation in the paired sample \\
+Extra source/window uncertainty & 1°F & Subjective allowance \\
+Final distribution & Mean 77.97°F; spread 2.10°F & Combination of the inputs above \\
+\end{longtable}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/api/1/mos.json?station=KNYC\&model=NBS\&runtime=2026-09-16T06\%3A00Z}{Current KNYC NBS forecast}}
+\par{\small Source: \href{https://api.weather.gov/gridpoints/OKX/34,45/forecast}{NWS current Central Park grid forecast}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KNYC\&model=NBS\&sts=2026-08-16T00\%3A00Z\&ets=2026-09-16T00\%3A00Z\&format=csv}{IEM archived NBS forecasts}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-08-16\&ets=2026-09-15\&network=NY\_ASOS\&stations=NYC\&var=max\_temp\_f\&format=csv}{IEM station daily maxima}}
+\par{\small Source: \href{https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0}{NOAA NBM text product definitions}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?help=}{IEM daily-summary definition}}
+\section*{\textcolor{epdarkgreen}{Method: converting temperature into a contract probability}}
+The contract is about a two-degree band, so a point forecast alone is insufficient. We need the fraction of the predictive temperature distribution that would be reported as either 79°F or 80°F.
+
+
+Assuming rounding to the nearest whole Fahrenheit degree, that band corresponds to an underlying high from 78.5°F up to 80.5°F. This half-degree adjustment is a modeling assumption about reporting, not a verified property of The Weather Company’s settlement feed.
+
+
+To evaluate the interval, subtract the model’s center and divide by its spread. The lower endpoint is (78.5 − 77.9677) / 2.0989 = 0.2536 standard deviations above the center; the upper endpoint is (80.5 − 77.9677) / 2.0989 = 1.2065. A standard normal cumulative distribution function gives the probability below each endpoint. Subtracting those two probabilities gives the probability inside the band.
+
+
+Using the unrounded parameters, the calculation is 0.8861827 − 0.6000939 = 0.2860888, or 28.6\%. The implementation uses Python’s NormalDist cumulative distribution function. This is a forecast-error model, not a likelihood-ratio update or a multiplication of evidence weights.
+
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.425\linewidth}>{\raggedright\arraybackslash}p{0.425\linewidth}}
+\textbf{Calculation} & \textbf{Probability} \\ \hline\endhead
+High below 80.5°F & 88.62\% \\
+High below 78.5°F & 60.01\% \\
+High between the two endpoints & 28.61\% \\
+\end{longtable}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KNYC\&model=NBS\&sts=2026-08-16T00\%3A00Z\&ets=2026-09-16T00\%3A00Z\&format=csv}{IEM archived NBS forecasts}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-08-16\&ets=2026-09-15\&network=NY\_ASOS\&stations=NYC\&var=max\_temp\_f\&format=csv}{IEM station daily maxima}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/api/1/mos.json?station=KNYC\&model=NBS\&runtime=2026-09-16T06\%3A00Z}{Current KNYC NBS forecast}}
+\par{\small Source: \href{https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0}{NOAA NBM text product definitions}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?help=}{IEM daily-summary definition}}
+\section*{\textcolor{epdarkgreen}{Method: sensitivity checks and alternative estimates}}
+Before revealing the market quote, we calculated how the result changes when the expected temperature moves by 1°F and when the extra provider/window uncertainty ranges from 0°F to 2°F. The rows below change one assumption at a time. They are alternative calculations, not separate research checkpoints, and their range is not a confidence interval.
+
+
+We also tried a direct empirical check: add each of the 31 historical errors to today’s 79°F forecast and count how often the resulting high is 79°F or 80°F. That requires an error of exactly 0°F or +1°F. Seven days satisfy that condition, giving 7/31 = 22.6\%. This calculation reuses the discrete errors directly; it does not fit a bell curve or add the extra provider uncertainty.
+
+
+The difference between 22.6\% and 28.6\% shows that the distributional choice matters. Neither estimate was selected by comparing it with the hidden market price. However, we did not compare candidate estimators on a separate validation sample, so we cannot claim the normal approximation was the better-calibrated choice.
+
+
+Thirty-one neighboring days are a small sample, potentially correlated and limited to one part of the season. We did not perform a bootstrap, estimate an effective sample size, or validate against past TWC contract settlements. Those are remaining methodological gaps, not checks that silently passed.
+
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.425\linewidth}>{\raggedright\arraybackslash}p{0.425\linewidth}}
+\textbf{Alternative assumption} & \textbf{Probability} \\ \hline\endhead
+Final declared model & 28.6\% \\
+Expected temperature 1°F lower; same spread & 18.6\% \\
+Expected temperature 1°F higher; same spread & 35.5\% \\
+No extra provider/window uncertainty; same center & 30.2\% \\
+Extra provider/window uncertainty of 2°F; same center & 24.6\% \\
+Direct historical-error frequency; no normal curve or extra allowance & 22.6\% \\
+\end{longtable}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KNYC\&model=NBS\&sts=2026-08-16T00\%3A00Z\&ets=2026-09-16T00\%3A00Z\&format=csv}{IEM archived NBS forecasts}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-08-16\&ets=2026-09-15\&network=NY\_ASOS\&stations=NYC\&var=max\_temp\_f\&format=csv}{IEM station daily maxima}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/api/1/mos.json?station=KNYC\&model=NBS\&runtime=2026-09-16T06\%3A00Z}{Current KNYC NBS forecast}}
+\par{\small Source: \href{https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0}{NOAA NBM text product definitions}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?help=}{IEM daily-summary definition}}
+\section*{\textcolor{epdarkgreen}{What the market comparison tells us}}
+At 8:18 a.m. EDT, the saved Kalshi quote was 27\% bid and 29\% ask, giving a midpoint of 28\%. Our initial estimate was 2.24 percentage points away from that midpoint; the final estimate was 0.61 points away and inside the opening spread.
+
+
+By the time we revealed the price at 8:30 a.m., the market had moved to a 31.5\% midpoint. That 3.5-point market move was larger than our own 2.84-point revision. The later price is a separate observation, not a replacement for the original comparison target.
+
+
+The package computes agreement as (forecast probability − opening midpoint)². This fell from about 0.000500 to 0.000037, an improvement of 0.000463. These are squared differences between probabilities, not Brier scores against a resolved Yes/No outcome. The model research and the later quote reflect different observation times; a sequential one-case exercise does not isolate a causal effect of research.
+
+
+Liquidity was modest: roughly 24 contracts were available at each best quote when the target was saved, and only six at the best bid in the later snapshot. This is one case of closer agreement with an opening market quote, not evidence that the method is generally accurate.
+
+
+\section*{\textcolor{epdarkgreen}{The lesson for the next forecast}}
+The most useful research targeted a number that drove the result: the size and direction of forecast errors. It replaced an unsupported assumption with a small, inspectable reference class. General weather corroboration did not change the probability.
+
+
+For the next case, we should choose the error model and the treatment of settlement-source differences before inspecting the historical sample, and seek observations from the exact settlement source. We should then test that process against a new hidden market quote. Changing this forecast to match a price we have already seen would not be an independent test.
+
+
+\section*{\textcolor{epdarkgreen}{How to reproduce the calculation}}
+The report’s technical appendix contains the saved calculation file, all 31 forecast/observation pairs, exclusion list, and sensitivity results. The accompanying analyze.py reads the frozen NBS forecast and station-observation downloads, applies the date and run-time filters, constructs the paired errors, and recomputes the probabilities without making network requests.
+
+
+The calculation file’s SHA-256 hash was recorded in a finding before the forecast was sealed. The report includes that same file as a supplement. The methodology explanation here was expanded after the market reveal; it documents the original calculation and its limits rather than revising the forecast.
+
+
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KNYC\&model=NBS\&sts=2026-08-16T00\%3A00Z\&ets=2026-09-16T00\%3A00Z\&format=csv}{IEM archived NBS forecasts}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-08-16\&ets=2026-09-15\&network=NY\_ASOS\&stations=NYC\&var=max\_temp\_f\&format=csv}{IEM station daily maxima}}
+\par{\small Source: \href{https://mesonet.agron.iastate.edu/api/1/mos.json?station=KNYC\&model=NBS\&runtime=2026-09-16T06\%3A00Z}{Current KNYC NBS forecast}}
+\par{\small Source: \href{https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0}{NOAA NBM text product definitions}}
+\section*{\textcolor{epdarkgreen}{About this report}}
+This explanation was written at report generation from the recorded research. It does not change the sealed predictions. The complete evidence and calculation records are in the technical appendix.
+
+
+\clearpage
+\appendix
+\section{Technical appendix}
+Complete records follow. These do not change the assessment above.
+\subsection*{\textcolor{epdarkgreen}{Summary}}
+Workbench workbench\_30\hspace{0pt}6959beccd845\hspace{0pt}3c97fb: latest estimate 28.6\%; revealed.
+
+
+\subsection*{\textcolor{epdarkgreen}{Question and resolution}}
+\par\noindent\textbf{Created at:} 2026-09-16T12:16:24.873252Z
+
+\par\noindent\textbf{Specification:} \par \par\noindent\textbf{Domain:} weather
+
+\par\noindent\textbf{Event deadline:} 2026-09-17T05:00:00Z
+
+\par\noindent\textbf{Event group:} KXHIGHNY-26SEP16
+
+\par\noindent\textbf{Id:} nyc\_high\_79\_80\_20260916
+
+\par\noindent\textbf{Kind:} real
+
+\par\noindent\textbf{No:} The final qualifying reported maximum lies outside the inclusive 79–80°F bracket.
+
+\par\noindent\textbf{Profile:} general
+
+\par\noindent\textbf{Resolution source:} The Weather Company final report for New York City CLINYC, per frozen Kalshi market rules; weather.com/kalshi. NWS forecasts are evidence, not the settlement authority.
+
+\par\noindent\textbf{Resolve after:} 2026-09-18T05:00:00Z
+
+\par\noindent\textbf{Text:} Will the maximum temperature reported for New York City (CLINYC) on September 16, 2026 be 79–80°F?
+
+\par\noindent\textbf{Void:} Nonbinary last-fair-price settlement, unresolved material data error, or unavailable final source data is outside this binary comparison.
+
+\par\noindent\textbf{Yes:} The Weather Company reports a final maximum in the inclusive 79–80°F bracket for CLINYC for September 16, 2026.
+
+\par\noindent\textbf{Version:} 1
+
+\subsection*{\textcolor{epdarkgreen}{Workbench overview}}
+\par\noindent\textbf{Case id:} workbench\_30\hspace{0pt}6959beccd845\hspace{0pt}3c97fb
+
+\par\noindent\textbf{State:} revealed
+
+\par\noindent\textbf{Question version:} 1
+
+\par\noindent\textbf{Method:} NWS forecast plus explicit temperature-error model; sequential current-state and reference-class research
+
+\par\noindent\textbf{Mode:} prospective
+
+\par\noindent\textbf{Latest estimate:} 28.6\%
+
+\par\noindent\textbf{Sealed at:} 2026-09-16T12:26:32.228788Z
+
+\par\noindent\textbf{Market status:} Revealed
+
+\par\noindent\textbf{Opening target captured at:} 2026-09-16T12:18:15.716650Z
+
+\subsection*{\textcolor{epdarkgreen}{Frozen contract and case selection}}
+\par\noindent\textbf{Question:} \par \par\noindent\textbf{Created at:} 2026-09-16T12:16:24.873252Z
+
+\par\noindent\textbf{Specification:} \par \par\noindent\textbf{Domain:} weather
+
+\par\noindent\textbf{Event deadline:} 2026-09-17T05:00:00Z
+
+\par\noindent\textbf{Event group:} KXHIGHNY-26SEP16
+
+\par\noindent\textbf{Id:} nyc\_high\_79\_80\_20260916
+
+\par\noindent\textbf{Kind:} real
+
+\par\noindent\textbf{No:} The final qualifying reported maximum lies outside the inclusive 79–80°F bracket.
+
+\par\noindent\textbf{Profile:} general
+
+\par\noindent\textbf{Resolution source:} The Weather Company final report for New York City CLINYC, per frozen Kalshi market rules; weather.com/kalshi. NWS forecasts are evidence, not the settlement authority.
+
+\par\noindent\textbf{Resolve after:} 2026-09-18T05:00:00Z
+
+\par\noindent\textbf{Text:} Will the maximum temperature reported for New York City (CLINYC) on September 16, 2026 be 79–80°F?
+
+\par\noindent\textbf{Void:} Nonbinary last-fair-price settlement, unresolved material data error, or unavailable final source data is outside this binary comparison.
+
+\par\noindent\textbf{Yes:} The Weather Company reports a final maximum in the inclusive 79–80°F bracket for CLINYC for September 16, 2026.
+
+\par\noindent\textbf{Version:} 1
+
+\par\noindent\textbf{Contract:} \par \par\noindent\textbf{Event group:} KXHIGHNY-26SEP16
+
+\par\noindent\textbf{Market id:} KXHIGHNY-26SEP16-B79.5
+
+\par\noindent\textbf{Resolution source:} See frozen Kalshi rules and series contract.
+
+\par\noindent\textbf{Rules:} If the maximum temperature recorded at New York City (CLINYC) for Sep 16, 2026, is between 79-80° fahrenheit according to The Weather Company, then the market resolves to Yes.
+
+Not all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.
+
+Reading weather data
+Preliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.
+Use caution when interpreting preliminary Weather Company readings.
+
+If it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of "Final" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.
+
+\par\noindent\textbf{Scheduled close:} 2026-09-17T05:00:00Z
+
+\par\noindent\textbf{Title:} Will the maximum temperature be 79-80° on Sep 16, 2026?
+
+\par\noindent\textbf{Venue:} kalshi
+
+\par\noindent\textbf{Yes description:} 79° to 80°
+
+\par\noindent\textbf{Selection:} \par \par\noindent\textbf{Contract match rationale:} Exact CLINYC September16 date and inclusive 79–80F bracket. TWC final value controls, with error-revision and nonbinary-settlement clauses preserved in frozen rules. The 05UTC following-day boundary is the exchange close; calendar-date assignment is governed by TWC.
+
+\par\noindent\textbf{Eligibility rationale:} Selected at about 08:05 EDT before the afternoon maximum. NWS page shows 64F at 00:51 EDT and forecasts daytime high near80F. No qualifying observation or final result is known; first research step will check the elapsed-day record.
+
+\par\noindent\textbf{Market id:} KXHIGHNY-26SEP16-B79.5
+
+\par\noindent\textbf{Max spread:} 0.05
+
+\par\noindent\textbf{Method:} NWS forecast plus explicit temperature-error model; sequential current-state and reference-class research
+
+\par\noindent\textbf{Min contracts each side:} 1
+
+\par\noindent\textbf{Mode:} prospective
+
+\par\noindent\textbf{Question:} \par \par\noindent\textbf{Question id:} nyc\_high\_79\_80\_20260916
+
+\par\noindent\textbf{Version:} 1
+
+\par\noindent\textbf{Venue:} kalshi
+
+\subsection*{\textcolor{epdarkgreen}{Prediction history}}
+Checkpoints are recorded judgments, not necessarily issued forecasts. All timestamps retain their recorded time zones.
+
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{.27\linewidth}>{\raggedright\arraybackslash}p{.65\linewidth}}
+Stage & Initial \\
+Probability & 25.8\% \\
+Recorded at & 2026-09-16T12:19:15.466027Z \\
+Gap to opening market (pp) & -2.24 \\
+Squared market error & 0.000500 \\
+Step improvement & Not applicable \\
+\end{longtable}
+\begin{longtable}{>{\raggedright\arraybackslash}p{.27\linewidth}>{\raggedright\arraybackslash}p{.65\linewidth}}
+Stage & Research 1: Current state, latest forecast and settlement-station alignment \\
+Probability & 25.8\% \\
+Recorded at & 2026-09-16T12:20:13.628648Z \\
+Gap to opening market (pp) & -2.24 \\
+Squared market error & 0.000500 \\
+Step improvement & +0.000000 \\
+\end{longtable}
+\begin{longtable}{>{\raggedright\arraybackslash}p{.27\linewidth}>{\raggedright\arraybackslash}p{.65\linewidth}}
+Stage & Research 2: Empirical short-horizon high-temperature error distribution at Central Park \\
+Probability & 28.6\% \\
+Recorded at & 2026-09-16T12:26:32.118256Z \\
+Gap to opening market (pp) & +0.61 \\
+Squared market error & 0.000037 \\
+Step improvement & +0.000463 \\
+\end{longtable}
+\subsection*{\textcolor{epdarkgreen}{Market comparison}}
+Frozen opening midpoint: 28.0\%; bid–ask 27.0\%–29.0\%. Captured 2026-09-16T12:18:15.716650Z.
+
+
+Later midpoint: 31.5\%; bid–ask 31.0\%–32.0\%. Captured 2026-09-16T12:30:37.889669Z.
+
+
+Squared market error = (estimate − opening midpoint)². Positive step improvement means closer agreement.
+
+
+Market agreement is not an outcome score. The later quote is separate from the frozen opening target.
+
+
+\par\noindent\textbf{Target:} \par \par\noindent\textbf{Ask:} 0.29
+
+\par\noindent\textbf{Ask contracts within 2c:} 258.65999999999997
+
+\par\noindent\textbf{Ask size:} 23.66
+
+\par\noindent\textbf{Bid:} 0.27
+
+\par\noindent\textbf{Bid contracts within 2c:} 148.12
+
+\par\noindent\textbf{Bid size:} 24.0
+
+\par\noindent\textbf{Midpoint:} 0.28
+
+\par\noindent\textbf{Spread:} 0.02
+
+\par\noindent\textbf{Target captured at:} 2026-09-16T12:18:15.716650Z
+
+\par\noindent\textbf{Target method:} Opening order-book midpoint, frozen before initial assessment.
+
+\par\noindent\textbf{Net squared error improvement:} 0.00046261464161725106
+
+\par\noindent\textbf{Followup quote:} \par \par\noindent\textbf{Ask:} 0.32
+
+\par\noindent\textbf{Ask contracts within 2c:} 297.38
+
+\par\noindent\textbf{Ask size:} 18.38
+
+\par\noindent\textbf{Bid:} 0.31
+
+\par\noindent\textbf{Bid contracts within 2c:} 125.45
+
+\par\noindent\textbf{Bid size:} 6.0
+
+\par\noindent\textbf{Midpoint:} 0.315
+
+\par\noindent\textbf{Spread:} 0.01
+
+\par\noindent\textbf{Followup captured at:} 2026-09-16T12:30:37.889669Z
+
+\par\noindent\textbf{Market movement pp:} 3.4999999999999973
+
+\par\noindent\textbf{Followup error:} Not recorded
+
+\par\noindent\textbf{Contract changed:} No
+
+\par\noindent\textbf{Eligible for blind comparison:} Yes
+
+\par\noindent\textbf{Qualification reasons:} \par None recorded.
+
+\par\noindent\textbf{Limitations:} \par \par\noindent\textit{Item 1.}\par Market agreement is not an outcome score or proof of forecast accuracy.
+
+\par\noindent\textit{Item 2.}\par Step improvements are descriptive; sequential research does not identify causal effects.
+
+\par\noindent\textit{Item 3.}\par Research may include information arriving after the opening target. Inspect market movement and timestamps.
+
+\par\noindent\textit{Item 4.}\par No exposure reported is an agent declaration, not independently verified isolation.
+
+\par\noindent\textit{Item 5.}\par Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target.
+
+\subsection*{\textcolor{epdarkgreen}{Research journal 1: Initial}}
+Recorded 2026-09-16T12:19:15.466027Z · pre\_reveal
+
+
+Entry workbench\_en\hspace{0pt}try\_b3f56559\hspace{0pt}ce8048df8d75
+
+
+\par\noindent\textbf{Assumptions:} \par \par\noindent\textit{Item 1.}\par Forecast center80F from NWS
+
+\par\noindent\textit{Item 2.}\par Residual standard deviation3F, subjective and deliberately broad
+
+\par\noindent\textit{Item 3.}\par Approximately unbiased Gaussian errors and nearest-integer final reporting
+
+\par\noindent\textit{Item 4.}\par NWS Central Park forecast is a usable proxy for TWC CLINYC measurement
+
+\par\noindent\textbf{Evidence refs:} \par \begin{longtable}{>{\raggedright\arraybackslash}p{0.440\linewidth}>{\raggedright\arraybackslash}p{0.440\linewidth}}
+Packet id & Record id \\ \hline\endhead
+pkt\_9fb3c2b218bac923948abc3c & point80 \\
+\end{longtable}
+
+\par\noindent\textbf{Probability:} 25.8\%
+
+\par\noindent\textbf{Rationale:} NWS point forecast80F plus an explicitly assumed Gaussian residual SD3F gives P(78.5<=latent Tmax<80.5). This continuity correction approximates integer reported79–80F; provider rounding and residual SD are unverified. This is a starting model, not an empirical calibration.
+
+\par\noindent\textbf{Research status:} in\_progress
+
+\par\noindent\textbf{Uncertainties:} \par \par\noindent\textit{Item 1.}\par Current observed temperature and revised NWS forecast
+
+\par\noindent\textit{Item 2.}\par Forecast residual spread at this station and short horizon
+
+\par\noindent\textit{Item 3.}\par Provider/date/rounding alignment
+
+\subsection*{\textcolor{epdarkgreen}{Research journal 2: Plan}}
+Recorded 2026-09-16T12:19:15.573541Z · pre\_reveal
+
+
+Entry workbench\_en\hspace{0pt}try\_0853ad34\hspace{0pt}9b6240de8c2e
+
+
+\par\noindent\textbf{Higher if:} Fresh forecasts cluster around79–80F and morning observations support that trajectory
+
+\par\noindent\textbf{Lower if:} Latest forecast moves outside the band, or current maximum already exceeds80F
+
+\par\noindent\textbf{Search plan:} Read current NWS Central Park hourly observations, point forecast and area discussion; inspect TWC source information without opening prediction odds.
+
+\par\noindent\textbf{Stopping rule:} Stop after obtaining current station observations plus a fresh official point forecast and discussion, or documenting inaccessible sources.
+
+\par\noindent\textbf{Uncertainty:} Current state, latest forecast and settlement-station alignment
+
+\par\noindent\textbf{Why it matters:} The old80F center may be stale; an already-observed out-of-band high could resolve NO, and a wrong station or provider would invalidate the model.
+
+\subsection*{\textcolor{epdarkgreen}{Research journal 3: Checkpoint}}
+Recorded 2026-09-16T12:20:13.628648Z · pre\_reveal
+
+
+Entry workbench\_en\hspace{0pt}try\_45345efe\hspace{0pt}b5184023a6c9 · Research plan workbench\_en\hspace{0pt}try\_0853ad34\hspace{0pt}9b6240de8c2e
+
+
+\par\noindent\textbf{Changed assumptions:} \par None recorded.
+
+\par\noindent\textbf{Evidence refs:} \par \begin{longtable}{>{\raggedright\arraybackslash}p{0.440\linewidth}>{\raggedright\arraybackslash}p{0.440\linewidth}}
+Packet id & Record id \\ \hline\endhead
+pkt\_72933450ceaa54cf5a0ba4da & elapsed \\
+pkt\_72933450ceaa54cf5a0ba4da & regime \\
+\end{longtable}
+
+\par\noindent\textbf{Findings:} NWS observed62.1F at06:51EDT; overnight readings shown are61–64F. The07:02EDT discussion leaves the forecast broadly unchanged, with dry ridging and a possible southerly wind shift.
+
+\par\noindent\textbf{Limitations:} \par \par\noindent\textit{Item 1.}\par Text-only point-forecast and api.weather.gov opens failed in web retrieval. TWC page also inaccessible. Exact TWC daily rounding remains unverified. NWS hourly records do not fully substitute for the final TWC extreme.
+
+\par\noindent\textit{Item 2.}\par Model/tool costs unmetered; no numeric usage counters claimed.
+
+\par\noindent\textbf{Probability:} 25.8\%
+
+\par\noindent\textbf{Rationale:} Retain center80F and SD3F: current evidence confirms plausibility and eligibility but supplies no calibrated reason to change either number. Do not shrink uncertainty solely because two correlated NWS products agree.
+
+\par\noindent\textbf{Remaining uncertainties:} \par \par\noindent\textit{Item 1.}\par Uncalibrated3F residual SD
+
+\par\noindent\textit{Item 2.}\par TWC versus NWS measurement/rounding relationship
+
+\par\noindent\textit{Item 3.}\par Exact afternoon sea-breeze effect
+
+\par\noindent\textbf{Sources checked:} \par \par\noindent\textit{Item 1.}\par \href{https://forecast.weather.gov/data/obhistory/KNYC.html}{https://fore\hspace{0pt}cast.weather\hspace{0pt}.gov/data/ob\hspace{0pt}history/KNYC\hspace{0pt}.html}
+
+\par\noindent\textit{Item 2.}\par \href{https://forecast.weather.gov/product.php?site=OKX\&issuedby=OKX\&product=AFD\&format=CI\&version=1\&glossary=1}{https://fore\hspace{0pt}cast.weather\hspace{0pt}.gov/product\hspace{0pt}.php?site=OK\hspace{0pt}X\&issuedby=O\hspace{0pt}KX\&product=A\hspace{0pt}FD\&format=CI\hspace{0pt}\&version=1\&g\hspace{0pt}lossary=1}
+
+\par\noindent\textit{Item 3.}\par \href{https://weather.com/kalshi}{https://weather.com/kalshi}
+
+\par\noindent\textit{Item 4.}\par \href{https://api.weather.gov/points/40.781,-73.966}{https://api.\hspace{0pt}weather.gov/\hspace{0pt}points/40.78\hspace{0pt}1,-73.966}
+
+\subsection*{\textcolor{epdarkgreen}{Research journal 4: Plan}}
+Recorded 2026-09-16T12:20:13.745881Z · pre\_reveal
+
+
+Entry workbench\_en\hspace{0pt}try\_569c6855\hspace{0pt}c540473282cb
+
+
+\par\noindent\textbf{Higher if:} Matched past forecasts exhibit smaller residual dispersion and little bias near the band
+
+\par\noindent\textbf{Lower if:} Residuals are wider, biased away from the band, or station/provider alignment is poor
+
+\par\noindent\textbf{Search plan:} Before inspecting outcomes, select all dates August16–September15 2026 with KNYC NBS/NBM06UTC same-day maximum forecasts and completed station daily maxima. Prefer an exact matched archive. If unavailable, inspect NBS current uncertainty or published verification; do not substitute model disagreement for calibrated error or count unrelated stations as matched cases.
+
+\par\noindent\textbf{Stopping rule:} Inspect IEM MOS archive/API and NOAA NBM product definitions; attempt a matched local extraction. Stop after these sources or a clear availability failure, preserve exclusions and do not invent an empirical residual estimate.
+
+\par\noindent\textbf{Uncertainty:} Empirical short-horizon high-temperature error distribution at Central Park
+
+\par\noindent\textbf{Why it matters:} The assumed3F spread largely determines the chance of a two-degree bracket, even with an accurate80F center.
+
+\subsection*{\textcolor{epdarkgreen}{Research journal 5: Checkpoint}}
+Recorded 2026-09-16T12:26:32.118256Z · pre\_reveal
+
+
+Entry workbench\_en\hspace{0pt}try\_a04ef60f\hspace{0pt}997746f9a889 · Research plan workbench\_en\hspace{0pt}try\_569c6855\hspace{0pt}c540473282cb
+
+
+\par\noindent\textbf{Changed assumptions:} \par \par\noindent\textit{Item 1.}\par Center now 77.967742 F after empirical bias correction to current NBS forecast.
+
+\par\noindent\textit{Item 2.}\par Predictive SD now 2.098891 F, including a declared subjective 1 F provider/window error.
+
+\par\noindent\textit{Item 3.}\par Evidence supports a narrower local residual distribution, but does not validate exact contract calibration.
+
+\par\noindent\textbf{Evidence refs:} \par \begin{longtable}{>{\raggedright\arraybackslash}p{0.440\linewidth}>{\raggedright\arraybackslash}p{0.440\linewidth}}
+Packet id & Record id \\ \hline\endhead
+pkt\_29f3824c0ae023774478baca & residuals \\
+pkt\_29f3824c0ae023774478baca & current\_high \\
+pkt\_29f3824c0ae023774478baca & mismatch \\
+pkt\_29f3824c0ae023774478baca & calculation \\
+\end{longtable}
+
+\par\noindent\textbf{Findings:} All 31 selected dates were available. NBS forecasts averaged 1.03 F above station daily highs, with residual SD 1.82 F. Current NBS and NWS forecasts are 79 F, with NBS XND 2 F. Narrower dispersion raises the band probability; correcting the warm bias lowers it. The net revision is +2.84 percentage points. TWC settlement and NBM/day-summary time windows remain imperfectly matched.
+
+\par\noindent\textbf{Limitations:} \par \par\noindent\textit{Item 1.}\par IEM station daily highs are a proxy, not TWC contract settlement records.
+
+\par\noindent\textit{Item 2.}\par NBM maximum covers 12 UTC through 06 UTC; station daily summary windows can differ.
+
+\par\noindent\textit{Item 3.}\par 31 adjacent days are a small, serially correlated sample; no out-of-sample validation.
+
+\par\noindent\textit{Item 4.}\par One-degree extra SD and normality are subjective; Gaussian smoothing differs from empirical frequency.
+
+\par\noindent\textit{Item 5.}\par No adjustment for weather-regime or seasonal differences; no exact TWC rounding verification.
+
+\par\noindent\textit{Item 6.}\par No exact matched TWC reference class. This is a proxy reference class with an explicit allowance, not the exact extraction originally preferred.
+
+\par\noindent\textit{Item 7.}\par Research occurred in the existing root context, with evaluator files and outside event odds uninspected; no separate context was launched.
+
+\par\noindent\textit{Item 8.}\par Usage and monetary cost are unmetered. The initial judgment already included the point forecast.
+
+\par\noindent\textbf{Probability:} 28.6\%
+
+\par\noindent\textbf{Rationale:} Use the current 79 F NBS forecast plus the full predetermined 31-day mean residual (-1.0323 F), replacing the subjective 80 F center. Replace the unsupported 3 F spread with the 1.8163 F sample residual SD, a simple mean-estimation term s\textasciicircum{}2/n, and an explicitly assumed independent 1 F provider/window SD. Gaussian integration over 78.5 to 80.5 F gives 28.61\%. Normality, constant bias, nearest-integer rounding and the 1 F cushion are judgments, not calibrated facts. The un-smoothed residual estimate is 7/31 (22.6\%); this difference warns against interpreting decimal precision as confidence.
+
+\par\noindent\textbf{Remaining uncertainties:} \par \par\noindent\textit{Item 1.}\par TWC versus IEM/NWS reporting and rounding.
+
+\par\noindent\textit{Item 2.}\par Stationarity and serial dependence in 31 adjacent late-summer days.
+
+\par\noindent\textit{Item 3.}\par Gaussian smoothing versus empirical distribution shape; changing mean by +/-1 F gives 18.6\% to 35.5\% with other final assumptions fixed.
+
+\par\noindent\textbf{Sources checked:} \par \par\noindent\textit{Item 1.}\par \href{https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KNYC\&model=NBS\&sts=2026-08-16T00\%3A00Z\&ets=2026-09-16T00\%3A00Z\&format=csv}{https://meso\hspace{0pt}net.agron.ia\hspace{0pt}state.edu/cg\hspace{0pt}i-bin/reques\hspace{0pt}t/mos.py?sta\hspace{0pt}tion=KNYC\&mo\hspace{0pt}del=NBS\&sts=\hspace{0pt}2026-08-16T0\hspace{0pt}0\%3A00Z\&ets=\hspace{0pt}2026-09-16T0\hspace{0pt}0\%3A00Z\&form\hspace{0pt}at=csv}
+
+\par\noindent\textit{Item 2.}\par \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-08-16\&ets=2026-09-15\&network=NY\_ASOS\&stations=NYC\&var=max\_temp\_f\&format=csv}{https://meso\hspace{0pt}net.agron.ia\hspace{0pt}state.edu/cg\hspace{0pt}i-bin/reques\hspace{0pt}t/daily.py?s\hspace{0pt}ts=2026-08-1\hspace{0pt}6\&ets=2026-0\hspace{0pt}9-15\&network\hspace{0pt}=NY\_ASOS\&sta\hspace{0pt}tions=NYC\&va\hspace{0pt}r=max\_temp\_f\hspace{0pt}\&format=csv}
+
+\par\noindent\textit{Item 3.}\par \href{https://mesonet.agron.iastate.edu/api/1/mos.json?station=KNYC\&model=NBS\&runtime=2026-09-16T06\%3A00Z}{https://meso\hspace{0pt}net.agron.ia\hspace{0pt}state.edu/ap\hspace{0pt}i/1/mos.json\hspace{0pt}?station=KNY\hspace{0pt}C\&model=NBS\&\hspace{0pt}runtime=2026\hspace{0pt}-09-16T06\%3A\hspace{0pt}00Z}
+
+\par\noindent\textit{Item 4.}\par \href{https://api.weather.gov/gridpoints/OKX/34,45/forecast}{https://api.\hspace{0pt}weather.gov/\hspace{0pt}gridpoints/O\hspace{0pt}KX/34,45/for\hspace{0pt}ecast}
+
+\par\noindent\textit{Item 5.}\par \href{https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0}{https://vlab\hspace{0pt}.noaa.gov/we\hspace{0pt}b/mdl/nbm-te\hspace{0pt}xtcard-v5.0}
+
+\par\noindent\textit{Item 6.}\par \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?help=}{https://meso\hspace{0pt}net.agron.ia\hspace{0pt}state.edu/cg\hspace{0pt}i-bin/reques\hspace{0pt}t/daily.py?h\hspace{0pt}elp=}
+
+\subsection*{\textcolor{epdarkgreen}{Research journal 6: Finish}}
+Recorded 2026-09-16T12:26:32.228788Z · pre\_reveal
+
+
+Entry workbench\_en\hspace{0pt}try\_4689004d\hspace{0pt}46c6405ba0b4
+
+
+\par\noindent\textbf{Exposure notes:} No market price or outside probability for this event has been observed. Screening returned only terms or eligibility failures. Weather point forecasts and NBM dispersion are evidence used to build the event probability. Original root context was retained; evaluator store has not been read.
+
+\par\noindent\textbf{Market exposure:} none
+
+\par\noindent\textbf{Outcome status:} unresolved
+
+\par\noindent\textbf{Stopping reason:} Completed current-state checks and the predetermined local reference-class extraction. Remaining TWC alignment and distribution-shape uncertainties are documented and sensitivity calculated; stop before revealing odds.
+
+\subsection*{\textcolor{epdarkgreen}{Research journal 7: Reflection}}
+Recorded 2026-09-16T12:31:14.148966Z · post\_reveal
+
+
+Entry workbench\_en\hspace{0pt}try\_afe82524\hspace{0pt}faf8449f81d9
+
+
+\par\noindent\textbf{Next method change:} On a new price-hidden case, specify the residual-distribution estimator and provider/window adjustment before reading reference-class outcomes. Prefer exact settlement-source observations and the same forecast issuance horizon. Save a deterministic extraction, exclusions, alternate-distribution sensitivity, and quote-age/depth alongside the comparison. Judge the method on fresh cases; do not retune this sealed forecast toward either revealed quote.
+
+\par\noindent\textbf{What did not:} The final match does not validate the Gaussian choice or subjective 1 F provider allowance: empirical residual frequency was 22.6\%, and a 1 F mean shift gives 18.6\%-35.5\%. Settlement-source mapping remains incomplete. The midpoint moved from 28\% to 31.5\% between snapshots, more than our 2.84-point revision. Selection was opportunistic and the initial 10-contract requirement failed before a retry with minimum1; the successful snapshot later had about24 contracts each side, while follow-up bid depth was6. Root context was retained; blinding is a declaration and file separation, not enforced isolation.
+
+\par\noindent\textbf{What helped:} The planned 31-day extraction replaced an unsupported error spread with inspectable paired data and exposed a warm bias. The final 28.61\% is closer to the frozen 28\% midpoint than the initial 25.76\%, and lies inside the opening 27\%-29\% spread. Recording an unchanged first checkpoint prevented qualitative corroboration from masquerading as numerical evidence.
+
+\subsection*{\textcolor{epdarkgreen}{Model and calculation}}
+No structured model artifact was attached to this case. The recorded rationales and assumptions above are the available model description. Supplemental files, if supplied, are identified separately below.
+
+
+\subsection*{\textcolor{epdarkgreen}{Limitations and research cost}}
+\par\noindent\textbf{Case limitations:} \par \par\noindent\textit{Item 1.}\par Prices are separated from this project, not protected by an operating-system sandbox.
+
+\par\noindent\textit{Item 2.}\par Selection checks spread and top-of-book size only; neither establishes market accuracy.
+
+\par\noindent\textit{Item 3.}\par The agent must verify the event is still unknown; an open market alone cannot establish this.
+
+\par\noindent\textbf{Reported usage:} \par None recorded.
+
+\par\noindent\textbf{Usage note:} Usage is agent-reported. Missing usage is unmetered, not zero; partial records are not a total.
+
+\subsection*{\textcolor{epdarkgreen}{Supplemental model or research file: calculation.json}}
+Supplied at report generation. This is not automatically part of the sealed research record; its hash can be compared with a previously recorded commitment. No code in this file was executed.
+
+
+\par\noindent\textbf{Name:} calculation.json
+
+\par\noindent\textbf{Sha256:} 07b91b063ba5\hspace{0pt}6cfcebd1b8aa\hspace{0pt}4d0445afed8f\hspace{0pt}c21ca86ce886\hspace{0pt}cd59ceb733a5\hspace{0pt}03dd
+
+\par\noindent\textbf{Provenance:} report\_time\_attachment
+
+\par\noindent\textbf{Content:} \par \par\noindent\textbf{Selection:} All dates August 16 through September 15, 2026; KNYC NBS 06 UTC; next 00 UTC TXN
+
+\par\noindent\textbf{Pairs:} \par \begin{longtable}{>{\raggedright\arraybackslash}p{0.220\linewidth}>{\raggedright\arraybackslash}p{0.220\linewidth}>{\raggedright\arraybackslash}p{0.220\linewidth}>{\raggedright\arraybackslash}p{0.220\linewidth}}
+Date & Forecast & Observed & Error \\ \hline\endhead
+2026-08-16 & 81.0 & 80.0 & -1.0 \\
+2026-08-17 & 84.0 & 81.0 & -3.0 \\
+2026-08-18 & 85.0 & 86.0 & 1.0 \\
+2026-08-19 & 86.0 & 85.0 & -1.0 \\
+2026-08-20 & 82.0 & 84.0 & 2.0 \\
+2026-08-21 & 78.0 & 79.0 & 1.0 \\
+2026-08-22 & 76.0 & 77.0 & 1.0 \\
+2026-08-23 & 81.0 & 80.0 & -1.0 \\
+2026-08-24 & 79.0 & 79.0 & 0.0 \\
+2026-08-25 & 79.0 & 78.0 & -1.0 \\
+2026-08-26 & 82.0 & 81.0 & -1.0 \\
+2026-08-27 & 81.0 & 77.0 & -4.0 \\
+2026-08-28 & 82.0 & 84.0 & 2.0 \\
+2026-08-29 & 80.0 & 76.0 & -4.0 \\
+2026-08-30 & 82.0 & 79.0 & -3.0 \\
+2026-08-31 & 79.0 & 78.0 & -1.0 \\
+2026-09-01 & 83.0 & 82.0 & -1.0 \\
+2026-09-02 & 74.0 & 71.0 & -3.0 \\
+2026-09-03 & 84.0 & 84.0 & 0.0 \\
+2026-09-04 & 84.0 & 84.0 & 0.0 \\
+2026-09-05 & 80.0 & 79.0 & -1.0 \\
+2026-09-06 & 74.0 & 76.0 & 2.0 \\
+2026-09-07 & 80.0 & 78.0 & -2.0 \\
+2026-09-08 & 83.0 & 80.0 & -3.0 \\
+2026-09-09 & 86.0 & 82.0 & -4.0 \\
+2026-09-10 & 88.0 & 84.0 & -4.0 \\
+2026-09-11 & 80.0 & 79.0 & -1.0 \\
+2026-09-12 & 79.0 & 78.0 & -1.0 \\
+2026-09-13 & 80.0 & 79.0 & -1.0 \\
+2026-09-14 & 74.0 & 75.0 & 1.0 \\
+2026-09-15 & 72.0 & 71.0 & -1.0 \\
+\end{longtable}
+
+\par\noindent\textbf{Excluded dates:} \par None recorded.
+
+\par\noindent\textbf{N:} 31
+
+\par\noindent\textbf{Bias observed minus forecast f:} -1.032258064516129
+
+\par\noindent\textbf{Residual sample sd f:} 1.8162942303445209
+
+\par\noindent\textbf{Current nbs high f:} 79.0
+
+\par\noindent\textbf{Current nbs xnd f:} 2.0
+
+\par\noindent\textbf{Initial probability:} 0.2576462938849167
+
+\par\noindent\textbf{Bias corrected gaussian probability:} 0.3031132141751074
+
+\par\noindent\textbf{Empirical residual probability:} 0.22580645161290322
+
+\par\noindent\textbf{Final mean f:} 77.96774193548387
+
+\par\noindent\textbf{Final sd f:} 2.0988905778994633
+
+\par\noindent\textbf{Assumed extra provider window sd f:} 1.0
+
+\par\noindent\textbf{Final probability:} 0.2860888041077261
+
+\par\noindent\textbf{Sensitivity:} \par \begin{longtable}{>{\raggedright\arraybackslash}p{0.293\linewidth}>{\raggedright\arraybackslash}p{0.293\linewidth}>{\raggedright\arraybackslash}p{0.293\linewidth}}
+Extra sd f & Mean shift f & Probability \\ \hline\endhead
+0 & -1 & 0.1753740704340384 \\
+0 & 0 & 0.30151285168854003 \\
+0 & 1 & 0.39687168270681006 \\
+1 & -1 & 0.18648959266100196 \\
+1 & 0 & 0.2860888041077261 \\
+1 & 1 & 0.3554894481802137 \\
+2 & -1 & 0.18955393786180796 \\
+2 & 0 & 0.24641942703785835 \\
+2 & 1 & 0.28154042981086763 \\
+\end{longtable}
+
+\par\noindent\textbf{Limitations:} \par \par\noindent\textit{Item 1.}\par IEM station daily highs are a proxy, not TWC contract settlement records.
+
+\par\noindent\textit{Item 2.}\par NBM maximum covers 12 UTC through 06 UTC; station daily summary windows can differ.
+
+\par\noindent\textit{Item 3.}\par 31 adjacent days are a small, serially correlated sample; no out-of-sample validation.
+
+\par\noindent\textit{Item 4.}\par One-degree extra SD and normality are subjective; Gaussian smoothing differs from empirical frequency.
+
+\par\noindent\textit{Item 5.}\par No adjustment for weather-regime or seasonal differences; no exact TWC rounding verification.
+
+\par\noindent\textbf{Raw sha256:} \par \par\noindent\textbf{Nbs current.json:} 9ea1a97ea17c\hspace{0pt}a142bb7a167a\hspace{0pt}4f54c34617ed\hspace{0pt}35fca7ac61e4\hspace{0pt}6841409ecf4e\hspace{0pt}3709
+
+\par\noindent\textbf{Nbs history.csv:} 50bba89c8786\hspace{0pt}6be68e277e9e\hspace{0pt}845eadb25dba\hspace{0pt}57be437f971d\hspace{0pt}09d17e144b16\hspace{0pt}033b
+
+\par\noindent\textbf{Nws forecast.json:} 514ee022a33a\hspace{0pt}f97d7e5e8351\hspace{0pt}a715902591d7\hspace{0pt}53ae4bb68884\hspace{0pt}2509369d44ed\hspace{0pt}dc03
+
+\par\noindent\textbf{Nws points.json:} f15211601480\hspace{0pt}01508aea1d4c\hspace{0pt}0a2c84914d5a\hspace{0pt}2310f46fd795\hspace{0pt}0bd85db2f328\hspace{0pt}dee6
+
+\par\noindent\textbf{Observed history.csv:} ea9c4635a1f0\hspace{0pt}dec2e4f7a627\hspace{0pt}6bbe57d0cbc5\hspace{0pt}d3086fa379f8\hspace{0pt}78fdabe5aca2\hspace{0pt}3fee
+
+\subsection*{\textcolor{epdarkgreen}{Finding: pkt\_9fb3c2b2\hspace{0pt}18bac923948a\hspace{0pt}bc3c:point80}}
+Sources: [1]
+
+
+\par\noindent\textbf{Claim:} The pre-research screening forecast centers the September16 Central Park high near80F; overnight observation64F does not establish the daily maximum.
+
+\par\noindent\textbf{Claim type:} official\_statement
+
+\par\noindent\textbf{Entity ids:} \par None recorded.
+
+\par\noindent\textbf{Id:} point80
+
+\par\noindent\textbf{Observed at:} 2026-09-16T12:03:56Z
+
+\par\noindent\textbf{Provenance:} \par \par\noindent\textbf{Adapter:} vorhersage.r\hspace{0pt}esearch\_bund\hspace{0pt}le.v1
+
+\par\noindent\textbf{Value:} Not recorded
+
+\subsection*{\textcolor{epdarkgreen}{Finding: pkt\_72933450\hspace{0pt}ceaa54cf5a0b\hspace{0pt}a4da:elapsed}}
+Sources: [2]
+
+
+\par\noindent\textbf{Claim:} Observed overnight/morning temperatures do not establish the79–80F final-high event; afternoon maximum remains ahead.
+
+\par\noindent\textbf{Claim type:} observation
+
+\par\noindent\textbf{Entity ids:} \par None recorded.
+
+\par\noindent\textbf{Id:} elapsed
+
+\par\noindent\textbf{Observed at:} 2026-09-16T12:20:13.440822Z
+
+\par\noindent\textbf{Provenance:} \par \par\noindent\textbf{Adapter:} vorhersage.r\hspace{0pt}esearch\_bund\hspace{0pt}le.v1
+
+\par\noindent\textbf{Value:} Not recorded
+
+\subsection*{\textcolor{epdarkgreen}{Finding: pkt\_72933450\hspace{0pt}ceaa54cf5a0b\hspace{0pt}a4da:regime}}
+Sources: [3]
+
+
+\par\noindent\textbf{Claim:} Fresh discussion supports the earlier fair-weather forecast but does not quantify station-specific temperature uncertainty.
+
+\par\noindent\textbf{Claim type:} official\_statement
+
+\par\noindent\textbf{Entity ids:} \par None recorded.
+
+\par\noindent\textbf{Id:} regime
+
+\par\noindent\textbf{Observed at:} 2026-09-16T12:20:13.440887Z
+
+\par\noindent\textbf{Provenance:} \par \par\noindent\textbf{Adapter:} vorhersage.r\hspace{0pt}esearch\_bund\hspace{0pt}le.v1
+
+\par\noindent\textbf{Value:} Not recorded
+
+\subsection*{\textcolor{epdarkgreen}{Finding: pkt\_29f3824c\hspace{0pt}0ae023774478\hspace{0pt}baca:residua\hspace{0pt}ls}}
+Sources: [4], [5]
+
+
+\par\noindent\textbf{Claim:} Predetermined 31-day proxy sample: observed minus NBS same-day forecast mean=-1.032258F, sample SD=1.816294F; no dates excluded. Forecasts averaged about1F warmer than station daily highs.
+
+\par\noindent\textbf{Claim type:} inference
+
+\par\noindent\textbf{Entity ids:} \par None recorded.
+
+\par\noindent\textbf{Id:} residuals
+
+\par\noindent\textbf{Observed at:} 2026-09-16T12:26:04.710249Z
+
+\par\noindent\textbf{Provenance:} \par \par\noindent\textbf{Adapter:} vorhersage.r\hspace{0pt}esearch\_bund\hspace{0pt}le.v1
+
+\par\noindent\textbf{Value:} Not recorded
+
+\subsection*{\textcolor{epdarkgreen}{Finding: pkt\_29f3824c\hspace{0pt}0ae023774478\hspace{0pt}baca:current\hspace{0pt}\_high}}
+Sources: [6], [7]
+
+
+\par\noindent\textbf{Claim:} Current NBS and NWS point forecasts both center near79F; NBS XND is2F. They are correlated sources, not two independent votes.
+
+\par\noindent\textbf{Claim type:} observation
+
+\par\noindent\textbf{Entity ids:} \par None recorded.
+
+\par\noindent\textbf{Id:} current\_high
+
+\par\noindent\textbf{Observed at:} 2026-09-16T12:26:04.710249Z
+
+\par\noindent\textbf{Provenance:} \par \par\noindent\textbf{Adapter:} vorhersage.r\hspace{0pt}esearch\_bund\hspace{0pt}le.v1
+
+\par\noindent\textbf{Value:} Not recorded
+
+\subsection*{\textcolor{epdarkgreen}{Finding: pkt\_29f3824c\hspace{0pt}0ae023774478\hspace{0pt}baca:mismatc\hspace{0pt}h}}
+Sources: [8], [9]
+
+
+\par\noindent\textbf{Claim:} The weather-model daytime maximum and IEM station daily maximum are only approximate matches to the TWC final daily contract. Provider/window/rounding uncertainty remains.
+
+\par\noindent\textbf{Claim type:} inference
+
+\par\noindent\textbf{Entity ids:} \par None recorded.
+
+\par\noindent\textbf{Id:} mismatch
+
+\par\noindent\textbf{Observed at:} 2026-09-16T12:26:04.710249Z
+
+\par\noindent\textbf{Provenance:} \par \par\noindent\textbf{Adapter:} vorhersage.r\hspace{0pt}esearch\_bund\hspace{0pt}le.v1
+
+\par\noindent\textbf{Value:} Not recorded
+
+\subsection*{\textcolor{epdarkgreen}{Finding: pkt\_29f3824c\hspace{0pt}0ae023774478\hspace{0pt}baca:calcula\hspace{0pt}tion}}
+Sources: [4], [5], [6], [8]
+
+
+\par\noindent\textbf{Claim:} Declared Gaussian approximation uses mean77.967742F, SD2.098891F including subjective1F provider/window error, and interval[78.5,80.5], yielding28.6088804\%. Raw empirical residual frequency is7/31=22.580645\%. Calculation JSON SHA256=07b91\hspace{0pt}b063ba56cfce\hspace{0pt}bd1b8aa4d044\hspace{0pt}5afed8fc21ca\hspace{0pt}86ce886cd59c\hspace{0pt}eb733a503dd; raw inputs and executable analyze.py saved alongside case.
+
+\par\noindent\textbf{Claim type:} inference
+
+\par\noindent\textbf{Entity ids:} \par None recorded.
+
+\par\noindent\textbf{Id:} calculation
+
+\par\noindent\textbf{Observed at:} 2026-09-16T12:26:04.710249Z
+
+\par\noindent\textbf{Provenance:} \par \par\noindent\textbf{Adapter:} vorhersage.r\hspace{0pt}esearch\_bund\hspace{0pt}le.v1
+
+\par\noindent\textbf{Value:} Not recorded
+
+\subsection*{\textcolor{epdarkgreen}{Source [1]: NWS Central Park forecast, issued September15 20:23 EDT}}
+\par\noindent\textbf{Excerpt:} September16 forecast high near80F with mostly sunny conditions and afternoon southwest wind near5mph. The page displayed KNYC64F at00:51EDT. The forecast was issued20:23EDT September15.
+
+\par\noindent\textbf{Excerpt kind:} paraphrase
+
+\par\noindent\textbf{Id:} nws\_initial
+
+\par\noindent\textbf{Published at:} 2026-09-16T00:23:00Z
+
+\par\noindent\textbf{Retrieved at:} 2026-09-16T12:03:56Z
+
+\par\noindent\textbf{Title:} NWS Central Park forecast, issued September15 20:23 EDT
+
+\par\noindent\textbf{Url:} \href{https://forecast.weather.gov/MapClick.php?lat=40.781\&lon=-73.966}{https://fore\hspace{0pt}cast.weather\hspace{0pt}.gov/MapClic\hspace{0pt}k.php?lat=40\hspace{0pt}.781\&lon=-73\hspace{0pt}.966}
+
+\subsection*{\textcolor{epdarkgreen}{Source [2]: NWS Central Park hourly observations}}
+\par\noindent\textbf{Excerpt:} September16 observations through06:51EDT range from61F to64F in the displayed hourly series;06:51 temperature62.1F. No displayed reading exceeds80F. The series is hourly, not a complete minute-by-minute daily extreme record.
+
+\par\noindent\textbf{Excerpt kind:} paraphrase
+
+\par\noindent\textbf{Id:} obs
+
+\par\noindent\textbf{Retrieved at:} 2026-09-16T12:20:13.440822Z
+
+\par\noindent\textbf{Title:} NWS Central Park hourly observations
+
+\par\noindent\textbf{Url:} \href{https://forecast.weather.gov/data/obhistory/KNYC.html}{https://fore\hspace{0pt}cast.weather\hspace{0pt}.gov/data/ob\hspace{0pt}history/KNYC\hspace{0pt}.html}
+
+\subsection*{\textcolor{epdarkgreen}{Source [3]: NWS New York area discussion issued07:02EDT September16}}
+\par\noindent\textbf{Excerpt:} The morning update made no significant changes. A ridge supports mostly dry weather today; light southwest flow becomes more southerly in the afternoon. Timing of the metro-area wind shift may vary by one to two hours.
+
+\par\noindent\textbf{Excerpt kind:} paraphrase
+
+\par\noindent\textbf{Id:} afd
+
+\par\noindent\textbf{Published at:} 2026-09-16T11:02:00Z
+
+\par\noindent\textbf{Retrieved at:} 2026-09-16T12:20:13.440887Z
+
+\par\noindent\textbf{Title:} NWS New York area discussion issued07:02EDT September16
+
+\par\noindent\textbf{Url:} \href{https://forecast.weather.gov/product.php?site=OKX\&issuedby=OKX\&product=AFD\&format=CI\&version=1\&glossary=1}{https://fore\hspace{0pt}cast.weather\hspace{0pt}.gov/product\hspace{0pt}.php?site=OK\hspace{0pt}X\&issuedby=O\hspace{0pt}KX\&product=A\hspace{0pt}FD\&format=CI\hspace{0pt}\&version=1\&g\hspace{0pt}lossary=1}
+
+\subsection*{\textcolor{epdarkgreen}{Source [4]: IEM archived NBS forecasts}}
+\par\noindent\textbf{Excerpt:} All 31 selected dates have KNYC 06UTC forecasts, paired with next-day00UTC TXN for the same-day daytime maximum.
+
+\par\noindent\textbf{Excerpt kind:} paraphrase
+
+\par\noindent\textbf{Id:} history
+
+\par\noindent\textbf{Retrieved at:} 2026-09-16T12:26:04.710249Z
+
+\par\noindent\textbf{Title:} IEM archived NBS forecasts
+
+\par\noindent\textbf{Url:} \href{https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KNYC\&model=NBS\&sts=2026-08-16T00\%3A00Z\&ets=2026-09-16T00\%3A00Z\&format=csv}{https://meso\hspace{0pt}net.agron.ia\hspace{0pt}state.edu/cg\hspace{0pt}i-bin/reques\hspace{0pt}t/mos.py?sta\hspace{0pt}tion=KNYC\&mo\hspace{0pt}del=NBS\&sts=\hspace{0pt}2026-08-16T0\hspace{0pt}0\%3A00Z\&ets=\hspace{0pt}2026-09-16T0\hspace{0pt}0\%3A00Z\&form\hspace{0pt}at=csv}
+
+\subsection*{\textcolor{epdarkgreen}{Source [5]: IEM station daily maxima}}
+\par\noindent\textbf{Excerpt:} 31 completed station daily maxima are available for the predetermined August16 through September15 period. These are not TWC contract settlements.
+
+\par\noindent\textbf{Excerpt kind:} paraphrase
+
+\par\noindent\textbf{Id:} observed
+
+\par\noindent\textbf{Retrieved at:} 2026-09-16T12:26:04.710249Z
+
+\par\noindent\textbf{Title:} IEM station daily maxima
+
+\par\noindent\textbf{Url:} \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-08-16\&ets=2026-09-15\&network=NY\_ASOS\&stations=NYC\&var=max\_temp\_f\&format=csv}{https://meso\hspace{0pt}net.agron.ia\hspace{0pt}state.edu/cg\hspace{0pt}i-bin/reques\hspace{0pt}t/daily.py?s\hspace{0pt}ts=2026-08-1\hspace{0pt}6\&ets=2026-0\hspace{0pt}9-15\&network\hspace{0pt}=NY\_ASOS\&sta\hspace{0pt}tions=NYC\&va\hspace{0pt}r=max\_temp\_f\hspace{0pt}\&format=csv}
+
+\subsection*{\textcolor{epdarkgreen}{Source [6]: Current KNYC NBS forecast}}
+\par\noindent\textbf{Excerpt:} The September16 06UTC run predicts a79F high with XND2F for the period reported at September17 00UTC.
+
+\par\noindent\textbf{Excerpt kind:} paraphrase
+
+\par\noindent\textbf{Id:} current
+
+\par\noindent\textbf{Retrieved at:} 2026-09-16T12:26:04.710249Z
+
+\par\noindent\textbf{Title:} Current KNYC NBS forecast
+
+\par\noindent\textbf{Url:} \href{https://mesonet.agron.iastate.edu/api/1/mos.json?station=KNYC\&model=NBS\&runtime=2026-09-16T06\%3A00Z}{https://meso\hspace{0pt}net.agron.ia\hspace{0pt}state.edu/ap\hspace{0pt}i/1/mos.json\hspace{0pt}?station=KNY\hspace{0pt}C\&model=NBS\&\hspace{0pt}runtime=2026\hspace{0pt}-09-16T06\%3A\hspace{0pt}00Z}
+
+\subsection*{\textcolor{epdarkgreen}{Source [7]: NWS current Central Park grid forecast}}
+\par\noindent\textbf{Excerpt:} API generated at10:30UTC September16 reports sunny with a high near79F today, south wind0to5mph.
+
+\par\noindent\textbf{Excerpt kind:} paraphrase
+
+\par\noindent\textbf{Id:} nws
+
+\par\noindent\textbf{Retrieved at:} 2026-09-16T12:26:04.710249Z
+
+\par\noindent\textbf{Title:} NWS current Central Park grid forecast
+
+\par\noindent\textbf{Url:} \href{https://api.weather.gov/gridpoints/OKX/34,45/forecast}{https://api.\hspace{0pt}weather.gov/\hspace{0pt}gridpoints/O\hspace{0pt}KX/34,45/for\hspace{0pt}ecast}
+
+\subsection*{\textcolor{epdarkgreen}{Source [8]: NOAA NBM text product definitions}}
+\par\noindent\textbf{Excerpt:} TXN maxima cover12UTC currentday through06UTC nextday and are reported at00UTC nextday. XND is the maximum/minimum temperature standard deviation.
+
+\par\noindent\textbf{Excerpt kind:} paraphrase
+
+\par\noindent\textbf{Id:} definition
+
+\par\noindent\textbf{Retrieved at:} 2026-09-16T12:26:04.710249Z
+
+\par\noindent\textbf{Title:} NOAA NBM text product definitions
+
+\par\noindent\textbf{Url:} \href{https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0}{https://vlab\hspace{0pt}.noaa.gov/we\hspace{0pt}b/mdl/nbm-te\hspace{0pt}xtcard-v5.0}
+
+\subsection*{\textcolor{epdarkgreen}{Source [9]: IEM daily-summary definition}}
+\par\noindent\textbf{Excerpt:} Daily summaries mix computed values and explicit official totals. Airport station windows typically follow standard time and can differ from NBM daytime maximum windows.
+
+\par\noindent\textbf{Excerpt kind:} paraphrase
+
+\par\noindent\textbf{Id:} daily\_definition
+
+\par\noindent\textbf{Retrieved at:} 2026-09-16T12:26:04.710249Z
+
+\par\noindent\textbf{Title:} IEM daily-summary definition
+
+\par\noindent\textbf{Url:} \href{https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?help=}{https://meso\hspace{0pt}net.agron.ia\hspace{0pt}state.edu/cg\hspace{0pt}i-bin/reques\hspace{0pt}t/daily.py?h\hspace{0pt}elp=}
+
+\subsection*{\textcolor{epdarkgreen}{Report provenance}}
+This report renders stored records without new research, model calls, or probability revisions. Missing work remains missing. The JSON export preserves the complete report input.
+
+
+\par\noindent\textbf{Schema version:} vorhersage.report.v1
+
+\par\noindent\textbf{Generated at:} 2026-09-16T13:29:10.549914Z
+
+\par\noindent\textbf{Record sha256:} bc1c5296a6b0\hspace{0pt}f331db27d1d7\hspace{0pt}cb9199cdc2ff\hspace{0pt}8d456216d0d9\hspace{0pt}55f659549fac\hspace{0pt}90ed
+
+\par\noindent\textbf{Format:} latex
+
+\par\noindent\textbf{Latex engine:} XeLaTeX or LuaLaTeX
+
+\par\noindent\textbf{Narrative sha256:} b9fd54872d8c\hspace{0pt}da0071bd9fe3\hspace{0pt}0e7da0617ad5\hspace{0pt}988a3765a752\hspace{0pt}e3e895169934\hspace{0pt}627e
+
+\end{document}

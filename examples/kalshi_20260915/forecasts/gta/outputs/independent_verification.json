@@ -1,0 +1,50 @@
+{
+  "ok": true,
+  "method": "Independent datetime max/min and Decimal sum, not timeline internals",
+  "rows": [
+    {
+      "scenario_id": "scheduled",
+      "full_release_at": "2026-11-19T12:00:00-05:00",
+      "announcement_trigger_at": "2026-11-20T00:00:00-05:00",
+      "target_at": "2026-11-19T12:00:00-05:00",
+      "success": true,
+      "weight": 0.88
+    },
+    {
+      "scenario_id": "brief_delay",
+      "full_release_at": "2026-11-27T12:00:00-05:00",
+      "announcement_trigger_at": "2026-11-28T00:00:00-05:00",
+      "target_at": "2026-11-27T12:00:00-05:00",
+      "success": true,
+      "weight": 0.025
+    },
+    {
+      "scenario_id": "long_delay",
+      "full_release_at": "2027-02-18T12:00:00-05:00",
+      "announcement_trigger_at": null,
+      "target_at": "2027-02-18T12:00:00-05:00",
+      "success": false,
+      "weight": 0.085
+    },
+    {
+      "scenario_id": "silent_date",
+      "full_release_at": "2027-01-15T12:00:00-05:00",
+      "announcement_trigger_at": "2026-11-20T00:00:00-05:00",
+      "target_at": "2026-11-20T00:00:00-05:00",
+      "success": true,
+      "weight": 0.005
+    },
+    {
+      "scenario_id": "disruption",
+      "full_release_at": null,
+      "announcement_trigger_at": null,
+      "target_at": null,
+      "success": false,
+      "weight": 0.005
+    }
+  ],
+  "weighted_success_sum": "0.910",
+  "deadline_utc": "2026-12-01T05:00:00+00:00",
+  "nov19_to_deadline_elapsed_days": 12.0,
+  "days_from_cutoff_to_deadline": 76.15315972222223
+}

@@ -1,0 +1,104 @@
+{
+  "id": "fed_first_cut",
+  "version": 1,
+  "question": {
+    "question_id": "kalshi_fed_20260915",
+    "version": 1
+  },
+  "information_as_of": "2026-09-16T01:19:04.702162+00:00",
+  "deadline": "2027-01-01T00:00:00-05:00",
+  "deadline_rule": "before",
+  "description": "First qualifying FOMC target-range reduction within February 26 through December 31, 2026; first audit elapsed window, then condition future dates on economic regimes.",
+  "target": "first_cut",
+  "parameters": [
+    {
+      "id": "first_cut_date",
+      "kind": "date",
+      "description": "First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "first_cut",
+      "kind": "event",
+      "completion_condition": "FOMC announces reduction of target federal funds range within frozen contract window.",
+      "parents": [],
+      "parameter_id": "first_cut_date",
+      "state": "pending",
+      "rationale": "Direct announcement event; no artificial task durations. A qualifying past event would make question already known.",
+      "evidence_refs": []
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "elapsed",
+      "description": "A qualifying cut already occurred after February 26; eligibility audit branch.",
+      "assessments": [
+        {
+          "parameter_id": "first_cut_date",
+          "basis": "unresolved",
+          "rationale": "Research pending; do not infer a date or weight.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "near",
+      "description": "No elapsed cut; first cut at next scheduled decision under sufficient disinflation or weakening employment.",
+      "assessments": [
+        {
+          "parameter_id": "first_cut_date",
+          "basis": "unresolved",
+          "rationale": "Research pending; do not infer a date or weight.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "later",
+      "description": "No elapsed or next-decision cut; first cut at a later scheduled 2026 decision as additional evidence accumulates.",
+      "assessments": [
+        {
+          "parameter_id": "first_cut_date",
+          "basis": "unresolved",
+          "rationale": "Research pending; do not infer a date or weight.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "emergency",
+      "description": "No earlier qualifying scheduled cut; first cut at an unscheduled 2026 decision after a shock.",
+      "assessments": [
+        {
+          "parameter_id": "first_cut_date",
+          "basis": "unresolved",
+          "rationale": "Research pending; do not infer a date or weight.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "none",
+      "description": "No qualifying cut anywhere in the window; sticky inflation and resilient activity dominate.",
+      "assessments": [
+        {
+          "parameter_id": "first_cut_date",
+          "basis": "unresolved",
+          "rationale": "Research pending; do not infer a date or weight.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    }
+  ],
+  "limitations": [
+    "Unweighted structure is not a forecast. Regime weights and branch timing require judgment after research.",
+    "Scheduled dates must be verified; emergency cuts remain possible.",
+    "If a qualifying cut already occurred, stop prospective issuance and record already_known."
+  ]
+}

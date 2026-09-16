@@ -13,25 +13,29 @@ preserves forecasts, tracks review work, and evaluates resolved predictions.
 ## Start and resume
 
 From this checkout, the installed command is `.venv/bin/vorhersage`. The examples
-below use `vorhersage`, assuming it is on your PATH. Global `--project` goes before
-the command and selects a directory containing `.vorhersage/state.sqlite`.
+below use `vorhersage`, assuming it is on your PATH. Commands use the current
+directory as the project. Change into your study once with `cd`; no `--project`
+flag is needed there. To address another project, put `--project PATH` before
+the command. It selects a directory containing `.vorhersage/state.sqlite`.
+Input file paths remain relative to your current directory.
 
 ```bash
 vorhersage version
 vorhersage guide
 vorhersage init /tmp/my-forecast-study --name "My forecast study"
-vorhersage --project /tmp/my-forecast-study schema question
-vorhersage --project /tmp/my-forecast-study question add --from question.json
-vorhersage --project /tmp/my-forecast-study schema run
-vorhersage --project /tmp/my-forecast-study run start --from run.json
+cd /tmp/my-forecast-study
+vorhersage schema question
+vorhersage question add --from question.json
+vorhersage schema run
+vorhersage run start --from run.json
 ```
 
 Author the JSON files using the returned schemas. `--from -` accepts stdin. Run
 creation returns `data.run_id` and an exact, read-only next action. Continue:
 
 ```bash
-vorhersage --project /tmp/my-forecast-study next --run RUN_ID
-vorhersage --project /tmp/my-forecast-study submit --run RUN_ID --from result.json
+vorhersage next --run RUN_ID
+vorhersage submit --run RUN_ID --from result.json
 ```
 
 `next` returns the current task, its payload schema, submission schema, remaining
@@ -137,10 +141,10 @@ claims and corrections. Vorhersage reads Epiq through its CLI and never writes
 Epiq's SQLite tables directly.
 
 ```bash
-vorhersage --project /tmp/my-forecast-study epiq search \
+vorhersage epiq search \
   --db /path/to/research.sqlite --kind Company --text factory
-vorhersage --project /tmp/my-forecast-study schema epiq_selection
-vorhersage --project /tmp/my-forecast-study epiq freeze \
+vorhersage schema epiq_selection
+vorhersage epiq freeze \
   --db /path/to/research.sqlite --from selection.json
 ```
 
@@ -189,13 +193,25 @@ Hashes establish content identity, not historical availability or truth.
 
 ## Probability calculations
 
-Assessment supports three methods:
+Assessment supports six methods:
 
 | Method | Required judgment and calculation |
 | --- | --- |
 | `judgment` | A supplied probability with rationale, limitations and evidence |
 | `conditional_path` | A nested chain of conditional probabilities, multiplied by the package |
 | `ensemble` | Explicit member forecast IDs and optional weights; equal weights by default |
+| `scenario_mixture` | Declared scenario weights and conditional probabilities, with optional ranges |
+| `odds_ledger` | Declared anchor and likelihood ratios, replacing dependent groups with explicit joint ratios |
+| `timeline_model` | Declared milestone schedules and joint scenario weights; sum the mass meeting the deadline |
+
+See the [odds-ledger guide](ODDS_LEDGER.md) for declarations and
+`export-widget FORECAST_ID --output audit.html`, which exports an offline interactive audit.
+
+For deadline questions, `workflow: "timeline"` starts with a registered structure
+and parameter-specific research tasks, without a prior. Missing inputs remain
+unresolved; unweighted cases yield no probability. See the
+[timeline guide](TIMELINE_MODELS.md) for schemas, versioned research, and schedule
+comparisons. This workflow defaults to a fixed information cutoff.
 
 For a conditional path, the first component's `conditional_on` is null. Each
 subsequent component names the preceding component, and the final component is
@@ -220,10 +236,10 @@ references, costs, and exact input hashes. Issuance ends that run's task sequenc
 and puts it in `waiting`; it does not resolve the event.
 
 ```bash
-vorhersage --project /tmp/my-forecast-study monitor
-vorhersage --project /tmp/my-forecast-study epiq check \
+vorhersage monitor
+vorhersage epiq check \
   --db /path/to/research.sqlite --packet PACKET_ID
-vorhersage --project /tmp/my-forecast-study signal --from signal.json
+vorhersage signal --from signal.json
 ```
 
 `monitor` and `epiq check` are read-only. The latter compares selected cells with
@@ -250,9 +266,9 @@ is required; an active prospective live run admits it at the next submission.
 
 ```bash
 vorhersage schema resolution
-vorhersage --project /tmp/my-forecast-study resolve --from resolution.json
+vorhersage resolve --from resolution.json
 vorhersage schema evaluation
-vorhersage --project /tmp/my-forecast-study evaluate --from evaluation-policy.json
+vorhersage evaluate --from evaluation-policy.json
 ```
 
 Resolutions require evidence, exact question version, known time, outcome and
@@ -302,3 +318,15 @@ takes a database snapshot. It is intended for small portfolios; large-scale
 indexing and incremental exports remain future work. New domains, numeric
 distributions, fitted models, learned calibration, background agents and live
 benchmark results are outside this release.
+
+## One-question research against a hidden market target
+
+Use `workbench browse` and `inspect` to select a live Kalshi or Polymarket contract
+without displaying its price. `workbench start` saves the target in a separate
+evaluator project. Record an initial estimate, then plan → research → checkpoint
+through `workbench submit`. Finish seals the trajectory; only then can `reveal`
+publish prices and `report` show the effect of each research step on market
+agreement. Keep evaluator files outside the researcher's accessible workspace.
+See the [market workbench guide](MARKET_WORKBENCH.md) for schemas, source capture,
+fresh-context exports, exposure reporting, and an offline example. Market targets
+are separate from actual resolutions and do not enter ordinary outcome scoring.

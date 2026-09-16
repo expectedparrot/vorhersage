@@ -1,0 +1,410 @@
+{
+  "engine_version": "timeline.v1",
+  "model_sha256": "02bf8e09b18e8f5671ba333b38432c76b053511b17c6d7c691a8761c1384a30f",
+  "question": {
+    "question_id": "kalshi_fed_20260915",
+    "version": 1
+  },
+  "information_as_of": "2026-09-16T01:20:26+00:00",
+  "deadline": "2027-01-01T00:00:00-05:00",
+  "deadline_rule": "before",
+  "probability": 0.21000000000000002,
+  "probability_bounds": [
+    0.21000000000000002,
+    0.21000000000000002
+  ],
+  "disposition": "weighted",
+  "scenarios": [
+    {
+      "scenario_id": "persistent_none",
+      "description": "Inflation and resilient employment prevent any qualifying cut. Hikes or holds are allowed.",
+      "weight": 0.58,
+      "status": "never",
+      "launch_at": null,
+      "meets_deadline": false,
+      "controlling_milestones": [
+        "first_cut"
+      ],
+      "schedule": [
+        {
+          "node_id": "first_cut",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "disinflation_sep",
+      "description": "Unexpectedly fast reassessment permits a September first cut.",
+      "weight": 0.01,
+      "status": "finite",
+      "launch_at": "2026-09-16T18:00:00+00:00",
+      "meets_deadline": true,
+      "controlling_milestones": [
+        "first_cut"
+      ],
+      "schedule": [
+        {
+          "node_id": "first_cut",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-09-16T18:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "disinflation_oct",
+      "description": "Additional disinflation produces an October first cut.",
+      "weight": 0.04,
+      "status": "finite",
+      "launch_at": "2026-10-28T18:00:00+00:00",
+      "meets_deadline": true,
+      "controlling_milestones": [
+        "first_cut"
+      ],
+      "schedule": [
+        {
+          "node_id": "first_cut",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-10-28T18:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "disinflation_dec",
+      "description": "Disinflation accumulates slowly enough for a December first cut.",
+      "weight": 0.07,
+      "status": "finite",
+      "launch_at": "2026-12-09T19:00:00+00:00",
+      "meets_deadline": true,
+      "controlling_milestones": [
+        "first_cut"
+      ],
+      "schedule": [
+        {
+          "node_id": "first_cut",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-12-09T19:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "disinflation_none",
+      "description": "Disinflation occurs but Fed waits into 2027.",
+      "weight": 0.13,
+      "status": "never",
+      "launch_at": null,
+      "meets_deadline": false,
+      "controlling_milestones": [
+        "first_cut"
+      ],
+      "schedule": [
+        {
+          "node_id": "first_cut",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "labor_oct",
+      "description": "Abrupt labor weakening generates an October first cut.",
+      "weight": 0.009999999999999998,
+      "status": "finite",
+      "launch_at": "2026-10-28T18:00:00+00:00",
+      "meets_deadline": true,
+      "controlling_milestones": [
+        "first_cut"
+      ],
+      "schedule": [
+        {
+          "node_id": "first_cut",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-10-28T18:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "labor_dec",
+      "description": "Labor weakening generates a December first cut.",
+      "weight": 0.05,
+      "status": "finite",
+      "launch_at": "2026-12-09T19:00:00+00:00",
+      "meets_deadline": true,
+      "controlling_milestones": [
+        "first_cut"
+      ],
+      "schedule": [
+        {
+          "node_id": "first_cut",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-12-09T19:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "labor_none",
+      "description": "Labor weakening arrives too late or inflation prevents easing in 2026.",
+      "weight": 0.06,
+      "status": "never",
+      "launch_at": null,
+      "meets_deadline": false,
+      "controlling_milestones": [
+        "first_cut"
+      ],
+      "schedule": [
+        {
+          "node_id": "first_cut",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "shock_cut",
+      "description": "Severe financial or demand disruption generates a first unscheduled cut; representative date only.",
+      "weight": 0.03,
+      "status": "finite",
+      "launch_at": "2026-11-15T17:00:00+00:00",
+      "meets_deadline": true,
+      "controlling_milestones": [
+        "first_cut"
+      ],
+      "schedule": [
+        {
+          "node_id": "first_cut",
+          "status": "finite",
+          "start_at": null,
+          "finish_at": "2026-11-15T17:00:00+00:00",
+          "controlling_parents": [],
+          "duration_semantics": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "shock_none",
+      "description": "Severe disruption is met by liquidity tools, inflation caution or arrives too late; no target-range cut.",
+      "weight": 0.020000000000000004,
+      "status": "never",
+      "launch_at": null,
+      "meets_deadline": false,
+      "controlling_milestones": [
+        "first_cut"
+      ],
+      "schedule": [
+        {
+          "node_id": "first_cut",
+          "status": "never",
+          "start_at": null,
+          "finish_at": null,
+          "controlling_parents": [],
+          "duration_semantics": null
+        }
+      ]
+    }
+  ],
+  "gaps": {
+    "unresolved": [],
+    "assumed_inputs": [
+      {
+        "scenario_id": "persistent_none",
+        "parameter_id": "first_cut_date",
+        "description": "First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "affected_milestones": [
+          "first_cut"
+        ],
+        "research_task": "Determine First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "rationale": "Inflation and resilient employment prevent any qualifying cut. Hikes or holds are allowed. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative."
+      },
+      {
+        "scenario_id": "disinflation_sep",
+        "parameter_id": "first_cut_date",
+        "description": "First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "affected_milestones": [
+          "first_cut"
+        ],
+        "research_task": "Determine First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "rationale": "Unexpectedly fast reassessment permits a September first cut. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative."
+      },
+      {
+        "scenario_id": "disinflation_oct",
+        "parameter_id": "first_cut_date",
+        "description": "First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "affected_milestones": [
+          "first_cut"
+        ],
+        "research_task": "Determine First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "rationale": "Additional disinflation produces an October first cut. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative."
+      },
+      {
+        "scenario_id": "disinflation_dec",
+        "parameter_id": "first_cut_date",
+        "description": "First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "affected_milestones": [
+          "first_cut"
+        ],
+        "research_task": "Determine First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "rationale": "Disinflation accumulates slowly enough for a December first cut. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative."
+      },
+      {
+        "scenario_id": "disinflation_none",
+        "parameter_id": "first_cut_date",
+        "description": "First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "affected_milestones": [
+          "first_cut"
+        ],
+        "research_task": "Determine First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "rationale": "Disinflation occurs but Fed waits into 2027. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative."
+      },
+      {
+        "scenario_id": "labor_oct",
+        "parameter_id": "first_cut_date",
+        "description": "First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "affected_milestones": [
+          "first_cut"
+        ],
+        "research_task": "Determine First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "rationale": "Abrupt labor weakening generates an October first cut. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative."
+      },
+      {
+        "scenario_id": "labor_dec",
+        "parameter_id": "first_cut_date",
+        "description": "First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "affected_milestones": [
+          "first_cut"
+        ],
+        "research_task": "Determine First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "rationale": "Labor weakening generates a December first cut. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative."
+      },
+      {
+        "scenario_id": "labor_none",
+        "parameter_id": "first_cut_date",
+        "description": "First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "affected_milestones": [
+          "first_cut"
+        ],
+        "research_task": "Determine First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "rationale": "Labor weakening arrives too late or inflation prevents easing in 2026. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative."
+      },
+      {
+        "scenario_id": "shock_cut",
+        "parameter_id": "first_cut_date",
+        "description": "First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "affected_milestones": [
+          "first_cut"
+        ],
+        "research_task": "Determine First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "rationale": "Severe financial or demand disruption generates a first unscheduled cut; representative date only. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative."
+      },
+      {
+        "scenario_id": "shock_none",
+        "parameter_id": "first_cut_date",
+        "description": "First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "affected_milestones": [
+          "first_cut"
+        ],
+        "research_task": "Determine First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+        "rationale": "Severe disruption is met by liquidity tools, inflation caution or arrives too late; no target-range cut. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative."
+      }
+    ],
+    "unweighted": false,
+    "structural_assumptions": [
+      {
+        "node_id": "first_cut",
+        "parents": [],
+        "rationale": "Direct announcement event; no artificial task durations. A qualifying past event would make question already known.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "history"
+          },
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "calendar"
+          },
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "jan"
+          },
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "mar"
+          },
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "apr"
+          },
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "jun"
+          },
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "jul"
+          },
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "jobs"
+          },
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "cpi"
+          },
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "pce"
+          },
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "archive"
+          },
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "mpr"
+          },
+          {
+            "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+            "record_id": "warsh"
+          }
+        ]
+      }
+    ],
+    "note": "A complete declaration is not proof of adequate evidence or a correct dependency structure."
+  },
+  "limitations": [
+    "Dates, durations, dependencies and scenario weights are supplied, not inferred from evidence.",
+    "Each scenario is one joint assignment. No independent sampling or equal weighting is implicit.",
+    "Unweighted scenario counts are not probabilities. Weighted scenarios require a declared exhaustive partition.",
+    "Durations are elapsed days of 86400 seconds. Resource contention and working-day calendars are not modeled.",
+    "Sensitivity is a declared-input stress test, not a confidence interval or an estimate of research value.",
+    "Weights and future dates are subjective assumptions, not estimates calibrated from a historical sample.",
+    "Small paper pilot; no trading, exhaustive macro review or claim of accuracy from procedural compliance.",
+    "No affirmative evidence of an elapsed qualifying cut was found; negative archive evidence has indexing limits.",
+    "Future first-cut dates are scenario representatives. Emergency date represents any first unscheduled qualifying cut before expiry; never means no qualifying cut in this contract window, not no cut forever.",
+    "Target-range reductions count even if preceded by a hike; unrelated administered-rate changes and mere votes for a cut do not.",
+    "External model calls and costs are unmetered; workflow numeric zeros are placeholders."
+  ]
+}

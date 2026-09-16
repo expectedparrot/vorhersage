@@ -1,0 +1,515 @@
+{
+  "id": "forecast_587ca803d6c044f6b7ed",
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "cost_usd": 0,
+  "coverage": {
+    "announcement_trigger": {
+      "assessments": [
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "announcement_trigger",
+            "rationale": "Applies only when an applicable announced release date has passed with no indication of delay. Modeled at next US Eastern midnight. Never means this alternative route does not trigger in the scenario, not that full release is impossible.",
+            "value": "2026-11-20T00:00:00-05:00"
+          },
+          "scenario_id": "scheduled"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "announcement_trigger",
+            "rationale": "Applies only when an applicable announced release date has passed with no indication of delay. Modeled at next US Eastern midnight. Never means this alternative route does not trigger in the scenario, not that full release is impossible.",
+            "value": "2026-11-28T00:00:00-05:00"
+          },
+          "scenario_id": "brief_delay"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "announcement_trigger",
+            "rationale": "Applies only when an applicable announced release date has passed with no indication of delay. Modeled at next US Eastern midnight. Never means this alternative route does not trigger in the scenario, not that full release is impossible.",
+            "value": "never"
+          },
+          "scenario_id": "long_delay"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "announcement_trigger",
+            "rationale": "Applies only when an applicable announced release date has passed with no indication of delay. Modeled at next US Eastern midnight. Never means this alternative route does not trigger in the scenario, not that full release is impossible.",
+            "value": "2026-11-20T00:00:00-05:00"
+          },
+          "scenario_id": "silent_date"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "announcement_trigger",
+            "rationale": "Applies only when an applicable announced release date has passed with no indication of delay. Modeled at next US Eastern midnight. Never means this alternative route does not trigger in the scenario, not that full release is impossible.",
+            "value": "never"
+          },
+          "scenario_id": "disruption"
+        }
+      ],
+      "rationale": "Applies only when an applicable announced release date has passed with no indication of delay. Modeled at next US Eastern midnight. Never means this alternative route does not trigger in the scenario, not that full release is impossible.",
+      "task_id": "task_7efa5806020143348595"
+    },
+    "content_ready": {
+      "assessments": [
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "content_ready",
+            "rationale": "Representative remaining elapsed days from cutoff to content readiness. Exact internal state unobserved. Joint branch assumption chosen to represent on-time, brief-slip, longer rework or terminal paths; not a measured duration.",
+            "value": 45
+          },
+          "scenario_id": "scheduled"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "content_ready",
+            "rationale": "Representative remaining elapsed days from cutoff to content readiness. Exact internal state unobserved. Joint branch assumption chosen to represent on-time, brief-slip, longer rework or terminal paths; not a measured duration.",
+            "value": 68
+          },
+          "scenario_id": "brief_delay"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "content_ready",
+            "rationale": "Representative remaining elapsed days from cutoff to content readiness. Exact internal state unobserved. Joint branch assumption chosen to represent on-time, brief-slip, longer rework or terminal paths; not a measured duration.",
+            "value": 120
+          },
+          "scenario_id": "long_delay"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "content_ready",
+            "rationale": "Representative remaining elapsed days from cutoff to content readiness. Exact internal state unobserved. Joint branch assumption chosen to represent on-time, brief-slip, longer rework or terminal paths; not a measured duration.",
+            "value": 90
+          },
+          "scenario_id": "silent_date"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "content_ready",
+            "rationale": "Representative remaining elapsed days from cutoff to content readiness. Exact internal state unobserved. Joint branch assumption chosen to represent on-time, brief-slip, longer rework or terminal paths; not a measured duration.",
+            "value": "never"
+          },
+          "scenario_id": "disruption"
+        }
+      ],
+      "rationale": "Representative remaining elapsed days from cutoff to content readiness. Exact internal state unobserved. Joint branch assumption chosen to represent on-time, brief-slip, longer rework or terminal paths; not a measured duration.",
+      "task_id": "task_db51f8cc09614988bc2f"
+    },
+    "launch_slot": {
+      "assessments": [
+        {
+          "assessment": {
+            "basis": "estimated",
+            "evidence_refs": [
+              {
+                "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+                "record_id": "rockstar_current"
+              },
+              {
+                "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+                "record_id": "support"
+              },
+              {
+                "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+                "record_id": "q1_2027"
+              }
+            ],
+            "parameter_id": "launch_slot",
+            "rationale": "Representative full-release commercial gate. On-time November date is evidence-informed, but noon US Eastern is only a modeling convention; late dates are assumptions, not announced revisions.",
+            "value": "2026-11-19T12:00:00-05:00"
+          },
+          "scenario_id": "scheduled"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "launch_slot",
+            "rationale": "Representative full-release commercial gate. On-time November date is evidence-informed, but noon US Eastern is only a modeling convention; late dates are assumptions, not announced revisions.",
+            "value": "2026-11-27T12:00:00-05:00"
+          },
+          "scenario_id": "brief_delay"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "launch_slot",
+            "rationale": "Representative full-release commercial gate. On-time November date is evidence-informed, but noon US Eastern is only a modeling convention; late dates are assumptions, not announced revisions.",
+            "value": "2027-02-18T12:00:00-05:00"
+          },
+          "scenario_id": "long_delay"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "launch_slot",
+            "rationale": "Representative full-release commercial gate. On-time November date is evidence-informed, but noon US Eastern is only a modeling convention; late dates are assumptions, not announced revisions.",
+            "value": "2027-01-15T12:00:00-05:00"
+          },
+          "scenario_id": "silent_date"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "launch_slot",
+            "rationale": "Representative full-release commercial gate. On-time November date is evidence-informed, but noon US Eastern is only a modeling convention; late dates are assumptions, not announced revisions.",
+            "value": "never"
+          },
+          "scenario_id": "disruption"
+        }
+      ],
+      "rationale": "Representative full-release commercial gate. On-time November date is evidence-informed, but noon US Eastern is only a modeling convention; late dates are assumptions, not announced revisions.",
+      "task_id": "task_8a7cc5076b344d5eb3be"
+    },
+    "platform_ready": {
+      "assessments": [
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "platform_ready",
+            "rationale": "Representative remaining elapsed days to the first qualifying platform becoming distributable; includes certification, preload and distribution readiness in parallel with content work. No internal certification milestone observed. Digital-first boxed codes reduce disc-manufacturing dependence, not software-readiness risk.",
+            "value": 56
+          },
+          "scenario_id": "scheduled"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "platform_ready",
+            "rationale": "Representative remaining elapsed days to the first qualifying platform becoming distributable; includes certification, preload and distribution readiness in parallel with content work. No internal certification milestone observed. Digital-first boxed codes reduce disc-manufacturing dependence, not software-readiness risk.",
+            "value": 72
+          },
+          "scenario_id": "brief_delay"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "platform_ready",
+            "rationale": "Representative remaining elapsed days to the first qualifying platform becoming distributable; includes certification, preload and distribution readiness in parallel with content work. No internal certification milestone observed. Digital-first boxed codes reduce disc-manufacturing dependence, not software-readiness risk.",
+            "value": 135
+          },
+          "scenario_id": "long_delay"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "platform_ready",
+            "rationale": "Representative remaining elapsed days to the first qualifying platform becoming distributable; includes certification, preload and distribution readiness in parallel with content work. No internal certification milestone observed. Digital-first boxed codes reduce disc-manufacturing dependence, not software-readiness risk.",
+            "value": 97
+          },
+          "scenario_id": "silent_date"
+        },
+        {
+          "assessment": {
+            "basis": "assumed",
+            "evidence_refs": [],
+            "parameter_id": "platform_ready",
+            "rationale": "Representative remaining elapsed days to the first qualifying platform becoming distributable; includes certification, preload and distribution readiness in parallel with content work. No internal certification milestone observed. Digital-first boxed codes reduce disc-manufacturing dependence, not software-readiness risk.",
+            "value": "never"
+          },
+          "scenario_id": "disruption"
+        }
+      ],
+      "rationale": "Representative remaining elapsed days to the first qualifying platform becoming distributable; includes certification, preload and distribution readiness in parallel with content work. No internal certification milestone observed. Digital-first boxed codes reduce disc-manufacturing dependence, not software-readiness risk.",
+      "task_id": "task_23a74b4e4f9e434fa3f1"
+    }
+  },
+  "cutoff_policy": "fixed",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+      "record_id": "rockstar_current"
+    },
+    {
+      "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+      "record_id": "may_delay"
+    },
+    {
+      "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+      "record_id": "support"
+    },
+    {
+      "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+      "record_id": "xbox"
+    },
+    {
+      "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+      "record_id": "q1_2027"
+    },
+    {
+      "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+      "record_id": "nov_delay"
+    },
+    {
+      "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+      "record_id": "preorder"
+    }
+  ],
+  "forecaster": "kalshi_blind_20260915",
+  "information_as_of": "2026-09-16T01:19:27+00:00",
+  "initial_information_as_of": "2026-09-16T01:19:27+00:00",
+  "input_manifest": {
+    "pkt_eb39ea2cf27d8ced5bcc3e90": "6e15e44e293eb81aa3a7bae5febd7aeb67c4e53b89eb82738faf1f66d584ea9d",
+    "task_result_25cbc4ed58ea4d30ba3d": "1fc14c83949fd6e2550e172b8cbe79a783cc25ed009f323c291ef3494e6aa2c5",
+    "task_result_44594a64fabb48fb9fa7": "a63bc89159b4317d718dbe43412a6cb049c5212eb6be29321950da87cae4eb94",
+    "task_result_660e1f5aa0b64ff193b1": "d37f266ccadc7ddcf58eef738383cb8371d0b6f1d68791b10bbaa808be1b56fe",
+    "task_result_923f2cca0da44e1b99de": "ac5d5ec310962c8463bb0559e8ad8595e330fe220225cc4d57d529f50aa37f18",
+    "task_result_97d5a96422aa45069278": "6dd191e6c2a7e26cd6477f6dc823e44a5496f68f2aa1a81a3c81ab696c464681",
+    "task_result_d9ff9a54a45c41de9114": "9e54159217fe3b8fde229600c49f1cf1516fd748b3d8246b01aaaf6dcc9aa8cd",
+    "task_result_df2b56e9f63e4217a43e": "0d1c6ffe8102f0a17064e0233cd7e7d3795ecc906d94a18185251d15111b3fa7",
+    "timeline_model_00004566887a41f7b9f9": "a386e9cdc7475e5a870450fe4d9fe36d6b23a3ad755e552a866e86fbfe832375",
+    "timeline_model_1b0abf32d740427bab5b": "92eb843364d5dafbeecb29cf563475824549534faf9cadc0cb6041bac6a04cd6",
+    "timeline_model_236bc0c5d0504aa791ff": "6faa85db3b564fe3b13288c7de12ba73dfe825c049b3a434e19a59d7ec2bbb56",
+    "timeline_model_3e7a24b0816e430882fd": "f279d2f15498e009d31c0dd1657affd249cef39cac12d297153548e3c919206a",
+    "timeline_model_712c2790eea74d03bd61": "ee326adbc3d9e243f39a180709713de3bbec51d68b214e3948eee5ede03de557",
+    "timeline_model_a3b93f6eb518432aba41": "9dc69e661ed226e9935c27cd494fb52998eea01b3d003e150fafc46008c9670a",
+    "timeline_model_b1d2b0e6293f4115a85c": "bdaddf447482a5a84ff78ad6b0d98c7441974cffa3d91a0689ea37f3286a3b47",
+    "timeline_model_c5a8d17982ed40329870": "8377e9090c45c09b46faabe2f49c039cc0b524add30a90813529ef0cfe0517bd"
+  },
+  "issued_at": "2026-09-16T01:23:28.336191Z",
+  "manifest_sha256": "cbcb59aa554147eb71b3b8f5b395094d55160548066e75aff6dd338c246033d1",
+  "method": "Independent finite joint milestone scenarios",
+  "mode": "prospective",
+  "model_calls": 0,
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Timeline workflow has no starting-probability task.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.91,
+  "probability_basis": "timeline_model",
+  "profile": {
+    "description": "General binary event research",
+    "domains": [
+      "base_rates",
+      "current_state",
+      "actors_and_process",
+      "contrary_evidence"
+    ],
+    "id": "general"
+  },
+  "question": {
+    "domain": "video_game_release",
+    "event_deadline": "2026-12-01T00:00:00-05:00",
+    "event_group": "GTA6",
+    "id": "kalshi_gta_20260915",
+    "kind": "real",
+    "no": "No event satisfying the YES contract within its specified window.",
+    "profile": "general",
+    "resolution_source": "Kalshi final settlement for KXGTA6-26NOV30 using frozen contract terms and designated underlying sources; preserve later rule changes separately.",
+    "resolve_after": "2026-12-01T10:00:00-05:00",
+    "text": "GTA VI full US release on PS5, Xbox Series X/S, or Windows by November 30, 2026?",
+    "void": "Record void/disputed if Kalshi cancels, returns a nonbinary settlement, or rule interpretation prevents matching the frozen contract. Preserve history.",
+    "yes": "If GTA 6 (Grand Theft Auto VI) has been released on a major platform (PS5, Xbox Series X/S, Windows) by Nov 30, 2026, then the market resolves to Yes. Use the first US full release date on any qualifying platform. Alpha/beta releases do not count. Contract also says an announced release date passing without an indication of delay resolves Yes."
+  },
+  "question_id": "kalshi_gta_20260915",
+  "question_version": 1,
+  "review_at": "2026-10-01T12:00:00-04:00",
+  "run_id": "run_cbc46f4c4803435b8892",
+  "searches": 0,
+  "stopping_reason": "Focused primary-source checks completed; remaining material uncertainty is private production status, not a missing public schedule. Paper forecast only.",
+  "timeline_model_id": "timeline_model_236bc0c5d0504aa791ff",
+  "triggers": [
+    {
+      "description": "Rockstar revises or reaffirms US launch date.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "rockstar_current"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "support"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "preorder"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "xbox"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "q1_2027"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "nov_delay"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "may_delay"
+        }
+      ]
+    },
+    {
+      "description": "Verified gold/certification or final release-build milestone.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "rockstar_current"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "support"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "preorder"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "xbox"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "q1_2027"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "nov_delay"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "may_delay"
+        }
+      ]
+    },
+    {
+      "description": "November 12 preload opens or is postponed.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "rockstar_current"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "support"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "preorder"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "xbox"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "q1_2027"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "nov_delay"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "may_delay"
+        }
+      ]
+    },
+    {
+      "description": "First full US release on any qualifying platform; do not mistake preloading, alpha or beta for full release.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "rockstar_current"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "support"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "preorder"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "xbox"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "q1_2027"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "nov_delay"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "may_delay"
+        }
+      ]
+    },
+    {
+      "description": "Announced date passes: inspect any indication of delay before applying the alternate YES clause.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "rockstar_current"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "support"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "preorder"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "xbox"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "q1_2027"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "nov_delay"
+        },
+        {
+          "packet_id": "pkt_eb39ea2cf27d8ced5bcc3e90",
+          "record_id": "may_delay"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "timeline.v1"
+}

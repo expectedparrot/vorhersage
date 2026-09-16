@@ -1,0 +1,99 @@
+{
+  "doctor": {
+    "ok": true,
+    "artifacts_checked": 12,
+    "sqlite_integrity": "ok"
+  },
+  "widget": {
+    "path": "/Users/johnhorton/tools/ep/vorhersage/examples/waymo_boston_2029/forecast.html",
+    "forecast_id": "forecast_7d03861d72854202b3e5",
+    "assessment_id": "task_result_d61818a01085453ebae8",
+    "issued_probability": 0.5555555555555556,
+    "ledger_probability": 0.5555555555555556
+  },
+  "status": {
+    "project": {
+      "schema_version": "1",
+      "name": "Waymo Boston before 2029",
+      "project_id": "prj_d7288b530652463a840b"
+    },
+    "questions": [
+      {
+        "id": "waymo_boston_public_paid_driverless_before_2029",
+        "version": 1,
+        "specification": {
+          "domain": "autonomous_mobility",
+          "event_deadline": "2029-01-01T00:00:00-05:00",
+          "event_group": "waymo_massachusetts_deployment",
+          "id": "waymo_boston_public_paid_driverless_before_2029",
+          "kind": "real",
+          "no": "No service satisfying every YES criterion launched before the cutoff. Cambridge, Somerville or other Greater Boston service alone does not qualify. A later launch is NO for this deadline.",
+          "profile": "robotaxi_launch",
+          "resolution_source": "Prefer dated Waymo or operating-partner launch announcements, service maps, fare/access terms, and relevant state/city permits; corroborate actual public passenger operations with reputable contemporaneous reporting. Later evidence can establish an earlier launch, but a later launch cannot satisfy the cutoff.",
+          "resolve_after": "2029-01-02T12:00:00-05:00",
+          "text": "Will paid, publicly accessible driverless Waymo service launch within Boston before January 1, 2029?",
+          "void": "Only if the recorded criteria cannot be interpreted or verified because the question is materially defective; corporate withdrawal, prohibition, delay, or failure to launch is NO, not void. Use disputed while genuine evidentiary disagreement remains.",
+          "yes": "Before 2029-01-01 00:00:00 America/New_York, a Waymo Driver passenger ride-hailing service must have opened to the general public, charged fares, and actually carried passengers without an in-vehicle safety driver on public-road trips with pickup and dropoff inside Boston municipal boundaries. Normal account/payment/age requirements and capacity limits are allowed; invite-only access, a launch waitlist, employee-only rides, free-only trials, mapping, safety-driver testing and announcements without service do not qualify. A limited neighborhood geofence or operating hours qualifies. A partner booking platform qualifies. A qualifying launch counts even if subsequently suspended. No airport access, citywide coverage, or operation through every snowstorm is required."
+        }
+      }
+    ],
+    "runs": [
+      {
+        "run": {
+          "created_at": "2026-09-15T23:07:34.177463Z",
+          "cutoff_policy": "fixed",
+          "forecaster": "assistant:researched-odds-ledger",
+          "id": "run_3432a4a299b04ddfb348",
+          "information_as_of": "2026-09-15T23:04:02Z",
+          "max_extra_tasks": 0,
+          "max_searches": 16,
+          "method": "declared_odds_ledger_v1; source review 2026-09-15",
+          "mode": "prospective",
+          "profile": {
+            "description": "Permission, deployment capability and public commercial access.",
+            "domains": [
+              "company_commitment_and_resources",
+              "state_permission",
+              "local_acceptance",
+              "technical_and_weather_readiness",
+              "public_access_and_launch_timing"
+            ],
+            "id": "robotaxi_launch"
+          },
+          "question": {
+            "domain": "autonomous_mobility",
+            "event_deadline": "2029-01-01T00:00:00-05:00",
+            "event_group": "waymo_massachusetts_deployment",
+            "id": "waymo_boston_public_paid_driverless_before_2029",
+            "kind": "real",
+            "no": "No service satisfying every YES criterion launched before the cutoff. Cambridge, Somerville or other Greater Boston service alone does not qualify. A later launch is NO for this deadline.",
+            "profile": "robotaxi_launch",
+            "resolution_source": "Prefer dated Waymo or operating-partner launch announcements, service maps, fare/access terms, and relevant state/city permits; corroborate actual public passenger operations with reputable contemporaneous reporting. Later evidence can establish an earlier launch, but a later launch cannot satisfy the cutoff.",
+            "resolve_after": "2029-01-02T12:00:00-05:00",
+            "text": "Will paid, publicly accessible driverless Waymo service launch within Boston before January 1, 2029?",
+            "void": "Only if the recorded criteria cannot be interpreted or verified because the question is materially defective; corporate withdrawal, prohibition, delay, or failure to launch is NO, not void. Use disputed while genuine evidentiary disagreement remains.",
+            "yes": "Before 2029-01-01 00:00:00 America/New_York, a Waymo Driver passenger ride-hailing service must have opened to the general public, charged fares, and actually carried passengers without an in-vehicle safety driver on public-road trips with pickup and dropoff inside Boston municipal boundaries. Normal account/payment/age requirements and capacity limits are allowed; invite-only access, a launch waitlist, employee-only rides, free-only trials, mapping, safety-driver testing and announcements without service do not qualify. A limited neighborhood geofence or operating hours qualifies. A partner booking platform qualifies. A qualifying launch counts even if subsequently suspended. No airport access, citywide coverage, or operation through every snowstorm is required."
+          },
+          "question_id": "waymo_boston_public_paid_driverless_before_2029",
+          "question_version": 1,
+          "research_status": "completed",
+          "workflow_version": "1",
+          "initial_information_as_of": "2026-09-15T23:04:02Z"
+        },
+        "revision": 10,
+        "pending_tasks": 0,
+        "forecast_id": "forecast_7d03861d72854202b3e5"
+      }
+    ],
+    "forecast_count": 1,
+    "due": []
+  },
+  "note": "No resolution or autonomous monitoring job has been created.",
+  "widget_controls": {
+    "runtime": "Node with minimal DOM",
+    "initial_percent": 55.56,
+    "permission_low_percent": 33.33,
+    "permission_high_percent": 71.43,
+    "reset_and_fixed_issue": "passed"
+  }
+}

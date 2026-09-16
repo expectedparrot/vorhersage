@@ -1,0 +1,128 @@
+{
+  "unresolved": [
+    {
+      "scenario_id": "early",
+      "parameter_id": "authorization_date",
+      "description": "When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+      "affected_milestones": [
+        "authorization"
+      ],
+      "research_task": "Determine When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+      "rationale": "No assessment supplied."
+    },
+    {
+      "scenario_id": "early",
+      "parameter_id": "preparation_days",
+      "description": "Elapsed time to complete Boston operational preparation from its permitted start.",
+      "affected_milestones": [
+        "preparation"
+      ],
+      "research_task": "Determine Elapsed time to complete Boston operational preparation from its permitted start.",
+      "rationale": "No assessment supplied."
+    },
+    {
+      "scenario_id": "early",
+      "parameter_id": "public_rollout_days",
+      "description": "Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+      "affected_milestones": [
+        "public_launch"
+      ],
+      "research_task": "Determine Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+      "rationale": "No assessment supplied."
+    },
+    {
+      "scenario_id": "late",
+      "parameter_id": "authorization_date",
+      "description": "When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+      "affected_milestones": [
+        "authorization"
+      ],
+      "research_task": "Determine When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+      "rationale": "No assessment supplied."
+    },
+    {
+      "scenario_id": "late",
+      "parameter_id": "preparation_days",
+      "description": "Elapsed time to complete Boston operational preparation from its permitted start.",
+      "affected_milestones": [
+        "preparation"
+      ],
+      "research_task": "Determine Elapsed time to complete Boston operational preparation from its permitted start.",
+      "rationale": "No assessment supplied."
+    },
+    {
+      "scenario_id": "late",
+      "parameter_id": "public_rollout_days",
+      "description": "Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+      "affected_milestones": [
+        "public_launch"
+      ],
+      "research_task": "Determine Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+      "rationale": "No assessment supplied."
+    },
+    {
+      "scenario_id": "never",
+      "parameter_id": "authorization_date",
+      "description": "When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+      "affected_milestones": [
+        "authorization"
+      ],
+      "research_task": "Determine When usable permission for qualifying paid driverless service takes effect, including any required approvals.",
+      "rationale": "No assessment supplied."
+    },
+    {
+      "scenario_id": "never",
+      "parameter_id": "preparation_days",
+      "description": "Elapsed time to complete Boston operational preparation from its permitted start.",
+      "affected_milestones": [
+        "preparation"
+      ],
+      "research_task": "Determine Elapsed time to complete Boston operational preparation from its permitted start.",
+      "rationale": "No assessment supplied."
+    },
+    {
+      "scenario_id": "never",
+      "parameter_id": "public_rollout_days",
+      "description": "Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+      "affected_milestones": [
+        "public_launch"
+      ],
+      "research_task": "Determine Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion.",
+      "rationale": "No assessment supplied."
+    }
+  ],
+  "assumed_inputs": [],
+  "unweighted": true,
+  "structural_assumptions": [
+    {
+      "node_id": "authorization",
+      "parents": [],
+      "rationale": "Permission is compressed into one hypothetical effective date; actual routes require research.",
+      "evidence_refs": []
+    },
+    {
+      "node_id": "preparation",
+      "parents": [],
+      "rationale": "Hypothesis: this preparation can occur before permission.",
+      "evidence_refs": []
+    },
+    {
+      "node_id": "ready",
+      "parents": [
+        "authorization",
+        "preparation"
+      ],
+      "rationale": "This model requires both milestones before public rollout.",
+      "evidence_refs": []
+    },
+    {
+      "node_id": "public_launch",
+      "parents": [
+        "ready"
+      ],
+      "rationale": "The rollout delay represents the gap to general public access, not merely selected-rider access.",
+      "evidence_refs": []
+    }
+  ],
+  "note": "A complete declaration is not proof of adequate evidence or a correct dependency structure."
+}

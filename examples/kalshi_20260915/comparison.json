@@ -1,0 +1,242 @@
+{
+  "created_at": "2026-09-16T09:56:20.815927+00:00",
+  "policy": {
+    "registered_at": "2026-09-16T01:16:52.661544+00:00",
+    "selected_keys": [
+      "starship",
+      "gta",
+      "fed"
+    ],
+    "selection": "Purposive three-topic pilot: spaceflight, game release, and policy decision; active two-sided quotes, archived rules, one deadline within two weeks and all within 2026. Selected before independent forecasts, not on forecast disagreement. Not representative of all Kalshi markets.",
+    "baseline_sha256": "c1058de8d1041203216fa7c9a9dd602b888467d5868ca78798b38a0588fbf9a7",
+    "baseline": "YES bid-ask midpoint from baseline.json, captured before workers start. Last trade and spread reported separately.",
+    "forecast_policy": "One fresh-context independent forecast per question; no market price supplied; independently chosen joint scenarios; preserve exposure declarations.",
+    "scoring": "Binary Brier (p-y)^2; matched per-question difference model minus fixed market midpoint, lower is better. Exclude unresolved, canceled, nonbinary, materially changed contract, and known-before-issuance cases. No accuracy winner until outcomes; no significance claims at n=3.",
+    "timing": "Research occurs after baseline snapshot; capture a secondary market snapshot after forecasts to disclose drift. Not exactly simultaneous information.",
+    "portfolio": "Paper comparison only; no orders or holdings."
+  },
+  "rows": [
+    {
+      "key": "starship",
+      "ticker": "KXSPACEXSTARSHIP-14-26OCT01",
+      "question": "SpaceX Starship Flight 14 launch before October 1, 2026 (launch-site local date)?",
+      "kalshi_url": "https://kalshi.com/markets/kxspacexstarship",
+      "baseline": {
+        "captured_at": "2026-09-16T01:15:42.677247+00:00",
+        "yes_bid": 0.91,
+        "yes_ask": 0.93,
+        "last_trade": 0.91,
+        "spread": 0.02,
+        "midpoint": 0.92,
+        "two_sided_active_quote": true,
+        "method": "Arithmetic midpoint of positive-sized YES bid and ask in the same market response; not an executable price."
+      },
+      "post_forecast_quote": {
+        "captured_at": "2026-09-16T09:51:09.373787+00:00",
+        "yes_bid": 0.92,
+        "yes_ask": 0.93,
+        "last_trade": 0.92,
+        "spread": 0.01,
+        "midpoint": 0.925,
+        "two_sided_active_quote": true,
+        "method": "Arithmetic midpoint of positive-sized YES bid and ask in the same market response; not an executable price."
+      },
+      "model_probability": 0.8,
+      "probability_difference_pp": -12.0,
+      "state": "unresolved",
+      "outcome": null,
+      "scores": null,
+      "forecast_report": "forecasts/starship/outputs/forecast.html",
+      "forecast_summary": "forecasts/starship/outputs/forecast_summary.md",
+      "event_deadline": "2026-10-01T00:00:00-05:00",
+      "issued_at": "2026-09-16T01:24:15.110575Z",
+      "information_as_of": "2026-09-16T01:22:00.806628+00:00",
+      "forecast_id": "forecast_6a6235e734884172b1f2",
+      "exposure": {
+        "deliberately_sought_market_prices": false,
+        "numerical_market_prices_observed": false,
+        "numerical_external_event_probabilities_observed": false,
+        "incidental_exposure": [
+          {
+            "type": "qualitative timing predictions in search snippets",
+            "snippet": "Personally I think we will have a launch by the end of the first week of September",
+            "url": "https://www.reddit.com/r/SpaceXMasterrace/comments/1vt0ftw/when_do_you_think_we_will_get_starship_flight_14/",
+            "use": "Not used to assign weights."
+          },
+          {
+            "type": "nonmarket timing aggregate in search snippet",
+            "snippet": "Across all 13 Starship flights to date, the launch window has become publicly knowable 1\u201310 days before liftoff.",
+            "url": "https://thelaunchwindow.com/next-starship-launch",
+            "use": "Not used as a calibrated reference class."
+          },
+          {
+            "type": "community readiness wording",
+            "snippet": "GO for launch.",
+            "url": "https://www.reddit.com/r/spacex/comments/1wg1vqa/rspacex_flight_14_official_launch_discussion/",
+            "use": "Not treated as final authorization; operator caveat takes precedence."
+          }
+        ],
+        "other_note": "General SpaceX France navigation mentioned stock and Starlink pricing links without prices; no exchange page opened. Training knowledge remains; no earlier conversation or forecasts accessed."
+      },
+      "hypothetical_yes": {
+        "model_brier": 0.03999999999999998,
+        "market_brier": 0.006399999999999993,
+        "difference": 0.033599999999999984
+      },
+      "hypothetical_no": {
+        "model_brier": 0.6400000000000001,
+        "market_brier": 0.8464,
+        "difference": -0.20639999999999992
+      }
+    },
+    {
+      "key": "gta",
+      "ticker": "KXGTA6-26NOV30",
+      "question": "GTA VI full US release on PS5, Xbox Series X/S, or Windows by November 30, 2026?",
+      "kalshi_url": "https://kalshi.com/markets/kxgta6",
+      "baseline": {
+        "captured_at": "2026-09-16T01:15:42.690962+00:00",
+        "yes_bid": 0.9,
+        "yes_ask": 0.91,
+        "last_trade": 0.91,
+        "spread": 0.01,
+        "midpoint": 0.905,
+        "two_sided_active_quote": true,
+        "method": "Arithmetic midpoint of positive-sized YES bid and ask in the same market response; not an executable price."
+      },
+      "post_forecast_quote": {
+        "captured_at": "2026-09-16T09:51:09.686482+00:00",
+        "yes_bid": 0.9,
+        "yes_ask": 0.91,
+        "last_trade": 0.91,
+        "spread": 0.01,
+        "midpoint": 0.905,
+        "two_sided_active_quote": true,
+        "method": "Arithmetic midpoint of positive-sized YES bid and ask in the same market response; not an executable price."
+      },
+      "model_probability": 0.91,
+      "probability_difference_pp": 0.5000000000000004,
+      "state": "unresolved",
+      "outcome": null,
+      "scores": null,
+      "forecast_report": "forecasts/gta/outputs/forecast.html",
+      "forecast_summary": "forecasts/gta/outputs/forecast_summary.md",
+      "event_deadline": "2026-12-01T00:00:00-05:00",
+      "issued_at": "2026-09-16T01:23:28.336191Z",
+      "information_as_of": "2026-09-16T01:19:27+00:00",
+      "forecast_id": "forecast_587ca803d6c044f6b7ed",
+      "exposure": {
+        "market_price_pages_sought": false,
+        "prediction_market_price_exposure": false,
+        "numeric_event_probability_exposure": false,
+        "other_incidental_exposure": [
+          {
+            "url": "https://www.take2games.com/ir",
+            "snippet": "STOCK QUOTE: TTWO $222.91, up 3.45%, Sep 14 2026",
+            "treatment": "Company equity quote incidentally surfaced; not an event-market price and not used."
+          },
+          {
+            "url": "https://as.com/meristation/noticias/cuando-sale-gta-6-fecha-de-salida-de-grand-theft-auto-vi-y-hora-de-lanzamiento-f202606-n/",
+            "snippet": "no debes preocuparte por un nuevo retraso, porque no suceder\u00e1",
+            "treatment": "Unrequested secondary categorical confidence claim. Not used as evidence or quantitative input; cannot claim absence of all qualitative probability language."
+          },
+          {
+            "url": "https://www.reddit.com/r/GTA6unmoderated/comments/1tg6wav/let_the_games_begin/",
+            "snippet": "May 18, 2026 ... Grand Theft Auto VI is available now worldwide",
+            "treatment": "Unrequested unverified Reddit snippet; rejected in favor of current official future-release pages."
+          }
+        ],
+        "training_knowledge": "Cannot rule out latent training exposure; no prior forecasts or other workspaces consulted."
+      },
+      "hypothetical_yes": {
+        "model_brier": 0.008099999999999994,
+        "market_brier": 0.009024999999999995,
+        "difference": -0.0009250000000000005
+      },
+      "hypothetical_no": {
+        "model_brier": 0.8281000000000001,
+        "market_brier": 0.819025,
+        "difference": 0.009075000000000055
+      }
+    },
+    {
+      "key": "fed",
+      "ticker": "KXRATECUT-26DEC31",
+      "question": "At least one Federal Reserve target-range rate cut between February 26 and December 31, 2026?",
+      "kalshi_url": "https://kalshi.com/markets/kxratecut",
+      "baseline": {
+        "captured_at": "2026-09-16T01:15:42.660514+00:00",
+        "yes_bid": 0.078,
+        "yes_ask": 0.086,
+        "last_trade": 0.087,
+        "spread": 0.008,
+        "midpoint": 0.082,
+        "two_sided_active_quote": true,
+        "method": "Arithmetic midpoint of positive-sized YES bid and ask in the same market response; not an executable price."
+      },
+      "post_forecast_quote": {
+        "captured_at": "2026-09-16T09:51:09.705561+00:00",
+        "yes_bid": 0.082,
+        "yes_ask": 0.086,
+        "last_trade": 0.077,
+        "spread": 0.004,
+        "midpoint": 0.084,
+        "two_sided_active_quote": true,
+        "method": "Arithmetic midpoint of positive-sized YES bid and ask in the same market response; not an executable price."
+      },
+      "model_probability": 0.21000000000000002,
+      "probability_difference_pp": 12.8,
+      "state": "unresolved",
+      "outcome": null,
+      "scores": null,
+      "forecast_report": "forecasts/fed/outputs/forecast.html",
+      "forecast_summary": "forecasts/fed/outputs/forecast_summary.md",
+      "event_deadline": "2027-01-01T00:00:00-05:00",
+      "issued_at": "2026-09-16T01:23:37.022592Z",
+      "information_as_of": "2026-09-16T01:20:26+00:00",
+      "forecast_id": "forecast_53a67eeee1e54ab3b5ea",
+      "exposure": {
+        "market_prices_sought": false,
+        "market_prices_seen": false,
+        "event_probabilities_sought": false,
+        "event_probabilities_seen": false,
+        "incidental_exposure": [
+          {
+            "source": "warsh",
+            "description": "Official remarks mentioned market measures of inflation expectations and swaps qualitatively; no rate-cut probabilities or numeric market prices were provided in inspected text. Not used as a probability input."
+          }
+        ],
+        "search_snippets": "Two official-domain searches returned Fed statements, historical 2024/2025 dissents, discount-rate minutes, an August calendar and July report. No prediction-market prices, FedWatch or other forecasters event probabilities were observed.",
+        "isolation": "Only supplied workspace inputs, generic package code and public primary sources were used; no sibling forecasts or parent repository inspected. Training knowledge is not erased."
+      },
+      "hypothetical_yes": {
+        "model_brier": 0.6241000000000001,
+        "market_brier": 0.842724,
+        "difference": -0.21862399999999993
+      },
+      "hypothetical_no": {
+        "model_brier": 0.04410000000000001,
+        "market_brier": 0.006724000000000001,
+        "difference": 0.037376000000000006
+      }
+    }
+  ],
+  "summary": {
+    "selected_n": 3,
+    "forecasts_n": 3,
+    "matched_resolved_n": 0,
+    "model_mean_brier": null,
+    "market_mean_brier": null,
+    "paired_mean_difference": null,
+    "interpretation": "Negative paired difference favors the model. No statistical superiority claim; purposively selected n=3."
+  },
+  "resolution_snapshot": null,
+  "post_forecast_snapshot": "raw/post_forecast-20260916T095109954776Z.json",
+  "limitations": [
+    "Midpoints are comparison estimates, not executable prices; no fees, slippage or trading returns are modeled.",
+    "The baseline preceded research; the later quote snapshot discloses subsequent market movement. Inspect actual timestamps; the later check need not coincide with forecast completion.",
+    "Finalized exchange outcomes are the settlement target; changed text requires review and unresolved cases remain excluded.",
+    "Fresh supplied context does not erase training knowledge; incidental market exposure is recorded per forecast.",
+    "Prices can be informative without being the truth. Current disagreement is not realized accuracy."
+  ]
+}

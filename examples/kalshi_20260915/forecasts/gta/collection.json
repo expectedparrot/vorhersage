@@ -1,0 +1,72 @@
+{
+  "collected_at": "2026-09-16T01:25:53.309645+00:00",
+  "key": "gta",
+  "forecast_id": "forecast_587ca803d6c044f6b7ed",
+  "probability": 0.91,
+  "sealed_hashes_verified": 22,
+  "input_hashes_verified": 26,
+  "doctor": {
+    "ok": true,
+    "artifacts_checked": 18,
+    "sqlite_integrity": "ok"
+  },
+  "independent_calendar_and_sum_match": true,
+  "scenarios": [
+    {
+      "scenario_id": "scheduled",
+      "weight": 0.88,
+      "launch_at": "2026-11-19T17:00:00+00:00",
+      "meets_deadline": true
+    },
+    {
+      "scenario_id": "brief_delay",
+      "weight": 0.025,
+      "launch_at": "2026-11-27T17:00:00+00:00",
+      "meets_deadline": true
+    },
+    {
+      "scenario_id": "long_delay",
+      "weight": 0.085,
+      "launch_at": "2027-02-18T17:00:00+00:00",
+      "meets_deadline": false
+    },
+    {
+      "scenario_id": "silent_date",
+      "weight": 0.005,
+      "launch_at": "2026-11-20T05:00:00+00:00",
+      "meets_deadline": true
+    },
+    {
+      "scenario_id": "disruption",
+      "weight": 0.005,
+      "launch_at": null,
+      "meets_deadline": false
+    }
+  ],
+  "copied_files": [
+    "input_manifest.json",
+    "question.json",
+    "contract.json",
+    "outputs/evidence.json",
+    "outputs/forecast_summary.md",
+    "outputs/build.py",
+    "outputs/model.json",
+    "outputs/workflow_receipts.json",
+    "outputs/structure_before_research.json",
+    "outputs/prepare_inputs.py",
+    "outputs/forecast.html",
+    "outputs/source_query_log.json",
+    "outputs/research_questions.md",
+    "outputs/doctor.json",
+    "outputs/sealed_result.json",
+    "outputs/research_conclusion.json",
+    "outputs/sensitivity.json",
+    "outputs/analysis.json",
+    "outputs/forecast.json",
+    "outputs/review.json",
+    "outputs/independent_verification.json"
+  ],
+  "validation_project": "validation_project",
+  "database_copy": "Logical backup in DELETE journal mode; exact sealed database file retained separately when present.",
+  "limitation": "Integrity and arithmetic checks do not validate subjective scenario weights."
+}

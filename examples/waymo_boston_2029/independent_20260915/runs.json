@@ -1,0 +1,1330 @@
+[
+  {
+    "id": "run_6b16a9df367540cc89a7",
+    "body": {
+      "created_at": "2026-09-16T00:44:45.293234Z",
+      "cutoff_policy": "fixed",
+      "forecaster": "independent_question_only_20260916",
+      "id": "run_6b16a9df367540cc89a7",
+      "information_as_of": "2026-09-16T00:34:03+00:00",
+      "max_extra_tasks": 10,
+      "max_searches": 100,
+      "method": "independent_researched_joint_timeline",
+      "mode": "prospective",
+      "profile": {
+        "description": "Independent legal, technical, operational and public-access timeline",
+        "domains": [
+          "state_permission",
+          "local_permission",
+          "technical",
+          "fleet",
+          "validation",
+          "public_access"
+        ],
+        "id": "robotaxi_launch"
+      },
+      "question": {
+        "domain": "autonomous_mobility",
+        "event_deadline": "2029-01-01T00:00:00-05:00",
+        "event_group": "waymo_massachusetts_deployment",
+        "id": "waymo_boston_public_paid_driverless_before_2029",
+        "kind": "real",
+        "no": "No service satisfying every YES criterion launched before the cutoff. Cambridge, Somerville or other Greater Boston service alone does not qualify. A later launch is NO for this deadline.",
+        "profile": "robotaxi_launch",
+        "resolution_source": "Prefer dated Waymo or operating-partner launch announcements, service maps, fare/access terms, and relevant state/city permits; corroborate actual public passenger operations with reputable contemporaneous reporting. Later evidence can establish an earlier launch, but a later launch cannot satisfy the cutoff.",
+        "resolve_after": "2029-01-02T12:00:00-05:00",
+        "text": "Will paid, publicly accessible driverless Waymo service launch within Boston before January 1, 2029?",
+        "void": "Only if the recorded criteria cannot be interpreted or verified because the question is materially defective; corporate withdrawal, prohibition, delay, or failure to launch is NO, not void. Use disputed while genuine evidentiary disagreement remains.",
+        "yes": "Before 2029-01-01 00:00:00 America/New_York, a Waymo Driver passenger ride-hailing service must have opened to the general public, charged fares, and actually carried passengers without an in-vehicle safety driver on public-road trips with pickup and dropoff inside Boston municipal boundaries. Normal account/payment/age requirements and capacity limits are allowed; invite-only access, a launch waitlist, employee-only rides, free-only trials, mapping, safety-driver testing and announcements without service do not qualify. A limited neighborhood geofence or operating hours qualifies. A partner booking platform qualifies. A qualifying launch counts even if subsequently suspended. No airport access, citywide coverage, or operation through every snowstorm is required."
+      },
+      "question_id": "waymo_boston_public_paid_driverless_before_2029",
+      "question_version": 1,
+      "research_status": "completed",
+      "workflow": "timeline",
+      "workflow_version": "timeline.v1"
+    },
+    "state": {
+      "artifact_ids": [
+        "timeline_model_e9884764a7ad498db1fe",
+        "pkt_7f1a012b9dc7342c24d8bbe4",
+        "timeline_model_47b43e532b674fae8d0a",
+        "timeline_model_80d8f27cddd449ada9e0",
+        "task_result_1a90825399a143e5a44a",
+        "timeline_model_bda06d13462843e6b7ab",
+        "task_result_a8bc2749362d4b7c845c",
+        "timeline_model_d7a14c8208894d19bf73",
+        "task_result_830dd473dfec4507a8bd",
+        "timeline_model_265859d293e24fb6b4f5",
+        "task_result_da9f27008f064d8e8254",
+        "timeline_model_d5e7692eeb05429f922f",
+        "task_result_afb37e6881834590a545",
+        "timeline_model_71b4b5844bc9498eadc3",
+        "task_result_4b46f9cf9fb648c980fd",
+        "timeline_model_2352dea3949240e39af9",
+        "task_result_53988e072d5f4b88b89b",
+        "task_result_438f265e15554d0e9754",
+        "task_result_ae3ddcd228764b43bec0",
+        "task_result_b02068cedb9b4eafb82b"
+      ],
+      "cost_usd": 0,
+      "coverage": {
+        "fleet": {
+          "assessments": [
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "capital"
+                  }
+                ],
+                "parameter_id": "fleet",
+                "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: No corporate or severe technical disruption; enabling effective through 2027, with ordinary Boston approvals.",
+                "value": 300
+              },
+              "scenario_id": "early_normal"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "capital"
+                  }
+                ],
+                "parameter_id": "fleet",
+                "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Same early state cohort, but persistent Boston-specific legal, operating or implementation friction.",
+                "value": 365
+              },
+              "scenario_id": "early_local_delay"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "capital"
+                  }
+                ],
+                "parameter_id": "fleet",
+                "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Enabling effective in first half of 2028; ordinary readiness and approvals.",
+                "value": 365
+              },
+              "scenario_id": "mid2028_normal"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "capital"
+                  }
+                ],
+                "parameter_id": "fleet",
+                "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout.",
+                "value": 450
+              },
+              "scenario_id": "late2028_accelerated"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "capital"
+                  }
+                ],
+                "parameter_id": "fleet",
+                "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Enabling effective in third quarter 2028 with ordinary residual approval and public-access work.",
+                "value": 450
+              },
+              "scenario_id": "late2028_ordinary"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "capital"
+                  }
+                ],
+                "parameter_id": "fleet",
+                "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Timely state path but major Boston technical or operating problems persist despite company continuation.",
+                "value": 800
+              },
+              "scenario_id": "technical_operational_tail"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "capital"
+                  }
+                ],
+                "parameter_id": "fleet",
+                "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Company continues, but no effective enabling route by September 30, 2028; encompasses legislative inertia, prohibition and delayed administrative implementation.",
+                "value": 450
+              },
+              "scenario_id": "state_delay"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "capital"
+                  }
+                ],
+                "parameter_id": "fleet",
+                "rationale": "No Boston depot/fleet schedule verified. Durations allocate residual operational readiness from cutoff, with advance work assumed possible; financing supports feasibility but does not measure duration. Joint case: Priority class: corporate withdrawal from Boston or a nationwide disruption prevents service within the horizon.",
+                "value": "never"
+              },
+              "scenario_id": "corporate_or_national_disruption"
+            }
+          ],
+          "rationale": "Preserve explicitly declared joint assessments and evidence rationales for fleet. Values labeled assumed were not empirically identified. Each submission creates a new model version.",
+          "task_id": "task_4adcabfebf4d46aea9d1"
+        },
+        "local_permission": {
+          "assessments": [
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_proposal"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_status"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "preemption_proposal"
+                  }
+                ],
+                "parameter_id": "local_permission",
+                "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: No corporate or severe technical disruption; enabling effective through 2027, with ordinary Boston approvals.",
+                "value": 120
+              },
+              "scenario_id": "early_normal"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_proposal"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_status"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "preemption_proposal"
+                  }
+                ],
+                "parameter_id": "local_permission",
+                "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Same early state cohort, but persistent Boston-specific legal, operating or implementation friction.",
+                "value": 600
+              },
+              "scenario_id": "early_local_delay"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_proposal"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_status"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "preemption_proposal"
+                  }
+                ],
+                "parameter_id": "local_permission",
+                "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Enabling effective in first half of 2028; ordinary readiness and approvals.",
+                "value": 90
+              },
+              "scenario_id": "mid2028_normal"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_proposal"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_status"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "preemption_proposal"
+                  }
+                ],
+                "parameter_id": "local_permission",
+                "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout.",
+                "value": 45
+              },
+              "scenario_id": "late2028_accelerated"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_proposal"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_status"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "preemption_proposal"
+                  }
+                ],
+                "parameter_id": "local_permission",
+                "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Enabling effective in third quarter 2028 with ordinary residual approval and public-access work.",
+                "value": 120
+              },
+              "scenario_id": "late2028_ordinary"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_proposal"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_status"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "preemption_proposal"
+                  }
+                ],
+                "parameter_id": "local_permission",
+                "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Timely state path but major Boston technical or operating problems persist despite company continuation.",
+                "value": 120
+              },
+              "scenario_id": "technical_operational_tail"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_proposal"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_status"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "preemption_proposal"
+                  }
+                ],
+                "parameter_id": "local_permission",
+                "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Company continues, but no effective enabling route by September 30, 2028; encompasses legislative inertia, prohibition and delayed administrative implementation.",
+                "value": 120
+              },
+              "scenario_id": "state_delay"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_proposal"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_status"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "preemption_proposal"
+                  }
+                ],
+                "parameter_id": "local_permission",
+                "rationale": "No enacted future process or empirical local approval duration exists in the evidence. Residual work after state enablement may include permits, implementation, local operating arrangements or litigation. Joint case: Priority class: corporate withdrawal from Boston or a nationwide disruption prevents service within the horizon.",
+                "value": 120
+              },
+              "scenario_id": "corporate_or_national_disruption"
+            }
+          ],
+          "rationale": "Preserve explicitly declared joint assessments and evidence rationales for local_permission. Values labeled assumed were not empirically identified. Each submission creates a new model version.",
+          "task_id": "task_a40c15fdbf0449028eb9"
+        },
+        "public_access": {
+          "assessments": [
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "orlando_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  }
+                ],
+                "parameter_id": "public_access",
+                "rationale": "Orlando selected-to-unrestricted access took 50 days; multi-city staged openings establish an extra access gate. Estimates of 45-120 remaining days after prerequisites are approximate and exclude citywide or all-weather requirements. Joint case: No corporate or severe technical disruption; enabling effective through 2027, with ordinary Boston approvals.",
+                "value": 90
+              },
+              "scenario_id": "early_normal"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "orlando_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  }
+                ],
+                "parameter_id": "public_access",
+                "rationale": "Orlando selected-to-unrestricted access took 50 days; multi-city staged openings establish an extra access gate. Estimates of 45-120 remaining days after prerequisites are approximate and exclude citywide or all-weather requirements. Joint case: Same early state cohort, but persistent Boston-specific legal, operating or implementation friction.",
+                "value": 90
+              },
+              "scenario_id": "early_local_delay"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "orlando_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  }
+                ],
+                "parameter_id": "public_access",
+                "rationale": "Orlando selected-to-unrestricted access took 50 days; multi-city staged openings establish an extra access gate. Estimates of 45-120 remaining days after prerequisites are approximate and exclude citywide or all-weather requirements. Joint case: Enabling effective in first half of 2028; ordinary readiness and approvals.",
+                "value": 90
+              },
+              "scenario_id": "mid2028_normal"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "orlando_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  }
+                ],
+                "parameter_id": "public_access",
+                "rationale": "Orlando selected-to-unrestricted access took 50 days; multi-city staged openings establish an extra access gate. Estimates of 45-120 remaining days after prerequisites are approximate and exclude citywide or all-weather requirements. Joint case: Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout.",
+                "value": 45
+              },
+              "scenario_id": "late2028_accelerated"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "orlando_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  }
+                ],
+                "parameter_id": "public_access",
+                "rationale": "Orlando selected-to-unrestricted access took 50 days; multi-city staged openings establish an extra access gate. Estimates of 45-120 remaining days after prerequisites are approximate and exclude citywide or all-weather requirements. Joint case: Enabling effective in third quarter 2028 with ordinary residual approval and public-access work.",
+                "value": 120
+              },
+              "scenario_id": "late2028_ordinary"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "orlando_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  }
+                ],
+                "parameter_id": "public_access",
+                "rationale": "Orlando selected-to-unrestricted access took 50 days; multi-city staged openings establish an extra access gate. Estimates of 45-120 remaining days after prerequisites are approximate and exclude citywide or all-weather requirements. Joint case: Timely state path but major Boston technical or operating problems persist despite company continuation.",
+                "value": 120
+              },
+              "scenario_id": "technical_operational_tail"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "orlando_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  }
+                ],
+                "parameter_id": "public_access",
+                "rationale": "Orlando selected-to-unrestricted access took 50 days; multi-city staged openings establish an extra access gate. Estimates of 45-120 remaining days after prerequisites are approximate and exclude citywide or all-weather requirements. Joint case: Company continues, but no effective enabling route by September 30, 2028; encompasses legislative inertia, prohibition and delayed administrative implementation.",
+                "value": 90
+              },
+              "scenario_id": "state_delay"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "orlando_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  }
+                ],
+                "parameter_id": "public_access",
+                "rationale": "Orlando selected-to-unrestricted access took 50 days; multi-city staged openings establish an extra access gate. Estimates of 45-120 remaining days after prerequisites are approximate and exclude citywide or all-weather requirements. Joint case: Priority class: corporate withdrawal from Boston or a nationwide disruption prevents service within the horizon.",
+                "value": 90
+              },
+              "scenario_id": "corporate_or_national_disruption"
+            }
+          ],
+          "rationale": "Preserve explicitly declared joint assessments and evidence rationales for public_access. Values labeled assumed were not empirically identified. Each submission creates a new model version.",
+          "task_id": "task_bb2013baa535460782d1"
+        },
+        "state_permission": {
+          "assessments": [
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "house_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "senate_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "state_testing"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  }
+                ],
+                "parameter_id": "state_permission",
+                "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: No corporate or severe technical disruption; enabling effective through 2027, with ordinary Boston approvals.",
+                "value": "2027-06-01T12:00:00+00:00"
+              },
+              "scenario_id": "early_normal"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "house_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "senate_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "state_testing"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  }
+                ],
+                "parameter_id": "state_permission",
+                "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Same early state cohort, but persistent Boston-specific legal, operating or implementation friction.",
+                "value": "2027-06-01T12:00:00+00:00"
+              },
+              "scenario_id": "early_local_delay"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "house_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "senate_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "state_testing"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  }
+                ],
+                "parameter_id": "state_permission",
+                "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Enabling effective in first half of 2028; ordinary readiness and approvals.",
+                "value": "2028-04-01T12:00:00+00:00"
+              },
+              "scenario_id": "mid2028_normal"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "house_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "senate_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "state_testing"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  }
+                ],
+                "parameter_id": "state_permission",
+                "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout.",
+                "value": "2028-08-01T12:00:00+00:00"
+              },
+              "scenario_id": "late2028_accelerated"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "house_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "senate_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "state_testing"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  }
+                ],
+                "parameter_id": "state_permission",
+                "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Enabling effective in third quarter 2028 with ordinary residual approval and public-access work.",
+                "value": "2028-09-15T12:00:00+00:00"
+              },
+              "scenario_id": "late2028_ordinary"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "house_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "senate_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "state_testing"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  }
+                ],
+                "parameter_id": "state_permission",
+                "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Timely state path but major Boston technical or operating problems persist despite company continuation.",
+                "value": "2027-06-01T12:00:00+00:00"
+              },
+              "scenario_id": "technical_operational_tail"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "house_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "senate_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "state_testing"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  }
+                ],
+                "parameter_id": "state_permission",
+                "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Company continues, but no effective enabling route by September 30, 2028; encompasses legislative inertia, prohibition and delayed administrative implementation.",
+                "value": "2029-07-01T12:00:00+00:00"
+              },
+              "scenario_id": "state_delay"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "house_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "senate_bill"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "state_testing"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  }
+                ],
+                "parameter_id": "state_permission",
+                "rationale": "No empirical passage-time model is available. Scenario date is effective legal readiness, not predicted bill signing alone. Joint case: Priority class: corporate withdrawal from Boston or a nationwide disruption prevents service within the horizon.",
+                "value": "2027-06-01T12:00:00+00:00"
+              },
+              "scenario_id": "corporate_or_national_disruption"
+            }
+          ],
+          "rationale": "Preserve explicitly declared joint assessments and evidence rationales for state_permission. Values labeled assumed were not empirically identified. Each submission creates a new model version.",
+          "task_id": "task_42826452bc8e498999ec"
+        },
+        "technical": {
+          "assessments": [
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_entry"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "safety_investigation"
+                  }
+                ],
+                "parameter_id": "technical",
+                "rationale": "Evidence-informed remaining-work estimate: Boston preparation predates cutoff and Denver progressed from 2025 entry to selected rides in September 2026. Boston-specific readiness is unobserved; long tails and scenario dependence are subjective. Joint case: No corporate or severe technical disruption; enabling effective through 2027, with ordinary Boston approvals.",
+                "value": 270
+              },
+              "scenario_id": "early_normal"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_entry"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "safety_investigation"
+                  }
+                ],
+                "parameter_id": "technical",
+                "rationale": "Evidence-informed remaining-work estimate: Boston preparation predates cutoff and Denver progressed from 2025 entry to selected rides in September 2026. Boston-specific readiness is unobserved; long tails and scenario dependence are subjective. Joint case: Same early state cohort, but persistent Boston-specific legal, operating or implementation friction.",
+                "value": 300
+              },
+              "scenario_id": "early_local_delay"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_entry"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "safety_investigation"
+                  }
+                ],
+                "parameter_id": "technical",
+                "rationale": "Evidence-informed remaining-work estimate: Boston preparation predates cutoff and Denver progressed from 2025 entry to selected rides in September 2026. Boston-specific readiness is unobserved; long tails and scenario dependence are subjective. Joint case: Enabling effective in first half of 2028; ordinary readiness and approvals.",
+                "value": 450
+              },
+              "scenario_id": "mid2028_normal"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_entry"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "safety_investigation"
+                  }
+                ],
+                "parameter_id": "technical",
+                "rationale": "Evidence-informed remaining-work estimate: Boston preparation predates cutoff and Denver progressed from 2025 entry to selected rides in September 2026. Boston-specific readiness is unobserved; long tails and scenario dependence are subjective. Joint case: Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout.",
+                "value": 450
+              },
+              "scenario_id": "late2028_accelerated"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_entry"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "safety_investigation"
+                  }
+                ],
+                "parameter_id": "technical",
+                "rationale": "Evidence-informed remaining-work estimate: Boston preparation predates cutoff and Denver progressed from 2025 entry to selected rides in September 2026. Boston-specific readiness is unobserved; long tails and scenario dependence are subjective. Joint case: Enabling effective in third quarter 2028 with ordinary residual approval and public-access work.",
+                "value": 450
+              },
+              "scenario_id": "late2028_ordinary"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_entry"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "safety_investigation"
+                  }
+                ],
+                "parameter_id": "technical",
+                "rationale": "Evidence-informed remaining-work estimate: Boston preparation predates cutoff and Denver progressed from 2025 entry to selected rides in September 2026. Boston-specific readiness is unobserved; long tails and scenario dependence are subjective. Joint case: Timely state path but major Boston technical or operating problems persist despite company continuation.",
+                "value": 850
+              },
+              "scenario_id": "technical_operational_tail"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_entry"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "safety_investigation"
+                  }
+                ],
+                "parameter_id": "technical",
+                "rationale": "Evidence-informed remaining-work estimate: Boston preparation predates cutoff and Denver progressed from 2025 entry to selected rides in September 2026. Boston-specific readiness is unobserved; long tails and scenario dependence are subjective. Joint case: Company continues, but no effective enabling route by September 30, 2028; encompasses legislative inertia, prohibition and delayed administrative implementation.",
+                "value": 450
+              },
+              "scenario_id": "state_delay"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "boston_return"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_entry"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "safety_investigation"
+                  }
+                ],
+                "parameter_id": "technical",
+                "rationale": "Evidence-informed remaining-work estimate: Boston preparation predates cutoff and Denver progressed from 2025 entry to selected rides in September 2026. Boston-specific readiness is unobserved; long tails and scenario dependence are subjective. Joint case: Priority class: corporate withdrawal from Boston or a nationwide disruption prevents service within the horizon.",
+                "value": 450
+              },
+              "scenario_id": "corporate_or_national_disruption"
+            }
+          ],
+          "rationale": "Preserve explicitly declared joint assessments and evidence rationales for technical. Values labeled assumed were not empirically identified. Each submission creates a new model version.",
+          "task_id": "task_780ad16c6f5d4c6cac79"
+        },
+        "validation": {
+          "assessments": [
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "miami_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  }
+                ],
+                "parameter_id": "validation",
+                "rationale": "Evidence-informed, not sampled: Miami driverless operations to open access took 148 days; Denver employee phase preceded selected public riders. This parameter covers validation/restricted rides, with open-access ramp separately represented. Joint case: No corporate or severe technical disruption; enabling effective through 2027, with ordinary Boston approvals.",
+                "value": 90
+              },
+              "scenario_id": "early_normal"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "miami_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  }
+                ],
+                "parameter_id": "validation",
+                "rationale": "Evidence-informed, not sampled: Miami driverless operations to open access took 148 days; Denver employee phase preceded selected public riders. This parameter covers validation/restricted rides, with open-access ramp separately represented. Joint case: Same early state cohort, but persistent Boston-specific legal, operating or implementation friction.",
+                "value": 120
+              },
+              "scenario_id": "early_local_delay"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "miami_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  }
+                ],
+                "parameter_id": "validation",
+                "rationale": "Evidence-informed, not sampled: Miami driverless operations to open access took 148 days; Denver employee phase preceded selected public riders. This parameter covers validation/restricted rides, with open-access ramp separately represented. Joint case: Enabling effective in first half of 2028; ordinary readiness and approvals.",
+                "value": 90
+              },
+              "scenario_id": "mid2028_normal"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "miami_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  }
+                ],
+                "parameter_id": "validation",
+                "rationale": "Evidence-informed, not sampled: Miami driverless operations to open access took 148 days; Denver employee phase preceded selected public riders. This parameter covers validation/restricted rides, with open-access ramp separately represented. Joint case: Enabling effective in third quarter 2028 with a prepared, expedited small-area rollout.",
+                "value": 45
+              },
+              "scenario_id": "late2028_accelerated"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "miami_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  }
+                ],
+                "parameter_id": "validation",
+                "rationale": "Evidence-informed, not sampled: Miami driverless operations to open access took 148 days; Denver employee phase preceded selected public riders. This parameter covers validation/restricted rides, with open-access ramp separately represented. Joint case: Enabling effective in third quarter 2028 with ordinary residual approval and public-access work.",
+                "value": 120
+              },
+              "scenario_id": "late2028_ordinary"
+            },
+            {
+              "assessment": {
+                "basis": "assumed",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "miami_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  }
+                ],
+                "parameter_id": "validation",
+                "rationale": "Evidence-informed, not sampled: Miami driverless operations to open access took 148 days; Denver employee phase preceded selected public riders. This parameter covers validation/restricted rides, with open-access ramp separately represented. Joint case: Timely state path but major Boston technical or operating problems persist despite company continuation.",
+                "value": 180
+              },
+              "scenario_id": "technical_operational_tail"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "miami_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  }
+                ],
+                "parameter_id": "validation",
+                "rationale": "Evidence-informed, not sampled: Miami driverless operations to open access took 148 days; Denver employee phase preceded selected public riders. This parameter covers validation/restricted rides, with open-access ramp separately represented. Joint case: Company continues, but no effective enabling route by September 30, 2028; encompasses legislative inertia, prohibition and delayed administrative implementation.",
+                "value": 120
+              },
+              "scenario_id": "state_delay"
+            },
+            {
+              "assessment": {
+                "basis": "estimated",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "miami_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_driverless"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "denver_selected"
+                  },
+                  {
+                    "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+                    "record_id": "florida_open"
+                  }
+                ],
+                "parameter_id": "validation",
+                "rationale": "Evidence-informed, not sampled: Miami driverless operations to open access took 148 days; Denver employee phase preceded selected public riders. This parameter covers validation/restricted rides, with open-access ramp separately represented. Joint case: Priority class: corporate withdrawal from Boston or a nationwide disruption prevents service within the horizon.",
+                "value": 120
+              },
+              "scenario_id": "corporate_or_national_disruption"
+            }
+          ],
+          "rationale": "Preserve explicitly declared joint assessments and evidence rationales for validation. Values labeled assumed were not empirically identified. Each submission creates a new model version.",
+          "task_id": "task_f34ad2bda42047868ba4"
+        }
+      },
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "state_testing"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "house_bill"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "senate_bill"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "boston_return"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "denver_entry"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "denver_selected"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "capital"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "boston_proposal"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "boston_status"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "preemption_proposal"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "miami_driverless"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "denver_driverless"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "orlando_selected"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "florida_open"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "safety_investigation"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "upcoming"
+        },
+        {
+          "packet_id": "pkt_7f1a012b9dc7342c24d8bbe4",
+          "record_id": "ballot_uncertain"
+        }
+      ],
+      "extra_tasks": 0,
+      "forecast_id": "forecast_36336b5d641a4a009f32",
+      "information_as_of": "2026-09-16T00:34:03+00:00",
+      "model_calls": 0,
+      "pending": [],
+      "prior_record": {
+        "qualification": "Timeline workflow has no starting-probability task.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.39,
+      "probability_basis": "timeline_model",
+      "timeline_model_id": "timeline_model_2352dea3949240e39af9",
+      "used_searches": 27
+    },
+    "revision": 10
+  }
+]

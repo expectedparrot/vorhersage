@@ -1,0 +1,171 @@
+{
+  "id": "waymo_sequential",
+  "version": 1,
+  "question": {
+    "question_id": "waymo_boston_public_paid_driverless_before_2029",
+    "version": 1
+  },
+  "information_as_of": "2026-09-15T23:04:02Z",
+  "deadline": "2029-01-01T00:00:00-05:00",
+  "deadline_rule": "before",
+  "description": "Hypothetical preparation after authorization. Dates and durations are illustrative assumptions, not research findings.",
+  "target": "public_launch",
+  "parameters": [
+    {
+      "id": "authorization_date",
+      "kind": "date",
+      "description": "When usable permission for qualifying paid driverless service takes effect, including any required approvals."
+    },
+    {
+      "id": "preparation_days",
+      "kind": "duration_days",
+      "description": "Elapsed time to complete Boston operational preparation from its permitted start."
+    },
+    {
+      "id": "public_rollout_days",
+      "kind": "duration_days",
+      "description": "Elapsed time from permission and readiness to actual paid general-public service matching every YES criterion."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "authorization",
+      "kind": "event",
+      "completion_condition": "Usable permission is effective.",
+      "parents": [],
+      "state": "pending",
+      "rationale": "Permission is compressed into one hypothetical effective date; actual routes require research.",
+      "evidence_refs": [],
+      "parameter_id": "authorization_date"
+    },
+    {
+      "id": "preparation",
+      "kind": "task",
+      "completion_condition": "Local operational preparation is complete.",
+      "parents": [
+        "authorization"
+      ],
+      "state": "pending",
+      "rationale": "Hypothesis: preparation waits for permission.",
+      "evidence_refs": [],
+      "parameter_id": "preparation_days",
+      "not_before": "2028-03-01T00:00:00Z"
+    },
+    {
+      "id": "ready",
+      "kind": "all",
+      "completion_condition": "Both permission and operational readiness are available.",
+      "parents": [
+        "authorization",
+        "preparation"
+      ],
+      "state": "pending",
+      "rationale": "This model requires both milestones before public rollout.",
+      "evidence_refs": []
+    },
+    {
+      "id": "public_launch",
+      "kind": "task",
+      "completion_condition": "Paid public driverless trips inside Boston meet the question's complete YES definition.",
+      "parents": [
+        "ready"
+      ],
+      "state": "pending",
+      "rationale": "The rollout delay represents the gap to general public access, not merely selected-rider access.",
+      "evidence_refs": [],
+      "parameter_id": "public_rollout_days"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "early",
+      "description": "Hypothetical July 2027 permission",
+      "evidence_refs": [],
+      "assessments": [
+        {
+          "parameter_id": "authorization_date",
+          "basis": "assumed",
+          "value": "2027-07-01T00:00:00Z",
+          "evidence_refs": [],
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "parameter_id": "preparation_days",
+          "basis": "assumed",
+          "value": 184,
+          "evidence_refs": [],
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "parameter_id": "public_rollout_days",
+          "basis": "assumed",
+          "value": 61,
+          "evidence_refs": [],
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        }
+      ]
+    },
+    {
+      "id": "late",
+      "description": "Hypothetical July 2028 permission",
+      "evidence_refs": [],
+      "assessments": [
+        {
+          "parameter_id": "authorization_date",
+          "basis": "assumed",
+          "value": "2028-07-01T00:00:00Z",
+          "evidence_refs": [],
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "parameter_id": "preparation_days",
+          "basis": "assumed",
+          "value": 184,
+          "evidence_refs": [],
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "parameter_id": "public_rollout_days",
+          "basis": "assumed",
+          "value": 61,
+          "evidence_refs": [],
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        }
+      ]
+    },
+    {
+      "id": "never",
+      "description": "Hypothetical route that never obtains permission",
+      "evidence_refs": [],
+      "assessments": [
+        {
+          "parameter_id": "authorization_date",
+          "basis": "assumed",
+          "value": "never",
+          "evidence_refs": [],
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "parameter_id": "preparation_days",
+          "basis": "assumed",
+          "value": 184,
+          "evidence_refs": [],
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        },
+        {
+          "parameter_id": "public_rollout_days",
+          "basis": "assumed",
+          "value": 61,
+          "evidence_refs": [],
+          "rationale": "Illustrative stress-test input; not estimated from Waymo or legislative history."
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Illustrative structural comparison, not a new Waymo probability or an endorsement of either dependency hypothesis.",
+    "Scenarios are not an exhaustive partition and have no weights. Counts of successful cases have no probabilistic meaning.",
+    "March 2028 preparation start and 184/61 elapsed-day durations are invented for this example; they are not calendar-month estimates.",
+    "No new evidence was gathered. Authorization pathways, partial overlap, readiness, weather constraints and launch access need separate research."
+  ]
+}

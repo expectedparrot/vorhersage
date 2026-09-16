@@ -1,0 +1,56 @@
+{
+  "kind": "checkpoint",
+  "payload": {
+    "probability": 0.2860888041077261,
+    "rationale": "Use the current 79 F NBS forecast plus the full predetermined 31-day mean residual (-1.0323 F), replacing the subjective 80 F center. Replace the unsupported 3 F spread with the 1.8163 F sample residual SD, a simple mean-estimation term s^2/n, and an explicitly assumed independent 1 F provider/window SD. Gaussian integration over 78.5 to 80.5 F gives 28.61%. Normality, constant bias, nearest-integer rounding and the 1 F cushion are judgments, not calibrated facts. The un-smoothed residual estimate is 7/31 (22.6%); this difference warns against interpreting decimal precision as confidence.",
+    "findings": "All 31 selected dates were available. NBS forecasts averaged 1.03 F above station daily highs, with residual SD 1.82 F. Current NBS and NWS forecasts are 79 F, with NBS XND 2 F. Narrower dispersion raises the band probability; correcting the warm bias lowers it. The net revision is +2.84 percentage points. TWC settlement and NBM/day-summary time windows remain imperfectly matched.",
+    "changed_assumptions": [
+      "Center now 77.967742 F after empirical bias correction to current NBS forecast.",
+      "Predictive SD now 2.098891 F, including a declared subjective 1 F provider/window error.",
+      "Evidence supports a narrower local residual distribution, but does not validate exact contract calibration."
+    ],
+    "remaining_uncertainties": [
+      "TWC versus IEM/NWS reporting and rounding.",
+      "Stationarity and serial dependence in 31 adjacent late-summer days.",
+      "Gaussian smoothing versus empirical distribution shape; changing mean by +/-1 F gives 18.6% to 35.5% with other final assumptions fixed."
+    ],
+    "sources_checked": [
+      "https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KNYC&model=NBS&sts=2026-08-16T00%3A00Z&ets=2026-09-16T00%3A00Z&format=csv",
+      "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-08-16&ets=2026-09-15&network=NY_ASOS&stations=NYC&var=max_temp_f&format=csv",
+      "https://mesonet.agron.iastate.edu/api/1/mos.json?station=KNYC&model=NBS&runtime=2026-09-16T06%3A00Z",
+      "https://api.weather.gov/gridpoints/OKX/34,45/forecast",
+      "https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0",
+      "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?help="
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_29f3824c0ae023774478baca",
+        "record_id": "residuals"
+      },
+      {
+        "packet_id": "pkt_29f3824c0ae023774478baca",
+        "record_id": "current_high"
+      },
+      {
+        "packet_id": "pkt_29f3824c0ae023774478baca",
+        "record_id": "mismatch"
+      },
+      {
+        "packet_id": "pkt_29f3824c0ae023774478baca",
+        "record_id": "calculation"
+      }
+    ],
+    "limitations": [
+      "IEM station daily highs are a proxy, not TWC contract settlement records.",
+      "NBM maximum covers 12 UTC through 06 UTC; station daily summary windows can differ.",
+      "31 adjacent days are a small, serially correlated sample; no out-of-sample validation.",
+      "One-degree extra SD and normality are subjective; Gaussian smoothing differs from empirical frequency.",
+      "No adjustment for weather-regime or seasonal differences; no exact TWC rounding verification.",
+      "No exact matched TWC reference class. This is a proxy reference class with an explicit allowance, not the exact extraction originally preferred.",
+      "Research occurred in the existing root context, with evaluator files and outside event odds uninspected; no separate context was launched.",
+      "Usage and monetary cost are unmetered. The initial judgment already included the point forecast."
+    ]
+  },
+  "expected_revision": 4,
+  "idempotency_key": "nyc-4-checkpoint"
+}

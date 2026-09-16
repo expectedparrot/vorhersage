@@ -1,0 +1,288 @@
+{
+  "id": "independent_provisional",
+  "version": 1,
+  "question": {
+    "question_id": "waymo_boston_public_paid_driverless_before_2029",
+    "version": 1
+  },
+  "information_as_of": "2026-09-16T00:31:56.378198+00:00",
+  "deadline": "2029-01-01T00:00:00-05:00",
+  "deadline_rule": "before",
+  "description": "Independent pre-research structure, no probabilities assigned.",
+  "target": "commercial",
+  "parameters": [
+    {
+      "id": "legal",
+      "kind": "date",
+      "description": "Date a legally workable Massachusetts and Boston path permits paid driverless service"
+    },
+    {
+      "id": "technical",
+      "kind": "duration_days",
+      "description": "Remaining regional mapping and driverless capability validation"
+    },
+    {
+      "id": "fleet",
+      "kind": "duration_days",
+      "description": "Remaining preparation of fleet, depot, support and public service operation"
+    },
+    {
+      "id": "local_validation",
+      "kind": "duration_days",
+      "description": "Final Boston driverless passenger validation after legal and technical readiness"
+    },
+    {
+      "id": "commercial",
+      "kind": "duration_days",
+      "description": "Opening paid unrestricted access after driverless validation and operations readiness"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "legal",
+      "kind": "event",
+      "completion_condition": "Date a legally workable Massachusetts and Boston path permits paid driverless service",
+      "parents": [],
+      "parameter_id": "legal",
+      "state": "pending",
+      "rationale": "Provisional dependency hypothesis; research must establish what work can overlap.",
+      "evidence_refs": []
+    },
+    {
+      "id": "technical",
+      "kind": "task",
+      "completion_condition": "Remaining regional mapping and driverless capability validation",
+      "parents": [],
+      "parameter_id": "technical",
+      "state": "pending",
+      "rationale": "Provisional dependency hypothesis; research must establish what work can overlap.",
+      "evidence_refs": []
+    },
+    {
+      "id": "fleet",
+      "kind": "task",
+      "completion_condition": "Remaining preparation of fleet, depot, support and public service operation",
+      "parents": [],
+      "parameter_id": "fleet",
+      "state": "pending",
+      "rationale": "Provisional dependency hypothesis; research must establish what work can overlap.",
+      "evidence_refs": []
+    },
+    {
+      "id": "local_validation",
+      "kind": "task",
+      "completion_condition": "Final Boston driverless passenger validation after legal and technical readiness",
+      "parents": [
+        "legal",
+        "technical"
+      ],
+      "parameter_id": "local_validation",
+      "state": "pending",
+      "rationale": "Provisional dependency hypothesis; research must establish what work can overlap.",
+      "evidence_refs": []
+    },
+    {
+      "id": "commercial",
+      "kind": "task",
+      "completion_condition": "Opening paid unrestricted access after driverless validation and operations readiness",
+      "parents": [
+        "local_validation",
+        "fleet"
+      ],
+      "parameter_id": "commercial",
+      "state": "pending",
+      "rationale": "Provisional dependency hypothesis; research must establish what work can overlap.",
+      "evidence_refs": []
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "fast",
+      "description": "Timely permission and technically routine deployment",
+      "assessments": [
+        {
+          "parameter_id": "legal",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "technical",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "fleet",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "local_validation",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "commercial",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "ordinary",
+      "description": "Permission and operational work require a normal staged rollout",
+      "assessments": [
+        {
+          "parameter_id": "legal",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "technical",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "fleet",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "local_validation",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "commercial",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "late_permission",
+      "description": "Political or legal delay controls schedule",
+      "assessments": [
+        {
+          "parameter_id": "legal",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "technical",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "fleet",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "local_validation",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "commercial",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "technical_delay",
+      "description": "Permission exists but Boston technical or operational readiness is delayed",
+      "assessments": [
+        {
+          "parameter_id": "legal",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "technical",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "fleet",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "local_validation",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "commercial",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    },
+    {
+      "id": "withdrawal",
+      "description": "No viable launch path by deadline through prohibition, withdrawal or major disruption",
+      "assessments": [
+        {
+          "parameter_id": "legal",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "technical",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "fleet",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "local_validation",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        },
+        {
+          "parameter_id": "commercial",
+          "basis": "unresolved",
+          "rationale": "Await independent research.",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": []
+    }
+  ],
+  "limitations": [
+    "Structure precedes research; scenarios are unweighted hypotheses, not probabilities."
+  ]
+}

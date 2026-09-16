@@ -1,0 +1,13 @@
+{
+  "kind": "plan",
+  "payload": {
+    "uncertainty": "Current state, latest forecast and settlement-station alignment",
+    "why_it_matters": "The old80F center may be stale; an already-observed out-of-band high could resolve NO, and a wrong station or provider would invalidate the model.",
+    "higher_if": "Fresh forecasts cluster around79\u201380F and morning observations support that trajectory",
+    "lower_if": "Latest forecast moves outside the band, or current maximum already exceeds80F",
+    "search_plan": "Read current NWS Central Park hourly observations, point forecast and area discussion; inspect TWC source information without opening prediction odds.",
+    "stopping_rule": "Stop after obtaining current station observations plus a fresh official point forecast and discussion, or documenting inaccessible sources."
+  },
+  "expected_revision": 1,
+  "idempotency_key": "nyc-1-plan"
+}

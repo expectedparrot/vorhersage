@@ -1,0 +1,135 @@
+{
+  "id": "tutorial-study",
+  "version": 1,
+  "description": "Four sessions through research, resumption, and scoring",
+  "session_template": {
+    "id": "template",
+    "wave": "tutorial",
+    "forecaster": "fixture",
+    "protocol": "synthetic-v1",
+    "repetition": 1,
+    "mode": "simulation",
+    "information_as_of": "2026-09-12T15:23:16.315145+00:00",
+    "questions": [
+      {
+        "question_id": "readiness",
+        "version": 1
+      }
+    ],
+    "condition_ids": [
+      "condition_b1dbf5055d22a0fb8cef1031"
+    ],
+    "packet_ids": [],
+    "relation_ids": [],
+    "numeric_forecasts": [],
+    "bindings": [],
+    "provenance": {
+      "kind": "native",
+      "source": "Deterministic documentation fixture"
+    },
+    "configuration": {}
+  },
+  "repetitions": 2,
+  "order_seed": "tutorial-1",
+  "evidence_policy": "independent_live",
+  "arms": [
+    {
+      "id": "a",
+      "configuration": {
+        "fixture_probability": 0.25
+      },
+      "execution": {
+        "evidence_policy": "live",
+        "defer_bindings": true,
+        "budget": {
+          "max_model_calls": 5,
+          "max_searches": 5,
+          "max_cost_usd": 1
+        },
+        "research": {
+          "minimum_successful_tools": 1,
+          "minimum_unique_pages": 1,
+          "domains": [
+            "readiness"
+          ]
+        },
+        "requirements": [
+          {
+            "id": "fixture",
+            "description": "No real network calls",
+            "expected": {
+              "network_calls": 0
+            }
+          }
+        ],
+        "worker": {
+          "command": [
+            "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+            "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+          ],
+          "config": {
+            "probability": 0.25
+          },
+          "timeout_seconds": 10
+        },
+        "tool_worker": {
+          "command": [
+            "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+            "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+          ],
+          "config": {},
+          "timeout_seconds": 10
+        }
+      }
+    },
+    {
+      "id": "b",
+      "configuration": {
+        "fixture_probability": 0.75
+      },
+      "execution": {
+        "evidence_policy": "live",
+        "defer_bindings": true,
+        "budget": {
+          "max_model_calls": 5,
+          "max_searches": 5,
+          "max_cost_usd": 1
+        },
+        "research": {
+          "minimum_successful_tools": 1,
+          "minimum_unique_pages": 1,
+          "domains": [
+            "readiness"
+          ]
+        },
+        "requirements": [
+          {
+            "id": "fixture",
+            "description": "No real network calls",
+            "expected": {
+              "network_calls": 0
+            }
+          }
+        ],
+        "worker": {
+          "command": [
+            "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+            "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+          ],
+          "config": {
+            "probability": 0.75
+          },
+          "timeout_seconds": 10
+        },
+        "tool_worker": {
+          "command": [
+            "/Users/johnhorton/tools/ep/vorhersage/.venv/bin/python",
+            "/private/tmp/vorhersage-docs-tutorial-run-v2/session-tutorial/worker.py"
+          ],
+          "config": {},
+          "timeout_seconds": 10
+        }
+      }
+    }
+  ]
+}

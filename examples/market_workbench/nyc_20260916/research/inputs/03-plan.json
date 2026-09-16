@@ -1,0 +1,13 @@
+{
+  "kind": "plan",
+  "payload": {
+    "uncertainty": "Empirical short-horizon high-temperature error distribution at Central Park",
+    "why_it_matters": "The assumed3F spread largely determines the chance of a two-degree bracket, even with an accurate80F center.",
+    "higher_if": "Matched past forecasts exhibit smaller residual dispersion and little bias near the band",
+    "lower_if": "Residuals are wider, biased away from the band, or station/provider alignment is poor",
+    "search_plan": "Before inspecting outcomes, select all dates August16\u2013September15 2026 with KNYC NBS/NBM06UTC same-day maximum forecasts and completed station daily maxima. Prefer an exact matched archive. If unavailable, inspect NBS current uncertainty or published verification; do not substitute model disagreement for calibrated error or count unrelated stations as matched cases.",
+    "stopping_rule": "Inspect IEM MOS archive/API and NOAA NBM product definitions; attempt a matched local extraction. Stop after these sources or a clear availability failure, preserve exclusions and do not invent an empirical residual estimate."
+  },
+  "expected_revision": 3,
+  "idempotency_key": "nyc-3-plan"
+}

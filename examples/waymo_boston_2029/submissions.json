@@ -1,0 +1,819 @@
+[
+  {
+    "request": {
+      "task_id": "task_e8d635bf9a2a4d73ab69",
+      "expected_revision": 0,
+      "idempotency_key": "task_e8d635bf9a2a4d73ab69",
+      "payload": {
+        "method": "judgment",
+        "probability": 0.5,
+        "rationale": "A deliberately uninformative-looking but still subjective 50% starting convention for this roughly 27.5-month horizon. It is not a measured city-launch base rate.",
+        "evidence_refs": [],
+        "limitations": [
+          "One assistant's subjective assessment; anchor and likelihood ratios are assumed, not fitted or calibrated.",
+          "Research preceded workflow creation. The anchor is an explanatory starting assumption, not a preregistered blind prior.",
+          "No complete sampled reference class of announced-city launches; selected rollout examples are illustrative and subject to selection bias."
+        ]
+      },
+      "usage": {
+        "searches": 16,
+        "cost_usd": 0,
+        "model_calls": 0
+      }
+    },
+    "receipt": {
+      "accepted": true,
+      "duplicate": false,
+      "run_id": "run_3432a4a299b04ddfb348",
+      "revision": 1,
+      "artifact_id": "task_result_99b2d80dd961423eaeb8",
+      "forecast_id": null
+    }
+  },
+  {
+    "request": {
+      "task_id": "task_446457640f3c42e1aaca",
+      "expected_revision": 1,
+      "idempotency_key": "task_446457640f3c42e1aaca",
+      "payload": {
+        "drivers": [
+          {
+            "name": "Permission with time to implement",
+            "mechanism": "A lawful path must permit driverless commercial rides and leave enough time for operational rollout.",
+            "evidence_refs": [
+              {
+                "packet_id": "pkt_1036816f3bc09577b6402b95",
+                "record_id": "house_study_order"
+              },
+              {
+                "packet_id": "pkt_1036816f3bc09577b6402b95",
+                "record_id": "senate_study_order"
+              }
+            ]
+          },
+          {
+            "name": "Delivery and public access",
+            "mechanism": "Waymo must validate Boston operations, deploy capacity, charge fares and remove invitation-only access before the deadline.",
+            "evidence_refs": [
+              {
+                "packet_id": "pkt_1036816f3bc09577b6402b95",
+                "record_id": "boston_intent"
+              },
+              {
+                "packet_id": "pkt_1036816f3bc09577b6402b95",
+                "record_id": "public_access_lag"
+              }
+            ]
+          }
+        ],
+        "yes_path": "A workable permission framework arrives with sufficient lead time; Waymo completes staged rollout and opens paid public service in a Boston geofence.",
+        "no_path": "Policy stays blocked or arrives too late, or technical/commercial rollout remains testing or invitation-only at the deadline.",
+        "unknowns": [
+          "Timing of reform",
+          "Implementation lag",
+          "Boston winter and street validation",
+          "Corporate deployment priorities"
+        ]
+      },
+      "usage": {
+        "searches": 0,
+        "cost_usd": 0,
+        "model_calls": 0
+      }
+    },
+    "receipt": {
+      "accepted": true,
+      "duplicate": false,
+      "run_id": "run_3432a4a299b04ddfb348",
+      "revision": 2,
+      "artifact_id": "task_result_011d03779b8a4e508b84",
+      "forecast_id": null
+    }
+  },
+  {
+    "request": {
+      "task_id": "task_111ddaf0b3c0480e849b",
+      "expected_revision": 2,
+      "idempotency_key": "task_111ddaf0b3c0480e849b",
+      "payload": {
+        "disposition": "assessed",
+        "interpretation": "Preparation plus funded execution makes lack of intent/capital less concerning than permission.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "boston_intent"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "expansion_capital"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "multi_city_execution"
+          }
+        ],
+        "sources_checked": [
+          "https://waymo.com/blog/2026/02/waymo-raises-usd16-billion-investment-round/",
+          "https://waymo.com/blog/2026/09/ride-in-denver-san-diego-tampa/",
+          "https://waymo.com/blog/shorts/back-to-boston/"
+        ],
+        "unknowns": [
+          "No verified Boston fleet size, depot commissioning date or binding launch date."
+        ],
+        "conflicts": []
+      },
+      "usage": {
+        "searches": 0,
+        "cost_usd": 0,
+        "model_calls": 0
+      }
+    },
+    "receipt": {
+      "accepted": true,
+      "duplicate": false,
+      "run_id": "run_3432a4a299b04ddfb348",
+      "revision": 3,
+      "artifact_id": "task_result_19ae033bc7894023ba9b",
+      "forecast_id": null
+    }
+  },
+  {
+    "request": {
+      "task_id": "task_024f78c6bedb461ba02a",
+      "expected_revision": 3,
+      "idempotency_key": "task_024f78c6bedb461ba02a",
+      "payload": {
+        "disposition": "assessed",
+        "interpretation": "The named enabling routes have not produced enactment in their retrieved histories. Study orders are a delay signal, not proof that every future route is closed.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "driver_requirement"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "house_study_order"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "senate_study_order"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "competing_bills_stalled"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "no_av_ballot_item"
+          }
+        ],
+        "sources_checked": [
+          "https://malegislature.gov/Bills/194/H3634",
+          "https://malegislature.gov/Bills/194/H3669",
+          "https://malegislature.gov/Bills/194/S2379",
+          "https://malegislature.gov/Bills/194/S2393",
+          "https://www.mass.gov/info-details/general-requirements-safe-testing-of-automated-driving-systems",
+          "https://www.sec.state.ma.us/divisions/news/right-story.htm"
+        ],
+        "unknowns": [
+          "No verified leadership vote count, governor commitment or complete search of all authorization alternatives."
+        ],
+        "conflicts": []
+      },
+      "usage": {
+        "searches": 0,
+        "cost_usd": 0,
+        "model_calls": 0
+      }
+    },
+    "receipt": {
+      "accepted": true,
+      "duplicate": false,
+      "run_id": "run_3432a4a299b04ddfb348",
+      "revision": 4,
+      "artifact_id": "task_result_7e79f85b719f4fc3932c",
+      "forecast_id": null
+    }
+  },
+  {
+    "request": {
+      "task_id": "task_9c8e4231738f4de08b7b",
+      "expected_revision": 4,
+      "idempotency_key": "task_9c8e4231738f4de08b7b",
+      "payload": {
+        "disposition": "assessed",
+        "interpretation": "Local labor and operational concerns can delay service; accessibility support cuts the other way. A proposed ordinance is not an enacted ban.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "local_acceptance"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "boston_intent"
+          }
+        ],
+        "sources_checked": [
+          "https://boston.legistar.com/LegislationDetail.aspx?GUID=311445A0-001C-4CA7-ADB2-714EBFC16391&ID=7504068&Options=&Search=",
+          "https://waymo.com/blog/shorts/back-to-boston/",
+          "https://www.boston.com/news/business/2026/02/06/waymo-wants-to-expand-into-boston-massachusetts-law-isnt-ready/"
+        ],
+        "unknowns": [
+          "Current city coalition, final state preemption rules and conditions of any local approval."
+        ],
+        "conflicts": []
+      },
+      "usage": {
+        "searches": 0,
+        "cost_usd": 0,
+        "model_calls": 0
+      }
+    },
+    "receipt": {
+      "accepted": true,
+      "duplicate": false,
+      "run_id": "run_3432a4a299b04ddfb348",
+      "revision": 5,
+      "artifact_id": "task_result_ceb2fadc30814c59a765",
+      "forecast_id": null
+    }
+  },
+  {
+    "request": {
+      "task_id": "task_4fa09f96d49b4a7a8017",
+      "expected_revision": 5,
+      "idempotency_key": "task_4fa09f96d49b4a7a8017",
+      "payload": {
+        "disposition": "assessed",
+        "interpretation": "Denver expansion is encouraging but does not establish Boston winter readiness. The event permits weather pauses and a limited geofence.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "boston_weather"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "multi_city_execution"
+          }
+        ],
+        "sources_checked": [
+          "https://waymo.com/blog/2026/09/ride-in-denver-san-diego-tampa/",
+          "https://waymo.com/blog/shorts/back-to-boston/"
+        ],
+        "unknowns": [
+          "No independent Boston-specific operating validation or winter service reliability data."
+        ],
+        "conflicts": []
+      },
+      "usage": {
+        "searches": 0,
+        "cost_usd": 0,
+        "model_calls": 0
+      }
+    },
+    "receipt": {
+      "accepted": true,
+      "duplicate": false,
+      "run_id": "run_3432a4a299b04ddfb348",
+      "revision": 6,
+      "artifact_id": "task_result_6627fb2b77d14c308f7b",
+      "forecast_id": null
+    }
+  },
+  {
+    "request": {
+      "task_id": "task_7a189384eb9a4d3fa8fd",
+      "expected_revision": 6,
+      "idempotency_key": "task_7a189384eb9a4d3fa8fd",
+      "payload": {
+        "disposition": "assessed",
+        "interpretation": "All-comer paid service is a stricter milestone than invited first riders. Recent staged rollouts warrant time for public access after permission.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "public_access_lag"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "boston_not_live"
+          }
+        ],
+        "sources_checked": [
+          "https://support.google.com/waymo/announcements/12766613?hl=en",
+          "https://waymo.com/rides/"
+        ],
+        "unknowns": [
+          "Boston launch sequence and whether fare collection/public access will be delayed."
+        ],
+        "conflicts": []
+      },
+      "usage": {
+        "searches": 0,
+        "cost_usd": 0,
+        "model_calls": 0
+      }
+    },
+    "receipt": {
+      "accepted": true,
+      "duplicate": false,
+      "run_id": "run_3432a4a299b04ddfb348",
+      "revision": 7,
+      "artifact_id": "task_result_408c9f32ece14baf87e9",
+      "forecast_id": null
+    }
+  },
+  {
+    "request": {
+      "task_id": "task_5a043f04bf5349f6bf91",
+      "expected_revision": 7,
+      "idempotency_key": "task_5a043f04bf5349f6bf91",
+      "payload": {
+        "method": "odds_ledger",
+        "odds_ledger": {
+          "anchor": {
+            "probability": 0.5,
+            "basis": "assumed",
+            "rationale": "A deliberately uninformative-looking but still subjective 50% starting convention for this roughly 27.5-month horizon. It is not a measured city-launch base rate.",
+            "prior_artifact_id": "task_result_99b2d80dd961423eaeb8"
+          },
+          "entries": [
+            {
+              "finding_id": "boston_intent",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_1036816f3bc09577b6402b95",
+                  "record_id": "boston_intent"
+                }
+              ],
+              "dependence_group": "delivery",
+              "lr": 1.8,
+              "lr_range": [
+                1,
+                3
+              ],
+              "direction": "supports",
+              "rationale": "Subjective standalone annotation; superseded by its group's joint ratio. Waymo has publicly committed to preparing a future Boston service."
+            },
+            {
+              "finding_id": "boston_weather",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_1036816f3bc09577b6402b95",
+                  "record_id": "boston_weather"
+                }
+              ],
+              "dependence_group": "delivery",
+              "lr": 0.9,
+              "lr_range": [
+                0.6,
+                1.2
+              ],
+              "direction": "opposes",
+              "rationale": "Subjective standalone annotation; superseded by its group's joint ratio. Waymo describes local-road adaptation and winter validation; this is not a demonstrated Boston commercial winter service."
+            },
+            {
+              "finding_id": "boston_not_live",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_1036816f3bc09577b6402b95",
+                  "record_id": "boston_not_live"
+                }
+              ],
+              "dependence_group": "delivery",
+              "lr": 1,
+              "lr_range": [
+                0.8,
+                1.1
+              ],
+              "direction": "neutral",
+              "rationale": "Subjective standalone annotation; superseded by its group's joint ratio. Boston is listed as upcoming on the checked Waymo service page."
+            },
+            {
+              "finding_id": "multi_city_execution",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_1036816f3bc09577b6402b95",
+                  "record_id": "multi_city_execution"
+                }
+              ],
+              "dependence_group": "delivery",
+              "lr": 1.5,
+              "lr_range": [
+                1,
+                2
+              ],
+              "direction": "supports",
+              "rationale": "Subjective standalone annotation; superseded by its group's joint ratio. Waymo has recently extended initial rider access to three more cities, including Denver."
+            },
+            {
+              "finding_id": "expansion_capital",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_1036816f3bc09577b6402b95",
+                  "record_id": "expansion_capital"
+                }
+              ],
+              "dependence_group": "delivery",
+              "lr": 1.2,
+              "lr_range": [
+                1,
+                1.5
+              ],
+              "direction": "supports",
+              "rationale": "Subjective standalone annotation; superseded by its group's joint ratio. Waymo reports substantial committed financing for expansion."
+            },
+            {
+              "finding_id": "public_access_lag",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_1036816f3bc09577b6402b95",
+                  "record_id": "public_access_lag"
+                }
+              ],
+              "dependence_group": "delivery",
+              "lr": 0.9,
+              "lr_range": [
+                0.7,
+                1
+              ],
+              "direction": "opposes",
+              "rationale": "Subjective standalone annotation; superseded by its group's joint ratio. Recent Texas launches illustrate a months-long gap between selected-rider access and access for everyone."
+            },
+            {
+              "finding_id": "driver_requirement",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_1036816f3bc09577b6402b95",
+                  "record_id": "driver_requirement"
+                }
+              ],
+              "dependence_group": "permission",
+              "lr": 0.65,
+              "lr_range": [
+                0.4,
+                0.9
+              ],
+              "direction": "opposes",
+              "rationale": "Subjective standalone annotation; superseded by its group's joint ratio. The checked state testing framework requires an in-vehicle driver; testing permission does not establish permission for the forecasted service."
+            },
+            {
+              "finding_id": "house_study_order",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_1036816f3bc09577b6402b95",
+                  "record_id": "house_study_order"
+                }
+              ],
+              "dependence_group": "permission",
+              "lr": 0.8,
+              "lr_range": [
+                0.5,
+                1
+              ],
+              "direction": "opposes",
+              "rationale": "Subjective standalone annotation; superseded by its group's joint ratio. A principal House enabling proposal went to a study order in April 2026."
+            },
+            {
+              "finding_id": "senate_study_order",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_1036816f3bc09577b6402b95",
+                  "record_id": "senate_study_order"
+                }
+              ],
+              "dependence_group": "permission",
+              "lr": 0.75,
+              "lr_range": [
+                0.5,
+                1
+              ],
+              "direction": "opposes",
+              "rationale": "Subjective standalone annotation; superseded by its group's joint ratio. The Senate enabling proposal also went to a study order in July 2026."
+            },
+            {
+              "finding_id": "local_acceptance",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_1036816f3bc09577b6402b95",
+                  "record_id": "local_acceptance"
+                }
+              ],
+              "dependence_group": "permission",
+              "lr": 0.8,
+              "lr_range": [
+                0.6,
+                1.1
+              ],
+              "direction": "opposes",
+              "rationale": "Subjective standalone annotation; superseded by its group's joint ratio. Boston has debated restrictions and faces local concerns; the checked docket does not establish an enacted city ban."
+            },
+            {
+              "finding_id": "competing_bills_stalled",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_1036816f3bc09577b6402b95",
+                  "record_id": "competing_bills_stalled"
+                }
+              ],
+              "dependence_group": "permission",
+              "lr": 1.05,
+              "lr_range": [
+                1,
+                1.2
+              ],
+              "direction": "supports",
+              "rationale": "Subjective standalone annotation; superseded by its group's joint ratio. Competing safety proposals also went to study orders; the enabling bills' lack of enactment is not evidence that those competing proposals passed."
+            },
+            {
+              "finding_id": "no_av_ballot_item",
+              "evidence_refs": [
+                {
+                  "packet_id": "pkt_1036816f3bc09577b6402b95",
+                  "record_id": "no_av_ballot_item"
+                }
+              ],
+              "dependence_group": "permission",
+              "lr": 1.05,
+              "lr_range": [
+                1,
+                1.2
+              ],
+              "direction": "supports",
+              "rationale": "Subjective standalone annotation; superseded by its group's joint ratio. The checked final ballot-certification list contains no autonomous-vehicle restriction; this limited absence check does not settle future legislative policy."
+            }
+          ],
+          "joint_declarations": [
+            {
+              "dependence_group": "delivery",
+              "finding_ids": [
+                "boston_intent",
+                "boston_weather",
+                "boston_not_live",
+                "multi_city_execution",
+                "expansion_capital",
+                "public_access_lag"
+              ],
+              "lr": 2.5,
+              "lr_range": [
+                1.5,
+                4
+              ],
+              "direction": "supports",
+              "rationale": "Jointly, explicit Boston preparation, financing and demonstrated multi-city execution support delivery within the horizon. Discount for corporate promotion, unfinished Boston validation, competing cities and time to remove a waitlist. Shared corporate evidence is counted once."
+            },
+            {
+              "dependence_group": "permission",
+              "finding_ids": [
+                "driver_requirement",
+                "house_study_order",
+                "senate_study_order",
+                "local_acceptance",
+                "competing_bills_stalled",
+                "no_av_ballot_item"
+              ],
+              "lr": 0.5,
+              "lr_range": [
+                0.2,
+                1
+              ],
+              "direction": "opposes",
+              "rationale": "Jointly, the present driver-based testing framework, study-order outcomes for enabling legislation and local friction halve the odds. Counterweights are the remaining 2027-28 window, stalled competing proposals and absence of an AV restriction on the checked 2026 ballot list. These connected political observations are not multiplied separately."
+            }
+          ],
+          "independence_rationale": "Treat commercial/technical delivery and the permission process as separable evidence blocks for this judgmental approximation. Residual dependence remains: corporate deployment changes political support, and expected policy affects investment. Joint ratios are subjective net weights, not empirically established likelihoods.",
+          "comparison_probability": 0.5
+        },
+        "rationale": "Slightly more likely than not. Delivery strength is offset by permission and implementation timing. As a non-independent explanatory cross-check, 65% for a workable permission path with sufficient lead time times 85% for qualifying rollout conditional on that path gives 55.25%, close to the ledger's 55.56%. Both inputs are subjective judgments, not measured frequencies.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "boston_intent"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "boston_weather"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "boston_not_live"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "multi_city_execution"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "expansion_capital"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "public_access_lag"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "driver_requirement"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "house_study_order"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "senate_study_order"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "local_acceptance"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "competing_bills_stalled"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "no_av_ballot_item"
+          }
+        ],
+        "limitations": [
+          "One assistant's subjective assessment; anchor and likelihood ratios are assumed, not fitted or calibrated.",
+          "Research preceded workflow creation. The anchor is an explanatory starting assumption, not a preregistered blind prior.",
+          "No complete sampled reference class of announced-city launches; selected rollout examples are illustrative and subject to selection bias.",
+          "Manual paraphrases from web retrieval and official search excerpts; full source pages were not archived. Exact publication times are unknown.",
+          "The legal review covers named bills, testing guidance and selected city/ballot records, not an exhaustive legal opinion or comprehensive search of every possible authorization route.",
+          "Company statements have promotional incentives; local opposition reporting is older and does not prove current vote counts.",
+          "Cross-group dependence can remain. Evidence does not uniquely imply the declared ratios. Sensitivity bounds are not confidence intervals.",
+          "No model panel or separately metered inference was run. Recorded zero cost/model calls excludes unmetered assistant and browsing costs."
+        ]
+      },
+      "usage": {
+        "searches": 0,
+        "cost_usd": 0,
+        "model_calls": 0
+      }
+    },
+    "receipt": {
+      "accepted": true,
+      "duplicate": false,
+      "run_id": "run_3432a4a299b04ddfb348",
+      "revision": 8,
+      "artifact_id": "task_result_d61818a01085453ebae8",
+      "forecast_id": null
+    }
+  },
+  {
+    "request": {
+      "task_id": "task_41664da7173c43c49800",
+      "expected_revision": 8,
+      "idempotency_key": "task_41664da7173c43c49800",
+      "payload": {
+        "decision": "retain",
+        "rationale": "Retain 55.56%, communicated as about 55%. The apparent numerical precision is arithmetic, not epistemic precision.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "boston_intent"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "boston_weather"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "boston_not_live"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "multi_city_execution"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "expansion_capital"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "public_access_lag"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "driver_requirement"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "house_study_order"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "senate_study_order"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "local_acceptance"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "competing_bills_stalled"
+          },
+          {
+            "packet_id": "pkt_1036816f3bc09577b6402b95",
+            "record_id": "no_av_ballot_item"
+          }
+        ],
+        "objections": [
+          {
+            "direction": "too_high",
+            "objection": "Both enabling bills have been put into study orders. Reform could consume most of the remaining horizon, and an invite-only opening would still fail this event.",
+            "response": "Agreed; permission is the largest swing assumption. Lowering its joint ratio from 0.5 to 0.2 takes the estimate to 33.33%. No extrapolation from permissive states guarantees Massachusetts reform."
+          },
+          {
+            "direction": "too_low",
+            "objection": "With more than two years, explicit preparation and operational scale, a small public Boston geofence may be straightforward once approval arrives.",
+            "response": "Agreed; early workable authorization would substantially raise the estimate. Removing the current permission discount yields 71.43% at the same delivery weight; subsequent reassessment should update the underlying assumptions too."
+          }
+        ]
+      },
+      "usage": {
+        "searches": 0,
+        "cost_usd": 0,
+        "model_calls": 0
+      }
+    },
+    "receipt": {
+      "accepted": true,
+      "duplicate": false,
+      "run_id": "run_3432a4a299b04ddfb348",
+      "revision": 9,
+      "artifact_id": "task_result_5886c1cf59994d9ea859",
+      "forecast_id": null
+    }
+  },
+  {
+    "request": {
+      "task_id": "task_07fef2d5e8624e4d8ec3",
+      "expected_revision": 9,
+      "idempotency_key": "task_07fef2d5e8624e4d8ec3",
+      "payload": {
+        "stopping_reason": "Completed five substantive domains, distinguished staged access from the event, checked both enabling and competing proposals, and documented unresolved political and operational inputs. Further unstructured searches have low expected value relative to waiting for concrete policy changes.",
+        "review_at": "2027-02-01T09:00:00-05:00",
+        "triggers": [
+          {
+            "description": "Enacted Massachusetts authorization, a new enabling bill advancing, or a binding restrictive requirement.",
+            "evidence_refs": [
+              {
+                "packet_id": "pkt_1036816f3bc09577b6402b95",
+                "record_id": "house_study_order"
+              },
+              {
+                "packet_id": "pkt_1036816f3bc09577b6402b95",
+                "record_id": "senate_study_order"
+              }
+            ]
+          },
+          {
+            "description": "Waymo announces Boston driverless passenger testing, public paid access, a firm schedule, or withdrawal.",
+            "evidence_refs": [
+              {
+                "packet_id": "pkt_1036816f3bc09577b6402b95",
+                "record_id": "boston_intent"
+              },
+              {
+                "packet_id": "pkt_1036816f3bc09577b6402b95",
+                "record_id": "boston_not_live"
+              }
+            ]
+          },
+          {
+            "description": "Material Boston permit decision, major fleet safety restriction or operational evidence that changes winter readiness.",
+            "evidence_refs": [
+              {
+                "packet_id": "pkt_1036816f3bc09577b6402b95",
+                "record_id": "local_acceptance"
+              },
+              {
+                "packet_id": "pkt_1036816f3bc09577b6402b95",
+                "record_id": "boston_weather"
+              }
+            ]
+          },
+          {
+            "description": "Reassess time remaining if a workable permission path is still absent at the start of 2028.",
+            "evidence_refs": [],
+            "at": "2028-01-01T09:00:00-05:00"
+          }
+        ]
+      },
+      "usage": {
+        "searches": 0,
+        "cost_usd": 0,
+        "model_calls": 0
+      }
+    },
+    "receipt": {
+      "accepted": true,
+      "duplicate": false,
+      "run_id": "run_3432a4a299b04ddfb348",
+      "revision": 10,
+      "artifact_id": "task_result_dd55ec7ff34f461386e2",
+      "forecast_id": "forecast_7d03861d72854202b3e5"
+    }
+  }
+]

@@ -1,0 +1,1318 @@
+{
+  "deadline": "2027-01-01T00:00:00-05:00",
+  "deadline_rule": "before",
+  "derived_from_model_id": "timeline_model_b9534850ca4146c3abfc",
+  "description": "First qualifying FOMC target-range reduction within February 26 through December 31, 2026; first audit elapsed window, then condition future dates on economic regimes.",
+  "id": "timeline_run_8af7510d250345b294e1_task_d7292ce5859f49dbbf21",
+  "information_as_of": "2026-09-16T01:20:26+00:00",
+  "limitations": [
+    "Weights and future dates are subjective assumptions, not estimates calibrated from a historical sample.",
+    "Small paper pilot; no trading, exhaustive macro review or claim of accuracy from procedural compliance.",
+    "No affirmative evidence of an elapsed qualifying cut was found; negative archive evidence has indexing limits.",
+    "Future first-cut dates are scenario representatives. Emergency date represents any first unscheduled qualifying cut before expiry; never means no qualifying cut in this contract window, not no cut forever.",
+    "Target-range reductions count even if preceded by a hike; unrelated administered-rate changes and mere votes for a cut do not.",
+    "External model calls and costs are unmetered; workflow numeric zeros are placeholders."
+  ],
+  "nodes": [
+    {
+      "completion_condition": "FOMC announces reduction of target federal funds range within frozen contract window.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "history"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "calendar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jan"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "apr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jun"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jul"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jobs"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "pce"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "archive"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mpr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "warsh"
+        }
+      ],
+      "id": "first_cut",
+      "kind": "event",
+      "parameter_id": "first_cut_date",
+      "parents": [],
+      "rationale": "Direct announcement event; no artificial task durations. A qualifying past event would make question already known.",
+      "state": "pending"
+    }
+  ],
+  "parameters": [
+    {
+      "description": "First qualifying announcement date in frozen window, or never; elapsed-window audit takes precedence.",
+      "id": "first_cut_date",
+      "kind": "date"
+    }
+  ],
+  "previous_model_id": "timeline_model_b01c7ce2ff6340288af8",
+  "question": {
+    "question_id": "kalshi_fed_20260915",
+    "version": 1
+  },
+  "scenarios": [
+    {
+      "assessments": [
+        {
+          "basis": "assumed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "history"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "calendar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jan"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "apr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jun"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jul"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jobs"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "cpi"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "pce"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "archive"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mpr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "warsh"
+            }
+          ],
+          "parameter_id": "first_cut_date",
+          "rationale": "Inflation and resilient employment prevent any qualifying cut. Hikes or holds are allowed. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative.",
+          "value": "never"
+        }
+      ],
+      "description": "Inflation and resilient employment prevent any qualifying cut. Hikes or holds are allowed.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "history"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "calendar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jan"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "apr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jun"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jul"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jobs"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "pce"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "archive"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mpr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "warsh"
+        }
+      ],
+      "id": "persistent_none",
+      "weight": 0.58,
+      "weight_rationale": "Assumed regime weight 0.58 times assumed conditional branch weight 1.0. Largest regime given current price focus, hike dissenters, core PCE above target and stable unemployment. Conditional responses are judgmental, not historical frequencies."
+    },
+    {
+      "assessments": [
+        {
+          "basis": "assumed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "history"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "calendar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jan"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "apr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jun"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jul"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jobs"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "cpi"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "pce"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "archive"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mpr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "warsh"
+            }
+          ],
+          "parameter_id": "first_cut_date",
+          "rationale": "Unexpectedly fast reassessment permits a September first cut. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative.",
+          "value": "2026-09-16T14:00:00-04:00"
+        }
+      ],
+      "description": "Unexpectedly fast reassessment permits a September first cut.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "history"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "calendar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jan"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "apr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jun"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jul"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jobs"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "pce"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "archive"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mpr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "warsh"
+        }
+      ],
+      "id": "disinflation_sep",
+      "weight": 0.01,
+      "weight_rationale": "Assumed regime weight 0.25 times assumed conditional branch weight 0.04. Meaningful minority because annual core CPI eased, recent core PCE monthly readings were moderate and energy can reverse; chair remains unconvinced. Conditional responses are judgmental, not historical frequencies."
+    },
+    {
+      "assessments": [
+        {
+          "basis": "assumed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "history"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "calendar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jan"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "apr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jun"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jul"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jobs"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "cpi"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "pce"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "archive"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mpr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "warsh"
+            }
+          ],
+          "parameter_id": "first_cut_date",
+          "rationale": "Additional disinflation produces an October first cut. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative.",
+          "value": "2026-10-28T14:00:00-04:00"
+        }
+      ],
+      "description": "Additional disinflation produces an October first cut.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "history"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "calendar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jan"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "apr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jun"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jul"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jobs"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "pce"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "archive"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mpr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "warsh"
+        }
+      ],
+      "id": "disinflation_oct",
+      "weight": 0.04,
+      "weight_rationale": "Assumed regime weight 0.25 times assumed conditional branch weight 0.16. Meaningful minority because annual core CPI eased, recent core PCE monthly readings were moderate and energy can reverse; chair remains unconvinced. Conditional responses are judgmental, not historical frequencies."
+    },
+    {
+      "assessments": [
+        {
+          "basis": "assumed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "history"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "calendar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jan"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "apr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jun"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jul"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jobs"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "cpi"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "pce"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "archive"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mpr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "warsh"
+            }
+          ],
+          "parameter_id": "first_cut_date",
+          "rationale": "Disinflation accumulates slowly enough for a December first cut. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative.",
+          "value": "2026-12-09T14:00:00-05:00"
+        }
+      ],
+      "description": "Disinflation accumulates slowly enough for a December first cut.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "history"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "calendar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jan"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "apr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jun"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jul"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jobs"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "pce"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "archive"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mpr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "warsh"
+        }
+      ],
+      "id": "disinflation_dec",
+      "weight": 0.07,
+      "weight_rationale": "Assumed regime weight 0.25 times assumed conditional branch weight 0.28. Meaningful minority because annual core CPI eased, recent core PCE monthly readings were moderate and energy can reverse; chair remains unconvinced. Conditional responses are judgmental, not historical frequencies."
+    },
+    {
+      "assessments": [
+        {
+          "basis": "assumed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "history"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "calendar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jan"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "apr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jun"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jul"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jobs"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "cpi"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "pce"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "archive"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mpr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "warsh"
+            }
+          ],
+          "parameter_id": "first_cut_date",
+          "rationale": "Disinflation occurs but Fed waits into 2027. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative.",
+          "value": "never"
+        }
+      ],
+      "description": "Disinflation occurs but Fed waits into 2027.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "history"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "calendar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jan"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "apr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jun"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jul"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jobs"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "pce"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "archive"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mpr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "warsh"
+        }
+      ],
+      "id": "disinflation_none",
+      "weight": 0.13,
+      "weight_rationale": "Assumed regime weight 0.25 times assumed conditional branch weight 0.52. Meaningful minority because annual core CPI eased, recent core PCE monthly readings were moderate and energy can reverse; chair remains unconvinced. Conditional responses are judgmental, not historical frequencies."
+    },
+    {
+      "assessments": [
+        {
+          "basis": "assumed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "history"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "calendar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jan"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "apr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jun"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jul"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jobs"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "cpi"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "pce"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "archive"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mpr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "warsh"
+            }
+          ],
+          "parameter_id": "first_cut_date",
+          "rationale": "Abrupt labor weakening generates an October first cut. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative.",
+          "value": "2026-10-28T14:00:00-04:00"
+        }
+      ],
+      "description": "Abrupt labor weakening generates an October first cut.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "history"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "calendar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jan"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "apr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jun"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jul"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jobs"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "pce"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "archive"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mpr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "warsh"
+        }
+      ],
+      "id": "labor_oct",
+      "weight": 0.009999999999999998,
+      "weight_rationale": "Assumed regime weight 0.12 times assumed conditional branch weight 0.08333333333333333. Minority downside despite strong August because June/July hiring was weak and real July consumption flat. Conditional responses are judgmental, not historical frequencies."
+    },
+    {
+      "assessments": [
+        {
+          "basis": "assumed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "history"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "calendar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jan"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "apr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jun"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jul"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jobs"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "cpi"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "pce"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "archive"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mpr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "warsh"
+            }
+          ],
+          "parameter_id": "first_cut_date",
+          "rationale": "Labor weakening generates a December first cut. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative.",
+          "value": "2026-12-09T14:00:00-05:00"
+        }
+      ],
+      "description": "Labor weakening generates a December first cut.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "history"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "calendar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jan"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "apr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jun"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jul"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jobs"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "pce"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "archive"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mpr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "warsh"
+        }
+      ],
+      "id": "labor_dec",
+      "weight": 0.05,
+      "weight_rationale": "Assumed regime weight 0.12 times assumed conditional branch weight 0.4166666666666667. Minority downside despite strong August because June/July hiring was weak and real July consumption flat. Conditional responses are judgmental, not historical frequencies."
+    },
+    {
+      "assessments": [
+        {
+          "basis": "assumed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "history"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "calendar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jan"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "apr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jun"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jul"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jobs"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "cpi"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "pce"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "archive"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mpr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "warsh"
+            }
+          ],
+          "parameter_id": "first_cut_date",
+          "rationale": "Labor weakening arrives too late or inflation prevents easing in 2026. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative.",
+          "value": "never"
+        }
+      ],
+      "description": "Labor weakening arrives too late or inflation prevents easing in 2026.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "history"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "calendar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jan"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "apr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jun"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jul"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jobs"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "pce"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "archive"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mpr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "warsh"
+        }
+      ],
+      "id": "labor_none",
+      "weight": 0.06,
+      "weight_rationale": "Assumed regime weight 0.12 times assumed conditional branch weight 0.5. Minority downside despite strong August because June/July hiring was weak and real July consumption flat. Conditional responses are judgmental, not historical frequencies."
+    },
+    {
+      "assessments": [
+        {
+          "basis": "assumed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "history"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "calendar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jan"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "apr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jun"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jul"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jobs"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "cpi"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "pce"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "archive"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mpr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "warsh"
+            }
+          ],
+          "parameter_id": "first_cut_date",
+          "rationale": "Severe financial or demand disruption generates a first unscheduled cut; representative date only. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative.",
+          "value": "2026-11-15T12:00:00-05:00"
+        }
+      ],
+      "description": "Severe financial or demand disruption generates a first unscheduled cut; representative date only.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "history"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "calendar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jan"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "apr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jun"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jul"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jobs"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "pce"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "archive"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mpr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "warsh"
+        }
+      ],
+      "id": "shock_cut",
+      "weight": 0.03,
+      "weight_rationale": "Assumed regime weight 0.05 times assumed conditional branch weight 0.6. Small tail for geopolitical or financial disruption; many shocks produce inflation or liquidity action rather than rate cuts. Conditional responses are judgmental, not historical frequencies."
+    },
+    {
+      "assessments": [
+        {
+          "basis": "assumed",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "history"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "calendar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jan"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mar"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "apr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jun"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jul"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "jobs"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "cpi"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "pce"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "archive"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "mpr"
+            },
+            {
+              "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+              "record_id": "warsh"
+            }
+          ],
+          "parameter_id": "first_cut_date",
+          "rationale": "Severe disruption is met by liquidity tools, inflation caution or arrives too late; no target-range cut. Calendar dates are observed; occurrence, timing within a regime and never are subjective. Emergency date is only a binary-outcome representative.",
+          "value": "never"
+        }
+      ],
+      "description": "Severe disruption is met by liquidity tools, inflation caution or arrives too late; no target-range cut.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "history"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "calendar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jan"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mar"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "apr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jun"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jul"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "jobs"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "pce"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "archive"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "mpr"
+        },
+        {
+          "packet_id": "pkt_fb16e52d8be6ec91ced55f4f",
+          "record_id": "warsh"
+        }
+      ],
+      "id": "shock_none",
+      "weight": 0.020000000000000004,
+      "weight_rationale": "Assumed regime weight 0.05 times assumed conditional branch weight 0.4. Small tail for geopolitical or financial disruption; many shocks produce inflation or liquidity action rather than rate cuts. Conditional responses are judgmental, not historical frequencies."
+    }
+  ],
+  "target": "first_cut",
+  "version": 3,
+  "partition_justification": "Conditional on the elapsed audit finding no prior cut, every path is assigned once: acute disruption requiring crisis consideration takes priority; otherwise material labor deterioration; otherwise material disinflation; otherwise persistence. Within each regime, first qualifying cut is at the represented scheduled decision, unscheduled before expiry, or none. Regime labels define dominant economic mechanisms, not independent events. The zero-weight already-occurred branch in the preliminary research plan is eliminated by the eligibility audit; later dates are refined into October and December. Minor date variation within success branches does not change this binary event."
+}

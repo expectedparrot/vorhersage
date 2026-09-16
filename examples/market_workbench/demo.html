@@ -1,0 +1,142 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research workbench — Will the fictional factory open before January 1, 2099?</title><style>
+body{font:16px/1.55 system-ui,sans-serif;max-width:1100px;margin:40px auto;padding:0 24px;color:#18352f;background:#fafbf8}
+h1{line-height:1.2}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:12px;border-bottom:1px solid #ccd8ce}
+meter{width:120px}details{background:white;border:1px solid #dce3da;border-radius:8px;padding:16px;margin:16px 0}
+summary{cursor:pointer;font-weight:600}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.55 ui-monospace,monospace}
+.scroll{overflow-x:auto}.summary{padding:20px;background:#e7efe6;border-radius:8px}
+</style><h1>Will the fictional factory open before January 1, 2099?</h1><p>simulation · revealed · Readiness checks followed by a reference class</p>
+<p class="summary">Frozen market midpoint: 70.0%; bid–ask 69.0%–71.0%. Captured 2026-09-16T10:50:36.100546Z. Net squared-error improvement: +0.03750 (positive means closer). Later market movement: +4.0 pp, captured 2026-09-16T10:50:36.767735Z.</p><h2>Research trajectory</h2><div class="scroll"><table><thead><tr><th>Checkpoint</th><th>Estimate</th>
+<th>Gap to market</th><th>Squared error</th><th>Step improvement</th><th>Recorded at</th></tr></thead><tbody><tr><td>Initial</td><td><meter min='0' max='1' value='0.5'></meter> 50.0%</td><td>-20.0 pp</td><td>0.04000</td><td>—</td><td>2026-09-16T10:50:36.277901Z</td></tr><tr><td>Research 1: Authorization</td><td><meter min='0' max='1' value='0.72'></meter> 72.0%</td><td>+2.0 pp</td><td>0.00040</td><td>+0.03960</td><td>2026-09-16T10:50:36.459947Z</td></tr><tr><td>Research 2: Comparable opening delays</td><td><meter min='0' max='1' value='0.65'></meter> 65.0%</td><td>-5.0 pp</td><td>0.00250</td><td>-0.00210</td><td>2026-09-16T10:50:36.641260Z</td></tr></tbody></table></div>
+<h2>Research journal</h2><details open><summary>1. initial · 2026-09-16T10:50:36.277901Z</summary><pre>{
+  &quot;assumptions&quot;: [
+    &quot;Authorization may be incomplete&quot;
+  ],
+  &quot;evidence_refs&quot;: [],
+  &quot;probability&quot;: 0.5,
+  &quot;rationale&quot;: &quot;Readiness is uncertain&quot;,
+  &quot;research_status&quot;: &quot;not_started&quot;,
+  &quot;uncertainties&quot;: [
+    &quot;Permit status&quot;,
+    &quot;Frequency of late delays&quot;
+  ]
+}</pre></details><details open><summary>2. plan · 2026-09-16T10:50:36.338435Z</summary><pre>{
+  &quot;higher_if&quot;: &quot;Evidence shows less remaining work or fewer analogous delays&quot;,
+  &quot;lower_if&quot;: &quot;Remaining work or comparable delays are substantial&quot;,
+  &quot;search_plan&quot;: &quot;Read fictional registry and supplied fictional comparison cases&quot;,
+  &quot;stopping_rule&quot;: &quot;Stop after checking the specified source&quot;,
+  &quot;uncertainty&quot;: &quot;Authorization&quot;,
+  &quot;why_it_matters&quot;: &quot;This assumption affects opening risk&quot;
+}</pre></details><details open><summary>3. checkpoint · 2026-09-16T10:50:36.459947Z</summary><pre>{
+  &quot;changed_assumptions&quot;: [
+    &quot;Authorization&quot;
+  ],
+  &quot;evidence_refs&quot;: [
+    {
+      &quot;packet_id&quot;: &quot;pkt_0991e2bc817aa7be0641c0ab&quot;,
+      &quot;record_id&quot;: &quot;finding&quot;
+    }
+  ],
+  &quot;findings&quot;: &quot;The fictional registry records a final operating permit.&quot;,
+  &quot;limitations&quot;: [
+    &quot;Illustrative probabilities, not calibrated estimates&quot;
+  ],
+  &quot;probability&quot;: 0.72,
+  &quot;rationale&quot;: &quot;Subjective revision using the recorded finding&quot;,
+  &quot;remaining_uncertainties&quot;: [
+    &quot;Actual completion date&quot;
+  ],
+  &quot;sources_checked&quot;: [
+    &quot;Fictional source 0&quot;
+  ],
+  &quot;usage&quot;: {
+    &quot;cost_usd&quot;: 0,
+    &quot;model_calls&quot;: 0,
+    &quot;searches&quot;: 0
+  }
+}</pre></details><details open><summary>4. plan · 2026-09-16T10:50:36.520678Z</summary><pre>{
+  &quot;higher_if&quot;: &quot;Evidence shows less remaining work or fewer analogous delays&quot;,
+  &quot;lower_if&quot;: &quot;Remaining work or comparable delays are substantial&quot;,
+  &quot;search_plan&quot;: &quot;Read fictional registry and supplied fictional comparison cases&quot;,
+  &quot;stopping_rule&quot;: &quot;Stop after checking the specified source&quot;,
+  &quot;uncertainty&quot;: &quot;Comparable opening delays&quot;,
+  &quot;why_it_matters&quot;: &quot;This assumption affects opening risk&quot;
+}</pre></details><details open><summary>5. checkpoint · 2026-09-16T10:50:36.641260Z</summary><pre>{
+  &quot;changed_assumptions&quot;: [
+    &quot;Comparable opening delays&quot;
+  ],
+  &quot;evidence_refs&quot;: [
+    {
+      &quot;packet_id&quot;: &quot;pkt_e5fc87fc6c9b4a5e5a6af9a6&quot;,
+      &quot;record_id&quot;: &quot;finding&quot;
+    }
+  ],
+  &quot;findings&quot;: &quot;Two of ten fictional comparable openings missed their announced window despite permits.&quot;,
+  &quot;limitations&quot;: [
+    &quot;Illustrative probabilities, not calibrated estimates&quot;
+  ],
+  &quot;probability&quot;: 0.65,
+  &quot;rationale&quot;: &quot;Subjective revision using the recorded finding&quot;,
+  &quot;remaining_uncertainties&quot;: [
+    &quot;Actual completion date&quot;
+  ],
+  &quot;sources_checked&quot;: [
+    &quot;Fictional source 1&quot;
+  ],
+  &quot;usage&quot;: {
+    &quot;cost_usd&quot;: 0,
+    &quot;model_calls&quot;: 0,
+    &quot;searches&quot;: 0
+  }
+}</pre></details><details open><summary>6. finish · 2026-09-16T10:50:36.758860Z</summary><pre>{
+  &quot;exposure_notes&quot;: &quot;Fictional CLI demonstration; no independent model was run&quot;,
+  &quot;market_exposure&quot;: &quot;none&quot;,
+  &quot;outcome_status&quot;: &quot;unresolved&quot;,
+  &quot;stopping_reason&quot;: &quot;Two planned research steps complete&quot;
+}</pre></details><details open><summary>7. reflection · 2026-09-16T10:50:36.881297Z</summary><pre>{
+  &quot;next_method_change&quot;: &quot;Check comparability more explicitly on a fresh question&quot;,
+  &quot;what_did_not&quot;: &quot;The reference-class adjustment moved it farther away; that does not establish it was bad evidence&quot;,
+  &quot;what_helped&quot;: &quot;Authorization research moved the estimate closer to the target&quot;
+}</pre></details><h2>Source-linked findings</h2><details><summary>The fictional registry records a final operating permit.</summary><pre>{
+  &quot;claim&quot;: &quot;The fictional registry records a final operating permit.&quot;,
+  &quot;claim_type&quot;: &quot;observation&quot;,
+  &quot;entity_ids&quot;: [],
+  &quot;id&quot;: &quot;finding&quot;,
+  &quot;observed_at&quot;: &quot;2026-09-16T10:50:36.347223Z&quot;,
+  &quot;provenance&quot;: {
+    &quot;adapter&quot;: &quot;vorhersage.research_bundle.v1&quot;
+  },
+  &quot;sources&quot;: [
+    {
+      &quot;excerpt&quot;: &quot;The fictional registry records a final operating permit.&quot;,
+      &quot;excerpt_kind&quot;: &quot;paraphrase&quot;,
+      &quot;id&quot;: &quot;source&quot;,
+      &quot;retrieved_at&quot;: &quot;2026-09-16T10:50:36.347223Z&quot;,
+      &quot;title&quot;: &quot;Authorization&quot;,
+      &quot;url&quot;: &quot;https://example.invalid/factory/0&quot;
+    }
+  ],
+  &quot;value&quot;: null
+}</pre></details><details><summary>Two of ten fictional comparable openings missed their announced window despite permits.</summary><pre>{
+  &quot;claim&quot;: &quot;Two of ten fictional comparable openings missed their announced window despite permits.&quot;,
+  &quot;claim_type&quot;: &quot;observation&quot;,
+  &quot;entity_ids&quot;: [],
+  &quot;id&quot;: &quot;finding&quot;,
+  &quot;observed_at&quot;: &quot;2026-09-16T10:50:36.529337Z&quot;,
+  &quot;provenance&quot;: {
+    &quot;adapter&quot;: &quot;vorhersage.research_bundle.v1&quot;
+  },
+  &quot;sources&quot;: [
+    {
+      &quot;excerpt&quot;: &quot;Two of ten fictional comparable openings missed their announced window despite permits.&quot;,
+      &quot;excerpt_kind&quot;: &quot;paraphrase&quot;,
+      &quot;id&quot;: &quot;source&quot;,
+      &quot;retrieved_at&quot;: &quot;2026-09-16T10:50:36.529337Z&quot;,
+      &quot;title&quot;: &quot;Comparable opening delays&quot;,
+      &quot;url&quot;: &quot;https://example.invalid/factory/1&quot;
+    }
+  ],
+  &quot;value&quot;: null
+}</pre></details>
+
+<h2>Interpretation</h2><ul><li>Prices are separated from this project, not protected by an operating-system sandbox.</li><li>Selection checks spread and top-of-book size only; neither establishes market accuracy.</li><li>The agent must verify the event is still unknown; an open market alone cannot establish this.</li><li>Fictional simulation, not a live forecasting result.</li><li>Market agreement is not an outcome score or proof of forecast accuracy.</li><li>Step improvements are descriptive; sequential research does not identify causal effects.</li><li>Research may include information arriving after the opening target. Inspect market movement and timestamps.</li><li>No exposure reported is an agent declaration, not independently verified isolation.</li><li>Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target.</li></ul></html>

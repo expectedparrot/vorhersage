@@ -1,0 +1,49 @@
+{
+  "probability": 0.8,
+  "weight_sum": 1.0,
+  "deadline_utc": "2026-10-01T05:00:00+00:00",
+  "strict_boundary_check": true,
+  "rows": [
+    {
+      "scenario_id": "rapid",
+      "vehicle_ready_at": "2026-09-21T01:22:00.806628+00:00",
+      "permission_ready_at": "2026-09-21T12:15:00+00:00",
+      "launch_at": "2026-09-22T12:15:00+00:00",
+      "launch_site_local": "2026-09-22T07:15:00-05:00",
+      "after_issuance": true,
+      "success": true,
+      "weight": 0.55
+    },
+    {
+      "scenario_id": "moderate",
+      "vehicle_ready_at": "2026-09-26T01:22:00.806628+00:00",
+      "permission_ready_at": "2026-09-26T12:15:00+00:00",
+      "launch_at": "2026-09-28T12:15:00+00:00",
+      "launch_site_local": "2026-09-28T07:15:00-05:00",
+      "after_issuance": true,
+      "success": true,
+      "weight": 0.25
+    },
+    {
+      "scenario_id": "late",
+      "vehicle_ready_at": "2026-10-04T01:22:00.806628+00:00",
+      "permission_ready_at": "2026-10-05T12:15:00+00:00",
+      "launch_at": "2026-10-07T12:15:00+00:00",
+      "launch_site_local": "2026-10-07T07:15:00-05:00",
+      "after_issuance": true,
+      "success": false,
+      "weight": 0.15
+    },
+    {
+      "scenario_id": "no_launch",
+      "vehicle_ready_at": "2026-11-15T01:22:00.806628+00:00",
+      "permission_ready_at": "2026-10-05T12:15:00+00:00",
+      "launch_at": "2026-11-18T01:22:00.806628+00:00",
+      "launch_site_local": "2026-11-17T19:22:00.806628-06:00",
+      "after_issuance": true,
+      "success": false,
+      "weight": 0.05
+    }
+  ],
+  "method": "Independent stdlib datetime max-plus arithmetic, not timeline._schedule."
+}

@@ -1,0 +1,348 @@
+{
+  "started_at": "2026-09-12T15:23:16.058592+00:00",
+  "elapsed_seconds": 1.864,
+  "actual_provider_calls": 0,
+  "actual_provider_cost_usd": 0,
+  "synthetic_reported_usage": {
+    "searches": 4,
+    "model_calls": 8,
+    "cost_usd": 0.1
+  },
+  "study_id": "session_study_3b7697cdcd7c013c0f338bc3",
+  "first_session_id": "session_fd5b8a19854f8f02d507c88f",
+  "arm_scores": [
+    {
+      "forecaster": "a",
+      "repetitions": 2,
+      "matched_questions": 1,
+      "mean_session_brier": 0.5625
+    },
+    {
+      "forecaster": "b",
+      "repetitions": 2,
+      "matched_questions": 1,
+      "mean_session_brier": 0.0625
+    }
+  ],
+  "doctor": {
+    "ok": true,
+    "artifacts_checked": 109,
+    "sqlite_integrity": "ok"
+  },
+  "trace": [
+    {
+      "revision": 1,
+      "kind": "attempt_start",
+      "payload": {
+        "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+        "kind": "model"
+      }
+    },
+    {
+      "revision": 2,
+      "kind": "attempt_result",
+      "payload": {
+        "attempt_id": "attempt_b1ed2aabf8e9dd254013e32f",
+        "continuation": {},
+        "raw_record": {
+          "actions": [
+            {
+              "kind": "tool_request",
+              "payload": {
+                "arguments": {
+                  "url": "urn:fixture:readiness"
+                },
+                "request_id": "research-1",
+                "tool": "read_page"
+              }
+            }
+          ],
+          "worker_record": {
+            "fixture": true
+          }
+        },
+        "status": "completed",
+        "usage": {
+          "cost_usd": 0.01,
+          "model_calls": 1,
+          "searches": 0
+        }
+      }
+    },
+    {
+      "revision": 3,
+      "kind": "tool_request",
+      "payload": {
+        "arguments": {
+          "url": "urn:fixture:readiness"
+        },
+        "request_id": "research-1",
+        "tool": "read_page"
+      }
+    },
+    {
+      "revision": 4,
+      "kind": "attempt_start",
+      "payload": {
+        "attempt_id": "attempt_0a3baf4021379fcd31f365e8",
+        "kind": "tool"
+      }
+    },
+    {
+      "revision": 5,
+      "kind": "attempt_result",
+      "payload": {
+        "attempt_id": "attempt_0a3baf4021379fcd31f365e8",
+        "continuation": {
+          "fixture_job_id": "attempt_0a3baf4021379fcd31f365e8"
+        },
+        "raw_record": {
+          "actions": [],
+          "worker_record": {
+            "fixture": true
+          }
+        },
+        "status": "waiting",
+        "usage": null
+      }
+    },
+    {
+      "revision": 6,
+      "kind": "attempt_result",
+      "payload": {
+        "attempt_id": "attempt_0a3baf4021379fcd31f365e8",
+        "continuation": {},
+        "raw_record": {
+          "actions": [
+            {
+              "kind": "capture",
+              "payload": {
+                "created_at": "2026-09-12T15:23:17.078090+00:00",
+                "information_as_of": "2026-09-12T15:23:17.078090+00:00",
+                "kind": "manual",
+                "limitations": [
+                  "Synthetic fixture, not a fetched page."
+                ],
+                "records": [
+                  {
+                    "claim": "Fictional readiness observation",
+                    "entity_ids": [],
+                    "id": "status",
+                    "observed_at": "2026-09-12T15:23:17.078090+00:00",
+                    "provenance": {
+                      "synthetic": true
+                    },
+                    "sources": [
+                      {
+                        "excerpt": "The fictional factory is ready.",
+                        "id": "fixture",
+                        "retrieved_at": "2026-09-12T15:23:17.078090+00:00",
+                        "title": "Fictional report",
+                        "url": "urn:fixture:readiness"
+                      }
+                    ],
+                    "value": true
+                  }
+                ],
+                "schema_version": "vorhersage.evidence.v1"
+              }
+            },
+            {
+              "kind": "research",
+              "payload": {
+                "attempt_id": "attempt_0a3baf4021379fcd31f365e8",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_8aa4f1c9b9baec369ce5db29",
+                    "record_id": "status"
+                  }
+                ],
+                "note": "Synthetic receipt for runner validation.",
+                "ok": true,
+                "tool": "read_page",
+                "url": "urn:fixture:readiness"
+              }
+            }
+          ],
+          "worker_record": {
+            "fixture": true
+          }
+        },
+        "status": "completed",
+        "usage": {
+          "cost_usd": 0.005,
+          "model_calls": 0,
+          "searches": 1
+        }
+      }
+    },
+    {
+      "revision": 7,
+      "kind": "evidence",
+      "payload": {
+        "information_as_of": "2026-09-12T15:23:17.078090+00:00",
+        "packet_ids": [
+          "pkt_8aa4f1c9b9baec369ce5db29"
+        ]
+      }
+    },
+    {
+      "revision": 8,
+      "kind": "research",
+      "payload": {
+        "attempt_id": "attempt_0a3baf4021379fcd31f365e8",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_8aa4f1c9b9baec369ce5db29",
+            "record_id": "status"
+          }
+        ],
+        "note": "Synthetic receipt for runner validation.",
+        "ok": true,
+        "tool": "read_page",
+        "url": "urn:fixture:readiness"
+      }
+    },
+    {
+      "revision": 9,
+      "kind": "attempt_start",
+      "payload": {
+        "attempt_id": "attempt_930dc2c837c8b0cad01e96b9",
+        "kind": "model"
+      }
+    },
+    {
+      "revision": 10,
+      "kind": "attempt_result",
+      "payload": {
+        "attempt_id": "attempt_930dc2c837c8b0cad01e96b9",
+        "continuation": {},
+        "raw_record": {
+          "actions": [
+            {
+              "kind": "assessment",
+              "payload": {
+                "disposition": "assessed",
+                "domain": "readiness",
+                "evidence_refs": [
+                  {
+                    "packet_id": "pkt_8aa4f1c9b9baec369ce5db29",
+                    "record_id": "status"
+                  }
+                ],
+                "rationale": "The synthetic packet establishes readiness in this fixture."
+              }
+            },
+            {
+              "kind": "observation",
+              "payload": {
+                "actual": {
+                  "network_calls": 0
+                },
+                "basis": "worker_reported",
+                "evidence_refs": [],
+                "failed": false,
+                "note": "Deterministic fixture",
+                "requirement_id": "fixture"
+              }
+            },
+            {
+              "kind": "submit",
+              "payload": {
+                "cells": [
+                  {
+                    "condition_id": "condition_b1dbf5055d22a0fb8cef1031",
+                    "evidence_refs": [
+                      {
+                        "packet_id": "pkt_8aa4f1c9b9baec369ce5db29",
+                        "record_id": "status"
+                      }
+                    ],
+                    "probability": 0.25,
+                    "question_id": "readiness",
+                    "version": 1
+                  }
+                ],
+                "raw_record": {
+                  "fixture": true
+                }
+              }
+            },
+            {
+              "kind": "finalize",
+              "payload": {
+                "rationale": "Complete synthetic session"
+              }
+            }
+          ],
+          "worker_record": {
+            "fixture": true
+          }
+        },
+        "status": "completed",
+        "usage": {
+          "cost_usd": 0.01,
+          "model_calls": 1,
+          "searches": 0
+        }
+      }
+    },
+    {
+      "revision": 11,
+      "kind": "assessment",
+      "payload": {
+        "disposition": "assessed",
+        "domain": "readiness",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_8aa4f1c9b9baec369ce5db29",
+            "record_id": "status"
+          }
+        ],
+        "rationale": "The synthetic packet establishes readiness in this fixture."
+      }
+    },
+    {
+      "revision": 12,
+      "kind": "observation",
+      "payload": {
+        "actual": {
+          "network_calls": 0
+        },
+        "basis": "worker_reported",
+        "evidence_refs": [],
+        "failed": false,
+        "note": "Deterministic fixture",
+        "requirement_id": "fixture"
+      }
+    }
+  ],
+  "finalized_at": "2026-09-12T15:23:17.300155Z",
+  "git_head": "3f6e55804d82b9fd00a27852fe3b42ccd9b21fd2",
+  "source_sha256": {
+    "src/vorhersage/__init__.py": "04ae2cfc752ebbb05f328d8ebb60c44ea143216e4db5b16ba5c885898234c509",
+    "src/vorhersage/__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+    "src/vorhersage/backtesting.py": "751f48c11a8eb091eee7d55edb73ebc26e637f381340094ea194537e66663bf7",
+    "src/vorhersage/cli.py": "9169f40a23110bfd8d646ca84dff5f9ef5a8719cbdbe9d73e898e13e63771355",
+    "src/vorhersage/common.py": "cff3d16110d942a1b52ceaaa606eb7a32f11500333182c43e799682562c84286",
+    "src/vorhersage/evaluation.py": "210d158de26e0f937e2ad2b6b30a1b05914d097a2b2338b5fa1fa9778bf3329e",
+    "src/vorhersage/evidence.py": "9af2dc229958e1b156e3bd4e2764e19b3238d433be21c6daff38c2d72b120031",
+    "src/vorhersage/experiments.py": "59ab7a5fa12096f9d8e2e63b8dbeb435f9be139884c819df27fae29f82a5bb44",
+    "src/vorhersage/monitoring.py": "2fda494f890c90e4819c1ce33c12b1b062296f09afcb3011975d0b20dc07a016",
+    "src/vorhersage/reference.py": "08839b3945fc161fe474237631ebe417aca54ba32248d5d6283b94b0f8cd8aa7",
+    "src/vorhersage/relations.py": "98e732f47b34ee5cdc14c23227d8207a63fff7f39e59eea6d3fdf0fb2c634636",
+    "src/vorhersage/scenarios.py": "5f77e47adccc692de23b3bfe0a2bcb35cfb17ccad7345453bf4b9855e790f3e8",
+    "src/vorhersage/schemas.py": "4a99b467590459ae5e46ac28a13106c7fa6f61e4ac4e8fdfd496aee383a990d6",
+    "src/vorhersage/session_reports.py": "329099b5b67776edc3e644d32282fec7704526a2fce3662daff2a7e7b35d4586",
+    "src/vorhersage/session_runtime.py": "930834b93a2c47010c0f2b8034ae6549df72ee4d69d3bf9aaf956ac65df97af6",
+    "src/vorhersage/session_studies.py": "d2515b14ab71f55dbe6936e36555f5a286976e4508a13683af5ce05678fd5a73",
+    "src/vorhersage/sessions.py": "c734e95601597111112987dae66311e13adcbfed83de4397d6006a5ec6750810",
+    "src/vorhersage/store.py": "072b9e75c3ce2e752d54854f5577a400515693d4e3b9dd5b2c80b91791d22551",
+    "src/vorhersage/workflow.py": "bb82ceb9b9525919978e5af33e720a10dbe934bb961360141ca49c9e8f10e521"
+  },
+  "fixture_sha256": {
+    "prepare.py": "31ce19fc94e0a4cf2e244a0b86627f49c5be267321a8137d6cbac3c622857e42",
+    "worker.py": "7a119b511ea378a520399135b1e3ba91ab93d3dd99eac273eae76eed6bd6b88f"
+  },
+  "note": "Actual CLI execution of an authored fixture; the printed model/tool usage is synthetic. Source hashes identify the working tree, including uncommitted changes."
+}
