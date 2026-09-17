@@ -86,7 +86,20 @@ def validate(spec):
                 "Scenario weights must sum to one; no normalization is implicit.")
         require(spec.get("partition_justification") and all(s.get("weight_rationale") for s in spec["scenarios"]),
                 "Weighted scenarios need a partition justification and individual weight rationales.")
-    for s in spec["scenarios"]:
+    validate_assessments(params, spec["scenarios"], as_of)
+    # Observed parameter values describe facts shared by every scenario.
+    for pid in params:
+        assignments = [next((a for a in s["assessments"] if a["parameter_id"] == pid), None) for s in spec["scenarios"]]
+        observed = [a for a in assignments if a and a["basis"] == "observed"]
+        if observed:
+            require(all(a and a["basis"] == "observed" and a["value"] == observed[0]["value"] for a in assignments),
+                    "Observed parameters must agree across every scenario.")
+    return nodes, params, order
+
+
+def validate_assessments(params, scenarios, as_of):
+    """Validate individual inputs, also while authoring incomplete scenario sets."""
+    for s in scenarios:
         assessments = _unique(s["assessments"], "parameter_id", "scenario parameter assessment")
         require(assessments.keys() <= params.keys(), "Assessment references an unknown parameter.")
         for pid, a in assessments.items():
@@ -106,14 +119,6 @@ def validate(spec):
                 else:
                     require(type(value) in (int, float) and math.isfinite(value) and 0 <= value <= 365250,
                             "Duration must be 0..365250 elapsed days, or never.")
-    # Observed parameter values describe facts shared by every scenario.
-    for pid in params:
-        assignments = [next((a for a in s["assessments"] if a["parameter_id"] == pid), None) for s in spec["scenarios"]]
-        observed = [a for a in assignments if a and a["basis"] == "observed"]
-        if observed:
-            require(all(a and a["basis"] == "observed" and a["value"] == observed[0]["value"] for a in assignments),
-                    "Observed parameters must agree across every scenario.")
-    return nodes, params, order
 
 
 def _schedule(spec, scenario, nodes, order):

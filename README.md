@@ -297,11 +297,71 @@ it does not establish which legal dependencies are correct.
 
 ### 4. Make the uncertain numbers explicit
 
-Evidence narrows the possibilities; it rarely supplies an exact duration or
-probability. The completed model therefore describes eight possible futures,
-each with its own set of dates and durations, rationale, and probability weight.
+You or your agent now assign dates and durations to possible futures. A scenario
+keeps a **joint set of assumptions** together: early permission might go with an
+ordinary rollout, while local opposition could delay the opening even after
+state permission arrives. You also judge how much probability to assign to each
+scenario.
 
-Here are the inputs for just one: **early permission, ordinary rollout**.
+Start with **early state permission and an ordinary rollout**. Give this scenario
+22% of the total probability, and explain that judgment:
+
+```bash
+vorhersage timeline scenario waymo-plan.toml early_normal \
+  "Early state permission, ordinary rollout" --probability 22% \
+  --rationale "Allow for political obstacles, continued preparation, and a small initial service area. This is a subjective weight, not a measured legislative frequency."
+```
+
+This assigns a probability to the **whole scenario**. It does not yet say when
+that scenario's launch would occur. Fill in its assumptions one at a time. Here
+we assume effective state permission on June 1, 2027:
+
+```bash
+vorhersage timeline estimate waymo-plan.toml early_normal state \
+  --date "2027-06-01T12:00:00Z" \
+  --rationale "An assumed effective date for the early-permission case; the evidence does not identify an enactment date."
+```
+
+Next, assume that local commercial arrangements take 120 days **after** state
+permission, following the dependency we recorded earlier:
+
+```bash
+vorhersage timeline estimate waymo-plan.toml early_normal local --days 120 \
+  --rationale "Allow four months for remaining Boston arrangements after state permission. No empirical approval-duration estimate was available."
+```
+
+Inputs default to `assumed`. To label a value `estimated` or `observed`, you must
+also supply evidence references. The package preserves the distinction between
+a supported observation and a judgment about what happens next.
+
+Now build a contrasting case: state permission arrives on the same date, but
+local arrangements take much longer. Copy the inputs already entered, assign
+this new scenario 8%, and change the local duration to 600 days:
+
+```bash
+vorhersage timeline scenario waymo-plan.toml early_local_delay \
+  "Early state permission, prolonged local delay" --copy-from early_normal \
+  --probability 8% \
+  --rationale "Local opposition and uncertain preemption leave a distinct risk of delay after state permission."
+vorhersage timeline estimate waymo-plan.toml early_local_delay local --days 600 \
+  --rationale "Assume prolonged local negotiations or litigation delays public service despite early state permission."
+vorhersage timeline show waymo-plan.toml
+```
+
+The two cases now differ in an explicit, inspectable input. Copying made a
+separate case; changing its 600-day duration leaves the original 120-day estimate
+intact. The view shows each scenario's probability, inputs, reasons, and remaining
+unknowns.
+
+**We have assigned only 30% of the scenario probability so far**, and have not
+filled every duration. Vorhersage leaves this incomplete. It will not rescale the
+two weights to 100% or call 30% the forecast. For a complete calculation, finish
+the inputs, assign probabilities across all cases totaling 100%, and explain how
+the cases cover distinct possible outcomes.
+
+These commands illustrate two of the eight scenarios used in this example.
+The other dates and durations are entered in the same way. Here is the full
+set of inputs for **early permission, ordinary rollout**:
 
 | Input | Value in this scenario | Basis recorded in the model |
 |---|---:|---|
@@ -312,15 +372,16 @@ Here are the inputs for just one: **early permission, ordinary rollout**.
 | Driverless validation | 90 days after state and technical readiness | Estimate informed by deployment stages in other cities. |
 | Final public-access ramp | 90 days after all prerequisites | Estimate informed by staged openings; not a measured Boston duration. |
 
-These entries are stored in `model.json`, alongside the evidence references and
-explanations. **Observed, estimated, assumed, and unresolved inputs are distinct.**
+The complete set is also supplied in `model.json`, alongside the evidence
+references and explanations. **Observed, estimated, assumed, and unresolved inputs are distinct.**
 For work already underway, the model counts remaining time at the research cutoff.
 
 For the numerical calculation below, `model.json` supplies a fully populated
 version of this revised structure, including source-linked inputs and scenario
 weights. It names the same six steps with longer identifiers (for example,
 `state_permission` and `public_access`); the prerequisite relationships are the
-ones you just built. Your working plan still leaves dates and durations unknown.
+ones you just built. Loading this file completes the numerical example without
+requiring you to type all eight scenarios and their remaining inputs.
 
 The saved researched model is named `waymo`, version 1. In the commands below,
 `waymo@1` selects that exact version and `--format text` requests readable output.

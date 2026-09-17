@@ -56,6 +56,9 @@ Use timeline add/gaps/analyze/shift/compare/report for deadline models; NAME@VER
 Build an unresolved timeline with timeline new FILE.toml, then timeline step FILE.toml NAME DESCRIPTION [--date | --after STEPS] [--target].
 Use timeline show FILE.toml to read the working plan and timeline save FILE.toml to validate and register an immutable model.
 Use timeline edit FILE.toml STEP --after PREREQUISITES --rationale REASON to change dependencies; --rename updates references too.
+Use timeline scenario FILE.toml NAME DESCRIPTION --probability 22% --rationale REASON to assign a scenario probability.
+Use timeline estimate FILE.toml SCENARIO STEP --days N or --date TIME with --rationale; default basis is assumed. Estimated/observed inputs require --evidence PACKET:RECORD.
+Scenario sets may be incomplete while editing. Calculating or saving requires all weights or none, total 100% when weighted, and a --partition explanation supplied to scenario.
 Use timeline diagram FILE.toml --output diagram.svg for an offline dependency diagram, or omit --output for Mermaid source.
 Timeline shift records a duration sensitivity alternative; run workflow=timeline starts with structure and parameter research, without a prior.
 Use reference add/query for reusable observed episodes with deadline-specific censoring.
@@ -192,11 +195,32 @@ def parser():
     ap.add_argument("--kind", choices=("date", "duration"))
     ap.add_argument("--target", action="store_true")
     ap.add_argument("--rationale", required=True, help="Reason for the changed definition or dependency")
+    ap = sub.add_parser("scenario", help="Describe a possible future and assign its probability")
+    ap.add_argument("file", type=Path)
+    ap.add_argument("name")
+    ap.add_argument("description")
+    ap.add_argument("--probability", type=timeline_plan.probability_input, help="Scenario probability, such as 22% or 0.22")
+    ap.add_argument("--rationale", required=True)
+    ap.add_argument("--copy-from", help="Copy another scenario's inputs into a new scenario")
+    ap.add_argument("--partition", help="Explain how the whole scenario set covers mutually exclusive possible outcomes")
+    ap = sub.add_parser("estimate", help="Set a date or duration in one scenario")
+    ap.add_argument("file", type=Path)
+    ap.add_argument("scenario")
+    ap.add_argument("step")
+    value = ap.add_mutually_exclusive_group(required=True)
+    value.add_argument("--date", help="Date with timezone; YYYY-MM-DD means midnight UTC")
+    value.add_argument("--days", type=float, help="Duration in elapsed days")
+    value.add_argument("--never", action="store_true", help="This step never completes in this scenario")
+    value.add_argument("--unknown", action="store_true", help="Remove an estimate and leave the input unresolved")
+    ap.add_argument("--basis", choices=("assumed", "estimated", "observed"), default="assumed")
+    ap.add_argument("--rationale", required=True)
+    ap.add_argument("--evidence", action="append", default=[], help="Evidence reference PACKET:RECORD; repeat for multiple findings")
     ap = sub.add_parser("diagram", help="Draw dependencies from a plan or saved model")
     ap.add_argument("id", help="Working .toml plan or immutable NAME@VERSION")
     ap.add_argument("--output", type=Path, help="Offline .svg image, .mmd source, or Mermaid .md file; default: source on stdout")
     ap = sub.add_parser("save", help="Validate a working plan and save an immutable model")
     ap.add_argument("file", type=Path)
+    ap.add_argument("--name", help="Save under a new model name without changing the working file")
     ap = sub.add_parser("add")
     ap.add_argument("--from", dest="input", required=True)
     sub.add_parser("list")
@@ -455,7 +479,7 @@ def dispatch(args):
         return export_widget(s, args.id, args.output or Path(args.id + ".html"))
     if command == "timeline":
         working_file = args.action in ("show", "gaps", "analyze") and args.id.endswith(".toml")
-        args.format = args.format or ("text" if working_file or args.action in ("new", "step", "edit", "diagram", "save") else "json")
+        args.format = args.format or ("text" if working_file or args.action in ("new", "step", "edit", "scenario", "estimate", "diagram", "save") else "json")
         if args.action == "new":
             return timeline_plan.new(s, args.file, question_id=args.question, name=args.name,
                                      as_of=setup.timestamp(args.as_of) if args.as_of else None,
@@ -468,8 +492,21 @@ def dispatch(args):
                                       after=args.after, kind=args.kind, target=args.target, rationale=args.rationale)
         if args.action == "diagram":
             return timeline_diagram.export(s, args.id, args.output)
+        if args.action == "scenario":
+            return timeline_plan.scenario(args.file, args.name, args.description, weight=args.probability,
+                                          rationale=args.rationale, copy_from=args.copy_from, partition=args.partition)
+        if args.action == "estimate":
+            refs = []
+            for reference in args.evidence:
+                packet, separator, record = reference.partition(":")
+                require(packet and separator and record, "Evidence references use PACKET:RECORD.")
+                refs.append({"packet_id": packet, "record_id": record})
+            kind, value = ("date", setup.timestamp(args.date)) if args.date is not None else (
+                ("duration", args.days) if args.days is not None else ("never" if args.never else "unknown", None))
+            return timeline_plan.estimate(args.file, args.scenario, args.step, value=value, value_kind=kind,
+                                          basis=args.basis, rationale=args.rationale, evidence_refs=refs)
         if args.action == "save":
-            return timeline_plan.save(s, args.file)
+            return timeline_plan.save(s, args.file, args.name)
         if working_file:
             plan = timeline_plan.read(args.id)
             if args.action == "show":

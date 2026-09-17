@@ -5,6 +5,7 @@ import shlex
 import subprocess
 import sys
 import tempfile
+import tomllib
 import unittest
 import zipfile
 from pathlib import Path
@@ -30,6 +31,13 @@ class CLITests(unittest.TestCase):
             self.assertIn("Waits for: legal, technical", result.stdout)
             self.assertIn("Unresolved parameters: 5", result.stdout)
             self.assertTrue((Path(tmp) / "waymo-plan.toml").exists())
+            plan = tomllib.loads((Path(tmp) / "waymo-plan.toml").read_text())
+            self.assertEqual([s["weight"] for s in plan["scenarios"]], [.22, .08])
+            local_days = [next(a["value"] for a in s["assessments"] if a["parameter_id"] == "local")
+                          for s in plan["scenarios"]]
+            self.assertEqual(local_days, [120, 600])
+            self.assertIn("Declared scenario probability: 30.0%", result.stdout)
+            self.assertIn("Scenario probabilities are incomplete", result.stdout)
             self.assertEqual((Path(tmp) / "waymo-timeline.svg").read_bytes(),
                              (ROOT / "docs/assets/waymo-timeline.svg").read_bytes())
             self.assertIn("Probability: 39.0%", result.stdout)

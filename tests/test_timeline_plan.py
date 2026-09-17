@@ -12,7 +12,7 @@ from vorhersage import timeline, timeline_plan, timeline_diagram
 from vorhersage.common import Error
 from vorhersage.store import Store
 from vorhersage.workflow import Workflow
-from test_workflow import question, stamp
+from test_workflow import packet, question, stamp
 
 
 class PlanTests(unittest.TestCase):
@@ -222,6 +222,92 @@ class PlanTests(unittest.TestCase):
         spec["scenarios"][0]["assessments"].pop()
         self.assertIn("any prerequisite", timeline_diagram.mermaid(spec))
         self.assertIn("any prerequisite", timeline_diagram.svg(spec))
+
+    def test_scenario_inputs_and_copy_compute_declared_probability(self):
+        self.make()
+        saved = timeline_plan.save(self.w.store, self.file)
+        self.cli("scenario", self.file, "early", "Quick opening", "--probability", "60%",
+                 "--rationale", "Illustrative joint probability.")
+        self.cli("estimate", self.file, "early", "legal", "--date", stamp(-.5), "--rationale", "Assumed early permission.")
+        for step in ("prep", "launch"):
+            self.cli("estimate", self.file, "early", step, "--days", "0", "--rationale", "Assume no remaining delay.")
+        self.assertIn("incomplete", self.cli("show", self.file))
+        self.cli("analyze", self.file, success=False)
+        self.cli("scenario", self.file, "late", "Delayed opening", "--copy-from", "early", "--probability", "0.4",
+                 "--rationale", "Residual delayed case.", "--partition", "The fixture either opens immediately or has a ten-day delay.")
+        self.cli("estimate", self.file, "late", "launch", "--days", "10", "--rationale", "Delay exceeds the deadline.")
+        plan = timeline_plan.read(self.file)
+        self.assertEqual(tomllib.loads(timeline_plan.text(plan)), plan)
+        self.assertEqual(plan["scenarios"][0]["assessments"][-1]["value"], 0)
+        result = json.loads(self.cli("analyze", self.file, "--format", "json"))["data"]
+        self.assertAlmostEqual(result["probability"], .6)
+        self.assertTrue(result["scenarios"][0]["meets_deadline"])
+        self.assertFalse(result["scenarios"][1]["meets_deadline"])
+        self.cli("save", self.file, "--project", self.w.store.root, "--name", "researched")
+        self.assertIn("60.0%", self.cli("show", "researched@1", "--project", self.w.store.root, "--format", "text"))
+        with self.w.store.connect() as c:
+            self.assertEqual(timeline.read(c, saved["timeline_model_id"])["specification"], saved["specification"])
+        self.assertTrue(self.w.doctor()["ok"])
+
+    def test_probability_and_incomplete_case_guards(self):
+        self.make()
+        for weight in ("22", "101%", "-1%", "nan", "inf"):
+            self.cli("scenario", self.file, "early", "Early", "--probability", weight, "--rationale", "Test.", success=False)
+        self.cli("scenario", self.file, "early", "Early", "--probability", "22%", "--rationale", "Test.")
+        self.cli("scenario", self.file, "late", "Late", "--probability", "8%", "--rationale", "Test.")
+        self.assertIn("30.0%", self.cli("show", self.file))
+        with self.assertRaisesRegex(Error, "sum to one"):
+            timeline_plan.compile(timeline_plan.read(self.file))
+        self.cli("scenario", self.file, "late", "Late", "--probability", "78%", "--rationale", "Updated probability.")
+        self.cli("analyze", self.file, success=False)  # missing partition justification
+        self.cli("scenario", self.file, "late", "Late", "--rationale", "Updated probability.", "--partition", "All early or late cases.")
+        result = json.loads(self.cli("analyze", self.file, "--format", "json"))["data"]
+        self.assertIsNone(result["probability"])  # dates/durations still unknown
+        self.assertEqual(result["probability_bounds"], [0, 1])
+        self.cli("scenario", self.file, "unknown", "Unweighted case", "--rationale", "Unassigned.")
+        self.cli("analyze", self.file, success=False)
+        # Structure remains inspectable while probabilities are being authored.
+        self.assertIn("flowchart TD", self.cli("diagram", self.file))
+
+    def test_estimates_keep_types_evidence_unknowns_and_renames(self):
+        self.make()
+        self.cli("scenario", self.file, "case", "Unweighted case", "--rationale", "Explore one possibility.")
+        before = self.file.read_bytes()
+        for args in (("legal", "--days", "5"), ("launch", "--days", "-1"),
+                     ("launch", "--days", "nan"), ("prep", "--date", "2027-01-01"),
+                     ("prep", "--days", "10", "--basis", "estimated"),
+                     ("legal", "--date", stamp(1), "--basis", "observed", "--evidence", "p:r")):
+            self.cli("estimate", self.file, "case", *args, "--rationale", "Test.", success=False)
+            self.assertEqual(self.file.read_bytes(), before)
+        imported = self.w.import_packet(packet())
+        ref = imported["records"][0]["evidence_ref"]
+        self.cli("estimate", self.file, "case", "prep", "--days", "2", "--basis", "estimated",
+                 "--evidence", ref["packet_id"] + ":" + ref["record_id"], "--rationale", "Evidence-informed estimate.")
+        plan = timeline_plan.read(self.file)
+        self.assertEqual(plan["scenarios"][0]["assessments"][0]["evidence_refs"], [ref])
+        self.assertEqual(tomllib.loads(timeline_plan.text(plan)), plan)
+        self.cli("edit", self.file, "prep", "--rename", "ready", "--rationale", "Clarify the input.")
+        self.assertEqual(timeline_plan.read(self.file)["scenarios"][0]["assessments"][0]["parameter_id"], "ready")
+        self.cli("save", self.file, "--project", self.w.store.root)
+        self.cli("estimate", self.file, "case", "ready", "--unknown", "--rationale", "Reconsider the estimate.")
+        term = timeline_plan.read(self.file)["scenarios"][0]["assessments"][0]
+        self.assertEqual(term["basis"], "unresolved")
+        self.assertNotIn("value", term)
+        self.cli("estimate", self.file, "case", "ready", "--never", "--rationale", "A failure path.")
+        self.assertEqual(timeline_plan.read(self.file)["scenarios"][0]["assessments"][0]["value"], "never")
+
+    def test_copy_errors_and_unverified_evidence_do_not_save_a_model(self):
+        self.make()
+        self.cli("scenario", self.file, "case", "A case", "--rationale", "Test.")
+        before = self.file.read_bytes()
+        for name, source in (("case", "case"), ("second", "absent")):
+            self.cli("scenario", self.file, name, "A case", "--copy-from", source, "--rationale", "Test.", success=False)
+            self.assertEqual(self.file.read_bytes(), before)
+        self.cli("estimate", self.file, "case", "prep", "--days", "2", "--basis", "estimated",
+                 "--evidence", "missing:record", "--rationale", "Unverified citation.")
+        self.cli("save", self.file, "--project", self.w.store.root, success=False)
+        with self.w.store.connect() as c:
+            self.assertEqual(Store.all(c, "timeline_model"), [])
 
 
 if __name__ == "__main__":

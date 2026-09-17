@@ -58,13 +58,13 @@ rationale = "Public service requires both permission and operational readiness."
 Use the complete file created by `new`; this excerpt is one step within it.
 `show` displays partial plans, including their unknown dates and durations.
 `gaps` and `analyze` require a complete dependency graph and target. They keep
-unknown inputs unknown. **The plan has one unweighted, unresolved scenario; it
+unknown inputs unknown. **Initially the plan has one unweighted, unresolved scenario; it
 does not imply that launch has any particular probability.**
 
 `save` applies the full timeline validator, including cycle and disconnected-work
 checks, then registers an immutable version 1. Retrying an unchanged save reuses
 that model. Editing the working file never edits the saved record; a changed file
-cannot overwrite the same saved name/version. Use a new `name` for a separate
+cannot overwrite the same saved name/version. Use `save --name NEW_NAME` for a separate
 draft, or the full model schema below for explicit versioned revisions.
 
 `new` refuses to overwrite a file. `step` refuses conflicting duplicate names,
@@ -89,7 +89,7 @@ vorhersage timeline edit launch.toml launch --after local preparation \
 ```
 
 `edit` changes the working TOML file and requires an explanation. `--rename`
-updates every prerequisite and target reference to that step. `--after` replaces
+updates every prerequisite, target, and scenario input reference to that step. `--after` replaces
 the complete prerequisite list; `--after` alone clears it. `--description`,
 `--kind date|duration`, and `--target` change those parts of the definition.
 Unknown names, duplicate names, invalid date prerequisites, and cycles are
@@ -118,10 +118,68 @@ for Markdown documentation. SVG labels are escaped; Mermaid uses generated node
 identifiers and escaped labels. Re-exporting replaces the generated output file.
 Diagrams require a complete, valid graph and a target; use `show` for partial plans.
 
-These commands author the initial research structure. Scenario weights,
-source-linked estimates, observations of work already started or completed,
-and richer joins use the full model schema and research workflow below. TOML
-plans intentionally reject extra fields instead of silently ignoring inputs.
+The diagram remains available while scenario probabilities are incomplete; it
+validates the graph separately from the scenario calculations.
+
+### Add scenarios and their uncertain inputs
+
+A scenario holds one joint set of dates and durations. Its probability applies
+to that whole possible future. After the dependency edits above, for example:
+
+```bash
+vorhersage timeline scenario launch.toml ordinary "Ordinary rollout" \
+  --probability 60% --rationale "Illustrative judgment for this hypothetical example."
+vorhersage timeline estimate launch.toml ordinary state --date 2027-06-01 \
+  --rationale "Assume effective permission by this date."
+vorhersage timeline estimate launch.toml ordinary preparation --days 180 \
+  --rationale "Assume six months of preparation from the information cutoff."
+vorhersage timeline estimate launch.toml ordinary local --days 120 \
+  --rationale "Assume four months for local arrangements after state permission."
+vorhersage timeline estimate launch.toml ordinary launch --days 90 \
+  --rationale "Assume three months to open after all prerequisites finish."
+```
+
+These numbers illustrate authoring; they are not researched estimates. Dates
+without a time mean midnight UTC. Durations are elapsed days after a step's
+prerequisites finish, or from the information cutoff if it has no prerequisites.
+
+Copy the inputs into another scenario, then change just the delayed step:
+
+```bash
+vorhersage timeline scenario launch.toml delayed "Prolonged local delay" \
+  --copy-from ordinary --probability 40% \
+  --rationale "Assign the remaining probability to the delayed case." \
+  --partition "This simplified example represents all outcomes with two distinct cases: ordinary rollout or prolonged local delay."
+vorhersage timeline estimate launch.toml delayed local --days 600 \
+  --rationale "Assume a prolonged negotiation or litigation process."
+vorhersage timeline show launch.toml
+vorhersage timeline analyze launch.toml
+vorhersage timeline save launch.toml --project PROJECT --name researched-launch
+```
+
+Copying creates independent inputs: changing `delayed` leaves `ordinary` alone.
+Repeat `scenario` with the same name to update its description, probability, or
+rationale; omitting `--probability` preserves its existing weight. `22%` and
+`0.22` mean the same probability. No equal weighting or normalization is implicit.
+`--partition` records a justification for the entire set, not just the named case.
+
+Partial scenario sets can be edited and inspected with `show`. To analyze, check
+gaps, or save a model, either leave every case unweighted or give every case a
+probability, totaling 100%, with a partition justification. Missing dates and
+durations stay unknown even when all probabilities have been assigned. A point
+forecast requires every case's deadline outcome to be known.
+
+Inputs default to `assumed`. Use `--basis estimated` or `--basis observed` with
+`--evidence PACKET:RECORD` to cite an imported finding; repeat the evidence flag
+for multiple findings. Saving verifies that the referenced records exist and
+meet the cutoff. References alone do not establish that an estimate is correct.
+Observed inputs must agree across scenarios when the model is analyzed or saved.
+`--unknown` removes an estimate; `--never` explicitly declares that a step will
+not finish in that scenario. Both require a rationale, as do numeric estimates.
+
+Observations of work already started or completed and richer joins use the full
+model schema and research workflow below. TOML plans reject extra fields instead
+of silently ignoring inputs.
 Use `timeline show MODEL@VERSION --format text` to inspect a saved model's full
 milestones, scenario inputs, rationales, and limitations.
 

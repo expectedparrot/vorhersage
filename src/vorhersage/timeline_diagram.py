@@ -78,7 +78,7 @@ def svg(spec):
 
 def export(store, reference, output=None):
     if reference.endswith(".toml"):
-        spec = timeline_plan.compile(timeline_plan.read(reference))
+        spec = timeline_plan.compile(timeline_plan.read(reference), structure_only=True)
     else:
         with store.connect() as c:
             spec = timeline.read(c, timeline.resolve(c, reference))["specification"]
