@@ -6,6 +6,7 @@ STAGES = {
     "intake": "Identify missing facts and plan how to obtain them", "inquiry": "Answer a linked research question",
     "prior": "Establish a starting estimate", "drivers": "Map what could make it happen or prevent it",
     "research": "Collect and check evidence", "assessment": "Build the estimate",
+    "model_challenge": "Check evidence transfers and model boundaries",
     "review": "Challenge the estimate", "issue": "Publish the forecast",
     "timeline_structure": "Map the steps required before the deadline",
     "timeline_research": "Research the model's uncertain inputs",
@@ -60,6 +61,18 @@ def render(data):
             lines.append(f"  {row['model_input']}: {row['value']} ({row['basis']}); range {row['plausible_range']}")
             lines.append("    Evidence measures: " + row["evidence_measures"])
             lines.append("    Transfer assumptions: " + row["transfer_assumptions"])
+        lines.append("")
+    if data.get("model_map"):
+        mapping = data["model_map"]
+        lines += [f"Research-to-model mapping, version {mapping['version']}: " + mapping["rationale"]]
+    if data.get("model_challenge"):
+        lines.append("Model challenge (forecaster's judgments):")
+        for row in data["model_challenge"]["transfers"]:
+            lines.append(f"  {row['model_input']}: {row['verdict']} — {row['reason']}")
+        decisions = {r["concern_id"]: r for r in data.get("concern_resolutions", [])}
+        for concern in data["model_challenge"]["concerns"]:
+            decision = decisions.get(concern["id"], concern)
+            lines.append(f"  {concern['question']} [{decision['disposition']}]: {decision['action']}")
         lines.append("")
     if data.get("model"):
         model = data["model"]

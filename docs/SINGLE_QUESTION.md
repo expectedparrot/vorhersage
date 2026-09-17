@@ -110,6 +110,11 @@ The next task asks you to obtain that answer. Routes are `ask_user`, `search`,
 `status: "answered"` with the answer and evidence references, or `status:
 "unresolved"` with the reason uncertainty remains. User answers and search
 findings require captured evidence. An `unobservable` question remains unresolved.
+An inquiry may also declare `coverage: [{"domain": "current_state",
+"interpretation": "What this answer establishes about the current state."}]`.
+Use the actual domain names in `context.run.profile.domains`. The package reuses
+the answer and evidence for these domains and removes their duplicate research
+tasks. An unresolved answer records unknown coverage rather than a finding.
 An intake with no unknowns needs a rationale explaining why no further intake is
 needed. Completing the form does not establish that the plan is adequate.
 
@@ -130,7 +135,7 @@ before any research. This remains a declaration, not independent proof that the
 agent has no outside knowledge.
 
 Subsequent tasks cover mechanisms and paths to YES/NO, base
-rates, current state, actors and process, contrary evidence, assessment, review,
+rates, current state, actors and process, contrary evidence, assessment, model challenge, review,
 and issuance. A research answer must cite saved evidence or explain an unknown.
 Capture a finding without constructing a packet. For a fictional owner answer:
 
@@ -147,6 +152,10 @@ capture and retrieval time and returns an `evidence_ref` with `packet_id` and
 observed, without changing the current capture time. Keep the owner's observation
 separate from your inference about the launch probability. Do not backdate evidence
 to fit a forecast's cutoff. Future-dated packet imports are rejected.
+Capture one claim at a time. For an inference, use `--claim-type inference` and
+`--inference-rationale "How the source passage supports this inference"`.
+The captured passage is linked to this claim through `claim_support`; its
+presence does not prove the claim follows from the passage.
 
 You can also use [research capture](RESEARCH_AND_MONITORING.md) or
 [packet import](AGENT_GUIDE.md#obtain-evidence-through-epiq) to save findings;
@@ -242,18 +251,50 @@ unsupported values remain `assumed`. In each case, describe the target, what the
 evidence measured, and the assumptions needed to transfer between them. A valid
 record does not prove that the transfer is justified.
 
+New studies also require a versioned `model_map` alongside `parameter_support`.
+For the illustrative judgment above, add:
+
+```json
+{
+  "version": 1,
+  "previous_version": 0,
+  "rationale": "QA readiness informs the launch judgment; it does not directly measure a launch frequency.",
+  "inputs": [{
+    "model_input": "probability",
+    "input_ids": ["launch_chance"],
+    "target": "Probability of public signup before the deadline.",
+    "quantity": "probability"
+  }]
+}
+```
+
+Every assessment pass increments the map version. If you switch model structure,
+remap research to the new inputs explicitly. Scenario weights have quantity
+`scenario_weight`; event probabilities within them have `conditional_probability`.
+The [model challenge guide](MODEL_CHALLENGE.md) includes submission examples,
+reference-case selection, and the repair loop. Existing studies retain their
+original workflow contract; new studies use `structured_v2`.
+
 For mixtures, support ranges feed the existing bounded sensitivity calculation.
 If a scenario also declares `weight_range` or `probability_range`, they must agree
 with its support records. The resulting bounds vary declared assumptions, not
 statistical sampling error. Reports and `show` expose them alongside the estimate.
+
+After assessment, **model_challenge** inspects the evidence transfer for each
+input and tests concrete scenario boundaries, including reversals before the
+deadline. Mismatches and partition gaps need named concerns. This is substantive
+work for the forecaster; the package checks coverage and links, not truth.
 
 Review must challenge the estimate in both directions and include
 `sensitivity_review`: an `interpretation`, `influential_inputs` listing actual
 model-input paths, and `next_evidence` explaining what obtainable evidence could
 narrow uncertainty, or why further research is unlikely to help. The task supplies
 the calculation in `context.sensitivity`. Methods without a joint bound still
-require review of their declared input ranges. Review can request more research.
-A direct review judgment changing the probability needs its own support record.
+require review of their declared input ranges. Review resolves every challenge
+concern: investigate now, await evidence with an observable trigger, or retain an
+assumption with reasons. Investigations become linked inquiries followed by
+assessment, challenge, and review. `decision: "revise"` returns to assessment to
+repair the model without new research; it cannot directly replace the probability.
 The final task records a stopping
 reason, review date, and observable triggers; submitting it issues the forecast.
 There is no separate command that bypasses these steps to publish a number.

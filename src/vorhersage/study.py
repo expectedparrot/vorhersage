@@ -63,7 +63,7 @@ def brief(c):
 
 
 def define(workflow, question, *, forecaster="user", method="declared judgment",
-           research_status="not_started", workflow_name="standard", max_searches=20, max_extra_tasks=2):
+           research_status="not_started", workflow_name="standard", max_searches=20, max_extra_tasks=2, research_contract="structured_v2"):
     store = workflow.store
     with store.connect(True) as c:
         saved = brief(c)
@@ -82,7 +82,7 @@ def define(workflow, question, *, forecaster="user", method="declared judgment",
                 "mode": "simulation" if question["kind"] == "simulation" else "prospective",
                 "information_as_of": now(), "research_status": research_status,
                 "workflow": workflow_name, "max_searches": max_searches, "max_extra_tasks": max_extra_tasks,
-                "research_contract": "structured_v1",
+                "research_contract": research_contract,
             })
             Store.put(c, BINDING, {"question_id": question["id"], "question_version": 1,
                                   "run_id": run["run_id"], "definition": request}, id=BINDING)
@@ -109,7 +109,7 @@ def revise(workflow, *, reason, refs=(), expected_forecast=None):
             verify_refs(c, refs, cutoff, context="new revision cutoff")
             spec = {k: old_run[k] for k in ("question_id", "question_version", "forecaster", "method", "mode", "max_searches", "max_extra_tasks")}
             spec.update(information_as_of=cutoff, previous_forecast_id=previous,
-                        research_status="in_progress", research_contract="structured_v1",
+                        research_status="in_progress", research_contract=old_run.get("research_contract", "structured_v2"),
                         workflow=old_run.get("workflow", "standard"))
             started = workflow._start(c, spec)
             run_id = started["run_id"]
@@ -117,6 +117,7 @@ def revise(workflow, *, reason, refs=(), expected_forecast=None):
             if spec["workflow"] == "standard":
                 state["pending"] = [t for t in state["pending"] if t["kind"] in ("intake", "assessment", "review", "issue")]
                 state["coverage"] = copy.deepcopy(old_state["coverage"])
+            state["model_map"] = copy.deepcopy(old_state.get("model_map"))
             state["evidence_refs"] = list({canonical(r): r for r in old_state["evidence_refs"] + list(refs)}.values())
             state["prior_record"] = {"timing": "not_applicable", "qualification": "Revision of an issued forecast; new evidence is not a pre-research prior."}
             state["artifact_ids"] = list(dict.fromkeys(state["artifact_ids"] + old_state["artifact_ids"]))
@@ -181,7 +182,9 @@ def show(store):
                       completed_tasks=revision, coverage=state["coverage"],
                       findings=verify_refs(c, state["evidence_refs"], run["information_as_of"]),
                       work=work, next=task, stage=task.get("task", {}).get("kind", task["disposition"]))
-        result.update(research_plan=state.get("research_plan"), inquiry_answers=state.get("inquiry_answers", {}),
+        result.update(model_map=state.get("model_map"), model_challenge=state.get("model_challenge"),
+                      concern_resolutions=state.get("concern_resolutions", []), reference_class=state.get("reference_class"),
+                      research_plan=state.get("research_plan"), inquiry_answers=state.get("inquiry_answers", {}),
                       parameter_support=state.get("parameter_support", []), sensitivity=state.get("sensitivity"),
                       previous_forecast=Store.artifact(c, run["previous_forecast_id"], "forecast") if run.get("previous_forecast_id") else None,
                       forecast_id=state["forecast_id"])

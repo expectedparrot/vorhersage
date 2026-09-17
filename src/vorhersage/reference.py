@@ -28,17 +28,26 @@ def add(store, spec):
 
 
 def query(store, spec):
+    with store.connect() as c:
+        return query_cases(c, spec)
+
+
+def query_cases(c, spec):
+    """Select within the caller's snapshot, including forecast submission."""
     check(spec, "reference_query")
     require(time(spec["known_as_of"]) <= time(now()), "Reference query cutoff cannot be in the future.")
-    with store.connect() as c:
-        rows = [Store.artifact(c, r[0]) for r in c.execute("SELECT id FROM artifacts WHERE kind='reference_case'")]
+    rows = [Store.artifact(c, r[0]) for r in c.execute("SELECT id FROM artifacts WHERE kind='reference_case' ORDER BY id")]
     cases, censored, excluded = [], [], []
+    episodes, selected = {}, []
     for row in rows:
         if not set(spec["tags"]) <= set(row["tags"]):
             continue
         if time(row["known_at"]) > time(spec["known_as_of"]):
             excluded.append(row["id"])
             continue
+        selected.append({**{k: row.get(k) for k in ("id", "episode_id", "eligibility", "trigger_at", "observed_until", "known_at", "event_at", "evidence_refs")},
+                         "artifact_id": "reference_" + digest(row["id"])[:24]})
+        episodes.setdefault(row.get("episode_id", row["id"]), []).append(row["id"])
         deadline = time(row["trigger_at"]) + timedelta(days=spec["horizon_days"])
         event = time(row["event_at"]) if row["event_at"] else None
         if event is not None and event <= deadline:
@@ -52,10 +61,15 @@ def query(store, spec):
     limitations = ["Descriptive frequency among the selected, sufficiently observed episodes; not an automatically representative base rate.",
                    "Censored episodes are reported separately. Selective follow-up and selection after seeing outcomes can bias the rate.",
                    "known_at is declared historical availability; recorded_at separately preserves actual import time."]
+    dependent = {episode: sorted(ids) for episode, ids in episodes.items() if len(ids) > 1}
+    if dependent:
+        limitations.append("Multiple cases share a declared episode; choose one representative per episode before using a rate.")
     result = {"cases": cases, "censored": censored, "excluded_after_cutoff": excluded,
-              "sample_size": len(cases), "probability": sum(c["outcome"] for c in cases) / len(cases) if cases else None,
+              "selected_episodes": selected, "dependent_episodes": dependent,
+              "sample_size": len(cases), "probability": sum(c["outcome"] for c in cases) / len(cases) if cases and not dependent else None,
               "selection": spec, "limitations": limitations}
     result["prior_payload"] = {"method": "reference_class", "cases": cases,
                                "selection_rule": spec["selection_rule"], "rationale": "Selected recorded episodes at the specified horizon.",
-                               "limitations": limitations, "evidence_refs": [], "probability": result["probability"]} if cases else None
+                               "reference_query": spec,
+                               "limitations": limitations, "evidence_refs": [], "probability": result["probability"]} if cases and not dependent else None
     return result

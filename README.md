@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/assets/vorhersage-artwork.png" width="760" alt="A green Expected Parrot beside a crystal ball, framed by expectation brackets">
+</p>
+
 # Vorhersage
 
 **Research a question. Build a probability model. Share a forecast you can inspect.**
@@ -622,7 +626,7 @@ definition. Set --forecaster to your agent name. Use `next --output` and
 `submit --task TASK.json --answer ANSWER.json` to advance the research and review
 tasks without rewriting task IDs. Follow intake and inquiry tasks before making
 an estimate; use `evidence add` for dated findings and user answers. Follow the
-guide's parameter-support and sensitivity-review requirements. If several
+guide's model-mapping, parameter-support, model-challenge, and sensitivity-review requirements. If several
 important facts are things I know, offer to design a short survey for me using
 `ep humanize`, share its respondent link, and use my answers as evidence to
 update the affected model inputs. The guide explains how to capture responses
@@ -653,10 +657,6 @@ workers. For a persistent shell setup, run `uv tool update-shell`.
 | Run model/tool workers across related questions | [Live sessions](docs/LIVE_SESSIONS.md) and [joint sessions](docs/JOINT_SESSIONS.md) |
 | Produce a readable report and methodology flowchart | [Report exports](docs/REPORTS.md) |
 | Reproduce a published forecasting study | [AIRO example](examples/airo/README.md) |
-
-<p align="center">
-  <img src="docs/assets/vorhersage-artwork.png" width="760" alt="A green Expected Parrot beside a crystal ball, framed by expectation brackets">
-</p>
 
 ## Development and design
 

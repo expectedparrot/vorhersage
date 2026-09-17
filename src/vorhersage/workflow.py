@@ -16,6 +16,7 @@ from .store import Store
 INSTRUCTIONS = {
     "intake": "Name the model inputs and missing case facts before estimating. Link each unknown to input IDs and choose ask_user, search, assumption, or unobservable. Give a concrete action and explain why it matters. When several influential facts are known to the human user and ep is available, offer a short personal survey via ep humanize; explain which inputs the answers could inform. Chat answers also work. See vorhersage guide for survey creation and response capture. An empty unknown list needs an explanation in rationale.",
     "inquiry": "Carry out the declared research action. Ask the user for facts they know; use dated evidence for observations. Related ask_user questions can be collected through an optional ep humanize survey for that user; preserve the question-to-input mapping and capture the actual answers as self-reported evidence. Record an answer or explicitly leave this unresolved with reasons. Do not turn an interpretation into an observed fact.",
+    "model_challenge": "Inspect the actual quantities in context.model_map. For each input, decide whether its cited passages support that quantity, merely inform an assumption, or concern a different quantity. Inspect influential inputs first. For scenario models test concrete boundary trajectories and a spike followed by reversal before the deadline; record zero/multiple matches honestly. Name material concerns and concrete actions: investigate now, await evidence, or retain an assumption with reasons. These are declared judgments, not automated verification.",
     "prior": "Establish a labeled judgmental prior or a reference class with cases and evidence. Explain comparability and limitations.",
     "drivers": "Map mechanisms and necessary steps, including concrete paths to YES and NO. Identify important unknowns.",
     "research": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
@@ -142,6 +143,8 @@ class Workflow:
                 "profile": profile, "created_at": now(), "workflow_version": "1", **(protocol or {})}
         if workflow == "timeline":
             body.update(workflow="timeline", workflow_version="timeline.v1")
+        if spec.get("research_contract") == "structured_v2":
+            body["workflow_version"] = workflow + ".structured_v2"
         state = {"pending": [task("prior"), task("drivers"), *[task("research", domain=d) for d in profile["domains"]],
                              task("assessment"), task("review"), task("issue")],
                  "artifact_ids": [previous] if previous else [], "evidence_refs": [], "coverage": {},
@@ -152,8 +155,10 @@ class Workflow:
             state["prior_record"] = {"timing": "not_applicable", "qualification": "Timeline workflow has no starting-probability task."}
             if old and old.get("timeline_model_id"):
                 self._bind_timeline(c, body, state, old["timeline_model_id"])
-        if spec.get("research_contract") == "structured_v1":
+        if spec.get("research_contract") in ("structured_v1", "structured_v2"):
             state["pending"].insert(0, task("intake"))
+        if spec.get("research_contract") == "structured_v2" and old:
+            state["model_map"] = copy.deepcopy(old.get("model_map"))
         if protocol:
             state["artifact_ids"].extend([protocol["method_spec_id"], protocol["experiment_id"], *protocol["packet_ids"]])
         c.execute("INSERT INTO runs VALUES (?,?,?,0)", (id, canonical(body), canonical(state)))
@@ -200,7 +205,7 @@ class Workflow:
                         "reason": "Experiment forecast cutoff passed."}
         packet_ids = sorted({r["packet_id"] for r in state["evidence_refs"]})
         payload_schema = copy.deepcopy(SCHEMAS[selected["kind"]])
-        if run.get("research_contract") == "structured_v1":
+        if run.get("research_contract") in ("structured_v1", "structured_v2"):
             extra = {"prior": "research_status_at_estimate", "assessment": "parameter_support", "review": "sensitivity_review"}.get(selected["kind"])
             if extra:
                 payload_schema["required"].append(extra)
@@ -208,6 +213,20 @@ class Workflow:
                 selected["instruction"] += " Supply parameter_support for every numeric/model input, linking the intake input IDs. Distinguish what evidence measured from the target and declare transfer assumptions and ranges."
             if selected["kind"] == "review":
                 selected["instruction"] += " Inspect context.sensitivity and model_inputs. Address influential assumptions and what obtainable evidence could narrow them in sensitivity_review."
+        if run.get("research_contract") == "structured_v2":
+            extra = {"assessment": "model_map", "review": "concern_resolutions"}.get(selected["kind"])
+            if extra:
+                payload_schema["required"].append(extra)
+            if selected["kind"] == "inquiry":
+                selected["instruction"] += " Reuse this answer for relevant profile domains through coverage [{domain, interpretation}]; this removes duplicate domain tasks. Mark unresolved gaps honestly."
+            if selected["kind"] == "assessment":
+                selected["instruction"] += " Supply a new model_map version, explicitly separating scenario weights from conditional event probabilities. Remap evidence if the model changed; explain changes in rationale. Use context.model_map for previous_version (0 initially)."
+            if selected["kind"] == "prior":
+                selected["instruction"] += " For an empirical reference_class, register dated reference cases and supply reference_query plus its returned cases. Unresolved episodes are censored, not failures; related proposals belong to one episode. Without a defensible denominator use judgment."
+            if selected["kind"] == "review":
+                for field in ("probability", "parameter_support", "research_tasks"):
+                    payload_schema["properties"].pop(field, None)
+                selected["instruction"] += " Resolve every context.model_challenge concern through concern_resolutions. Investigate creates linked inquiry tasks; await_evidence needs an observable trigger; retain_assumption explains the remaining uncertainty. Use revise to return to assessment and challenge (no inline replacement probability); research for new inquiries."
         return {"disposition": "actionable", "run_id": run_id, "revision": revision,
                 "task": selected, "submission_schema": SCHEMAS["submit"], "payload_schema": payload_schema,
                 "budget": {"searches_remaining": run["max_searches"] - state["used_searches"],
@@ -220,6 +239,9 @@ class Workflow:
                             "prior_record": state.get("prior_record"),
                             "research_plan": state.get("research_plan"),
                             "inquiry_answers": state.get("inquiry_answers", {}),
+                            "model_map": state.get("model_map"), "model_challenge": state.get("model_challenge"),
+                            "concern_resolutions": state.get("concern_resolutions", []),
+                            "reference_class": state.get("reference_class"),
                             "model_inputs": state.get("model_inputs", {}),
                             "sensitivity": state.get("sensitivity"),
                             "previous_forecast": Store.artifact(c, run["previous_forecast_id"], "forecast") if run.get("previous_forecast_id") else None}}
@@ -294,7 +316,8 @@ class Workflow:
 
     def _apply(self, c, run, state, selected, p):
         kind = selected["kind"]
-        structured = run.get("research_contract") == "structured_v1"
+        structured = run.get("research_contract") in ("structured_v1", "structured_v2")
+        v2 = run.get("research_contract") == "structured_v2"
         if kind == "intake":
             research_model.validate_intake(p)
             state["research_plan"] = p
@@ -308,6 +331,19 @@ class Workflow:
             require(p["status"] != "answered" or q["route"] not in ("ask_user", "search") or p["evidence_refs"],
                     "Answered user questions and searches need a captured finding; use evidence add.")
             state["inquiry_answers"][q["id"]] = p
+            require(len({r["domain"] for r in p.get("coverage", [])}) == len(p.get("coverage", [])),
+                    "Inquiry coverage domains must be unique.")
+            for coverage in p.get("coverage", []):
+                require(coverage["domain"] in run["profile"]["domains"], "Inquiry coverage names an unknown profile domain.")
+                require(run.get("workflow") != "timeline", "Timeline parameter research requires its own assessments.")
+                require(p["status"] != "answered" or p["evidence_refs"], "Assessed coverage needs evidence.")
+                state["coverage"][coverage["domain"]] = {
+                    "task_id": selected["id"], "inquiry_id": q["id"], "interpretation": coverage["interpretation"],
+                    "disposition": "assessed" if p["status"] == "answered" else "unknown",
+                    "evidence_refs": p["evidence_refs"], "unknowns": [p["answer"]] if p["status"] == "unresolved" else [],
+                    "sources_checked": [], "conflicts": []}
+                state["pending"] = [t for t in state["pending"] if not
+                                    (t["kind"] == "research" and t["domain"] == coverage["domain"])]
             return {"input_ids": q["input_ids"], "status": p["status"]}
         if kind == "timeline_structure":
             spec = self._bind_timeline(c, run, state, p["timeline_model_id"])
@@ -350,9 +386,30 @@ class Workflow:
                                      "declared_before_research" if declared == "not_started" else "unspecified",
                                      "qualification": "Research status is an agent declaration; external research history is not independently observable."}
             if p["method"] == "judgment":
-                require("probability" in p and "cases" not in p, "Judgment prior needs a probability, without reference-class cases.")
+                require("probability" in p and not any(k in p for k in ("cases", "reference_query")),
+                        "Judgment prior needs a probability, without reference-class cases or a reference query.")
                 value = p["probability"]
             else:
+                if v2:
+                    from .reference import query_cases
+                    require("reference_query" in p, "Empirical priors require reference_query over registered, dated episodes.")
+                    require(time(p["reference_query"]["known_as_of"]) <= time(run["information_as_of"]),
+                            "Reference query exceeds run cutoff.")
+                    result = query_cases(c, p["reference_query"])
+                    require(all(r["episode_id"] and r["eligibility"] for r in result["selected_episodes"]),
+                            "Empirical priors need episode_id and eligibility for every selected reference case.")
+                    require(p.get("cases") == result["cases"] and p.get("selection_rule") == result["selection"]["selection_rule"],
+                            "Prior cases and selection rule must match reference query; censored cases are not failures.")
+                    require(not result["dependent_episodes"], "Select one case per episode before using an empirical prior.")
+                    selected_refs = evidence_refs(result["selected_episodes"])
+                    verify_refs(c, selected_refs, run["information_as_of"])
+                    if run.get("method_spec"):
+                        require(all(r["packet_id"] in run["packet_ids"] for r in selected_refs),
+                                "Experiment reference cases require registered frozen packets.")
+                    state["evidence_refs"] = list({canonical(r): r for r in state["evidence_refs"] + selected_refs}.values())
+                    state["reference_class"] = result
+                    state["artifact_ids"] = list(dict.fromkeys(state["artifact_ids"] +
+                                                               [r["artifact_id"] for r in result["selected_episodes"]]))
                 require(bool(p.get("cases")) and bool(p.get("selection_rule")), "Reference class needs cases and a selection rule.")
                 require(len({x["id"] for x in p["cases"]}) == len(p["cases"]), "Duplicate reference-class cases.")
                 value = math.fsum(x["outcome"] for x in p["cases"]) / len(p["cases"])
@@ -444,6 +501,13 @@ class Workflow:
                 plan = state.get("research_plan")
                 require(plan is not None, "Parameter support requires an intake research plan.")
                 research_model.validate_support(p, plan, spec if method == "timeline_model" else None)
+            if v2:
+                state["model_map"] = research_model.validate_map(p, state["research_plan"], state.get("model_map"),
+                                                               spec if method == "timeline_model" else None)
+                state["model_challenge"] = None
+                state["concern_resolutions"] = []
+                state["scenario_ids"] = [s["id"] for s in (spec["scenarios"] if method == "timeline_model" else p.get("scenarios", []))]
+                state["pending"].insert(1, task("model_challenge"))
             state["model_inputs"] = research_model.model_inputs(p, spec if method == "timeline_model" else None)
             state["parameter_support"] = p.get("parameter_support", [])
             state["sensitivity"] = calculation if method == "scenario_mixture" else (
@@ -457,7 +521,25 @@ class Workflow:
                     **({"timeline_analysis": calculation} if method == "timeline_model" else {}),
                     **({"odds_analysis": calculation} if method == "odds_ledger" else {}),
                     **({"scenario_analysis": calculation} if method == "scenario_mixture" else {})}
+        if kind == "model_challenge":
+            research_model.validate_challenge(p, state)
+            state["model_challenge"] = p
+            return {"map_version": p["map_version"], "concerns": len(p["concerns"])}
         if kind == "review":
+            if v2:
+                require(state.get("model_challenge") is not None, "Complete the model challenge before review.")
+                require(not any(k in p for k in ("parameter_support", "probability", "research_tasks")),
+                        "Structured v2 review uses concern_resolutions; decision revise returns to assessment without an inline probability.")
+                inquiries = research_model.followup_inquiries(p, state)
+                state["concern_resolutions"] = p["concern_resolutions"]
+                reassess = ([task("timeline_structure")] if run.get("workflow") == "timeline" else []) + [task("assessment"), task("review")]
+                if inquiries:
+                    require(state["extra_tasks"] + len(inquiries) <= run["max_extra_tasks"],
+                            "Extra-task budget exhausted; explicitly defer concerns or retain assumptions.", "budget_exhausted")
+                    state["extra_tasks"] += len(inquiries)
+                    state["pending"][1:1] = [*[task("inquiry", inquiry=q) for q in inquiries], *reassess]
+                elif p["decision"] == "revise":
+                    state["pending"][1:1] = reassess
             require("parameter_support" not in p or p["decision"] == "revise",
                     "New parameter support on a review requires decision revise; retain preserves the existing inputs.")
             if structured:
@@ -466,6 +548,8 @@ class Workflow:
                 require(set(p["sensitivity_review"]["influential_inputs"]) <= set(state.get("model_inputs", {})),
                         "Sensitivity review must name actual model_input paths.")
             require({o["direction"] for o in p["objections"]} == {"too_high", "too_low"}, "Review must challenge the estimate in both directions.")
+            if v2:
+                return {"probability": state["probability"], "decision": p["decision"]}
             if p["decision"] == "research":
                 more = p.get("research_tasks", [])
                 require(bool(more), "A research decision requires new tasks.")
@@ -518,6 +602,8 @@ class Workflow:
                         "evidence_refs": state["evidence_refs"], "cost_usd": state["cost_usd"],
                         "prior_record": state.get("prior_record", {"timing": "unspecified"}),
                         "research_plan": state.get("research_plan"), "inquiry_answers": state.get("inquiry_answers", {}),
+                        "model_map": state.get("model_map"), "model_challenge": state.get("model_challenge"),
+                        "concern_resolutions": state.get("concern_resolutions", []), "reference_class": state.get("reference_class"),
                         "parameter_support": state.get("parameter_support", []), "sensitivity": state.get("sensitivity"),
                         "searches": state["used_searches"], "model_calls": state["model_calls"], **p}
             if state.get("timeline_model_id"):

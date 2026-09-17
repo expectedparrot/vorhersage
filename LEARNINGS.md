@@ -444,3 +444,28 @@ general retrieval or better accuracy; the agent judgments are still fixtures.
 - [Literature review and bibliography](literature/README.md)
 - [Patriots simulation and commands](examples/patriots_2027/README.md)
 - [Researched Patriots assessment](examples/patriots_2027/RESEARCHED_ASSESSMENT.md)
+
+## Evidence transfer needs a model challenge
+
+A later field trial completed intake, evidence capture, parameter support, and
+sensitivity review, but justified a scenario's price-trajectory weight with
+evidence about political opposition conditional on prices. The proposed model
+had changed from political pathways to price trajectories without rebuilding the
+research mapping. Complete fields made this inspectable; they did not make it
+sound.
+
+New studies therefore version the research-to-model map, distinguish quantity
+types, and challenge transfers and scenario boundaries before review. Named
+concerns become linked investigations, explicit deferred evidence, or retained
+assumptions. No schema claims to prove semantic relevance. New assessments must
+be challenged again, including models repaired without further searches.
+
+The same trial treated still-active proposals as failed historical episodes and
+attached multiple claims to a source excerpt supporting only part of the finding.
+Empirical priors now use registered, dated reference queries with eligibility,
+censoring, and declared shared episodes; claim support links passages to individual
+findings and distinguishes inference. Existing records remain readable.
+
+Research also needs reuse within a run: an inquiry can substantively address a
+profile domain. Explicit coverage reuses that answer instead of requiring another
+research task to restate it. The saved task and source trail remain available.

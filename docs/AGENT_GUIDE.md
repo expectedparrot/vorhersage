@@ -21,7 +21,13 @@ Both people and agents fill the same validated task answers.
 
 New single-question studies begin with intake and linked inquiry tasks before
 estimating. They require explicit evidence transfers for model inputs and a
-sensitivity review. See [the complete flow](SINGLE_QUESTION.md#do-the-next-piece-of-work).
+sensitivity review. New studies version the research-to-model mapping and run a
+model challenge before review. Challenge the relevance of the actual cited
+passages and test scenario boundaries; completing fields does not establish
+support. Resolve concerns into linked investigations, deferred evidence, or
+explicit assumptions. Inquiry answers can satisfy research domains without
+repeating their generic tasks. See [the complete flow](SINGLE_QUESTION.md#do-the-next-piece-of-work)
+and [model challenge examples](MODEL_CHALLENGE.md).
 Use `evidence add` to capture findings with tool-recorded timestamps,
 `submit --task TASK --answer ANSWER` to preserve task identifiers, and
 `revise --reason REASON --evidence PACKET:RECORD` after new evidence arrives.

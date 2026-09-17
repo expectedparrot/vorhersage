@@ -39,13 +39,15 @@ RUN = obj({"question_id": TEXT, "question_version": {"type": "integer", "minimum
            "research_status": enum("not_started", "in_progress", "completed", "unspecified"),
            "coherence_policy": enum("warn", "strict"),
            "workflow": enum("standard", "timeline"),
-           "research_contract": enum("structured_v1"),
+           "research_contract": enum("structured_v1", "structured_v2"),
            "previous_forecast_id": TEXT},
           ["question_id", "forecaster", "method", "mode", "information_as_of", "max_searches", "max_extra_tasks"])
+REFERENCE_QUERY = obj({"tags": array(TEXT, 1), "horizon_days": {"type": "number", "minimum": 0.000001},
+                       "known_as_of": TIME, "selection_rule": TEXT})
 PRIOR = obj({"method": enum("judgment", "reference_class"), "rationale": TEXT,
              "research_status_at_estimate": enum("not_started", "in_progress", "completed", "unspecified"),
              "limitations": array(), "evidence_refs": REFS, "probability": PROB,
-             "selection_rule": TEXT,
+             "selection_rule": TEXT, "reference_query": REFERENCE_QUERY,
              "cases": array(obj({"id": TEXT, "outcome": enum(0, 1), "evidence_refs": array(REF, 1)}), 1)},
             ["method", "rationale", "limitations", "evidence_refs"])
 DRIVERS = obj({"drivers": array(obj({"name": TEXT, "mechanism": TEXT, "evidence_refs": REFS}), 1),
@@ -66,7 +68,29 @@ INTAKE = obj({"rationale": TEXT,
               "unknowns": array(obj({"id": TEXT, "question": TEXT, "input_ids": array(TEXT, 1),
                                      "route": enum("ask_user", "search", "assumption", "unobservable"),
                                      "why_it_matters": TEXT, "action": TEXT}))})
-INQUIRY = obj({"status": enum("answered", "unresolved"), "answer": TEXT, "evidence_refs": REFS})
+INQUIRY = obj({"status": enum("answered", "unresolved"), "answer": TEXT, "evidence_refs": REFS,
+               "coverage": array(obj({"domain": TEXT, "interpretation": TEXT}))},
+              ["status", "answer", "evidence_refs"])
+MODEL_MAP = obj({"version": {"type": "integer", "minimum": 1}, "previous_version": COUNT,
+                 "rationale": TEXT,
+                 "inputs": array(obj({"model_input": TEXT, "input_ids": array(TEXT, 1), "target": TEXT,
+                                      "quantity": enum("scenario_weight", "conditional_probability", "probability",
+                                                       "likelihood_ratio", "ensemble_weight", "timeline_input")}), 1)})
+CONCERN = obj({"id": TEXT, "model_inputs": array(TEXT, 1), "question": TEXT,
+               "disposition": enum("investigate", "await_evidence", "retain_assumption"),
+               "rationale": TEXT, "action": TEXT})
+CONCERN_RESOLUTION = obj({"concern_id": TEXT,
+                          "disposition": enum("investigate", "await_evidence", "retain_assumption"),
+                          "rationale": TEXT, "action": TEXT, "route": enum("search", "ask_user")},
+                         ["concern_id", "disposition", "rationale", "action"])
+MODEL_CHALLENGE = obj({"map_version": {"type": "integer", "minimum": 1},
+                       "transfers": array(obj({"model_input": TEXT,
+                                              "verdict": enum("supported", "assumption", "mismatch"),
+                                              "reason": TEXT, "evidence_refs": REFS}), 1),
+                       "boundary_cases": array(obj({"description": TEXT, "scenario_ids": array(TEXT),
+                                                   "reason": TEXT, "concern_ids": array(TEXT)},
+                                                  ["description", "scenario_ids", "reason"])),
+                       "partition_review": TEXT, "concerns": array(CONCERN)})
 PARAMETER_SUPPORT = obj({"input_id": TEXT, "model_input": TEXT, "value": {"type": ["number", "string"]},
                          "target": TEXT, "evidence_measures": TEXT,
                          "transfer_assumptions": TEXT,
@@ -94,9 +118,9 @@ ASSESSMENT = obj({"method": enum("judgment", "conditional_path", "ensemble", "sc
                   "weights": array({"type": "number", "minimum": 0}, 1),
                   "scenarios": array(SCENARIO, 2), "partition_justification": TEXT,
                   "odds_ledger": ODDS_LEDGER, "timeline_model_id": TEXT,
-                  "parameter_support": array(PARAMETER_SUPPORT, 1)},
+                  "parameter_support": array(PARAMETER_SUPPORT, 1), "model_map": MODEL_MAP},
                  ["method", "rationale", "limitations", "evidence_refs"])
-REVIEW = obj({"decision": enum("retain", "revise", "research"), "rationale": TEXT,
+REVIEW = obj({"concern_resolutions": array(CONCERN_RESOLUTION), "decision": enum("retain", "revise", "research"), "rationale": TEXT,
               "objections": array(obj({"direction": enum("too_high", "too_low"), "objection": TEXT, "response": TEXT}), 2),
               "evidence_refs": REFS, "probability": PROB,
               "sensitivity_review": obj({"interpretation": TEXT, "influential_inputs": array(TEXT, 1),
@@ -129,7 +153,10 @@ SOURCE = obj({"id": TEXT, "url": TEXT, "title": TEXT, "excerpt": TEXT, "retrieve
                               "captured_at": TIME, "content": TEXT, "content_sha256": TEXT,
                               "metadata": {"type": "object"}}, ["method"])},
              ["id", "url", "title", "excerpt", "retrieved_at"])
-RECORD = obj({"id": TEXT, "claim": TEXT, "value": {}, "entity_ids": array(),
+# A passage supports one finding; inference remains a declared reasoning step.
+CLAIM_SUPPORT = obj({"source_id": TEXT, "passage": TEXT,
+                     "relation": enum("direct", "inference"), "rationale": TEXT})
+RECORD = obj({"claim_support": array(CLAIM_SUPPORT, 1), "inference_rationale": TEXT, "id": TEXT, "claim": TEXT, "value": {}, "entity_ids": array(),
               "observed_at": TIME, "sources": array(SOURCE, 1), "provenance": {"type": "object"},
               "claim_type": enum("reporting", "official_statement", "observation", "inference", "unknown")},
              ["id", "claim", "value", "entity_ids", "observed_at", "sources", "provenance"])
@@ -153,16 +180,15 @@ WATCH = obj({"id": TEXT, "question_id": TEXT, "forecaster": TEXT,
              "max_searches": COUNT, "max_extra_tasks": COUNT},
             ["id", "question_id", "forecaster", "interval_seconds"])
 BUNDLE = obj({"sources": array(SOURCE, 1),
-              "findings": array(obj({"id": TEXT, "claim": TEXT, "source_ids": array(TEXT, 1),
+              "findings": array(obj({"claim_support": array(CLAIM_SUPPORT, 1), "inference_rationale": TEXT, "id": TEXT, "claim": TEXT, "source_ids": array(TEXT, 1),
                                      "claim_type": RECORD["properties"]["claim_type"], "value": {},
                                      "entity_ids": array()}, ["id", "claim", "source_ids", "claim_type"]), 1),
               "information_as_of": TIME, "limitations": array(), "relationships": array(EVIDENCE_LINK)},
              ["sources", "findings", "limitations"])
-REFERENCE_CASE = obj({"id": TEXT, "description": TEXT, "tags": array(TEXT, 1),
+REFERENCE_CASE = obj({"episode_id": TEXT, "eligibility": TEXT, "id": TEXT, "description": TEXT, "tags": array(TEXT, 1),
                       "trigger_at": TIME, "event_at": {"type": ["string", "null"]},
-                      "observed_until": TIME, "known_at": TIME, "evidence_refs": array(REF, 1)})
-REFERENCE_QUERY = obj({"tags": array(TEXT, 1), "horizon_days": {"type": "number", "minimum": 0.000001},
-                       "known_as_of": TIME, "selection_rule": TEXT})
+                      "observed_until": TIME, "known_at": TIME, "evidence_refs": array(REF, 1)},
+                     ["id", "description", "tags", "trigger_at", "event_at", "observed_until", "known_at", "evidence_refs"])
 
 TIMELINE_PARAMETER = obj({"id": TEXT, "kind": enum("date", "duration_days"), "description": TEXT})
 TIMELINE_VALUE = obj({"parameter_id": TEXT, "basis": enum("observed", "estimated", "assumed", "unresolved"),
@@ -318,6 +344,7 @@ WORKBENCH_SUBMIT = obj({"kind": enum("initial", "plan", "checkpoint", "finish", 
                         "expected_revision": COUNT, "idempotency_key": TEXT, "payload": {"type": "object"}})
 
 SCHEMAS = {"question": QUESTION, "profile": PROFILE, "run": RUN, "submit": SUBMIT,
+           "model_map": MODEL_MAP, "model_challenge": MODEL_CHALLENGE,
            "intake": INTAKE, "inquiry": INQUIRY, "parameter_support": PARAMETER_SUPPORT,
            "prior": PRIOR, "drivers": DRIVERS, "research": RESEARCH, "assessment": ASSESSMENT,
            "review": REVIEW, "issue": ISSUE, "resolution": RESOLUTION, "signal": SIGNAL,

@@ -13,16 +13,23 @@ from .common import canonical, digest, now, require, time
 from .schemas import check
 
 
-def capture_finding(claim, *, url, title, excerpt, claim_type="reporting", observed_at=None):
+def capture_finding(claim, *, url, title, excerpt, claim_type="reporting", observed_at=None,
+                    inference_rationale=None):
     """Capture supplied text now. This does not claim to fetch or verify its source."""
     captured = now()
     observed = observed_at or captured
     require(time(observed) <= time(captured), "An observation cannot be later than the current capture time.")
+    require(claim_type != "inference" or inference_rationale,
+            "An inference needs --inference-rationale explaining how the passage supports the claim.")
     return validate_packet({"schema_version": "vorhersage.evidence.v1", "kind": "manual",
                            "information_as_of": captured, "created_at": captured,
                            "limitations": ["Manually supplied finding; source text and interpretation are not independently verified."],
                            "records": [{"id": "finding", "claim": claim, "claim_type": claim_type,
                                         "value": excerpt, "entity_ids": [], "observed_at": observed,
+                                        "claim_support": [{"source_id": "source", "passage": excerpt,
+                                                           "relation": "inference" if claim_type == "inference" else "direct",
+                                                           "rationale": inference_rationale or "Source passage supplied for this single claim."}],
+                                        **({"inference_rationale": inference_rationale} if inference_rationale else {}),
                                         "provenance": {"adapter": "vorhersage.evidence_add.v1", "recorded_at": captured},
                                         "sources": [{"id": "source", "url": url, "title": title,
                                                      "excerpt": excerpt, "excerpt_kind": "paraphrase",
@@ -47,6 +54,18 @@ def validate_packet(value):
         links.add(signature)
     for record in packet["records"]:
         require(time(record["observed_at"]) <= cutoff, "Evidence observation is after packet cutoff.")
+        sources = {s["id"]: s for s in record["sources"]}
+        require(not record.get("claim_support") or len(sources) == len(record["sources"]),
+                "Claim support needs unambiguous source IDs within the finding.")
+        for support in record.get("claim_support", []):
+            require(support["source_id"] in sources, "Claim support references an unknown source.")
+            source = sources[support["source_id"]]
+            text = source.get("capture", {}).get("content", source["excerpt"])
+            require(support["passage"] in text, "Claim support passage must occur in the supplied excerpt or captured content.")
+            require(record.get("claim_type") != "inference" or support["relation"] == "inference",
+                    "Inference findings must label their support as inference.")
+        if record.get("claim_support") and record.get("claim_type") == "inference":
+            require(record.get("inference_rationale"), "Inference findings need an inference_rationale.")
         for source in record["sources"]:
             require(time(source["retrieved_at"]) <= cutoff, "Source retrieval is after packet cutoff.")
             capture = source.get("capture", {})
@@ -108,6 +127,7 @@ def capture_bundle(spec):
         require(set(f["source_ids"]) <= set(sources), "Finding references an unknown source.")
         selected = [sources[id] for id in dict.fromkeys(f["source_ids"])]
         records.append({"id": f["id"], "claim": f["claim"], "claim_type": f["claim_type"],
+                        **{k: f[k] for k in ("claim_support", "inference_rationale") if k in f},
                         "value": f.get("value"), "entity_ids": f.get("entity_ids", []),
                         "sources": selected, "observed_at": max((s["retrieved_at"] for s in selected), key=time),
                         "provenance": {"adapter": "vorhersage.research_bundle.v1"}})
@@ -148,6 +168,8 @@ def audit(packet):
     conflicts = [l for l in confirmations if root(l["from_record"]) == root(l["to_record"])]
     gaps = []
     for id, r in rows.items():
+        if not r.get("claim_support"):
+            gaps.append({"record_id": id, "missing": "claim_support"})
         if r.get("claim_type", "unknown") == "unknown":
             gaps.append({"record_id": id, "missing": "claim_type"})
         for s in r["sources"]:

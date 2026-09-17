@@ -94,3 +94,98 @@ def mixture(payload):
                         "Scenario range differs from its parameter support: " + key)
                 row[field + "_range"] = bounds
     return spec
+
+
+def quantity(path, method):
+    if method == 'timeline_model' and '/inputs/' in path:
+        return 'timeline_input'
+    if path.endswith('/lr'):
+        return 'likelihood_ratio'
+    if path.endswith('/weight'):
+        return 'ensemble_weight' if method == 'ensemble' else 'scenario_weight'
+    if method in ('scenario_mixture', 'conditional_path'):
+        return 'conditional_probability'
+    return 'probability'
+
+
+def validate_map(payload, plan, previous=None, timeline_spec=None):
+    """Require an explicit, immutable mapping on every assessment pass."""
+    require('model_map' in payload, 'Supply model_map: version the mapping from research questions to actual model quantities.')
+    mapping = payload['model_map']
+    version = previous['version'] if previous else 0
+    require(mapping['previous_version'] == version and mapping['version'] == version + 1,
+            'Model map version is stale; use previous_version from context.model_map and increment version.')
+    expected = model_inputs(payload, timeline_spec)
+    rows = mapping['inputs']
+    require(len(rows) == len(expected) and {r['model_input'] for r in rows} == set(expected),
+            'Model map must cover every actual model input exactly once.')
+    ids = {i['id'] for i in plan['inputs']}
+    support = {r['model_input']: r for r in payload['parameter_support']}
+    for row in rows:
+        path = row['model_input']
+        require(set(row['input_ids']) <= ids, 'Model map references unknown research input IDs.')
+        require(row['quantity'] == quantity(path, payload['method']),
+                'Wrong quantity type for ' + path + '; scenario weights and conditional probabilities are distinct.')
+        require(row['target'] == support[path]['target'] and support[path]['input_id'] in row['input_ids'],
+                'Model map target/input IDs disagree with parameter support for ' + path)
+    return mapping
+
+
+def validate_challenge(payload, state):
+    mapping = state['model_map']
+    require(payload['map_version'] == mapping['version'], 'Challenge targets a stale model map.')
+    paths = set(state['model_inputs'])
+    rows = payload['transfers']
+    require(len(rows) == len(paths) and {r['model_input'] for r in rows} == paths,
+            'Challenge must inspect the evidence transfer for every model input exactly once.')
+    support = {r['model_input']: r for r in state['parameter_support']}
+    for row in rows:
+        if row['verdict'] == 'supported':
+            require(row['evidence_refs'] and support[row['model_input']]['basis'] != 'assumed',
+                    'An assumed or uncited input cannot be marked supported.')
+            require(all(ref in support[row['model_input']]['evidence_refs'] for ref in row['evidence_refs']),
+                    'A supported verdict must inspect the evidence cited for that model input.')
+    concerns = payload['concerns']
+    require(len({c['id'] for c in concerns}) == len(concerns), 'Concern IDs must be unique.')
+    for concern in concerns:
+        require(set(concern['model_inputs']) <= paths, 'Concern must link to actual model inputs.')
+    mismatches = {r['model_input'] for r in rows if r['verdict'] == 'mismatch'}
+    require(mismatches <= {p for c in concerns for p in c['model_inputs']},
+            'Each mismatched evidence transfer needs a concern and a disposition.')
+    scenarios = state.get('scenario_ids', [])
+    if scenarios:
+        require(len(payload['boundary_cases']) >= 2,
+                'Test at least two concrete boundary trajectories, including a reversal before the deadline.')
+        for case in payload['boundary_cases']:
+            require(len(set(case['scenario_ids'])) == len(case['scenario_ids']) and
+                    set(case['scenario_ids']) <= set(scenarios), 'Boundary case names an unknown or duplicate scenario.')
+            require(set(case.get('concern_ids', [])) <= {c['id'] for c in concerns},
+                    'Boundary case links an unknown concern.')
+            require(len(case['scenario_ids']) == 1 or case.get('concern_ids'),
+                    'An uncovered or overlapping boundary case needs a concern.')
+    else:
+        require(not payload['boundary_cases'], 'Boundary scenarios require a scenario model.')
+
+
+def followup_inquiries(payload, state):
+    """Turn review dispositions into executable inquiries; retain deferred gaps."""
+    challenge = state['model_challenge']
+    concerns = {c['id']: c for c in challenge['concerns']}
+    rows = payload.get('concern_resolutions', [])
+    require(len(rows) == len(concerns) and {r['concern_id'] for r in rows} == set(concerns),
+            'Resolve each model challenge concern exactly once in concern_resolutions.')
+    mapping = {r['model_input']: r for r in state['model_map']['inputs']}
+    inquiries = []
+    for row in rows:
+        concern = concerns[row['concern_id']]
+        if row['disposition'] == 'investigate':
+            ids = sorted({i for p in concern['model_inputs'] for i in mapping[p]['input_ids']})
+            inquiries.append({'id': f"map{state['model_map']['version']}:{concern['id']}",
+                              'question': concern['question'], 'input_ids': ids, 'route': row.get('route', 'search'),
+                              'why_it_matters': row['rationale'], 'action': row['action'],
+                              'concern_id': concern['id'], 'model_inputs': concern['model_inputs']})
+        else:
+            require('route' not in row, 'A research route applies only to an investigate disposition.')
+    require(bool(inquiries) == (payload['decision'] == 'research'),
+            'Use decision research exactly when a concern is marked investigate.')
+    return inquiries

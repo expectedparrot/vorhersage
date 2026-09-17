@@ -29,9 +29,11 @@ def support(answer, spec=None):
             for path, value in research_model.model_inputs(answer, spec).items()]
 
 
-def study_payload(kind, refs, estimate=.6):
+def study_payload(kind, refs, estimate=.6, context=None):
     if kind == "intake":
         return intake()
+    if kind == "model_challenge":
+        return challenge(context)
     answer = payload(kind, refs, estimate)
     if kind == "prior":
         answer["research_status_at_estimate"] = "not_started"
@@ -40,7 +42,29 @@ def study_payload(kind, refs, estimate=.6):
     if kind == "review":
         answer["sensitivity_review"] = {"interpretation": "Fixed synthetic inputs do not establish accuracy.",
                                         "influential_inputs": ["probability"], "next_evidence": "Obtain the fictional release log."}
+    if context and context["run"].get("research_contract") == "structured_v2":
+        if kind == "assessment":
+            answer["model_map"] = model_map(answer, context)
+        if kind == "review":
+            answer["concern_resolutions"] = []
     return answer
+
+
+def model_map(answer, context):
+    previous = (context.get("model_map") or {}).get("version", 0)
+    return {"version": previous + 1, "previous_version": previous, "rationale": "Explicit fixture mapping.",
+            "inputs": [{"model_input": r["model_input"], "input_ids": [r["input_id"]],
+                        "target": r["target"], "quantity": research_model.quantity(r["model_input"], answer["method"])}
+                       for r in answer["parameter_support"]]}
+
+
+def challenge(context, scenarios=()):
+    return {"map_version": context["model_map"]["version"],
+            "transfers": [{"model_input": p, "verdict": "assumption", "reason": "Synthetic assumption.", "evidence_refs": []}
+                          for p in context["model_inputs"]],
+            "boundary_cases": [{"description": text, "scenario_ids": [scenarios[0]], "reason": "Fixture assignment."}
+                               for text in ("At threshold", "Spike then reversal")] if scenarios else [],
+            "partition_review": "Synthetic fixture partition.", "concerns": []}
 
 
 class StudyTests(unittest.TestCase):
@@ -163,11 +187,11 @@ class StudyTests(unittest.TestCase):
         self.cli("report", "--project", self.project)
         self.assertTrue((self.project / "report.html").exists())
         refs = [self.w.import_packet(packet())["records"][0]["evidence_ref"]]
-        for index in range(10):
+        for index in range(11):
             path = self.root / f"task-{index}.json"
             self.cli("next", "--project", self.project, "--output", path)
             task = json.loads(path.read_text())
-            task["submission"]["payload"] = study_payload(task["task"]["kind"], refs)
+            task["submission"]["payload"] = study_payload(task["task"]["kind"], refs, context=task["context"])
             task["submission"]["usage"] = {"searches": 0, "cost_usd": 0, "model_calls": 0}
             path.write_text(json.dumps(task))
             output = self.cli("submit", "--project", self.project, "--from", path)
@@ -216,8 +240,11 @@ class StudyTests(unittest.TestCase):
                 answer = {"method": "timeline_model", "timeline_model_id": task["task"]["timeline_context"]["timeline_model_id"],
                           "rationale": "Calculate from declared scenarios.", "limitations": ["Synthetic assumptions."], "evidence_refs": []}
                 answer["parameter_support"] = support(answer, task["task"]["timeline_context"]["model"])
+                answer["model_map"] = model_map(answer, task["context"])
+            elif kind == "model_challenge":
+                answer = challenge(task["context"], [s["id"] for s in task["task"]["timeline_context"]["model"]["scenarios"]])
             else:
-                answer = study_payload(kind, [])
+                answer = study_payload(kind, [], context=task["context"])
                 if kind == "review":
                     answer["sensitivity_review"]["influential_inputs"] = list(task["context"]["model_inputs"])
             task["submission"]["payload"] = answer
