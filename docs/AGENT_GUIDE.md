@@ -1,4 +1,4 @@
-# Operating Vorhersage 0.2
+# Operating Vorhersage
 
 For research capture, provenance audits, optional scenario mixtures, reference-case
 queries, related-question checks, and executable monitoring, see
@@ -12,9 +12,11 @@ preserves forecasts, tracks review work, and evaluates resolved predictions.
 
 ## Start and resume
 
-From this checkout, the installed command is `.venv/bin/vorhersage`. The examples
-below use `vorhersage`, assuming it is on your PATH. Commands use the current
-directory as the project. Change into your study once with `cd`; no `--project`
+Install using the [agent quickstart](../README.md#copy-and-paste-into-an-agent),
+then run `vorhersage guide` for the built-in overview. The examples below assume
+`vorhersage` is on your PATH; in a source checkout you can use
+`.venv/bin/vorhersage`. Commands use the current directory as the project.
+Change into your study once with `cd`; no `--project`
 flag is needed there. To address another project, put `--project PATH` before
 the command. It selects a directory containing `.vorhersage/state.sqlite`.
 Input file paths remain relative to your current directory.

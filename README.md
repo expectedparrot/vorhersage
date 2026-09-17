@@ -1,170 +1,169 @@
 # Vorhersage
 
+**A forecasting workbench for AI agents, from research question to probability and report.**
+
 [Documentation](https://expectedparrot.github.io/vorhersage/) ·
-[Source](https://github.com/expectedparrot/vorhersage) ·
+[Example report](https://expectedparrot.github.io/vorhersage/examples/nyc-2026-09-16/) ·
 [Expected Parrot tools](https://expectedparrot.github.io/directory/)
 
-<p align="center">
-  <img src="docs/assets/vorhersage-artwork.png" width="800" alt="Vorhersage artwork: a green parrot connected to sensors in a glass tank, framed by expectation brackets">
-</p>
+Give an agent a question such as **“Will Waymo launch public driverless rides in
+Boston by the start of 2029?”** Vorhersage helps it define what counts as a Yes,
+collect and cite evidence, build a probability model, investigate the assumptions
+that matter, and record its forecast. It produces a durable research record and
+HTML or LaTeX reports explaining how the estimate was reached.
 
-A forecasting workbench for agents. **Version 0.3 is implemented:** a Python CLI
-for binary questions, durable research workflows, Epiq evidence packets,
-probability calculations, revisions, resolution and matched evaluation.
+The agent supplies the research and judgment. The package supplies the workflow,
+validates each step, computes declared models, and preserves sources, assumptions,
+and revisions. Another agent can resume the same project without reconstructing
+the work from a conversation.
 
-Agents do the research and judgment. Vorhersage supplies the next task, enforces
-research coverage, performs declared calculations and preserves the record.
+## Copy and paste into an agent
 
-## Start here
-
-The command is installed in this checkout's virtual environment:
-
-```bash
-.venv/bin/vorhersage guide
-.venv/bin/vorhersage schema
-.venv/bin/vorhersage --project examples/live_portfolio/project status
-```
-
-The [agent guide](docs/AGENT_GUIDE.md) explains the complete interface. On another
-machine, install with Python 3.11+ using `python -m pip install .` in your chosen
-environment. The package has no runtime dependencies. Without installation,
-`PYTHONPATH=src python3 -m vorhersage guide` works from this repository.
-
-The operating loop is:
+Copy this block into your coding agent along with a forecasting question:
 
 ```text
-question add → run start → next → submit → next → … → issue
-                              ↑                       ↓
-                    new revision ← monitor ← waiting
-                                              ↓
-                                         resolve → evaluate
+Use Vorhersage to research my forecasting question and produce a sourced HTML
+report. If I haven't supplied a question, ask for one.
+
+Install uv if needed: https://docs.astral.sh/uv/getting-started/installation/
+Then install Vorhersage and EDSL's ep command together:
+
+uv tool install --python 3.11 --with-executables-from \
+  "edsl @ git+https://github.com/expectedparrot/edsl.git@main" \
+  "vorhersage @ git+https://github.com/expectedparrot/vorhersage.git@main"
+export PATH="$(uv tool dir --bin):$PATH"
+
+Reuse an existing Expected Parrot login; otherwise run this and let me
+complete the browser login:
+
+ep auth login
+
+Read the installed guide, then create or resume a project:
+
+vorhersage guide
+
+Follow the guide and CLI schemas to register the question, research it,
+record the model and issue a forecast. Use `next` and `submit` to advance
+the run. Preserve sources, assumptions and uncertainty. Finish with
+`vorhersage report --question QUESTION_ID --output report.html` and show
+me the forecast, its main drivers, and the report.
 ```
 
-`issue` is a task submitted through `submit`. All ordinary commands return JSON;
-errors return JSON on stderr and a nonzero exit code. Question/profile versions,
-evidence and issued forecasts retain their history. Prospective runs can gather
-new research while active; each accepted step records its information cutoff.
+This installs from GitHub and requires Git; uv supplies Python 3.11 if needed.
+EDSL provides `ep` for Expected Parrot authentication and model execution.
+Vorhersage's core workflow, calculations and exports also work locally without
+an account. Model and research services are chosen by the agent or configured
+workers. For a persistent shell setup, run `uv tool update-shell`.
 
-## What works
+## What you can do
 
-- Configurable research profiles with explicit assessed or unknown outcomes.
-- Durable resumption, atomic submissions, idempotent retries and stale-state checks.
-- Epiq search, consistent evidence freezing, portable packet import and change checks.
-- Judgmental and empirical priors, conditional paths, and explicit ensembles.
-- Review in both directions, bounded follow-up research, immutable forecast revisions.
-- Scheduled review detection, evidence signals, resolution corrections and Brier scoring.
-- Matched comparisons, descriptive calibration bins, missingness and event-group labels.
-- Separate prospective, retrospective and simulation evaluation modes.
-- Versioned forecasting methods and frozen-packet experiments, with repeated trials, resumable workers, and matched method scores.
-- One-question market workbench: hidden Kalshi/Polymarket targets, planned research steps, immutable checkpoints, and immediate market-agreement reports.
-- [Full HTML and LaTeX reports](docs/REPORTS.md): question definitions, research, models, sources, and prediction histories, exported offline through the CLI.
-- Joint elicitation sessions with explicit conditions, atomic external imports,
-  partial submissions, median panels, paired conditional ratios, and session coherence.
-- Live session events, staged evidence and bindings, resumable model/tool workers,
-  attempt costs, protocol audits, whole-session studies, and offline comparisons.
-- Explicit unconditional session evaluation, empirical CRPS, and quantile loss.
-- Halawi benchmark import, fixed historical replay, and separate replay scoring.
-- Research bundles, captured-text integrity checks, source dependence and contradiction audits.
-- Explicit starting-judgment timing; legacy or after-research judgments are not labeled original priors.
-- Optional generic scenario mixtures, probability-mass checks and bounded sensitivity analysis.
-- Declared odds ledgers with joint ratios for dependent findings, sensitivity, and offline interactive HTML audits.
-- Deadline models with explicit milestone dependencies, unresolved parameters, generated research tasks, joint scenarios, and offline schedule comparisons.
-- Version-pinned question implications, transitive coherence checks and optional strict issuance.
-- Reusable historical episodes with horizon-specific outcomes and censored-case reporting.
-- Persistent monitoring with Epiq or configured research workers, resumable agent execution and resolution routing.
+- **Research a forecast.** Define the event, deadline and resolution source;
+  save an initial judgment; collect evidence; review competing explanations;
+  then issue a probability with its rationale.
+- **Make the model inspectable.** Declare a reference-class estimate, conditional
+  scenarios, an odds ledger, or a timeline of necessary milestones. The package
+  performs the arithmetic and sensitivity checks; the agent justifies the inputs.
+- **Improve a research process against a live market.** Freeze a Kalshi or
+  Polymarket quote, keep it hidden during research, record checkpoints, then
+  reveal it and compare. This gives an immediate development target while the
+  event is unresolved. Market agreement is separate from forecast accuracy.
+- **Compare forecasting methods.** Register methods, hold evidence fixed or
+  vary research, repeat trials, and compare matched predictions. Joint sessions
+  can answer related questions and check their logical consistency.
+- **Maintain and evaluate forecasts.** Resume unfinished work, schedule reviews,
+  record new revisions, and score predictions once outcomes are known.
+- **Share the work.** Export a full HTML or LaTeX report with the question,
+  evidence, methodology, model, prediction history and limitations. Declared
+  odds ledgers can also become interactive HTML widgets.
 
-The [research and monitoring guide](docs/RESEARCH_AND_MONITORING.md) documents these
-extensions, runnable commands, worker protocols, and their limitations.
-The [odds-ledger guide](docs/ODDS_LEDGER.md) includes `export-widget` and a
-[working fictional demo](examples/odds_ledger/demo.html).
-The [timeline guide](docs/TIMELINE_MODELS.md) explains modeling before choosing a
-probability, with an [unweighted Waymo dependency comparison](examples/waymo_boston_2029/timeline/comparison.html).
-The [improvement plan](docs/IMPROVEMENT_PLAN.md) maps the remaining evaluation and research proposals.
-The [method comparison guide](docs/EXPERIMENTS.md) explains versioned procedures,
-experiment registration, repeated trials, and controlled evidence inputs.
-The [market workbench guide](docs/MARKET_WORKBENCH.md) walks through one live question
-at a time, with a [fictional research-and-reveal demo](examples/market_workbench/demo.html).
-The [joint-session guide](docs/JOINT_SESSIONS.md) explains shared elicitation
-records, model-specific conditions, source timestamps, and panel aggregation.
-The [live-session guide](docs/LIVE_SESSIONS.md) documents execution contracts,
-worker recovery, research checks, study registration, reporting, and scoring.
+<p align="center">
+  <img src="docs/assets/vorhersage-artwork.png" width="760" alt="An Expected Parrot connected to sensors in a glass tank, framed by expectation brackets">
+</p>
 
-Shared factual research stays in Epiq. Vorhersage stores its own workflow state
-and frozen evidence copies in each project's `.vorhersage/state.sqlite`.
+## How the CLI works
 
-## Executed examples
+A project stores its records in `.vorhersage/state.sqlite`. Each command reads
+or advances that saved state. Sources can be captured directly or imported from
+an [Epiq evidence library](docs/RESEARCH_AND_MONITORING.md).
 
-- [NYC temperature forecast — full report](https://expectedparrot.github.io/vorhersage/examples/nyc-2026-09-16/):
-  a live research case with a methodology flowchart, model assumptions, and a
-  sealed 28.6% prediction compared with Kalshi. [Source and calculation](examples/market_workbench/nyc_20260916/README.md).
+The ordinary forecasting loop is:
 
-- [Joint sessions](examples/joint_sessions/README.md): four fictional model sessions,
-  partial submission and import, explicit conditions, coherence, and median ratios.
-- [Live sessions](examples/live_sessions/README.md): two arms × two repetitions,
-  research receipt polling, staged evidence, finalization, HTML reports, and scoring
-  through deterministic workers with no provider calls.
-
-- [Method comparison](examples/method_comparison/README.md): two methods, two fictional
-  questions, two repetitions; pauses and resumes workers, then scores all eight trials.
-
-- [Historical benchmark walkthrough](examples/backtesting/README.md): 20 Halawi
-  validation questions pass through the task loop with a constant-50% control;
-  18 have historical crowd baselines.
-- [Model pilot](examples/backtesting/model_pilot_01/RESULTS.md): 80 completions
-  compare plain and structured prompts. Format failures and widespread outcome
-  recognition limit the accuracy comparison.
-- [Fictional factory portfolio](examples/factory/README.md): separate CLI processes
-  create questions, research, issue, revise, resolve and compare with a baseline.
-- [Patriots package regression](examples/patriots_2027/package_output/package_report.json):
-  the general package reads 31 Epiq capture/finding records and reproduces the
-  recorded 6.048% judgment. It is labeled retrospective, with the outcome unresolved.
-- [Initial live research queue](examples/live_portfolio/README.md): three related
-  NFL questions are registered and ready for research, with no probabilities issued.
-- [Listen Labs / Salesforce](examples/listen_labs_salesforce_2026/README.md): original
-  prospective announcement and completion forecasts, with research and provenance.
-- [Generic scenario input](examples/workbench_extensions/mixture.json): fictional
-  readiness assumptions for the optional mixture calculator.
-- [AIRO principal-panel reproduction](examples/airo/README.md): imports the authors'
-  11,760 probabilities, reproduces Figures 6–9, and checks 376 published values.
-- [Fresh AIRO EDSL pilot](examples/airo/edsl_pilot_01/REPORT.md): one model completes
-  2,940 probabilities through a recorded research loop, with transport amendments
-  and research limitations documented.
-
-Run the acceptance walkthrough in a new directory:
-
-```bash
-.venv/bin/python examples/factory/walkthrough.py /tmp/new-factory-portfolio
+```text
+Define question → Start run → Get next task → Research / model / review
+                                   ↑                    ↓
+                                   └──── Submit work ───┘
+                                                        ↓
+                                              Issue forecast → Report
+                                                        ↓
+                                            Monitor → Revise or resolve
+                                                        ↓
+                                                     Evaluate
 ```
 
-Run checks:
+`next` returns the task and its required input schema. The agent authors a JSON
+submission and calls `submit`; issuance is one of these tasks. Records retain
+question versions, evidence references and forecast history. Use `status` and
+`run list` to resume an existing project.
 
 ```bash
+vorhersage --project ./forecast-study status
+vorhersage --project ./forecast-study run list
+vorhersage --project ./forecast-study next --run RUN_ID
+vorhersage --project ./forecast-study submit --run RUN_ID --from result.json
+vorhersage --project ./forecast-study report --question QUESTION_ID --output report.html
+```
+
+Replace IDs with those returned by the CLI. Ordinary responses are JSON; errors
+return JSON on stderr and a nonzero exit code. `--help` explains command syntax,
+and `schema NAME` supplies the exact input shape.
+
+## Choose a workflow
+
+| Your task | Start here |
+|---|---|
+| Research and maintain one forecast | [Agent guide](docs/AGENT_GUIDE.md) |
+| Pick a live market, research, then compare with its hidden price | [Market workbench](docs/MARKET_WORKBENCH.md) |
+| Model a deadline through milestones and dependencies | [Timeline models](docs/TIMELINE_MODELS.md) |
+| Declare and audit likelihood-ratio updates | [Odds ledgers and widgets](docs/ODDS_LEDGER.md) |
+| Compare methods on the same questions | [Method experiments](docs/EXPERIMENTS.md) |
+| Run model/tool workers across related questions | [Live sessions](docs/LIVE_SESSIONS.md) and [joint sessions](docs/JOINT_SESSIONS.md) |
+| Produce a readable report and methodology flowchart | [Report exports](docs/REPORTS.md) |
+
+## Worked examples
+
+- **[Read a complete forecast report](https://expectedparrot.github.io/vorhersage/examples/nyc-2026-09-16/).**
+  The NYC case shows the research, methodology flowchart, assumptions and
+  probability calculation, followed by a Kalshi comparison.
+  [Sources and reproduction](examples/market_workbench/nyc_20260916/README.md).
+- **[Run an offline walkthrough](https://expectedparrot.github.io/vorhersage/).**
+  A fictional study demonstrates research, pause/resume, model comparisons and
+  scoring without API keys. The page includes a downloadable example.
+- **[Inspect a deadline model](examples/waymo_boston_2029/timeline/README.md).**
+  The Waymo example makes regulatory and operational dependencies explicit and
+  compares alternative timeline structures.
+- **[Reproduce a published study](examples/airo/README.md).** The AIRO example
+  imports the authors' 11,760 probabilities, reconstructs figures, and checks
+  376 published values. Reproducing an analysis does not validate its predictions.
+
+## Development and design
+
+For a source checkout:
+
+```bash
+git clone https://github.com/expectedparrot/vorhersage.git
+cd vorhersage
+uv venv --python 3.11
+uv pip install -e . pytest
+.venv/bin/vorhersage guide
 .venv/bin/python -m pytest -q
-python3 -m unittest discover -s examples/patriots_2027 -p 'test_*.py'
 ```
 
-There are **206 package/integration tests and 21 earlier prototype tests**. Local Epiq tests
-explicitly skip if their optional checkout/database fixtures are unavailable.
-The CLI has also been installed and a distributable wheel built locally.
-See the [validation record](docs/VALIDATION.md) for checks and their limits.
+The core package requires Python 3.11+ and has no runtime dependencies.
+EDSL and Epiq are optional integrations. The current implementation targets small
+portfolios; database migrations and large-scale operation remain future work.
 
-The package does not select a web service or model, learn calibration, or establish
-predictive superiority. Configured research/agent workers perform collection and
-judgment. `watch run` keeps polling while running; `watch tick` can be invoked by an
-external scheduler. No OS service is installed automatically. Resource use is agent-reported.
-The implementation is intended for small portfolios; scale testing and database
-migrations remain future work.
-
-An optional [EDSL model-run example](examples/backtesting/model_pilot_01/README.md)
-prepares label-free jobs and imports validated model outputs. Its first 80-call
-comparison is completed, with raw outputs, costs, forecasts and evaluations saved.
-
-## Research and design record
-
-- [What we have learned](LEARNINGS.md): consolidated lessons and corrections.
-- [Original design](DESIGN.md) and [workflow proposal](WORKFLOW.md): design history;
-  the agent guide documents the implemented command syntax.
-- [Superforecasting](SUPERFORECASTING.md): capabilities and experiments to test.
-- [Literature](literature/README.md): review and 39 annotated sources.
-- [Original Patriots exercises](examples/patriots_2027/README.md) and
-  [first Epiq adapter](examples/patriots_2027/EPIQ_INTEGRATION.md).
+[Learnings](LEARNINGS.md) records what the forecasting exercises taught us,
+including contamination in historical replay and the limits of procedural
+compliance. See also the [validation record](docs/VALIDATION.md),
+[improvement plan](docs/IMPROVEMENT_PLAN.md), [literature review](literature/README.md),
+and original [design](DESIGN.md) and [workflow proposal](WORKFLOW.md).
