@@ -24,10 +24,12 @@ from .store import Store
 from .workflow import Workflow
 from .reference import add as add_reference, query as query_reference
 from . import experiments, sessions, session_runtime, session_studies, session_reports
-from . import market_data, workbench, reports, examples
+from . import market_data, workbench, reports, setup
 
 GUIDE = """Create a project, register a precise binary question, and start a run.
-Use init NEW_DIRECTORY --example waymo to load a complete offline example with named models and saved evidence.
+Use init PROJECT --question TEXT --deadline TIME --yes CRITERIA --source SOURCE to create a project and question together.
+Use question add TEXT --deadline TIME --yes CRITERIA --source SOURCE for another question; the general research profile is the default.
+Use run start QUESTION_ID to begin research with standard defaults, or --from FILE for fully specified agent inputs.
 Repeat next --run ID, author the returned payload schema, then submit --run ID --from FILE.
 Use Epiq to research facts; epiq search helps locate cells and epiq freeze imports a portable packet.
 Packet record references go into evidence_refs. An unknown is valid when explained.
@@ -61,14 +63,48 @@ class Parser(argparse.ArgumentParser):
         raise Error("invalid_arguments", message)
 
 
+def question_options(parser, *, initializing=False):
+    if initializing:
+        source = parser.add_mutually_exclusive_group()
+        source.add_argument("--question", help="Forecasting question to register in the new project")
+        source.add_argument("--from", dest="input", help="Complete question JSON instead of inline options")
+    else:
+        parser.add_argument("question", nargs="?", help="Forecasting question")
+        parser.add_argument("--from", dest="input", help="Complete question JSON instead of inline options")
+    parser.add_argument("--id", dest="question_id", help="Question ID (default: project directory for init, otherwise derived from the question)")
+    parser.add_argument("--deadline", help="Event deadline; YYYY-MM-DD means midnight UTC, or supply a timestamp with timezone")
+    parser.add_argument("--yes", help="Criteria for a YES outcome (required for inline questions)")
+    parser.add_argument("--source", help="Resolution source or policy (required for inline questions)")
+    parser.add_argument("--no", help="NO rule (default: YES criteria not met by the deadline)")
+    parser.add_argument("--void", help="Void rule (default: defective criteria or resolution evidence)")
+    parser.add_argument("--resolve-after", help="Earliest resolution check (default: deadline)")
+    parser.add_argument("--profile", help="Existing research profile (default: general)")
+    parser.add_argument("--domain", help="Question domain (default: general)")
+    parser.add_argument("--event-group", help="Group related events for evaluation (default: question ID)")
+    parser.add_argument("--kind", choices=("real", "simulation"), help="Question kind (default: real)")
+
+
+def run_options(parser):
+    parser.add_argument("question_id", nargs="?", help="Registered question ID")
+    parser.add_argument("--from", dest="input", help="Complete run JSON instead of inline options")
+    parser.add_argument("--forecaster", help="Forecaster attribution (default: agent)")
+    parser.add_argument("--method", help="Method description (default: agent judgment)")
+    parser.add_argument("--mode", choices=("prospective", "retrospective", "simulation"), help="Default: prospective for real questions, simulation for fixtures")
+    parser.add_argument("--as-of", dest="information_as_of", help="Information cutoff (default: now)")
+    parser.add_argument("--workflow", choices=("standard", "timeline"), help="Research workflow (default: standard)")
+    parser.add_argument("--research-status", choices=("not_started", "in_progress", "completed", "unspecified"), help="Prior research state (default: not_started)")
+    parser.add_argument("--max-searches", type=int, help="Reported search budget (default: 20)")
+    parser.add_argument("--max-extra-tasks", type=int, help="Additional review tasks (default: 2)")
+
+
 def parser():
     p = Parser(description=__doc__)
     p.add_argument("--project", type=Path, default=Path.cwd())
     commands = p.add_subparsers(dest="command", required=True)
     init = commands.add_parser("init")
     init.add_argument("path", nargs="?", type=Path)
-    init.add_argument("--name", help="Project name (default: Forecast portfolio, or the example's name)")
-    init.add_argument("--example", choices=examples.EXAMPLES, help="Load bundled research and models into a new directory")
+    init.add_argument("--name", help="Project name (default: Forecast portfolio)")
+    question_options(init, initializing=True)
     for name in ("version", "guide", "status", "monitor", "doctor", "coherence"):
         commands.add_parser(name)
     scenario = commands.add_parser("scenario")
@@ -210,7 +246,11 @@ def parser():
         sub = group.add_subparsers(dest="action", required=True)
         for action in actions:
             ap = sub.add_parser(action)
-            if action in ("add", "revise", "start", "import"):
+            if name == "question" and action == "add":
+                question_options(ap)
+            elif name == "run" and action == "start":
+                run_options(ap)
+            elif action in ("add", "revise", "start", "import"):
                 ap.add_argument("--from", dest="input", required=True)
             if action == "revise":
                 ap.add_argument("--expected-version", type=int, required=True)
@@ -410,8 +450,11 @@ def dispatch(args):
         if args.action == "tick":
             return tick(args.project, args.id, args.force)
     if command == "init":
-        if args.example:
-            return examples.initialize(args.path or args.project, args.example, args.name)
+        if args.question is not None or args.input is not None or any(getattr(args, key) is not None for key in setup.QUESTION_OPTIONS):
+            project = args.path or args.project
+            default_id = setup.slug(project.resolve().name) if args.question and not args.question_id else None
+            question = setup.question_input(args, default_id=default_id)
+            return setup.initialize(project, args.name or "Forecast portfolio", question)
         return Store(args.path or args.project).init(args.name or "Forecast portfolio")
     if command in ("status", "monitor", "doctor"):
         return getattr(w, command)()
@@ -427,9 +470,11 @@ def dispatch(args):
     if command == "question":
         if args.action == "list":
             return w.status()["questions"]
-        return w.question(load(args.input), args.expected_version if args.action == "revise" else None)
+        if args.action == "add":
+            return w.question(setup.question_input(args))
+        return w.question(load(args.input), args.expected_version)
     if command == "run":
-        return w.start(load(args.input)) if args.action == "start" else w.status()["runs"]
+        return w.start(setup.run_input(args, w)) if args.action == "start" else w.status()["runs"]
     if command == "packet" and args.action == "import":
         return w.import_packet(load(args.input))
     if command == "packet" and args.action == "audit":
@@ -505,6 +550,9 @@ def main(argv=None):
             print("\nResolutions: " + json.dumps(data["resolutions"]))
             return
         actions = []
+        if args.command == "init" and data.get("question_id"):
+            actions.append({"argv": ["vorhersage", "--project", data["project"], "run", "start", data["question_id"]],
+                            "mutates": True, "network": False})
         if isinstance(data, dict) and data.get("run_id") and (args.command in ("submit", "run")
                 or (args.command == "benchmark" and args.action == "start")):
             actions.append({"argv": ["vorhersage", "--project", str(args.project.resolve()), "next", "--run", data["run_id"]], "mutates": False, "network": False})

@@ -12,20 +12,48 @@ preserves forecasts, tracks review work, and evaluates resolved predictions.
 
 ## Start and resume
 
-To explore a complete saved example immediately:
+Create a project and a real question in one command:
 
 ```bash
-vorhersage init waymo-demo --example waymo
-vorhersage --project waymo-demo timeline analyze waymo@1 --format text
+vorhersage init product-launch \
+  --question "Will our app launch publicly before January 1, 2030?" \
+  --deadline 2030-01-01 \
+  --yes "The app is available to all customers before the deadline." \
+  --source "Our public release log"
+vorhersage --project product-launch run start product-launch
 ```
 
-This works from an installed package, offline, without a repository checkout.
-It creates a new directory with the question, research profile, evidence, draft
-`waymo-draft@1`, and completed model `waymo@1`. Editable copies of the inputs are
-in `waymo-demo/inputs/`; the registered records preserve their original content.
-It replays a saved research snapshot and issues no new forecast. Existing
-destinations are refused. The [README walkthrough](../README.md#see-it-work-will-waymo-launch-in-boston-before-2029)
-explains the research and shows how to compare another assumption.
+The question ID defaults to the project directory name. The built-in `general`
+profile covers base rates, current state, actors/process, and contrary evidence.
+The CLI returns the complete question and a suggested next command. A date-only
+deadline means midnight UTC at the start of that date; use a timestamp with an
+explicit timezone when the event uses local time.
+
+You can override `--id`, `--no`, `--void`, `--resolve-after`, `--profile`, `--domain`,
+`--event-group`, and `--kind`. The default NO rule is that the YES criteria have
+not been met by the deadline; void covers defective criteria or resolution
+evidence, while delay and cancellation remain NO. The earliest resolution check
+defaults to the event deadline. The question is real unless `--kind simulation`
+is supplied. `init --from question.json` accepts the complete existing schema.
+A failed question registration leaves no partial project.
+
+Add another question to an existing project with the same options:
+
+```bash
+vorhersage --project product-launch question add "Will the Android release follow before February 1, 2030?" \
+  --id android --deadline 2030-02-01 \
+  --yes "The Android app is publicly available before the deadline." \
+  --source "Our public release log"
+```
+
+`run start QUESTION_ID` uses the current information cutoff, the standard workflow,
+forecaster `agent`, method `agent judgment`, 20 searches, and two extra review
+tasks. It selects prospective mode for real questions and simulation for fixtures;
+it never silently switches past-deadline questions into retrospective mode.
+These defaults are returned in the task context and can be overridden with flags
+shown by `run start --help`. Use `--workflow timeline` to begin with model structure,
+and declare `--research-status in_progress` or `completed` if research has already
+begun. Start returns the run ID and the `next` command to continue.
 
 Install using the [agent quickstart](../README.md#copy-and-paste-into-an-agent),
 then run `vorhersage guide` for the built-in overview. The examples below assume

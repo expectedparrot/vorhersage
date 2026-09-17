@@ -6,6 +6,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,6 +19,8 @@ class CLITests(unittest.TestCase):
         commands = re.findall(r"```bash\n(.*?)```", walkthrough, re.S)
         self.assertTrue(commands)
         with tempfile.TemporaryDirectory() as tmp:
+            with zipfile.ZipFile(ROOT / "docs/assets/waymo-inputs.zip") as inputs:
+                inputs.extractall(tmp)
             # Exercise the public CLI through the test interpreter, independent
             # of whether its console script has been installed on PATH.
             function = "vorhersage() { " + shlex.quote(sys.executable) + " -m vorhersage \"$@\"; }\n"
@@ -29,7 +32,19 @@ class CLITests(unittest.TestCase):
             self.assertIn("Right probability: 22.0%", result.stdout)
             self.assertTrue((Path(tmp) / "waymo.html").exists())
             from vorhersage.workflow import Workflow
-            self.assertTrue(Workflow(Path(tmp) / "waymo-demo").doctor()["ok"])
+            self.assertTrue(Workflow(Path(tmp) / "waymo").doctor()["ok"])
+
+    def test_walkthrough_inputs_preserve_saved_model_assumptions(self):
+        case = ROOT / "examples/waymo_boston_2029/independent_20260915"
+        with zipfile.ZipFile(ROOT / "docs/assets/waymo-inputs.zip") as inputs:
+            for key, path in (("draft", "outputs/structure_before_research.json"),
+                              ("model", "walkthrough/model.json"), ("evidence", "outputs/evidence.json")):
+                original = json.loads((case / path).read_text())
+                if key != "evidence":
+                    original["question"]["question_id"] = "waymo"
+                if key == "draft":
+                    original["id"] = "waymo-draft"
+                self.assertEqual(json.loads(inputs.read("waymo-inputs/" + key + ".json")), original)
 
     def test_errors_are_machine_readable_and_next_schema_is_discoverable(self):
         p = subprocess.run([sys.executable, "-m", "vorhersage", "bogus"], text=True, capture_output=True)
