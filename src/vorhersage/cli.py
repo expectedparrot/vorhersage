@@ -16,7 +16,7 @@ from .evidence import Epiq, audit as audit_evidence, capture_bundle
 from .scenarios import calculate as calculate_scenario
 from .odds import calculate as calculate_odds
 from .widget import export as export_widget
-from . import timeline, timeline_reports, timeline_text
+from . import timeline, timeline_reports, timeline_text, timeline_plan
 from .relations import add as add_relation, audit as audit_relations
 from .monitoring import configure, configs, disable, tick
 from .schemas import SCHEMAS
@@ -53,6 +53,8 @@ Use research capture and packet audit to preserve provenance and source relation
 Use scenario for optional mixtures/sensitivity, relation for implications, coherence to audit.
 Use odds-ledger for declared likelihood ratios and export-widget FORECAST_ID for an offline interactive audit.
 Use timeline add/gaps/analyze/shift/compare/report for deadline models; NAME@VERSION selects a fixed model and --format text gives readable output.
+Build an unresolved timeline with timeline new FILE.toml, then timeline step FILE.toml NAME DESCRIPTION [--date | --after STEPS] [--target].
+Use timeline show FILE.toml to read the working plan and timeline save FILE.toml to validate and register an immutable model.
 Timeline shift records a duration sensitivity alternative; run workflow=timeline starts with structure and parameter research, without a prior.
 Use reference add/query for reusable observed episodes with deadline-specific censoring.
 Use watch add/tick/run for polling and optional configured research/agent subprocesses.
@@ -164,6 +166,23 @@ def parser():
     widget.add_argument("--output", type=Path)
     tl = commands.add_parser("timeline")
     sub = tl.add_subparsers(dest="action", required=True)
+    ap = sub.add_parser("new", help="Create an editable timeline plan")
+    ap.add_argument("file", type=Path)
+    ap.add_argument("--question", help="Default: the project's only question")
+    ap.add_argument("--name", help="Saved model name (default: filename without .toml)")
+    ap.add_argument("--as-of", help="Information cutoff (default: now)")
+    ap.add_argument("--description")
+    ap.add_argument("--deadline-rule", choices=("before", "on_or_before"), default="before")
+    ap = sub.add_parser("step", help="Add a milestone and its prerequisites to a plan")
+    ap.add_argument("file", type=Path)
+    ap.add_argument("name", help="Short name used in --after")
+    ap.add_argument("description", help="What must happen to complete this step")
+    ap.add_argument("--date", action="store_true", help="Unknown calendar date; default is an unknown duration")
+    ap.add_argument("--after", nargs="+", default=[], help="Steps that must finish before this one begins")
+    ap.add_argument("--target", action="store_true", help="Completing this step satisfies the forecasting question")
+    ap.add_argument("--rationale", help="Why these prerequisites apply (default: provisional, needs research)")
+    ap = sub.add_parser("save", help="Validate a working plan and save an immutable model")
+    ap.add_argument("file", type=Path)
     ap = sub.add_parser("add")
     ap.add_argument("--from", dest="input", required=True)
     sub.add_parser("list")
@@ -175,7 +194,7 @@ def parser():
     ap.add_argument("--rationale", required=True, help="Reason for this sensitivity assumption")
     for action in ("show", "gaps", "analyze", "report", "compare"):
         ap = sub.add_parser(action)
-        ap.add_argument("id", help="Timeline artifact ID or NAME@VERSION")
+        ap.add_argument("id", help="Timeline artifact ID or NAME@VERSION; show/gaps/analyze also accept a .toml plan")
         if action == "analyze":
             ap.add_argument("--sensitivity", action="store_true")
         if action == "compare":
@@ -184,7 +203,8 @@ def parser():
             ap.add_argument("--compare", dest="other_id")
             ap.add_argument("--output", type=Path, required=True)
     for ap in sub.choices.values():
-        ap.add_argument("--format", choices=("json", "text"), default="json", help="Terminal output format (default: json)")
+        ap.add_argument("--project", type=Path, default=argparse.SUPPRESS)
+        ap.add_argument("--format", choices=("json", "text"), help="Default: text for working plans, JSON for saved models")
     relation = commands.add_parser("relation")
     relation.add_argument("--from", dest="input", required=True)
     research = commands.add_parser("research")
@@ -420,6 +440,28 @@ def dispatch(args):
     if command == "export-widget":
         return export_widget(s, args.id, args.output or Path(args.id + ".html"))
     if command == "timeline":
+        working_file = args.action in ("show", "gaps", "analyze") and args.id.endswith(".toml")
+        args.format = args.format or ("text" if working_file or args.action in ("new", "step", "save") else "json")
+        if args.action == "new":
+            return timeline_plan.new(s, args.file, question_id=args.question, name=args.name,
+                                     as_of=setup.timestamp(args.as_of) if args.as_of else None,
+                                     description=args.description, deadline_rule=args.deadline_rule)
+        if args.action == "step":
+            return timeline_plan.step(args.file, args.name, args.description, after=args.after, date=args.date,
+                                      target=args.target, rationale=args.rationale)
+        if args.action == "save":
+            return timeline_plan.save(s, args.file)
+        if working_file:
+            plan = timeline_plan.read(args.id)
+            if args.action == "show":
+                return {"path": args.id, "plan": plan}
+            spec = timeline_plan.compile(plan)
+            if args.action == "gaps":
+                return timeline.gaps(spec)
+            result = timeline.analyze(spec)
+            if args.sensitivity:
+                result["sensitivity"] = timeline.sensitivity(spec)
+            return result
         if args.action == "add":
             return timeline.add(s, load(args.input))
         if args.action == "list":
@@ -637,7 +679,10 @@ def main(argv=None):
                           ". Fill submission.payload, then submit --from this file.")
             return
         if args.command == "timeline" and args.format == "text":
-            print(timeline_text.render(args.action, data))
+            if "plan" in data:
+                print(timeline_plan.render(args.action, data))
+            else:
+                print(timeline_text.render("add" if args.action == "save" else args.action, data))
             return
         if args.command == "report" and args.format == "markdown" and not args.output:
             print("# " + data["question"]["specification"]["text"] + "\n")

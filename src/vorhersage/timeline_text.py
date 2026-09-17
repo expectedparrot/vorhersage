@@ -25,10 +25,36 @@ def _table(headers, rows):
 
 def render(action, data):
     """Render already-computed results without inventing additional estimates."""
-    if action in ("add", "shift", "show"):
+    if action == "show":
         spec = data["specification"]
-        verb = "Model" if action == "show" else "Saved"
-        return (f"{verb} {spec['id']}@{spec['version']}\n"
+        lines = [spec["description"], f"Model: {spec['id']}@{spec['version']}",
+                 "Deadline: " + spec["deadline_rule"].replace("_", " ") + " " + spec["deadline"],
+                 "Information cutoff: " + spec["information_as_of"], ""]
+        for step in spec["nodes"]:
+            lines += [step["id"] + " — " + step["completion_condition"],
+                      "  Waits for: " + (", ".join(step["parents"]) or "no other step in this model"),
+                      "  Reason: " + step["rationale"]]
+            if step["state"] == "completed":
+                lines.append("  Observed completion: " + step["completed_at"])
+            elif step["state"] == "in_progress":
+                lines.append("  Started: " + step["started_at"] + "; durations mean remaining days at the cutoff")
+        lines += ["", "Finishing step: " + spec["target"]]
+        for scenario in spec["scenarios"]:
+            weight = f"{scenario['weight']:.1%}" if "weight" in scenario else "weight not assigned"
+            lines += ["", scenario["description"] + " (" + weight + ")"]
+            terms = {a["parameter_id"]: a for a in scenario["assessments"]}
+            for parameter in spec["parameters"]:
+                term = terms.get(parameter["id"], {"basis": "unresolved"})
+                value = term.get("value", "unknown")
+                unit = " days" if isinstance(value, (int, float)) and parameter["kind"] == "duration_days" else ""
+                lines.append(f"  {parameter['description']}: {value}{unit} ({term['basis']})")
+                if term.get("rationale"):
+                    lines.append("    " + term["rationale"])
+        lines += ["", "Limitations:", *["  • " + text for text in spec["limitations"]]]
+        return "\n".join(lines)
+    if action in ("add", "shift"):
+        spec = data["specification"]
+        return (f"Saved {spec['id']}@{spec['version']}\n"
                 f"Artifact: {data['timeline_model_id']}\n"
                 f"{len(spec['scenarios'])} scenarios; {len(spec['parameters'])} parameters\n"
                 f"{spec['description']}")

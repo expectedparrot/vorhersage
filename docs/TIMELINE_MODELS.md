@@ -10,6 +10,82 @@ launch date even when both models use identical dates and durations.
 
 ## Try the Waymo example
 
+The [README walkthrough](../README.md#2-turn-the-question-into-something-we-can-research)
+builds the initial plan step by step, then uses the saved research to reproduce
+the 39% estimate and a 22% sensitivity alternative. The next section explains
+how to author a working plan for your own question.
+
+### Build a plan with small commands
+
+After registering a question, create an editable TOML file:
+
+```bash
+vorhersage timeline new launch.toml --project PROJECT
+vorhersage timeline step launch.toml permission "Effective legal permission" --date
+vorhersage timeline step launch.toml preparation "Fleet and technical preparation"
+vorhersage timeline step launch.toml launch "Paid public service" \
+  --after permission preparation --target \
+  --rationale "Public service requires both permission and operational readiness."
+vorhersage timeline show launch.toml
+vorhersage timeline gaps launch.toml
+vorhersage timeline save launch.toml --project PROJECT
+```
+
+`new` selects the project's only question and pins its current version and
+deadline. Supply `--question ID` if the project has several questions. The plan's
+information cutoff defaults to now; `--as-of TIME` sets an explicit cutoff.
+`--deadline-rule on_or_before` makes the deadline inclusive; the default is
+strictly before. The model name defaults to the filename without `.toml`.
+
+A step normally needs an unknown duration in elapsed days. `--date` instead
+declares an unknown calendar milestone, with no prerequisites. `--after` lists
+the steps that must all finish first; omit it for work that can begin at the
+information cutoff. `--target` identifies the step satisfying the event definition.
+Add prerequisites before dependent steps. `--rationale` records the reason for
+the dependency; otherwise it is explicitly labeled provisional and needing research.
+
+The file is ordinary text and can also be edited directly. For example:
+
+```toml
+[[steps]]
+id = "launch"
+description = "Paid public service"
+kind = "duration"
+after = ["permission", "preparation"]
+rationale = "Public service requires both permission and operational readiness."
+```
+
+Use the complete file created by `new`; this excerpt is one step within it.
+`show` displays partial plans, including their unknown dates and durations.
+`gaps` and `analyze` require a complete dependency graph and target. They keep
+unknown inputs unknown. **The plan has one unweighted, unresolved scenario; it
+does not imply that launch has any particular probability.**
+
+`save` applies the full timeline validator, including cycle and disconnected-work
+checks, then registers an immutable version 1. Retrying an unchanged save reuses
+that model. Editing the working file never edits the saved record; a changed file
+cannot overwrite the same saved name/version. Use a new `name` for a separate
+draft, or the full model schema below for explicit versioned revisions.
+
+`new` refuses to overwrite a file. `step` refuses conflicting duplicate names,
+unknown prerequisites, and invalid combinations before replacing the working
+file. Repeating the same step is safe. Commands serialize their writes using
+a temporary `.lock` file beside the plan; direct editor changes should be made
+between commands.
+
+These commands author the initial research structure. Scenario weights,
+source-linked estimates, observations of work already started or completed,
+and richer joins use the full model schema and research workflow below. TOML
+plans intentionally reject extra fields instead of silently ignoring inputs.
+Use `timeline show MODEL@VERSION --format text` to inspect a saved model's full
+milestones, scenario inputs, rationales, and limitations.
+
+Working-file commands show readable text by default; add `--format json` for
+the machine-readable result. Existing saved-model commands still default to
+JSON. `--project` works before the command or after any timeline subcommand.
+
+### Compare two hypothetical structures
+
 From an installed checkout:
 
 ```bash

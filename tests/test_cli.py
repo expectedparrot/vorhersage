@@ -27,6 +27,9 @@ class CLITests(unittest.TestCase):
             result = subprocess.run(["bash", "-e", "-c", function + "\n".join(commands)],
                                     cwd=tmp, text=True, capture_output=True, timeout=60)
             self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn("Waits for: legal, technical", result.stdout)
+            self.assertIn("Unresolved parameters: 5", result.stdout)
+            self.assertTrue((Path(tmp) / "waymo-plan.toml").exists())
             self.assertIn("Probability: 39.0%", result.stdout)
             self.assertIn("Left probability:  39.0%", result.stdout)
             self.assertIn("Right probability: 22.0%", result.stdout)

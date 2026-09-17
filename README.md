@@ -64,19 +64,9 @@ The research below was captured on **September 15, 2026, Boston time**. This
 walkthrough reproduces that dated study; it does not fetch new evidence. You can
 read the whole example here, or run the commands to inspect the model yourself.
 
-**To follow along:** install the package with the command above, then
-[download the three saved input files](docs/assets/waymo-inputs.zip) and extract
-`waymo-inputs` into the folder where you will run these commands:
-
-| File | What you can inspect or edit |
-|---|---|
-| `draft.json` | The initial milestones and their dependencies, with timings left unknown. |
-| `evidence.json` | The 17 research findings, with dated sources and limitations. |
-| `model.json` | The researched milestones, scenario assumptions, weights, and explanations. |
-
-The current CLI reads model and evidence inputs as JSON files. These files are
-provided so you can explore a complete forecast without first authoring those
-records. The tables and diagram below explain their contents.
+**To follow along:** install the package with the command above. We'll build the
+initial timeline one step at a time. Later, we'll load the saved research to
+reproduce the original forecast.
 
 ### 1. Decide what would count
 
@@ -102,28 +92,96 @@ vehicles on Boston streets is progress, but does not yet satisfy the question.
 
 ### 2. Turn the question into something we can research
 
-Start by asking what a launch requires. The initial model in `draft.json` says:
-
-- Legal permission and technical readiness must precede local driverless validation.
-- Fleet and support preparation can proceed while those steps are underway.
-- Public access follows validation and operational readiness.
-
-Dates and durations are **unknown** at this point. Possible fast, ordinary,
-delayed, and withdrawal paths have no assigned probabilities.
-
-A **timeline model** is how Vorhersage records these prerequisites and calculates
-when they could finish. Save the draft, then ask which inputs need research:
+A **timeline** describes the steps needed for a launch and which steps must wait
+for others. Start an empty plan for the question we just saved:
 
 ```bash
-vorhersage --project waymo timeline add --from waymo-inputs/draft.json --format text
-vorhersage --project waymo timeline gaps waymo-draft@1 --format text
+vorhersage timeline new waymo-plan.toml --project waymo
 ```
 
-Here `waymo-draft@1` means version 1 of the draft named in the file. It selects
-that exact saved model. `--format text` requests readable terminal output.
+`waymo-plan.toml` is your editable working file. It takes the question and deadline
+from the `waymo` folder. No dates, durations, or probabilities have been assigned.
 
-The output begins with `Unresolved parameters: 5` and lists the missing inputs.
-In ordinary language, they give us this research agenda:
+First, add legal permission. This is a milestone whose **date** we need to research:
+
+```bash
+vorhersage timeline step waymo-plan.toml legal "Permission for paid driverless service" --date
+```
+
+Add technical preparation and fleet readiness. Their unknown inputs are
+**durations**. We haven't made either wait for legal permission, so they can
+proceed in parallel:
+
+```bash
+vorhersage timeline step waymo-plan.toml technical "Boston technical readiness"
+vorhersage timeline step waymo-plan.toml fleet "Fleet, depot, and support readiness"
+```
+
+Driverless validation must wait for **both** legal permission and technical
+readiness. `--after` expresses that dependency:
+
+```bash
+vorhersage timeline step waymo-plan.toml validation "Local driverless validation" \
+  --after legal technical
+```
+
+Finally, public access must wait for validation and fleet readiness. `--target`
+marks the step whose completion would satisfy our forecasting question:
+
+```bash
+vorhersage timeline step waymo-plan.toml launch "Paid rides open to the general public" \
+  --after validation fleet --target
+```
+
+Read the plan you've built:
+
+```bash
+vorhersage timeline show waymo-plan.toml
+```
+
+Each step is shown with its prerequisites and unknown input. For example:
+
+```text
+validation — Local driverless validation
+  Waits for: legal, technical
+  Unknown: duration in elapsed days
+  Reason: Provisional dependency; verify during research.
+
+launch — Paid rides open to the general public
+  Waits for: validation, fleet
+  Unknown: duration in elapsed days
+  Reason: Provisional dependency; verify during research.
+```
+
+You can also open `waymo-plan.toml` in a text editor. The validation step looks like
+this; `after` lists the prerequisites, and `rationale` records why they apply:
+
+```toml
+[[steps]]
+id = "validation"
+description = "Local driverless validation"
+kind = "duration"
+after = ["legal", "technical"]
+rationale = "Provisional dependency; verify during research."
+```
+
+The commands above reconstruct the original study's initial dependency structure
+as one unresolved research plan. We have not assigned the original study's later
+scenario timings or weights. Save this structure after checking its dependencies:
+
+```bash
+vorhersage timeline save waymo-plan.toml --project waymo
+```
+
+Saving checks for cycles and disconnected steps, then keeps an immutable copy.
+The `.toml` file remains editable. You can ask for its research gaps directly:
+
+```bash
+vorhersage timeline gaps waymo-plan.toml
+```
+
+The output begins with `Unresolved parameters: 5`. In ordinary language, these
+missing dates and durations give us the following research agenda:
 
 | Missing input | What we need to investigate |
 |---|---|
@@ -150,7 +208,11 @@ source establishes from what we infer:
 | Miami took 148 days from driverless operations to open access; Orlando took 50 days from selected riders to open access. | Driverless operation and general-public access are distinct stages. | These are different starting points and a few related examples, not a representative sample of Boston launch times. |
 | No Boston depot completion date was verified. | Fleet readiness remains an explicit model input. | Missing public evidence does not establish that no preparation is happening. |
 
-Import these findings, including their source links, capture dates, and qualifications:
+To continue with the saved study, [download the research files](docs/assets/waymo-inputs.zip)
+and extract `waymo-inputs` into your working directory. `evidence.json` contains
+17 findings with their sources and dates; `model.json` contains the researched
+scenarios and assumptions. The archive also includes the original JSON draft for
+reference. Import the findings:
 
 ```bash
 vorhersage --project waymo packet import --from waymo-inputs/evidence.json
@@ -202,7 +264,9 @@ These entries are stored in `model.json`, alongside the evidence references and
 explanations. **Observed, estimated, assumed, and unresolved inputs are distinct.**
 For work already underway, the model counts remaining time at the research cutoff.
 
-Save the completed model and calculate its schedules:
+The saved researched model is named `waymo`, version 1. In the commands below,
+`waymo@1` selects that exact version and `--format text` requests readable output.
+Save it and calculate its schedules:
 
 ```bash
 vorhersage --project waymo timeline add --from waymo-inputs/model.json --format text
