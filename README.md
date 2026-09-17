@@ -655,7 +655,7 @@ workers. For a persistent shell setup, run `uv tool update-shell`.
 | Reproduce a published forecasting study | [AIRO example](examples/airo/README.md) |
 
 <p align="center">
-  <img src="docs/assets/vorhersage-artwork.png" width="760" alt="An Expected Parrot connected to sensors in a glass tank, framed by expectation brackets">
+  <img src="docs/assets/vorhersage-artwork.png" width="760" alt="A green Expected Parrot beside a crystal ball, framed by expectation brackets">
 </p>
 
 ## Development and design
