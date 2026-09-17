@@ -6,38 +6,87 @@
 [Documentation](https://expectedparrot.github.io/vorhersage/) ·
 [Expected Parrot tools](https://expectedparrot.github.io/directory/)
 
-Vorhersage is a forecasting workbench for you and your AI agent. Give the agent a
-question—“Will Waymo launch in Boston by 2029?”—and use the package to organize
-the research, calculate a probability, and produce a report explaining the answer.
+Vorhersage helps you turn a forecasting question into an evidence-backed
+probability you can explain and challenge. Define what would count, map what
+must happen, collect evidence, and calculate the consequences of your assumptions.
+Keep the research, model, and forecast history together, and export a report
+someone else can inspect.
 
-The useful part is being able to follow the reasoning. Which facts support the
-forecast? Which numbers are judgment calls? What happens if an approval takes six
-months longer? What new evidence would change the prediction? Vorhersage keeps
-the sources, model, and forecast history together so you can answer those questions.
+You supply the research and judgment, either directly or with an AI agent.
+The package checks the recorded inputs, computes the declared model, identifies
+missing inputs, and preserves the work. Its tools cover deadline models,
+scenario calculations, reference classes, evidence review, and forecast revision.
 
-The agent searches and makes judgments; the Python package checks the recorded
-inputs, computes the declared model, and preserves the work. Its command-line
-interface lets an agent resume a study, revise a forecast, or compare methods.
+## Install
+
+```bash
+uv tool install "vorhersage @ git+https://github.com/expectedparrot/vorhersage.git@main"
+```
+
+Requires [uv](https://docs.astral.sh/uv/getting-started/installation/), Git, and
+Python 3.11 or newer. The example below runs locally without an account or model
+service. For an agent with Expected Parrot access, use the
+[copyable agent setup](#copy-and-paste-into-an-agent).
 
 ## See it work: will Waymo launch in Boston before 2029?
 
-This is an actual saved study, with research completed on **September 15, 2026**.
-It produced a **39% forecast**. Here's how the question became a model and a
-number—and how to challenge that number.
+Suppose you want to forecast a Boston launch. A useful answer needs to explain
+**what must happen, what we know about those steps, and where the uncertainty
+comes from**. We'll build up to the **39% estimate** from a saved study, then
+challenge an assumption and see it fall to **22%**.
 
-Start with the ordinary setup command below. It works for any forecasting
-question. The later steps use saved research to show the full calculation.
-Models have versioned names such as `waymo@1`. `--format text` displays readable
-results; the default JSON output provides the complete record for agents.
+### The forecast at a glance
 
-### 1. Define what counts as a launch
+```mermaid
+flowchart TD
+    Q["Define the question<br/>Paid public driverless rides in Boston before 2029"]
+    S["Map what must happen<br/>Permission, preparation, validation, public access"]
+    R["Research the missing inputs<br/>Dated findings, rollout comparisons, remaining unknowns"]
+    M["Build the model<br/>Dependencies, durations, eight scenarios and their weights"]
+    P["Calculate the forecast<br/>Successful scenarios: 22% + 12% + 5% = 39%"]
+    C["Challenge an assumption<br/>180 extra days to public access: 39% becomes 22%"]
+    H["Share and maintain the forecast<br/>HTML report, review, and explicit update triggers"]
 
-For this question, a launch means **paid rides available to the general public,
-with no in-vehicle safety driver, and both pickup and dropoff inside Boston,
-before January 1, 2029**. An invitation-only trial or a launch in Cambridge
-wouldn't satisfy it. A small service area inside Boston would.
+    Q --> S --> R --> M --> P --> C --> H
+    C -->|Investigate the influential assumption| R
+    H -.->|New evidence prompts reassessment| R
 
-Create the project and register the question in one command:
+    classDef calculated fill:#e8f4ee,stroke:#287454,color:#173d2c
+    class P,C calculated
+```
+
+You decide what the model should represent and justify its inputs. Vorhersage
+identifies missing inputs, checks the records, calculates the schedules and
+probabilities, and preserves the forecast. Research can change both the numbers
+and the model's structure.
+
+The research below was captured on **September 15, 2026, Boston time**. This
+walkthrough reproduces that dated study; it does not fetch new evidence. You can
+read the whole example here, or run the commands to inspect the model yourself.
+
+**To follow along:** install the package with the command above, then
+[download the three saved input files](docs/assets/waymo-inputs.zip) and extract
+`waymo-inputs` into the folder where you will run these commands:
+
+| File | What you can inspect or edit |
+|---|---|
+| `draft.json` | The initial milestones and their dependencies, with timings left unknown. |
+| `evidence.json` | The 17 research findings, with dated sources and limitations. |
+| `model.json` | The researched milestones, scenario assumptions, weights, and explanations. |
+
+The current CLI reads model and evidence inputs as JSON files. These files are
+provided so you can explore a complete forecast without first authoring those
+records. The tables and diagram below explain their contents.
+
+### 1. Decide what would count
+
+“Launch” could mean a demonstration, an invitation-only trial, or a service
+anyone can use. Here we mean **paid rides open to the general public, without an
+in-vehicle safety driver, with both pickup and dropoff inside Boston, before
+January 1, 2029, Eastern time**. A small service area qualifies; Cambridge-only
+service does not.
+
+Record the question and the evidence that will settle it:
 
 ```bash
 vorhersage init waymo \
@@ -47,113 +96,169 @@ vorhersage init waymo \
   --source "Waymo service announcements, access terms, and corroborating local reporting"
 ```
 
-This creates project **`waymo`** and question **`waymo`, version 1**. The general
-research checklist is ready to use. The NO outcome means the YES criteria were
-not met by the deadline; the CLI returns the complete definition, including
-these defaults. You can override them with ordinary question options.
+Your work is saved in the `waymo` folder. The later commands use `--project waymo`
+to open that folder. The definition gives the research a concrete target: testing
+vehicles on Boston streets is progress, but does not yet satisfy the question.
 
-For your own forecast, substitute your question, deadline, YES criteria, and
-resolution source. An agent can begin researching it with `vorhersage --project
-waymo run start waymo`; no input file or custom profile is required.
+### 2. Turn the question into something we can research
 
-**To follow the saved study below**, [download the research inputs](docs/assets/waymo-inputs.zip)
-and extract the `waymo-inputs` folder into your working directory. It contains
-`draft.json`, `evidence.json`, and `model.json`. These are ordinary data files:
-an agent would produce its own when researching a new question. The saved
-models use the question ID `waymo` and retain the original study's assumptions.
+Start by asking what a launch requires. The initial model in `draft.json` says:
 
-### 2. Work out what needs researching
+- Legal permission and technical readiness must precede local driverless validation.
+- Fleet and support preparation can proceed while those steps are underway.
+- Public access follows validation and operational readiness.
 
-Before searching, the forecaster sketched what would have to happen: legal
-permission, technical readiness, a fleet ready to operate, local validation,
-and public access. The first model left their dates and durations unknown.
+Dates and durations are **unknown** at this point. Possible fast, ordinary,
+delayed, and withdrawal paths have no assigned probabilities.
 
-Ask the package what is missing from that initial structure:
+A **timeline model** is how Vorhersage records these prerequisites and calculates
+when they could finish. Save the draft, then ask which inputs need research:
 
 ```bash
 vorhersage --project waymo timeline add --from waymo-inputs/draft.json --format text
 vorhersage --project waymo timeline gaps waymo-draft@1 --format text
 ```
 
-The gaps identify concrete research tasks:
+Here `waymo-draft@1` means version 1 of the draft named in the file. It selects
+that exact saved model. `--format text` requests readable terminal output.
 
-| Unknown input | Research question |
+The output begins with `Unresolved parameters: 5` and lists the missing inputs.
+In ordinary language, they give us this research agenda:
+
+| Missing input | What we need to investigate |
 |---|---|
-| Legal permission | What state and city permissions are required, and when could they take effect? |
-| Technical readiness | How much Boston-specific preparation remains? |
-| Fleet readiness | When could vehicles, a depot, and support operations be ready? |
-| Local validation | What testing must happen after the prerequisites are met? |
-| Public access | How long could it take to move from testing to paid public rides? |
+| Legal permission | Which Massachusetts and Boston permissions are required? What could make them take effect? |
+| Technical readiness | How much Boston-specific preparation remains? Does winter prevent all service or restrict it? |
+| Fleet readiness | What is known about vehicles, a depot, staffing, and support? |
+| Local validation | What testing and restricted passenger operation must happen after prerequisites are met? |
+| Public access | How long might the transition from restricted rides to paid, open access take? |
 
-The forecaster supplies the structure; Vorhersage identifies its unresolved
-inputs. At this stage, **the model has no probability**. It provides a research
-agenda. The [original research questions](examples/waymo_boston_2029/independent_20260915/outputs/research_questions.md)
-also ask what can happen in parallel and what could prevent a launch altogether.
+**There is still no probability.** The model has given us specific unknowns to
+investigate. Vorhersage finds missing inputs in the structure we supplied; the
+forecaster remains responsible for whether that structure captures the real process.
 
-### 3. Bring evidence back to the model
+### 3. Collect evidence—and let it change the model
 
-The agent researched official legislative records, city proposals, Waymo
-statements, and rollout histories in other cities. Here are three findings from
-that saved research:
+The saved research examined official legislative records, city proposals, Waymo
+statements, and rollout histories in other cities. Each finding separates what a
+source establishes from what we infer:
 
-| Finding | How it affects the model |
-|---|---|
-| The two principal state enabling bills had reached study orders. | Legal permission remained a major source of delay. |
-| The restrictive Boston ordinance was recorded as filed, rather than verified enacted. | The model needed to allow several possible local approval paths. |
-| Other Waymo launches separated driverless operations, selected riders, and open public access. | Permission or testing alone could not count as a completed launch. |
+| Finding in the saved research | Implication for this forecast | What remains uncertain |
+|---|---|---|
+| Both principal Massachusetts enabling bills had reached study orders. | A legal route could take substantial time. | These records do not give a probability of future enactment or rule out every alternative route. |
+| Boston's restrictive ordinance was recorded as filed, not verified enacted. | State permission and final local arrangements need separate treatment. | Future state preemption and Boston's eventual requirements were unknown. |
+| Miami took 148 days from driverless operations to open access; Orlando took 50 days from selected riders to open access. | Driverless operation and general-public access are distinct stages. | These are different starting points and a few related examples, not a representative sample of Boston launch times. |
+| No Boston depot completion date was verified. | Fleet readiness remains an explicit model input. | Missing public evidence does not establish that no preparation is happening. |
 
-Each finding retains its source and qualifications in the
-[evidence file](examples/waymo_boston_2029/independent_20260915/outputs/evidence.json).
-For example, another city's rollout is an imperfect analogue for Boston; it
-cannot establish Boston's launch probability by itself.
-
-Record the **17 saved findings** so model assumptions can refer back to them:
+Import these findings, including their source links, capture dates, and qualifications:
 
 ```bash
 vorhersage --project waymo packet import --from waymo-inputs/evidence.json
 ```
 
-The research also changed the model's structure: state and local permission became
-separate stages, and some preparation could proceed while permissions were pending.
-This is where the agent's interpretation matters.
+A **packet** is a saved collection of evidence. Model inputs can cite its individual
+findings. Vorhersage checks that those references exist and meet the model's
+information cutoff; attaching a citation does not establish that an estimate is correct.
+See the [saved findings and sources](examples/waymo_boston_2029/independent_20260915/outputs/forecast_summary.md#source-packet).
 
-### 4. Calculate the forecast
+The research prompted a structural change: split the original legal gate into
+**state permission** and **local commercial arrangements**. The resulting model is:
 
-The forecaster built eight scenarios, assigned their dates and durations, and
-judged how likely each scenario was. The
-[completed model](examples/waymo_boston_2029/independent_20260915/walkthrough/model.json)
-records those assumptions and their evidence links.
+```mermaid
+flowchart LR
+    S[State permission] --> L[Local commercial arrangements]
+    S --> V[Driverless validation]
+    T[Boston technical readiness] --> V
+    L --> P[Ramp to paid public access]
+    V --> P
+    F[Fleet and support readiness] --> P
+    P --> D{Before January 1, 2029?}
+```
+
+An arrow means “must finish before the next step starts.” Multiple incoming arrows
+mean all prerequisites must finish. Fleet and technical preparation can proceed
+while permission is pending. In this model, local commercial arrangements can
+also overlap driverless validation. **That overlap is an assumption to examine**:
+if local permission is needed before any driverless testing, the graph must change.
+
+### 4. Make the uncertain numbers explicit
+
+Evidence narrows the possibilities; it rarely supplies an exact duration or
+probability. The completed model therefore describes eight possible futures,
+each with its own set of dates and durations, rationale, and probability weight.
+
+Here are the inputs for just one: **early permission, ordinary rollout**.
+
+| Input | Value in this scenario | Basis recorded in the model |
+|---|---:|---|
+| Effective state permission | June 1, 2027 | Assumed date; no empirical legislative timing model was available. |
+| Remaining technical preparation | 270 days from the research cutoff | Evidence-informed estimate using Boston activity and Denver's rollout; Boston readiness was unobserved. |
+| Remaining fleet preparation | 300 days from the cutoff | Assumed duration; financing supports feasibility but supplies no Boston schedule. |
+| Local commercial arrangements | 120 days after state permission | Assumed duration for an uncertain future process. |
+| Driverless validation | 90 days after state and technical readiness | Estimate informed by deployment stages in other cities. |
+| Final public-access ramp | 90 days after all prerequisites | Estimate informed by staged openings; not a measured Boston duration. |
+
+These entries are stored in `model.json`, alongside the evidence references and
+explanations. **Observed, estimated, assumed, and unresolved inputs are distinct.**
+For work already underway, the model counts remaining time at the research cutoff.
+
+Save the completed model and calculate its schedules:
 
 ```bash
 vorhersage --project waymo timeline add --from waymo-inputs/model.json --format text
 vorhersage --project waymo timeline analyze waymo@1 --format text
 ```
 
-Vorhersage follows the dependencies, computes a launch date in each scenario,
-and sums the probability assigned to scenarios that meet the deadline:
+For the early-permission scenario, the package computes:
 
-| Scenario | Assigned probability | Launch before 2029? |
-|---|---:|:---:|
-| Early permission, ordinary rollout | 22% | Yes |
-| Early permission, prolonged local delay | 8% | No |
-| Permission in the first half of 2028, ordinary rollout | 12% | Yes |
-| Late permission, accelerated rollout | 5% | Yes |
-| Late permission, ordinary rollout | 5% | No |
-| Major technical or operational delay | 5% | No |
-| State permission delayed | 40% | No |
-| Corporate or national disruption | 3% | No |
+| Milestone | Computed completion (UTC date) |
+|---|---|
+| State permission | June 1, 2027 |
+| Technical preparation | June 13, 2027 |
+| Fleet preparation | July 13, 2027 |
+| Driverless validation | September 11, 2027 |
+| Local commercial arrangements | September 29, 2027 |
+| Paid public access | December 28, 2027 |
 
-**Computed probability: 22% + 12% + 5% = 39%.**
+Local arrangements finish last among the three prerequisites for public access.
+The final 90-day ramp therefore starts on September 29. Adding all the durations
+in sequence would give a different answer because it would count parallel work
+as sequential. The displayed dates are consequences of the assumptions, not
+claims that we can predict an opening day precisely.
 
-The weights are subjective judgments. The package makes their consequences
-inspectable: a scenario with eventual permission can still miss the deadline
-because the remaining rollout takes too long.
+### 5. See where the 39% comes from
 
-### 5. Challenge an assumption
+The analysis prints `Probability: 39.0%` and a row for each scenario. Here is the
+same calculation with descriptive labels:
 
-Suppose you think the final step to public access will take six months longer.
-Create an alternative that adds 180 days to that stage in every scenario,
-keeping the other inputs and scenario weights the same:
+| Scenario | Assigned probability | Computed launch (UTC date) | Before the deadline? |
+|---|---:|---|:---:|
+| Early permission, ordinary rollout | 22% | December 28, 2027 | Yes |
+| Early permission, prolonged local delay | 8% | April 21, 2029 | No |
+| Permission in the first half of 2028, ordinary rollout | 12% | September 28, 2028 | Yes |
+| Late permission, accelerated rollout | 5% | October 30, 2028 | Yes |
+| Late permission, ordinary rollout | 5% | May 13, 2029 | No |
+| Major technical or operational delay | 5% | November 9, 2029 | No |
+| State permission delayed | 40% | January 27, 2030 | No |
+| Corporate or national disruption | 3% | No launch in this scenario | No |
+
+**Probability of qualifying launch = 22% + 12% + 5% = 39%.**
+
+The forecaster assigns the weights; Vorhersage calculates which scenarios meet
+the deadline and adds their weights. It checks that weights sum to 100% and
+requires an explanation of how the scenarios cover distinct possible outcomes.
+It cannot establish that the chosen weights are well calibrated.
+
+Each row describes a whole possible future, keeping related political and
+operational delays together. We do not multiply independent probabilities of
+permission, readiness, and access. One consequential judgment is the **40% weight
+on state delay**. Another is the coarse grouping of late legislative outcomes,
+which may understate the possibility of a very fast late-2028 launch.
+
+### 6. Challenge the forecast with a specific disagreement
+
+Suppose you think public access will take six months longer than the model allows.
+You can change that assumption without editing the full model:
 
 ```bash
 vorhersage --project waymo timeline shift waymo@1 --parameter public_access --days 180 \
@@ -161,47 +266,85 @@ vorhersage --project waymo timeline shift waymo@1 --parameter public_access --da
 vorhersage --project waymo timeline compare waymo@1 slower-access@1 --format text
 ```
 
-| Model | Probability of launch before 2029 |
-|---|---:|
-| Original assumptions | **39%** |
-| Public access takes 180 additional days | **22%** |
+`public_access` names the final stage in the model. The command adds 180 elapsed
+days to it in every finite scenario, retaining the weights and other inputs.
+It saves the alternative as `slower-access@1`, with its reason and a link to the
+original model.
 
-The original model stays unchanged, and `slower-access@1` records its source
-and the reason for the change. Two previously successful scenarios now miss the
-deadline. That tells you why research into the time from testing to public access
-could matter. The difference
-is a sensitivity check, not a confidence interval.
+The comparison reports:
 
-### 6. Share the model and its alternative
+```text
+Left probability:  39.0%
+Right probability: 22.0%
+```
+
+The 12% mid-2028 scenario and 5% accelerated late-2028 scenario now miss the
+deadline. Only the 22% early-launch scenario still succeeds. **The disagreement
+has become a checkable claim about a particular stage.**
+
+That suggests a useful next research question: what governs the time from
+restricted rides to unrestricted access, and how comparable are the other cities?
+The result measures sensitivity to this assumption; it does not establish how
+much more research will improve accuracy.
+
+The [original study](examples/waymo_boston_2029/independent_20260915/outputs/forecast_summary.md#sensitivity-and-structural-uncertainty)
+also tested political weights and the dependency structure. Moving 15 percentage
+points between early success and state delay produced **24%–54%**. Making local
+permission a prerequisite for validation left the weighted result at **39%**
+under those particular timings. These are assumption checks, not confidence intervals.
+
+### 7. Open a report you can interrogate
 
 ```bash
 vorhersage --project waymo timeline report waymo@1 --compare slower-access@1 --output waymo.html --format text
 ```
 
-Open **`waymo.html`** to inspect the model, scenario schedules, and comparison.
-The [original study's written forecast](examples/waymo_boston_2029/independent_20260915/outputs/forecast_summary.md)
-also explains the sources, objections, and observations that would change the
-estimate—for example, effective enabling legislation or an actual Boston permit.
+Open **`waymo.html`** in your browser. It works offline. Select a scenario to see
+the original and alternative schedules side by side, which milestones determine
+the dates, and which outcomes cross the deadline. The report also includes the
+exact question, evidence, and recorded assumptions.
 
-This walkthrough reproduces the saved calculation in a fresh project. The
+Try selecting `mid2028_normal`: the original launch meets the deadline; the
+180-day delay moves it past the deadline. You can now explain both the 39% and
+the 22% forecast by pointing to the work required and the assumptions that changed.
+
+### 8. Decide what would warrant a revision
+
+A forecast also needs a stopping reason and a plan for reconsideration. In the
+original study, the review retained 39%, while acknowledging that further public
+searches had not identified legislative probabilities or internal Boston schedules.
+The review challenged the number in both directions:
+
+- **Too high?** Stalled bills, local opposition, and unproven winter performance
+  could delay launch. The model includes delay scenarios, but their weights remain judgments.
+- **Too low?** A small service area, a pilot framework, or rapid political
+  accommodation could enable a faster launch. The coarse late-permission scenarios
+  may miss that possibility.
+
+It then recorded these kinds of update triggers:
+
+| New observation | What to revisit |
+|---|---|
+| Effective enabling legislation or a legally authorized paid-driverless pilot | State permission, local authority, and the weight on political delay. |
+| A Boston permit, depot opening, or actual driverless passenger phase | The relevant remaining durations and prerequisites. |
+| A public launch announcement | Whether access, fares, driverlessness, and Boston boundaries satisfy the question. |
+| Withdrawal or a major safety suspension | Delay and disruption scenarios. |
+
+The full workflow records research, review, the issued estimate, and its update
+triggers. A later forecast preserves the earlier one and records the revision.
+New evidence requires reassessment; the package does not invent an automatic
+probability update from the mere passage of time.
+
+The commands above reproduce the model and its sensitivity comparison. The
 [original issued forecast and validation record](examples/waymo_boston_2029/independent_20260915/README.md)
-preserve the full study. Its scenario weights remain open to disagreement;
-reproducing 39% verifies the calculation, not its accuracy.
+contain the completed research-and-review history. Reproducing the calculation
+checks the arithmetic; eventual resolution is needed to score the forecast.
 
 ## What you get from a full forecasting run
 
-The agent workflow carries a new question through research, assessment, review,
-and an issued prediction. It preserves revisions and schedules follow-up work.
-
-```mermaid
-flowchart LR
-    Q[Define the question] --> R[Research the drivers]
-    R --> M[Build the model]
-    M --> C[Calculate and review]
-    C -->|Investigate an assumption| R
-    C --> F[Issue forecast and report]
-    F -->|New evidence| R
-```
+The same research-and-review workflow can be driven by a person or an agent.
+It carries a question through assessment, review, and an issued prediction,
+preserves revisions, and schedules follow-up work.
 
 You can export a complete question as HTML or LaTeX. **[Read a finished HTML
 report](https://expectedparrot.github.io/vorhersage/examples/nyc-2026-09-16/)**
@@ -218,7 +361,7 @@ against the eventual outcome.
 ## Design principles and research foundations
 
 The package makes three commitments: **judgments are explicit, calculations are
-reproducible, and forecasting skill is measured against outcomes**. The agent
+reproducible, and forecasting skill is measured against outcomes**. The forecaster
 chooses the model and justifies its inputs; the package checks evidence references,
 computes consequences, and preserves each issued forecast. Unknown inputs can
 remain unknown. Correlated scenarios need joint assumptions rather than automatic
@@ -291,7 +434,9 @@ workers. For a persistent shell setup, run `uv tool update-shell`.
 | Pick a live market, research, then compare with its hidden price | [Market workbench](docs/MARKET_WORKBENCH.md) |
 | Model a deadline through milestones and dependencies | [Timeline models](docs/TIMELINE_MODELS.md) |
 | Declare and audit likelihood-ratio updates | [Odds ledgers and widgets](docs/ODDS_LEDGER.md) |
+| Reuse evidence and reference cases; check related forecasts for consistency | [Research and monitoring](docs/RESEARCH_AND_MONITORING.md) |
 | Compare methods on the same questions | [Method experiments](docs/EXPERIMENTS.md) |
+| Score forecasts after resolution | [Evaluation guide](docs/AGENT_GUIDE.md#resolve-and-compare) |
 | Run model/tool workers across related questions | [Live sessions](docs/LIVE_SESSIONS.md) and [joint sessions](docs/JOINT_SESSIONS.md) |
 | Produce a readable report and methodology flowchart | [Report exports](docs/REPORTS.md) |
 | Reproduce a published forecasting study | [AIRO example](examples/airo/README.md) |
