@@ -40,6 +40,36 @@ release log that will settle the question.
 
 That definition matters: a working build alone won't count as a public launch.
 
+Here is how you record that question. After [installing Vorhersage](#copy-and-paste-into-an-agent),
+create a project and add the definition (this teaching example assumes we are
+asking on September 16, 2026, at noon UTC):
+
+```bash
+vorhersage init ./launch-question --name "App launch forecast"
+vorhersage --project ./launch-question question add --from - <<'JSON'
+{
+  "id": "app-launch",
+  "text": "Will the app launch publicly by September 23, 2026, at noon UTC?",
+  "yes": "QA has passed and at least one external user can access the public release by the deadline.",
+  "no": "By the deadline, QA has not passed or no external user can access the public release.",
+  "void": "The teaching fixture is withdrawn.",
+  "event_deadline": "2026-09-23T12:00:00Z",
+  "resolve_after": "2026-09-23T12:00:00Z",
+  "resolution_source": "urn:vorhersage:demo:release-log",
+  "event_group": "app-launch-demo",
+  "domain": "software",
+  "profile": "general",
+  "kind": "simulation"
+}
+JSON
+```
+
+`question add` saves the question as version 1 under `app-launch`. The `yes`,
+`no`, and `void` fields specify how to settle it; `resolution_source` identifies
+the fictional release log. `profile: "general"` selects the built-in research
+checklist, and `kind: "simulation"` labels this as a teaching example. At this
+point we have a question to investigate; we haven't issued a prediction yet.
+
 ### Identify what has to happen, then research it
 
 For this release, public access requires QA to pass, followed by approval and
