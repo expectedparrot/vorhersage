@@ -318,12 +318,18 @@ def test_future_evidence_and_future_exposure_are_rejected(case):
     post(case, "initial", initial())
     post(case, "plan", plan())
     future = (time(now()) + timedelta(days=1)).isoformat()
-    packet = w.import_packet(capture_bundle({
+    future_packet = capture_bundle({
         "sources": [{"id": "s", "url": "https://example.invalid", "title": "Future", "excerpt": "Text", "retrieved_at": future}],
         "findings": [{"id": "f", "claim": "Future claim", "claim_type": "observation", "source_ids": ["s"]}],
-        "information_as_of": future, "limitations": []}))
+        "information_as_of": future, "limitations": []})
+    with pytest.raises(Error, match="future-dated"):
+        w.import_packet(future_packet)
+    # Older releases admitted future packets; checkpoint validation still guards
+    # such a record if it is present in a pre-existing project.
+    with w.store.connect(True) as c:
+        packet_id = workbench.Store.put(c, "packet", future_packet)
     with pytest.raises(Error, match="cutoff"):
-        post(case, "checkpoint", checkpoint(refs=[{"packet_id": packet["packet_id"], "record_id": "f"}]))
+        post(case, "checkpoint", checkpoint(refs=[{"packet_id": packet_id, "record_id": "f"}]))
     with pytest.raises(Error, match="future"):
         post(case, "exposure", {"kind": "outcome", "description": "Future event", "occurred_at": future})
 

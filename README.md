@@ -582,6 +582,9 @@ begins automatically.
 Use `vorhersage show --project launch` to read progress and
 `vorhersage next --project launch --output task.json` to get the next task and
 answer template. You can fill the task file yourself or work with an agent.
+New studies first identify missing facts and how to obtain them—ask you, search,
+make an explicit assumption, or retain uncertainty. Model inputs record what the
+evidence actually measures and what assumptions connect it to the forecast.
 `vorhersage report --project launch` exports the recorded work as HTML.
 The [single-question guide](docs/SINGLE_QUESTION.md) walks through an answer,
 submission, review, and report export.
@@ -616,8 +619,15 @@ vorhersage guide
 
 For a new single-question study, use `start` and supply the agreed event
 definition. Set --forecaster to your agent name. Use `next --output` and
-`submit --from` to advance the research and review tasks. Preserve sources,
-assumptions and uncertainty. Finish with `report --project STUDY_FOLDER`
+`submit --task TASK.json --answer ANSWER.json` to advance the research and review
+tasks without rewriting task IDs. Follow intake and inquiry tasks before making
+an estimate; use `evidence add` for dated findings and user answers. Follow the
+guide's parameter-support and sensitivity-review requirements. If several
+important facts are things I know, offer to design a short survey for me using
+`ep humanize`, share its respondent link, and use my answers as evidence to
+update the affected model inputs. The guide explains how to capture responses
+and revise an issued forecast. For later
+evidence, use `revise`; preserve actual timestamps. Finish with `report --project STUDY_FOLDER`
 and show me the forecast, its main drivers, and the report. For an existing
 portfolio, follow the guide's explicit question and run commands.
 ```

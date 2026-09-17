@@ -5,11 +5,12 @@ question and run in a single transaction. Task files retain the workflow's
 revision and retry guards; the human interface never chooses a latest run.
 """
 
+import copy
 import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from .common import digest, now, require
+from .common import canonical, digest, now, require
 from .store import Store
 from .workflow import Workflow, verify_refs
 from . import timeline
@@ -17,6 +18,13 @@ from . import timeline
 
 BRIEF = "study_brief"
 BINDING = "study_binding"
+
+
+def active_binding(c):
+    require(c.execute("SELECT 1 FROM artifacts WHERE id=?", (BINDING,)).fetchone(),
+            "Define what counts first: use vorhersage define --deadline TIME --yes CRITERIA --source SOURCE.")
+    row = c.execute("SELECT id FROM artifacts WHERE kind='study_revision_binding' ORDER BY rowid DESC LIMIT 1").fetchone()
+    return Store.artifact(c, row[0] if row else BINDING)
 
 
 def start(project, question, specification=None, **options):
@@ -44,7 +52,7 @@ def binding(store):
         brief(c)
         require(c.execute("SELECT 1 FROM artifacts WHERE id=?", (BINDING,)).fetchone(),
                 "Define what counts first: use vorhersage define --deadline TIME --yes CRITERIA --source SOURCE.")
-        return Store.artifact(c, BINDING, BINDING)
+        return active_binding(c)
 
 
 def brief(c):
@@ -74,9 +82,50 @@ def define(workflow, question, *, forecaster="user", method="declared judgment",
                 "mode": "simulation" if question["kind"] == "simulation" else "prospective",
                 "information_as_of": now(), "research_status": research_status,
                 "workflow": workflow_name, "max_searches": max_searches, "max_extra_tasks": max_extra_tasks,
+                "research_contract": "structured_v1",
             })
             Store.put(c, BINDING, {"question_id": question["id"], "question_version": 1,
                                   "run_id": run["run_id"], "definition": request}, id=BINDING)
+    return show(store)
+
+
+def revise(workflow, *, reason, refs=(), expected_forecast=None):
+    """Append an explicit study binding; never replace the original binding/run."""
+    require(reason and reason.strip(), "Explain why the forecast needs revision.")
+    store = workflow.store
+    with store.connect(True) as c:
+        brief(c)
+        linked = active_binding(c)
+        old_run, old_state, _ = Store.run(c, linked["run_id"])
+        request = {"reason": reason, "evidence_refs": list(refs)}
+        if not old_state["forecast_id"]:
+            require(linked.get("revision_request") == request and
+                    (expected_forecast is None or old_run.get("previous_forecast_id") == expected_forecast),
+                    "Finish the active research/revision before starting another revision.")
+        else:
+            previous = old_state["forecast_id"]
+            require(expected_forecast is None or previous == expected_forecast, "The issued forecast changed; inspect show before revising.")
+            cutoff = now()
+            verify_refs(c, refs, cutoff, context="new revision cutoff")
+            spec = {k: old_run[k] for k in ("question_id", "question_version", "forecaster", "method", "mode", "max_searches", "max_extra_tasks")}
+            spec.update(information_as_of=cutoff, previous_forecast_id=previous,
+                        research_status="in_progress", research_contract="structured_v1",
+                        workflow=old_run.get("workflow", "standard"))
+            started = workflow._start(c, spec)
+            run_id = started["run_id"]
+            _, state, _ = Store.run(c, run_id)
+            if spec["workflow"] == "standard":
+                state["pending"] = [t for t in state["pending"] if t["kind"] in ("intake", "assessment", "review", "issue")]
+                state["coverage"] = copy.deepcopy(old_state["coverage"])
+            state["evidence_refs"] = list({canonical(r): r for r in old_state["evidence_refs"] + list(refs)}.values())
+            state["prior_record"] = {"timing": "not_applicable", "qualification": "Revision of an issued forecast; new evidence is not a pre-research prior."}
+            state["artifact_ids"] = list(dict.fromkeys(state["artifact_ids"] + old_state["artifact_ids"]))
+            record = {**linked, "run_id": run_id, "previous_forecast_id": previous,
+                      "revision_request": request, "created_at": cutoff}
+            binding_id = Store.put(c, "study_revision_binding", record, run_id=run_id)
+            state["artifact_ids"].append(binding_id)
+            c.execute("UPDATE runs SET state=? WHERE id=?", (canonical(state), run_id))
+            Store.event(c, "study.revise", record)
     return show(store)
 
 
@@ -99,13 +148,18 @@ def next_task(workflow, output=None):
     return result
 
 
-def submit(workflow, document):
+def submit(workflow, document, answer=None, usage=None):
     require(isinstance(document, dict), "A task file must contain a JSON object.")
     linked = binding(workflow.store)
     require(document.get("run_id") == linked["run_id"], "Task file belongs to a different forecast.")
     require(isinstance(document.get("submission"), dict),
             "Use the task file written by next --output; fill its submission.payload.")
-    return workflow.submit(linked["run_id"], document["submission"])
+    submission = copy.deepcopy(document["submission"])
+    if answer is not None:
+        submission["payload"] = answer
+    if usage is not None:
+        submission["usage"] = usage
+    return workflow.submit(linked["run_id"], submission)
 
 
 def show(store):
@@ -115,7 +169,7 @@ def show(store):
                   "probability": None, "issued": False}
         if not c.execute("SELECT 1 FROM artifacts WHERE id=?", (BINDING,)).fetchone():
             return result
-        linked = Store.artifact(c, BINDING, BINDING)
+        linked = active_binding(c)
         run, state, revision = Store.run(c, linked["run_id"])
         task = Workflow(store.root)._next(c, linked["run_id"])
         work = [Store.artifact(c, row[0], "task_result") for row in c.execute(
@@ -127,6 +181,10 @@ def show(store):
                       completed_tasks=revision, coverage=state["coverage"],
                       findings=verify_refs(c, state["evidence_refs"], run["information_as_of"]),
                       work=work, next=task, stage=task.get("task", {}).get("kind", task["disposition"]))
+        result.update(research_plan=state.get("research_plan"), inquiry_answers=state.get("inquiry_answers", {}),
+                      parameter_support=state.get("parameter_support", []), sensitivity=state.get("sensitivity"),
+                      previous_forecast=Store.artifact(c, run["previous_forecast_id"], "forecast") if run.get("previous_forecast_id") else None,
+                      forecast_id=state["forecast_id"])
         if state.get("timeline_model_id"):
             model = timeline.read(c, state["timeline_model_id"])["specification"]
             result["model"] = {"specification": model, "analysis": timeline.analyze(model)}

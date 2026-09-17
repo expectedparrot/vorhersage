@@ -13,6 +13,23 @@ from .common import canonical, digest, now, require, time
 from .schemas import check
 
 
+def capture_finding(claim, *, url, title, excerpt, claim_type="reporting", observed_at=None):
+    """Capture supplied text now. This does not claim to fetch or verify its source."""
+    captured = now()
+    observed = observed_at or captured
+    require(time(observed) <= time(captured), "An observation cannot be later than the current capture time.")
+    return validate_packet({"schema_version": "vorhersage.evidence.v1", "kind": "manual",
+                           "information_as_of": captured, "created_at": captured,
+                           "limitations": ["Manually supplied finding; source text and interpretation are not independently verified."],
+                           "records": [{"id": "finding", "claim": claim, "claim_type": claim_type,
+                                        "value": excerpt, "entity_ids": [], "observed_at": observed,
+                                        "provenance": {"adapter": "vorhersage.evidence_add.v1", "recorded_at": captured},
+                                        "sources": [{"id": "source", "url": url, "title": title,
+                                                     "excerpt": excerpt, "excerpt_kind": "paraphrase",
+                                                     "retrieved_at": captured,
+                                                     "capture": {"method": "manual", "captured_at": captured}}]}]})
+
+
 def validate_packet(value):
     check(value, "packet")
     packet = copy.deepcopy(value)

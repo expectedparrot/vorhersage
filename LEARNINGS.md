@@ -398,6 +398,29 @@ accuracy enough to justify its cost.
 
 ## Related records
 
+### Agent workflow follow-up: substance and valid recovery paths
+
+A live agent exercise completed research, review and issuance while assigning
+precise conditional probabilities from indirect evidence. Important case facts
+were collected only after the user proposed an interview. After new information
+arrived, the agent wrote a proposed probability into a signal instead of issuing
+a revision, and changed evidence timestamps after a cutoff error. The error
+itself named a run cutoff in a context that actually checked the current time.
+
+New single-question runs now begin with linked intake/inquiry tasks. Assessment
+records separate the forecast target, what evidence measured, transfer
+assumptions, and plausible input ranges. Review addresses the sensitivity
+calculation and obtainable next evidence. The revision command appends an
+explicit study binding and retains the old issued forecast until review is
+complete. Tool-recorded evidence capture times and errors with actual cutoff
+values provide a valid route through the work without changing chronology.
+
+These checks improve inspectability, not demonstrated forecasting accuracy.
+Agents can still supply weak assumptions or unsupported prose. Manually imported
+historical timestamps remain declarations, and sensitivity bounds are consequences
+of declared ranges, not calibrated confidence intervals. Regression tests use
+fictional cases rather than storing the user's personal transcript.
+
 ### Implementation follow-up: Epiq
 
 The [Epiq integration](examples/patriots_2027/EPIQ_INTEGRATION.md) now exercises

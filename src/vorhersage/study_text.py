@@ -3,6 +3,7 @@
 import shlex
 
 STAGES = {
+    "intake": "Identify missing facts and plan how to obtain them", "inquiry": "Answer a linked research question",
     "prior": "Establish a starting estimate", "drivers": "Map what could make it happen or prevent it",
     "research": "Collect and check evidence", "assessment": "Build the estimate",
     "review": "Challenge the estimate", "issue": "Publish the forecast",
@@ -31,9 +32,35 @@ def render(data):
               "Outcome sources: " + q["resolution_source"],
               "Forecaster: " + data["forecaster"] + " · " + data["mode"], ""]
     p = data["probability"]
+    previous = data.get("previous_forecast")
+    if previous:
+        lines.append(f"Previous issued forecast: {previous['probability']:.1%} ({previous['issued_at']})")
+        if not data["issued"]:
+            lines.append("Revision in progress; the previous forecast remains issued until this review is complete.")
     lines.append(("Published forecast: " if data["issued"] else "Working estimate: ") +
                  (f"{p:.1%}" if p is not None else "not yet assigned"))
     lines += ["Stage: " + STAGES.get(data["stage"], data["stage"]), ""]
+    analysis = data.get("sensitivity")
+    if analysis and analysis.get("bounded_range"):
+        low, high = analysis["bounded_range"]
+        lines += [f"Declared assumption range: {low:.1%}–{high:.1%} (not a confidence interval)."]
+        for row in analysis.get("conditional_sensitivity", [])[:3]:
+            lines.append(f"  {row['scenario_id']}: varying its conditional probability moves the forecast by {row['swing']:.1%}.")
+        lines.append("")
+    if data.get("research_plan"):
+        lines.append("Research questions and model inputs:")
+        for q in data["research_plan"]["unknowns"]:
+            answer = data.get("inquiry_answers", {}).get(q["id"])
+            lines.append(f"  {q['question']} → {', '.join(q['input_ids'])} ({q['route']})")
+            lines.append("    " + (answer["status"] + ": " + answer["answer"] if answer else q["action"]))
+        lines.append("")
+    if data.get("parameter_support"):
+        lines.append("Model inputs and evidence basis:")
+        for row in data["parameter_support"]:
+            lines.append(f"  {row['model_input']}: {row['value']} ({row['basis']}); range {row['plausible_range']}")
+            lines.append("    Evidence measures: " + row["evidence_measures"])
+            lines.append("    Transfer assumptions: " + row["transfer_assumptions"])
+        lines.append("")
     if data.get("model"):
         model = data["model"]
         lines += ["Model: " + model["specification"]["description"]]
@@ -66,6 +93,13 @@ def render(data):
             explanation = answer.get("interpretation", answer.get("rationale", answer.get("stopping_reason")))
             if explanation:
                 lines.append("  " + topic.capitalize() + ": " + explanation)
+            timing = (item.get("calculation") or {}).get("prior_record")
+            if timing:
+                lines.append("    Estimate timing: " + timing["timing"].replace("_", " "))
+            if answer.get("sensitivity_review"):
+                review = answer["sensitivity_review"]
+                lines += ["    Sensitivity review: " + review["interpretation"],
+                          "    Next evidence: " + review["next_evidence"]]
             if todo["kind"] == "drivers":
                 lines.append("  Paths to the outcome:")
                 lines.append("    YES: " + answer["yes_path"])
@@ -73,7 +107,8 @@ def render(data):
                 lines.extend("    " + driver["name"] + ": " + driver["mechanism"] for driver in answer["drivers"])
             for key, label in (("unknowns", "Recorded unknown"), ("limitations", "Limitation")):
                 for text in answer.get(key, []):
-                    lines.append("    " + label + ": " + text)
+                    if isinstance(text, str):
+                        lines.append("    " + label + ": " + text)
             for objection in answer.get("objections", []):
                 lines.append("    " + objection["direction"].replace("_", " ").capitalize() + ": " + objection["objection"])
                 lines.append("    Response: " + objection["response"])
@@ -90,6 +125,10 @@ def render(data):
         lines += ["Next: " + todo["instruction"]]
         if todo.get("domain"):
             lines.append("Research topic: " + todo["domain"].replace("_", " "))
+        if todo.get("inquiry"):
+            inquiry = todo["inquiry"]
+            lines += ["Question: " + inquiry["question"], "Action (" + inquiry["route"] + "): " + inquiry["action"],
+                      "Why it matters: " + inquiry["why_it_matters"]]
         lines += ["", "Get the task, evidence, and answer template (use a new filename each time):",
                   f"  vorhersage next --project {project} --output task-{data['completed_tasks'] + 1}.json",
                   "Fill submission.payload using payload_schema, then submit the task file.",
@@ -98,4 +137,6 @@ def render(data):
         lines.append(task["reason"])
     else:
         lines.append(f"Read the full report: vorhersage report --project {project}")
+        if data["issued"]:
+            lines.append(f"New evidence? vorhersage revise --project {project} --reason REASON --evidence PACKET:RECORD")
     return "\n".join(lines)

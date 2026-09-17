@@ -34,6 +34,11 @@ def question_data(store, question_id):
                    if r["run_id"] in ids]
         pending += [aid for run in runs for aid in run["state"].get("artifact_ids", [])]
         pending += [f["id"] for f in data["forecasts"] + data["resolutions"]]
+        forecast_ids = {f["id"] for f in data["forecasts"]}
+        signals = [s for s in Store.all(c, "signal") if s.get("question_id") == question_id or
+                   forecast_ids.intersection(s["affected_forecast_ids"])]
+        data["signals"] = signals
+        pending += [s["id"] for s in signals]
         artifacts = {}
         while pending:
             aid = pending.pop(0)
@@ -221,6 +226,57 @@ def _section(title, paragraphs=(), table=None, sources=()):
     return {"title": title, "paragraphs": list(paragraphs), "table": table, "value": None, "sources": list(sources)}
 
 
+def research_sections(data):
+    """Keep status, evidence transfers and sensitivity visible, even with authored prose."""
+    result = []
+    evidence = _evidence(data)
+    for item in data.get("runs", []):
+        run, state = item["run"], item["state"]
+        label = run["forecaster"] + " · started " + run["created_at"]
+        if run.get("previous_forecast_id"):
+            previous = next(f for f in data["forecasts"] if f["id"] == run["previous_forecast_id"])
+            result.append(_section("Forecast revision", [
+                label, "Previous issued forecast: " + _percent(previous["probability"]),
+                ("Issued revision: " if state["forecast_id"] else "Working revision, not yet issued: ") + _percent(state["probability"])]))
+        plan = state.get("research_plan")
+        if plan:
+            result.append(_section("Research questions and actions", [label, plan["rationale"]],
+                (["Question", "Model inputs", "Route", "Action", "Answer or retained uncertainty"], [
+                    [q["question"], ", ".join(q["input_ids"]), q["route"], q["action"],
+                     state.get("inquiry_answers", {}).get(q["id"], {}).get("answer", "Not yet answered")]
+                    for q in plan["unknowns"]])))
+        support = state.get("parameter_support", [])
+        if support:
+            sources = {digest(source): source for row in support for ref in row["evidence_refs"]
+                       for source in evidence[ref["packet_id"] + ":" + ref["record_id"]]["sources"]}
+            result.append(_section("Evidence behind model inputs", [label,
+                "These are the forecaster's declared evidence transfers. Validation checks links and arithmetic, not substantive accuracy."],
+                (["Input", "Value", "Basis", "Target", "Evidence measures", "Transfer assumptions", "Plausible range"], [
+                    [r["model_input"], r["value"], r["basis"], r["target"], r["evidence_measures"],
+                     r["transfer_assumptions"], str(r["plausible_range"])] for r in support]), sources.values()))
+        sensitivity = state.get("sensitivity")
+        if sensitivity is None:
+            # Older runs already computed mixture sensitivity, but buried it in task records.
+            assessments = [data["artifacts"][aid]["record"] for aid in state["artifact_ids"]
+                           if aid in data.get("artifacts", {}) and data["artifacts"][aid]["kind"] == "task_result"
+                           and data["artifacts"][aid]["record"]["task"]["kind"] == "assessment"]
+            if assessments:
+                sensitivity = assessments[-1].get("calculation", {}).get("scenario_analysis")
+        if sensitivity and sensitivity.get("bounded_range"):
+            lo, hi = sensitivity["bounded_range"]
+            result.append(_section("Assumption sensitivity", [label,
+                "Model calculation: " + _percent(sensitivity["probability"]),
+                f"Declared assumptions allow {_percent(lo)}–{_percent(hi)}. This is not a confidence interval or an empirically calibrated uncertainty interval.",
+                "The calculation varies supplied ranges together; unmodeled dependence can make joint extremes implausible."],
+                (["Scenario", "Forecast movement when its conditional probability varies"], [
+                    [r["scenario_id"], _percent(r["swing"])] for r in sensitivity.get("conditional_sensitivity", [])])))
+    if data.get("signals"):
+        result.append(_section("Recorded review signals", [
+            "Signals record reasons to reconsider a forecast. Their prose does not issue or revise a probability.",
+            *[s["reason"] for s in data["signals"]]]))
+    return result
+
+
 def sections(data):
     """The reading view: an explanation, with the complete records in an appendix."""
     evidence = _evidence(data)
@@ -239,7 +295,7 @@ def sections(data):
                 result[-1]["flowchart"] = item["flowchart"]
         result.append(_section("About this report", [
             "This explanation was written at report generation from the recorded research. It does not change the sealed predictions. The complete evidence and calculation records are in the technical appendix."]))
-        return result
+        return result + research_sections(data)
 
     q = data["question"]["specification"]
     result = [_section("The question", [q["text"], "Yes: " + q["yes"],
@@ -294,9 +350,16 @@ def sections(data):
                 record = artifact["record"]
                 p = record.get("payload", {})
                 paragraphs = [p[k] for k in ("rationale", "interpretation", "stopping_reason") if isinstance(p.get(k), str)]
+                timing = (record.get("calculation") or {}).get("prior_record")
+                if timing:
+                    paragraphs.insert(0, "Estimate timing: " + timing["timing"].replace("_", " "))
+                if p.get("sensitivity_review"):
+                    review = p["sensitivity_review"]
+                    paragraphs += ["Sensitivity review: " + review["interpretation"],
+                                   "Next evidence: " + review["next_evidence"]]
                 if paragraphs:
                     result.append(_section(_label(record["task"]["kind"]), paragraphs))
-    return result
+    return result + research_sections(data)
 
 
 def _validate_narrative(narrative, data):

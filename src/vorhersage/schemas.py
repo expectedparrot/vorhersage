@@ -39,9 +39,11 @@ RUN = obj({"question_id": TEXT, "question_version": {"type": "integer", "minimum
            "research_status": enum("not_started", "in_progress", "completed", "unspecified"),
            "coherence_policy": enum("warn", "strict"),
            "workflow": enum("standard", "timeline"),
+           "research_contract": enum("structured_v1"),
            "previous_forecast_id": TEXT},
           ["question_id", "forecaster", "method", "mode", "information_as_of", "max_searches", "max_extra_tasks"])
 PRIOR = obj({"method": enum("judgment", "reference_class"), "rationale": TEXT,
+             "research_status_at_estimate": enum("not_started", "in_progress", "completed", "unspecified"),
              "limitations": array(), "evidence_refs": REFS, "probability": PROB,
              "selection_rule": TEXT,
              "cases": array(obj({"id": TEXT, "outcome": enum(0, 1), "evidence_refs": array(REF, 1)}), 1)},
@@ -59,6 +61,18 @@ SCENARIO = obj({"id": TEXT, "description": TEXT, "weight": PROB, "probability": 
                 "weight_range": RANGE, "probability_range": RANGE},
                ["id", "description", "weight", "probability", "rationale", "evidence_refs", "unknowns"])
 MIXTURE = obj({"scenarios": array(SCENARIO, 2), "partition_justification": TEXT})
+INTAKE = obj({"rationale": TEXT,
+              "inputs": array(obj({"id": TEXT, "target": TEXT}), 1),
+              "unknowns": array(obj({"id": TEXT, "question": TEXT, "input_ids": array(TEXT, 1),
+                                     "route": enum("ask_user", "search", "assumption", "unobservable"),
+                                     "why_it_matters": TEXT, "action": TEXT}))})
+INQUIRY = obj({"status": enum("answered", "unresolved"), "answer": TEXT, "evidence_refs": REFS})
+PARAMETER_SUPPORT = obj({"input_id": TEXT, "model_input": TEXT, "value": {"type": ["number", "string"]},
+                         "target": TEXT, "evidence_measures": TEXT,
+                         "transfer_assumptions": TEXT,
+                         "basis": enum("measured", "calculated", "extrapolated", "assumed"),
+                         "plausible_range": array({"type": ["number", "string"]}, 2),
+                         "evidence_refs": REFS})
 LR = {"type": "number", "exclusiveMinimum": 0}
 ODDS_TERM = {"lr": LR, "lr_range": array(LR, 2),
              "direction": enum("supports", "opposes", "neutral"), "rationale": TEXT}
@@ -79,11 +93,15 @@ ASSESSMENT = obj({"method": enum("judgment", "conditional_path", "ensemble", "sc
                   "nested_events_justification": TEXT, "members": array(TEXT, 1),
                   "weights": array({"type": "number", "minimum": 0}, 1),
                   "scenarios": array(SCENARIO, 2), "partition_justification": TEXT,
-                  "odds_ledger": ODDS_LEDGER, "timeline_model_id": TEXT},
+                  "odds_ledger": ODDS_LEDGER, "timeline_model_id": TEXT,
+                  "parameter_support": array(PARAMETER_SUPPORT, 1)},
                  ["method", "rationale", "limitations", "evidence_refs"])
 REVIEW = obj({"decision": enum("retain", "revise", "research"), "rationale": TEXT,
               "objections": array(obj({"direction": enum("too_high", "too_low"), "objection": TEXT, "response": TEXT}), 2),
               "evidence_refs": REFS, "probability": PROB,
+              "sensitivity_review": obj({"interpretation": TEXT, "influential_inputs": array(TEXT, 1),
+                                          "next_evidence": TEXT}),
+              "parameter_support": array(PARAMETER_SUPPORT, 1),
               "research_tasks": array(obj({"domain": TEXT, "purpose": TEXT}), 1)},
              ["decision", "rationale", "objections", "evidence_refs"])
 ISSUE = obj({"stopping_reason": TEXT, "review_at": TIME,
@@ -300,6 +318,7 @@ WORKBENCH_SUBMIT = obj({"kind": enum("initial", "plan", "checkpoint", "finish", 
                         "expected_revision": COUNT, "idempotency_key": TEXT, "payload": {"type": "object"}})
 
 SCHEMAS = {"question": QUESTION, "profile": PROFILE, "run": RUN, "submit": SUBMIT,
+           "intake": INTAKE, "inquiry": INQUIRY, "parameter_support": PARAMETER_SUPPORT,
            "prior": PRIOR, "drivers": DRIVERS, "research": RESEARCH, "assessment": ASSESSMENT,
            "review": REVIEW, "issue": ISSUE, "resolution": RESOLUTION, "signal": SIGNAL,
            "evaluation": EVALUATION, "replay_evaluation": REPLAY_EVALUATION,

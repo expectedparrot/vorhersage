@@ -12,7 +12,7 @@ from . import __version__
 from .common import Error, load, require
 from .backtesting import prepare_halawi, start_case, evaluate_replay
 from .evaluation import evaluate
-from .evidence import Epiq, audit as audit_evidence, capture_bundle
+from .evidence import Epiq, audit as audit_evidence, capture_bundle, capture_finding
 from .scenarios import calculate as calculate_scenario
 from .odds import calculate as calculate_odds
 from .widget import export as export_widget
@@ -26,13 +26,26 @@ from .reference import add as add_reference, query as query_reference
 from . import experiments, sessions, session_runtime, session_studies, session_reports
 from . import market_data, workbench, reports, setup, study, study_text
 
-GUIDE = """For one question, use start TEXT --project FOLDER. This saves an undefined question, without inventing a probability.
+GUIDE = """Vorhersage records research, computes declared models, and preserves issued forecasts and their revisions. You collect evidence and judge the inputs.
+For one question, use start TEXT --project FOLDER. This saves an undefined question, without inventing a probability.
 Supply --deadline TIME --yes CRITERIA --source SOURCE to start research immediately, or record them later with define --project FOLDER.
 Agents should agree on the event definition with the user and supply --forecaster NAME for attribution. The default forecaster is user.
 Define starts research automatically. Use --workflow timeline for a deadline model; declare --research-status in_progress or completed if research has already begun.
 Use show --project FOLDER for readable progress, and next --project FOLDER --output task.json for the agent task and context.
 Fill the task file's submission.payload according to payload_schema; add submission.usage for research/model usage. Preserve its run_id and submission bookkeeping.
 Use submit --project FOLDER --from task.json, then next with a new output filename. Exact retries are safe; stale or altered retries fail.
+Alternatively write just the payload to answer.json, then submit --project FOLDER --task task.json --answer answer.json [--usage usage.json]. The exported task retains all identifiers and retry guards.
+New single-question studies begin with intake: name inputs and link unknowns to them. Each unknown specifies ask_user, search, assumption, or unobservable, its importance, and a concrete action. Subsequent inquiry tasks collect answers or explicit unresolved reasons before any initial estimate.
+When several influential unknowns are facts the human user knows, offer to design a short survey for that user if ep is available. Explain which model inputs their answers could inform. A few questions can also be answered in chat; the survey is optional and can be offered during intake or a later revision.
+For a chosen survey, inspect ep humanize create --help, author an EDSL survey saved as intake-survey.json, and run ep humanize create --survey intake-survey.json --name "Forecast follow-up". Save the returned survey UUID and give the user the respondent link. Link each question name to the intake unknown and input_ids; ask neutral factual questions, allow unknown/not applicable, and avoid showing the current forecast before eliciting facts.
+After the user completes it, fetch ep humanize responses SURVEY_UUID --output intake-responses.json and inspect answers with ep results columns --file intake-responses.json and ep results export intake-responses.json --format json --output intake-answers.json. Preserve original answers and timestamps; capture each relevant self-reported finding with evidence add, citing the survey and question. Answers inform declared judgments; they do not automatically determine scenario weights or establish a population base rate.
+Use the resulting evidence_refs in the active inquiry tasks. If a forecast has already issued, use revise with those references, update the affected parameter_support and scenario assumptions, then complete assessment/review/issue and regenerate the report. Explain which answers changed which inputs, what remained uncertain, and whether the forecast moved. If ep is unavailable, collect the same facts in chat.
+Use evidence add CLAIM --project FOLDER --url URL --title TITLE --excerpt TEXT --claim-type observation to capture a user answer or source finding. This records the current capture time and returns evidence_refs. Keep observations separate from inferences. Never backdate evidence to satisfy a cutoff.
+In the prior payload declare research_status_at_estimate. Searches already performed are research, even when the run began with research_status not_started. Report only newly performed searches in usage; reusing a source does not repeat its cost. Never reduce true usage just to pass a budget check.
+Structured assessments require parameter_support for every supplied model input. Separate scenario weight from conditional probability. Each record links input_id from intake, model_input path, value, target, evidence_measures, transfer_assumptions, basis, plausible_range, and evidence_refs. Basis is measured, calculated, extrapolated, or assumed. Unsupported judgments remain assumed.
+Model input paths are probability for judgment, scenarios/ID/weight and scenarios/ID/probability for mixtures, components/ID/probability for paths, anchor/probability and entries/ID/lr or joint/GROUP/lr for odds, scenarios/ID/weight and scenarios/ID/inputs/PARAMETER for timelines, members/ID/weight for ensembles.
+Review must include sensitivity_review with interpretation, influential_inputs (actual model_input paths), and next_evidence. Inspect context.sensitivity: its bounds vary assumptions and are not confidence intervals. A review judgment changing probability needs its own parameter_support.
+After new evidence arrives, use revise --project FOLDER --reason REASON --evidence PACKET:RECORD (repeat evidence as needed), then next/submit/report. This starts a linked revision with a fresh cutoff and carries prior evidence/model records. show distinguishes the previous issued forecast from the working revision. A signal alone never changes a probability.
 The forecaster does the research and judgment, directly or with an agent; these commands do not call a model or browse automatically.
 Use report --project FOLDER to export a full HTML report, including work in progress. --output FILE also supports LaTeX.
 The commands below support portfolios and explicit low-level control.
@@ -135,7 +148,7 @@ def study_settings(args):
 def human_output(args):
     if getattr(args, "json", False):
         return False
-    if args.command in ("start", "define", "show"):
+    if args.command in ("start", "define", "show", "revise"):
         return True
     if args.command in ("next", "submit"):
         return args.run is None
@@ -153,7 +166,11 @@ def parser():
     for ap in (start, define):
         study_options(ap)
     show = commands.add_parser("show", help="Read the forecast and research progress")
-    for ap in (start, define, show):
+    revise = commands.add_parser("revise", help="Begin a linked revision after new evidence")
+    revise.add_argument("--reason", required=True)
+    revise.add_argument("--evidence", action="append", default=[], help="PACKET:RECORD; repeat for multiple findings")
+    revise.add_argument("--expected-forecast", help="Reject if the issued forecast differs from this ID")
+    for ap in (start, define, show, revise):
         ap.add_argument("--project", type=Path, default=argparse.SUPPRESS)
         ap.add_argument("--json", action="store_true", help="Machine-readable output")
     init = commands.add_parser("init")
@@ -166,6 +183,14 @@ def parser():
     scenario.add_argument("--from", dest="input", required=True)
     odds = commands.add_parser("odds-ledger")
     odds.add_argument("--from", dest="input", required=True)
+    evidence = commands.add_parser("evidence", help="Capture a finding with tool-recorded timestamps")
+    sub = evidence.add_subparsers(dest="action", required=True)
+    add = sub.add_parser("add")
+    add.add_argument("claim")
+    for name in ("url", "title", "excerpt"):
+        add.add_argument("--" + name, required=True)
+    add.add_argument("--claim-type", choices=("reporting", "official_statement", "observation", "inference", "unknown"), default="reporting")
+    add.add_argument("--observed-at", help="Historical observation date; capture/retrieval time is always recorded now")
     widget = commands.add_parser("export-widget")
     widget.add_argument("id")
     widget.add_argument("--output", type=Path)
@@ -367,7 +392,11 @@ def parser():
     nxt.add_argument("--output", type=Path, help="Write a new agent task file with an answer template")
     submit = commands.add_parser("submit")
     submit.add_argument("--run", help="Explicit run for a portfolio; omit when submitting a study task file")
-    submit.add_argument("--from", dest="input", required=True)
+    source = submit.add_mutually_exclusive_group(required=True)
+    source.add_argument("--from", dest="input")
+    source.add_argument("--task", type=Path, help="Original exported task; supply its answer separately")
+    submit.add_argument("--answer", type=Path, help="JSON payload only, with --task")
+    submit.add_argument("--usage", type=Path, help="JSON usage record, with --task")
     for ap in (nxt, submit):
         ap.add_argument("--project", type=Path, default=argparse.SUPPRESS)
         ap.add_argument("--json", action="store_true")
@@ -417,7 +446,24 @@ def parser():
     for name in ("cases", "labels", "manifest"):
         score.add_argument("--" + name, required=True)
     score.add_argument("--from", dest="input", required=True)
+    def project_options(ap):
+        if "--project" not in ap._option_string_actions:
+            ap.add_argument("--project", type=Path, default=argparse.SUPPRESS)
+        for action in ap._actions:
+            if isinstance(action, argparse._SubParsersAction):
+                for child in action.choices.values():
+                    project_options(child)
+    project_options(p)
     return p
+
+
+def evidence_references(values):
+    refs = []
+    for value in values:
+        packet, separator, record = value.partition(":")
+        require(packet and separator and record, "Evidence references use PACKET:RECORD.")
+        refs.append({"packet_id": packet, "record_id": record})
+    return refs
 
 
 def dispatch(args):
@@ -443,6 +489,12 @@ def dispatch(args):
         return study.define(w, question, **study_settings(args))
     if command == "show":
         return study.show(s)
+    if command == "revise":
+        return study.revise(w, reason=args.reason, refs=evidence_references(args.evidence), expected_forecast=args.expected_forecast)
+    if command == "evidence":
+        return w.import_packet(capture_finding(args.claim, url=args.url, title=args.title, excerpt=args.excerpt,
+                                              claim_type=args.claim_type,
+                                              observed_at=setup.timestamp(args.observed_at) if args.observed_at else None))
     if command == "version":
         return {"version": __version__, "schema_version": "1", "runtime_dependencies": []}
     if command == "guide":
@@ -640,6 +692,11 @@ def dispatch(args):
             return study.show(s)
         return study.next_task(w, args.output)
     if command == "submit":
+        require(bool(args.task) == bool(args.answer), "Use --task TASK.json together with --answer ANSWER.json.")
+        require(args.usage is None or args.task is not None, "--usage accompanies --task and --answer.")
+        if args.task:
+            require(args.run is None, "--task uses the single-question study binding; omit --run.")
+            return study.submit(w, load(args.task), load(args.answer), load(args.usage) if args.usage else None)
         return w.submit(args.run, load(args.input)) if args.run else study.submit(w, load(args.input))
     if command == "profile":
         if args.action == "add":
@@ -665,7 +722,11 @@ def dispatch(args):
     if command == "resolve":
         return w.resolve(load(args.input))
     if command == "signal":
-        return w.signal(load(args.input))
+        spec = load(args.input)
+        with s.connect() as c:
+            if "question_id" not in spec and c.execute("SELECT 1 FROM artifacts WHERE id=?", (study.BINDING,)).fetchone():
+                spec["question_id"] = study.active_binding(c)["question_id"]
+        return w.signal(spec)
     if command == "evaluate":
         return evaluate(s, load(args.input))
     if command == "benchmark":
@@ -729,7 +790,7 @@ def main(argv=None):
             if args.command == "report":
                 print("Report saved to " + str(args.output.resolve()))
             else:
-                print(study_text.render(data if args.command in ("start", "define", "show") else study.show(Store(args.project))))
+                print(study_text.render(data if args.command in ("start", "define", "show", "revise") else study.show(Store(args.project))))
                 if args.command == "next" and args.output:
                     print("\nTask saved to " + str(args.output.resolve()) +
                           ". Fill submission.payload, then submit --from this file.")

@@ -19,6 +19,24 @@ default; add `--json` for structured output. Agents should supply their own
 `--forecaster` attribution instead of retaining the default `user`.
 Both people and agents fill the same validated task answers.
 
+New single-question studies begin with intake and linked inquiry tasks before
+estimating. They require explicit evidence transfers for model inputs and a
+sensitivity review. See [the complete flow](SINGLE_QUESTION.md#do-the-next-piece-of-work).
+Use `evidence add` to capture findings with tool-recorded timestamps,
+`submit --task TASK --answer ANSWER` to preserve task identifiers, and
+`revise --reason REASON --evidence PACKET:RECORD` after new evidence arrives.
+Run `vorhersage guide` after installing to read these requirements and the model
+input paths. `--project` works before or after any subcommand.
+
+If several important unknowns are facts the user knows, **offer a short survey
+for that user** using `ep humanize` when available. Explain which model inputs
+the answers would inform, design neutral questions linked to those inputs, and
+share the respondent link. After completion, capture the answers as self-reported
+evidence and update the affected assumptions through the normal workflow. This
+works during intake or after issuance through `revise`. Chat is also an option.
+See [the survey workflow](SINGLE_QUESTION.md#offer-a-short-survey-for-the-user)
+for commands and how to preserve the responses.
+
 The explicit portfolio interface below remains available, with JSON output and
 full control over question versions, run selection, cutoffs, and revisions.
 

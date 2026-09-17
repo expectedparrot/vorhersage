@@ -7,12 +7,40 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from vorhersage import study, study_text, timeline
+from vorhersage import study, study_text, timeline, research_model
 from vorhersage.common import Error
 from vorhersage.store import Store
 from vorhersage.workflow import Workflow
 from test_workflow import packet, payload, stamp
 from test_timeline import model, weighted
+
+
+def intake(unknowns=()):
+    return {"rationale": "Fictional fixture supplies case facts; remaining uncertainty is represented in the model.",
+            "inputs": [{"id": "outcome", "target": "Chance of the fictional launch by its deadline."}],
+            "unknowns": list(unknowns)}
+
+
+def support(answer, spec=None):
+    return [{"input_id": "outcome", "model_input": path, "value": value,
+             "target": "Fixture input: " + path, "evidence_measures": "No empirical estimate; synthetic fixture.",
+             "transfer_assumptions": "Assume the declared fixture value.", "basis": "assumed",
+             "plausible_range": [value, value], "evidence_refs": []}
+            for path, value in research_model.model_inputs(answer, spec).items()]
+
+
+def study_payload(kind, refs, estimate=.6):
+    if kind == "intake":
+        return intake()
+    answer = payload(kind, refs, estimate)
+    if kind == "prior":
+        answer["research_status_at_estimate"] = "not_started"
+    if kind == "assessment":
+        answer["parameter_support"] = support(answer)
+    if kind == "review":
+        answer["sensitivity_review"] = {"interpretation": "Fixed synthetic inputs do not establish accuracy.",
+                                        "influential_inputs": ["probability"], "next_evidence": "Obtain the fictional release log."}
+    return answer
 
 
 class StudyTests(unittest.TestCase):
@@ -53,7 +81,7 @@ class StudyTests(unittest.TestCase):
         self.assertEqual(self.w.status(), before)
         self.cli("define", "--project", self.project, *self.rules, "--yes", "Different event", success=False)
         self.assertEqual(self.w.status(), before)
-        self.assertEqual(self.data("show")["stage"], "prior")
+        self.assertEqual(self.data("show")["stage"], "intake")
         self.assertTrue(self.w.doctor()["ok"])
 
     def test_complete_definition_starts_once_with_human_defaults(self):
@@ -108,14 +136,14 @@ class StudyTests(unittest.TestCase):
         before = self.w.status()
         self.cli("submit", "--project", self.project, "--from", path, success=False)
         self.assertEqual(self.w.status(), before)
-        task["submission"]["payload"] = payload("prior", [])
+        task["submission"]["payload"] = intake()
         path.write_text(json.dumps(task))
         self.cli("next", "--project", self.project, "--output", path, success=False)
         self.assertEqual(json.loads(path.read_text()), task)
         self.data("submit", "--from", path)
         accepted = self.w.status()
         self.assertTrue(self.data("submit", "--from", path)["duplicate"])
-        task["submission"]["payload"]["probability"] = .99
+        task["submission"]["payload"]["rationale"] = "A changed answer."
         path.write_text(json.dumps(task))
         error = self.cli("submit", "--project", self.project, "--from", path, success=False)
         self.assertIn("Idempotency", error)
@@ -135,18 +163,18 @@ class StudyTests(unittest.TestCase):
         self.cli("report", "--project", self.project)
         self.assertTrue((self.project / "report.html").exists())
         refs = [self.w.import_packet(packet())["records"][0]["evidence_ref"]]
-        for index in range(9):
+        for index in range(10):
             path = self.root / f"task-{index}.json"
             self.cli("next", "--project", self.project, "--output", path)
             task = json.loads(path.read_text())
-            task["submission"]["payload"] = payload(task["task"]["kind"], refs)
+            task["submission"]["payload"] = study_payload(task["task"]["kind"], refs)
             task["submission"]["usage"] = {"searches": 0, "cost_usd": 0, "model_calls": 0}
             path.write_text(json.dumps(task))
             output = self.cli("submit", "--project", self.project, "--from", path)
-            if index == 1:
+            if index == 2:
                 self.assertIn("Remaining delays.", output)
                 self.assertIn("Synthetic factory record", output)
-            if index == 6:
+            if index == 7:
                 self.assertIn("Working estimate: 60.0%", output)
                 self.assertIn("Not an accuracy claim.", output)
         self.assertIn("Published forecast: 60.0%", output)
@@ -168,13 +196,15 @@ class StudyTests(unittest.TestCase):
 
     def test_timeline_tasks_and_model_are_visible_without_issuing_early(self):
         self.begin("--workflow", "timeline", "--deadline", "2029-01-01")
-        self.assertEqual(self.data("next")["task"]["kind"], "timeline_structure")
+        self.assertEqual(self.data("next")["task"]["kind"], "intake")
         spec = weighted(model())
         spec["question"]["question_id"] = "question"
         mid = timeline.add(self.w.store, spec)["timeline_model_id"]
         while (task := study.next_task(self.w))["disposition"] == "actionable":
             kind = task["task"]["kind"]
-            if kind == "timeline_structure":
+            if kind == "intake":
+                answer = intake()
+            elif kind == "timeline_structure":
                 answer = {"timeline_model_id": mid, "rationale": "Synthetic dependency model."}
             elif kind == "timeline_research":
                 current = task["task"]["timeline_context"]["model"]
@@ -185,13 +215,17 @@ class StudyTests(unittest.TestCase):
             elif kind == "assessment":
                 answer = {"method": "timeline_model", "timeline_model_id": task["task"]["timeline_context"]["timeline_model_id"],
                           "rationale": "Calculate from declared scenarios.", "limitations": ["Synthetic assumptions."], "evidence_refs": []}
+                answer["parameter_support"] = support(answer, task["task"]["timeline_context"]["model"])
             else:
-                answer = payload(kind, [])
+                answer = study_payload(kind, [])
+                if kind == "review":
+                    answer["sensitivity_review"]["influential_inputs"] = list(task["context"]["model_inputs"])
             task["submission"]["payload"] = answer
             study.submit(self.w, task)
             output = self.cli("show", "--project", self.project)
-            self.assertIn("Model calculation: 70.0%", output)
-            if kind != "issue":
+            if kind != "intake":
+                self.assertIn("Model calculation: 70.0%", output)
+            if kind not in ("intake", "issue"):
                 self.assertIn("not an issued forecast", output)
         self.assertIn("Published forecast: 70.0%", output)
         self.assertTrue(self.w.doctor()["ok"])

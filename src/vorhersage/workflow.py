@@ -8,12 +8,14 @@ from .common import canonical, digest, identifier, now, probability, require, ti
 from .evidence import validate_packet, audit as evidence_audit
 from .scenarios import calculate as scenario_calculate
 from .odds import calculate as odds_calculate
-from . import timeline
+from . import timeline, research_model
 from .relations import audit as coherence_audit
 from .schemas import SCHEMAS, check
 from .store import Store
 
 INSTRUCTIONS = {
+    "intake": "Name the model inputs and missing case facts before estimating. Link each unknown to input IDs and choose ask_user, search, assumption, or unobservable. Give a concrete action and explain why it matters. When several influential facts are known to the human user and ep is available, offer a short personal survey via ep humanize; explain which inputs the answers could inform. Chat answers also work. See vorhersage guide for survey creation and response capture. An empty unknown list needs an explanation in rationale.",
+    "inquiry": "Carry out the declared research action. Ask the user for facts they know; use dated evidence for observations. Related ask_user questions can be collected through an optional ep humanize survey for that user; preserve the question-to-input mapping and capture the actual answers as self-reported evidence. Record an answer or explicitly leave this unresolved with reasons. Do not turn an interpretation into an observed fact.",
     "prior": "Establish a labeled judgmental prior or a reference class with cases and evidence. Explain comparability and limitations.",
     "drivers": "Map mechanisms and necessary steps, including concrete paths to YES and NO. Identify important unknowns.",
     "research": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
@@ -44,11 +46,14 @@ def evidence_refs(value):
     return list({canonical(r): r for r in refs}.values())
 
 
-def verify_refs(c, refs, cutoff):
+def verify_refs(c, refs, cutoff, *, context="the run information cutoff"):
     records = []
     for ref in refs:
         packet = Store.artifact(c, ref["packet_id"], "packet")
-        require(time(packet["information_as_of"]) <= time(cutoff), "Packet cutoff is later than the run's information cutoff.")
+        require(time(packet["information_as_of"]) <= time(cutoff),
+                f"Packet {ref['packet_id']} cutoff {packet['information_as_of']} is later than {context} {cutoff}. "
+                "Preserve actual observation and retrieval times. For new evidence after an issued forecast, use revise; "
+                "for future-dated records, correct only demonstrably erroneous timestamps.", "evidence_after_cutoff")
         matches = [r for r in packet["records"] if r["id"] == ref["record_id"]]
         require(len(matches) == 1, "Unknown evidence record: " + ref["record_id"], "not_found")
         records.append({"reference": ref, "record": matches[0]})
@@ -86,6 +91,10 @@ class Workflow:
 
     def import_packet(self, packet):
         packet = validate_packet(packet)
+        checked_at = now()
+        require(time(packet["information_as_of"]) <= time(checked_at) and time(packet["created_at"]) <= time(checked_at),
+                f"Evidence packet is future-dated relative to current time {checked_at}. "
+                "Use evidence add to record the current capture time; preserve genuine historical source times.", "future_evidence")
         id = "pkt_" + packet["sha256"][:24]
         with self.store.connect(True) as c:
             Store.put(c, "packet", packet, id=id)
@@ -143,6 +152,8 @@ class Workflow:
             state["prior_record"] = {"timing": "not_applicable", "qualification": "Timeline workflow has no starting-probability task."}
             if old and old.get("timeline_model_id"):
                 self._bind_timeline(c, body, state, old["timeline_model_id"])
+        if spec.get("research_contract") == "structured_v1":
+            state["pending"].insert(0, task("intake"))
         if protocol:
             state["artifact_ids"].extend([protocol["method_spec_id"], protocol["experiment_id"], *protocol["packet_ids"]])
         c.execute("INSERT INTO runs VALUES (?,?,?,0)", (id, canonical(body), canonical(state)))
@@ -188,8 +199,17 @@ class Workflow:
                 return {"disposition": "blocked", "run_id": run_id, "revision": revision,
                         "reason": "Experiment forecast cutoff passed."}
         packet_ids = sorted({r["packet_id"] for r in state["evidence_refs"]})
+        payload_schema = copy.deepcopy(SCHEMAS[selected["kind"]])
+        if run.get("research_contract") == "structured_v1":
+            extra = {"prior": "research_status_at_estimate", "assessment": "parameter_support", "review": "sensitivity_review"}.get(selected["kind"])
+            if extra:
+                payload_schema["required"].append(extra)
+            if selected["kind"] == "assessment":
+                selected["instruction"] += " Supply parameter_support for every numeric/model input, linking the intake input IDs. Distinguish what evidence measured from the target and declare transfer assumptions and ranges."
+            if selected["kind"] == "review":
+                selected["instruction"] += " Inspect context.sensitivity and model_inputs. Address influential assumptions and what obtainable evidence could narrow them in sensitivity_review."
         return {"disposition": "actionable", "run_id": run_id, "revision": revision,
-                "task": selected, "submission_schema": SCHEMAS["submit"], "payload_schema": SCHEMAS[selected["kind"]],
+                "task": selected, "submission_schema": SCHEMAS["submit"], "payload_schema": payload_schema,
                 "budget": {"searches_remaining": run["max_searches"] - state["used_searches"],
                            "extra_tasks_remaining": run["max_extra_tasks"] - state["extra_tasks"],
                            "reported_cost_usd": state["cost_usd"], "reported_model_calls": state["model_calls"]},
@@ -197,7 +217,12 @@ class Workflow:
                             "artifacts": {id: Store.artifact(c, id) for id in state["artifact_ids"]},
                             "evidence": verify_refs(c, state["evidence_refs"], run["information_as_of"]),
                             "evidence_audits": {id: evidence_audit(Store.artifact(c, id, "packet")) for id in packet_ids},
-                            "prior_record": state.get("prior_record")}}
+                            "prior_record": state.get("prior_record"),
+                            "research_plan": state.get("research_plan"),
+                            "inquiry_answers": state.get("inquiry_answers", {}),
+                            "model_inputs": state.get("model_inputs", {}),
+                            "sensitivity": state.get("sensitivity"),
+                            "previous_forecast": Store.artifact(c, run["previous_forecast_id"], "forecast") if run.get("previous_forecast_id") else None}}
 
     def submit(self, run_id, result):
         check(result, "submit")
@@ -232,7 +257,9 @@ class Workflow:
                         state["cost_usd"] + usage["cost_usd"] <= method["budget"]["max_cost_usd"],
                         "Experiment reported model/cost budget exhausted.", "budget_exhausted")
             usage = result.get("usage", {"searches": 0, "cost_usd": 0, "model_calls": 0})
-            require(state["used_searches"] + usage["searches"] <= run["max_searches"], "Research budget exhausted; submit existing evidence or explicit unknowns.", "budget_exhausted")
+            require(state["used_searches"] + usage["searches"] <= run["max_searches"],
+                    f"Research budget exhausted: {state['used_searches']} searches recorded + {usage['searches']} newly reported exceeds {run['max_searches']}. "
+                    "Count a reused search only once, but never reduce actual usage to pass validation. Stop additional searches and report the overrun to the user.", "budget_exhausted")
             state["used_searches"] += usage["searches"]
             state["cost_usd"] += usage["cost_usd"]
             state["model_calls"] += usage["model_calls"]
@@ -267,6 +294,21 @@ class Workflow:
 
     def _apply(self, c, run, state, selected, p):
         kind = selected["kind"]
+        structured = run.get("research_contract") == "structured_v1"
+        if kind == "intake":
+            research_model.validate_intake(p)
+            state["research_plan"] = p
+            state["inquiry_answers"] = {}
+            state["pending"][1:1] = [task("inquiry", inquiry=q) for q in p["unknowns"]]
+            return {"research_actions": len(p["unknowns"])}
+        if kind == "inquiry":
+            q = selected["inquiry"]
+            require(q["route"] != "unobservable" or p["status"] == "unresolved",
+                    "An unobservable input remains unresolved; explain the retained uncertainty.")
+            require(p["status"] != "answered" or q["route"] not in ("ask_user", "search") or p["evidence_refs"],
+                    "Answered user questions and searches need a captured finding; use evidence add.")
+            state["inquiry_answers"][q["id"]] = p
+            return {"input_ids": q["input_ids"], "status": p["status"]}
         if kind == "timeline_structure":
             spec = self._bind_timeline(c, run, state, p["timeline_model_id"])
             # Each structure pass owns its revisions, including repeated experiment trials.
@@ -296,9 +338,16 @@ class Workflow:
             return {"timeline_model_id": new_id, "gaps": timeline.gaps(spec)}
         if kind == "prior":
             status = run.get("research_status", "unspecified")
-            state["prior_record"] = {"research_status_at_run_start": status, "recorded_at": now(),
-                                     "timing": "declared_before_research" if status == "not_started" else
-                                     ("after_research_started" if status in ("in_progress", "completed") else "unspecified"),
+            require(not structured or "research_status_at_estimate" in p,
+                    "Declare research_status_at_estimate; run-start status does not describe later research.")
+            declared = p.get("research_status_at_estimate", status)
+            observed_research = bool(state["used_searches"] or evidence_refs(p) or
+                                     any(a["status"] == "answered" for a in state.get("inquiry_answers", {}).values()))
+            after = observed_research or status in ("in_progress", "completed") or declared in ("in_progress", "completed")
+            state["prior_record"] = {"research_status_at_run_start": status, "research_status_at_estimate": declared,
+                                     "recorded_research_before_estimate": observed_research, "recorded_at": now(),
+                                     "timing": "after_research_started" if after else
+                                     "declared_before_research" if declared == "not_started" else "unspecified",
                                      "qualification": "Research status is an agent declaration; external research history is not independently observable."}
             if p["method"] == "judgment":
                 require("probability" in p and "cases" not in p, "Judgment prior needs a probability, without reference-class cases.")
@@ -376,7 +425,7 @@ class Workflow:
             elif method == "scenario_mixture":
                 require(not any(k in p for k in ("components", "members", "weights", "nested_events_justification")), "Scenario mixture cannot include path or ensemble fields.")
                 require("scenarios" in p and "partition_justification" in p, "Scenario mixture needs scenarios and partition justification.")
-                calculation = scenario_calculate({k: p[k] for k in ("scenarios", "partition_justification")})
+                calculation = scenario_calculate(research_model.mixture(p))
                 value = calculation["probability"]
             else:
                 require(bool(p.get("members")) and "components" not in p, "Ensemble needs forecast member IDs.")
@@ -391,6 +440,16 @@ class Workflow:
                 value = math.fsum(w * m["probability"] for w, m in zip(weights, members))
                 state["artifact_ids"] = list(dict.fromkeys(state["artifact_ids"] + p["members"]))
             probability(value)
+            if structured or p.get("parameter_support"):
+                plan = state.get("research_plan")
+                require(plan is not None, "Parameter support requires an intake research plan.")
+                research_model.validate_support(p, plan, spec if method == "timeline_model" else None)
+            state["model_inputs"] = research_model.model_inputs(p, spec if method == "timeline_model" else None)
+            state["parameter_support"] = p.get("parameter_support", [])
+            state["sensitivity"] = calculation if method == "scenario_mixture" else (
+                {"probability": value, "bounded_range": p["parameter_support"][0]["plausible_range"],
+                 "limitations": ["Declared assumption range, not a confidence interval."]}
+                if method == "judgment" and p.get("parameter_support") else None)
             require("probability" not in p or math.isclose(p["probability"], value), "Supplied probability differs from computed estimate.")
             state["probability"] = value
             state["probability_basis"] = method
@@ -399,6 +458,13 @@ class Workflow:
                     **({"odds_analysis": calculation} if method == "odds_ledger" else {}),
                     **({"scenario_analysis": calculation} if method == "scenario_mixture" else {})}
         if kind == "review":
+            require("parameter_support" not in p or p["decision"] == "revise",
+                    "New parameter support on a review requires decision revise; retain preserves the existing inputs.")
+            if structured:
+                require("sensitivity_review" in p,
+                        "Supply sensitivity_review addressing influential inputs, assumption sensitivity, and obtainable next evidence.")
+                require(set(p["sensitivity_review"]["influential_inputs"]) <= set(state.get("model_inputs", {})),
+                        "Sensitivity review must name actual model_input paths.")
             require({o["direction"] for o in p["objections"]} == {"too_high", "too_low"}, "Review must challenge the estimate in both directions.")
             if p["decision"] == "research":
                 more = p.get("research_tasks", [])
@@ -416,6 +482,13 @@ class Workflow:
                 state["pending"][1:1] = [*new, task("assessment"), task("review")]
             elif p["decision"] == "revise":
                 require("probability" in p, "Revised review needs a probability.")
+                if structured:
+                    research_model.validate_support({**p, "method": "judgment"}, state["research_plan"])
+                    state["parameter_support"] = p["parameter_support"]
+                    state["model_inputs"] = {"probability": p["probability"]}
+                    state["sensitivity"] = {"probability": p["probability"],
+                                            "bounded_range": p["parameter_support"][0]["plausible_range"],
+                                            "limitations": ["Declared review judgment range, not a confidence interval."]}
                 state["probability"] = p["probability"]
                 state["probability_basis"] = "review_judgment"
             else:
@@ -444,6 +517,8 @@ class Workflow:
                         "input_manifest": manifest, "manifest_sha256": digest(manifest),
                         "evidence_refs": state["evidence_refs"], "cost_usd": state["cost_usd"],
                         "prior_record": state.get("prior_record", {"timing": "unspecified"}),
+                        "research_plan": state.get("research_plan"), "inquiry_answers": state.get("inquiry_answers", {}),
+                        "parameter_support": state.get("parameter_support", []), "sensitivity": state.get("sensitivity"),
                         "searches": state["used_searches"], "model_calls": state["model_calls"], **p}
             if state.get("timeline_model_id"):
                 forecast["timeline_model_id"] = state["timeline_model_id"]
@@ -473,9 +548,11 @@ class Workflow:
                 return retry
             if spec.get("question_id"):
                 Store.question(c, spec["question_id"])
-            verify_refs(c, spec["evidence_refs"], now())
+            verify_refs(c, spec["evidence_refs"], now(), context="current time for signal registration")
             refs = {canonical(r) for r in spec["evidence_refs"]}
             affected = [f["id"] for f in Store.all(c, "forecast") if f["question_id"] == spec.get("question_id") or refs.intersection(canonical(r) for r in f["evidence_refs"])]
+            require(affected or spec.get("question_id"),
+                    "These new findings do not identify an existing forecast. Supply question_id, or use revise --project FOLDER --evidence PACKET:RECORD.")
             id = Store.put(c, "signal", {**spec, "affected_forecast_ids": affected, "recorded_at": now()})
             result = {"signal_id": id, "affected_forecast_ids": affected}
             Store.remember(c, "signal", spec["idempotency_key"], spec, result)
