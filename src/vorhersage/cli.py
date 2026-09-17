@@ -1,4 +1,4 @@
-"""JSON-first CLI. Agents supply research and judgment through typed submissions."""
+"""Forecasting tools for people and agents, with explicit research and judgment."""
 
 import argparse
 import json
@@ -24,9 +24,19 @@ from .store import Store
 from .workflow import Workflow
 from .reference import add as add_reference, query as query_reference
 from . import experiments, sessions, session_runtime, session_studies, session_reports
-from . import market_data, workbench, reports, setup
+from . import market_data, workbench, reports, setup, study, study_text
 
-GUIDE = """Create a project, register a precise binary question, and start a run.
+GUIDE = """For one question, use start TEXT --project FOLDER. This saves an undefined question, without inventing a probability.
+Supply --deadline TIME --yes CRITERIA --source SOURCE to start research immediately, or record them later with define --project FOLDER.
+Agents should agree on the event definition with the user and supply --forecaster NAME for attribution. The default forecaster is user.
+Define starts research automatically. Use --workflow timeline for a deadline model; declare --research-status in_progress or completed if research has already begun.
+Use show --project FOLDER for readable progress, and next --project FOLDER --output task.json for the agent task and context.
+Fill the task file's submission.payload according to payload_schema; add submission.usage for research/model usage. Preserve its run_id and submission bookkeeping.
+Use submit --project FOLDER --from task.json, then next with a new output filename. Exact retries are safe; stale or altered retries fail.
+The forecaster does the research and judgment, directly or with an agent; these commands do not call a model or browse automatically.
+Use report --project FOLDER to export a full HTML report, including work in progress. --output FILE also supports LaTeX.
+The commands below support portfolios and explicit low-level control.
+Create a project, register a precise binary question, and start a run.
 Use init PROJECT --question TEXT --deadline TIME --yes CRITERIA --source SOURCE to create a project and question together.
 Use question add TEXT --deadline TIME --yes CRITERIA --source SOURCE for another question; the general research profile is the default.
 Use run start QUESTION_ID to begin research with standard defaults, or --from FILE for fully specified agent inputs.
@@ -63,15 +73,16 @@ class Parser(argparse.ArgumentParser):
         raise Error("invalid_arguments", message)
 
 
-def question_options(parser, *, initializing=False):
+def question_options(parser, *, initializing=False, default_id_help=None):
     if initializing:
         source = parser.add_mutually_exclusive_group()
-        source.add_argument("--question", help="Forecasting question to register in the new project")
+        source.add_argument("--question", help="Forecasting question to register")
         source.add_argument("--from", dest="input", help="Complete question JSON instead of inline options")
     else:
         parser.add_argument("question", nargs="?", help="Forecasting question")
         parser.add_argument("--from", dest="input", help="Complete question JSON instead of inline options")
-    parser.add_argument("--id", dest="question_id", help="Question ID (default: project directory for init, otherwise derived from the question)")
+    parser.add_argument("--id", dest="question_id", help="Question ID (default: " +
+                        (default_id_help or "project directory for init, otherwise derived from the question") + ")")
     parser.add_argument("--deadline", help="Event deadline; YYYY-MM-DD means midnight UTC, or supply a timestamp with timezone")
     parser.add_argument("--yes", help="Criteria for a YES outcome (required for inline questions)")
     parser.add_argument("--source", help="Resolution source or policy (required for inline questions)")
@@ -97,10 +108,47 @@ def run_options(parser):
     parser.add_argument("--max-extra-tasks", type=int, help="Additional review tasks (default: 2)")
 
 
+def study_options(parser):
+    """Ordinary run settings, without exposing identifiers or internal state."""
+    parser.add_argument("--forecaster", default="user", help="Who supplies the judgments (default: user)")
+    parser.add_argument("--method", help="Method description (default: declared judgment or declared timeline)")
+    parser.add_argument("--research-status", choices=("not_started", "in_progress", "completed", "unspecified"), default="not_started")
+    parser.add_argument("--workflow", choices=("standard", "timeline"), default="standard")
+    parser.add_argument("--max-searches", type=int, default=20)
+    parser.add_argument("--max-extra-tasks", type=int, default=2)
+
+
+def study_settings(args):
+    return {"forecaster": args.forecaster,
+            "method": args.method or ("declared timeline" if args.workflow == "timeline" else "declared judgment"),
+            "research_status": args.research_status, "workflow_name": args.workflow,
+            "max_searches": args.max_searches, "max_extra_tasks": args.max_extra_tasks}
+
+
+def human_output(args):
+    if getattr(args, "json", False):
+        return False
+    if args.command in ("start", "define", "show"):
+        return True
+    if args.command in ("next", "submit"):
+        return args.run is None
+    return args.command == "report" and not args.question and args.format not in ("json", "markdown")
+
+
 def parser():
     p = Parser(description=__doc__)
     p.add_argument("--project", type=Path, default=Path.cwd())
     commands = p.add_subparsers(dest="command", required=True)
+    start = commands.add_parser("start", help="Start a forecast from a question")
+    question_options(start, default_id_help="question")
+    define = commands.add_parser("define", help="Set the outcome rules and begin research")
+    question_options(define, initializing=True, default_id_help="question")
+    for ap in (start, define):
+        study_options(ap)
+    show = commands.add_parser("show", help="Read the forecast and research progress")
+    for ap in (start, define, show):
+        ap.add_argument("--project", type=Path, default=argparse.SUPPRESS)
+        ap.add_argument("--json", action="store_true", help="Machine-readable output")
     init = commands.add_parser("init")
     init.add_argument("path", nargs="?", type=Path)
     init.add_argument("--name", help="Project name (default: Forecast portfolio)")
@@ -257,16 +305,22 @@ def parser():
             if action in ("show", "audit"):
                 ap.add_argument("id")
     nxt = commands.add_parser("next")
-    nxt.add_argument("--run", required=True)
+    nxt.add_argument("--run", help="Explicit run for a portfolio; omit for a single-question study")
+    nxt.add_argument("--output", type=Path, help="Write a new agent task file with an answer template")
     submit = commands.add_parser("submit")
-    submit.add_argument("--run", required=True)
+    submit.add_argument("--run", help="Explicit run for a portfolio; omit when submitting a study task file")
     submit.add_argument("--from", dest="input", required=True)
+    for ap in (nxt, submit):
+        ap.add_argument("--project", type=Path, default=argparse.SUPPRESS)
+        ap.add_argument("--json", action="store_true")
     for name in ("resolve", "evaluate", "signal"):
         ap = commands.add_parser(name)
         ap.add_argument("--from", dest="input", required=True)
     report = commands.add_parser("report")
-    report.add_argument("--question", required=True)
-    report.add_argument("--format", choices=["json", "markdown", "html", "latex"], help="Default: JSON on stdout, otherwise infer from output extension")
+    report.add_argument("--question", help="Explicit question for a portfolio; omit for a single-question study")
+    report.add_argument("--project", type=Path, default=argparse.SUPPRESS)
+    report.add_argument("--json", action="store_true")
+    report.add_argument("--format", choices=["json", "markdown", "html", "latex"], help="Default: HTML for a study, JSON with --question; infer from output extension")
     report.add_argument("--output", type=Path)
     report.add_argument("--attachment", type=Path, action="append", default=[], help="Supplemental JSON model/research file; does not alter recorded evidence")
     report.add_argument("--narrative", type=Path, help="Authored explanation JSON tied to the current report snapshot")
@@ -312,6 +366,25 @@ def dispatch(args):
     w = Workflow(args.project)
     s = w.store
     command = args.command
+    if command == "start":
+        if args.input or any(getattr(args, key) is not None for key in setup.QUESTION_OPTIONS):
+            question = setup.question_input(args, default_id="question")
+            return study.start(args.project, question["text"], question, **study_settings(args))
+        require(args.question and args.question.strip(), "Enter the question you want to forecast.")
+        require(study_settings(args) == {"forecaster": "user", "method": "declared judgment", "research_status": "not_started",
+                                        "workflow_name": "standard", "max_searches": 20, "max_extra_tasks": 2},
+                "Supply outcome rules to use research settings now, or pass the settings to define later.")
+        return study.start(args.project, args.question)
+    if command == "define":
+        with s.connect() as c:
+            brief = study.brief(c)
+        if not args.input:
+            require(args.question in (None, brief["question"]), "Definition must retain the original question.")
+            args.question = brief["question"]
+        question = setup.question_input(args, default_id="question")
+        return study.define(w, question, **study_settings(args))
+    if command == "show":
+        return study.show(s)
     if command == "version":
         return {"version": __version__, "schema_version": "1", "runtime_dependencies": []}
     if command == "guide":
@@ -459,9 +532,17 @@ def dispatch(args):
     if command in ("status", "monitor", "doctor"):
         return getattr(w, command)()
     if command == "next":
-        return w.next(args.run)
+        require(not (args.run and args.output), "Task file export is for single-question studies; omit --run.")
+        if args.run:
+            return w.next(args.run)
+        with s.connect() as c:
+            defined = c.execute("SELECT 1 FROM artifacts WHERE id=?", (study.BINDING,)).fetchone()
+        if not defined:
+            require(not args.output, "Define the question before exporting a research task.")
+            return study.show(s)
+        return study.next_task(w, args.output)
     if command == "submit":
-        return w.submit(args.run, load(args.input))
+        return w.submit(args.run, load(args.input)) if args.run else study.submit(w, load(args.input))
     if command == "profile":
         if args.action == "add":
             return w.add_profile(load(args.input))
@@ -498,13 +579,18 @@ def dispatch(args):
             return start_case(args.project, load(args.cases), args.case, args.forecaster, args.method)
         return evaluate_replay(s, load(args.cases), load(args.labels), load(args.manifest), load(args.input))
     if command == "report":
+        question = args.question or study.binding(s)["question_id"]
+        if args.json and args.format is None and not args.output:
+            args.format = "json"
+        if not args.question and not args.output and args.format not in ("json", "markdown"):
+            args.output = s.root / ("report.tex" if args.format == "latex" else "report.html")
         if args.output:
             require(args.format != "markdown", "Markdown reports use stdout; omit --output.")
-            return reports.export(reports.question_data(s, args.question), args.output, args.format, args.attachment, args.narrative)
+            return reports.export(reports.question_data(s, question), args.output, args.format, args.attachment, args.narrative)
         require(args.format in (None, "json", "markdown"), "HTML and LaTeX reports require --output.")
         require(not args.attachment, "Report attachments require --output.")
         require(not args.narrative, "Report narratives require --output.")
-        return w.report(args.question)
+        return w.report(question)
     if command == "epiq":
         client = Epiq(args.db, args.epiq_source)
         if args.action == "search":
@@ -523,6 +609,7 @@ def dispatch(args):
 
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
+    args = None
     try:
         args = parser().parse_args(argv)
         if args.command == "watch" and args.action == "run":
@@ -540,6 +627,15 @@ def main(argv=None):
                 pass
             return
         data = dispatch(args)
+        if human_output(args):
+            if args.command == "report":
+                print("Report saved to " + str(args.output.resolve()))
+            else:
+                print(study_text.render(data if args.command in ("start", "define", "show") else study.show(Store(args.project))))
+                if args.command == "next" and args.output:
+                    print("\nTask saved to " + str(args.output.resolve()) +
+                          ". Fill submission.payload, then submit --from this file.")
+            return
         if args.command == "timeline" and args.format == "text":
             print(timeline_text.render(args.action, data))
             return
@@ -559,6 +655,9 @@ def main(argv=None):
         print(json.dumps({"schema_version": "1", "status": "ok", "command": args.command,
                           "data": data, "warnings": [], "errors": [], "next_actions": actions}, indent=2, allow_nan=False))
     except (Error, OSError, ValueError, KeyError, TypeError, sqlite3.Error, subprocess.SubprocessError) as exc:
+        if args is not None and human_output(args):
+            print("Error: " + str(exc), file=sys.stderr)
+            raise SystemExit(1)
         print(json.dumps({"schema_version": "1", "status": "error", "data": None,
                           "errors": [{"code": getattr(exc, "code", "operation_failed"), "message": str(exc)}],
                           "warnings": [], "next_actions": []}), file=sys.stderr)

@@ -12,6 +12,16 @@ preserves forecasts, tracks review work, and evaluates resolved predictions.
 
 ## Start and resume
 
+For one question, use the [single-question interface](SINGLE_QUESTION.md):
+`start`, `define`, `show`, `next --output`, `submit --from`, and `report` manage
+the question and run identifiers. These commands show readable progress by
+default; add `--json` for structured output. Agents should supply their own
+`--forecaster` attribution instead of retaining the default `user`.
+Both people and agents fill the same validated task answers.
+
+The explicit portfolio interface below remains available, with JSON output and
+full control over question versions, run selection, cutoffs, and revisions.
+
 Create a project and a real question in one command:
 
 ```bash

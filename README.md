@@ -385,8 +385,26 @@ replay and the limits of procedural checklists.
 
 ## Try it on your question
 
-Give your agent the question you want to forecast and this setup block. Ask it
-to show you the model and the assumptions you should review, alongside the number.
+Start with the question itself:
+
+```bash
+vorhersage start "Will our app launch before January 1, 2030?" --project launch
+```
+
+The CLI asks you to define what counts, the deadline, and the sources that will
+settle the outcome. Supply them with `define`, or include `--deadline`, `--yes`,
+and `--source` in the initial `start` command. Once defined, the research workflow
+begins automatically.
+
+Use `vorhersage show --project launch` to read progress and
+`vorhersage next --project launch --output task.json` to get the next task and
+answer template. You can fill the task file yourself or work with an agent.
+`vorhersage report --project launch` exports the recorded work as HTML.
+The [single-question guide](docs/SINGLE_QUESTION.md) walks through an answer,
+submission, review, and report export.
+
+For an agent with Expected Parrot access, copy the setup below and ask it to
+show you the model and the assumptions you should review, alongside the number.
 
 ### Copy and paste into an agent
 
@@ -413,11 +431,12 @@ Read the installed guide, then create or resume a project:
 
 vorhersage guide
 
-Follow the guide and CLI schemas to register the question, research it,
-record the model and issue a forecast. Use `next` and `submit` to advance
-the run. Preserve sources, assumptions and uncertainty. Finish with
-`vorhersage report --question QUESTION_ID --output report.html` and show
-me the forecast, its main drivers, and the report.
+For a new single-question study, use `start` and supply the agreed event
+definition. Set --forecaster to your agent name. Use `next --output` and
+`submit --from` to advance the research and review tasks. Preserve sources,
+assumptions and uncertainty. Finish with `report --project STUDY_FOLDER`
+and show me the forecast, its main drivers, and the report. For an existing
+portfolio, follow the guide's explicit question and run commands.
 ```
 
 This installs from GitHub and requires Git; uv supplies Python 3.11 if needed.
@@ -430,7 +449,8 @@ workers. For a persistent shell setup, run `uv tool update-shell`.
 
 | Your task | Start here |
 |---|---|
-| Research and maintain one forecast | [Agent guide](docs/AGENT_GUIDE.md) |
+| Work on one forecast yourself or with an agent | [Single-question guide](docs/SINGLE_QUESTION.md) |
+| Manage a portfolio and its forecast revisions | [Agent guide](docs/AGENT_GUIDE.md) |
 | Pick a live market, research, then compare with its hidden price | [Market workbench](docs/MARKET_WORKBENCH.md) |
 | Model a deadline through milestones and dependencies | [Timeline models](docs/TIMELINE_MODELS.md) |
 | Declare and audit likelihood-ratio updates | [Odds ledgers and widgets](docs/ODDS_LEDGER.md) |

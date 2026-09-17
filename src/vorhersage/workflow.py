@@ -68,16 +68,20 @@ class Workflow:
         return spec
 
     def question(self, spec, expected_version=None):
+        with self.store.connect(True) as c:
+            return self._question(c, spec, expected_version)
+
+    @staticmethod
+    def _question(c, spec, expected_version=None):
+        """Register a question inside a caller-owned transaction."""
         check(spec, "question")
         require(time(spec["resolve_after"]) >= time(spec["event_deadline"]), "resolve_after must not precede event_deadline.")
-        with self.store.connect(True) as c:
-            require(c.execute("SELECT 1 FROM profiles WHERE id=?", (spec["profile"],)).fetchone(), "Unknown research profile.")
-            row = c.execute("SELECT MAX(version) FROM questions WHERE id=?", (spec["id"],)).fetchone()
-            current = row[0]
-            require(current == expected_version, "Question already exists or expected version is stale.", "version_conflict")
-            version = (current or 0) + 1
-            c.execute("INSERT INTO questions VALUES (?,?,?,?)", (spec["id"], version, canonical(spec), now()))
-            Store.event(c, "question.version", {"id": spec["id"], "version": version, "specification": spec})
+        require(c.execute("SELECT 1 FROM profiles WHERE id=?", (spec["profile"],)).fetchone(), "Unknown research profile.")
+        current = c.execute("SELECT MAX(version) FROM questions WHERE id=?", (spec["id"],)).fetchone()[0]
+        require(current == expected_version, "Question already exists or expected version is stale.", "version_conflict")
+        version = (current or 0) + 1
+        c.execute("INSERT INTO questions VALUES (?,?,?,?)", (spec["id"], version, canonical(spec), now()))
+        Store.event(c, "question.version", {"id": spec["id"], "version": version, "specification": spec})
         return {"question_id": spec["id"], "version": version}
 
     def import_packet(self, packet):
@@ -158,38 +162,42 @@ class Workflow:
 
     def next(self, run_id):
         with self.store.connect() as c:
-            run, state, revision = Store.run(c, run_id)
-            if not state["pending"]:
-                resolutions = self._resolutions(c, run["question_id"], run["question_version"])
-                return {"disposition": "complete" if resolutions and resolutions[-1]["outcome"] != "disputed" else "waiting",
-                        "run_id": run_id, "revision": revision, "forecast_id": state["forecast_id"],
-                        "monitor": self._monitor(c, run["question_id"])}
-            if run["mode"] == "prospective" and (time(now()) >= time(run["question"]["event_deadline"])
-                    or self._resolutions(c, run["question_id"], run["question_version"])):
+            return self._next(c, run_id)
+
+    def _next(self, c, run_id):
+        """Read a task within the caller's consistent database snapshot."""
+        run, state, revision = Store.run(c, run_id)
+        if not state["pending"]:
+            resolutions = self._resolutions(c, run["question_id"], run["question_version"])
+            return {"disposition": "complete" if resolutions and resolutions[-1]["outcome"] != "disputed" else "waiting",
+                    "run_id": run_id, "revision": revision, "forecast_id": state["forecast_id"],
+                    "monitor": self._monitor(c, run["question_id"])}
+        if run["mode"] == "prospective" and (time(now()) >= time(run["question"]["event_deadline"])
+                or self._resolutions(c, run["question_id"], run["question_version"])):
+            return {"disposition": "blocked", "run_id": run_id, "revision": revision,
+                    "reason": "Prospective deadline passed or a resolution was recorded. Preserve this run; any hindsight work needs a separate retrospective run."}
+        selected = copy.deepcopy(state["pending"][0])
+        if state.get("timeline_model_id"):
+            spec = timeline.read(c, state["timeline_model_id"])["specification"]
+            selected["timeline_context"] = {"timeline_model_id": state["timeline_model_id"],
+                                            "model": spec, "analysis": timeline.analyze(spec)}
+        if run.get("method_spec"):
+            method = run["method_spec"]
+            selected["instruction"] += "\n" + method["instructions"] + "\n" + method["task_instructions"].get(selected["kind"], "")
+            if time(now()) >= time(run["forecast_cutoff"]):
                 return {"disposition": "blocked", "run_id": run_id, "revision": revision,
-                        "reason": "Prospective deadline passed or a resolution was recorded. Preserve this run; any hindsight work needs a separate retrospective run."}
-            selected = copy.deepcopy(state["pending"][0])
-            if state.get("timeline_model_id"):
-                spec = timeline.read(c, state["timeline_model_id"])["specification"]
-                selected["timeline_context"] = {"timeline_model_id": state["timeline_model_id"],
-                                                "model": spec, "analysis": timeline.analyze(spec)}
-            if run.get("method_spec"):
-                method = run["method_spec"]
-                selected["instruction"] += "\n" + method["instructions"] + "\n" + method["task_instructions"].get(selected["kind"], "")
-                if time(now()) >= time(run["forecast_cutoff"]):
-                    return {"disposition": "blocked", "run_id": run_id, "revision": revision,
-                            "reason": "Experiment forecast cutoff passed."}
-            packet_ids = sorted({r["packet_id"] for r in state["evidence_refs"]})
-            return {"disposition": "actionable", "run_id": run_id, "revision": revision,
-                    "task": selected, "submission_schema": SCHEMAS["submit"], "payload_schema": SCHEMAS[selected["kind"]],
-                    "budget": {"searches_remaining": run["max_searches"] - state["used_searches"],
-                               "extra_tasks_remaining": run["max_extra_tasks"] - state["extra_tasks"],
-                               "reported_cost_usd": state["cost_usd"], "reported_model_calls": state["model_calls"]},
-                    "context": {"run": run, "coverage": state["coverage"], "current_probability": state["probability"],
-                                "artifacts": {id: Store.artifact(c, id) for id in state["artifact_ids"]},
-                                "evidence": verify_refs(c, state["evidence_refs"], run["information_as_of"]),
-                                "evidence_audits": {id: evidence_audit(Store.artifact(c, id, "packet")) for id in packet_ids},
-                                "prior_record": state.get("prior_record")}}
+                        "reason": "Experiment forecast cutoff passed."}
+        packet_ids = sorted({r["packet_id"] for r in state["evidence_refs"]})
+        return {"disposition": "actionable", "run_id": run_id, "revision": revision,
+                "task": selected, "submission_schema": SCHEMAS["submit"], "payload_schema": SCHEMAS[selected["kind"]],
+                "budget": {"searches_remaining": run["max_searches"] - state["used_searches"],
+                           "extra_tasks_remaining": run["max_extra_tasks"] - state["extra_tasks"],
+                           "reported_cost_usd": state["cost_usd"], "reported_model_calls": state["model_calls"]},
+                "context": {"run": run, "coverage": state["coverage"], "current_probability": state["probability"],
+                            "artifacts": {id: Store.artifact(c, id) for id in state["artifact_ids"]},
+                            "evidence": verify_refs(c, state["evidence_refs"], run["information_as_of"]),
+                            "evidence_audits": {id: evidence_audit(Store.artifact(c, id, "packet")) for id in packet_ids},
+                            "prior_record": state.get("prior_record")}}
 
     def submit(self, run_id, result):
         check(result, "submit")
