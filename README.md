@@ -1,259 +1,240 @@
 # Vorhersage
 
-**Make forecasts you can explain, challenge, and update.**
+**Research a question. Build a probability model. Share a forecast you can inspect.**
 
-[Read a complete forecast](https://expectedparrot.github.io/vorhersage/examples/nyc-2026-09-16/) ·
+[Example report](https://expectedparrot.github.io/vorhersage/examples/nyc-2026-09-16/) ·
 [Documentation](https://expectedparrot.github.io/vorhersage/) ·
 [Expected Parrot tools](https://expectedparrot.github.io/directory/)
 
-Will a product ship on time? Will Waymo launch in Boston by 2029? How likely is
-a team to win a championship?
+Vorhersage is a forecasting workbench for you and your AI agent. Give the agent a
+question—“Will Waymo launch in Boston by 2029?”—and use the package to organize
+the research, calculate a probability, and produce a report explaining the answer.
 
-Vorhersage helps you turn questions like these into **a probability with a case
-behind it**: what you found, which assumptions you made, how the calculation
-works, and what would change your mind. You can read the result as a report,
-challenge an influential assumption, and return later to update the forecast
-without losing its history.
+The useful part is being able to follow the reasoning. Which facts support the
+forecast? Which numbers are judgment calls? What happens if an approval takes six
+months longer? What new evidence would change the prediction? Vorhersage keeps
+the sources, model, and forecast history together so you can answer those questions.
 
-It is a Python package and command-line tool, designed to work with an AI agent.
-You bring the question; the agent researches it and proposes a model. Vorhersage
-organizes the work, checks the required inputs, performs the declared calculations,
-and saves the evidence and predictions. You can also supply your own research and
-judgments through the CLI.
+The agent searches and makes judgments; the Python package checks the recorded
+inputs, computes the declared model, and preserves the work. Its command-line
+interface lets an agent resume a study, revise a forecast, or compare methods.
 
-## A forecast, from question to answer
+## See it work: will Waymo launch in Boston before 2029?
 
-Imagine your team is about to release an app. Someone asks:
+This is an actual saved study, with research completed on **September 15, 2026**.
+It produced a **39% forecast**. Here's how the question became a model and a
+number—and how to challenge that number.
 
-> **“Will we launch next week?”**
+The commands below replay the saved research and calculations offline. The JSON
+input files are linked beside the steps that use them. To follow along, install
+Vorhersage using the [setup block below](#copy-and-paste-into-an-agent) and run
+from a checkout of this repository. Models have versioned names such as
+`waymo@1`, so the commands can be run as written. `--format text` displays readable
+results; the default JSON output provides the complete record for agents.
 
-Here is a small, fictional example of the work you would do with Vorhersage.
-The probabilities below are invented for the example; real research would need
-to justify them.
+### 1. Define what counts as a launch
 
-### Make the question answerable
+For this question, a launch means **paid rides available to the general public,
+with no in-vehicle safety driver, and both pickup and dropoff inside Boston,
+before January 1, 2029**. An invitation-only trial or a launch in Cambridge
+wouldn't satisfy it. A small service area inside Boston would.
 
-“Launch” could mean an internal demo, an invitation-only beta, or public access.
-We choose **QA passed and at least one external user able to access the public
-release within seven days**. The project records an exact deadline and the
-release log that will settle the question.
-
-That definition matters: a working build alone won't count as a public launch.
-
-Here is how you record that question. After [installing Vorhersage](#copy-and-paste-into-an-agent),
-create a project and add the definition (this teaching example assumes we are
-asking on September 16, 2026, at noon UTC):
+Create a project, load its research checklist, and register that
+[question definition](examples/waymo_boston_2029/independent_20260915/question.json):
 
 ```bash
-vorhersage init ./launch-question --name "App launch forecast"
-vorhersage --project ./launch-question question add --from - <<'JSON'
-{
-  "id": "app-launch",
-  "text": "Will the app launch publicly by September 23, 2026, at noon UTC?",
-  "yes": "QA has passed and at least one external user can access the public release by the deadline.",
-  "no": "By the deadline, QA has not passed or no external user can access the public release.",
-  "void": "The teaching fixture is withdrawn.",
-  "event_deadline": "2026-09-23T12:00:00Z",
-  "resolve_after": "2026-09-23T12:00:00Z",
-  "resolution_source": "urn:vorhersage:demo:release-log",
-  "event_group": "app-launch-demo",
-  "domain": "software",
-  "profile": "general",
-  "kind": "simulation"
-}
-JSON
+CASE="$PWD/examples/waymo_boston_2029/independent_20260915"
+vorhersage init ./waymo-demo --name "Waymo in Boston"
+cd ./waymo-demo
+vorhersage profile add --from "$CASE/walkthrough/profile.json"
+vorhersage question add --from "$CASE/question.json"
 ```
 
-`question add` saves the question as version 1 under `app-launch`. The `yes`,
-`no`, and `void` fields specify how to settle it; `resolution_source` identifies
-the fictional release log. `profile: "general"` selects the built-in research
-checklist, and `kind: "simulation"` labels this as a teaching example. At this
-point we have a question to investigate; we haven't issued a prediction yet.
+The question is now saved as **version 1**. Subsequent models refer to that exact
+wording and deadline.
 
-### Identify what has to happen, then research it
+### 2. Work out what needs researching
 
-For this release, public access requires QA to pass, followed by approval and
-deployment. We ask about both stages:
+Before searching, the forecaster sketched what would have to happen: legal
+permission, technical readiness, a fleet ready to operate, local validation,
+and public access. The first model left their dates and durations unknown.
 
-| What we need to know | What the fictional briefing tells us | Judgment used in the model |
-|---|---|---|
-| Will QA pass in time? | The last checks are scheduled, but defect severity is unknown. | 90% chance of passing by the deadline. |
-| If QA passes, will approval and deployment finish in time? | Both still need to happen; late QA leaves less time. | 80% chance of public access by the same deadline, **given QA passes**. |
-
-Vorhersage keeps the briefing alongside the judgments it supports. A reviewer
-can distinguish “the checks are scheduled” from “we assign a 90% chance.”
-
-### Turn those judgments into a probability
-
-The agent declares the two stages and their relationship. Vorhersage calculates:
-
-```text
-Chance of launching in time
-  = chance QA passes in time
-    × chance of launching in time given QA passes
-
-  = 90% × 80%
-  = 72%
-```
-
-The second number already accounts for how much time QA leaves for deployment.
-We are making a conditional estimate, not assuming the stages are independent.
-
-### Find the assumption worth investigating
-
-The useful discussion is now specific: **is 80% too optimistic about the time
-left after QA?** We can work through alternatives before deciding what to research:
-
-| Assumption about launch after QA | Resulting launch probability |
-|---|---:|
-| Approval is slow: only a 60% conditional chance | 90% × 60% = **54%** |
-| Original estimate: an 80% conditional chance | 90% × 80% = **72%** |
-| Approval is prepared in advance: a 95% conditional chance | 90% × 95% = **85.5%** |
-
-These are illustrative what-if calculations, not a confidence interval or three
-issued forecasts. They point to a useful next question for the release team:
-can approval happen during QA, and how long does deployment actually take?
-
-The workflow includes a review of why the estimate might be too high **and** too
-low. For this example, we retain the original assumptions and issue the forecast.
-In a real study, the review can send the agent back for more research.
-
-### Get a forecast you can use and revisit
-
-The result, in plain English:
-
-> **72% probability of public launch within seven days.**
->
-> **Why:** QA has a 90% chance of passing in time; conditional on that, approval
-> and deployment have an 80% chance of meeting the same deadline.
->
-> **Main uncertainty:** QA could finish so late that the 80% estimate is too high.
-> Preparing approval in advance could instead make it too low.
->
-> **Next review:** Tomorrow, or when QA results or the release schedule change.
-
-The project preserves the source, model, review, and issued prediction. Its HTML
-report brings those together for a reader; LaTeX and JSON exports are also
-available. When new evidence arrives, you can record a revised forecast and keep
-the original for comparison.
-
-This is what the package adds to a forecasting conversation: a question with
-clear rules, an inspectable model, a record of the research, and a prediction
-you can come back to. The quality of the evidence and judgment still matters;
-correct arithmetic alone cannot establish that 72% is a good forecast.
-
-<details>
-<summary><strong>Run this example yourself</strong> — offline, no account or model calls</summary>
-
-After installing Vorhersage below, run this from a source checkout:
+Load that [initial structure](examples/waymo_boston_2029/independent_20260915/outputs/structure_before_research.json)
+and ask the package what is missing:
 
 ```bash
-python3 examples/quickstart.py ./launch-demo
+vorhersage timeline add --from "$CASE/outputs/structure_before_research.json" --format text
+vorhersage timeline gaps independent_provisional@1 --format text
 ```
 
-The [script](examples/quickstart.py) supplies the fictional briefing and judgments
-through the public CLI. Vorhersage computes the 72% assessment and saves the
-project. Choose a new output directory, then open **`launch-demo/report.html`**.
-You can also inspect and export it yourself:
+The gaps identify concrete research tasks:
+
+| Unknown input | Research question |
+|---|---|
+| Legal permission | What state and city permissions are required, and when could they take effect? |
+| Technical readiness | How much Boston-specific preparation remains? |
+| Fleet readiness | When could vehicles, a depot, and support operations be ready? |
+| Local validation | What testing must happen after the prerequisites are met? |
+| Public access | How long could it take to move from testing to paid public rides? |
+
+The forecaster supplies the structure; Vorhersage identifies its unresolved
+inputs. At this stage, **the model has no probability**. It provides a research
+agenda. The [original research questions](examples/waymo_boston_2029/independent_20260915/outputs/research_questions.md)
+also ask what can happen in parallel and what could prevent a launch altogether.
+
+### 3. Bring evidence back to the model
+
+The agent researched official legislative records, city proposals, Waymo
+statements, and rollout histories in other cities. Here are three findings from
+that saved research:
+
+| Finding | How it affects the model |
+|---|---|
+| The two principal state enabling bills had reached study orders. | Legal permission remained a major source of delay. |
+| The restrictive Boston ordinance was recorded as filed, rather than verified enacted. | The model needed to allow several possible local approval paths. |
+| Other Waymo launches separated driverless operations, selected riders, and open public access. | Permission or testing alone could not count as a completed launch. |
+
+Each finding retains its source and qualifications in the
+[evidence file](examples/waymo_boston_2029/independent_20260915/outputs/evidence.json).
+For example, another city's rollout is an imperfect analogue for Boston; it
+cannot establish Boston's launch probability by itself.
+
+Import those **17 saved findings**:
 
 ```bash
-vorhersage --project ./launch-demo status
-vorhersage --project ./launch-demo report --question app-launch --output ./launch-demo/report.html
+vorhersage packet import --from "$CASE/outputs/evidence.json"
 ```
 
-The project includes the authored inputs in `inputs/`, task requests in `tasks/`,
-CLI responses in `receipts/`, and a `report.json` export. This script reproduces
-the original 72% forecast; the what-if alternatives above are explanatory.
+The research also changed the model's structure: state and local permission became
+separate stages, and some preparation could proceed while permissions were pending.
+This is where the agent's interpretation matters.
 
-</details>
+### 4. Calculate the forecast
 
-## What this looks like on real questions
+The forecaster built eight scenarios, assigned their dates and durations, and
+judged how likely each scenario was. The
+[completed model](examples/waymo_boston_2029/independent_20260915/walkthrough/model.json)
+records those assumptions and their evidence links.
 
-### Will Waymo launch public driverless service in Boston before 2029?
+```bash
+vorhersage timeline add --from "$CASE/walkthrough/model.json" --format text
+vorhersage timeline analyze waymo@1 --format text
+```
 
-The [saved Waymo study](examples/waymo_boston_2029/independent_20260915/README.md)
-uses a timeline model: state permission, local approvals, technical preparation,
-driverless validation, and public access. Some work can overlap; some has to wait.
-The package computes whether each proposed scenario reaches public access before
-the deadline.
+Vorhersage follows the dependencies, computes a launch date in each scenario,
+and sums the probability assigned to scenarios that meet the deadline:
 
-The September 15, 2026 forecast assigned these probabilities to successful scenarios:
+| Scenario | Assigned probability | Launch before 2029? |
+|---|---:|:---:|
+| Early permission, ordinary rollout | 22% | Yes |
+| Early permission, prolonged local delay | 8% | No |
+| Permission in the first half of 2028, ordinary rollout | 12% | Yes |
+| Late permission, accelerated rollout | 5% | Yes |
+| Late permission, ordinary rollout | 5% | No |
+| Major technical or operational delay | 5% | No |
+| State permission delayed | 40% | No |
+| Corporate or national disruption | 3% | No |
 
-| Scenario that meets the deadline | Assigned probability |
+**Computed probability: 22% + 12% + 5% = 39%.**
+
+The weights are subjective judgments. The package makes their consequences
+inspectable: a scenario with eventual permission can still miss the deadline
+because the remaining rollout takes too long.
+
+### 5. Challenge an assumption
+
+Suppose you think the final step to public access will take six months longer.
+Create an alternative that adds 180 days to that stage in every scenario,
+keeping the other inputs and scenario weights the same:
+
+```bash
+vorhersage timeline shift waymo@1 --parameter public_access --days 180 \
+  --name slower-access --rationale "Public access takes six months longer" --format text
+vorhersage timeline compare waymo@1 slower-access@1 --format text
+```
+
+| Model | Probability of launch before 2029 |
 |---|---:|
-| Early state permission, ordinary rollout | 22% |
-| Permission in the first half of 2028, ordinary rollout | 12% |
-| Permission in the third quarter of 2028, accelerated rollout | 5% |
-| **Total probability of launch by the deadline** | **39%** |
+| Original assumptions | **39%** |
+| Public access takes 180 additional days | **22%** |
 
-The other scenarios account for the remaining 61%. The weights are the forecaster's
-judgments; the package computes the schedules and adds the weights of scenarios
-that qualify. Moving 15 percentage points between early success and state delay
-changes the answer to **24% or 54%**. Adding 180 days to the final public-access
-stage lowers it to **22%**.
+The original model stays unchanged, and `slower-access@1` records its source
+and the reason for the change. Two previously successful scenarios now miss the deadline. That tells you why
+research into the time from testing to public access could matter. The difference
+is a sensitivity check, not a confidence interval.
 
-That makes disagreement actionable: a reviewer can challenge the timing of
-permission, a rollout duration, or a scenario's weight. See the
-[full explanation, sources, and assumptions](examples/waymo_boston_2029/independent_20260915/outputs/forecast_summary.md).
-This is a dated forecast, not a claim that the probability has been validated.
+### 6. Share the model and its alternative
 
-### Does additional research move a forecast closer to a market?
+```bash
+vorhersage timeline report waymo@1 --compare slower-access@1 --output waymo.html --format text
+```
 
-The [NYC temperature study](https://expectedparrot.github.io/vorhersage/examples/nyc-2026-09-16/)
-asked whether the reported high would be 79–80°F. It saved a Kalshi quote, kept
-that price hidden during research, and recorded successive estimates:
+Open **`waymo.html`** to inspect the model, scenario schedules, and comparison.
+The [original study's written forecast](examples/waymo_boston_2029/independent_20260915/outputs/forecast_summary.md)
+also explains the sources, objections, and observations that would change the
+estimate—for example, effective enabling legislation or an actual Boston permit.
 
-| Research completed | Forecast |
-|---|---:|
-| Weather forecast plus an assumed error distribution | 25.8% |
-| Morning observations and forecast discussion | 25.8% |
-| A sample of 31 local forecast errors | 28.6% |
-| **Opening Kalshi midpoint, revealed after sealing the research** | **28.0%** |
+This walkthrough reproduces the saved calculation in a fresh project. The
+[original issued forecast and validation record](examples/waymo_boston_2029/independent_20260915/README.md)
+preserve the full study. Its scenario weights remain open to disagreement;
+reproducing 39% verifies the calculation, not its accuracy.
 
-The report shows what changed the number, what didn't, and which assumptions
-remain debatable. Agreement with a market gives a development target before
-resolution; it does not establish accuracy. This one case also had limited market
-depth and a small historical sample.
+## What you get from a full forecasting run
 
-**[Read the complete HTML report](https://expectedparrot.github.io/vorhersage/examples/nyc-2026-09-16/)**
-· [Download the PDF](https://expectedparrot.github.io/vorhersage/examples/nyc-2026-09-16/full-report.pdf)
-· [Inspect the research and calculation](examples/market_workbench/nyc_20260916/README.md)
-
-## How the package works
+The agent workflow carries a new question through research, assessment, review,
+and an issued prediction. It preserves revisions and schedules follow-up work.
 
 ```mermaid
 flowchart LR
     Q[Define the question] --> R[Research the drivers]
-    R --> M[Declare a model]
+    R --> M[Build the model]
     M --> C[Calculate and review]
     C -->|Investigate an assumption| R
-    C --> F[Issue a forecast and report]
+    C --> F[Issue forecast and report]
     F -->|New evidence| R
 ```
 
-An agent does the searching, interprets sources, and justifies the assumptions.
-Vorhersage gives that work a persistent structure:
+You can export a complete question as HTML or LaTeX. **[Read a finished HTML
+report](https://expectedparrot.github.io/vorhersage/examples/nyc-2026-09-16/)**
+to see the question, research, methodology, calculations, prediction history,
+and limitations together.
 
-- **Evidence attached to claims.** Keep sources, findings, uncertainties, and the
-  information cutoff with the forecast.
-- **Models you can inspect.** Use historical frequencies, conditional paths like
-  the app example, weighted scenarios, deadline models, or declared odds updates.
-  Timeline and odds-ledger tools support sensitivity analysis; odds ledgers can
-  also be exported as interactive HTML audits.
-- **A research process you can improve.** Compare methods on the same questions,
-  reuse frozen evidence, or research against a hidden market quote.
-- **A history you can evaluate.** Resume work, schedule reviews, preserve revisions,
-  and score predictions once outcomes are known.
+That NYC study also demonstrates the market workbench: save a Kalshi quote, keep
+it hidden during research, then reveal it after recording your estimate. Research
+into local forecast errors moved the estimate from **25.8% to 28.6%**; the opening
+market midpoint was **28.0%**. This provides a way to develop a research process
+while a question is unresolved. Agreement with a market is distinct from accuracy
+against the eventual outcome.
 
-At the CLI, the agent asks for the next task with `next`, does the work, and sends
-it back with `submit`. Each task includes its input schema and the saved context.
-Another agent can pick up the project without reconstructing a chat. The guides
-below provide complete paths for different kinds of forecast.
+## Design principles and research foundations
+
+The package makes three commitments: **judgments are explicit, calculations are
+reproducible, and forecasting skill is measured against outcomes**. The agent
+chooses the model and justifies its inputs; the package checks evidence references,
+computes consequences, and preserves each issued forecast. Unknown inputs can
+remain unknown. Correlated scenarios need joint assumptions rather than automatic
+multiplication of independent probabilities.
+
+The forecasting literature informs that design:
+
+| Research | What it motivates in Vorhersage |
+|---|---|
+| [Halawi et al., *Approaching Human-Level Forecasting with Language Models* (2024)](https://arxiv.org/abs/2402.18563): a system combining retrieval, forecasting, and aggregation. | Keep research and probability assessment explicit; compare methods with the same evidence to investigate where improvements come from. |
+| [Karger et al., *ForecastBench* (2025, v5)](https://arxiv.org/abs/2409.19839v5): prospective evaluation on questions unresolved at submission. | Preserve issue times and information cutoffs; distinguish prospective forecasts from historical replay. |
+| [Gneiting & Raftery, *Strictly Proper Scoring Rules, Prediction, and Estimation* (2007)](https://sites.stat.washington.edu/people/raftery/Research/PDF/Gneiting2007jasa.pdf): scoring rules that reward honest probability assessments in expectation. | Evaluate probabilities with proper scores such as Brier loss, using explicit resolution rules and matched question sets. |
+
+These are motivations for the design, not evidence that this package improves
+accuracy. In particular, the Waymo timeline and its weights are modeling choices
+to challenge and test. The [literature review](literature/REVIEW.md) and
+[39-source annotated bibliography](literature/BIBLIOGRAPHY.md) record findings,
+limitations, reading depth, and proposed experiments. [Learnings](LEARNINGS.md)
+records what our own exercises exposed, including contamination in historical
+replay and the limits of procedural checklists.
 
 ## Try it on your question
 
-The quickest way to start is to give an agent a question and the setup block below.
-Ask for a report you can read, then use its assumptions to guide your review.
+Give your agent the question you want to forecast and this setup block. Ask it
+to show you the model and the assumptions you should review, alongside the number.
 
 ### Copy and paste into an agent
 
@@ -322,6 +303,15 @@ uv pip install -e . pytest
 .venv/bin/vorhersage guide
 .venv/bin/python -m pytest -q
 ```
+
+The implementation separates responsibilities:
+
+| Code | Responsibility |
+|---|---|
+| [Timeline calculations](src/vorhersage/timeline.py) | Validate declared dependencies, compute schedules, and compare assumptions. The calculation functions also work without a project database. |
+| [Evidence](src/vorhersage/evidence.py) and [store](src/vorhersage/store.py) | Capture provenance and preserve immutable artifacts in transactional SQLite storage. |
+| [Workflow](src/vorhersage/workflow.py) | Advance research and review tasks, accept submissions, and issue forecasts. |
+| [CLI](src/vorhersage/cli.py) and [terminal views](src/vorhersage/timeline_text.py) | Parse commands and present results; the same domain functions serve JSON and readable output. |
 
 The core package requires Python 3.11+ and has no runtime dependencies.
 EDSL and Epiq are optional integrations. The current implementation targets small

@@ -201,6 +201,95 @@ class IntegrationTests(unittest.TestCase):
         spec.update(version=3, previous_model_id=second, deadline="2029-02-01T00:00:00Z")
         with self.assertRaisesRegex(Error, "deadline differs"): timeline.add(self.w.store, spec)
 
+    def test_named_references_pin_versions_and_keep_artifact_ids(self):
+        spec = model()
+        first = timeline.add(self.w.store, spec)["timeline_model_id"]
+        spec.update(version=2, previous_model_id=first, description="Second version")
+        second = timeline.add(self.w.store, spec)["timeline_model_id"]
+        with self.w.store.connect() as c:
+            self.assertEqual(timeline.resolve(c, "parallel@1"), first)
+            self.assertEqual(timeline.resolve(c, "parallel@2"), second)
+            self.assertEqual(timeline.resolve(c, first), first)
+            for ref in ("parallel", "parallel@0", "parallel@latest", "parallel@3", "missing@1"):
+                with self.subTest(reference=ref), self.assertRaises(Error):
+                    timeline.resolve(c, ref)
+
+    def test_duration_shift_preserves_source_weights_and_records_lineage(self):
+        spec = weighted(model())
+        spec["scenarios"][2]["assessments"][2]["value"] = "never"
+        source = timeline.add(self.w.store, spec)["timeline_model_id"]
+        result = timeline.shift(self.w.store, "parallel@1", "rollout_days", 180, "slower", "Longer public rollout")
+        alternative = result["specification"]
+        self.assertEqual(alternative["derived_from_model_id"], source)
+        self.assertIn(source, result["input_manifest"])
+        self.assertEqual([s["weight"] for s in alternative["scenarios"]], [0.2, 0.5, 0.3])
+        self.assertEqual([s["assessments"][2]["value"] for s in alternative["scenarios"]], [241, 241, "never"])
+        self.assertAlmostEqual(timeline.analyze(alternative)["probability"], 0)
+        with self.w.store.connect() as c:
+            self.assertEqual(timeline.read(c, source)["specification"], spec)
+        retry = timeline.shift(self.w.store, source, "rollout_days", 180, "slower", "Longer public rollout")
+        self.assertEqual(retry["timeline_model_id"], result["timeline_model_id"])
+        with self.assertRaisesRegex(Error, "frozen"):
+            timeline.shift(self.w.store, source, "rollout_days", 90, "slower", "Different duration")
+
+    def test_invalid_duration_variants_leave_no_partial_history(self):
+        timeline.add(self.w.store, model())
+        before = self.w.status()
+        for parameter, days, name, reason in (
+                ("rollout_days", -62, "negative", "Shorter"),
+                ("rollout_days", 365250, "too_long", "Longer"),
+                ("rollout_days", float("nan"), "nonfinite", "Longer"),
+                ("authorization_date", 1, "date", "Longer"),
+                ("missing", 1, "missing", "Longer"),
+                ("rollout_days", 1, "parallel", "Same family"),
+                ("rollout_days", 1, "blank", " ")):
+            with self.subTest(name=name), self.assertRaises(Error):
+                timeline.shift(self.w.store, "parallel@1", parameter, days, name, reason)
+            self.assertEqual(self.w.status(), before)
+        shortened = timeline.shift(self.w.store, "parallel@1", "rollout_days", -61, "instant", "Zero remaining days")
+        self.assertEqual(shortened["specification"]["scenarios"][0]["assessments"][2]["value"], 0)
+
+    def test_shift_rejects_unknown_and_observed_durations(self):
+        spec = model()
+        spec["scenarios"][0]["assessments"][2] = assessment("rollout_days", basis="unresolved")
+        timeline.add(self.w.store, spec)
+        with self.assertRaisesRegex(Error, "unresolved"):
+            timeline.shift(self.w.store, "parallel@1", "rollout_days", 10, "unknown", "Longer")
+        ref = self.w.import_packet(packet())["records"][0]["evidence_ref"]
+        spec = model()
+        spec.update(id="observed", information_as_of=now())
+        for scenario in spec["scenarios"]:
+            scenario["assessments"][2] = assessment("rollout_days", 61, "observed", [ref])
+        timeline.add(self.w.store, spec)
+        with self.assertRaisesRegex(Error, "observed"):
+            timeline.shift(self.w.store, "observed@1", "rollout_days", 10, "changed_observation", "Longer")
+
+    def test_cli_named_models_readable_output_and_json_compatibility(self):
+        timeline.add(self.w.store, weighted(model()))
+
+        def cli(*args):
+            result = subprocess.run([sys.executable, "-m", "vorhersage", "--project", self.tmp.name,
+                                     "timeline", *args], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            return result.stdout
+
+        self.assertAlmostEqual(json.loads(cli("analyze", "parallel@1"))["data"]["probability"], 0.7)
+        self.assertIn("Probability: 70.0%", cli("analyze", "parallel@1", "--format", "text"))
+        self.assertIn("Saved slower@1", cli("shift", "parallel@1", "--parameter", "rollout_days", "--days", "180",
+                                            "--name", "slower", "--rationale", "Longer rollout", "--format", "text"))
+        comparison = cli("compare", "parallel@1", "slower@1", "--format", "text")
+        self.assertIn("Left probability:  70.0%", comparison)
+        self.assertIn("Right probability: 0.0%", comparison)
+        output = Path(self.tmp.name) / "named-report.html"
+        self.assertIn("Report:", cli("report", "parallel@1", "--compare", "slower@1", "--output", str(output), "--format", "text"))
+        self.assertTrue(output.exists())
+        draft = model()
+        draft["id"] = "draft"
+        draft["scenarios"][0]["assessments"][2] = assessment("rollout_days", basis="unresolved")
+        timeline.add(self.w.store, draft)
+        self.assertIn("Probability: unresolved", cli("analyze", "draft@1", "--format", "text"))
+        self.assertIn("Unresolved parameters: 1", cli("gaps", "draft@1", "--format", "text"))
+
     def test_repeated_experiment_trials_own_their_model_revisions(self):
         with self.assertRaisesRegex(Error, "prior_method=none"):
             experiments.add_method(self.w.store, method(assessment_method="timeline_model"))

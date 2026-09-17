@@ -16,7 +16,7 @@ from .evidence import Epiq, audit as audit_evidence, capture_bundle
 from .scenarios import calculate as calculate_scenario
 from .odds import calculate as calculate_odds
 from .widget import export as export_widget
-from . import timeline, timeline_reports
+from . import timeline, timeline_reports, timeline_text
 from .relations import add as add_relation, audit as audit_relations
 from .monitoring import configure, configs, disable, tick
 from .schemas import SCHEMAS
@@ -39,7 +39,8 @@ Declare research_status at run start; an after-research judgment is not a pre-re
 Use research capture and packet audit to preserve provenance and source relationships.
 Use scenario for optional mixtures/sensitivity, relation for implications, coherence to audit.
 Use odds-ledger for declared likelihood ratios and export-widget FORECAST_ID for an offline interactive audit.
-Use timeline add/gaps/analyze/compare/report for deadline models; run workflow=timeline starts with structure and parameter research, without a prior.
+Use timeline add/gaps/analyze/shift/compare/report for deadline models; NAME@VERSION selects a fixed model and --format text gives readable output.
+Timeline shift records a duration sensitivity alternative; run workflow=timeline starts with structure and parameter research, without a prior.
 Use reference add/query for reusable observed episodes with deadline-specific censoring.
 Use watch add/tick/run for polling and optional configured research/agent subprocesses.
 Use method add and experiment add/start/run/status/evaluate for frozen-packet methodology comparisons.
@@ -80,9 +81,15 @@ def parser():
     ap = sub.add_parser("add")
     ap.add_argument("--from", dest="input", required=True)
     sub.add_parser("list")
+    ap = sub.add_parser("shift", help="Save a duration sensitivity alternative")
+    ap.add_argument("id", help="Timeline artifact ID or NAME@VERSION")
+    ap.add_argument("--parameter", required=True, help="Duration parameter to change in every scenario")
+    ap.add_argument("--days", type=float, required=True, help="Elapsed days to add (negative to shorten)")
+    ap.add_argument("--name", required=True, help="New model name; starts at version 1")
+    ap.add_argument("--rationale", required=True, help="Reason for this sensitivity assumption")
     for action in ("show", "gaps", "analyze", "report", "compare"):
         ap = sub.add_parser(action)
-        ap.add_argument("id")
+        ap.add_argument("id", help="Timeline artifact ID or NAME@VERSION")
         if action == "analyze":
             ap.add_argument("--sensitivity", action="store_true")
         if action == "compare":
@@ -90,6 +97,8 @@ def parser():
         if action == "report":
             ap.add_argument("--compare", dest="other_id")
             ap.add_argument("--output", type=Path, required=True)
+    for ap in sub.choices.values():
+        ap.add_argument("--format", choices=("json", "text"), default="json", help="Terminal output format (default: json)")
     relation = commands.add_parser("relation")
     relation.add_argument("--from", dest="input", required=True)
     research = commands.add_parser("research")
@@ -301,14 +310,19 @@ def dispatch(args):
         if args.action == "list":
             with s.connect() as c:
                 return Store.all(c, "timeline_model")
-        if args.action == "compare":
-            return timeline.compare(s, args.id, args.other_id)
-        if args.action == "report":
-            return timeline_reports.export(s, args.id, args.output, args.other_id)
+        if args.action == "shift":
+            return timeline.shift(s, args.id, args.parameter, args.days, args.name, args.rationale)
         with s.connect() as c:
-            body = timeline.read(c, args.id)
+            model_id = timeline.resolve(c, args.id)
+            other_id = timeline.resolve(c, args.other_id) if getattr(args, "other_id", None) else None
+        if args.action == "compare":
+            return timeline.compare(s, model_id, other_id)
+        if args.action == "report":
+            return timeline_reports.export(s, model_id, args.output, other_id)
+        with s.connect() as c:
+            body = timeline.read(c, model_id)
         if args.action == "show":
-            return {"timeline_model_id": args.id, **body}
+            return {"timeline_model_id": model_id, **body}
         spec = body["specification"]
         if args.action == "gaps":
             return timeline.gaps(spec)
@@ -477,6 +491,9 @@ def main(argv=None):
                 pass
             return
         data = dispatch(args)
+        if args.command == "timeline" and args.format == "text":
+            print(timeline_text.render(args.action, data))
+            return
         if args.command == "report" and args.format == "markdown" and not args.output:
             print("# " + data["question"]["specification"]["text"] + "\n")
             for f in data["forecasts"]:

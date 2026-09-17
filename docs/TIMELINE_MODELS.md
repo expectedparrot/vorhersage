@@ -129,9 +129,49 @@ vorhersage --project PROJECT timeline compare LEFT_ID RIGHT_ID
 vorhersage --project PROJECT timeline report LEFT_ID --compare RIGHT_ID --output comparison.html
 ```
 
-Use the returned artifact ID, not the model's human-readable name. Comparisons
+Each timeline command accepts either the returned artifact ID or the model's
+declared name with an explicit version, such as `waymo@1`. An unversioned name is
+rejected; adding version 2 cannot silently change what a saved command selects.
+References resolve to immutable artifact IDs before analysis or export.
+
+For readable terminal output, add `--format text`. JSON remains the default,
+including machine-readable errors. For example:
+
+```bash
+vorhersage timeline analyze waymo@1 --format text
+vorhersage timeline gaps waymo@1 --format text
+```
+
+Comparisons
 require a common question version, cutoff and deadline rule. They match scenario
 IDs and disclose changed fields; matching labels alone do not establish equal inputs.
+
+### Change a duration assumption
+
+Create an alternative without copying and editing the full model file:
+
+```bash
+vorhersage timeline shift waymo@1 --parameter public_access --days 180 \
+  --name slower-access --rationale "Public access takes six months longer" --format text
+vorhersage timeline compare waymo@1 slower-access@1 --format text
+```
+
+`shift` adds elapsed days to that duration in every scenario. Negative days
+shorten it; resulting durations must remain within the model's valid range.
+It preserves `never` assignments, rejects unresolved or observed durations,
+and requires at least one finite duration to change. It also requires a new
+model name and an explicit rationale. Calendar dates use a different kind of
+parameter and cannot be shifted through this command.
+
+The alternative starts at version 1, links to the exact source artifact through
+`derived_from_model_id`, and preserves its evidence, scenario weights, cutoff,
+and other parameters. Changed values are labeled assumed, with the original
+value and rationale retained in their explanations. Registration is atomic;
+invalid changes leave no partial model. Repeating the same command reuses the
+same model, while reusing its name with different inputs fails.
+
+The source and issued forecasts stay unchanged. A sensitivity alternative is a
+model to examine; issuing a revised forecast still requires the review workflow.
 
 Sensitivity substitutes one parameter using values already declared in the model,
 and identifies changes that flip the outcome. Such substitutions can break a joint

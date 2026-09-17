@@ -268,6 +268,65 @@ def read(c, model_id):
     return body
 
 
+def resolve(c, reference):
+    """Resolve an artifact ID or an explicit name@version; never choose latest."""
+    row = c.execute("SELECT id FROM artifacts WHERE id=? AND kind='timeline_model'", (reference,)).fetchone()
+    if row:
+        read(c, row["id"])
+        return row["id"]
+    name, separator, version = reference.rpartition("@")
+    require(separator and name and version.isdecimal() and int(version) > 0,
+            "Use a timeline artifact ID or a versioned name, such as waymo@1.", "invalid_reference")
+    matches = [r["id"] for r in Store.all(c, "timeline_model")
+               if r["specification"]["id"] == name and r["specification"]["version"] == int(version)]
+    require(len(matches) == 1, "Unknown timeline model: " + reference, "not_found")
+    read(c, matches[0])
+    return matches[0]
+
+
+def shift(store, reference, parameter_id, days, name, rationale):
+    """Save a duration stress test as a new family pinned to its source artifact.
+
+    Shift every finite scenario assignment by the same number of elapsed days.
+    Unknowns and observations require research or an explicit model edit, so this
+    shortcut rejects them. A 'never' assignment remains a failure to complete.
+    Validation and registration share one transaction: invalid variants leave no
+    partial model or event behind.
+    """
+    require(type(days) in (int, float) and math.isfinite(days) and days != 0,
+            "Supply a finite, nonzero number of elapsed days.")
+    require(isinstance(rationale, str) and rationale.strip(), "Explain the duration change with --rationale.")
+    require(isinstance(name, str) and name.strip(), "Supply a name for the alternative model.")
+    with store.connect(True) as c:
+        source_id = resolve(c, reference)
+        spec = copy.deepcopy(read(c, source_id)["specification"])
+        require(name != spec["id"], "Use a new model name for the alternative.")
+        parameter = next((p for p in spec["parameters"] if p["id"] == parameter_id), None)
+        require(parameter is not None, "Unknown parameter: " + parameter_id)
+        require(parameter["kind"] == "duration_days", "Only duration parameters can be shifted.")
+        changed = 0
+        for scenario in spec["scenarios"]:
+            term = next((a for a in scenario["assessments"] if a["parameter_id"] == parameter_id), None)
+            require(term is not None and term["basis"] != "unresolved",
+                    "Cannot shift an unresolved duration in scenario " + scenario["id"] + ".")
+            require(term["basis"] != "observed", "Cannot shift an observed duration in scenario " + scenario["id"] + ".")
+            if term["value"] == "never":
+                continue
+            original = term["value"]
+            term.update(value=original + days, basis="assumed",
+                        rationale=f"Sensitivity assumption: {original:g} {days:+g} elapsed days. {rationale} "
+                                  f"Original rationale: {term['rationale']}")
+            changed += 1
+        require(changed > 0, "No finite duration assignments to shift.")
+        spec.update(id=name, version=1, derived_from_model_id=source_id,
+                    description=f"{parameter_id} {days:+g} elapsed days: {rationale}")
+        spec.pop("previous_model_id", None)
+        spec["limitations"].append("Duration sensitivity assumption; scenario weights and other inputs are unchanged. "
+                                   "This is not new evidence or a confidence interval.")
+        model_id = _add(c, spec)
+        return {"timeline_model_id": model_id, **read(c, model_id)}
+
+
 def _add(c, spec):
     # Imported lazily to keep the pure arithmetic usable without a workflow cycle.
     from .workflow import evidence_refs, verify_refs
