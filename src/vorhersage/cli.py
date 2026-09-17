@@ -16,7 +16,7 @@ from .evidence import Epiq, audit as audit_evidence, capture_bundle
 from .scenarios import calculate as calculate_scenario
 from .odds import calculate as calculate_odds
 from .widget import export as export_widget
-from . import timeline, timeline_reports, timeline_text, timeline_plan
+from . import timeline, timeline_reports, timeline_text, timeline_plan, timeline_diagram
 from .relations import add as add_relation, audit as audit_relations
 from .monitoring import configure, configs, disable, tick
 from .schemas import SCHEMAS
@@ -55,6 +55,8 @@ Use odds-ledger for declared likelihood ratios and export-widget FORECAST_ID for
 Use timeline add/gaps/analyze/shift/compare/report for deadline models; NAME@VERSION selects a fixed model and --format text gives readable output.
 Build an unresolved timeline with timeline new FILE.toml, then timeline step FILE.toml NAME DESCRIPTION [--date | --after STEPS] [--target].
 Use timeline show FILE.toml to read the working plan and timeline save FILE.toml to validate and register an immutable model.
+Use timeline edit FILE.toml STEP --after PREREQUISITES --rationale REASON to change dependencies; --rename updates references too.
+Use timeline diagram FILE.toml --output diagram.svg for an offline dependency diagram, or omit --output for Mermaid source.
 Timeline shift records a duration sensitivity alternative; run workflow=timeline starts with structure and parameter research, without a prior.
 Use reference add/query for reusable observed episodes with deadline-specific censoring.
 Use watch add/tick/run for polling and optional configured research/agent subprocesses.
@@ -181,6 +183,18 @@ def parser():
     ap.add_argument("--after", nargs="+", default=[], help="Steps that must finish before this one begins")
     ap.add_argument("--target", action="store_true", help="Completing this step satisfies the forecasting question")
     ap.add_argument("--rationale", help="Why these prerequisites apply (default: provisional, needs research)")
+    ap = sub.add_parser("edit", help="Change a working step and explain the modeling decision")
+    ap.add_argument("file", type=Path)
+    ap.add_argument("name", help="Existing step name")
+    ap.add_argument("--rename", help="New name; updates prerequisites and target references")
+    ap.add_argument("--description")
+    ap.add_argument("--after", nargs="*", help="Replace all prerequisites; use --after alone to clear them")
+    ap.add_argument("--kind", choices=("date", "duration"))
+    ap.add_argument("--target", action="store_true")
+    ap.add_argument("--rationale", required=True, help="Reason for the changed definition or dependency")
+    ap = sub.add_parser("diagram", help="Draw dependencies from a plan or saved model")
+    ap.add_argument("id", help="Working .toml plan or immutable NAME@VERSION")
+    ap.add_argument("--output", type=Path, help="Offline .svg image, .mmd source, or Mermaid .md file; default: source on stdout")
     ap = sub.add_parser("save", help="Validate a working plan and save an immutable model")
     ap.add_argument("file", type=Path)
     ap = sub.add_parser("add")
@@ -441,7 +455,7 @@ def dispatch(args):
         return export_widget(s, args.id, args.output or Path(args.id + ".html"))
     if command == "timeline":
         working_file = args.action in ("show", "gaps", "analyze") and args.id.endswith(".toml")
-        args.format = args.format or ("text" if working_file or args.action in ("new", "step", "save") else "json")
+        args.format = args.format or ("text" if working_file or args.action in ("new", "step", "edit", "diagram", "save") else "json")
         if args.action == "new":
             return timeline_plan.new(s, args.file, question_id=args.question, name=args.name,
                                      as_of=setup.timestamp(args.as_of) if args.as_of else None,
@@ -449,6 +463,11 @@ def dispatch(args):
         if args.action == "step":
             return timeline_plan.step(args.file, args.name, args.description, after=args.after, date=args.date,
                                       target=args.target, rationale=args.rationale)
+        if args.action == "edit":
+            return timeline_plan.edit(args.file, args.name, rename=args.rename, description=args.description,
+                                      after=args.after, kind=args.kind, target=args.target, rationale=args.rationale)
+        if args.action == "diagram":
+            return timeline_diagram.export(s, args.id, args.output)
         if args.action == "save":
             return timeline_plan.save(s, args.file)
         if working_file:
@@ -679,7 +698,12 @@ def main(argv=None):
                           ". Fill submission.payload, then submit --from this file.")
             return
         if args.command == "timeline" and args.format == "text":
-            if "plan" in data:
+            if args.action == "diagram":
+                if "diagram" in data:
+                    print(data["diagram"], end="")
+                else:
+                    print("Diagram: " + data["path"])
+            elif "plan" in data:
                 print(timeline_plan.render(args.action, data))
             else:
                 print(timeline_text.render("add" if args.action == "save" else args.action, data))

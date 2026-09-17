@@ -73,6 +73,51 @@ file. Repeating the same step is safe. Commands serialize their writes using
 a temporary `.lock` file beside the plan; direct editor changes should be made
 between commands.
 
+### Revise dependencies after researching them
+
+The forecaster decides what the evidence implies for the model. Importing
+findings never edits the graph. To split one broad permission milestone into
+state permission and local commercial arrangements, for example:
+
+```bash
+vorhersage timeline edit launch.toml permission --rename state \
+  --description "Effective state permission" \
+  --rationale "State permission and local commercial arrangements are separate steps."
+vorhersage timeline step launch.toml local "Local commercial arrangements" --after state
+vorhersage timeline edit launch.toml launch --after local preparation \
+  --rationale "Public service needs both local arrangements and operational readiness."
+```
+
+`edit` changes the working TOML file and requires an explanation. `--rename`
+updates every prerequisite and target reference to that step. `--after` replaces
+the complete prerequisite list; `--after` alone clears it. `--description`,
+`--kind date|duration`, and `--target` change those parts of the definition.
+Unknown names, duplicate names, invalid date prerequisites, and cycles are
+rejected without altering the file. Intermediate disconnected steps are allowed
+while building; a complete model must connect every step to the target.
+
+Saved models remain immutable. Use another model name or an explicit versioned
+revision when registering changed work. The working plan retains the latest
+rationale; save model snapshots when you need a history of structural alternatives.
+
+### Generate the dependency diagram
+
+```bash
+vorhersage timeline diagram launch.toml --output launch.svg
+```
+
+Open the SVG in a browser; it requires no network, JavaScript, or extra packages.
+It draws the validated prerequisites and highlights the target. A diagram shows
+the declared structure, not whether its assumptions are true. Dates and
+probabilities remain in the scenario analysis and full report.
+
+The same command accepts a saved model, such as `timeline diagram launch@1
+--project PROJECT --output launch.svg`. Omit `--output` to print Mermaid source,
+use `.mmd` to save that source, or use `.md` for a fenced Mermaid diagram ready
+for Markdown documentation. SVG labels are escaped; Mermaid uses generated node
+identifiers and escaped labels. Re-exporting replaces the generated output file.
+Diagrams require a complete, valid graph and a target; use `show` for partial plans.
+
 These commands author the initial research structure. Scenario weights,
 source-linked estimates, observations of work already started or completed,
 and richer joins use the full model schema and research workflow below. TOML
@@ -82,7 +127,8 @@ milestones, scenario inputs, rationales, and limitations.
 
 Working-file commands show readable text by default; add `--format json` for
 the machine-readable result. Existing saved-model commands still default to
-JSON. `--project` works before the command or after any timeline subcommand.
+JSON; `diagram` defaults to Mermaid source or an export confirmation.
+`--project` works before the command or after any timeline subcommand.
 
 ### Compare two hypothetical structures
 

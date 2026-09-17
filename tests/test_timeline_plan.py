@@ -5,9 +5,10 @@ import sys
 import tempfile
 import tomllib
 import unittest
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from vorhersage import timeline, timeline_plan
+from vorhersage import timeline, timeline_plan, timeline_diagram
 from vorhersage.common import Error
 from vorhersage.store import Store
 from vorhersage.workflow import Workflow
@@ -145,6 +146,82 @@ class PlanTests(unittest.TestCase):
         self.assertFalse(self.file.exists())
         created = timeline_plan.new(self.w.store, self.file, question_id="factory", as_of=stamp(-1))
         self.assertEqual(created["plan"]["deadline"], self.q["event_deadline"])
+
+    def test_edit_splits_permission_updates_references_and_keeps_saved_snapshot(self):
+        self.make()
+        saved = timeline_plan.save(self.w.store, self.file)
+        self.cli("edit", self.file, "legal", "--rename", "state", "--description", "State permission",
+                 "--rationale", "Separate state and local processes.")
+        plan = timeline_plan.read(self.file)
+        self.assertEqual(plan["steps"][-1]["after"], ["state", "prep"])
+        self.cli("step", self.file, "local", "Local arrangements", "--after", "state")
+        self.cli("edit", self.file, "launch", "--after", "local", "prep", "--rationale", "Public service requires local arrangements.")
+        spec = timeline_plan.compile(timeline_plan.read(self.file))
+        self.assertEqual(spec["nodes"][2]["parents"], ["local", "prep"])
+        self.assertEqual(spec["nodes"][3]["parents"], ["state"])
+        self.cli("edit", self.file, "launch", "--rename", "public", "--rationale", "Clarify the target name.")
+        self.assertEqual(timeline_plan.read(self.file)["target"], "public")
+        with self.w.store.connect() as c:
+            self.assertEqual(timeline.read(c, saved["timeline_model_id"])["specification"], saved["specification"])
+
+    def test_invalid_edits_leave_working_plan_unchanged(self):
+        self.make()
+        before = self.file.read_bytes()
+        for name, options in [("prep", {"after": ["launch"]}), ("legal", {"rename": "prep"}),
+                              ("launch", {"after": ["missing"]}), ("missing", {"description": "Absent"}),
+                              ("legal", {"after": ["prep"]}), ("prep", {})]:
+            with self.subTest(name=name, options=options), self.assertRaises(Error):
+                timeline_plan.edit(self.file, name, rationale="Test change.", **options)
+            self.assertEqual(self.file.read_bytes(), before)
+        self.cli("edit", self.file, "launch", "--after", "--rationale", "Inspect an alternative with no prerequisites.")
+        self.assertEqual(timeline_plan.read(self.file)["steps"][-1]["after"], [])
+        with self.assertRaisesRegex(Error, "contribute"):
+            timeline_plan.save(self.w.store, self.file)
+
+    def test_diagram_formats_use_actual_edges_and_leave_model_unchanged(self):
+        self.make()
+        before = self.file.read_bytes()
+        saved = timeline_plan.save(self.w.store, self.file)
+        source = self.cli("diagram", self.file)
+        self.assertTrue(source.startswith("flowchart TD\n"))
+        self.assertEqual(source.count(" --> "), 2)
+        self.assertIn("n0 --> n2", source)
+        self.assertIn("n1 --> n2", source)
+        for suffix in ("svg", "mmd", "md"):
+            out = self.root / ("graph." + suffix)
+            self.cli("diagram", self.file, "--output", out)
+            self.assertTrue(out.exists())
+            if suffix == "svg":
+                xml = ET.fromstring(out.read_text())
+                edges = [p for p in xml.iter("{http://www.w3.org/2000/svg}path") if p.get("marker-end")]
+                self.assertEqual(len(edges), 2)
+            else:
+                self.assertIn(source, out.read_text())
+        registered = self.cli("diagram", saved["timeline_model_id"], "--project", self.w.store.root)
+        self.assertEqual(registered, source)
+        result = json.loads(self.cli("diagram", self.file, "--format", "json"))["data"]
+        self.assertEqual(result["diagram"], source)
+        self.assertEqual(self.file.read_bytes(), before)
+        self.cli("diagram", self.file, "--output", self.file, success=False)
+        self.assertEqual(self.file.read_bytes(), before)
+
+    def test_diagram_escapes_labels_and_marks_alternative_prerequisites(self):
+        self.make()
+        spec = timeline_plan.compile(timeline_plan.read(self.file))
+        dangerous = '<script>alert("x")</script> & [end] # {{x}}'
+        spec["description"] = dangerous
+        spec["nodes"][-1]["completion_condition"] = dangerous
+        svg = timeline_diagram.svg(spec)
+        xml = ET.fromstring(svg)
+        self.assertEqual(xml.find("{http://www.w3.org/2000/svg}title").text, dangerous)
+        self.assertNotIn("<script>", svg)
+        self.assertNotIn("<script>", timeline_diagram.mermaid(spec))
+        spec["nodes"][-1]["kind"] = "any"
+        del spec["nodes"][-1]["parameter_id"]
+        spec["parameters"].pop()
+        spec["scenarios"][0]["assessments"].pop()
+        self.assertIn("any prerequisite", timeline_diagram.mermaid(spec))
+        self.assertIn("any prerequisite", timeline_diagram.svg(spec))
 
 
 if __name__ == "__main__":

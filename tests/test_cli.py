@@ -30,6 +30,8 @@ class CLITests(unittest.TestCase):
             self.assertIn("Waits for: legal, technical", result.stdout)
             self.assertIn("Unresolved parameters: 5", result.stdout)
             self.assertTrue((Path(tmp) / "waymo-plan.toml").exists())
+            self.assertEqual((Path(tmp) / "waymo-timeline.svg").read_bytes(),
+                             (ROOT / "docs/assets/waymo-timeline.svg").read_bytes())
             self.assertIn("Probability: 39.0%", result.stdout)
             self.assertIn("Left probability:  39.0%", result.stdout)
             self.assertIn("Right probability: 22.0%", result.stdout)

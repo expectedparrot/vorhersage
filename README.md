@@ -195,11 +195,18 @@ missing dates and durations give us the following research agenda:
 investigate. Vorhersage finds missing inputs in the structure we supplied; the
 forecaster remains responsible for whether that structure captures the real process.
 
-### 3. Collect evidence—and let it change the model
+### 3. Research the questions and revise your model
 
-The saved research examined official legislative records, city proposals, Waymo
-statements, and rollout histories in other cities. Each finding separates what a
-source establishes from what we infer:
+Now you—or, more likely, an agent working with you—investigate the questions in
+the table above. For legal permission, check state legislation and Boston's
+proposals. For technical readiness and public access, compare Waymo's rollout
+stages in other cities. For fleet readiness, look for Boston-specific depot,
+vehicle, and staffing evidence.
+
+Record each useful finding with its source, the date you checked it, the research
+question it bears on, and its limitations. A source can inform several questions;
+it may establish that work has begun while leaving its completion date unknown.
+Here are examples of evidence collected for this forecast:
 
 | Finding in the saved research | Implication for this forecast | What remains uncertain |
 |---|---|---|
@@ -218,30 +225,75 @@ reference. Import the findings:
 vorhersage --project waymo packet import --from waymo-inputs/evidence.json
 ```
 
-A **packet** is a saved collection of evidence. Model inputs can cite its individual
-findings. Vorhersage checks that those references exist and meet the model's
-information cutoff; attaching a citation does not establish that an estimate is correct.
-See the [saved findings and sources](examples/waymo_boston_2029/independent_20260915/outputs/forecast_summary.md#source-packet).
+The file you just imported is a **packet**: a saved collection of the findings
+you or your agent would gather during that research. Its individual findings can
+be cited by model inputs—for example, the legal records inform the permission
+assumptions, while other cities' openings inform the public-access duration.
+You can inspect the [findings and their sources](examples/waymo_boston_2029/independent_20260915/outputs/forecast_summary.md#source-packet).
+The package checks the references and their dates; you assess their relevance
+and decide what they imply.
 
-The research prompted a structural change: split the original legal gate into
-**state permission** and **local commercial arrangements**. The resulting model is:
+**Next comes a modeling judgment.** Looking at the state and city records, you or
+a reasoning model might conclude that “legal permission” combines two distinct
+steps: an effective state framework and the remaining Boston commercial
+arrangements. You might also judge that driverless validation can begin after
+state permission and technical readiness, while local commercial arrangements
+are still being completed.
 
-```mermaid
-flowchart LR
-    S[State permission] --> L[Local commercial arrangements]
-    S --> V[Driverless validation]
-    T[Boston technical readiness] --> V
-    L --> P[Ramp to paid public access]
-    V --> P
-    F[Fleet and support readiness] --> P
-    P --> D{Before January 1, 2029?}
+Make that interpretation explicit. First rename the legal milestone to state
+permission. The command updates every step that already refers to `legal`:
+
+```bash
+vorhersage timeline edit waymo-plan.toml legal --rename state \
+  --description "State permission" \
+  --rationale "Separate effective state permission from the remaining Boston commercial arrangements."
 ```
+
+Add those local arrangements as a separate step after state permission:
+
+```bash
+vorhersage timeline step waymo-plan.toml local "Local commercial arrangements" \
+  --after state \
+  --rationale "Final Boston arrangements depend on the effective state framework; their duration remains uncertain."
+```
+
+Validation already waits for state permission and technical readiness. Record
+why you think it can overlap the local commercial process:
+
+```bash
+vorhersage timeline edit waymo-plan.toml validation --after state technical \
+  --rationale "Assume driverless validation can overlap local commercial arrangements once state permission and technical readiness are in place."
+```
+
+Public access now has to wait for **all three**: local arrangements, validation,
+and fleet readiness. `--after` replaces the step's complete prerequisite list:
+
+```bash
+vorhersage timeline edit waymo-plan.toml launch --after local validation fleet \
+  --rationale "Paid public access requires local commercial arrangements, driverless validation, and operational readiness."
+```
+
+These commands change your editable plan. The snapshot saved in step 2 remains
+unchanged. Importing evidence alone never edits a dependency or supplies a number.
+
+Generate a picture directly from the revised plan:
+
+```bash
+vorhersage timeline diagram waymo-plan.toml --output waymo-timeline.svg
+```
+
+Open `waymo-timeline.svg` in a browser. The CLI generates this diagram from the
+same prerequisites used in the calculations:
+
+![Waymo timeline: state permission precedes local commercial arrangements and, together with technical readiness, driverless validation. Public access waits for local arrangements, validation, and fleet readiness.](docs/assets/waymo-timeline.svg)
 
 An arrow means “must finish before the next step starts.” Multiple incoming arrows
 mean all prerequisites must finish. Fleet and technical preparation can proceed
 while permission is pending. In this model, local commercial arrangements can
 also overlap driverless validation. **That overlap is an assumption to examine**:
-if local permission is needed before any driverless testing, the graph must change.
+if local permission is needed before any driverless testing, you would add
+`local` to validation's `--after` list. The diagram shows your declared model;
+it does not establish which legal dependencies are correct.
 
 ### 4. Make the uncertain numbers explicit
 
@@ -263,6 +315,12 @@ Here are the inputs for just one: **early permission, ordinary rollout**.
 These entries are stored in `model.json`, alongside the evidence references and
 explanations. **Observed, estimated, assumed, and unresolved inputs are distinct.**
 For work already underway, the model counts remaining time at the research cutoff.
+
+For the numerical calculation below, `model.json` supplies a fully populated
+version of this revised structure, including source-linked inputs and scenario
+weights. It names the same six steps with longer identifiers (for example,
+`state_permission` and `public_access`); the prerequisite relationships are the
+ones you just built. Your working plan still leaves dates and durations unknown.
 
 The saved researched model is named `waymo`, version 1. In the commands below,
 `waymo@1` selects that exact version and `--format text` requests readable output.

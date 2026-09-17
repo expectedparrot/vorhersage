@@ -8,6 +8,7 @@ import json
 import os
 import tempfile
 import tomllib
+from contextlib import contextmanager
 from pathlib import Path
 
 from .common import now, require, time
@@ -38,6 +39,11 @@ def validate(plan):
         require(step["kind"] != "date" or not step["after"],
                 "A date milestone has no prerequisites; use a duration step after prerequisites.")
     require("target" not in plan or plan["target"] in ids, "The target must name an existing step.")
+    remaining = {s["id"]: set(s["after"]) for s in steps}
+    while remaining:
+        ready = {id for id, parents in remaining.items() if not parents & remaining.keys()}
+        require(ready, "Timeline contains a cycle.")
+        remaining = {id: parents for id, parents in remaining.items() if id not in ready}
     return plan
 
 
@@ -73,25 +79,16 @@ def new(store, path, *, question_id=None, name=None, as_of=None, description=Non
     return {"path": str(path), "plan": plan}
 
 
-def step(path, id, description, *, after=(), date=False, target=False, rationale=None):
+@contextmanager
+def changing(path):
+    """Validate and atomically replace a working file under its writer lock."""
     path = Path(path)
-    # Serialize writers to the same working file; unlike saved models, it is editable.
     lock = path.with_name(path.name + ".lock")
     with lock.open("x"):
         try:
             plan = read(path)
-            item = {"id": id, "description": description, "kind": "date" if date else "duration",
-                    "after": list(after), "rationale": rationale or "Provisional dependency; verify during research."}
-            existing = next((s for s in plan.get("steps", []) if s["id"] == id), None)
-            require(existing is None or existing == item,
-                    "This step already has a different definition. Edit the TOML file to change it.")
-            if existing is None:
-                plan.setdefault("steps", []).append(item)
-            if target:
-                require(plan.get("target", id) == id, "A target is already selected. Edit the TOML file to change it.")
-                plan["target"] = id
+            yield plan
             validate(plan)
-            # Validate and serialize before replacing the original file.
             contents = text(plan)
             temporary = None
             try:
@@ -104,6 +101,46 @@ def step(path, id, description, *, after=(), date=False, target=False, rationale
                     temporary.unlink(missing_ok=True)
         finally:
             lock.unlink()
+
+
+def step(path, id, description, *, after=(), date=False, target=False, rationale=None):
+    with changing(path) as plan:
+        item = {"id": id, "description": description, "kind": "date" if date else "duration",
+                "after": list(after), "rationale": rationale or "Provisional dependency; verify during research."}
+        existing = next((s for s in plan.get("steps", []) if s["id"] == id), None)
+        require(existing is None or existing == item,
+                "This step already has a different definition. Use timeline edit to change it.")
+        if existing is None:
+            plan.setdefault("steps", []).append(item)
+        if target:
+            require(plan.get("target", id) == id, "A target is already selected. Use timeline edit --target to change it.")
+            plan["target"] = id
+    return {"path": str(path), "plan": plan, "step": item}
+
+
+def edit(path, id, *, rename=None, description=None, after=None, kind=None, target=False, rationale):
+    require(rationale and rationale.strip(), "Explain the change with --rationale.")
+    require(any(value is not None for value in (rename, description, after, kind)) or target,
+            "Specify a change: --rename, --description, --after, --kind, or --target.")
+    with changing(path) as plan:
+        item = next((s for s in plan.get("steps", []) if s["id"] == id), None)
+        require(item is not None, "Unknown step: " + id)
+        if rename is not None:
+            require(rename == id or all(s["id"] != rename for s in plan["steps"]), "Step names must be unique.")
+            item["id"] = rename
+            for other in plan["steps"]:
+                other["after"] = [rename if name == id else name for name in other["after"]]
+            if plan.get("target") == id:
+                plan["target"] = rename
+        if description is not None:
+            item["description"] = description
+        if after is not None:
+            item["after"] = [item["id"] if name == id else name for name in after]
+        if kind is not None:
+            item["kind"] = kind
+        if target:
+            plan["target"] = item["id"]
+        item["rationale"] = rationale
     return {"path": str(path), "plan": plan, "step": item}
 
 
@@ -138,9 +175,9 @@ def render(action, data):
     if action == "new":
         return (f"Created {data['path']}\n{plan['description']}\n"
                 "Add the steps that must happen. Dates and durations remain unknown until researched.")
-    if action == "step":
+    if action in ("step", "edit"):
         item = data["step"]
-        return ("Added " + item["id"] + ": " + item["description"] + "\n"
+        return (("Updated " if action == "edit" else "Added ") + item["id"] + ": " + item["description"] + "\n"
                 "Waits for: " + (", ".join(item["after"]) or "no other step in this plan") + "\n"
                 "Needs research: " + ("completion date" if item["kind"] == "date" else "duration in elapsed days") +
                 ("\nCompleting this step satisfies the question." if plan.get("target") == item["id"] else ""))
