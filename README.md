@@ -32,7 +32,7 @@ service. For an agent with Expected Parrot access, use the
 
 Suppose you want to forecast a Boston launch. A useful answer needs to explain
 **what must happen, what we know about those steps, and where the uncertainty
-comes from**. We'll build up to the **39% estimate** from a saved study, then
+comes from**. We'll work through the research and model behind a **39% estimate**, then
 challenge an assumption and see it fall to **22%**.
 
 ### The forecast at a glance
@@ -60,13 +60,13 @@ identifies missing inputs, checks the records, calculates the schedules and
 probabilities, and preserves the forecast. Research can change both the numbers
 and the model's structure.
 
-The research below was captured on **September 15, 2026, Boston time**. This
-walkthrough reproduces that dated study; it does not fetch new evidence. You can
+This example uses research captured on **September 15, 2026, Boston time**.
+The research files are included, so the walkthrough needs no new web searches. You can
 read the whole example here, or run the commands to inspect the model yourself.
 
 **To follow along:** install the package with the command above. We'll build the
 initial timeline one step at a time. Later, we'll load the saved research to
-reproduce the original forecast.
+calculate the forecast.
 
 ### 1. Decide what would count
 
@@ -165,9 +165,9 @@ after = ["legal", "technical"]
 rationale = "Provisional dependency; verify during research."
 ```
 
-The commands above reconstruct the original study's initial dependency structure
-as one unresolved research plan. We have not assigned the original study's later
-scenario timings or weights. Save this structure after checking its dependencies:
+We now have five steps and a plan for which can overlap and which must wait.
+We still need to research when permission might arrive and how long each stage
+could take. Check that the prerequisites make sense, then save the plan:
 
 ```bash
 vorhersage timeline save waymo-plan.toml --project waymo
@@ -208,7 +208,7 @@ source establishes from what we infer:
 | Miami took 148 days from driverless operations to open access; Orlando took 50 days from selected riders to open access. | Driverless operation and general-public access are distinct stages. | These are different starting points and a few related examples, not a representative sample of Boston launch times. |
 | No Boston depot completion date was verified. | Fleet readiness remains an explicit model input. | Missing public evidence does not establish that no preparation is happening. |
 
-To continue with the saved study, [download the research files](docs/assets/waymo-inputs.zip)
+To examine the evidence, [download the research files](docs/assets/waymo-inputs.zip)
 and extract `waymo-inputs` into your working directory. `evidence.json` contains
 17 findings with their sources and dates; `model.json` contains the researched
 scenarios and assumptions. The archive also includes the original JSON draft for
@@ -351,8 +351,8 @@ restricted rides to unrestricted access, and how comparable are the other cities
 The result measures sensitivity to this assumption; it does not establish how
 much more research will improve accuracy.
 
-The [original study](examples/waymo_boston_2029/independent_20260915/outputs/forecast_summary.md#sensitivity-and-structural-uncertainty)
-also tested political weights and the dependency structure. Moving 15 percentage
+The [additional sensitivity checks](examples/waymo_boston_2029/independent_20260915/outputs/forecast_summary.md#sensitivity-and-structural-uncertainty)
+test political weights and the dependency structure. Moving 15 percentage
 points between early success and state delay produced **24%–54%**. Making local
 permission a prerequisite for validation left the weighted result at **39%**
 under those particular timings. These are assumption checks, not confidence intervals.
@@ -374,8 +374,8 @@ the 22% forecast by pointing to the work required and the assumptions that chang
 
 ### 8. Decide what would warrant a revision
 
-A forecast also needs a stopping reason and a plan for reconsideration. In the
-original study, the review retained 39%, while acknowledging that further public
+A forecast also needs a stopping reason and a plan for reconsideration. The
+recorded review retained 39%, while acknowledging that further public
 searches had not identified legislative probabilities or internal Boston schedules.
 The review challenged the number in both directions:
 
@@ -400,7 +400,7 @@ New evidence requires reassessment; the package does not invent an automatic
 probability update from the mere passage of time.
 
 The commands above reproduce the model and its sensitivity comparison. The
-[original issued forecast and validation record](examples/waymo_boston_2029/independent_20260915/README.md)
+[issued forecast and validation record](examples/waymo_boston_2029/independent_20260915/README.md)
 contain the completed research-and-review history. Reproducing the calculation
 checks the arithmetic; eventual resolution is needed to score the forecast.
 
