@@ -2,7 +2,6 @@ import json
 import os
 import re
 import shlex
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -18,13 +17,7 @@ class CLITests(unittest.TestCase):
         walkthrough = readme.split("## See it work:", 1)[1].split("## What you get", 1)[0]
         commands = re.findall(r"```bash\n(.*?)```", walkthrough, re.S)
         self.assertTrue(commands)
-        case = Path("examples/waymo_boston_2029/independent_20260915")
         with tempfile.TemporaryDirectory() as tmp:
-            destination = Path(tmp) / case
-            (destination / "outputs").mkdir(parents=True)
-            shutil.copytree(ROOT / case / "walkthrough", destination / "walkthrough")
-            for file in ("question.json", "outputs/structure_before_research.json", "outputs/evidence.json"):
-                shutil.copyfile(ROOT / case / file, destination / file)
             # Exercise the public CLI through the test interpreter, independent
             # of whether its console script has been installed on PATH.
             function = "vorhersage() { " + shlex.quote(sys.executable) + " -m vorhersage \"$@\"; }\n"
@@ -34,7 +27,7 @@ class CLITests(unittest.TestCase):
             self.assertIn("Probability: 39.0%", result.stdout)
             self.assertIn("Left probability:  39.0%", result.stdout)
             self.assertIn("Right probability: 22.0%", result.stdout)
-            self.assertTrue((Path(tmp) / "waymo-demo/waymo.html").exists())
+            self.assertTrue((Path(tmp) / "waymo.html").exists())
             from vorhersage.workflow import Workflow
             self.assertTrue(Workflow(Path(tmp) / "waymo-demo").doctor()["ok"])
 

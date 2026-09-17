@@ -26,9 +26,8 @@ It produced a **39% forecast**. Here's how the question became a model and a
 number—and how to challenge that number.
 
 The commands below replay the saved research and calculations offline. The JSON
-input files are linked beside the steps that use them. To follow along, install
-Vorhersage using the [setup block below](#copy-and-paste-into-an-agent) and run
-from a checkout of this repository. Models have versioned names such as
+input files ship with the package. After [installing Vorhersage](#copy-and-paste-into-an-agent),
+you can run the commands from any directory. Models have versioned names such as
 `waymo@1`, so the commands can be run as written. `--format text` displays readable
 results; the default JSON output provides the complete record for agents.
 
@@ -39,19 +38,17 @@ with no in-vehicle safety driver, and both pickup and dropoff inside Boston,
 before January 1, 2029**. An invitation-only trial or a launch in Cambridge
 wouldn't satisfy it. A small service area inside Boston would.
 
-Create a project, load its research checklist, and register that
-[question definition](examples/waymo_boston_2029/independent_20260915/question.json):
+Load the example into a new project:
 
 ```bash
-CASE="$PWD/examples/waymo_boston_2029/independent_20260915"
-vorhersage init ./waymo-demo --name "Waymo in Boston"
-cd ./waymo-demo
-vorhersage profile add --from "$CASE/walkthrough/profile.json"
-vorhersage question add --from "$CASE/question.json"
+vorhersage init waymo-demo --example waymo
 ```
 
-The question is now saved as **version 1**. Subsequent models refer to that exact
-wording and deadline.
+This loads the [question definition](examples/waymo_boston_2029/independent_20260915/question.json),
+research checklist, saved evidence, and both the draft and completed models. The
+question is saved as **version 1**, and the models refer to that exact wording
+and deadline. You can inspect the input files in `waymo-demo/inputs/`.
+The following steps walk through the saved work; no login or network access is needed.
 
 ### 2. Work out what needs researching
 
@@ -59,12 +56,10 @@ Before searching, the forecaster sketched what would have to happen: legal
 permission, technical readiness, a fleet ready to operate, local validation,
 and public access. The first model left their dates and durations unknown.
 
-Load that [initial structure](examples/waymo_boston_2029/independent_20260915/outputs/structure_before_research.json)
-and ask the package what is missing:
+Ask the package what is missing from that initial structure:
 
 ```bash
-vorhersage timeline add --from "$CASE/outputs/structure_before_research.json" --format text
-vorhersage timeline gaps independent_provisional@1 --format text
+vorhersage --project waymo-demo timeline gaps waymo-draft@1 --format text
 ```
 
 The gaps identify concrete research tasks:
@@ -99,11 +94,8 @@ Each finding retains its source and qualifications in the
 For example, another city's rollout is an imperfect analogue for Boston; it
 cannot establish Boston's launch probability by itself.
 
-Import those **17 saved findings**:
-
-```bash
-vorhersage packet import --from "$CASE/outputs/evidence.json"
-```
+The example loads **17 saved findings**, also available in
+`waymo-demo/inputs/evidence.json`. Each model assumption can refer back to them.
 
 The research also changed the model's structure: state and local permission became
 separate stages, and some preparation could proceed while permissions were pending.
@@ -117,8 +109,7 @@ judged how likely each scenario was. The
 records those assumptions and their evidence links.
 
 ```bash
-vorhersage timeline add --from "$CASE/walkthrough/model.json" --format text
-vorhersage timeline analyze waymo@1 --format text
+vorhersage --project waymo-demo timeline analyze waymo@1 --format text
 ```
 
 Vorhersage follows the dependencies, computes a launch date in each scenario,
@@ -148,9 +139,9 @@ Create an alternative that adds 180 days to that stage in every scenario,
 keeping the other inputs and scenario weights the same:
 
 ```bash
-vorhersage timeline shift waymo@1 --parameter public_access --days 180 \
+vorhersage --project waymo-demo timeline shift waymo@1 --parameter public_access --days 180 \
   --name slower-access --rationale "Public access takes six months longer" --format text
-vorhersage timeline compare waymo@1 slower-access@1 --format text
+vorhersage --project waymo-demo timeline compare waymo@1 slower-access@1 --format text
 ```
 
 | Model | Probability of launch before 2029 |
@@ -159,14 +150,15 @@ vorhersage timeline compare waymo@1 slower-access@1 --format text
 | Public access takes 180 additional days | **22%** |
 
 The original model stays unchanged, and `slower-access@1` records its source
-and the reason for the change. Two previously successful scenarios now miss the deadline. That tells you why
-research into the time from testing to public access could matter. The difference
+and the reason for the change. Two previously successful scenarios now miss the
+deadline. That tells you why research into the time from testing to public access
+could matter. The difference
 is a sensitivity check, not a confidence interval.
 
 ### 6. Share the model and its alternative
 
 ```bash
-vorhersage timeline report waymo@1 --compare slower-access@1 --output waymo.html --format text
+vorhersage --project waymo-demo timeline report waymo@1 --compare slower-access@1 --output waymo.html --format text
 ```
 
 Open **`waymo.html`** to inspect the model, scenario schedules, and comparison.

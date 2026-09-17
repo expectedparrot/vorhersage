@@ -24,9 +24,10 @@ from .store import Store
 from .workflow import Workflow
 from .reference import add as add_reference, query as query_reference
 from . import experiments, sessions, session_runtime, session_studies, session_reports
-from . import market_data, workbench, reports
+from . import market_data, workbench, reports, examples
 
 GUIDE = """Create a project, register a precise binary question, and start a run.
+Use init NEW_DIRECTORY --example waymo to load a complete offline example with named models and saved evidence.
 Repeat next --run ID, author the returned payload schema, then submit --run ID --from FILE.
 Use Epiq to research facts; epiq search helps locate cells and epiq freeze imports a portable packet.
 Packet record references go into evidence_refs. An unknown is valid when explained.
@@ -66,7 +67,8 @@ def parser():
     commands = p.add_subparsers(dest="command", required=True)
     init = commands.add_parser("init")
     init.add_argument("path", nargs="?", type=Path)
-    init.add_argument("--name", default="Forecast portfolio")
+    init.add_argument("--name", help="Project name (default: Forecast portfolio, or the example's name)")
+    init.add_argument("--example", choices=examples.EXAMPLES, help="Load bundled research and models into a new directory")
     for name in ("version", "guide", "status", "monitor", "doctor", "coherence"):
         commands.add_parser(name)
     scenario = commands.add_parser("scenario")
@@ -408,7 +410,9 @@ def dispatch(args):
         if args.action == "tick":
             return tick(args.project, args.id, args.force)
     if command == "init":
-        return Store(args.path or args.project).init(args.name)
+        if args.example:
+            return examples.initialize(args.path or args.project, args.example, args.name)
+        return Store(args.path or args.project).init(args.name or "Forecast portfolio")
     if command in ("status", "monitor", "doctor"):
         return getattr(w, command)()
     if command == "next":

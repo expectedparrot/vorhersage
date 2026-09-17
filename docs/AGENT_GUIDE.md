@@ -12,6 +12,21 @@ preserves forecasts, tracks review work, and evaluates resolved predictions.
 
 ## Start and resume
 
+To explore a complete saved example immediately:
+
+```bash
+vorhersage init waymo-demo --example waymo
+vorhersage --project waymo-demo timeline analyze waymo@1 --format text
+```
+
+This works from an installed package, offline, without a repository checkout.
+It creates a new directory with the question, research profile, evidence, draft
+`waymo-draft@1`, and completed model `waymo@1`. Editable copies of the inputs are
+in `waymo-demo/inputs/`; the registered records preserve their original content.
+It replays a saved research snapshot and issues no new forecast. Existing
+destinations are refused. The [README walkthrough](../README.md#see-it-work-will-waymo-launch-in-boston-before-2029)
+explains the research and shows how to compare another assumption.
+
 Install using the [agent quickstart](../README.md#copy-and-paste-into-an-agent),
 then run `vorhersage guide` for the built-in overview. The examples below assume
 `vorhersage` is on your PATH; in a source checkout you can use
