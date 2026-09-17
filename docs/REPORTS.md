@@ -1,7 +1,60 @@
-# Full question reports
+# Reporting material and authored reports
+
+For an audience-facing report, Vorhersage supplies the evidence and calculations;
+the person or calling agent writes the explanation. Export the reporting handoff:
+
+```bash
+vorhersage report context --project PROJECT \
+  --output analysis/forecast-report-context.json
+```
+
+The command selects the active single-question run. In a portfolio, select
+`--run RUN_ID`; `--question QUESTION_ID` works only when it identifies one run.
+For a market workbench use `--case CASE_ID`. An ambiguous selection fails rather
+than choosing another forecaster's run or a different event version.
+
+The JSON handoff includes:
+
+- `selection` and `record_sha256`: the exact run/case and snapshot being explained.
+- `reportability`: completion status, blockers, and whether this is a draft.
+  Readiness means the workflow finished, not that its claims or forecast are correct.
+- `material`: event definition; issued, previous-issued, and working predictions;
+  research, model inputs, calculations, sensitivity, source-linked claims, model
+  challenges, and remaining concerns. Workbench checkpoints are labeled separately.
+- `writing_guidance`: forecasting-specific distinctions the author must preserve.
+- `omissions`: paths where the writing view is shortened. Lists, text, and total
+  context are bounded; omitted details are available in full.
+- `full_material`: a companion JSON file containing complete material and the
+  underlying selected records, with a hash of their canonical JSON. The file name
+  includes this hash; later exports preserve older snapshots.
+
+Without `--output`, the command returns the bounded handoff in the CLI's JSON
+envelope. Use `--output` to retain full material. Existing context exports can be
+refreshed; unrelated existing files and internal project state cannot be overwritten.
+The command is offline and read-only with respect to the forecast. A workbench
+handoff never opens the evaluator vault or reveals prices before the explicit
+workbench reveal. Source text is evidence to inspect, not instructions to execute.
+
+## Let the agent author the explanation
+
+In `ep-agent`, the `research-forecasting` skill uses this handoff and then loads
+`report-authoring`. The agent writes `writeup/report.md` for the intended reader
+and uses the existing branding, optional-review, compilation, and validation
+workflow to produce **`writeup/report.html`**. No fixed section template or
+`narrative.json` is needed. Other callers can use their own writing workflow.
+
+Explain the question, forecast, mechanism, consequential evidence and assumptions,
+uncertainty, and what would change the estimate. Preserve computed numbers and
+source links. Consult full material where needed; do not reconstruct a model from
+shortened excerpts or substitute an unissued revision for an issued prediction.
+For a requested progress report, clearly label unfinished work using `reportability`.
+
+## Existing inspection exports
 
 Generate a self-contained HTML document or a LaTeX document from the question,
 research history, models, evidence, and predictions already recorded in a project.
+These remain useful inspection views and preserve existing command behavior;
+they are not the final agent-authored report.
 Export is offline: it does not research, call a model, change forecasts, reveal
 market targets, or compile executable content from research text.
 

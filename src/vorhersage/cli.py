@@ -24,7 +24,7 @@ from .store import Store
 from .workflow import Workflow
 from .reference import add as add_reference, query as query_reference
 from . import experiments, sessions, session_runtime, session_studies, session_reports
-from . import market_data, workbench, reports, setup, study, study_text
+from . import market_data, workbench, reports, report_context, setup, study, study_text
 
 GUIDE = """Vorhersage records research, computes declared models, and preserves issued forecasts and their revisions. You collect evidence and judge the inputs.
 For one question, use start TEXT --project FOLDER. This saves an undefined question, without inventing a probability.
@@ -53,7 +53,8 @@ Model input paths are probability for judgment, scenarios/ID/weight and scenario
 Review must include sensitivity_review with interpretation, influential_inputs (actual model_input paths), and next_evidence. Inspect context.sensitivity: its bounds vary assumptions and are not confidence intervals. In new studies, review decision revise returns to assessment and model challenge; do not supply an inline replacement probability. Existing structured_v1 studies retain their original review contract.
 After new evidence arrives, use revise --project FOLDER --reason REASON --evidence PACKET:RECORD (repeat evidence as needed), then next/submit/report. This starts a linked revision with a fresh cutoff and carries prior evidence/model records. show distinguishes the previous issued forecast from the working revision. A signal alone never changes a probability.
 The forecaster does the research and judgment, directly or with an agent; these commands do not call a model or browse automatically.
-Use report --project FOLDER to export a full HTML report, including work in progress. --output FILE also supports LaTeX.
+For an agent-authored report, use report context --project FOLDER --output analysis/forecast-report-context.json. Read that bounded evidence and writing handoff; a hash-bound full-material JSON file is saved beside it. Select --run RUN for a portfolio or --case CASE for a workbench; ambiguous runs are rejected. reportability distinguishes a completed forecast from a draft; readiness is not a quality certification. Preserve probabilities, evidence links, assumptions, challenges, and hidden-market boundaries; consult full material for omitted details.
+The calling agent authors the explanation. In ep-agent, load skill:report-authoring, write writeup/report.md, and follow its branding, optional-review, compilation, and checking workflow to produce writeup/report.html. This package does not call another model to narrate results. Its legacy report --project FOLDER HTML/LaTeX exports remain inspection views, not the agent's final narrative.
 The commands below support portfolios and explicit low-level control.
 Create a project, register a precise binary question, and start a run.
 Use init PROJECT --question TEXT --deadline TIME --yes CRITERIA --source SOURCE to create a project and question together.
@@ -158,7 +159,7 @@ def human_output(args):
         return True
     if args.command in ("next", "submit"):
         return args.run is None
-    return args.command == "report" and not args.question and args.format not in ("json", "markdown")
+    return args.command == "report" and args.report_action != "context" and not args.question and args.format not in ("json", "markdown")
 
 
 def parser():
@@ -411,10 +412,14 @@ def parser():
         ap = commands.add_parser(name)
         ap.add_argument("--from", dest="input", required=True)
     report = commands.add_parser("report")
+    report.add_argument("report_action", nargs="?", choices=["context"], help="Export evidence and writing guidance for an agent-authored report")
+    selection = report.add_mutually_exclusive_group()
+    selection.add_argument("--run", help="Run to use for report context; defaults to the active single-question study")
+    selection.add_argument("--case", help="Workbench case to use for report context; preserves hidden targets")
     report.add_argument("--question", help="Explicit question for a portfolio; omit for a single-question study")
     report.add_argument("--project", type=Path, default=argparse.SUPPRESS)
     report.add_argument("--json", action="store_true")
-    report.add_argument("--format", choices=["json", "markdown", "html", "latex"], help="Default: HTML for a study, JSON with --question; infer from output extension")
+    report.add_argument("--format", choices=["json", "markdown", "html", "latex"], help="Inspection export: HTML for a study, JSON with --question; agent writing uses report context")
     report.add_argument("--output", type=Path)
     report.add_argument("--attachment", type=Path, action="append", default=[], help="Supplemental JSON model/research file; does not alter recorded evidence")
     report.add_argument("--narrative", type=Path, help="Authored explanation JSON tied to the current report snapshot")
@@ -746,6 +751,11 @@ def dispatch(args):
             return start_case(args.project, load(args.cases), args.case, args.forecaster, args.method)
         return evaluate_replay(s, load(args.cases), load(args.labels), load(args.manifest), load(args.input))
     if command == "report":
+        if args.report_action == "context":
+            require(not args.format and not args.attachment and not args.narrative,
+                    "Report context exports JSON evidence; formatting and narrative belong to the author.")
+            return report_context.export(s, output=args.output, question_id=args.question, run_id=args.run, case_id=args.case)
+        require(not args.run and not args.case, "--run and --case select report context; use report context.")
         question = args.question or study.binding(s)["question_id"]
         if args.json and args.format is None and not args.output:
             args.format = "json"

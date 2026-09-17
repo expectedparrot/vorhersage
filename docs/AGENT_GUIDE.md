@@ -34,6 +34,14 @@ Use `evidence add` to capture findings with tool-recorded timestamps,
 Run `vorhersage guide` after installing to read these requirements and the model
 input paths. `--project` works before or after any subcommand.
 
+For the final report, export `vorhersage report context --project PROJECT
+--output analysis/forecast-report-context.json`. Read its completion status,
+selected prediction, evidence, and writing guidance, consulting full material for
+omitted details. Author the explanation from these records. In `ep-agent`, load
+`skill:report-authoring`, write `writeup/report.md`, and follow its existing
+branding, review, compilation, and checks to produce `writeup/report.html`.
+Package-generated HTML remains an inspection view. See [the handoff contract](REPORTS.md).
+
 If several important unknowns are facts the user knows, **offer a short survey
 for that user** using `ep humanize` when available. Explain which model inputs
 the answers would inform, design neutral questions linked to those inputs, and

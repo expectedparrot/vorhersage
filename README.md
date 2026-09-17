@@ -631,8 +631,12 @@ important facts are things I know, offer to design a short survey for me using
 `ep humanize`, share its respondent link, and use my answers as evidence to
 update the affected model inputs. The guide explains how to capture responses
 and revise an issued forecast. For later
-evidence, use `revise`; preserve actual timestamps. Finish with `report --project STUDY_FOLDER`
-and show me the forecast, its main drivers, and the report. For an existing
+evidence, use `revise`; preserve actual timestamps. Finish the research with
+`report context --project STUDY_FOLDER --output analysis/forecast-report-context.json`.
+Use that evidence and writing handoff to author an explanatory report; preserve
+its numbers, citations, assumptions, and unresolved concerns. In ep-agent, follow
+`skill:report-authoring` to write `writeup/report.md` and compile the branded
+`writeup/report.html`. Show me the forecast, its main drivers, and that report. For an existing
 portfolio, follow the guide's explicit question and run commands.
 ```
 

@@ -324,6 +324,21 @@ advances its evidence cutoff as you submit work.
 
 ## Share the report
 
+For a report written for the reader, export the evidence and writing handoff:
+
+```bash
+vorhersage report context --project launch \
+  --output analysis/forecast-report-context.json
+```
+
+The handoff contains the selected forecast, model, research, citations, and
+limitations, with a full snapshot alongside the bounded writing view. The author
+chooses the narrative. In `ep-agent`, follow `report-authoring` to write
+`writeup/report.md` and compile the branded `writeup/report.html` through its
+existing review and checking workflow. See [reporting material](REPORTS.md).
+
+The original generated inspection views remain available:
+
 ```bash
 vorhersage report --project launch
 vorhersage report --project launch --output launch.tex
