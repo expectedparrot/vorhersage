@@ -55,6 +55,120 @@ Vorhersage's core workflow, calculations and exports also work locally without
 an account. Model and research services are chosen by the agent or configured
 workers. For a persistent shell setup, run `uv tool update-shell`.
 
+## Worked example: will an app launch next week?
+
+Suppose a small team plans to release an app within seven days. We want a
+probability, an explanation, and a record we can update when the QA results arrive.
+
+This example is **fictional and runs offline**. Its briefing and probabilities are
+authored teaching inputs. It makes no model calls and needs no login. From a
+checkout of this repository, after installing Vorhersage:
+
+```bash
+python3 examples/quickstart.py ./launch-demo
+```
+
+Choose a new output directory. The [helper](examples/quickstart.py) writes the
+example inputs, calls the installed `vorhersage` CLI for every step, and saves
+the responses. It ends with:
+
+```text
+Issued forecast: 72.0% (0.90 × 0.80)
+Report: .../launch-demo/report.html
+```
+
+Here is the forecast it worked through.
+
+### 1. Define the event
+
+**Question:** Will the app launch publicly within seven days?
+
+- **Yes:** QA has passed and at least one external user can access the public
+  release by the deadline.
+- **No:** Those requirements are not met by the deadline.
+- **Void:** The teaching fixture is withdrawn.
+
+The helper writes an exact UTC deadline, registers the question with
+`question add`, and starts a simulation run with `run start`. Its small research
+profile requires two checks: QA readiness and the release process. The saved
+question is in `launch-demo/inputs/question.json`.
+
+### 2. Record the starting estimate and evidence
+
+We record **50% as an assumed starting baseline**. The fictional briefing is
+already available, so the record does not label this an independent pre-research
+prior. The briefing supplies two judgments:
+
+| Finding | Assumed probability | What it means |
+|---|---:|---|
+| The remaining QA checks pass by the deadline | 90% | A judgment from the fictional engineering lead. |
+| Approval and public deployment finish by the deadline, given QA passes | 80% | A conditional judgment that must include the time left after QA. |
+
+`research capture` stores the briefing and returns evidence references. The
+research submissions cite those references and record what remains unknown:
+defect severity, approval delays, and deployment failures. These numbers are
+subjective inputs, not measured success rates.
+
+### 3. Have the package calculate the prediction
+
+Public launch requires QA, so we declare a `conditional_path` assessment:
+
+```text
+P(launch by deadline)
+  = P(QA passes by deadline)
+    × P(launch by deadline | QA passes by deadline)
+  = 0.90 × 0.80
+  = 0.72
+```
+
+Vorhersage computes **72%** from the submitted components. The second probability
+is conditional on the first event; the multiplication does not assume the stages
+are independent. The complete input, including rationales and evidence links, is
+saved in `launch-demo/inputs/assessment.json`. The script does not supply a final
+72% value in that assessment—the package calculates it.
+
+### 4. Challenge the estimate and issue it
+
+The review considers both directions. **Too high?** QA could finish too late to
+leave time for approval. **Too low?** Preparing approval during QA could make the
+last step easier. The example retains the stated assumptions and their limits,
+then submits the issuance task with a review scheduled for the next day and a
+trigger for new QA results or a changed release schedule.
+
+The issued forecast is **72%**, with the sources, calculation and review attached.
+A real agent would investigate these objections and justify or revise the inputs;
+completing the workflow alone does not establish that 72% is well calibrated.
+
+### 5. Inspect the project and open the report
+
+```bash
+vorhersage --project ./launch-demo status
+vorhersage --project ./launch-demo run list
+vorhersage --project ./launch-demo report --question app-launch --output ./launch-demo/report.html
+```
+
+Open `launch-demo/report.html` in your browser. It contains the question, prediction,
+research, calculation, review and sources. The helper also saves:
+
+| File or directory | Contents |
+|---|---|
+| `summary.json` | The run ID, forecast ID and final probability. |
+| `inputs/` | Question, briefing, model and every authored submission. |
+| `tasks/` | Each `next` response, including the requested input schema. |
+| `receipts/` | The CLI's responses to every command. |
+| `report.json` | The exported question and forecast records. |
+| `.vorhersage/state.sqlite` | The project state used to resume or revise the work. |
+
+The core loop is **`next` → do the requested work → `submit` → `next`**.
+The helper supplies fixed answers for this example; an agent supplies research
+and judgment in a real run. `next` returns the current task and its input schema.
+Issuance is one of those tasks. Each accepted submission preserves the history.
+
+Use `vorhersage guide` for the workflow and `vorhersage schema NAME` for exact
+input fields. Ordinary commands return JSON; errors return JSON on stderr and a
+nonzero exit code. Sources can be captured directly or imported from an
+[Epiq evidence library](docs/RESEARCH_AND_MONITORING.md).
+
 ## What you can do
 
 - **Research a forecast.** Define the event, deadline and resolution source;
@@ -79,43 +193,6 @@ workers. For a persistent shell setup, run `uv tool update-shell`.
 <p align="center">
   <img src="docs/assets/vorhersage-artwork.png" width="760" alt="An Expected Parrot connected to sensors in a glass tank, framed by expectation brackets">
 </p>
-
-## How the CLI works
-
-A project stores its records in `.vorhersage/state.sqlite`. Each command reads
-or advances that saved state. Sources can be captured directly or imported from
-an [Epiq evidence library](docs/RESEARCH_AND_MONITORING.md).
-
-The ordinary forecasting loop is:
-
-```text
-Define question → Start run → Get next task → Research / model / review
-                                   ↑                    ↓
-                                   └──── Submit work ───┘
-                                                        ↓
-                                              Issue forecast → Report
-                                                        ↓
-                                            Monitor → Revise or resolve
-                                                        ↓
-                                                     Evaluate
-```
-
-`next` returns the task and its required input schema. The agent authors a JSON
-submission and calls `submit`; issuance is one of these tasks. Records retain
-question versions, evidence references and forecast history. Use `status` and
-`run list` to resume an existing project.
-
-```bash
-vorhersage --project ./forecast-study status
-vorhersage --project ./forecast-study run list
-vorhersage --project ./forecast-study next --run RUN_ID
-vorhersage --project ./forecast-study submit --run RUN_ID --from result.json
-vorhersage --project ./forecast-study report --question QUESTION_ID --output report.html
-```
-
-Replace IDs with those returned by the CLI. Ordinary responses are JSON; errors
-return JSON on stderr and a nonzero exit code. `--help` explains command syntax,
-and `schema NAME` supplies the exact input shape.
 
 ## Choose a workflow
 
