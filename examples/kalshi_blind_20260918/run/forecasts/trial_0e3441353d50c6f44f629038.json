@@ -1,0 +1,113 @@
+{
+  "arm_id": "arm_69b66d9fc276426cadff",
+  "assessment_probability": 0.55,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.017392,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_a199dcd4fddc25dbdc0c1ef1",
+      "record_id": "fed_statement"
+    },
+    {
+      "packet_id": "pkt_a199dcd4fddc25dbdc0c1ef1",
+      "record_id": "fed_projections"
+    }
+  ],
+  "experiment_id": "experiment_c0824cf924d14b30ae57",
+  "forecaster": "experiment_c0824cf924d14b30ae57:arm_69b66d9fc276426cadff:r1",
+  "information_as_of": "2026-09-18T11:19:02.785870Z",
+  "initial_information_as_of": "2026-09-18T11:19:02.785870Z",
+  "input_manifest": {
+    "arm_69b66d9fc276426cadff": "90044fab153e35d81779ca8ffffc54fc48dd691021cb1d031f4fc51175a22687",
+    "experiment_c0824cf924d14b30ae57": "7f16b0077bb711e476898a640157c648e73a2407c0b4503334d9151e7d68a133",
+    "method_8c5163ac31854a34b445": "9ef4f83a1ee11a35113ce0297d36ed11e980d017594eeaf4c3e486174a9d6eda",
+    "pkt_a199dcd4fddc25dbdc0c1ef1": "0bcd43db7b3412c4121dd68751088c3e85ecb5558509628cd333f3d8d47b2e58",
+    "task_result_698006a9826f4914a206": "f40d34ab55d823cd151227f80cd0424e15693a7bfb15ce58ad6efcdd09b33718"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-18T11:25:09.983408Z",
+  "manifest_sha256": "f0b5896d7b1e71194b1880043d74a3a40011b7e0562215a5739de4d63e15ecb9",
+  "method": "method_8c5163ac31854a34b445",
+  "method_spec_id": "method_8c5163ac31854a34b445",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.55,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_8c5163ac31854a34b445"
+  },
+  "question": {
+    "domain": "Monetary policy",
+    "event_deadline": "2026-10-28T17:59:00Z",
+    "event_group": "KXFEDDECISION-26OCT",
+    "id": "fed-2",
+    "kind": "real",
+    "no": "The stated qualifying event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined source; see definition-only rules.",
+    "resolve_after": "2026-10-28T17:59:00Z",
+    "text": "Will the Federal Reserve Hike rates by 0bps at their October 2026 meeting? \u2014 Fed maintains rate",
+    "void": "Nonbinary fair-value settlement or a cancelled/invalid contract is excluded from eventual outcome scoring.",
+    "yes": "If the Federal Reserve does a Hike of 0bps on October 28, 2026, then the market resolves to Yes.\n\nThis market is mutually exclusive. Therefore, if the Federal Reserve hikes by 50bps, the 50bps market will resolve to Yes and the 25bps market will resolve to No. Only one bucket, at maximum, can resolve to Yes. Note 4/28/25: For the markets beginning after the May meeting, if a scheduled FOMC meeting is canceled and does not occur on its scheduled date, then the strike for \"Fed maintains rate\" will resolve to Yes and all others will resolve to No."
+  },
+  "question_id": "fed-2",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-18T13:19:02.785870+00:00",
+  "run_id": "run_4871aa0afb0741438272",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One registered model call completed; freeze before revealing evaluator targets.",
+  "trial_id": "trial_0e3441353d50c6f44f629038",
+  "triggers": [
+    {
+      "description": "New primary-source evidence or eventual resolution.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_a199dcd4fddc25dbdc0c1ef1",
+          "record_id": "fed_statement"
+        },
+        {
+          "packet_id": "pkt_a199dcd4fddc25dbdc0c1ef1",
+          "record_id": "fed_projections"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

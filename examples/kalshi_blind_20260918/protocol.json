@@ -1,0 +1,58 @@
+{
+  "id": "kalshi-outside-research-20260918",
+  "registered_at": "2026-09-18T10:55:34.968905Z",
+  "objective": "Compare question-only and outside-research forecasts with opening Kalshi order-book midpoints on six unresolved contracts; not outcome accuracy.",
+  "design": {
+    "contracts": 6,
+    "arms": [
+      "question_only",
+      "outside_research"
+    ],
+    "repetitions": 1,
+    "method": "Same direct judgment instructions and model; only supplied evidence differs. Independent model contexts, no browsing or tool access in forecast calls.",
+    "model": {
+      "provider": "google",
+      "name": "gemini-3.1-pro-preview",
+      "parameters": {
+        "temperature": 0.5,
+        "topK": 40,
+        "topP": 1,
+        "maxOutputTokens": 8192,
+        "thinking_budget": 2048
+      }
+    }
+  },
+  "selection": "Purposive breadth across at least four topics; one contract per event. Inspect allowlisted definitions only, never prices or volume. Exclude previously revealed cases and events whose outcomes may already be known. Prefer deadlines at least 12 hours away. Predeclare a candidate and ordered substitutes before requesting its book.",
+  "eligibility": {
+    "unresolved_active_binary": true,
+    "max_spread": 0.1,
+    "min_contracts_each_side": 1,
+    "nonextreme_two_sided_book": true
+  },
+  "market_use": "Kalshi is used only for precise contract definitions and sealed evaluation quotes. No Kalshi pages, social posts, snippets, quoted market probabilities, other prediction-market odds, or sportsbook odds may enter research evidence.",
+  "research_policy": "Use official or primary nonmarket sources with saved text, URLs, timestamps and hashes. Domain allowlist and text leakage checks before researcher/model access. Record any exposure; contaminated cases excluded from primary clean comparison, not silently replaced after scoring.",
+  "target_timing": "Freeze opening snapshots before outside research. Store targets only in a separate evaluator database. Do not open targets until every successful forecast is sealed and failed submissions recorded. Capture later quotes only as a secondary sensitivity check.",
+  "metrics": [
+    "Mean absolute probability gap to opening midpoint (percentage points), common matched cohort",
+    "Root mean squared probability gap to opening midpoint (percentage points)",
+    "Mean distance outside opening bid-ask interval (percentage points)",
+    "Paired improvement from question-only to outside-research, per contract and mean",
+    "All attempted model costs, research requests, failures and unknown costs",
+    "Constant 50% baseline on the same cohort"
+  ],
+  "missingness": "No model retries or output repairs. Report every attempted case. Primary paired scores use only contracts with both valid forecasts and no detected exposure; list all exclusions.",
+  "budget": {
+    "model_calls": 12,
+    "target_usd": 10,
+    "automatic_retries": 0,
+    "research_searches_per_contract_max": 4,
+    "research_pages_per_contract_max": 5,
+    "note": "Research via built-in web tools and public source GETs; their dollar cost may be unavailable. Model cost checked from provider receipts. Not a provider-enforced cap."
+  },
+  "limits": [
+    "Small purposively chosen sample, one draw per arm; no population inference or calibration claim.",
+    "Blinding covers supplied prompts and current retrievals, not unknown model pretraining.",
+    "Coordinator-selected research and equal model do not isolate fully autonomous search quality.",
+    "Research may reflect information arriving after opening target; later quote drift reported separately."
+  ]
+}

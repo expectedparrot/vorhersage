@@ -1,0 +1,113 @@
+{
+  "arm_id": "arm_69b66d9fc276426cadff",
+  "assessment_probability": 0.58,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.017446,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_2f4bb700c4c52a2036532ccd",
+      "record_id": "baseball_schedule"
+    },
+    {
+      "packet_id": "pkt_2f4bb700c4c52a2036532ccd",
+      "record_id": "baseball_standings"
+    }
+  ],
+  "experiment_id": "experiment_c0824cf924d14b30ae57",
+  "forecaster": "experiment_c0824cf924d14b30ae57:arm_69b66d9fc276426cadff:r1",
+  "information_as_of": "2026-09-18T11:19:02.785870Z",
+  "initial_information_as_of": "2026-09-18T11:19:02.785870Z",
+  "input_manifest": {
+    "arm_69b66d9fc276426cadff": "90044fab153e35d81779ca8ffffc54fc48dd691021cb1d031f4fc51175a22687",
+    "experiment_c0824cf924d14b30ae57": "7f16b0077bb711e476898a640157c648e73a2407c0b4503334d9151e7d68a133",
+    "method_8c5163ac31854a34b445": "9ef4f83a1ee11a35113ce0297d36ed11e980d017594eeaf4c3e486174a9d6eda",
+    "pkt_2f4bb700c4c52a2036532ccd": "6e6aa136dca9dafd36482126963d0f7f4a99faf7d530320deafa5a17d71adf12",
+    "task_result_76fbfdb4e7db448e9965": "739441ee5e7d8d337b0ebd717ad7a0b956cf0279e26ad41364e0a6315c40488e"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-18T11:25:10.040809Z",
+  "manifest_sha256": "dbc9b48da62698e00f6eee903aa080827eec396723f60a8f7d96bcd165a688e2",
+  "method": "method_8c5163ac31854a34b445",
+  "method_spec_id": "method_8c5163ac31854a34b445",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.58,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_8c5163ac31854a34b445"
+  },
+  "question": {
+    "domain": "Sports",
+    "event_deadline": "2026-09-23T23:20:00Z",
+    "event_group": "KXMLBGAME-26SEP201920MILBAL",
+    "id": "baseball-2",
+    "kind": "real",
+    "no": "The stated qualifying event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined source; see definition-only rules.",
+    "resolve_after": "2026-09-23T23:20:00Z",
+    "text": "Milwaukee wins \u2014 Milwaukee",
+    "void": "Nonbinary fair-value settlement or a cancelled/invalid contract is excluded from eventual outcome scoring.",
+    "yes": "If Milwaukee wins the Milwaukee vs Baltimore professional baseball game originally scheduled for Sep 20, 2026 at 7:20 PM EDT, then the market resolves to Yes.\n\nThe following market refers to the Milwaukee vs Baltimore professional baseball game originally scheduled for Sep 20, 2026 at 7:20 PM EDT. If this game is postponed or delayed, the market will remain open and close after the rescheduled game has finished (within two days). If the game is cancelled or rescheduled to over two days away, the market will resolve to a fair price in accordance with the rules.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
+  },
+  "question_id": "baseball-2",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-18T13:19:02.785870+00:00",
+  "run_id": "run_9d9c4e719d5a402bacd0",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One registered model call completed; freeze before revealing evaluator targets.",
+  "trial_id": "trial_98cc0be1817be2e4a80bf51a",
+  "triggers": [
+    {
+      "description": "New primary-source evidence or eventual resolution.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_2f4bb700c4c52a2036532ccd",
+          "record_id": "baseball_schedule"
+        },
+        {
+          "packet_id": "pkt_2f4bb700c4c52a2036532ccd",
+          "record_id": "baseball_standings"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

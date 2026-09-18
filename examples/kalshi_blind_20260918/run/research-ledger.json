@@ -1,0 +1,105 @@
+{
+  "recorded_at": "2026-09-18T11:42:32.821017Z",
+  "direct_http_retrievals": [
+    {
+      "source_id": "baseball_schedule",
+      "requested_url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-09-20&teamId=158&hydrate=probablePitcher,team",
+      "request_started_at": "2026-09-18T11:07:43.263290Z",
+      "accepted": true
+    },
+    {
+      "source_id": "baseball_standings",
+      "requested_url": "https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=2026&date=2026-09-17&standingsTypes=regularSeason",
+      "request_started_at": "2026-09-18T11:09:29.634072Z",
+      "accepted": true
+    },
+    {
+      "source_id": "employment_archive",
+      "requested_url": "https://www.bls.gov/news.release/archives/empsit_09042026.htm",
+      "request_started_at": "2026-09-18T11:09:31.265468Z",
+      "accepted": false
+    },
+    {
+      "source_id": "employment_history",
+      "requested_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE&cosd=2024-01-01&coed=2026-09-18",
+      "request_started_at": "2026-09-18T11:12:37.415989Z",
+      "accepted": false
+    },
+    {
+      "source_id": "employment_release",
+      "requested_url": "https://www.bls.gov/news.release/empsit.nr0.htm",
+      "request_started_at": "2026-09-18T11:07:44.240789Z",
+      "accepted": false
+    },
+    {
+      "source_id": "fed_projections",
+      "requested_url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm",
+      "request_started_at": "2026-09-18T11:09:30.881654Z",
+      "accepted": true
+    },
+    {
+      "source_id": "fed_statement",
+      "requested_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+      "request_started_at": "2026-09-18T11:07:45.051014Z",
+      "accepted": true
+    },
+    {
+      "source_id": "netflix_chart",
+      "requested_url": "https://www.netflix.com/tudum/top10/united-states",
+      "request_started_at": "2026-09-18T11:07:43.688450Z",
+      "accepted": false
+    },
+    {
+      "source_id": "netflix_week",
+      "requested_url": "https://www.netflix.com/tudum/top10/united-states?week=2026-09-13",
+      "request_started_at": "2026-09-18T11:09:30.465893Z",
+      "accepted": false
+    },
+    {
+      "source_id": "neutron_news",
+      "requested_url": "https://investors.rocketlabcorp.com/news/default.aspx",
+      "request_started_at": "2026-09-18T11:07:45.439513Z",
+      "accepted": false
+    },
+    {
+      "source_id": "neutron_releases",
+      "requested_url": "https://investors.rocketlabcorp.com/news-releases",
+      "request_started_at": "2026-09-18T11:13:13.256504Z",
+      "accepted": false
+    },
+    {
+      "source_id": "weather_climate",
+      "requested_url": "https://forecast.weather.gov/product.php?site=LOX&issuedby=LAX&product=CLI&format=CI&version=1&glossary=1",
+      "request_started_at": "2026-09-18T11:07:42.159542Z",
+      "accepted": true
+    },
+    {
+      "source_id": "weather_forecast",
+      "requested_url": "https://api.weather.gov/gridpoints/LOX/148,41/forecast",
+      "request_started_at": "2026-09-18T11:12:36.708118Z",
+      "accepted": true
+    },
+    {
+      "source_id": "weather_point",
+      "requested_url": "https://api.weather.gov/points/33.9425,-118.4081",
+      "request_started_at": "2026-09-18T11:09:28.847701Z",
+      "accepted": true
+    }
+  ],
+  "direct_http_attempts": 14,
+  "direct_http_successes": 7,
+  "direct_http_failures": 7,
+  "browser_search_queries": 6,
+  "browser_open_operations": 6,
+  "browser_tool_calls": 5,
+  "browser_operations_note": "Six discovery queries: four Rocket Lab, one Netflix, one BLS. Six opens: Netflix US chart, BLS archive twice (second for content lines), Rocket Lab Q2 release and presentation, Netflix September schedule. Counts are logical tool operations; provider-internal HTTP requests and cost are unknown.",
+  "model_calls": 12,
+  "model_provider_reported_cost_usd": 0.16835,
+  "research_cost_usd": null,
+  "coordinator_cost_usd": null,
+  "no_detected_odds_exposure": true,
+  "limitations": [
+    "These counters do not measure researcher effort or total system dollar cost.",
+    "Direct retrieval failures were retained; browser fallbacks were explicit, not invisible retries."
+  ]
+}

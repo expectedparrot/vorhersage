@@ -1,0 +1,21 @@
+{
+  "recorded_at": "2026-09-18T11:25:43.775819Z",
+  "seal_sha256": "a3493770e03521765088ff380bae230ce9735a2b5c2fabf9269a5912d975ce0a",
+  "phase": "before any target reveal",
+  "observations": [
+    {
+      "case": "netflix",
+      "finding": "Question-only model calls the target a 2010 catalog film; researched model also assumes an older catalog title. The official discovery describes a new film released September 9, 2026. The research packet preserved the weekly rank but omitted release year/date. This is a factual/entity-identification error and a packet-design gap; retain both original forecasts in scoring.",
+      "source": "https://www.netflix.com/tudum/articles/tyler-perrys-why-did-i-get-married-again?inapp=true"
+    },
+    {
+      "case": "fed",
+      "finding": "Both arms output 55%, despite different rationales. Equality of final probabilities does not imply equally informed reasoning."
+    },
+    {
+      "case": "weather",
+      "finding": "The researched 5% probability uses a forecast-to-bin transfer without an empirical forecast-error distribution; the packet openly records that limitation."
+    }
+  ],
+  "contamination_review": "No returned rationale cites a target market probability or excluded source. All evidence came from the assigned primary-source packets; pretraining exposure cannot be established."
+}

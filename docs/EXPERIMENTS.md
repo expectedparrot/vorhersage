@@ -12,6 +12,9 @@ The [CPI pilot](../examples/cpi_arms_20260917/README.md) records real model call
 including rejected outputs and their costs. Its
 [partition-review follow-up](../examples/cpi_partition_20260918/README.md) uses
 optional review stages and separately registered diagnostic cases.
+The [six-contract market-agreement study](../examples/kalshi_blind_20260918/README.md)
+compares question-only and outside-research data arms while withholding all
+market probabilities until the forecasts are sealed.
 
 ## Register arms
 

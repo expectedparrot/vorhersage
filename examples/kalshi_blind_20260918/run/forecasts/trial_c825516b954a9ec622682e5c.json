@@ -1,0 +1,113 @@
+{
+  "arm_id": "arm_69b66d9fc276426cadff",
+  "assessment_probability": 0.05,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.015898,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_7a91e3853335cd1fc9ddcbb3",
+      "record_id": "weather_forecast"
+    },
+    {
+      "packet_id": "pkt_7a91e3853335cd1fc9ddcbb3",
+      "record_id": "weather_climate"
+    }
+  ],
+  "experiment_id": "experiment_c0824cf924d14b30ae57",
+  "forecaster": "experiment_c0824cf924d14b30ae57:arm_69b66d9fc276426cadff:r1",
+  "information_as_of": "2026-09-18T11:19:02.785870Z",
+  "initial_information_as_of": "2026-09-18T11:19:02.785870Z",
+  "input_manifest": {
+    "arm_69b66d9fc276426cadff": "90044fab153e35d81779ca8ffffc54fc48dd691021cb1d031f4fc51175a22687",
+    "experiment_c0824cf924d14b30ae57": "7f16b0077bb711e476898a640157c648e73a2407c0b4503334d9151e7d68a133",
+    "method_8c5163ac31854a34b445": "9ef4f83a1ee11a35113ce0297d36ed11e980d017594eeaf4c3e486174a9d6eda",
+    "pkt_7a91e3853335cd1fc9ddcbb3": "665c8976f18c7782a1a8350cbb5661ab12966996184444b64b4035fb77b96705",
+    "task_result_3eb61350ec0448ff9c42": "cae36c41a7e62fdf76313fc58905d1a1c4a4d9253bf1e9011229e5febec7a71d"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-18T11:25:10.062097Z",
+  "manifest_sha256": "a31070d215b520f780c8fd5d00a20b55c25358208fb28ebc9d6ed99899f4b680",
+  "method": "method_8c5163ac31854a34b445",
+  "method_spec_id": "method_8c5163ac31854a34b445",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.05,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_8c5163ac31854a34b445"
+  },
+  "question": {
+    "domain": "Climate",
+    "event_deadline": "2026-09-19T08:00:00Z",
+    "event_group": "KXHIGHLAX-26SEP18",
+    "id": "weather-1",
+    "kind": "real",
+    "no": "The stated qualifying event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined source; see definition-only rules.",
+    "resolve_after": "2026-09-19T08:00:00Z",
+    "text": "Will the maximum temperature be 74-75\u00b0 on Sep 18, 2026? \u2014 74\u00b0 to 75\u00b0",
+    "void": "Nonbinary fair-value settlement or a cancelled/invalid contract is excluded from eventual outcome scoring.",
+    "yes": "If the maximum temperature recorded at Los Angeles (CLILAX) for Sep 18, 2026, is between 74-75\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+  },
+  "question_id": "weather-1",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-18T13:19:02.785870+00:00",
+  "run_id": "run_0f36db48afae4c83ab8c",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One registered model call completed; freeze before revealing evaluator targets.",
+  "trial_id": "trial_c825516b954a9ec622682e5c",
+  "triggers": [
+    {
+      "description": "New primary-source evidence or eventual resolution.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_7a91e3853335cd1fc9ddcbb3",
+          "record_id": "weather_forecast"
+        },
+        {
+          "packet_id": "pkt_7a91e3853335cd1fc9ddcbb3",
+          "record_id": "weather_climate"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

@@ -1,0 +1,430 @@
+{
+  "case_id": "workbench_25e39043cee14f74af4e",
+  "state": "revealed",
+  "revision": 2,
+  "baseline_captured_at": "2026-09-18T11:06:23.600099Z",
+  "contract": {
+    "event_group": "KXHIGHLAX-26SEP18",
+    "market_id": "KXHIGHLAX-26SEP18-B74.5",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If the maximum temperature recorded at Los Angeles (CLILAX) for Sep 18, 2026, is between 74-75\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+    "scheduled_close": "2026-09-19T08:00:00Z",
+    "title": "Will the maximum temperature be 74-75\u00b0 on Sep 18, 2026?",
+    "venue": "kalshi",
+    "yes_description": "74\u00b0 to 75\u00b0"
+  },
+  "created_at": "2026-09-18T11:06:23.602350Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-18T11:06:23.248379Z",
+    "specification": {
+      "domain": "Climate",
+      "event_deadline": "2026-09-19T08:00:00Z",
+      "event_group": "KXHIGHLAX-26SEP18",
+      "id": "weather-1",
+      "kind": "real",
+      "no": "The stated qualifying event does not occur, subject to the frozen contract rules.",
+      "profile": "general",
+      "resolution_source": "Contract-defined source; see definition-only rules.",
+      "resolve_after": "2026-09-19T08:00:00Z",
+      "text": "Will the maximum temperature be 74-75\u00b0 on Sep 18, 2026? \u2014 74\u00b0 to 75\u00b0",
+      "void": "Nonbinary fair-value settlement or a cancelled/invalid contract is excluded from eventual outcome scoring.",
+      "yes": "If the maximum temperature recorded at Los Angeles (CLILAX) for Sep 18, 2026, is between 74-75\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Question carries full price-free contract conditions. Deadline conservatively uses market close; evaluate only well before this time and verify unknown outcome separately.",
+    "eligibility_rationale": "Dated future event or current-day future maximum; active unresolved book required. Outside research must independently check whether the outcome is already known.",
+    "market_id": "KXHIGHLAX-26SEP18-B74.5",
+    "max_spread": 0.1,
+    "method": "Question-only versus outside research; independent contexts",
+    "min_contracts_each_side": 1,
+    "mode": "prospective",
+    "question": {
+      "question_id": "weather-1",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_71671e2b38d6482bb4d9",
+  "target_sha256": "fb289df0f2f3d88ed5fc631167f23c0af806192ce2e57d909578293d50d11c83",
+  "journal": [
+    {
+      "id": "workbench_entry_da3b7e621c754bcda14b",
+      "case_id": "workbench_25e39043cee14f74af4e",
+      "evidence_manifest": {
+        "pkt_7a91e3853335cd1fc9ddcbb3": "665c8976f18c7782a1a8350cbb5661ab12966996184444b64b4035fb77b96705"
+      },
+      "kind": "initial",
+      "model_manifest": {
+        "forecast_0d7e4a3736a34d67a609": "27256021ffa16ffddb497ba04ae1e863c5b577166374dadcaa348be902cbe465"
+      },
+      "payload": {
+        "assumptions": [
+          "Independent outside-research arm; not a sequential update of the question-only arm."
+        ],
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_7a91e3853335cd1fc9ddcbb3",
+            "record_id": "weather_forecast"
+          },
+          {
+            "packet_id": "pkt_7a91e3853335cd1fc9ddcbb3",
+            "record_id": "weather_climate"
+          }
+        ],
+        "model_artifact_ids": [
+          "forecast_0d7e4a3736a34d67a609"
+        ],
+        "probability": 0.05,
+        "rationale": "The NWS same-day forecast for September 18 predicts a high of 79 \u00b0F with mostly sunny skies at LAX. The target range is 74-75 \u00b0F, which is 4 to 5 degrees below the forecast. While coastal temperatures at LAX can be difficult to predict precisely due to the unpredictable nature of the marine layer, a same-day forecast of 79 \u00b0F with mostly sunny conditions makes a high in the mid-70s highly unlikely. The strongest reason this estimate could be too high is that the forecast is 79 \u00b0F, which is well above the 74-75 \u00b0F range, meaning the true probability might be even closer to 0. The strongest reason it could be too low is that the marine layer might unexpectedly fail to burn off, keeping temperatures significantly cooler than forecasted and causing a forecast bust.",
+        "research_status": "completed",
+        "uncertainties": [
+          "Recorded source limitations and unresolved future event."
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-18T11:40:25.181488Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_61fe2a469a394c07a446",
+      "case_id": "workbench_25e39043cee14f74af4e",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "No detected target-odds exposure. Forecast workers received only question definitions and their assigned data; no tools. Source screening and separation are procedural, not proof about model pretraining.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "All registered forecast attempts sealed before any target reveal."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-18T11:40:25.205576Z",
+      "revision": 2,
+      "trajectory_manifest": {
+        "workbench_entry_da3b7e621c754bcda14b": "f44bde6efa79d56271eab487f5ddbaaa27eee3a9b02e41f1b11f7610c270f5b2"
+      }
+    }
+  ],
+  "evidence": {
+    "pkt_7a91e3853335cd1fc9ddcbb3:weather_forecast": {
+      "claim": "The NWS forecast updated September 18 gives Friday a high near 79 F, mostly sunny skies, and west-southwest wind of 0\u201315 mph.",
+      "claim_type": "reporting",
+      "entity_ids": [],
+      "id": "weather_forecast",
+      "observed_at": "2026-09-18T11:12:36.992526Z",
+      "provenance": {
+        "adapter": "vorhersage.research_bundle.v1"
+      },
+      "sources": [
+        {
+          "capture": {
+            "captured_at": "2026-09-18T11:12:36.992526Z",
+            "content": "{\n    \"@context\": [\n        \"https://geojson.org/geojson-ld/geojson-context.jsonld\",\n        {\n            \"@version\": \"1.1\",\n            \"wx\": \"https://api.weather.gov/ontology#\",\n            \"geo\": \"http://www.opengis.net/ont/geosparql#\",\n            \"unit\": \"http://codes.wmo.int/common/unit/\",\n            \"@vocab\": \"https://api.weather.gov/ontology#\"\n        }\n    ],\n    \"type\": \"Feature\",\n    \"geometry\": {\n        \"type\": \"Polygon\",\n        \"coordinates\": [\n            [\n                [\n                    -118.3994,\n                    33.9284\n                ],\n                [\n                    -118.4041,\n                    33.9506\n                ],\n                [\n                    -118.4308,\n                    33.9467\n                ],\n                [\n                    -118.4261,\n                    33.9245\n                ],\n                [\n                    -118.3994,\n                    33.9284\n                ]\n            ]\n        ]\n    },\n    \"properties\": {\n        \"units\": \"us\",\n        \"forecastGenerator\": \"BaselineForecastGenerator\",\n        \"generatedAt\": \"2026-09-18T11:12:37+00:00\",\n        \"updateTime\": \"2026-09-18T09:11:26+00:00\",\n        \"validTimes\": \"2026-09-18T03:00:00+00:00/P7DT22H\",\n        \"elevation\": {\n            \"unitCode\": \"wmoUnit:m\",\n            \"value\": 29.8704\n        },\n        \"periods\": [\n            {\n                \"number\": 1,\n                \"name\": \"Overnight\",\n                \"startTime\": \"2026-09-18T04:00:00-07:00\",\n                \"endTime\": \"2026-09-18T06:00:00-07:00\",\n                \"isDaytime\": false,\n                \"temperature\": 68,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 0\n                },\n                \"windSpeed\": \"0 mph\",\n                \"windDirection\": \"\",\n                \"icon\": \"https://api.weather.gov/icons/land/night/sct?size=medium\",\n                \"shortForecast\": \"Partly Cloudy\",\n                \"detailedForecast\": \"Partly cloudy, with a low around 68. Southwest wind around 0 mph.\"\n            },\n            {\n                \"number\": 2,\n                \"name\": \"Friday\",\n                \"startTime\": \"2026-09-18T06:00:00-07:00\",\n                \"endTime\": \"2026-09-18T18:00:00-07:00\",\n                \"isDaytime\": true,\n                \"temperature\": 79,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 0\n                },\n                \"windSpeed\": \"0 to 15 mph\",\n                \"windDirection\": \"WSW\",\n                \"icon\": \"https://api.weather.gov/icons/land/day/sct?size=medium\",\n                \"shortForecast\": \"Mostly Sunny\",\n                \"detailedForecast\": \"Mostly sunny, with a high near 79. West southwest wind 0 to 15 mph.\"\n            },\n            {\n                \"number\": 3,\n                \"name\": \"Friday Night\",\n                \"startTime\": \"2026-09-18T18:00:00-07:00\",\n                \"endTime\": \"2026-09-19T06:00:00-07:00\",\n                \"isDaytime\": false,\n                \"temperature\": 68,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 1\n                },\n                \"windSpeed\": \"5 to 10 mph\",\n                \"windDirection\": \"SSE\",\n                \"icon\": \"https://api.weather.gov/icons/land/night/sct/fog?size=medium\",\n                \"shortForecast\": \"Partly Cloudy then Patchy Fog\",\n                \"detailedForecast\": \"Patchy fog after 5am. Partly cloudy, with a low around 68. South southeast wind 5 to 10 mph.\"\n            },\n            {\n                \"number\": 4,\n                \"name\": \"Saturday\",\n                \"startTime\": \"2026-09-19T06:00:00-07:00\",\n                \"endTime\": \"2026-09-19T18:00:00-07:00\",\n                \"isDaytime\": true,\n                \"temperature\": 80,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 1\n                },\n                \"windSpeed\": \"5 to 10 mph\",\n                \"windDirection\": \"S\",\n                \"icon\": \"https://api.weather.gov/icons/land/day/fog/sct?size=medium\",\n                \"shortForecast\": \"Patchy Fog then Mostly Sunny\",\n                \"detailedForecast\": \"Patchy fog before 11am. Mostly sunny, with a high near 80. South wind 5 to 10 mph.\"\n            },\n            {\n                \"number\": 5,\n                \"name\": \"Saturday Night\",\n                \"startTime\": \"2026-09-19T18:00:00-07:00\",\n                \"endTime\": \"2026-09-20T06:00:00-07:00\",\n                \"isDaytime\": false,\n                \"temperature\": 69,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 0\n                },\n                \"windSpeed\": \"0 to 10 mph\",\n                \"windDirection\": \"S\",\n                \"icon\": \"https://api.weather.gov/icons/land/night/fog?size=medium\",\n                \"shortForecast\": \"Patchy Fog\",\n                \"detailedForecast\": \"Patchy fog after 11pm. Mostly cloudy, with a low around 69. South wind 0 to 10 mph.\"\n            },\n            {\n                \"number\": 6,\n                \"name\": \"Sunday\",\n                \"startTime\": \"2026-09-20T06:00:00-07:00\",\n                \"endTime\": \"2026-09-20T18:00:00-07:00\",\n                \"isDaytime\": true,\n                \"temperature\": 78,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 0\n                },\n                \"windSpeed\": \"5 to 10 mph\",\n                \"windDirection\": \"SSW\",\n                \"icon\": \"https://api.weather.gov/icons/land/day/fog/bkn?size=medium\",\n                \"shortForecast\": \"Patchy Fog then Mostly Cloudy\",\n                \"detailedForecast\": \"Patchy fog before 11am. Mostly cloudy, with a high near 78.\"\n            },\n            {\n                \"number\": 7,\n                \"name\": \"Sunday Night\",\n                \"startTime\": \"2026-09-20T18:00:00-07:00\",\n                \"endTime\": \"2026-09-21T06:00:00-07:00\",\n                \"isDaytime\": false,\n                \"temperature\": 65,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 1\n                },\n                \"windSpeed\": \"0 to 10 mph\",\n                \"windDirection\": \"S\",\n                \"icon\": \"https://api.weather.gov/icons/land/night/fog?size=medium\",\n                \"shortForecast\": \"Patchy Fog\",\n                \"detailedForecast\": \"Patchy fog after 11pm. Mostly cloudy, with a low around 65.\"\n            },\n            {\n                \"number\": 8,\n                \"name\": \"Monday\",\n                \"startTime\": \"2026-09-21T06:00:00-07:00\",\n                \"endTime\": \"2026-09-21T18:00:00-07:00\",\n                \"isDaytime\": true,\n                \"temperature\": 72,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 0\n                },\n                \"windSpeed\": \"5 to 10 mph\",\n                \"windDirection\": \"S\",\n                \"icon\": \"https://api.weather.gov/icons/land/day/fog/sct?size=medium\",\n                \"shortForecast\": \"Patchy Fog then Mostly Sunny\",\n                \"detailedForecast\": \"Patchy fog before 11am. Mostly sunny, with a high near 72.\"\n            },\n            {\n                \"number\": 9,\n                \"name\": \"Monday Night\",\n                \"startTime\": \"2026-09-21T18:00:00-07:00\",\n                \"endTime\": \"2026-09-22T06:00:00-07:00\",\n                \"isDaytime\": false,\n                \"temperature\": 65,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 0\n                },\n                \"windSpeed\": \"0 to 10 mph\",\n                \"windDirection\": \"WSW\",\n                \"icon\": \"https://api.weather.gov/icons/land/night/sct?size=medium\",\n                \"shortForecast\": \"Partly Cloudy\",\n                \"detailedForecast\": \"Partly cloudy, with a low around 65.\"\n            },\n            {\n                \"number\": 10,\n                \"name\": \"Tuesday\",\n                \"startTime\": \"2026-09-22T06:00:00-07:00\",\n                \"endTime\": \"2026-09-22T18:00:00-07:00\",\n                \"isDaytime\": true,\n                \"temperature\": 73,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 0\n                },\n                \"windSpeed\": \"0 to 15 mph\",\n                \"windDirection\": \"SSW\",\n                \"icon\": \"https://api.weather.gov/icons/land/day/sct?size=medium\",\n                \"shortForecast\": \"Mostly Sunny\",\n                \"detailedForecast\": \"Mostly sunny, with a high near 73.\"\n            },\n            {\n                \"number\": 11,\n                \"name\": \"Tuesday Night\",\n                \"startTime\": \"2026-09-22T18:00:00-07:00\",\n                \"endTime\": \"2026-09-23T06:00:00-07:00\",\n                \"isDaytime\": false,\n                \"temperature\": 65,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 0\n                },\n                \"windSpeed\": \"0 to 15 mph\",\n                \"windDirection\": \"SW\",\n                \"icon\": \"https://api.weather.gov/icons/land/night/few?size=medium\",\n                \"shortForecast\": \"Mostly Clear\",\n                \"detailedForecast\": \"Mostly clear, with a low around 65.\"\n            },\n            {\n                \"number\": 12,\n                \"name\": \"Wednesday\",\n                \"startTime\": \"2026-09-23T06:00:00-07:00\",\n                \"endTime\": \"2026-09-23T18:00:00-07:00\",\n                \"isDaytime\": true,\n                \"temperature\": 76,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 0\n                },\n                \"windSpeed\": \"0 to 10 mph\",\n                \"windDirection\": \"SW\",\n                \"icon\": \"https://api.weather.gov/icons/land/day/sct?size=medium\",\n                \"shortForecast\": \"Mostly Sunny\",\n                \"detailedForecast\": \"Mostly sunny, with a high near 76.\"\n            },\n            {\n                \"number\": 13,\n                \"name\": \"Wednesday Night\",\n                \"startTime\": \"2026-09-23T18:00:00-07:00\",\n                \"endTime\": \"2026-09-24T06:00:00-07:00\",\n                \"isDaytime\": false,\n                \"temperature\": 67,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 1\n                },\n                \"windSpeed\": \"0 to 10 mph\",\n                \"windDirection\": \"SSW\",\n                \"icon\": \"https://api.weather.gov/icons/land/night/sct?size=medium\",\n                \"shortForecast\": \"Partly Cloudy\",\n                \"detailedForecast\": \"Partly cloudy, with a low around 67.\"\n            },\n            {\n                \"number\": 14,\n                \"name\": \"Thursday\",\n                \"startTime\": \"2026-09-24T06:00:00-07:00\",\n                \"endTime\": \"2026-09-24T18:00:00-07:00\",\n                \"isDaytime\": true,\n                \"temperature\": 77,\n                \"temperatureUnit\": \"F\",\n                \"temperatureTrend\": null,\n                \"probabilityOfPrecipitation\": {\n                    \"unitCode\": \"wmoUnit:percent\",\n                    \"value\": 1\n                },\n                \"windSpeed\": \"0 to 10 mph\",\n                \"windDirection\": \"SSW\",\n                \"icon\": \"https://api.weather.gov/icons/land/day/sct?size=medium\",\n                \"shortForecast\": \"Mostly Sunny\",\n                \"detailedForecast\": \"Mostly sunny, with a high near 77.\"\n            }\n        ]\n    }\n}",
+            "content_sha256": "48b396e055f0a3e626a89c371ac076ea293d2d1f49283200d24a2a9ea2d7b5dd",
+            "metadata": {
+              "note": "Direct HTTP or browser-extracted source text; excerpt is a coordinator paraphrase checked against the saved response.",
+              "retrieval_receipt": "research/weather_forecast.json"
+            },
+            "method": "fetched"
+          },
+          "excerpt": "The NWS forecast updated September 18 gives Friday a high near 79 F, mostly sunny skies, and west-southwest wind of 0\u201315 mph.",
+          "excerpt_kind": "paraphrase",
+          "id": "weather_forecast",
+          "retrieved_at": "2026-09-18T11:12:36.992526Z",
+          "title": "NWS forecast at LAX airport",
+          "url": "https://api.weather.gov/gridpoints/LOX/148,41/forecast"
+        }
+      ],
+      "value": {
+        "periods": [
+          {
+            "detailedForecast": "Partly cloudy, with a low around 68. Southwest wind around 0 mph.",
+            "endTime": "2026-09-18T06:00:00-07:00",
+            "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
+            "isDaytime": false,
+            "name": "Overnight",
+            "number": 1,
+            "probabilityOfPrecipitation": {
+              "unitCode": "wmoUnit:percent",
+              "value": 0
+            },
+            "shortForecast": "Partly Cloudy",
+            "startTime": "2026-09-18T04:00:00-07:00",
+            "temperature": 68,
+            "temperatureTrend": null,
+            "temperatureUnit": "F",
+            "windDirection": "",
+            "windSpeed": "0 mph"
+          },
+          {
+            "detailedForecast": "Mostly sunny, with a high near 79. West southwest wind 0 to 15 mph.",
+            "endTime": "2026-09-18T18:00:00-07:00",
+            "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
+            "isDaytime": true,
+            "name": "Friday",
+            "number": 2,
+            "probabilityOfPrecipitation": {
+              "unitCode": "wmoUnit:percent",
+              "value": 0
+            },
+            "shortForecast": "Mostly Sunny",
+            "startTime": "2026-09-18T06:00:00-07:00",
+            "temperature": 79,
+            "temperatureTrend": null,
+            "temperatureUnit": "F",
+            "windDirection": "WSW",
+            "windSpeed": "0 to 15 mph"
+          },
+          {
+            "detailedForecast": "Patchy fog after 5am. Partly cloudy, with a low around 68. South southeast wind 5 to 10 mph.",
+            "endTime": "2026-09-19T06:00:00-07:00",
+            "icon": "https://api.weather.gov/icons/land/night/sct/fog?size=medium",
+            "isDaytime": false,
+            "name": "Friday Night",
+            "number": 3,
+            "probabilityOfPrecipitation": {
+              "unitCode": "wmoUnit:percent",
+              "value": 1
+            },
+            "shortForecast": "Partly Cloudy then Patchy Fog",
+            "startTime": "2026-09-18T18:00:00-07:00",
+            "temperature": 68,
+            "temperatureTrend": null,
+            "temperatureUnit": "F",
+            "windDirection": "SSE",
+            "windSpeed": "5 to 10 mph"
+          },
+          {
+            "detailedForecast": "Patchy fog before 11am. Mostly sunny, with a high near 80. South wind 5 to 10 mph.",
+            "endTime": "2026-09-19T18:00:00-07:00",
+            "icon": "https://api.weather.gov/icons/land/day/fog/sct?size=medium",
+            "isDaytime": true,
+            "name": "Saturday",
+            "number": 4,
+            "probabilityOfPrecipitation": {
+              "unitCode": "wmoUnit:percent",
+              "value": 1
+            },
+            "shortForecast": "Patchy Fog then Mostly Sunny",
+            "startTime": "2026-09-19T06:00:00-07:00",
+            "temperature": 80,
+            "temperatureTrend": null,
+            "temperatureUnit": "F",
+            "windDirection": "S",
+            "windSpeed": "5 to 10 mph"
+          }
+        ],
+        "updateTime": "2026-09-18T09:11:26+00:00"
+      }
+    },
+    "pkt_7a91e3853335cd1fc9ddcbb3:weather_climate": {
+      "claim": "CLILAX identifies Los Angeles International Airport. September 17's maximum was 78 F; the September 18 climate normal maximum is 76 F.",
+      "claim_type": "reporting",
+      "entity_ids": [],
+      "id": "weather_climate",
+      "observed_at": "2026-09-18T11:07:43.425336Z",
+      "provenance": {
+        "adapter": "vorhersage.research_bundle.v1"
+      },
+      "sources": [
+        {
+          "capture": {
+            "captured_at": "2026-09-18T11:07:43.425336Z",
+            "content": "National Weather Service\nToggle navigation\nHOME\nFORECAST\nLocal\nGraphical\nAviation\nMarine\nRivers and Lakes\nHurricanes\nSevere Weather\nFire Weather\nSunrise/Sunset\nLong Range Forecasts\nClimate Prediction\nSpace Weather\nPAST WEATHER\nPast Weather\nAstronomical Data\nCertified Weather Data\nSAFETY\nINFORMATION\nWireless Emergency Alerts\nBrochures\nWeather-Ready Nation\nCooperative Observers\nDaily Briefing\nDamage/Fatality/Injury Statistics\nForecast Models\nGIS Data Portal\nNOAA Weather Radio\nPublications\nSKYWARN Storm Spotters\nStormReady\nTsunamiReady\nService Change Notices\nEDUCATION\nNEWS\nSEARCH\nSearch For\nNWS\nAll NOAA\nABOUT\nAbout NWS\nOrganization\nFor NWS Employees\nNational Centers\nCareers\nContact Us\nGlossary\nSocial Media\nNWS Transformation\nClimatological Report (Daily)\nIssued by NWS\nHome\n|\nCurrent Version\n|\nPrevious Version\n|\nText Only\n|\nPrint\n|\nProduct List\n|\nGlossary Off\nVersions:\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n054\nCDUS46 KLOX 180904\nCLILAX\nCLIMATE\nREPORT\nNATIONAL WEATHER SERVICE LOS ANGELES/OXNARD\n204 AM PDT FRI SEP 18 2026\n\n...................................\n\n...THE LOS ANGELES INTL AIRPORT\nCA\nCLIMATE\nSUMMARY FOR SEPTEMBER 17 2026...\nCLIMATE\nNORMAL\nPERIOD: 1991 TO 2020\nCLIMATE\nRECORD PERIOD: 1944 TO 2026\n\n\nWEATHER ITEM   OBSERVED TIME   RECORD YEAR\nNORMAL\nDEPARTURE LAST\n                VALUE   (LST)  VALUE       VALUE  FROM      YEAR\nNORMAL\n...................................................................\nTEMPERATURE (F)\n YESTERDAY\n  MAXIMUM         78   1:04 PM  93    1979  77      1       80\n  MINIMUM         69  11:59 PM  55    1952  64      5       68\n  AVERAGE         74                        70      4       74\n\nPRECIPITATION (IN)\n  YESTERDAY        0.00          0.49 1963   0.01  -0.01      T\n  MONTH TO DATE    0.65                      0.05   0.60      T\n  SINCE JUL 1      0.65                      0.09   0.56      T\n  SINCE OCT 1     14.18                     12.17   2.01     5.11\n  SINCE JAN 1      6.14                      8.63  -2.49     5.08\n\nSNOWFALL (IN)\n  YESTERDAY       MM\n  MONTH TO DATE    T\n  SINCE SEP 1      T\n  SINCE JUL 1      T\n\nDEGREE DAYS\n HEATING\n  YESTERDAY        0                         0      0        0\n  MONTH TO DATE    0                         0      0        0\n  SINCE SEP 1      0                         0      0        0\n  SINCE JUL 1      0                         3     -3        0\n\n COOLING\n  YESTERDAY        9                         5      4        9\n  MONTH TO DATE  188                        98     90      124\n  SINCE SEP 1    188                        98     90      124\n  SINCE JAN 1    946                       537    409      521\n...................................................................\n\n\nWIND (MPH)\n  HIGHEST\nWIND SPEED\n18   HIGHEST\nWIND DIRECTION\nW (260)\n  HIGHEST\nGUST\nSPEED    26   HIGHEST\nGUST\nDIRECTION     W (270)\n  AVERAGE\nWIND SPEED\n10.2\n\n\nSKY COVER\n  POSSIBLE SUNSHINE  MM\n  AVERAGE SKY COVER 0.5\n\n\nWEATHER CONDITIONS\nTHE FOLLOWING WEATHER WAS RECORDED YESTERDAY.\n  NO SIGNIFICANT WEATHER WAS OBSERVED.\n\n\nRELATIVE\nHUMIDITY\n(PERCENT)\n HIGHEST    75          12:00 AM\n LOWEST     52           2:00 PM\n AVERAGE    64\n\n..........................................................\n\n\nTHE LOS ANGELES INTL AIRPORT\nCA\nCLIMATE\nNORMALS FOR TODAY\nNORMAL\nRECORD    YEAR\nMAXIMUM TEMPERATURE\n(F)   76        92      1946\nMINIMUM TEMPERATURE\n(F)   64        56      1950\n                                             1952\n                                             1954\n\n\nSUNRISE AND SUNSET\nSEPTEMBER 18 2026.....SUNRISE   6:39 AM PDT   SUNSET   6:56 PM PDT\nSEPTEMBER 19 2026.....SUNRISE   6:40 AM PDT   SUNSET   6:54 PM PDT\n\n\n-  INDICATES NEGATIVE NUMBERS.\nR\nINDICATES RECORD WAS SET OR TIED.\nMM INDICATES DATA IS MISSING.\nT  INDICATES\nTRACE\nAMOUNT.\n\n\n\n\n$$\nUS Dept of Commerce\nNational Oceanic and Atmospheric Administration\nNational Weather Service\n1325 East West Highway\nSilver Spring, MD 20910\nComments? Questions? Please Contact Us.\nDisclaimer\nInformation Quality\nHelp\nGlossary\nPrivacy Policy\nFreedom of Information Act (FOIA)\nAbout Us\nCareer Opportunities",
+            "content_sha256": "a6e81bf3b1edb57009c9b7487283938b02635f34e834e50c0b67e0e451d05a4d",
+            "metadata": {
+              "note": "Direct HTTP or browser-extracted source text; excerpt is a coordinator paraphrase checked against the saved response.",
+              "retrieval_receipt": "research/weather_climate.json"
+            },
+            "method": "fetched"
+          },
+          "excerpt": "CLILAX identifies Los Angeles International Airport. September 17's maximum was 78 F; the September 18 climate normal maximum is 76 F.",
+          "excerpt_kind": "paraphrase",
+          "id": "weather_climate",
+          "retrieved_at": "2026-09-18T11:07:43.425336Z",
+          "title": "NWS CLILAX daily climate report",
+          "url": "https://forecast.weather.gov/product.php?site=LOX&issuedby=LAX&product=CLI&format=CI&version=1&glossary=1"
+        }
+      ],
+      "value": {
+        "normal_today_max_F": 76,
+        "previous_day_max_F": 78,
+        "station": "Los Angeles International Airport"
+      }
+    }
+  },
+  "models": {
+    "forecast_0d7e4a3736a34d67a609": {
+      "arm_id": "arm_69b66d9fc276426cadff",
+      "assessment_probability": 0.05,
+      "coherence": {
+        "comparisons": [],
+        "limitations": [
+          "Implications are supplied by the agent and pinned to exact question versions.",
+          "Different information cutoffs can explain apparent incoherence; review before revising."
+        ],
+        "missing_forecasts": [],
+        "violations": []
+      },
+      "concern_resolutions": [],
+      "cost_usd": 0.015898,
+      "coverage": {},
+      "cutoff_policy": "fixed",
+      "data_label": "outside_research",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_7a91e3853335cd1fc9ddcbb3",
+          "record_id": "weather_forecast"
+        },
+        {
+          "packet_id": "pkt_7a91e3853335cd1fc9ddcbb3",
+          "record_id": "weather_climate"
+        }
+      ],
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_69b66d9fc276426cadff:r1",
+      "information_as_of": "2026-09-18T11:19:02.785870Z",
+      "initial_information_as_of": "2026-09-18T11:19:02.785870Z",
+      "input_manifest": {
+        "arm_69b66d9fc276426cadff": "90044fab153e35d81779ca8ffffc54fc48dd691021cb1d031f4fc51175a22687",
+        "experiment_c0824cf924d14b30ae57": "7f16b0077bb711e476898a640157c648e73a2407c0b4503334d9151e7d68a133",
+        "method_8c5163ac31854a34b445": "9ef4f83a1ee11a35113ce0297d36ed11e980d017594eeaf4c3e486174a9d6eda",
+        "pkt_7a91e3853335cd1fc9ddcbb3": "665c8976f18c7782a1a8350cbb5661ab12966996184444b64b4035fb77b96705",
+        "task_result_3eb61350ec0448ff9c42": "cae36c41a7e62fdf76313fc58905d1a1c4a4d9253bf1e9011229e5febec7a71d"
+      },
+      "inquiry_answers": {},
+      "issued_at": "2026-09-18T11:25:10.062097Z",
+      "manifest_sha256": "a31070d215b520f780c8fd5d00a20b55c25358208fb28ebc9d6ed99899f4b680",
+      "method": "method_8c5163ac31854a34b445",
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "mode": "prospective",
+      "model_calls": 1,
+      "model_challenge": null,
+      "model_map": null,
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "parameter_support": [],
+      "previous_forecast_id": null,
+      "prior_record": {
+        "qualification": "Registered method omits the prior stage.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.05,
+      "probability_basis": "judgment",
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_8c5163ac31854a34b445"
+      },
+      "question": {
+        "domain": "Climate",
+        "event_deadline": "2026-09-19T08:00:00Z",
+        "event_group": "KXHIGHLAX-26SEP18",
+        "id": "weather-1",
+        "kind": "real",
+        "no": "The stated qualifying event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined source; see definition-only rules.",
+        "resolve_after": "2026-09-19T08:00:00Z",
+        "text": "Will the maximum temperature be 74-75\u00b0 on Sep 18, 2026? \u2014 74\u00b0 to 75\u00b0",
+        "void": "Nonbinary fair-value settlement or a cancelled/invalid contract is excluded from eventual outcome scoring.",
+        "yes": "If the maximum temperature recorded at Los Angeles (CLILAX) for Sep 18, 2026, is between 74-75\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+      },
+      "question_id": "weather-1",
+      "question_version": 1,
+      "reference_class": null,
+      "repetition": 1,
+      "research_plan": null,
+      "review_at": "2026-09-18T13:19:02.785870+00:00",
+      "run_id": "run_0f36db48afae4c83ab8c",
+      "searches": 0,
+      "sensitivity": null,
+      "stopping_reason": "One registered model call completed; freeze before revealing evaluator targets.",
+      "trial_id": "trial_c825516b954a9ec622682e5c",
+      "triggers": [
+        {
+          "description": "New primary-source evidence or eventual resolution.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_7a91e3853335cd1fc9ddcbb3",
+              "record_id": "weather_forecast"
+            },
+            {
+              "packet_id": "pkt_7a91e3853335cd1fc9ddcbb3",
+              "record_id": "weather_climate"
+            }
+          ]
+        }
+      ],
+      "workflow_version": "experiment.stages.v1"
+    }
+  },
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.04,
+      "ask_contracts_within_2c": 230.57000000000002,
+      "ask_size": 63.0,
+      "bid": 0.03,
+      "bid_contracts_within_2c": 4718.1900000000005,
+      "bid_size": 380.19,
+      "midpoint": 0.035,
+      "spread": 0.01
+    },
+    "target_captured_at": "2026-09-18T11:06:23.600099Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_da3b7e621c754bcda14b",
+        "label": "Initial",
+        "recorded_at": "2026-09-18T11:40:25.181488Z",
+        "probability": 0.05,
+        "difference_pp": 1.5,
+        "squared_market_error": 0.000225,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 1.0000000000000002
+      }
+    ],
+    "net_squared_error_improvement": 0.0,
+    "followup_quote": {
+      "ask": 0.04,
+      "ask_contracts_within_2c": 271.57,
+      "ask_size": 109.0,
+      "bid": 0.03,
+      "bid_contracts_within_2c": 4745.72,
+      "bid_size": 369.19,
+      "midpoint": 0.035,
+      "spread": 0.01
+    },
+    "followup_captured_at": "2026-09-18T11:40:25.530398Z",
+    "market_movement_pp": 0.0,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-18T11:40:25.530495Z"
+}

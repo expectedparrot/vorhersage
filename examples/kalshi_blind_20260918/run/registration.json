@@ -1,0 +1,351 @@
+{
+  "experiment_id": "experiment_c0824cf924d14b30ae57",
+  "specification": {
+    "id": "kalshi-outside-research-20260918",
+    "version": 1,
+    "description": "Compare question-only and outside-research forecasts with opening Kalshi order-book midpoints on six unresolved contracts; not outcome accuracy.",
+    "questions": [
+      {
+        "question_id": "weather-1",
+        "version": 1
+      },
+      {
+        "question_id": "employment-1",
+        "version": 1
+      },
+      {
+        "question_id": "fed-2",
+        "version": 1
+      },
+      {
+        "question_id": "neutron-1",
+        "version": 1
+      },
+      {
+        "question_id": "netflix-1",
+        "version": 1
+      },
+      {
+        "question_id": "baseball-2",
+        "version": 1
+      }
+    ],
+    "arm_ids": [
+      "arm_79fb6d36c5ba4eca8e1f",
+      "arm_69b66d9fc276426cadff"
+    ],
+    "repetitions": 1,
+    "mode": "prospective",
+    "information_as_of": "2026-09-18T11:19:02.785870Z",
+    "forecast_cutoff": "2026-09-18T13:19:02.785870+00:00",
+    "evidence_policy": "frozen_packets",
+    "order_seed": "six-contracts-outside-evidence-v1"
+  },
+  "registered_at": "2026-09-18T11:19:02.785870Z",
+  "protocol_sha256": "cd51e4cdf48e9a3acbfd39395475ff62fbc727a325e1685a7a51d6f0bbe7cefb",
+  "selection_sha256": "8367b55cd62badc1bd50072bfed07ef96d7dface0e78dc784e5d4efd5e3d5f21",
+  "cases_sha256": "92313a609f939e588104c25fc1363f83b003c6da2440a0c4c76de93913e6b250",
+  "packet_hashes": {
+    "weather-1": "665c8976f18c7782a1a8350cbb5661ab12966996184444b64b4035fb77b96705",
+    "employment-1": "77d8f9c70d0d6f9fe48e37a0679d7a076a179f454fb1f414529547118dda5f29",
+    "fed-2": "0bcd43db7b3412c4121dd68751088c3e85ecb5558509628cd333f3d8d47b2e58",
+    "neutron-1": "a4ae7748f2bbedff14c22ed222540586757d8abcf7be9a6e862589cb0b8f12c9",
+    "netflix-1": "1a964b7e4c5765e896b9e1b71936e79c83beda8fa4c909f54e397442cae7a00c",
+    "baseball-2": "6e6aa136dca9dafd36482126963d0f7f4a99faf7d530320deafa5a17d71adf12"
+  },
+  "trials": [
+    {
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "trial_id": "trial_ab130b0aa221402bcf298626",
+      "run_id": "run_1c10cc799ff542c1bb68",
+      "question_id": "neutron-1",
+      "question_version": 1,
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "repetition": 1,
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_69b66d9fc276426cadff:r1",
+      "position": 0,
+      "arm_id": "arm_69b66d9fc276426cadff",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "trial_id": "trial_0e3441353d50c6f44f629038",
+      "run_id": "run_4871aa0afb0741438272",
+      "question_id": "fed-2",
+      "question_version": 1,
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "repetition": 1,
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_69b66d9fc276426cadff:r1",
+      "position": 1,
+      "arm_id": "arm_69b66d9fc276426cadff",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "trial_id": "trial_dd670555c917e4245bc005a8",
+      "run_id": "run_cd189457ece645b882e1",
+      "question_id": "baseball-2",
+      "question_version": 1,
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "repetition": 1,
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_79fb6d36c5ba4eca8e1f:r1",
+      "position": 2,
+      "arm_id": "arm_79fb6d36c5ba4eca8e1f",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "trial_id": "trial_740ce5937cfa87ec383163c1",
+      "run_id": "run_56d7a26a90e54a40a22b",
+      "question_id": "netflix-1",
+      "question_version": 1,
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "repetition": 1,
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_79fb6d36c5ba4eca8e1f:r1",
+      "position": 3,
+      "arm_id": "arm_79fb6d36c5ba4eca8e1f",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "trial_id": "trial_b98dbf8a3b52534b71f4c6f9",
+      "run_id": "run_89c35749d52c4761b11f",
+      "question_id": "employment-1",
+      "question_version": 1,
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "repetition": 1,
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_79fb6d36c5ba4eca8e1f:r1",
+      "position": 4,
+      "arm_id": "arm_79fb6d36c5ba4eca8e1f",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "trial_id": "trial_d9bae09b96e1a1e40fd2b80a",
+      "run_id": "run_35e068c5569c4accb30a",
+      "question_id": "weather-1",
+      "question_version": 1,
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "repetition": 1,
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_79fb6d36c5ba4eca8e1f:r1",
+      "position": 5,
+      "arm_id": "arm_79fb6d36c5ba4eca8e1f",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "trial_id": "trial_64329e808b6963ee9370502b",
+      "run_id": "run_413f7094fefc4ba1b4c8",
+      "question_id": "fed-2",
+      "question_version": 1,
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "repetition": 1,
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_79fb6d36c5ba4eca8e1f:r1",
+      "position": 6,
+      "arm_id": "arm_79fb6d36c5ba4eca8e1f",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "trial_id": "trial_98cc0be1817be2e4a80bf51a",
+      "run_id": "run_9d9c4e719d5a402bacd0",
+      "question_id": "baseball-2",
+      "question_version": 1,
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "repetition": 1,
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_69b66d9fc276426cadff:r1",
+      "position": 7,
+      "arm_id": "arm_69b66d9fc276426cadff",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "trial_id": "trial_0e0b8fddc836dd0b679f00d8",
+      "run_id": "run_b97c09cf2d8845a29c8b",
+      "question_id": "employment-1",
+      "question_version": 1,
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "repetition": 1,
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_69b66d9fc276426cadff:r1",
+      "position": 8,
+      "arm_id": "arm_69b66d9fc276426cadff",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "trial_id": "trial_c825516b954a9ec622682e5c",
+      "run_id": "run_0f36db48afae4c83ab8c",
+      "question_id": "weather-1",
+      "question_version": 1,
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "repetition": 1,
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_69b66d9fc276426cadff:r1",
+      "position": 9,
+      "arm_id": "arm_69b66d9fc276426cadff",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "trial_id": "trial_cc465784d0602ab3decd7a4d",
+      "run_id": "run_6cd3d4ef6a424bc2bbb4",
+      "question_id": "netflix-1",
+      "question_version": 1,
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "repetition": 1,
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_69b66d9fc276426cadff:r1",
+      "position": 10,
+      "arm_id": "arm_69b66d9fc276426cadff",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "trial_id": "trial_d0ae391e21e7e9050b2f348f",
+      "run_id": "run_2b67ede5d21344eca93e",
+      "question_id": "neutron-1",
+      "question_version": 1,
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "repetition": 1,
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_79fb6d36c5ba4eca8e1f:r1",
+      "position": 11,
+      "arm_id": "arm_79fb6d36c5ba4eca8e1f",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    }
+  ],
+  "arm_names": {
+    "arm_79fb6d36c5ba4eca8e1f": "question_only",
+    "arm_69b66d9fc276426cadff": "outside_research"
+  },
+  "note": "Opening targets remain hidden. Packet collection preceded both independent arm calls. Question-only is an information condition, not a chronological pre-research forecast."
+}

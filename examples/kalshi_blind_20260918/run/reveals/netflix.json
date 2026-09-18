@@ -1,0 +1,320 @@
+{
+  "case_id": "workbench_ce65b45194c54f5ebefe",
+  "state": "revealed",
+  "revision": 2,
+  "baseline_captured_at": "2026-09-18T11:06:25.376322Z",
+  "contract": {
+    "event_group": "KXNETFLIXRANKMOVIE-26SEP21",
+    "market_id": "KXNETFLIXRANKMOVIE-26SEP21-WHY",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If Why Did I Get Married Again? is #1 on the Netflix Top 10 US Movie on the chart published on Sep 22, 2026, then the market resolves to Yes.\n\nThe Netflix charts are updated on Tuesday. Therefore, the market will close at 11:59 PM ET the day before. The chart published on Sep 22, 2026 will be for the week ending the previous Sunday.\n\nThis market and these products have not been endorsed by Netflix. Any references to Netflix, or any associated marks are descriptive only and do not indicate an endorsement of this product or any affiliation between Netflix and Kalshi.",
+    "scheduled_close": "2026-09-22T03:59:00Z",
+    "title": "Will Why Did I Get Married Again? be Top US Netflix Movie on Sep 21, 2026?",
+    "venue": "kalshi",
+    "yes_description": "Why Did I Get Married Again?"
+  },
+  "created_at": "2026-09-18T11:06:25.383415Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-18T11:06:25.075405Z",
+    "specification": {
+      "domain": "Entertainment",
+      "event_deadline": "2026-09-22T03:59:00Z",
+      "event_group": "KXNETFLIXRANKMOVIE-26SEP21",
+      "id": "netflix-1",
+      "kind": "real",
+      "no": "The stated qualifying event does not occur, subject to the frozen contract rules.",
+      "profile": "general",
+      "resolution_source": "Contract-defined source; see definition-only rules.",
+      "resolve_after": "2026-09-22T03:59:00Z",
+      "text": "Will Why Did I Get Married Again? be Top US Netflix Movie on Sep 21, 2026? \u2014 Why Did I Get Married Again?",
+      "void": "Nonbinary fair-value settlement or a cancelled/invalid contract is excluded from eventual outcome scoring.",
+      "yes": "If Why Did I Get Married Again? is #1 on the Netflix Top 10 US Movie on the chart published on Sep 22, 2026, then the market resolves to Yes.\n\nThe Netflix charts are updated on Tuesday. Therefore, the market will close at 11:59 PM ET the day before. The chart published on Sep 22, 2026 will be for the week ending the previous Sunday.\n\nThis market and these products have not been endorsed by Netflix. Any references to Netflix, or any associated marks are descriptive only and do not indicate an endorsement of this product or any affiliation between Netflix and Kalshi."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Question carries full price-free contract conditions. Deadline conservatively uses market close; evaluate only well before this time and verify unknown outcome separately.",
+    "eligibility_rationale": "Dated future event or current-day future maximum; active unresolved book required. Outside research must independently check whether the outcome is already known.",
+    "market_id": "KXNETFLIXRANKMOVIE-26SEP21-WHY",
+    "max_spread": 0.1,
+    "method": "Question-only versus outside research; independent contexts",
+    "min_contracts_each_side": 1,
+    "mode": "prospective",
+    "question": {
+      "question_id": "netflix-1",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_7dd03e88182e462989d7",
+  "target_sha256": "4cf21fed883888e9804f47670788751b61bbc292e0d7086f5b5edc2386a7f131",
+  "journal": [
+    {
+      "id": "workbench_entry_3ddca2d0748d4a1cbfdb",
+      "case_id": "workbench_ce65b45194c54f5ebefe",
+      "evidence_manifest": {
+        "pkt_c9e83509a1515f7499f54b8b": "1a964b7e4c5765e896b9e1b71936e79c83beda8fa4c909f54e397442cae7a00c"
+      },
+      "kind": "initial",
+      "model_manifest": {
+        "forecast_4a34d39bb3a5449cb19d": "bac824083e9d84de14a76f99d7a6c3c94e85593854308ea36c12a8f89784556b"
+      },
+      "payload": {
+        "assumptions": [
+          "Independent outside-research arm; not a sequential update of the question-only arm."
+        ],
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_c9e83509a1515f7499f54b8b",
+            "record_id": "netflix_us_week"
+          }
+        ],
+        "model_artifact_ids": [
+          "forecast_4a34d39bb3a5449cb19d"
+        ],
+        "probability": 0.4,
+        "rationale": "The movie 'Why Did I Get Married Again?' was ranked #1 on the US Netflix film chart for the preceding week (September 7-13, 2026). While holding the top spot gives it a strong starting position for the target week (September 14-20), older catalog titles often experience a rapid decay in viewership after their initial surge upon being added to the platform. Furthermore, Netflix typically releases major original films on Fridays (in this case, September 18), which frequently capture the #1 spot for the week. The strongest reason this estimate could be too high is if a highly anticipated new movie was released during the target week, which would almost certainly overtake a catalog title. The strongest reason this estimate could be too low is if the week lacks strong new releases, allowing the film's momentum to carry it through a second week at the top.",
+        "research_status": "completed",
+        "uncertainties": [
+          "Recorded source limitations and unresolved future event."
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-18T11:40:26.486795Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_c7f14ca4c72640b29d57",
+      "case_id": "workbench_ce65b45194c54f5ebefe",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "No detected target-odds exposure. Forecast workers received only question definitions and their assigned data; no tools. Source screening and separation are procedural, not proof about model pretraining.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "All registered forecast attempts sealed before any target reveal."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-18T11:40:26.490108Z",
+      "revision": 2,
+      "trajectory_manifest": {
+        "workbench_entry_3ddca2d0748d4a1cbfdb": "96d752de7b821c0a7e43b992cc6725340f270d5b1ebbea3927b46c6e6c55b618"
+      }
+    }
+  ],
+  "evidence": {
+    "pkt_c9e83509a1515f7499f54b8b:netflix_us_week": {
+      "claim": "For September 7\u201313, the US film chart ranks Why Did I Get Married Again? first, Those Who Wish Me Dead second, and The Whisper Man third. This is the preceding week, not the contract's target week.",
+      "claim_type": "reporting",
+      "entity_ids": [],
+      "id": "netflix_us_week",
+      "observed_at": "2026-09-18T11:10:30+00:00",
+      "provenance": {
+        "adapter": "vorhersage.research_bundle.v1"
+      },
+      "sources": [
+        {
+          "capture": {
+            "captured_at": "2026-09-18T11:10:30+00:00",
+            "content": "Top 10 Most Popular Movies on Netflix Right Now in United States (https://www.netflix.com/tudum/top10/united-states)\n\ue200cite\ue202turn8view0\ue201 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({\"ref_id\":\"https://www.netflix.com/tudum/top10/united-states\",\"lineno\":null}); Total lines: 134\nL0: \ue200cite\ue2020\u2020Skip to main content\ue201 L1: \nL2: \ue200cite\ue2021\u2020Sign In\ue201 L3: \nL4: EN English\nL5: \nL6: EN English PT Portugu\u00eas ES Espa\u00f1ol\nL7: \nL8: \ue200cite\ue2022\u2020Home\ue201 \ue200cite\ue2023\u2020Top 10\ue201 \ue200cite\ue2024\u2020Trending\ue201 \ue200cite\ue2025\u2020What to Watch\ue201 \ue200cite\ue2026\u2020Shows\ue201 \ue200cite\ue2027\u2020Movies\ue201 \ue200cite\ue2028\u2020Puzzled\ue201 \ue200cite\ue2029\u2020Podcasts\ue201 \ue200cite\ue20210\u2020Shop\u2020netflix.shop\ue201 \ue200cite\ue2022\u2020Home\ue201 \ue200cite\ue2023\u2020Top 10\ue201 \ue200cite\ue2024\u2020Trending\ue201 \ue200cite\ue2025\u2020What to Watch\ue201 \ue200cite\ue2026\u2020Shows\ue201 \ue200cite\ue2027\u2020Movies\ue201 \ue200cite\ue2028\u2020Puzzled\ue201 \ue200cite\ue2029\u2020Podcasts\ue201 \ue200cite\ue20210\u2020Shop\u2020netflix.shop\ue201 L9: # Top 10 Most Popular Movies on Netflix Right Now in United States\nL10: \nL11: United States\nL12: United States Global Argentina Australia Austria Bahamas Bahrain Bangladesh Belgium Bolivia Brazil Bulgaria Canada Chile Colombia Costa Rica Croatia Cyprus Czechia Denmark Dominican Republic Ecuador Egypt El Salvador Estonia Finland France Germany Greece Guadeloupe Guatemala Honduras Hong Kong SAR China Hungary Iceland India Indonesia Ireland Israel Italy Jamaica Japan Jordan Kenya Kuwait Latvia Lebanon Lithuania Luxembourg Malaysia Maldives Malta Martinique Mauritius Mexico Morocco Netherlands New Caledonia New Zealand Nicaragua Nigeria Norway Oman Pakistan Panama Paraguay Peru Philippines Poland Portugal Qatar Romania R\u00e9union Saudi Arabia Serbia Singapore Slovakia Slovenia South Africa South Korea Spain Sri Lanka Sweden Switzerland Taiwan Thailand Trinidad & Tobago T\u00fcrkiye Ukraine United Arab Emirates United Kingdom Uruguay Venezuela Vietnam\nL13: Movies\nL14: \nL15: Movies Shows\nL16: \nL17: 9/7/26 - 9/13/26\nL18: 9/7/26 - 9/13/26 8/31/26 - 9/6/26 8/24/26 - 8/30/26 8/17/26 - 8/23/26 8/10/26 - 8/16/26 8/3/26 - 8/9/26 7/27/26 - 8/2/26 7/20/26 - 7/26/26 7/13/26 - 7/19/26 7/6/26 - 7/12/26 6/29/26 - 7/5/26 6/22/26 - 6/28/26 6/15/26 - 6/21/26 6/8/26 - 6/14/26 6/1/26 - 6/7/26 5/25/26 - 5/31/26 5/18/26 - 5/24/26 5/11/26 - 5/17/26 5/4/26 - 5/10/26 4/27/26 - 5/3/26 4/20/26 - 4/26/26 4/13/26 - 4/19/26 4/6/26 - 4/12/26 3/30/26 - 4/5/26 3/23/26 - 3/29/26 3/16/26 - 3/22/26 3/9/26 - 3/15/26 3/2/26 - 3/8/26 2/23/26 - 3/1/26 2/16/26 - 2/22/26 2/9/26 - 2/15/26 2/2/26 - 2/8/26 1/26/26 - 2/1/26 1/19/26 - 1/25/26 1/12/26 - 1/18/26 1/5/26 - 1/11/26 12/29/25 - 1/4/26 12/22/25 - 12/28/25 12/15/25 - 12/21/25 12/8/25 - 12/14/25 12/1/25 - 12/7/25 11/24/25 - 11/30/25 11/17/25 - 11/23/25 11/10/25 - 11/16/25 11/3/25 - 11/9/25 10/27/25 - 11/2/25 10/20/25 - 10/26/25 10/13/25 - 10/19/25 10/6/25 - 10/12/25 9/29/25 - 10/5/25 9/22/25 - 9/28/25 9/15/25 - 9/21/25 9/8/25 - 9/14/25 9/1/25 - 9/7/25 8/25/25 - 8/31/25 8/18/25 - 8/24/25 8/11/25 - 8/17/25 8/4/25 - 8/10/25 7/28/25 - 8/3/25 7/21/25 - 7/27/25 7/14/25 - 7/20/25 7/7/25 - 7/13/25 6/30/25 - 7/6/25 6/23/25 - 6/29/25 6/16/25 - 6/22/25 6/9/25 - 6/15/25 6/2/25 - 6/8/25 5/26/25 - 6/1/25 5/19/25 - 5/25/25 5/12/25 - 5/18/25 5/5/25 - 5/11/25 4/28/25 - 5/4/25 4/21/25 - 4/27/25 4/14/25 - 4/20/25 4/7/25 - 4/13/25 3/31/25 - 4/6/25 3/24/25 - 3/30/25 3/17/25 - 3/23/25 3/10/25 - 3/16/25 3/3/25 - 3/9/25 2/24/25 - 3/2/25 2/17/25 - 2/23/25 2/10/25 - 2/16/25 2/3/25 - 2/9/25 1/27/25 - 2/2/25 1/20/25 - 1/26/25 1/13/25 - 1/19/25 1/6/25 - 1/12/25 12/30/24 - 1/5/25 12/23/24 - 12/29/24 12/16/24 - 12/22/24 12/9/24 - 12/15/24 12/2/24 - 12/8/24 11/25/24 - 12/1/24 11/18/24 - 11/24/24 11/11/24 - 11/17/24 11/4/24 - 11/10/24 10/28/24 - 11/3/24 10/21/24 - 10/27/24 10/14/24 - 10/20/24 10/7/24 - 10/13/24 9/30/24 - 10/6/24 9/23/24 - 9/29/24 9/16/24 - 9/22/24 9/9/24 - 9/15/24 9/2/24 - 9/8/24 8/26/24 - 9/1/24 8/19/24 - 8/25/24 8/12/24 - 8/18/24 8/5/24 - 8/11/24 7/29/24 - 8/4/24 7/22/24 - 7/28/24 7/15/24 - 7/21/24 7/8/24 - 7/14/24 7/1/24 - 7/7/24 6/24/24 - 6/30/24 6/17/24 - 6/23/24 6/10/24 - 6/16/24 6/3/24 - 6/9/24 5/27/24 - 6/2/24 5/20/24 - 5/26/24 5/13/24 - 5/19/24 5/6/24 - 5/12/24 4/29/24 - 5/5/24 4/22/24 - 4/28/24 4/15/24 - 4/21/24 4/8/24 - 4/14/24 4/1/24 - 4/7/24 3/25/24 - 3/31/24 3/18/24 - 3/24/24 3/11/24 - 3/17/24 3/4/24 - 3/10/24 2/26/24 - 3/3/24 2/19/24 - 2/25/24 2/12/24 - 2/18/24 2/5/24 - 2/11/24 1/29/24 - 2/4/24 1/22/24 - 1/28/24 1/15/24 - 1/21/24 1/8/24 - 1/14/24 1/1/24 - 1/7/24 12/25/23 - 12/31/23 12/18/23 - 12/24/23 12/11/23 - 12/17/23 12/4/23 - 12/10/23 11/27/23 - 12/3/23 11/20/23 - 11/26/23 11/13/23 - 11/19/23 11/6/23 - 11/12/23 10/30/23 - 11/5/23 10/23/23 - 10/29/23 10/16/23 - 10/22/23 10/9/23 - 10/15/23 10/2/23 - 10/8/23 9/25/23 - 10/1/23 9/18/23 - 9/24/23 9/11/23 - 9/17/23 9/4/23 - 9/10/23 8/28/23 - 9/3/23 8/21/23 - 8/27/23 8/14/23 - 8/20/23 8/7/23 - 8/13/23 7/31/23 - 8/6/23 7/24/23 - 7/30/23 7/17/23 - 7/23/23 7/10/23 - 7/16/23 7/3/23 - 7/9/23 6/26/23 - 7/2/23 6/19/23 - 6/25/23 6/12/23 - 6/18/23 6/5/23 - 6/11/23 5/29/23 - 6/4/23 5/22/23 - 5/28/23 5/15/23 - 5/21/23 5/8/23 - 5/14/23 5/1/23 - 5/7/23 4/24/23 - 4/30/23 4/17/23 - 4/23/23 4/10/23 - 4/16/23 4/3/23 - 4/9/23 3/27/23 - 4/2/23 3/20/23 - 3/26/23 3/13/23 - 3/19/23 3/6/23 - 3/12/23 2/27/23 - 3/5/23 2/20/23 - 2/26/23 2/13/23 - 2/19/23 2/6/23 - 2/12/23 1/30/23 - 2/5/23 1/23/23 - 1/29/23 1/16/23 - 1/22/23 1/9/23 - 1/15/23 1/2/23 - 1/8/23 12/26/22 - 1/1/23 12/19/22 - 12/25/22 12/12/22 - 12/18/22 12/5/22 - 12/11/22 11/28/22 - 12/4/22 11/21/22 - 11/27/22 11/14/22 - 11/20/22 11/7/22 - 11/13/22 10/31/22 - 11/6/22 10/24/22 - 10/30/22 10/17/22 - 10/23/22 10/10/22 - 10/16/22 10/3/22 - 10/9/22 9/26/22 - 10/2/22 9/19/22 - 9/25/22 9/12/22 - 9/18/22 9/5/22 - 9/11/22 8/29/22 - 9/4/22 8/22/22 - 8/28/22 8/15/22 - 8/21/22 8/8/22 - 8/14/22 8/1/22 - 8/7/22 7/25/22 - 7/31/22 7/18/22 - 7/24/22 7/11/22 - 7/17/22 7/4/22 - 7/10/22 6/27/22 - 7/3/22 6/20/22 - 6/26/22 6/13/22 - 6/19/22 6/6/22 - 6/12/22 5/30/22 - 6/5/22 5/23/22 - 5/29/22 5/16/22 - 5/22/22 5/9/22 - 5/15/22 5/2/22 - 5/8/22 4/25/22 - 5/1/22 4/18/22 - 4/24/22 4/11/22 - 4/17/22 4/4/22 - 4/10/22 3/28/22 - 4/3/22 3/21/22 - 3/27/22 3/14/22 - 3/20/22 3/7/22 - 3/13/22 2/28/22 - 3/6/22 2/21/22 - 2/27/22 2/14/22 - 2/20/22 2/7/22 - 2/13/22 1/31/22 - 2/6/22 1/24/22 - 1/30/22 1/17/22 - 1/23/22 1/10/22 - 1/16/22 1/3/22 - 1/9/22 12/27/21 - 1/2/22 12/20/21 - 12/26/21 12/13/21 - 12/19/21 12/6/21 - 12/12/21 11/29/21 - 12/5/21 11/22/21 - 11/28/21 11/15/21 - 11/21/21 11/8/21 - 11/14/21 11/1/21 - 11/7/21 10/25/21 - 10/31/21 10/18/21 - 10/24/21 10/11/21 - 10/17/21 10/4/21 - 10/10/21 9/27/21 - 10/3/21 9/20/21 - 9/26/21 9/13/21 - 9/19/21 9/6/21 - 9/12/21 8/30/21 - 9/5/21 8/23/21 - 8/29/21 8/16/21 - 8/22/21 8/9/21 - 8/15/21 8/2/21 - 8/8/21 7/26/21 - 8/1/21 7/19/21 - 7/25/21 7/12/21 - 7/18/21 7/5/21 - 7/11/21 6/28/21 - 7/4/21\nL19: ## Top 10 Movies in United States\nL20: \nL21:   * \ue200cite\ue20211\u2020Image: Why Did I Get Married Again?\u2020dnm.nflximg.net\ue201 L22: \nL23: My List\ue200cite\ue20212\u2020Watch\ue201 L24: \nL25: \ue200cite\ue20213\u2020Image\u2020occ.a.nflxso.net\ue201 #1 in Movies\nL26: \nL27:   * \ue200cite\ue20214\u2020Image: Those Who Wish Me Dead\u2020dnm.nflximg.net\ue201 L28: \nL29: My List\ue200cite\ue20215\u2020Watch\ue201 L30: \nL31: \ue200cite\ue20213\u2020Image\u2020occ.a.nflxso.net\ue201 #2 in Movies\nL32: \nL33:   * \ue200cite\ue20216\u2020Image: The Whisper Man\u2020dnm.nflximg.net\ue201 L34: \nL35: My List\ue200cite\ue20217\u2020Watch\ue201 \ue200cite\ue20218\u2020Explore\ue201 L36: \nL37: \ue200cite\ue20213\u2020Image\u2020occ.a.nflxso.net\ue201 #3 in Movies\nL38: \nL39:   * \ue200cite\ue20219\u2020Image: Turning Point: Generation 9/11\u2020dnm.nflximg.net\ue201 L40: \nL41: My List\ue200cite\ue20220\u2020Watch\ue201 L42: \ue200cite\ue20213\u2020Image\u2020occ.a.nflxso.net\ue201 #4 in Movies\nL43: \nL44:   * \ue200cite\ue20221\u2020Image: Contraband\u2020dnm.nflximg.net\ue201 L45: \nL46: \ue200cite\ue20213\u2020Image\u2020occ.a.nflxso.net\ue201 #5 in Movies\nL47: \nL48:   * \ue200cite\ue20222\u2020Image: Untold Mr. T: I Pity The Fool\u2020dnm.nflximg.net\ue201 L49: \nL50: My List\ue200cite\ue20223\u2020Watch\ue201 L51: \nL52: \ue200cite\ue20213\u2020Image\u2020occ.a.nflxso.net\ue201 #6 in Movies\nL53: \nL54:   * \ue200cite\ue20224\u2020Image: The Angry Birds Movie 2\u2020dnm.nflximg.net\ue201 L55: \nL56: My List\ue200cite\ue20225\u2020Watch\ue201 L57: \nL58: \ue200cite\ue20213\u2020Image\u2020occ.a.nflxso.net\ue201 #7 in Movies\nL59: \nL60:   * \ue200cite\ue20226\u2020Image: Shark Tale\u2020dnm.nflximg.net\ue201 L61: \nL62: \ue200cite\ue20213\u2020Image\u2020occ.a.nflxso.net\ue201 #8 in Movies\nL63: \nL64:   * \ue200cite\ue20227\u2020Image: The Secret Woman\u2020dnm.nflximg.net\ue201 L65: My List\ue200cite\ue20228\u2020Watch\ue201 \ue200cite\ue20229\u2020Explore\ue201 L66: \nL67: \ue200cite\ue20213\u2020Image\u2020occ.a.nflxso.net\ue201 #9 in Movies\nL68: \nL69:   * \ue200cite\ue20230\u2020Image: Ready or Not\u2020dnm.nflximg.net\ue201 L70: \nL71: \ue200cite\ue20213\u2020Image\u2020occ.a.nflxso.net\ue201 #10 in Movies\nL72: \nL73: United States | 9/7/26 - 9/13/26\nL74: ## Top 10 Movies in United States Overview\nL75: Ranking  |\nL76: --- | ---\nL77: 01\ue200cite\ue20231\u2020Image\u2020dnm.nflximg.net\ue201 [Button: Why Did I Get Married Again?]  | 1\nL78: 02\ue200cite\ue20232\u2020Image\u2020dnm.nflximg.net\ue201 [Button: Those Who Wish Me Dead]  | 2\nL79: 03\ue200cite\ue20233\u2020Image\u2020dnm.nflximg.net\ue201 [Button: The Whisper Man]  | 3\nL80: 04\ue200cite\ue20234\u2020Image\u2020dnm.nflximg.net\ue201 [Button: Turning Point: Generation 9/11]  | 2\nL81: 05\ue200cite\ue20235\u2020Image\u2020dnm.nflximg.net\ue201 [Button: Contraband]  | 1\nL82: 06\ue200cite\ue20236\u2020Image\u2020dnm.nflximg.net\ue201 [Button: Untold Mr. T: I Pity The Fool]  | 1\nL83: 07\ue200cite\ue20237\u2020Image\u2020dnm.nflximg.net\ue201 [Button: The Angry Birds Movie 2]  | 3\nL84: 08\ue200cite\ue20238\u2020Image\u2020dnm.nflximg.net\ue201 [Button: Shark Tale]  | 7\nL85: 09\ue200cite\ue20239\u2020Image\u2020dnm.nflximg.net\ue201 [Button: The Secret Woman]  | 3\nL86: 10\ue200cite\ue20240\u2020Image\u2020dnm.nflximg.net\ue201 [Button: Ready or Not]  | 2\nL87: ## Catch the Latest\nL88: \ue200cite\ue20241\u2020Image: A woman in a black jacket and scarf and a man in a suit lean on a railing indoors, facing each other and having a serious conversation in a sunlit room.\u2020dnm.nflximg.net\ue201 \ue200cite\ue20242\u2020Image: A woman in a black jacket and scarf and a man in a suit lean on a railing indoors, facing each other and having a serious conversation in a sunlit room.\u2020dnm.nflximg.net\ue201 \ue200cite\ue20243\u2020Image: A woman in a black jacket and scarf and a man in a suit lean on a railing indoors, facing each other and having a serious conversation in a sunlit room.\u2020dnm.nflximg.net\ue201 L89: \ue200cite\ue20244\u2020The Gentlemen Brings Sophistication to the No. 1 Spot in This Week\u2019s Top 10\ue201 L90: \nL91: Plus: Tyler Perry\u2019s Why Did I Get Married Again? tops the English film list.\nL92: \nL93:   * \ue200cite\ue20245\u2020Why Did I Get Married Again?: The Crew Reunites for an Italian Wedding\ue201 L94: \nL95: \ue200cite\ue20246\u2020Image: Woman in a vibrant blue dress with feathered sleeves smiling with open arms, outdoors at night in a garden setting, surrounded by people and greenery, illuminated by soft lamp lights in the background.\u2020dnm.nflximg.net\ue201 L96:   * \ue200cite\ue20247\u2020From Madea to the Bellaries: 14 Tyler Perry Movies and Shows to Stream Now\ue201 L97: \nL98: \ue200cite\ue20248\u2020Image: A man in a blue blazer holding a wine glass stands next to a woman in a floral dress at an upscale indoor gathering with stone walls, greenery, and a staircase in the background. Another person is blurred in the distance.\u2020dnm.nflximg.net\ue201 L99: \nL100:   * \ue200cite\ue20249\u2020Why Did I Get Married Again?: Walk Down the Aisle to a Happy Ending\ue201 L101: \ue200cite\ue20250\u2020Image: Four women sit on a modern sofa in a stylish living room, laughing and enjoying glasses of wine. Two round marble tables with books and a bottle of wine sit in front of them. Large windows and cozy decor complete the setting.\u2020dnm.nflximg.net\ue201 L102: \nL103:   * \ue200cite\ue20251\u2020Why Did I Get Married Again? Cast: Meet the Wedding Guests in Attendance\ue201 L104: \ue200cite\ue20252\u2020Image: A group of six adults dressed in formal and semi-formal attire stand close together outdoors at night, looking intensely ahead with concerned or serious expressions, trees and dark background behind them.\u2020dnm.nflximg.net\ue201 L105: ## Explore The Most Watched Movies\nL106: \nL107:   *   * ### Understand the Methodology\nL108: \nL109: Some titles may not be available in all regions. Runtime is shown in hours and minutes. Top 10 lists are available in selected countries and territories. Regional groupings based on the United States statistics division.\nL110: \nL111: [Button: More Details]\nL112: ### Find a Show or Movie\nL113: \nL114: Look up any title on Netflix for the associated Top 10 ranking details over time and across countries.\nL115: \nL116: [Button: Top 10 Search]\nL117: \nL118: Back To Top\nL119: \nL120:   * \ue200cite\ue20253\u2020About Tudum\ue201 L121:   * \ue200cite\ue20254\u2020Netflix House\u2020www.netflixhouse.com\ue201 L122:   * \ue200cite\ue20255\u2020Netflix Shop\u2020www.netflix.shop\ue201 L123:   * \ue200cite\ue2029\u2020Podcasts\ue201 L124: \nL125: \ue200cite\ue2021\u2020Sign In\ue201 \ue200cite\ue20256\u2020Sign Up\ue201 L126: \nL127:   * \ue200cite\ue2022\u2020Home\ue201 L128:   * \ue200cite\ue20257\u2020Privacy\ue201 L129:   * \ue200cite\ue20258\u2020Terms of Use\ue201 L130:   * \ue200cite\ue20259\u2020Cookie Preferences\ue201 L131:   * \u00a9 2026 netflix\nL132: \nL133: Hi, !\n",
+            "content_sha256": "1806c792c37c421fb5bc0cb79d374cf2a906290387bad885b868375f839a3ac0",
+            "metadata": {
+              "note": "Direct HTTP or browser-extracted source text; excerpt is a coordinator paraphrase checked against the saved response.",
+              "retrieval_receipt": "research/primary-web-open.json"
+            },
+            "method": "fetched"
+          },
+          "excerpt": "For September 7\u201313, the US film chart ranks Why Did I Get Married Again? first, Those Who Wish Me Dead second, and The Whisper Man third. This is the preceding week, not the contract's target week.",
+          "excerpt_kind": "paraphrase",
+          "id": "netflix_us_week",
+          "retrieved_at": "2026-09-18T11:10:30+00:00",
+          "title": "Netflix US weekly film ranking, September 7\u201313",
+          "url": "https://www.netflix.com/tudum/top10/united-states"
+        }
+      ],
+      "value": {
+        "target_chart_publication": "2026-09-22",
+        "target_week_ends": "2026-09-20",
+        "top_10": [
+          "Why Did I Get Married Again?",
+          "Those Who Wish Me Dead",
+          "The Whisper Man",
+          "Turning Point: Generation 9/11",
+          "Contraband",
+          "Untold Mr. T: I Pity The Fool",
+          "The Angry Birds Movie 2",
+          "Shark Tale",
+          "The Secret Woman",
+          "Ready or Not"
+        ],
+        "week_end": "2026-09-13",
+        "week_start": "2026-09-07"
+      }
+    }
+  },
+  "models": {
+    "forecast_4a34d39bb3a5449cb19d": {
+      "arm_id": "arm_69b66d9fc276426cadff",
+      "assessment_probability": 0.4,
+      "coherence": {
+        "comparisons": [],
+        "limitations": [
+          "Implications are supplied by the agent and pinned to exact question versions.",
+          "Different information cutoffs can explain apparent incoherence; review before revising."
+        ],
+        "missing_forecasts": [],
+        "violations": []
+      },
+      "concern_resolutions": [],
+      "cost_usd": 0.012512,
+      "coverage": {},
+      "cutoff_policy": "fixed",
+      "data_label": "outside_research",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_c9e83509a1515f7499f54b8b",
+          "record_id": "netflix_us_week"
+        }
+      ],
+      "experiment_id": "experiment_c0824cf924d14b30ae57",
+      "forecaster": "experiment_c0824cf924d14b30ae57:arm_69b66d9fc276426cadff:r1",
+      "information_as_of": "2026-09-18T11:19:02.785870Z",
+      "initial_information_as_of": "2026-09-18T11:19:02.785870Z",
+      "input_manifest": {
+        "arm_69b66d9fc276426cadff": "90044fab153e35d81779ca8ffffc54fc48dd691021cb1d031f4fc51175a22687",
+        "experiment_c0824cf924d14b30ae57": "7f16b0077bb711e476898a640157c648e73a2407c0b4503334d9151e7d68a133",
+        "method_8c5163ac31854a34b445": "9ef4f83a1ee11a35113ce0297d36ed11e980d017594eeaf4c3e486174a9d6eda",
+        "pkt_c9e83509a1515f7499f54b8b": "1a964b7e4c5765e896b9e1b71936e79c83beda8fa4c909f54e397442cae7a00c",
+        "task_result_ac74eec306fd4839ab59": "3dd4306b064ddbc07dbb9cfebf67ebdb5c712cbf8a6b210efaf4910db74ce0f7"
+      },
+      "inquiry_answers": {},
+      "issued_at": "2026-09-18T11:25:10.069662Z",
+      "manifest_sha256": "b2136702fe510b63b99dfbe22180a9061e80cffc58ef8a756cf2845cecc9a236",
+      "method": "method_8c5163ac31854a34b445",
+      "method_spec_id": "method_8c5163ac31854a34b445",
+      "mode": "prospective",
+      "model_calls": 1,
+      "model_challenge": null,
+      "model_map": null,
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "parameter_support": [],
+      "previous_forecast_id": null,
+      "prior_record": {
+        "qualification": "Registered method omits the prior stage.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.4,
+      "probability_basis": "judgment",
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_8c5163ac31854a34b445"
+      },
+      "question": {
+        "domain": "Entertainment",
+        "event_deadline": "2026-09-22T03:59:00Z",
+        "event_group": "KXNETFLIXRANKMOVIE-26SEP21",
+        "id": "netflix-1",
+        "kind": "real",
+        "no": "The stated qualifying event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined source; see definition-only rules.",
+        "resolve_after": "2026-09-22T03:59:00Z",
+        "text": "Will Why Did I Get Married Again? be Top US Netflix Movie on Sep 21, 2026? \u2014 Why Did I Get Married Again?",
+        "void": "Nonbinary fair-value settlement or a cancelled/invalid contract is excluded from eventual outcome scoring.",
+        "yes": "If Why Did I Get Married Again? is #1 on the Netflix Top 10 US Movie on the chart published on Sep 22, 2026, then the market resolves to Yes.\n\nThe Netflix charts are updated on Tuesday. Therefore, the market will close at 11:59 PM ET the day before. The chart published on Sep 22, 2026 will be for the week ending the previous Sunday.\n\nThis market and these products have not been endorsed by Netflix. Any references to Netflix, or any associated marks are descriptive only and do not indicate an endorsement of this product or any affiliation between Netflix and Kalshi."
+      },
+      "question_id": "netflix-1",
+      "question_version": 1,
+      "reference_class": null,
+      "repetition": 1,
+      "research_plan": null,
+      "review_at": "2026-09-18T13:19:02.785870+00:00",
+      "run_id": "run_6cd3d4ef6a424bc2bbb4",
+      "searches": 0,
+      "sensitivity": null,
+      "stopping_reason": "One registered model call completed; freeze before revealing evaluator targets.",
+      "trial_id": "trial_cc465784d0602ab3decd7a4d",
+      "triggers": [
+        {
+          "description": "New primary-source evidence or eventual resolution.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_c9e83509a1515f7499f54b8b",
+              "record_id": "netflix_us_week"
+            }
+          ]
+        }
+      ],
+      "workflow_version": "experiment.stages.v1"
+    }
+  },
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.64,
+      "ask_contracts_within_2c": 26.18,
+      "ask_size": 26.18,
+      "bid": 0.61,
+      "bid_contracts_within_2c": 56.84,
+      "bid_size": 16.84,
+      "midpoint": 0.625,
+      "spread": 0.03
+    },
+    "target_captured_at": "2026-09-18T11:06:25.376322Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_3ddca2d0748d4a1cbfdb",
+        "label": "Initial",
+        "recorded_at": "2026-09-18T11:40:26.486795Z",
+        "probability": 0.4,
+        "difference_pp": -22.499999999999996,
+        "squared_market_error": 0.05062499999999999,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 20.999999999999996
+      }
+    ],
+    "net_squared_error_improvement": 0.0,
+    "followup_quote": {
+      "ask": 0.66,
+      "ask_contracts_within_2c": 147.0,
+      "ask_size": 124.0,
+      "bid": 0.59,
+      "bid_contracts_within_2c": 33.56999999999999,
+      "bid_size": 0.99,
+      "midpoint": 0.625,
+      "spread": 0.07
+    },
+    "followup_captured_at": "2026-09-18T11:40:26.835279Z",
+    "market_movement_pp": 0.0,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-18T11:40:26.835370Z"
+}
