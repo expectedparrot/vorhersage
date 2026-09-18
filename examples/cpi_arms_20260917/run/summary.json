@@ -1,0 +1,126 @@
+{
+  "experiment_id": "experiment_e68f468846f746c6be73",
+  "question": "Will the published seasonally adjusted monthly CPI-U increase for September 2026 exceed 0.2%?",
+  "model": {
+    "provider": "google",
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "temperature": 0.5,
+      "topK": 40,
+      "topP": 1,
+      "maxOutputTokens": 8192,
+      "thinking_budget": 2048
+    }
+  },
+  "issued_trials": 3,
+  "arms": {
+    "scenarios": {
+      "probabilities": [
+        0.8124999999999999
+      ],
+      "forecasts": [
+        {
+          "id": "forecast_0f0cbb384efd47dcb2a0",
+          "repetition": 1,
+          "probability": 0.8124999999999999
+        }
+      ],
+      "reported_cost_usd": 0.061834,
+      "mean": 0.8124999999999999,
+      "min": 0.8124999999999999,
+      "max": 0.8124999999999999,
+      "standard_deviation": 0.0
+    },
+    "direct": {
+      "probabilities": [
+        0.88,
+        0.75
+      ],
+      "forecasts": [
+        {
+          "id": "forecast_f277a326942a4b0a8e00",
+          "repetition": 3,
+          "probability": 0.88
+        },
+        {
+          "id": "forecast_19042ad2128245fdbd18",
+          "repetition": 2,
+          "probability": 0.75
+        }
+      ],
+      "reported_cost_usd": 0.08566399999999999,
+      "mean": 0.815,
+      "min": 0.75,
+      "max": 0.88,
+      "standard_deviation": 0.065
+    }
+  },
+  "outcome": "unresolved",
+  "doctor": {
+    "ok": true,
+    "artifacts_checked": 27,
+    "sqlite_integrity": "ok"
+  },
+  "limitations": [
+    "One unresolved question cannot establish comparative accuracy.",
+    "The coordinating assistant has seen earlier forecasts; the model prompts contain only the selected source packet and registered task.",
+    "Different prompt/output complexity may produce different actual token usage despite equal caps.",
+    "Within-arm variability across three draws is descriptive, not a confidence interval or accuracy estimate."
+  ],
+  "raw_output_diagnostic": {
+    "analysis": "Post-hoc format-only extraction; numeric values and rationales are unchanged. These are not additional issued forecasts or a replacement for strict validation results.",
+    "arms": {
+      "scenarios": {
+        "probabilities": [
+          0.8374999999999999,
+          0.8775,
+          0.8124999999999999
+        ],
+        "reported_cost_usd": 0.207294,
+        "strict_successes": 1,
+        "mean": 0.8424999999999999,
+        "min": 0.8124999999999999,
+        "max": 0.8775,
+        "standard_deviation": 0.026770630673681708
+      },
+      "direct": {
+        "probabilities": [
+          0.88,
+          0.75,
+          0.85
+        ],
+        "reported_cost_usd": 0.12863399999999997,
+        "strict_successes": 2,
+        "mean": 0.8266666666666667,
+        "min": 0.75,
+        "max": 0.88,
+        "standard_deviation": 0.05557777333511022
+      }
+    },
+    "recorded_at": "2026-09-18T03:21:52.252623Z"
+  },
+  "attempts": {
+    "received_at": "2026-09-18T03:20:23.300233Z",
+    "results_file_sha256": "70b6d731c1aba3ac8358dd90bddc062a89f76fdeeea25e3fc1fdb61d28ca4112",
+    "returned_records": 6,
+    "known_reported_cost_usd": 0.335928,
+    "unknown_cost_records": 0,
+    "failures": [
+      {
+        "trial_id": "trial_e6a3a159c0ffa9486f91f637",
+        "error": "Extra data: line 2 column 1 (char 1851)",
+        "reported_cost_usd": 0.07549
+      },
+      {
+        "trial_id": "trial_3dce7ebb7e3c77a9f461f5a2",
+        "error": "Extra data: line 2 column 1 (char 1851)",
+        "reported_cost_usd": 0.06997
+      },
+      {
+        "trial_id": "trial_0ce301c031408e71aa10a83b",
+        "error": "$: unexpected fields {'type'}",
+        "reported_cost_usd": 0.042969999999999994
+      }
+    ]
+  }
+}

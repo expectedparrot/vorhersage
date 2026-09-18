@@ -34,6 +34,17 @@ def packet():
                          "provenance": {"synthetic": True}}]}
 
 
+def reference_prior(w, refs):
+    from vorhersage import reference
+    for i in (0, 1):
+        reference.add(w.store, {"id": str(i), "episode_id": str(i), "eligibility": "Both fictional cases.",
+                               "description": "Synthetic episode", "tags": ["empirical-test"],
+                               "trigger_at": stamp(-4), "event_at": stamp(-3) if i else None,
+                               "observed_until": stamp(-2), "known_at": stamp(-0.25), "evidence_refs": refs})
+    return reference.query(w.store, {"tags": ["empirical-test"], "horizon_days": 2,
+                                    "known_as_of": stamp(-0.1), "selection_rule": "Both fictional cases."})["prior_payload"]
+
+
 def run_spec(forecaster="agent:a", **extra):
     return {"question_id": "factory", "forecaster": forecaster, "method": "fixture judgment",
             "mode": "simulation", "information_as_of": now(), "max_searches": 5, "max_extra_tasks": 1, **extra}
@@ -131,9 +142,7 @@ class WorkflowTests(unittest.TestCase):
 
     def test_reference_class_uses_actual_cases_and_denominator(self):
         request = response(self.w.next(self.id), self.refs)
-        request["payload"] = {"method": "reference_class", "rationale": "Illustrative comparable cases.",
-                              "selection_rule": "All two listed fictional cases.", "limitations": ["Tiny sample."], "evidence_refs": [],
-                              "cases": [{"id": "a", "outcome": 1, "evidence_refs": self.refs}, {"id": "b", "outcome": 0, "evidence_refs": self.refs}]}
+        request["payload"] = reference_prior(self.w, self.refs)
         self.w.submit(self.id, request)
         self.assertEqual(self.w.next(self.id)["context"]["current_probability"], 0.5)
 

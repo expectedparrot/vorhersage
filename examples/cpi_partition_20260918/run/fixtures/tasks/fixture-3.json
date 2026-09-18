@@ -1,0 +1,120 @@
+{
+  "case_id": "fixture-3",
+  "payload": {
+    "method": "scenario_mixture",
+    "rationale": "Gasoline prices have surged in the first half of September 2026, from roughly $4.20/gal at the end of August to $4.455/gal by mid-September. Furthermore, historical data indicates a strong positive seasonal adjustment factor for gasoline in September (typically adding ~2% to the NSA change). Given gasoline's 3.77% weight, this combination is highly likely to contribute significantly to the headline CPI. Even with moderate core inflation (around 0.2%), the headline SA CPI is strongly positioned to exceed 0.2% (i.e., round to 0.3% or higher).",
+    "limitations": [
+      "Gasoline prices for the second half of September are unknown and could retrace sharply.",
+      "Core inflation components (like shelter or used cars) could surprise to the downside, dragging the headline figure lower.",
+      "Seasonal adjustment factors are subject to revision and might differ slightly from historical averages."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+        "record_id": "eia"
+      },
+      {
+        "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+        "record_id": "weight"
+      },
+      {
+        "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+        "record_id": "indices"
+      },
+      {
+        "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+        "record_id": "bls"
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "high_gasoline",
+        "description": "September average gasoline prices remain elevated above $4.35/gal.",
+        "weight": 0.55,
+        "probability": 0.95,
+        "rationale": "If gasoline prices maintain their mid-month surge, the NSA increase will be around 4-5%. With a ~2% positive seasonal adjustment, SA gasoline would rise 6-7%, contributing over 0.2% to the headline CPI alone. Combined with a typical core increase, headline CPI will almost certainly be 0.3% or 0.4%.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+            "record_id": "eia"
+          },
+          {
+            "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+            "record_id": "indices"
+          }
+        ],
+        "unknowns": [
+          "Exact trajectory of retail gasoline prices in late September."
+        ],
+        "weight_range": [
+          0.45,
+          0.65
+        ],
+        "probability_range": [
+          0.9,
+          0.98
+        ]
+      },
+      {
+        "id": "moderate_gasoline",
+        "description": "September average gasoline prices retrace moderately to between $4.25 and $4.35/gal.",
+        "weight": 0.35,
+        "probability": 0.8,
+        "rationale": "A moderate retracement still leaves NSA gasoline prices up 1-3% for the month. The positive seasonal adjustment would push the SA increase to 3-5%, contributing 0.1% to 0.2% to the headline. Assuming core inflation remains near 0.2%, the headline figure is still very likely to round to 0.3%.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+            "record_id": "eia"
+          },
+          {
+            "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+            "record_id": "weight"
+          }
+        ],
+        "unknowns": [
+          "The extent of the late-month gasoline price drop.",
+          "Core inflation resilience."
+        ],
+        "weight_range": [
+          0.25,
+          0.45
+        ],
+        "probability_range": [
+          0.7,
+          0.9
+        ]
+      },
+      {
+        "id": "low_gasoline_or_weak_core",
+        "description": "September average gasoline prices drop sharply below $4.25/gal, or core inflation is unusually weak.",
+        "weight": 0.1,
+        "probability": 0.35,
+        "rationale": "If gasoline prices crash in the second half of the month, the NSA average might be flat or negative. Even with the positive seasonal adjustment, the contribution would be minimal. If core inflation also prints softly (e.g., 0.1%), the headline CPI could easily round to 0.2% or lower.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+            "record_id": "eia"
+          },
+          {
+            "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+            "record_id": "bls"
+          }
+        ],
+        "unknowns": [
+          "Potential for a sudden collapse in energy markets.",
+          "Unexpected downside surprises in shelter or services."
+        ],
+        "weight_range": [
+          0.05,
+          0.2
+        ],
+        "probability_range": [
+          0.15,
+          0.5
+        ]
+      }
+    ],
+    "partition_justification": "The scenarios are partitioned based on the average retail gasoline price for September, which is the most volatile and currently observable high-impact driver for the month's CPI. The thresholds (>$4.35, $4.25-$4.35, <$4.25) are mutually exclusive and collectively exhaustive, covering the range of plausible outcomes given the mid-month price of $4.455."
+  },
+  "probability": 0.8374999999999999
+}

@@ -128,11 +128,11 @@ class LedgerWorkflowTests(unittest.TestCase):
             self.w.submit(self.run, self.request)
 
     def test_empirical_anchor_links_actual_reference_cases(self):
+        from test_workflow import reference_prior
         run = self.w.start(run_spec(forecaster="empirical"))["run_id"]
         step = self.w.next(run)
         req = response(step, self.refs)
-        req["payload"].update(method="reference_class", probability=0.5, selection_rule="Both fictional cases.",
-                              cases=[{"id": str(i), "outcome": i, "evidence_refs": self.refs} for i in (0, 1)])
+        req["payload"] = reference_prior(self.w, self.refs)
         prior = self.w.submit(run, req)["artifact_id"]
         while (step := self.w.next(run))["task"]["kind"] != "assessment":
             self.w.submit(run, response(step, self.refs))

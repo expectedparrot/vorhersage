@@ -32,6 +32,37 @@ Python 3.11 or newer. The example below runs locally without an account or model
 service. For an agent with Expected Parrot access, use the
 [copyable agent setup](#copy-and-paste-into-an-agent).
 
+## Web research with Exa and Firecrawl
+
+Agents can search, retrieve pages, and keep the results in an initialized project:
+
+```bash
+vorhersage research search "Boston driverless service regulations" --provider exa --project waymo
+vorhersage research fetch "https://www.mass.gov/" --provider firecrawl --project waymo
+vorhersage research list --project waymo
+vorhersage research show RETRIEVAL_ID --project waymo
+```
+
+Set `EXA_API_KEY` or `FIRECRAWL_API_KEY` in your environment. Both providers
+support search and page retrieval. Each request saves its response, sources,
+timestamps, and provider-reported usage. `list` and `show` work offline.
+The agent supplies findings and links them to saved source passages with
+`research capture --retrieval RETRIEVAL_ID --from findings.json`.
+See the [research tool guide](docs/WEB_RESEARCH.md) for setup, Python calls, and
+the findings format.
+
+## Compare methods, models, and data
+
+An experimental **arm** pins a method, model configuration, and evidence set.
+Register arms with `vorhersage arm add --from arm.json`, then compare them in an
+experiment with matched questions and repetitions. Methods can omit stages for
+direct-forecast and no-review baselines. Reports retain assessment and issued
+probabilities, paired Brier differences, and reported usage by arm.
+
+The [offline arm walkthrough](examples/experimental_arms/README.md) runs two
+procedures × two model configurations × two data sets. See the
+[experiment guide](docs/EXPERIMENTS.md) for schemas and worker configuration.
+
 ## See it work: will Waymo launch in Boston before 2029?
 
 Suppose you want to forecast a Boston launch. A useful answer needs to explain

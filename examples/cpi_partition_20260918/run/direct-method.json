@@ -1,0 +1,30 @@
+{
+  "id": "cpi-direct-compact-contract",
+  "version": 1,
+  "description": "Give a direct holistic probability judgment. Consider the available headline history, gasoline information, seasonality, and missing drivers. Do not construct an explicit scenario mixture.",
+  "instructions": "Use only the supplied frozen source information and general economic knowledge. No browsing. Do not infer or seek market prices or prior forecasts. Respect one-decimal release rounding and the contract contingencies. Explain assumptions and limitations briefly. Give a direct holistic probability judgment. Consider the available headline history, gasoline information, seasonality, and missing drivers. Do not construct an explicit scenario mixture.",
+  "task_instructions": {},
+  "stages": [
+    "assessment",
+    "issue"
+  ],
+  "prior_method": "none",
+  "assessment_method": "judgment",
+  "research_domains": [],
+  "worker": {
+    "command": [
+      "false"
+    ],
+    "config": {
+      "transport": "external EDSL jobs",
+      "output_contract": "compact-key-list.v1"
+    },
+    "timeout_seconds": 60
+  },
+  "budget": {
+    "max_searches": 0,
+    "max_extra_tasks": 0,
+    "max_model_calls": 1,
+    "max_cost_usd": 2
+  }
+}

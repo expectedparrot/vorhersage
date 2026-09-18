@@ -1,0 +1,33 @@
+{
+  "id": "cpi-scenarios-compact-contract",
+  "version": 1,
+  "description": "Construct three to five mutually exclusive, collectively exhaustive scenarios for September inflation drivers, with weights summing to one. Separate each scenario's occurrence weight from the conditional probability of exceeding the CPI threshold. Explain the partition and justify both quantities. Do not define the scenarios solely as YES and NO outcomes.",
+  "instructions": "Use only the supplied frozen source information and general economic knowledge. No browsing. Do not infer or seek market prices or prior forecasts. Respect one-decimal release rounding and the contract contingencies. Explain assumptions and limitations briefly. Construct three to five mutually exclusive, collectively exhaustive scenarios for September inflation drivers, with weights summing to one. Separate each scenario's occurrence weight from the conditional probability of exceeding the CPI threshold. Explain the partition and justify both quantities. Do not define the scenarios solely as YES and NO outcomes.",
+  "task_instructions": {
+    "review": "Audit the supplied scenario partition before assessing its probability.\nRead scenario descriptions as logical conditions, including AND/OR clauses.\nIdentify their underlying dimensions; test combinations across those dimensions,\nintermediate cases, exact numerical boundaries, and unspecified conditions.\nIn your rationale, give concrete witness cases and the IDs of every scenario\neach case satisfies. Zero matches means a gap; multiple matches means overlap.\nDo not infer that weights summing to one establishes a valid partition. Distinguish\nambiguous wording from a definite gap or overlap. If you find none, show boundary\nand combination checks supporting that conclusion. Then challenge the probability\nin both directions. Retain it or revise it as an explicit holistic judgment; a\nchanged probability is NOT a repaired scenario mixture. No new research is available.\nKeep the rationale under 450 words and each objection and response under 100 words.\n"
+  },
+  "stages": [
+    "assessment",
+    "review",
+    "issue"
+  ],
+  "prior_method": "none",
+  "assessment_method": "scenario_mixture",
+  "research_domains": [],
+  "worker": {
+    "command": [
+      "false"
+    ],
+    "config": {
+      "transport": "external EDSL jobs",
+      "output_contract": "compact-key-list.v1"
+    },
+    "timeout_seconds": 60
+  },
+  "budget": {
+    "max_searches": 0,
+    "max_extra_tasks": 0,
+    "max_model_calls": 2,
+    "max_cost_usd": 2
+  }
+}

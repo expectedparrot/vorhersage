@@ -25,6 +25,7 @@ from .workflow import Workflow
 from .reference import add as add_reference, query as query_reference
 from . import experiments, sessions, session_runtime, session_studies, session_reports
 from . import market_data, workbench, reports, report_context, setup, study, study_text
+from . import research as web_research
 
 GUIDE = """Vorhersage records research, computes declared models, and preserves issued forecasts and their revisions. You collect evidence and judge the inputs.
 For one question, use start TEXT --project FOLDER. This saves an undefined question, without inventing a probability.
@@ -48,7 +49,7 @@ A model_challenge task follows each assessment. Inspect every evidence transfer 
 Review resolves each concern through concern_resolutions [{concern_id, disposition, rationale, action}]. Dispositions: investigate (research now), await_evidence (name an observable trigger), retain_assumption (explain unresolved uncertainty). Investigate with decision research creates linked inquiry tasks then assessment/challenge/review; optional route ask_user elicits a user fact, otherwise search. Use decision revise to repair the model without new research; timeline revisions revisit structure and parameters. Concern investigations consume max_extra_tasks. Forms and source links cannot establish substantive correctness.
 Inquiry answers can include coverage [{domain, interpretation}] for profile domains already addressed. Answers with evidence satisfy those domains directly; explicitly unresolved answers preserve gaps. Their duplicate generic research tasks are removed. Use only domains substantively addressed by that answer; timeline parameter assessments remain separate.
 Capture one claim per finding. evidence add creates claim_support linking its passage. For inference use --claim-type inference --inference-rationale TEXT. Research bundles may attach claim_support [{source_id, passage, relation: direct|inference, rationale}] to each finding, and inference_rationale to inferences. Passage matching checks supplied text only; old packets remain usable with provenance gaps reported.
-For an empirical prior, use reference add --from CASE.json to register dated cases with episode_id and eligibility, then reference query --from QUERY.json. Query fields: tags, horizon_days, known_as_of, selection_rule. Use its prior_payload plus research_status_at_estimate. Unresolved episodes are censored, not failures; shared episode IDs prevent multiple proposals being counted as separate trials. New empirical priors require reference_query matching the registered cases, not a prose zero-base-rate claim. Use a judgment prior when no defensible denominator exists.
+For an empirical prior, use reference add --from CASE.json to register dated cases with episode_id and eligibility, then reference query --from QUERY.json. Query fields: tags, horizon_days, known_as_of, selection_rule. Only a non-null prior_payload is eligible: the cohort must have matured by the cutoff and all mature outcomes must be ascertained. resolved_case_frequency is descriptive only. Immature early successes are excluded along with immature unresolved cases; censored cases are never failures. Shared episode IDs prevent duplicate trials. Every new empirical prior requires reference_query matching the eligible registered cases. Supply research_status_at_estimate for structured runs. Use a judgment prior when no defensible denominator exists.
 Model input paths are probability for judgment, scenarios/ID/weight and scenarios/ID/probability for mixtures, components/ID/probability for paths, anchor/probability and entries/ID/lr or joint/GROUP/lr for odds, scenarios/ID/weight and scenarios/ID/inputs/PARAMETER for timelines, members/ID/weight for ensembles.
 Review must include sensitivity_review with interpretation, influential_inputs (actual model_input paths), and next_evidence. Inspect context.sensitivity: its bounds vary assumptions and are not confidence intervals. In new studies, review decision revise returns to assessment and model challenge; do not supply an inline replacement probability. Existing structured_v1 studies retain their original review contract.
 After new evidence arrives, use revise --project FOLDER --reason REASON --evidence PACKET:RECORD (repeat evidence as needed), then next/submit/report. This starts a linked revision with a fresh cutoff and carries prior evidence/model records. show distinguishes the previous issued forecast from the working revision. A signal alone never changes a probability.
@@ -70,6 +71,7 @@ Evaluate selects the latest eligible forecast per forecaster and question at a f
 Use benchmark import-halawi/start/evaluate for explicit historical replay; it preserves actual issue times.
 Declare research_status at run start; an after-research judgment is not a pre-research prior.
 Use research capture and packet audit to preserve provenance and source relationships.
+Use research search QUERY --provider exa|firecrawl and research fetch URL --provider firecrawl|exa for explicit web requests. Set EXA_API_KEY or FIRECRAWL_API_KEY in the environment. Each call saves a retrieval; research list/show reads it offline. Use research capture --retrieval ID --from findings.json to attach your findings to saved source IDs. Searches count as research; report their usage when submitting a task.
 Use scenario for optional mixtures/sensitivity, relation for implications, coherence to audit.
 Use odds-ledger for declared likelihood ratios and export-widget FORECAST_ID for an offline interactive audit.
 Use timeline add/gaps/analyze/shift/compare/report for deadline models; NAME@VERSION selects a fixed model and --format text gives readable output.
@@ -83,7 +85,7 @@ Use timeline diagram FILE.toml --output diagram.svg for an offline dependency di
 Timeline shift records a duration sensitivity alternative; run workflow=timeline starts with structure and parameter research, without a prior.
 Use reference add/query for reusable observed episodes with deadline-specific censoring.
 Use watch add/tick/run for polling and optional configured research/agent subprocesses.
-Use method add and experiment add/start/run/status/evaluate for frozen-packet methodology comparisons.
+Use method add, arm add, and experiment add/start/run/status/evaluate for frozen-packet comparisons. Each arm pins method_id, model {provider, name, parameters}, and data {label, questions:[{question_id, version, packet_ids}]}. Register experiments with arm_ids; each arm must cover the same question versions. Method stages can omit prior/drivers/research/review for ablations; assessment and issue remain required.
 Use workbench browse/inspect/start/submit/reveal/report for one-question research against a hidden live market target.
 Use report --question ID --format html|latex --output FILE for complete question, research, model and prediction reports.
 Workbench targets require a separate evaluator project; plans precede research checkpoints and finish seals the trajectory.
@@ -282,6 +284,19 @@ def parser():
     sub = research.add_subparsers(dest="action", required=True)
     ap = sub.add_parser("capture")
     ap.add_argument("--from", dest="input", required=True)
+    ap.add_argument("--retrieval", action="append", default=[], help="Use sources from a saved retrieval; repeat to combine")
+    for action, argument, default in (("search", "query", "exa"), ("fetch", "url", "firecrawl")):
+        ap = sub.add_parser(action, help="Request web research and save its provenance")
+        ap.add_argument(argument)
+        ap.add_argument("--provider", choices=("exa", "firecrawl"), default=default)
+        ap.add_argument("--timeout", type=float, default=60, help="HTTP timeout in seconds (default: 60)")
+        ap.add_argument("--question", help="Associate the retrieval with a registered question")
+        if action == "search":
+            ap.add_argument("--limit", type=int, default=5)
+            ap.add_argument("--include-content", action="store_true", help="Request page text along with search results")
+    sub.add_parser("list", help="List saved retrievals without network access")
+    ap = sub.add_parser("show", help="Read a saved retrieval, sources, and provider response")
+    ap.add_argument("id")
     reference = commands.add_parser("reference")
     sub = reference.add_subparsers(dest="action", required=True)
     for action in ("add", "query"):
@@ -376,7 +391,7 @@ def parser():
         if action == "evaluate":
             ap.add_argument("--resolution-as-of", required=True)
     for name, actions in (("profile", ["add", "list"]), ("question", ["add", "revise", "list"]),
-                          ("method", ["add", "show", "list"]), ("condition", ["add", "show", "list"]),
+                          ("method", ["add", "show", "list"]), ("arm", ["add", "show", "list"]), ("condition", ["add", "show", "list"]),
                           ("session_aggregation", ["show", "list"]),
                           ("run", ["start", "list"]), ("packet", ["import", "show", "list", "audit"]),
                           ("forecast", ["show", "list"]), ("evaluation", ["show", "list"]),
@@ -651,11 +666,11 @@ def dispatch(args):
     if command == "session_aggregation":
         with s.connect() as c:
             return Store.artifact(c, args.id, "joint_aggregation") if args.action == "show" else Store.all(c, "joint_aggregation")
-    if command == "method":
+    if command in ("method", "arm"):
         if args.action == "add":
-            return experiments.add_method(s, load(args.input))
+            return (experiments.add_method if command == "method" else experiments.add_arm)(s, load(args.input))
         with s.connect() as c:
-            return Store.artifact(c, args.id, "method") if args.action == "show" else Store.all(c, "method")
+            return Store.artifact(c, args.id, command) if args.action == "show" else Store.all(c, command)
     if command == "experiment":
         if args.action == "add":
             return experiments.add_experiment(s, load(args.input))
@@ -668,7 +683,19 @@ def dispatch(args):
             return experiments.score(args.project, args.id, args.resolution_as_of)
         return getattr(experiments, args.action)(args.project, args.id)
     if command == "research":
-        return w.import_packet(capture_bundle(load(args.input)))
+        if args.action == "search":
+            return web_research.search(args.project, args.query, provider=args.provider, limit=args.limit,
+                                       include_content=args.include_content, timeout=args.timeout, question=args.question)
+        if args.action == "fetch":
+            return web_research.fetch(args.project, args.url, provider=args.provider,
+                                      timeout=args.timeout, question=args.question)
+        if args.action == "list":
+            return web_research.list_retrievals(args.project)
+        if args.action == "show":
+            return web_research.show(args.project, args.id)
+        spec = load(args.input)
+        packet = web_research.capture(args.project, args.retrieval, spec) if args.retrieval else capture_bundle(spec)
+        return w.import_packet(packet)
     if command == "reference":
         return (add_reference if args.action == "add" else query_reference)(s, load(args.input))
     if command == "relation":

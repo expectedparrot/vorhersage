@@ -160,7 +160,15 @@ class Workflow:
         if spec.get("research_contract") == "structured_v2" and old:
             state["model_map"] = copy.deepcopy(old.get("model_map"))
         if protocol:
+            if "stages" in protocol["method_spec"]:
+                stages = protocol["method_spec"]["stages"]
+                state["pending"] = [t for t in state["pending"] if t["kind"] in stages]
+                body["workflow_version"] = "experiment.stages.v1"
+                if "prior" not in stages:
+                    state["prior_record"] = {"timing": "not_applicable", "qualification": "Registered method omits the prior stage."}
             state["artifact_ids"].extend([protocol["method_spec_id"], protocol["experiment_id"], *protocol["packet_ids"]])
+            if protocol.get("arm_id"):
+                state["artifact_ids"].append(protocol["arm_id"])
         c.execute("INSERT INTO runs VALUES (?,?,?,0)", (id, canonical(body), canonical(state)))
         Store.event(c, "run.start", body)
         return {"run_id": id, "revision": 0}
@@ -222,7 +230,7 @@ class Workflow:
             if selected["kind"] == "assessment":
                 selected["instruction"] += " Supply a new model_map version, explicitly separating scenario weights from conditional event probabilities. Remap evidence if the model changed; explain changes in rationale. Use context.model_map for previous_version (0 initially)."
             if selected["kind"] == "prior":
-                selected["instruction"] += " For an empirical reference_class, register dated reference cases and supply reference_query plus its returned cases. Unresolved episodes are censored, not failures; related proposals belong to one episode. Without a defensible denominator use judgment."
+                selected["instruction"] += " For an empirical reference_class, register dated reference cases and supply reference_query plus its eligible prior_payload. Maturity is determined independently of outcome at the query cutoff; unresolved mature cases block a prior. resolved_case_frequency is descriptive only. Related proposals belong to one episode. Without a defensible denominator use judgment."
             if selected["kind"] == "review":
                 for field in ("probability", "parameter_support", "research_tasks"):
                     payload_schema["properties"].pop(field, None)
@@ -390,26 +398,26 @@ class Workflow:
                         "Judgment prior needs a probability, without reference-class cases or a reference query.")
                 value = p["probability"]
             else:
-                if v2:
-                    from .reference import query_cases
-                    require("reference_query" in p, "Empirical priors require reference_query over registered, dated episodes.")
-                    require(time(p["reference_query"]["known_as_of"]) <= time(run["information_as_of"]),
-                            "Reference query exceeds run cutoff.")
-                    result = query_cases(c, p["reference_query"])
-                    require(all(r["episode_id"] and r["eligibility"] for r in result["selected_episodes"]),
-                            "Empirical priors need episode_id and eligibility for every selected reference case.")
-                    require(p.get("cases") == result["cases"] and p.get("selection_rule") == result["selection"]["selection_rule"],
-                            "Prior cases and selection rule must match reference query; censored cases are not failures.")
-                    require(not result["dependent_episodes"], "Select one case per episode before using an empirical prior.")
-                    selected_refs = evidence_refs(result["selected_episodes"])
-                    verify_refs(c, selected_refs, run["information_as_of"])
-                    if run.get("method_spec"):
-                        require(all(r["packet_id"] in run["packet_ids"] for r in selected_refs),
-                                "Experiment reference cases require registered frozen packets.")
-                    state["evidence_refs"] = list({canonical(r): r for r in state["evidence_refs"] + selected_refs}.values())
-                    state["reference_class"] = result
-                    state["artifact_ids"] = list(dict.fromkeys(state["artifact_ids"] +
-                                                               [r["artifact_id"] for r in result["selected_episodes"]]))
+                from .reference import query_cases
+                require("reference_query" in p, "Empirical priors require reference_query over registered, dated episodes.")
+                require(time(p["reference_query"]["known_as_of"]) <= time(run["information_as_of"]),
+                        "Reference query exceeds run cutoff.")
+                result = query_cases(c, p["reference_query"])
+                require(all(r["episode_id"] and r["eligibility"] for r in result["selected_episodes"]),
+                        "Empirical priors need episode_id and eligibility for every selected reference case.")
+                require(p.get("cases") == result["cases"] and p.get("selection_rule") == result["selection"]["selection_rule"],
+                        "Prior cases and selection rule must match reference query; censored cases are not failures.")
+                require(not result["dependent_episodes"], "Select one case per episode before using an empirical prior.")
+                require(result["prior_eligible"], "Reference cohort is not eligible for an empirical prior: " + ", ".join(result["prior_ineligibility_reasons"]))
+                selected_refs = evidence_refs(result["selected_episodes"])
+                verify_refs(c, selected_refs, run["information_as_of"])
+                if run.get("method_spec"):
+                    require(all(r["packet_id"] in run["packet_ids"] for r in selected_refs),
+                            "Experiment reference cases require registered frozen packets.")
+                state["evidence_refs"] = list({canonical(r): r for r in state["evidence_refs"] + selected_refs}.values())
+                state["reference_class"] = result
+                state["artifact_ids"] = list(dict.fromkeys(state["artifact_ids"] +
+                                                           [r["artifact_id"] for r in result["selected_episodes"]]))
                 require(bool(p.get("cases")) and bool(p.get("selection_rule")), "Reference class needs cases and a selection rule.")
                 require(len({x["id"] for x in p["cases"]}) == len(p["cases"]), "Duplicate reference-class cases.")
                 value = math.fsum(x["outcome"] for x in p["cases"]) / len(p["cases"])
@@ -517,6 +525,7 @@ class Workflow:
             require("probability" not in p or math.isclose(p["probability"], value), "Supplied probability differs from computed estimate.")
             state["probability"] = value
             state["probability_basis"] = method
+            state["assessment_probability"] = value
             return {"probability": value, "method": method, "assumptions_are_agent_supplied": True,
                     **({"timeline_analysis": calculation} if method == "timeline_model" else {}),
                     **({"odds_analysis": calculation} if method == "odds_ledger" else {}),
@@ -595,6 +604,7 @@ class Workflow:
                         "profile": run["profile"], "workflow_version": run["workflow_version"],
                         "method": run["method"], "mode": run["mode"], "probability": state["probability"],
                         "probability_basis": state["probability_basis"],
+                        "assessment_probability": state.get("assessment_probability"),
                         "information_as_of": run["information_as_of"], "issued_at": now(),
                         "initial_information_as_of": run["initial_information_as_of"], "cutoff_policy": run["cutoff_policy"],
                         "previous_forecast_id": run.get("previous_forecast_id"), "coverage": state["coverage"],
@@ -610,6 +620,8 @@ class Workflow:
                 forecast["timeline_model_id"] = state["timeline_model_id"]
             if run.get("experiment_id"):
                 forecast.update({key: run[key] for key in ("experiment_id", "method_spec_id", "trial_id", "repetition")})
+                if run.get("arm_id"):
+                    forecast.update({key: run[key] for key in ("arm_id", "model_spec", "data_label")})
             coherence = coherence_audit(c, {**forecast, "id": "pending"})
             require(run.get("coherence_policy", "warn") != "strict" or not coherence["violations"],
                     "Forecast violates a registered implication; revise or use the warn policy with review.", "incoherent_forecast")

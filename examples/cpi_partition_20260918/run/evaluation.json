@@ -1,0 +1,594 @@
+{
+  "experiment_evaluation_id": "experiment_evaluation_7370cb62dcb84fe08d16",
+  "experiment_id": "experiment_99f13dd93d7d4935b66c",
+  "evaluation_id": "evaluation_0876ea4df1d745d4a294",
+  "registered_forecast_cutoff": "2026-09-18T22:08:20.768488+00:00",
+  "effective_cutoff": "2026-09-18T10:18:34.535869Z",
+  "arm_scores": {
+    "arm_0749b9bcf6e14380ad02": {
+      "arm_name": "direct",
+      "arm_version": 1,
+      "method_id": "method_55a9c69cae414212b8be",
+      "method_name": "cpi-direct-compact-contract",
+      "method_version": 1,
+      "model": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "Same frozen September 16 packet as first pilot",
+      "registered_budget": {
+        "max_cost_usd": 2,
+        "max_extra_tasks": 0,
+        "max_model_calls": 1,
+        "max_searches": 0
+      },
+      "expected_trials": 3,
+      "issued_trials": 3,
+      "all_trials_reported_cost_usd": 0.123858,
+      "all_trials_reported_model_calls": 3,
+      "matched_questions": 0,
+      "by_question": [],
+      "matched_brier": null,
+      "matched_assessment_brier": null
+    },
+    "arm_df48fc18a9334eb4ae36": {
+      "arm_name": "scenarios",
+      "arm_version": 1,
+      "method_id": "method_6b0d5f8f9e4940d08b0d",
+      "method_name": "cpi-scenarios-compact-contract",
+      "method_version": 1,
+      "model": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "Same frozen September 16 packet as first pilot",
+      "registered_budget": {
+        "max_cost_usd": 2,
+        "max_extra_tasks": 0,
+        "max_model_calls": 2,
+        "max_searches": 0
+      },
+      "expected_trials": 3,
+      "issued_trials": 3,
+      "all_trials_reported_cost_usd": 0.31612399999999996,
+      "all_trials_reported_model_calls": 6,
+      "matched_questions": 0,
+      "by_question": [],
+      "matched_brier": null,
+      "matched_assessment_brier": null
+    }
+  },
+  "comparisons": [
+    {
+      "left": "arm_0749b9bcf6e14380ad02",
+      "right": "arm_df48fc18a9334eb4ae36",
+      "changed_dimensions": [
+        "method"
+      ],
+      "n": 0,
+      "event_groups": 0,
+      "mean_brier_difference": null,
+      "by_question": [],
+      "interpretation": "Negative favors left; no significance or causal attribution claim."
+    }
+  ],
+  "created_at": "2026-09-18T10:18:34.538815Z",
+  "limitations": [
+    "Arms share the cohort complete across every arm and repetition; inspect exclusions in the evaluation.",
+    "Brier losses are averaged across repetitions within question, then equally across questions. No significance claim.",
+    "Changing several arm dimensions compares combined configurations; it does not isolate any one component's effect.",
+    "Assessment scores use the last assessment before issuance. Review can commission further assessments; this is not a randomized estimate of review's effect.",
+    "Model settings are instructions to trusted workers, not independent attestation of the model actually called.",
+    "Workers are trusted processes; frozen packet references do not certify absence of external access or outcome knowledge.",
+    "Usage caps rely on reported usage; rejected or interrupted calls can incur unrecorded costs."
+  ],
+  "input_manifest": {
+    "arm_0749b9bcf6e14380ad02": "551caeb0c55fa606c3c198c05945cfc74b112f6adcbd9c1ace4c827f3f850bde",
+    "arm_df48fc18a9334eb4ae36": "a99c991b8663a8e5bf09600f40ec851b7182802a13641875d9809866c768c7b9",
+    "evaluation_0876ea4df1d745d4a294": "c819431255f1780fe43d3a9973a2e61d1112eb73ec504248a61157c3f4c72d26",
+    "experiment_99f13dd93d7d4935b66c": "df5437111474486cbc9a942d29b7572799fb7b767a9c276add5dd4197e3d618a",
+    "forecast_0e5d9fc0ebb2420ca974": "1093a94f30cad7da5eaf01f4d234513eebe485b7fecee4d4ef11c543ff150ad4",
+    "forecast_4228dfb465ac4076af3d": "a8da3fad3d9005be30562745e68e7ecd9051673a397b2df54149299f669940ed",
+    "forecast_4ea057ddc5d645d98b78": "7c0fde81ee1c132426e1ccefae5b59d6b8090bc23a7608517abc3f2a927cca29",
+    "forecast_5e175041285a4bb78a86": "eddc0146a854d701528031136ef883a1ff028ecaf4213f039f7f919c9b8963d1",
+    "forecast_6e86492bb7bc46798129": "71ae6722aeb0c909160dc31af4e8b8f2c2cfe01b6b9a04fc0266e491126e7f94",
+    "forecast_8e652708133b41a1a079": "48043176ed7ea4e817e6cb1917572a8504d2369bd429c4b5f2c11b3747cfad98",
+    "method_55a9c69cae414212b8be": "972778dada858470dcafcf7480fa55cda6c54ac50072c8b5b2178e5a640be2a7",
+    "method_6b0d5f8f9e4940d08b0d": "d78283dd37e746dd6980ee00692a8f661188c05e1b3dad241afeb5a30e4b1890",
+    "pkt_3f0deeefaeb9e8d33d993fde": "bf62d20d2e69c6877e6c6c93825ee7c4a30c714e58dce1b0cf5f04e2c4bdf2f7",
+    "task_result_0ebdeb4215a5417ebf60": "983add31d4838e2e2c2d65849d21816abe09d8cbda0f73369dc91f7de09e15b9",
+    "task_result_1066f8fe6a4042b1aa82": "d7df1f93990cfa73777f0589a5b481a6c02d376c6a22368faf2e47fccf9981fe",
+    "task_result_1416b09581514a90bada": "28b634b5e6e18038aa53e2d7eea599bd6b3771b836ee535bdafb2c65c6414a21",
+    "task_result_31c902c950f041479869": "2f49059b991ce8ff040e6770b57cd4ea93026666e50775cda9156f0b6e2578e0",
+    "task_result_4d108e79095e4e0fa674": "c379b0e200f2329b84d22d6960bde682e14fbadbf1c562e94b46b5b0b873dd3c",
+    "task_result_573e7a0dbc2e451aa8f8": "7b5332f9d5f639b463fb33e456026dbca3e446af2c4f36fcd00f6c65a559d9df",
+    "task_result_5ab4a22ef4c94ef08513": "f26d9bda95df6d263853c0514c50140440e91ba39810deeeada673dcbb5d7ba0",
+    "task_result_64e37e998d0e46b5b5b3": "e8ef3061cd2991b75f798e00856168a31d3ac301163652bce53908d790738c3a",
+    "task_result_6c53552d69374f46be97": "d13ac9a235e76ab6fb09591d033c406bc427040bfe51be97a006321ad8f6ac70",
+    "task_result_7d9a7bad93a44a7b9102": "bb939ed5cd649df3c86c6d02b9a13e4151157f36227d5d9f54215162ea59475e",
+    "task_result_8a99ae074f81461aa068": "126819c4a93a9a3575bdd14bd3d884ccfd4a2d776ab5037e825abf2cddb1f326",
+    "task_result_ca462a5b19a040eaafae": "919a5f16288c5b34e8031ee2c3451c5fc6d95875327302e08e1aeda84786f866",
+    "task_result_d5467c69f3124b849e61": "a50868e47f5f2dceb7c6c9bc702099befb99ebe293d05957d9bae5f1ff775264",
+    "task_result_da1d19a494b842a696c7": "6bf932fee5edcb10bd370d971fe3f62bd2e2650d3a290f7a8f64a1e5672843c7",
+    "task_result_ed4eb392963244f3a2bf": "691900ebb6588c5e96cfacc8802b03f06282628f2e8203aec71c0a11b93c5472",
+    "trial_50544874fcd0733ca98a3c73": "5737f88e06ca058fef883796e817822e5f8b95e3fa6a17b5a461af56866e67c4",
+    "trial_76fae865b6919abad7cf13a5": "f4e60384538eea783b50200c7344b0950ff54e1267dfd3e0ff03e03524c30c53",
+    "trial_914493c1b9375da2ac1ee569": "b76a08f0513822c88fe4db43d2c655d01840b3ae94e0a3de5588bcebcee870b0",
+    "trial_9d71b6a5f76fe8b611818069": "aaea6b790ae4c595fb613d8d349b893af723df2e1454ab089084cf98fd297d28",
+    "trial_a27995a663ca81333a571d20": "524fb69fed55e291853c431c174e6b46c4eb509f2e0279082e493b03038ce2da",
+    "trial_ad5b91e8d0b4296556c2a382": "fe80913a66595861747c8fbe370cb2f3f3bdb7f44d9475a5bf1961460dca8e24"
+  },
+  "evaluation": {
+    "evaluation_id": "evaluation_0876ea4df1d745d4a294",
+    "policy": {
+      "question_versions": [
+        {
+          "question_id": "cpi_sep2026_above_0_2",
+          "version": 1
+        }
+      ],
+      "forecasters": [
+        "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r1",
+        "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r2",
+        "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r3",
+        "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r1",
+        "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r2",
+        "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r3"
+      ],
+      "cutoff": "2026-09-18T10:18:34.535869Z",
+      "resolution_as_of": "2026-09-18T10:18:34.535180Z",
+      "mode": "prospective"
+    },
+    "cohort": [
+      {
+        "question_id": "cpi_sep2026_above_0_2",
+        "version": 1,
+        "event_group": "KXCPI-26SEP"
+      }
+    ],
+    "selected": [],
+    "exclusions": [
+      {
+        "question_id": "cpi_sep2026_above_0_2",
+        "version": 1,
+        "reason": "unresolved",
+        "resolution_id": null
+      }
+    ],
+    "summaries": {
+      "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r1": {
+        "available_n": 0,
+        "available_brier": null,
+        "matched_n": 0,
+        "matched_brier": null,
+        "selected_run_cost_usd": 0.0,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          }
+        ]
+      },
+      "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r2": {
+        "available_n": 0,
+        "available_brier": null,
+        "matched_n": 0,
+        "matched_brier": null,
+        "selected_run_cost_usd": 0.0,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          }
+        ]
+      },
+      "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r3": {
+        "available_n": 0,
+        "available_brier": null,
+        "matched_n": 0,
+        "matched_brier": null,
+        "selected_run_cost_usd": 0.0,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          }
+        ]
+      },
+      "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r1": {
+        "available_n": 0,
+        "available_brier": null,
+        "matched_n": 0,
+        "matched_brier": null,
+        "selected_run_cost_usd": 0.0,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          }
+        ]
+      },
+      "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r2": {
+        "available_n": 0,
+        "available_brier": null,
+        "matched_n": 0,
+        "matched_brier": null,
+        "selected_run_cost_usd": 0.0,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          }
+        ]
+      },
+      "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r3": {
+        "available_n": 0,
+        "available_brier": null,
+        "matched_n": 0,
+        "matched_brier": null,
+        "selected_run_cost_usd": 0.0,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          }
+        ]
+      }
+    },
+    "comparisons": [
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r1",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r2",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r1",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r1",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r1",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r1",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r2",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r1",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r2",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r2",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r1",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r2",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r2",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r2",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r3",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r1",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r3",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r2",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_0749b9bcf6e14380ad02:r3",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r1",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r2",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r1",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r2",
+        "right": "experiment_99f13dd93d7d4935b66c:arm_df48fc18a9334eb4ae36:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      }
+    ],
+    "created_at": "2026-09-18T10:18:34.537034Z",
+    "input_manifest": {
+      "experiment_99f13dd93d7d4935b66c": "df5437111474486cbc9a942d29b7572799fb7b767a9c276add5dd4197e3d618a"
+    },
+    "limitations": [
+      "Calibration bins are descriptive; inspect counts.",
+      "Related events are labeled but no cluster uncertainty interval is estimated.",
+      "Recorded mode and timestamps do not certify freedom from hindsight or training contamination.",
+      "Reported costs cover selected runs, not all prior revisions or shared research."
+    ],
+    "eligible_forecast_ids": [
+      "forecast_0e5d9fc0ebb2420ca974",
+      "forecast_4228dfb465ac4076af3d",
+      "forecast_4ea057ddc5d645d98b78",
+      "forecast_5e175041285a4bb78a86",
+      "forecast_6e86492bb7bc46798129",
+      "forecast_8e652708133b41a1a079"
+    ]
+  }
+}

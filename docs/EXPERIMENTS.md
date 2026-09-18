@@ -1,4 +1,146 @@
-# Comparing forecasting methods
+# Comparing experimental arms
+
+An **arm** is an immutable, versioned combination of a method, a model
+configuration, and a named set of frozen evidence packets for each question.
+Use arms to change one factor at a time or register all combinations in a
+factorial comparison. Arm identity, not method identity, determines trial and
+score grouping. Two arms using the same method remain separate.
+
+See [the arm walkthrough](../examples/experimental_arms/README.md) for a runnable
+offline comparison of two procedures, two model configurations, and two data sets.
+The [CPI pilot](../examples/cpi_arms_20260917/README.md) records real model calls,
+including rejected outputs and their costs. Its
+[partition-review follow-up](../examples/cpi_partition_20260918/README.md) uses
+optional review stages and separately registered diagnostic cases.
+
+## Register arms
+
+After registering a method and importing evidence packets, create `arm.json`:
+
+```json
+{
+  "id": "direct-model-a-official-data",
+  "version": 1,
+  "description": "Direct judgment using model A and official-source evidence.",
+  "method_id": "METHOD_ID",
+  "model": {
+    "provider": "PROVIDER",
+    "name": "MODEL_NAME",
+    "parameters": {"temperature": 0}
+  },
+  "data": {
+    "label": "official sources",
+    "questions": [{"question_id": "QUESTION_ID", "version": 1, "packet_ids": ["PACKET_ID"]}]
+  }
+}
+```
+
+```bash
+vorhersage arm add --from arm.json --project PROJECT
+vorhersage arm list --project PROJECT
+vorhersage arm show ARM_ID --project PROJECT
+```
+
+Use returned artifact IDs for `method_id` and `arm_ids`. Arm registration freezes
+the configuration, packet/method hashes, and question-version hashes. A changed
+configuration requires a new arm version. Empty packet lists are valid for a
+question-only control. Every arm must cover exactly the experiment's question
+versions, but its packets may differ. Labels describe data; the actual pinned
+packet IDs determine data identity. An arm has no live data-fetching step.
+
+Register an experiment with `arm_ids`:
+
+```json
+{
+  "id": "arms-pilot",
+  "version": 1,
+  "description": "Compare registered method, model, and data combinations.",
+  "questions": [{"question_id": "QUESTION_ID", "version": 1}],
+  "arm_ids": ["ARM_A_ID", "ARM_B_ID"],
+  "repetitions": 3,
+  "mode": "prospective",
+  "information_as_of": "2026-09-17T12:00:00Z",
+  "forecast_cutoff": "2026-09-18T12:00:00Z",
+  "evidence_policy": "frozen_packets",
+  "order_seed": "arms-pilot-1"
+}
+```
+
+Replace illustrative IDs and dates. Omit question-level `packet_ids` when using
+arms; each arm supplies them. Supply exactly one of `arm_ids` or legacy
+`method_ids`. Existing method-only specifications and `method_scores` output
+remain supported. Both forms use `experiment add/start/run/status/evaluate`.
+All packets must satisfy the experiment information cutoff, and prospective
+deadlines must precede outcome knowledge.
+
+Workers receive the arm's model in `next.context.run.model_spec`, plus
+`worker_config.provider`, `worker_config.model` (the name), and
+`worker_config.model_parameters`. These override identically named method worker
+configuration fields. Workers must honor these values; registration alone does
+not attest which model an external executable actually calls. Other worker
+configuration fields remain those of the method. Keep model-specific settings in
+the arm's `model.parameters`, not in competing method config fields.
+
+Only the arm's allowed packet bodies are supplied as initial evidence for its
+trial. Accepted citations are restricted to those packets. Workers remain
+trusted executables; use process isolation if preventing outside access matters.
+Each repetition has separate workflow state and forecaster identity.
+
+## Minimal baselines and omitted stages
+
+Methods may specify an ordered `stages` subset of
+`prior, drivers, research, assessment, review, issue`. `assessment` and `issue`
+are always required; issue preserves the forecast record and update policy.
+For a direct baseline, set:
+
+```json
+{
+  "stages": ["assessment", "issue"],
+  "prior_method": "none",
+  "assessment_method": "judgment",
+  "research_domains": []
+}
+```
+
+These fields belong inside the complete method specification below. A baseline
+receives its frozen evidence and goes directly to assessment; it does not execute
+placeholder prior/research/review tasks. To test review alone, add `review`
+between assessment and issue. Omitted prior requires `prior_method: "none"`;
+omitted research requires empty `research_domains`.
+
+Without `stages`, methods keep their existing sequence. A method can also set
+`research_contract: "structured_v2"` to run intake, research-to-model mapping,
+model challenge, and concern disposition. Structured contracts and timeline
+methods retain their required stages and cannot combine with custom `stages`.
+This supplies a direct-versus-full comparison without weakening the structured
+contract's validation rules. Arbitrary task graphs and dependencies between arms
+are not implemented.
+
+## Compare results
+
+`experiment evaluate` returns `arm_scores` and paired `comparisons`. Scores use
+only questions complete across every arm and repetition: average Brier losses
+within each question, then average equally across questions. Repetitions are not
+silently converted into ensemble forecasts. Missing submissions remain visible
+in status/exclusions, and matched scores are null if no complete cohort exists.
+
+Each comparison identifies `changed_dimensions` among method, model, and data.
+Negative `mean_brier_difference` favors the left arm. Changing multiple factors
+compares their combined configuration, not an isolated causal effect. Reports
+include event groups but do not yet compute uncertainty intervals.
+
+Forecasts preserve `assessment_probability`, the last assessment before issuance,
+alongside final `probability`; arm scores include `matched_assessment_brier`.
+All task results preserve earlier assessments and reviews. Since review can
+commission additional assessments, this before/after record is descriptive;
+use separately randomized arms to estimate review's effect.
+
+Usage summaries include accepted reported usage from unfinished trials. Rejected,
+interrupted, or unreported worker calls can still incur unrecorded costs; this
+runner does not independently meter providers. Prospective performance and cost
+advantages must be measured, not inferred from the registered configuration.
+
+## Existing method-only experiments
 
 Vorhersage supports versioned `MethodSpec` and `ExperimentSpec` records through
 the `method` and `experiment` JSON schemas. A method specifies how an agent should
@@ -6,7 +148,7 @@ complete the workflow; an experiment freezes a comparison across methods,
 questions, and repetitions. Registering and starting an experiment make no model
 calls. `experiment run` invokes the explicitly configured workers.
 
-The initial runner uses **shared frozen packets**. It is suitable for testing
+The method-only runner uses **shared frozen packets**. It is suitable for testing
 different forecasting procedures against the same supplied information. It does
 not yet implement controlled comparisons of live research strategies.
 
@@ -74,7 +216,7 @@ Assessment types include `judgment`, `conditional_path`, `scenario_mixture`,
 validation enforces these types, the packet allowlist, and reported usage limits.
 Reference-class methods require suitable cases in the supplied evidence.
 
-The standard sequence remains prior → drivers → research → assessment → review → issue.
+Without custom `stages`, the standard sequence is prior → drivers → research → assessment → review → issue.
 Timeline methods require `prior_method: "none"` and start with structure → parameter
 research → assessment → review → issue. Each trial gets a separate model revision
 family, so repeated trials can reuse a starting model without sharing mutable research
@@ -82,8 +224,8 @@ state. Workers must support `timeline_structure` and `timeline_research`; method
 research domains are replaced by the model's parameters. See
 [the timeline guide](TIMELINE_MODELS.md).
 Review can revise the computed assessment probability, and can request bounded
-additional packet review. This is not yet an arbitrary task-graph or no-review
-ablation system. Existing ensemble calculations remain available in ordinary
+additional packet review. Custom standard stages permit no-review ablations;
+arbitrary task graphs are not supported. Existing ensemble calculations remain available in ordinary
 workflows; experiment arms do not yet declare dependencies on other arms.
 
 ## Freeze an experiment

@@ -1,5 +1,8 @@
 # Research and monitoring in 0.2
 
+For Exa and Firecrawl search/page retrieval with saved sources, see
+[Web research tools](WEB_RESEARCH.md).
+
 These extensions address limitations exposed by the Listen Labs exercise. They
 are optional and domain-neutral. Existing projects and immutable forecasts remain
 readable without a database migration. The JSON envelope/database schema stays 1;
@@ -142,9 +145,29 @@ automatically propagate probabilities or resolutions.
 `trigger_at`, nullable `event_at`, `observed_until`, `known_at`, and evidence refs.
 `reference query --from query.json` selects all matching tags at a knowledge cutoff
 and computes outcomes at `horizon_days` after the trigger. It requires an explicit
-selection rule. Cases observed too briefly without the event are returned as
-`censored`, and later-known cases are excluded. An event exactly at the deadline
-counts YES. A returned `prior_payload` can be submitted as a reference-class prior.
+selection rule. The estimator is `mature_cohort_frequency.v1`: an episode enters
+the prior's cohort only if `trigger_at + horizon_days <= known_as_of`, regardless
+of whether it succeeded early. An event exactly at the deadline counts YES.
+A mature episode with an observed event needs no follow-up after that event;
+a mature non-event needs observation through the horizon.
+
+`immature` lists excluded young episodes, including early successes. `censored`
+lists episodes with unknown horizon outcomes. If any mature episode has unknown
+outcome, `unascertained_mature` names it and both `probability` and `prior_payload`
+are null. No mature cases, duplicate episodes, or missing episode identity and
+eligibility metadata also block a prior. Inspect
+`prior_eligible` and `prior_ineligibility_reasons`. `sample_size` counts mature
+ascertained cases; `mature_cohort_size` also includes mature unknowns.
+
+`resolved_case_frequency` separately reports the descriptive frequency among all
+currently classifiable episodes. It may be 100% with ten early successes and
+ninety unresolved young episodes; it must not be used as the recommended prior.
+That example now returns no empirical prior. Later-known cases remain excluded.
+The eligible `prior_payload` can be submitted directly (plus
+`research_status_at_estimate` for structured runs). Every new reference-class
+submission, including legacy workflow types, rechecks its registered query,
+cohort eligibility, cases, and evidence. Previously recorded forecasts remain
+readable; manually supplied undated cases no longer suffice for new priors.
 
 Case identities are immutable: repeated identical imports are idempotent and
 conflicting reuse is rejected. Supply a new episode ID for a different episode.

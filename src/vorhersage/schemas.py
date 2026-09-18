@@ -217,25 +217,35 @@ TIMELINE_RESEARCH = obj({"assessments": array(obj({"scenario_id": TEXT, "assessm
 METHOD = obj({
     "id": TEXT, "version": {"type": "integer", "minimum": 1}, "description": TEXT,
     "instructions": TEXT,
-    "task_instructions": obj({kind: TEXT for kind in ("prior", "drivers", "research", "assessment", "review", "issue", "timeline_structure", "timeline_research")}, []),
+    "task_instructions": obj({kind: TEXT for kind in ("intake", "inquiry", "model_challenge", "prior", "drivers", "research", "assessment", "review", "issue", "timeline_structure", "timeline_research")}, []),
+    "stages": array(enum("prior", "drivers", "research", "assessment", "review", "issue"), 2),
+    "research_contract": enum("structured_v1", "structured_v2"),
     "prior_method": enum("judgment", "reference_class", "none"),
     "assessment_method": enum("judgment", "conditional_path", "scenario_mixture", "odds_ledger", "timeline_model"),
-    "research_domains": array(TEXT, 1),
+    "research_domains": array(TEXT),
     "worker": obj({"command": array(TEXT, 1), "config": {"type": "object"},
                    "timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 60}}),
     "budget": obj({"max_searches": COUNT, "max_extra_tasks": COUNT,
                    "max_model_calls": {"type": "integer", "minimum": 1},
                    "max_cost_usd": {"type": "number", "minimum": 0}}),
+}, ["id", "version", "description", "instructions", "task_instructions", "prior_method", "assessment_method", "research_domains", "worker", "budget"])
+ARM = obj({
+    "id": TEXT, "version": {"type": "integer", "minimum": 1}, "description": TEXT,
+    "method_id": TEXT,
+    "model": obj({"provider": TEXT, "name": TEXT, "parameters": {"type": "object"}}),
+    "data": obj({"label": TEXT, "questions": array(obj({"question_id": TEXT,
+                 "version": {"type": "integer", "minimum": 1}, "packet_ids": array(TEXT)}), 1)}),
 })
 EXPERIMENT = obj({
     "id": TEXT, "version": {"type": "integer", "minimum": 1}, "description": TEXT,
     "questions": array(obj({"question_id": TEXT, "version": {"type": "integer", "minimum": 1},
-                            "packet_ids": array(TEXT)}), 1),
-    "method_ids": array(TEXT, 1), "repetitions": {"type": "integer", "minimum": 1, "maximum": 100},
+                            "packet_ids": array(TEXT)}, ["question_id", "version"]), 1),
+    "method_ids": array(TEXT, 1), "arm_ids": array(TEXT, 1),
+    "repetitions": {"type": "integer", "minimum": 1, "maximum": 100},
     "mode": enum("prospective", "retrospective", "simulation"),
     "information_as_of": TIME, "forecast_cutoff": TIME,
     "evidence_policy": enum("frozen_packets"), "order_seed": TEXT,
-})
+}, ["id", "version", "description", "questions", "repetitions", "mode", "information_as_of", "forecast_cutoff", "evidence_policy", "order_seed"])
 
 # Joint sessions are separate from ordinary workflow forecasts and evaluations.
 NUMBER = {"type": "number"}
@@ -354,7 +364,7 @@ SCHEMAS = {"question": QUESTION, "profile": PROFILE, "run": RUN, "submit": SUBMI
            "timeline_structure": TIMELINE_STRUCTURE, "timeline_research": TIMELINE_RESEARCH,
            "relation": RELATION, "watch": WATCH, "research_bundle": BUNDLE,
            "reference_case": REFERENCE_CASE, "reference_query": REFERENCE_QUERY,
-           "method": METHOD, "experiment": EXPERIMENT, "condition": CONDITION,
+           "method": METHOD, "arm": ARM, "experiment": EXPERIMENT, "condition": CONDITION,
            "session": JOINT_SESSION, "session_submit": JOINT_SUBMIT,
            "session_finalize": JOINT_FINALIZE, "session_import": JOINT_IMPORT,
            "session_aggregation": JOINT_AGGREGATION, "session_event": SESSION_EVENT,

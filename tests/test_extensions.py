@@ -184,7 +184,10 @@ class ExtensionWorkflowTests(unittest.TestCase):
                           "observed_until": stamp(observed), "known_at": stamp(known), "evidence_refs": [ref]})
         result = query_reference(self.w.store, {"tags": ["fixture"], "horizon_days": 3, "known_as_of": stamp(-0.5),
                                                "selection_rule": "All synthetic fixture episodes."})
-        self.assertEqual(result["probability"], 0.5)
+        self.assertIsNone(result["probability"])
+        self.assertIsNone(result["prior_payload"])
+        self.assertEqual(result["resolved_case_frequency"]["probability"], 0.5)
+        self.assertEqual(result["unascertained_mature"], ["censored"])
         self.assertEqual(result["censored"], ["censored"])
         self.assertEqual(result["excluded_after_cutoff"], ["later_known"])
         self.assertEqual(result["sample_size"], 2)
@@ -306,7 +309,8 @@ class ExtensionWorkflowTests(unittest.TestCase):
         imported = cli('research', 'capture', value={'sources': [source], 'findings': [
             {'id': 'x', 'claim': 'A fixture', 'claim_type': 'observation', 'source_ids': [source['id']]}], 'limitations': ['Fixture']})
         self.assertIn('provenance_gaps', cli('packet', 'audit', imported['packet_id']))
-        cli('reference', 'add', value={'id': 'case', 'description': 'Fixture', 'tags': ['test'],
+        cli('reference', 'add', value={'id': 'case', 'episode_id': 'case', 'eligibility': 'The synthetic fixture.',
+            'description': 'Fixture', 'tags': ['test'],
             'trigger_at': stamp(-3), 'event_at': stamp(-2), 'observed_until': stamp(-1), 'known_at': now(),
             'evidence_refs': [imported['records'][0]['evidence_ref']]})
         result = cli('reference', 'query', value={'tags': ['test'], 'horizon_days': 2,

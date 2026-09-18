@@ -1,0 +1,29 @@
+{
+  "id": "scenarios",
+  "version": 1,
+  "description": "Construct three to five mutually exclusive, collectively exhaustive scenarios for September inflation drivers, with weights summing to one. Separate each scenario's occurrence weight from the conditional probability of exceeding the CPI threshold. Explain the partition and justify both quantities. Do not define the scenarios solely as YES and NO outcomes.",
+  "method_id": "method_6b0d5f8f9e4940d08b0d",
+  "model": {
+    "provider": "google",
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "temperature": 0.5,
+      "topK": 40,
+      "topP": 1,
+      "maxOutputTokens": 8192,
+      "thinking_budget": 2048
+    }
+  },
+  "data": {
+    "label": "Same frozen September 16 packet as first pilot",
+    "questions": [
+      {
+        "question_id": "cpi_sep2026_above_0_2",
+        "version": 1,
+        "packet_ids": [
+          "pkt_3f0deeefaeb9e8d33d993fde"
+        ]
+      }
+    ]
+  }
+}

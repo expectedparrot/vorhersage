@@ -206,3 +206,187 @@ class ExperimentTests(unittest.TestCase):
         for _ in range(12):  # Six workflow tasks for the healthy worker, alternating with failures.
             result = ex.execute(self.tmp.name, experiment, max_tasks=1)
         self.assertEqual(result["status"]["issued_trials"], 1)
+
+
+class ArmTests(unittest.TestCase):
+    setUp = ExperimentTests.setUp
+    spec = ExperimentTests.spec
+    resolve = ExperimentTests.resolve
+    finish_trial = ExperimentTests.finish_trial
+
+    def minimal_method(self):
+        return ex.add_method(self.w.store, method("minimal", prior_method="none", research_domains=[],
+                             stages=["assessment", "issue"]))["method_id"]
+
+    def arm(self, name="a", method_id=None, packets=None, **extra):
+        return {"id": name, "version": 1, "description": "Synthetic arm.", "method_id": method_id or self.m,
+                "model": {"provider": "fixture", "name": name, "parameters": {"temperature": 0}},
+                "data": {"label": "synthetic data", "questions": [{"question_id": "factory", "version": 1,
+                         "packet_ids": [self.p["packet_id"]] if packets is None else packets}]}, **extra}
+
+    def experiment(self, arms, **extra):
+        spec = self.spec(**{"arm_ids": arms, "questions": [{"question_id": "factory", "version": 1}], **extra})
+        del spec["method_ids"]
+        return ex.add_experiment(self.w.store, spec)["experiment_id"]
+
+    def test_arm_cli_registration_immutable_versions_and_manifest(self):
+        import contextlib
+        import io
+        from vorhersage.cli import main
+        spec = self.arm()
+        path = Path(self.tmp.name) / "arm.json"
+        path.write_text(json.dumps(spec))
+        def cli(*args):
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                main(["--project", self.tmp.name, "arm", *args])
+            return json.loads(output.getvalue())["data"]
+        arm = cli("add", "--from", str(path))
+        self.assertEqual(cli("add", "--from", str(path)), arm)
+        self.assertEqual(cli("show", arm["arm_id"])["specification"], spec)
+        self.assertEqual(cli("list")[0]["id"], arm["arm_id"])
+        self.assertEqual(set(arm["input_manifest"]), {self.m, self.p["packet_id"]})
+        with self.assertRaisesRegex(Error, "frozen"):
+            ex.add_arm(self.w.store, {**spec, "model": {"provider": "other", "name": "other", "parameters": {}}})
+        self.assertNotEqual(ex.add_arm(self.w.store, {**spec, "version": 2})["arm_id"], arm["arm_id"])
+
+    def test_models_data_and_repetitions_are_executed_and_scored_by_arm(self):
+        minimal = self.minimal_method()
+        a = ex.add_arm(self.w.store, self.arm("a", minimal))["arm_id"]
+        b = ex.add_arm(self.w.store, self.arm("b", minimal, packets=[]))["arm_id"]
+        experiment = self.experiment([a, b])
+        trials = ex.start(self.tmp.name, experiment)["trials"]
+        self.assertEqual(len({t["forecaster"] for t in trials}), 4)
+        self.assertEqual({t["run_id"] for t in trials}, {t["run_id"] for t in ex.start(self.tmp.name, experiment)["trials"]})
+        calls = []
+        def worker(command, request, timeout):
+            step, config = request["next"], request["worker_config"]
+            run = step["context"]["run"]
+            calls.append((run["arm_id"], step["task"]["kind"], config))
+            self.assertEqual(config["provider"], "fixture")
+            self.assertEqual(config["model_parameters"], {"temperature": 0})
+            self.assertEqual(run["packet_ids"], [self.p["packet_id"]] if config["model"] == "a" else [])
+            refs = self.refs if config["model"] == "a" else []
+            answer = response(step, refs, 0.2 if config["model"] == "a" else 0.8)
+            return {"payload": answer["payload"], "usage": {"searches": 0, "model_calls": 1, "cost_usd": 0.01}}
+        with patch("vorhersage.experiments.invoke", side_effect=worker):
+            first = ex.execute(self.tmp.name, experiment, max_tasks=3)
+            self.assertEqual(first["status"]["issued_trials"], 0)
+            result = ex.execute(self.tmp.name, experiment, max_tasks=20)
+        self.assertEqual(result["status"]["issued_trials"], 4)
+        self.assertEqual(len(calls), 8)
+        self.assertEqual({kind for _, kind, _ in calls}, {"assessment", "issue"})
+        self.resolve()
+        report = ex.score(self.tmp.name, experiment, now())
+        self.assertAlmostEqual(report["arm_scores"][a]["matched_brier"], 0.64)
+        self.assertAlmostEqual(report["arm_scores"][b]["matched_brier"], 0.04)
+        self.assertAlmostEqual(report["comparisons"][0]["mean_brier_difference"], 0.6)
+        self.assertEqual(report["comparisons"][0]["changed_dimensions"], ["model", "data"])
+        self.assertEqual(report["arm_scores"][a]["all_trials_reported_model_calls"], 4)
+        self.assertAlmostEqual(report["arm_scores"][a]["all_trials_reported_cost_usd"], 0.04)
+        self.assertNotIn("method_scores", report)  # Same method must not collapse distinct arms.
+        with self.w.store.connect() as c:
+            for row in report["evaluation"]["selected"]:
+                f = Store.artifact(c, row["forecast_id"], "forecast")
+                self.assertIn(f["arm_id"], f["input_manifest"])
+                self.assertEqual(f["prior_record"]["timing"], "not_applicable")
+                self.assertEqual(f["assessment_probability"], f["probability"])
+        self.assertTrue(self.w.doctor()["ok"])
+
+    def test_arm_packet_allowlist_cannot_be_bypassed(self):
+        arm = ex.add_arm(self.w.store, self.arm(method_id=self.minimal_method(), packets=[]))["arm_id"]
+        experiment = self.experiment([arm], repetitions=1)
+        run = ex.start(self.tmp.name, experiment)["trials"][0]["run_id"]
+        request = response(self.w.next(run), self.refs)
+        request["usage"] = {"searches": 0, "model_calls": 0, "cost_usd": 0}
+        with self.assertRaisesRegex(Error, "registered frozen packets"):
+            self.w.submit(run, request)
+        self.assertEqual(self.w.next(run)["revision"], 0)
+
+    def test_invalid_arm_cohorts_and_ambiguous_specifications_rejected(self):
+        spec = self.arm()
+        invalid = copy.deepcopy(spec)
+        invalid["data"]["questions"] *= 2
+        with self.assertRaisesRegex(Error, "Duplicate questions"):
+            ex.add_arm(self.w.store, invalid)
+        arm = ex.add_arm(self.w.store, spec)["arm_id"]
+        with self.assertRaisesRegex(Error, "exactly one"):
+            ex.add_experiment(self.w.store, self.spec(arm_ids=[arm]))
+        with self.assertRaisesRegex(Error, "take packets from"):
+            ex.add_experiment(self.w.store, {k: v for k, v in self.spec(arm_ids=[arm]).items() if k != "method_ids"})
+        self.w.question({**question(), "id": "second"})
+        with self.assertRaisesRegex(Error, "cover exactly"):
+            self.experiment([arm], questions=[{"question_id": "second", "version": 1}])
+        with self.assertRaisesRegex(Error, "Duplicate arms"):
+            self.experiment([arm, arm])
+        with self.assertRaisesRegex(Error, "Packet cutoff"):
+            self.experiment([arm], information_as_of=stamp(-3))
+
+    def test_no_review_and_review_preserve_comparable_assessments(self):
+        minimal = self.minimal_method()
+        reviewed = ex.add_method(self.w.store, method("reviewed", prior_method="none", research_domains=[],
+                             stages=["assessment", "review", "issue"]))["method_id"]
+        a = ex.add_arm(self.w.store, self.arm("no-review", minimal))["arm_id"]
+        bspec = self.arm("review", reviewed)
+        bspec["model"] = self.arm("no-review")["model"]
+        b = ex.add_arm(self.w.store, bspec)["arm_id"]
+        experiment = self.experiment([a, b], repetitions=1)
+        def worker(command, request, timeout):
+            step = request["next"]
+            answer = response(step, self.refs, 0.2)
+            if step["task"]["kind"] == "review":
+                answer["payload"].update(decision="revise", probability=0.8)
+            return {"payload": answer["payload"], "usage": {"searches": 0, "model_calls": 0, "cost_usd": 0}}
+        with patch("vorhersage.experiments.invoke", side_effect=worker):
+            ex.execute(self.tmp.name, experiment)
+        self.resolve()
+        report = ex.score(self.tmp.name, experiment, now())
+        self.assertEqual(report["comparisons"][0]["changed_dimensions"], ["method"])
+        self.assertAlmostEqual(report["arm_scores"][b]["matched_assessment_brier"], 0.64)
+        self.assertAlmostEqual(report["arm_scores"][b]["matched_brier"], 0.04)
+
+    def test_incomplete_arm_keeps_cost_but_is_excluded_from_comparison(self):
+        minimal = self.minimal_method()
+        a = ex.add_arm(self.w.store, self.arm("a", minimal))["arm_id"]
+        b = ex.add_arm(self.w.store, self.arm("b", minimal))["arm_id"]
+        experiment = self.experiment([a, b], repetitions=1)
+        trials = ex.start(self.tmp.name, experiment)["trials"]
+        self.finish_trial(trials[0]["run_id"])
+        run = trials[1]["run_id"]
+        request = response(self.w.next(run), self.refs)
+        request["usage"] = {"searches": 0, "model_calls": 1, "cost_usd": 0.2}
+        self.w.submit(run, request)
+        self.resolve()
+        report = ex.score(self.tmp.name, experiment, now())
+        self.assertEqual(report["comparisons"][0]["n"], 0)
+        self.assertIsNone(report["comparisons"][0]["mean_brier_difference"])
+        self.assertEqual(report["arm_scores"][trials[1]["arm_id"]]["all_trials_reported_cost_usd"], 0.2)
+
+    def test_custom_stage_validation_and_full_structured_method(self):
+        for stages in (["issue", "assessment"], ["assessment", "assessment", "issue"], ["prior", "issue"]):
+            with self.assertRaisesRegex(Error, "ordered subset"):
+                ex.add_method(self.w.store, method("bad", stages=stages))
+        with self.assertRaisesRegex(Error, "prior_method=none"):
+            ex.add_method(self.w.store, method("bad", stages=["assessment", "issue"], research_domains=[]))
+        with self.assertRaisesRegex(Error, "empty research_domains"):
+            ex.add_method(self.w.store, method("bad", stages=["assessment", "issue"], prior_method="none"))
+        full = ex.add_method(self.w.store, method("structured", research_contract="structured_v2"))["method_id"]
+        arm = ex.add_arm(self.w.store, self.arm(method_id=full))["arm_id"]
+        experiment = self.experiment([arm], repetitions=1)
+        run = ex.start(self.tmp.name, experiment)["trials"][0]["run_id"]
+        self.assertEqual(self.w.next(run)["task"]["kind"], "intake")
+        self.assertEqual(self.w.next(run)["context"]["run"]["research_contract"], "structured_v2")
+
+    def test_offline_factorial_walkthrough(self):
+        project = Path(self.tmp.name) / "factorial"
+        result = subprocess.run([sys.executable, str(ROOT / "examples/experimental_arms/walkthrough.py"), str(project)],
+                                capture_output=True, text=True, timeout=60)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        summary = json.loads((project / "summary.json").read_text())
+        self.assertEqual(summary["issued_trials"], 16)
+        self.assertEqual(len(summary["arms"]), 8)
+        self.assertTrue(summary["doctor"]["ok"])
+        scores = {s["name"]: s for s in summary["arms"]}
+        self.assertAlmostEqual(scores["direct-model-a-question-only"]["brier"], 0.25)
+        self.assertAlmostEqual(scores["review-model-b-report"]["brier"], 0.04)
+        self.assertAlmostEqual(scores["review-model-b-report"]["assessment_brier"], 0.09)

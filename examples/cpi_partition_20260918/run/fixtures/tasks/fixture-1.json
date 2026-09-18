@@ -1,0 +1,117 @@
+{
+  "case_id": "fixture-1",
+  "payload": {
+    "method": "scenario_mixture",
+    "rationale": "The forecast depends heavily on the trajectory of gasoline prices in the latter half of September and the stickiness of core inflation. Early September EIA data shows a sharp increase in gasoline prices (from $4.207 on Aug 31 to $4.455 on Sep 14). Given gasoline's 3.77% weight and positive seasonal adjustment factors typically seen in September, energy is poised to contribute significantly to the headline CPI. Core inflation has also been running around 0.2%-0.3%. To fall to 0.2% or below (rounded), we would need a sharp reversal in energy prices in late September combined with very soft core inflation.",
+    "limitations": [
+      "Gasoline prices for the second half of September are unknown.",
+      "Core inflation components (like shelter and used cars) can be volatile and are not tracked in real-time here.",
+      "Seasonal adjustment factors for 2026 are estimates based on historical patterns and subject to revision."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+        "record_id": "eia"
+      },
+      {
+        "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+        "record_id": "weight"
+      },
+      {
+        "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+        "record_id": "bls"
+      },
+      {
+        "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+        "record_id": "contract"
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "high_energy_normal_core",
+        "description": "Gasoline prices maintain their early September gains or rise further, and core inflation remains at or above 0.2%.",
+        "weight": 0.65,
+        "probability": 0.95,
+        "rationale": "With gasoline prices up significantly in the first two weeks of September, a sustained high price level will result in a strong positive energy contribution. Combined with normal core inflation, headline CPI will easily exceed the 0.2% threshold (likely printing 0.4% or 0.5%).",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+            "record_id": "eia"
+          },
+          {
+            "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+            "record_id": "bls"
+          }
+        ],
+        "unknowns": [
+          "Exact late-September gasoline prices",
+          "Shelter inflation print"
+        ],
+        "weight_range": [
+          0.55,
+          0.75
+        ],
+        "probability_range": [
+          0.9,
+          0.99
+        ]
+      },
+      {
+        "id": "energy_reversal_normal_core",
+        "description": "Gasoline prices retrace significantly in the second half of September, muting the energy contribution, but core inflation remains steady around 0.2%-0.3%.",
+        "weight": 0.25,
+        "probability": 0.7,
+        "rationale": "If energy prices fall back, the energy contribution will be smaller, but positive seasonal adjustments for September gasoline and a steady core CPI still make a >0.2% print (i.e., 0.3% rounded) the most likely outcome, though with less certainty.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+            "record_id": "eia"
+          },
+          {
+            "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+            "record_id": "seasonal"
+          }
+        ],
+        "unknowns": [
+          "Magnitude of the energy price retracement",
+          "Exact seasonal adjustment factor for September 2026"
+        ],
+        "weight_range": [
+          0.15,
+          0.35
+        ],
+        "probability_range": [
+          0.5,
+          0.85
+        ]
+      },
+      {
+        "id": "soft_core_and_energy",
+        "description": "Core inflation unexpectedly drops (0.1% or lower) and energy prices weaken in late September.",
+        "weight": 0.1,
+        "probability": 0.2,
+        "rationale": "A combination of a sharp drop in gasoline prices wiping out early-month gains and a surprisingly soft core inflation print would be required to bring the headline CPI down to 0.2% or lower. This is unlikely given recent trends but possible.",
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+            "record_id": "bls"
+          }
+        ],
+        "unknowns": [
+          "Core goods deflation extent",
+          "Unexpected shocks to travel or medical services"
+        ],
+        "weight_range": [
+          0.05,
+          0.15
+        ],
+        "probability_range": [
+          0.05,
+          0.4
+        ]
+      }
+    ],
+    "partition_justification": "The scenarios are partitioned based on the two primary drivers of the September CPI: the final monthly average of energy prices (given the known early-month spike) and the stickiness of core inflation. They cover the most likely case (energy stays high, core normal), a moderate case (energy retraces, core normal), and a tail risk case (both soften significantly)."
+  },
+  "probability": 0.8124999999999999
+}

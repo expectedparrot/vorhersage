@@ -1,0 +1,43 @@
+{
+  "assessed_at": "2026-09-18T10:20:29.074474Z",
+  "assessor": "coordinating coding assistant; not independent",
+  "status": "Post-run qualitative assessment against preregistered fixture criteria, not a forecast accuracy score.",
+  "fixtures": [
+    {
+      "case_id": "fixture-1",
+      "target_defect_noticed": true,
+      "concrete_numeric_witness": false,
+      "literal_scenario_id_requirement_met": false,
+      "full_rubric_compliance": false,
+      "assessment": "Identifies energy rises with core drops as an unmatched case, but omits scenario IDs and quantitative conditions. The claimed guaranteed contribution is unsupported.",
+      "submission_sha256": "944dff64f2b451b3d607d8029ccf44df064e186d9899103a780bcec8b32e252b"
+    },
+    {
+      "case_id": "fixture-3",
+      "target_defect_noticed": true,
+      "concrete_numeric_witness": true,
+      "literal_scenario_id_requirement_met": false,
+      "full_rubric_compliance": false,
+      "assessment": "Correctly supplies $4.40 gasoline and weak core as a simultaneous match for array positions 1 and 3. Does not use the actual scenario ID strings.",
+      "submission_sha256": "2f9ab229c5dbd8b106bca34f5f6b5e5c0d5acabf394a6afe9f76f8f8e6bbe2bf"
+    }
+  ],
+  "fresh_review_notes": [
+    {
+      "repetition": 1,
+      "finding": "Moderate gasoline decline is not clearly classified. Useful ambiguity finding, not a numerically bounded gap proof."
+    },
+    {
+      "repetition": 2,
+      "finding": "Clear missing high-gasoline/weak-core combination. Additional overlap allegation lacks a simultaneous gasoline/core witness."
+    },
+    {
+      "repetition": 3,
+      "finding": "Correctly identifies missing high-energy/soft-core and core-above-0.3 cases. Point-to-point gasoline change does not establish the monthly SA contribution."
+    }
+  ],
+  "limitations": [
+    "Selected known-flaw fixtures cannot measure general detection rates or false alarms.",
+    "Review probabilities are judgments; no scenario partition was repaired."
+  ]
+}

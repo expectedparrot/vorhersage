@@ -1,0 +1,122 @@
+{
+  "id": "forecast_19042ad2128245fdbd18",
+  "arm_id": "arm_84b4efbd68ff48c3ae55",
+  "assessment_probability": 0.75,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.039754,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "September 16 archived observations; no previous forecast or market quote",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+      "record_id": "eia"
+    },
+    {
+      "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+      "record_id": "bls"
+    },
+    {
+      "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+      "record_id": "weight"
+    }
+  ],
+  "experiment_id": "experiment_e68f468846f746c6be73",
+  "forecaster": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r2",
+  "information_as_of": "2026-09-18T03:18:25.886281Z",
+  "initial_information_as_of": "2026-09-18T03:18:25.886281Z",
+  "input_manifest": {
+    "arm_84b4efbd68ff48c3ae55": "3b0e17152c4394533c45314fd31055aba19daa4f10db5a6b02007de086444e9c",
+    "experiment_e68f468846f746c6be73": "f25d10fbf2a53188f2e870b6d731247684ee9d72596f49e1209b07834102bc6a",
+    "method_e9a76c45e0414dc6baf2": "102593fad41ef8c57aa2add6d633a5af8d07ff91f7d3dceffa288e9ddf419b78",
+    "pkt_3f0deeefaeb9e8d33d993fde": "bf62d20d2e69c6877e6c6c93825ee7c4a30c714e58dce1b0cf5f04e2c4bdf2f7",
+    "task_result_71d2580f48954a2b8ad5": "1c17564e0faa5c6e732c0bb4cb2e22426811b189e4492c3ccca27f990546c87a"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-18T03:20:23.287206Z",
+  "manifest_sha256": "c198757f20e3f1f7a19f41d06c302d044d39da4c9de3a786be81cbc0bf739381",
+  "method": "method_e9a76c45e0414dc6baf2",
+  "method_spec_id": "method_e9a76c45e0414dc6baf2",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.75,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_e9a76c45e0414dc6baf2"
+  },
+  "question": {
+    "domain": "economics",
+    "event_deadline": "2026-10-14T12:30:00Z",
+    "event_group": "KXCPI-26SEP",
+    "id": "cpi_sep2026_above_0_2",
+    "kind": "real",
+    "no": "The qualifying expiration value is 0.2% or lower.",
+    "profile": "general",
+    "resolution_source": "BLS September CPI release, scheduled October14 at08:30EDT; Kalshi KXCPI-26SEP-T0.2 rules and CPI contract PDF control rounding, delays, expiration and fallback. Market close08:25EDT differs from release time.",
+    "resolve_after": "2026-10-14T12:31:00Z",
+    "text": "Will the published seasonally adjusted monthly CPI-U increase for September 2026 exceed 0.2%?",
+    "void": "Nonbinary discretionary settlement or unresolved ambiguity about a contingency is outside this binary comparison.",
+    "yes": "The Kalshi expiration value for September 2026 monthly seasonally adjusted all-items CPI-U, published to one decimal place by BLS, is strictly greater than 0.2%; ordinarily a reported 0.3% or higher. The published contract fallback applies if no underlying is released."
+  },
+  "question_id": "cpi_sep2026_above_0_2",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 2,
+  "research_plan": null,
+  "review_at": "2026-09-18T15:18:25.886283+00:00",
+  "run_id": "run_b33054e0cd50467c95b3",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "Registered one-assessment pilot completed; deterministic issuance adds no judgment.",
+  "trial_id": "trial_6bd1254e8ecff41e1d219e76",
+  "triggers": [
+    {
+      "description": "Resolve against the qualifying September CPI release and contract terms.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+          "record_id": "eia"
+        },
+        {
+          "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+          "record_id": "bls"
+        },
+        {
+          "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+          "record_id": "weight"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

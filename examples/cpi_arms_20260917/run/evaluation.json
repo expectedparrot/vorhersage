@@ -1,0 +1,579 @@
+{
+  "experiment_evaluation_id": "experiment_evaluation_bec94483bf56487e86de",
+  "experiment_id": "experiment_e68f468846f746c6be73",
+  "evaluation_id": "evaluation_3683587ffe0e4ed99ced",
+  "registered_forecast_cutoff": "2026-09-18T15:18:25.886283+00:00",
+  "effective_cutoff": "2026-09-18T03:21:52.228137Z",
+  "arm_scores": {
+    "arm_84b4efbd68ff48c3ae55": {
+      "arm_name": "direct",
+      "arm_version": 1,
+      "method_id": "method_e9a76c45e0414dc6baf2",
+      "method_name": "cpi-direct",
+      "method_version": 1,
+      "model": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "September 16 archived observations; no previous forecast or market quote",
+      "registered_budget": {
+        "max_cost_usd": 2,
+        "max_extra_tasks": 0,
+        "max_model_calls": 1,
+        "max_searches": 0
+      },
+      "expected_trials": 3,
+      "issued_trials": 2,
+      "all_trials_reported_cost_usd": 0.08566399999999999,
+      "all_trials_reported_model_calls": 2,
+      "matched_questions": 0,
+      "by_question": [],
+      "matched_brier": null,
+      "matched_assessment_brier": null
+    },
+    "arm_fe3cb6ab439a4a108b88": {
+      "arm_name": "scenarios",
+      "arm_version": 1,
+      "method_id": "method_72d3fb6225974ade8f6f",
+      "method_name": "cpi-scenarios",
+      "method_version": 1,
+      "model": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "September 16 archived observations; no previous forecast or market quote",
+      "registered_budget": {
+        "max_cost_usd": 2,
+        "max_extra_tasks": 0,
+        "max_model_calls": 1,
+        "max_searches": 0
+      },
+      "expected_trials": 3,
+      "issued_trials": 1,
+      "all_trials_reported_cost_usd": 0.061834,
+      "all_trials_reported_model_calls": 1,
+      "matched_questions": 0,
+      "by_question": [],
+      "matched_brier": null,
+      "matched_assessment_brier": null
+    }
+  },
+  "comparisons": [
+    {
+      "left": "arm_84b4efbd68ff48c3ae55",
+      "right": "arm_fe3cb6ab439a4a108b88",
+      "changed_dimensions": [
+        "method"
+      ],
+      "n": 0,
+      "event_groups": 0,
+      "mean_brier_difference": null,
+      "by_question": [],
+      "interpretation": "Negative favors left; no significance or causal attribution claim."
+    }
+  ],
+  "created_at": "2026-09-18T03:21:52.238344Z",
+  "limitations": [
+    "Arms share the cohort complete across every arm and repetition; inspect exclusions in the evaluation.",
+    "Brier losses are averaged across repetitions within question, then equally across questions. No significance claim.",
+    "Changing several arm dimensions compares combined configurations; it does not isolate any one component's effect.",
+    "Assessment scores use the last assessment before issuance. Review can commission further assessments; this is not a randomized estimate of review's effect.",
+    "Model settings are instructions to trusted workers, not independent attestation of the model actually called.",
+    "Workers are trusted processes; frozen packet references do not certify absence of external access or outcome knowledge.",
+    "Usage caps rely on reported usage; rejected or interrupted calls can incur unrecorded costs."
+  ],
+  "input_manifest": {
+    "arm_84b4efbd68ff48c3ae55": "3b0e17152c4394533c45314fd31055aba19daa4f10db5a6b02007de086444e9c",
+    "arm_fe3cb6ab439a4a108b88": "2464999b3882cb51773cfeb813c7655bff11ff73e3ebe80dd2816bc3df28591b",
+    "evaluation_3683587ffe0e4ed99ced": "6ee8944fd844da720cd33c21a5f1e9ba03934a830940fff9bdc27c7ada93a2df",
+    "experiment_e68f468846f746c6be73": "f25d10fbf2a53188f2e870b6d731247684ee9d72596f49e1209b07834102bc6a",
+    "forecast_0f0cbb384efd47dcb2a0": "da3dfeb7efab977befb7b9723ab3cd0296790a53a31d75d474ef95870460d56d",
+    "forecast_19042ad2128245fdbd18": "65f20366aef405beaf3adad65911834aa5fa43c9007bc7daa5aacf8cfa092bb5",
+    "forecast_f277a326942a4b0a8e00": "4261dd523c55228c4710933cdf374fbfd7bf9fd99ded17eafaa819038ebebd8f",
+    "method_72d3fb6225974ade8f6f": "890080a2194b6e3b2a0fd5ff41ad38b826854fcca15d9ac5e4ae6b4303edd125",
+    "method_e9a76c45e0414dc6baf2": "102593fad41ef8c57aa2add6d633a5af8d07ff91f7d3dceffa288e9ddf419b78",
+    "pkt_3f0deeefaeb9e8d33d993fde": "bf62d20d2e69c6877e6c6c93825ee7c4a30c714e58dce1b0cf5f04e2c4bdf2f7",
+    "task_result_14a22ba793c64a60b8fd": "140c6178fe34c89ef61fc9cd0ef0dd48523a87923fae2877016d8e0b81873b68",
+    "task_result_71d2580f48954a2b8ad5": "1c17564e0faa5c6e732c0bb4cb2e22426811b189e4492c3ccca27f990546c87a",
+    "task_result_73e8ad6098394756a65e": "75bdfdd8a115175002d2a579953270120a9e12f9949aeb5a096d5b5088ed14b8",
+    "task_result_7addfed2b8cc4e618b7a": "30017965998e2321d7be7b13712dfbb220325cb27454b061aec08e82522b9c5d",
+    "task_result_7dbedc2ffdc44a1d85b5": "30611ca459987f9d1ce5df421e42ed70e33c2c6235a403a931d092abe0fccd74",
+    "task_result_918e074f872f42aeaa38": "6166aa67d3d554e7c74947f8820f8f74237385e82332606157dc9330636ca6e0",
+    "trial_0ce301c031408e71aa10a83b": "5a3d49da5657270318d4737d9278a028772961198231feded3d6701c70c72af4",
+    "trial_3dce7ebb7e3c77a9f461f5a2": "4e5757896c3e01220df862cf6ea9f09516184b6d9ff9ac8055042e20a627b4b8",
+    "trial_62b5478894801304e4e39b7e": "dc7876c122b642dd9f34952139a9d4f372810541ef49c0f698648c4ed968e0b4",
+    "trial_6bd1254e8ecff41e1d219e76": "09d4e83afff8fec9c899e661ad46a170784880cb33b102a65c9d4348c49a76ef",
+    "trial_e6a3a159c0ffa9486f91f637": "e806bd52a3097cd28d631b59590e28a9ea025fae5f08a6c8e7c8b4a52979e603",
+    "trial_f05038aacc58fc8616429537": "d2669048291dc022ee4f06ab7b518a5f6895ffcaf3f833cc7fa8a91eae7189f2"
+  },
+  "evaluation": {
+    "evaluation_id": "evaluation_3683587ffe0e4ed99ced",
+    "policy": {
+      "question_versions": [
+        {
+          "question_id": "cpi_sep2026_above_0_2",
+          "version": 1
+        }
+      ],
+      "forecasters": [
+        "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r1",
+        "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r2",
+        "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r3",
+        "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r1",
+        "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r2",
+        "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r3"
+      ],
+      "cutoff": "2026-09-18T03:21:52.228137Z",
+      "resolution_as_of": "2026-09-18T03:21:52.227528Z",
+      "mode": "prospective"
+    },
+    "cohort": [
+      {
+        "question_id": "cpi_sep2026_above_0_2",
+        "version": 1,
+        "event_group": "KXCPI-26SEP"
+      }
+    ],
+    "selected": [],
+    "exclusions": [
+      {
+        "question_id": "cpi_sep2026_above_0_2",
+        "version": 1,
+        "reason": "unresolved",
+        "resolution_id": null
+      }
+    ],
+    "summaries": {
+      "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r1": {
+        "available_n": 0,
+        "available_brier": null,
+        "matched_n": 0,
+        "matched_brier": null,
+        "selected_run_cost_usd": 0.0,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          }
+        ]
+      },
+      "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r2": {
+        "available_n": 0,
+        "available_brier": null,
+        "matched_n": 0,
+        "matched_brier": null,
+        "selected_run_cost_usd": 0.0,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          }
+        ]
+      },
+      "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r3": {
+        "available_n": 0,
+        "available_brier": null,
+        "matched_n": 0,
+        "matched_brier": null,
+        "selected_run_cost_usd": 0.0,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          }
+        ]
+      },
+      "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r1": {
+        "available_n": 0,
+        "available_brier": null,
+        "matched_n": 0,
+        "matched_brier": null,
+        "selected_run_cost_usd": 0.0,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          }
+        ]
+      },
+      "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r2": {
+        "available_n": 0,
+        "available_brier": null,
+        "matched_n": 0,
+        "matched_brier": null,
+        "selected_run_cost_usd": 0.0,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          }
+        ]
+      },
+      "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r3": {
+        "available_n": 0,
+        "available_brier": null,
+        "matched_n": 0,
+        "matched_brier": null,
+        "selected_run_cost_usd": 0.0,
+        "calibration": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 0,
+            "mean_probability": null,
+            "outcome_frequency": null
+          }
+        ]
+      }
+    },
+    "comparisons": [
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r1",
+        "right": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r2",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r1",
+        "right": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r1",
+        "right": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r1",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r1",
+        "right": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r2",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r1",
+        "right": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r2",
+        "right": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r2",
+        "right": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r1",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r2",
+        "right": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r2",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r2",
+        "right": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r3",
+        "right": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r1",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r3",
+        "right": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r2",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_84b4efbd68ff48c3ae55:r3",
+        "right": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r1",
+        "right": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r2",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r1",
+        "right": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      },
+      {
+        "left": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r2",
+        "right": "experiment_e68f468846f746c6be73:arm_fe3cb6ab439a4a108b88:r3",
+        "n": 0,
+        "event_groups": 0,
+        "mean_brier_difference": null,
+        "by_question": [],
+        "interpretation": "Negative favors left; no significance claim."
+      }
+    ],
+    "created_at": "2026-09-18T03:21:52.228497Z",
+    "input_manifest": {
+      "experiment_e68f468846f746c6be73": "f25d10fbf2a53188f2e870b6d731247684ee9d72596f49e1209b07834102bc6a"
+    },
+    "limitations": [
+      "Calibration bins are descriptive; inspect counts.",
+      "Related events are labeled but no cluster uncertainty interval is estimated.",
+      "Recorded mode and timestamps do not certify freedom from hindsight or training contamination.",
+      "Reported costs cover selected runs, not all prior revisions or shared research."
+    ],
+    "eligible_forecast_ids": [
+      "forecast_0f0cbb384efd47dcb2a0",
+      "forecast_19042ad2128245fdbd18",
+      "forecast_f277a326942a4b0a8e00"
+    ]
+  }
+}

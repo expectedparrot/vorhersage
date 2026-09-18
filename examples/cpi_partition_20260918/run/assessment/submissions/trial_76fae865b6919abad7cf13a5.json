@@ -1,0 +1,38 @@
+{
+  "task_id": "task_7fc6bc12709241cf9aed",
+  "expected_revision": 0,
+  "idempotency_key": "trial_76fae865b6919abad7cf13a5-assessment",
+  "payload": {
+    "method": "judgment",
+    "rationale": "The contract resolves 'yes' if the rounded one-decimal seasonally adjusted monthly CPI-U for September 2026 is 0.3% or higher. Core CPI in August 2026 rose 0.3%. Furthermore, high-frequency EIA gasoline data shows retail prices rising from $4.207/gal at the end of August to $4.455/gal by mid-September, an increase of approximately 6%. With gasoline having a relative importance of 3.77%, this price surge is expected to add roughly 0.2 percentage points to the headline CPI. Combined with a steady core CPI, the headline figure is highly likely to reach or exceed the 0.3% threshold.",
+    "limitations": [
+      "Gasoline prices for the second half of September are unknown and could reverse.",
+      "Core CPI components and other energy/food prices are not fully visible and could surprise to the downside.",
+      "Seasonal adjustment factors can introduce unexpected volatility into the final printed number."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+        "record_id": "eia"
+      },
+      {
+        "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+        "record_id": "bls"
+      },
+      {
+        "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+        "record_id": "weight"
+      },
+      {
+        "packet_id": "pkt_3f0deeefaeb9e8d33d993fde",
+        "record_id": "contract"
+      }
+    ],
+    "probability": 0.75
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.037334
+  }
+}

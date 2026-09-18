@@ -1,0 +1,29 @@
+{
+  "id": "direct",
+  "version": 1,
+  "description": "Give a direct holistic probability judgment. Consider the available headline history, gasoline information, seasonality, and missing drivers. Do not construct an explicit scenario mixture.",
+  "method_id": "method_55a9c69cae414212b8be",
+  "model": {
+    "provider": "google",
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "temperature": 0.5,
+      "topK": 40,
+      "topP": 1,
+      "maxOutputTokens": 8192,
+      "thinking_budget": 2048
+    }
+  },
+  "data": {
+    "label": "Same frozen September 16 packet as first pilot",
+    "questions": [
+      {
+        "question_id": "cpi_sep2026_above_0_2",
+        "version": 1,
+        "packet_ids": [
+          "pkt_3f0deeefaeb9e8d33d993fde"
+        ]
+      }
+    ]
+  }
+}
