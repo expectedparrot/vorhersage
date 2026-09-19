@@ -7,7 +7,9 @@ name = "vorhersage"
 version = "0.3.0"
 description = "An evidence-backed forecasting workbench for people and agents"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "flyvbjerg @ git+https://github.com/expectedparrot/flyvbjerg.git@main",
+]
 
 [project.scripts]
 vorhersage = "vorhersage.cli:main"
