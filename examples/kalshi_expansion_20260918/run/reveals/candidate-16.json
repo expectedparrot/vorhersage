@@ -1,0 +1,275 @@
+{
+  "case_id": "workbench_8c78df51acc54704befa",
+  "state": "revealed",
+  "revision": 2,
+  "baseline_captured_at": "2026-09-19T01:01:50.620916Z",
+  "contract": {
+    "event_group": "KXNFLGAME-26SEP20CLETB",
+    "market_id": "KXNFLGAME-26SEP20CLETB-CLE",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If Cleveland wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+    "scheduled_close": "2026-09-22T17:00:00Z",
+    "title": "Cleveland wins",
+    "venue": "kalshi",
+    "yes_description": "Cleveland"
+  },
+  "created_at": "2026-09-19T01:01:50.626617Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-19T01:01:50.093369Z",
+    "specification": {
+      "domain": "NFL season",
+      "event_deadline": "2026-09-20T16:00:00Z",
+      "event_group": "KXNFLGAME-26SEP20CLETB",
+      "id": "candidate-16",
+      "kind": "real",
+      "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+      "profile": "general",
+      "resolution_source": "Contract-defined primary source; see frozen rules.",
+      "resolve_after": "2026-09-22T17:00:00Z",
+      "text": "Cleveland wins \u2014 Cleveland",
+      "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+      "yes": "If Cleveland wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+    "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+    "market_id": "KXNFLGAME-26SEP20CLETB-CLE",
+    "max_spread": 0.1,
+    "method": "Three-model question-only versus outside-research comparison",
+    "min_contracts_each_side": 1,
+    "mode": "prospective",
+    "question": {
+      "question_id": "candidate-16",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_e9b75e61ff1745819c5d",
+  "target_sha256": "6b766e7218339993a80a9f295ec5c10a5b75930be99ef79c821dcda2e9cd5ae1",
+  "journal": [
+    {
+      "id": "workbench_entry_e20da52d32f245c98f44",
+      "case_id": "workbench_8c78df51acc54704befa",
+      "evidence_manifest": {},
+      "kind": "initial",
+      "model_manifest": {
+        "forecast_8aaf67f3c0444f4abad7": "18520a830286b895200f3631f5b53b0959c49c125bb0ddbeb0c625dab5d4f4aa"
+      },
+      "payload": {
+        "assumptions": [
+          "One registered call per model and information condition."
+        ],
+        "evidence_refs": [],
+        "model_artifact_ids": [
+          "forecast_8aaf67f3c0444f4abad7"
+        ],
+        "probability": 0.35,
+        "rationale": "Representative of the sealed model-arm forecasts; see the trial archive for all forecasts and rationales.",
+        "research_status": "completed",
+        "uncertainties": [
+          "Recorded packet and model limitations."
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T01:24:48.436090Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_6e45cfb5e9554300bfda",
+      "case_id": "workbench_8c78df51acc54704befa",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "No detected price exposure. Primary source allowlist, separate target store, identical model inputs and no forecast-worker tools; procedural safeguards, not independently enforced isolation.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "All registered model calls have terminal records; accepted forecasts are sealed."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T01:24:48.440569Z",
+      "revision": 2,
+      "trajectory_manifest": {
+        "workbench_entry_e20da52d32f245c98f44": "f66b033051aac97627db4c395e65d63eb9cc800e8f4c492d5288a71ec1bde669"
+      }
+    }
+  ],
+  "evidence": {},
+  "models": {
+    "forecast_8aaf67f3c0444f4abad7": {
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "assessment_probability": 0.35,
+      "coherence": {
+        "comparisons": [],
+        "limitations": [
+          "Implications are supplied by the agent and pinned to exact question versions.",
+          "Different information cutoffs can explain apparent incoherence; review before revising."
+        ],
+        "missing_forecasts": [],
+        "violations": []
+      },
+      "concern_resolutions": [],
+      "cost_usd": 0.0377,
+      "coverage": {},
+      "cutoff_policy": "fixed",
+      "data_label": "outside_research",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_2bf8dda921573c3473101356",
+          "record_id": "nfl_standings"
+        },
+        {
+          "packet_id": "pkt_2bf8dda921573c3473101356",
+          "record_id": "nfl_injuries"
+        }
+      ],
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "information_as_of": "2026-09-19T01:06:45.842961Z",
+      "initial_information_as_of": "2026-09-19T01:06:45.842961Z",
+      "input_manifest": {
+        "arm_93eb606580564eb29eb8": "65b97909d1674c2da0083e96735a21a763541200eb000623f8949b3256d8a5f6",
+        "experiment_80f863de8e5a406fb8f6": "397e1ae2a8f36576e1c65231928570b28a42a11b7af1176c541d3542d94d3f0d",
+        "method_c3d7bb4c19b9451db496": "d807d22ea36cc721887b228e89e68410212a5140052197ca048730a788bee38b",
+        "pkt_2bf8dda921573c3473101356": "1f1924e7afe29859fe604d4e01fd096fc2aa37ddb8ea88ba5b13e66e0f62f248",
+        "task_result_3986f6955b1146248d07": "f7b70178e2995bfab5bc45b03678eafe247c02c968053b9b63b855105abef0a4"
+      },
+      "inquiry_answers": {},
+      "issued_at": "2026-09-19T01:23:56.371073Z",
+      "manifest_sha256": "0a5cae84619a02718be044da0b89564220bcbb806003e83feac4ecc2d4a6257e",
+      "method": "method_c3d7bb4c19b9451db496",
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "mode": "prospective",
+      "model_calls": 1,
+      "model_challenge": null,
+      "model_map": null,
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "parameter_support": [],
+      "previous_forecast_id": null,
+      "prior_record": {
+        "qualification": "Registered method omits the prior stage.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.35,
+      "probability_basis": "judgment",
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_c3d7bb4c19b9451db496"
+      },
+      "question": {
+        "domain": "NFL season",
+        "event_deadline": "2026-09-20T16:00:00Z",
+        "event_group": "KXNFLGAME-26SEP20CLETB",
+        "id": "candidate-16",
+        "kind": "real",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "resolve_after": "2026-09-22T17:00:00Z",
+        "text": "Cleveland wins \u2014 Cleveland",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "yes": "If Cleveland wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
+      },
+      "question_id": "candidate-16",
+      "question_version": 1,
+      "reference_class": null,
+      "repetition": 1,
+      "research_plan": null,
+      "review_at": "2026-09-19T07:06:45.842961+00:00",
+      "run_id": "run_8122d80b8efd4ff39136",
+      "searches": 0,
+      "sensitivity": null,
+      "stopping_reason": "One frozen-input model call, no repair or additional research.",
+      "trial_id": "trial_c25e9e4663ea23ea5bf3eb7a",
+      "triggers": [
+        {
+          "description": "Separate future-data study.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_2bf8dda921573c3473101356",
+              "record_id": "nfl_standings"
+            },
+            {
+              "packet_id": "pkt_2bf8dda921573c3473101356",
+              "record_id": "nfl_injuries"
+            }
+          ]
+        }
+      ],
+      "workflow_version": "experiment.stages.v1"
+    }
+  },
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.22,
+      "ask_contracts_within_2c": 6610382.6,
+      "ask_size": 2102151.88,
+      "bid": 0.21,
+      "bid_contracts_within_2c": 250458.74,
+      "bid_size": 126734.25,
+      "midpoint": 0.215,
+      "spread": 0.01
+    },
+    "target_captured_at": "2026-09-19T01:01:50.620916Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_e20da52d32f245c98f44",
+        "label": "Initial",
+        "recorded_at": "2026-09-19T01:24:48.436090Z",
+        "probability": 0.35,
+        "difference_pp": 13.499999999999998,
+        "squared_market_error": 0.018224999999999995,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 12.999999999999998
+      }
+    ],
+    "net_squared_error_improvement": 0.0,
+    "followup_quote": {
+      "ask": 0.22,
+      "ask_contracts_within_2c": 6587313.57,
+      "ask_size": 2080994.18,
+      "bid": 0.21,
+      "bid_contracts_within_2c": 248744.96,
+      "bid_size": 126885.89,
+      "midpoint": 0.215,
+      "spread": 0.01
+    },
+    "followup_captured_at": "2026-09-19T01:24:48.749828Z",
+    "market_movement_pp": 0.0,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-19T01:24:48.750143Z"
+}

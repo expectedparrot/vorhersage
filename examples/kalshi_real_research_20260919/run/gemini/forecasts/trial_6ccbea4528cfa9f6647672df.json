@@ -1,0 +1,95 @@
+{
+  "arm_id": "arm_bf8716fffb014daaace0",
+  "assessment_probability": 0.02,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.013982,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "question_only",
+  "evidence_refs": [],
+  "experiment_id": "experiment_5990dfe02e12441789b6",
+  "forecaster": "experiment_5990dfe02e12441789b6:arm_bf8716fffb014daaace0:r2",
+  "information_as_of": "2026-09-19T03:03:28.502267Z",
+  "initial_information_as_of": "2026-09-19T03:03:28.502267Z",
+  "input_manifest": {
+    "arm_bf8716fffb014daaace0": "c209fc45631bf89d100335abdb65ded4dc1fa2eb1150c77b434374b69b13fc0a",
+    "experiment_5990dfe02e12441789b6": "5cf66fa2aa2ed5e9cb079f61cab66a365ad46158fa43dd32a2073c0e9a6cdc2b",
+    "method_e8fd2b47932a4ebebd3a": "60235ac86af77b708fc562c5fba70d59e81bb7510efb3722de3b345bae454df2",
+    "task_result_f50b917b49d84bddb779": "dff2920049d0aba6dc5e64378195fba9c653112d55c74ff85c4ba0c92f22ed13"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T03:10:57.980206Z",
+  "manifest_sha256": "13da011b11b938563152834669b7a7ed3e796f110b165a6988eeb8352af009be",
+  "method": "method_e8fd2b47932a4ebebd3a",
+  "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "stopSequences": [],
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.02,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_e8fd2b47932a4ebebd3a"
+  },
+  "question": {
+    "domain": "US infectious disease",
+    "event_deadline": "2027-01-01T04:59:00Z",
+    "event_group": "KXMEASLES-26",
+    "id": "measles",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2027-01-01T04:59:00Z",
+    "text": "Will there be more than 6000 measles cases in 2026? \u2014 Above 6000",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If the number of measles in 2026 is above 6000, then the market resolves to Yes."
+  },
+  "question_id": "measles",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 2,
+  "research_plan": null,
+  "review_at": "2026-09-19T03:45:00+00:00",
+  "run_id": "run_006dced87bcf4efa8617",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_6ccbea4528cfa9f6647672df",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": []
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

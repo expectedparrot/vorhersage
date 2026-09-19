@@ -1,0 +1,27 @@
+{
+  "kind": "initial",
+  "payload": {
+    "probability": 0.22258588036127136,
+    "rationale": "Frozen next-day NBS forecast is 78\u00b0F and model XND is 3\u00b0F. A declared Gaussian distribution with mean 78 and SD sqrt(3^2+1^2) incorporates a subjective independent 1\u00b0F settlement/provider allowance. Integrate over [75.5,77.5) for integer 76\u201377\u00b0F. This is model-based, not empirical calibration.",
+    "assumptions": [
+      "Gaussian error with zero bias initially",
+      "Model XND can serve as an initial spread proxy",
+      "Nearest-integer reporting approximation",
+      "Independent 1\u00b0F provider/window SD, selected before historical data"
+    ],
+    "uncertainties": [
+      "Local next-day forecast bias and dispersion",
+      "TWC versus station reporting",
+      "Current synoptic conditions and alternative NWS forecast"
+    ],
+    "research_status": "in_progress",
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_c687fdc6b2c6bac6de66623b",
+        "record_id": "forecast78"
+      }
+    ]
+  },
+  "expected_revision": 0,
+  "idempotency_key": "chicago-0-initial"
+}

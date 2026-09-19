@@ -1,0 +1,275 @@
+{
+  "case_id": "workbench_803e30558ad74e0cb55e",
+  "state": "revealed",
+  "revision": 2,
+  "baseline_captured_at": "2026-09-19T01:01:48.870535Z",
+  "contract": {
+    "event_group": "KXHURCTOTMAJ-26DEC01",
+    "market_id": "KXHURCTOTMAJ-26DEC01-T3",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If the NOAA's National Hurricane Center records more than 3 hurricanes of hurricane category 3 or above between January 1, 2026 and December 01, 2026, then the market resolves to Yes.\n\nThe market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026. The market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026.",
+    "scheduled_close": "2026-12-02T04:59:00Z",
+    "title": "Will there be more than 3 major Atlantic hurricanes in 2026?",
+    "venue": "kalshi",
+    "yes_description": "Above 3"
+  },
+  "created_at": "2026-09-19T01:01:48.875889Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-19T01:01:48.547336Z",
+    "specification": {
+      "domain": "Atlantic hurricane season",
+      "event_deadline": "2026-12-02T04:59:00Z",
+      "event_group": "KXHURCTOTMAJ-26DEC01",
+      "id": "candidate-12",
+      "kind": "real",
+      "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+      "profile": "general",
+      "resolution_source": "Contract-defined primary source; see frozen rules.",
+      "resolve_after": "2026-12-02T04:59:00Z",
+      "text": "Will there be more than 3 major Atlantic hurricanes in 2026? \u2014 Above 3",
+      "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+      "yes": "If the NOAA's National Hurricane Center records more than 3 hurricanes of hurricane category 3 or above between January 1, 2026 and December 01, 2026, then the market resolves to Yes.\n\nThe market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026. The market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+    "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+    "market_id": "KXHURCTOTMAJ-26DEC01-T3",
+    "max_spread": 0.1,
+    "method": "Three-model question-only versus outside-research comparison",
+    "min_contracts_each_side": 1,
+    "mode": "prospective",
+    "question": {
+      "question_id": "candidate-12",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_bed8c0317a004b238640",
+  "target_sha256": "1d13be21c01830c3c75139dccae74af6c799765e828f0625faff1a9daef3cd2d",
+  "journal": [
+    {
+      "id": "workbench_entry_ac41d35873234b30abb6",
+      "case_id": "workbench_803e30558ad74e0cb55e",
+      "evidence_manifest": {},
+      "kind": "initial",
+      "model_manifest": {
+        "forecast_df69d9357bfb43e2a24d": "0ea96b8ed8d3c1d779dae2e283c1b74b0f5e063892f67262c851344b90f122f6"
+      },
+      "payload": {
+        "assumptions": [
+          "One registered call per model and information condition."
+        ],
+        "evidence_refs": [],
+        "model_artifact_ids": [
+          "forecast_df69d9357bfb43e2a24d"
+        ],
+        "probability": 0.03,
+        "rationale": "Representative of the sealed model-arm forecasts; see the trial archive for all forecasts and rationales.",
+        "research_status": "completed",
+        "uncertainties": [
+          "Recorded packet and model limitations."
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T01:24:47.767170Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_5b2fb064f6404db4a869",
+      "case_id": "workbench_803e30558ad74e0cb55e",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "No detected price exposure. Primary source allowlist, separate target store, identical model inputs and no forecast-worker tools; procedural safeguards, not independently enforced isolation.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "All registered model calls have terminal records; accepted forecasts are sealed."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T01:24:47.772416Z",
+      "revision": 2,
+      "trajectory_manifest": {
+        "workbench_entry_ac41d35873234b30abb6": "2dcfb119312fd8492f55df3a2288ced96f166dd3d90cd989d5998779f4ff6b94"
+      }
+    }
+  ],
+  "evidence": {},
+  "models": {
+    "forecast_df69d9357bfb43e2a24d": {
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "assessment_probability": 0.03,
+      "coherence": {
+        "comparisons": [],
+        "limitations": [
+          "Implications are supplied by the agent and pinned to exact question versions.",
+          "Different information cutoffs can explain apparent incoherence; review before revising."
+        ],
+        "missing_forecasts": [],
+        "violations": []
+      },
+      "concern_resolutions": [],
+      "cost_usd": 0.03587,
+      "coverage": {},
+      "cutoff_policy": "fixed",
+      "data_label": "outside_research",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_e8569afe522be7cd110b15da",
+          "record_id": "hurricane_summary"
+        },
+        {
+          "packet_id": "pkt_e8569afe522be7cd110b15da",
+          "record_id": "hurricane_climatology"
+        }
+      ],
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "information_as_of": "2026-09-19T01:06:45.842961Z",
+      "initial_information_as_of": "2026-09-19T01:06:45.842961Z",
+      "input_manifest": {
+        "arm_93eb606580564eb29eb8": "65b97909d1674c2da0083e96735a21a763541200eb000623f8949b3256d8a5f6",
+        "experiment_80f863de8e5a406fb8f6": "397e1ae2a8f36576e1c65231928570b28a42a11b7af1176c541d3542d94d3f0d",
+        "method_c3d7bb4c19b9451db496": "d807d22ea36cc721887b228e89e68410212a5140052197ca048730a788bee38b",
+        "pkt_e8569afe522be7cd110b15da": "4996b5ee0e0ecea24d42f0cc6a3bc1716f4ff175bc17611f3de335528cde63df",
+        "task_result_5df39bb012fe4f659a91": "f3965d48da23ca9cc8f1454326e81d2ab9d5e96acdf01404a3bc0ffd1127849d"
+      },
+      "inquiry_answers": {},
+      "issued_at": "2026-09-19T01:23:56.235681Z",
+      "manifest_sha256": "8dd3fba844a8b3dd4fc45856af0806d52ccdff5d8060448f2d16ed6e257caf3d",
+      "method": "method_c3d7bb4c19b9451db496",
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "mode": "prospective",
+      "model_calls": 1,
+      "model_challenge": null,
+      "model_map": null,
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "parameter_support": [],
+      "previous_forecast_id": null,
+      "prior_record": {
+        "qualification": "Registered method omits the prior stage.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.03,
+      "probability_basis": "judgment",
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_c3d7bb4c19b9451db496"
+      },
+      "question": {
+        "domain": "Atlantic hurricane season",
+        "event_deadline": "2026-12-02T04:59:00Z",
+        "event_group": "KXHURCTOTMAJ-26DEC01",
+        "id": "candidate-12",
+        "kind": "real",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "resolve_after": "2026-12-02T04:59:00Z",
+        "text": "Will there be more than 3 major Atlantic hurricanes in 2026? \u2014 Above 3",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "yes": "If the NOAA's National Hurricane Center records more than 3 hurricanes of hurricane category 3 or above between January 1, 2026 and December 01, 2026, then the market resolves to Yes.\n\nThe market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026. The market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026."
+      },
+      "question_id": "candidate-12",
+      "question_version": 1,
+      "reference_class": null,
+      "repetition": 1,
+      "research_plan": null,
+      "review_at": "2026-09-19T07:06:45.842961+00:00",
+      "run_id": "run_8ccba1493c4244d9b4ba",
+      "searches": 0,
+      "sensitivity": null,
+      "stopping_reason": "One frozen-input model call, no repair or additional research.",
+      "trial_id": "trial_e85ad561dd2106d4753a24aa",
+      "triggers": [
+        {
+          "description": "Separate future-data study.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_e8569afe522be7cd110b15da",
+              "record_id": "hurricane_summary"
+            },
+            {
+              "packet_id": "pkt_e8569afe522be7cd110b15da",
+              "record_id": "hurricane_climatology"
+            }
+          ]
+        }
+      ],
+      "workflow_version": "experiment.stages.v1"
+    }
+  },
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.07,
+      "ask_contracts_within_2c": 283.35,
+      "ask_size": 52.86,
+      "bid": 0.03,
+      "bid_contracts_within_2c": 1303.1899999999998,
+      "bid_size": 7.97,
+      "midpoint": 0.05,
+      "spread": 0.04
+    },
+    "target_captured_at": "2026-09-19T01:01:48.870535Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_ac41d35873234b30abb6",
+        "label": "Initial",
+        "recorded_at": "2026-09-19T01:24:47.767170Z",
+        "probability": 0.03,
+        "difference_pp": -2.0000000000000004,
+        "squared_market_error": 0.0004000000000000002,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 0.0
+      }
+    ],
+    "net_squared_error_improvement": 0.0,
+    "followup_quote": {
+      "ask": 0.07,
+      "ask_contracts_within_2c": 283.35,
+      "ask_size": 52.86,
+      "bid": 0.03,
+      "bid_contracts_within_2c": 1306.05,
+      "bid_size": 10.83,
+      "midpoint": 0.05,
+      "spread": 0.04
+    },
+    "followup_captured_at": "2026-09-19T01:24:48.084600Z",
+    "market_movement_pp": 0.0,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-19T01:24:48.084763Z"
+}

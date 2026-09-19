@@ -1,0 +1,95 @@
+{
+  "arm_id": "arm_5a4c491132264447a67c",
+  "assessment_probability": 0.65,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.012132,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "question_only",
+  "evidence_refs": [],
+  "experiment_id": "experiment_a0bde5a6165d4b359f62",
+  "forecaster": "experiment_a0bde5a6165d4b359f62:arm_5a4c491132264447a67c:r1",
+  "information_as_of": "2026-09-18T11:19:02.785870Z",
+  "initial_information_as_of": "2026-09-18T11:19:02.785870Z",
+  "input_manifest": {
+    "arm_5a4c491132264447a67c": "a4f1ff8ecbc32130efae367e6346fbdc71dfa7d1bac90cbb9a622647c3f9c44c",
+    "experiment_a0bde5a6165d4b359f62": "0d03f113f0d69da849a656388f52343453f6b0551baab77fc6647d9e1544fd18",
+    "method_ff6a7919deb641a8ae6b": "83fed5c13c708c76933f5576f8cb15a6c3cd464ecbaaa4d75891a40a9dec1503",
+    "task_result_a77b97e3ea404534948d": "4c60876da32999c9e6d4d3acd9fd18e8aeb1785558e635727f5f676914cca0f9"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T00:35:58.094267Z",
+  "manifest_sha256": "4a384fdccc8f6f008bbf352b59c15304cb7330b6391f09ae26583f7332d3e52a",
+  "method": "method_ff6a7919deb641a8ae6b",
+  "method_spec_id": "method_ff6a7919deb641a8ae6b",
+  "mode": "retrospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "stopSequences": [],
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.65,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_ff6a7919deb641a8ae6b"
+  },
+  "question": {
+    "domain": "Monetary policy",
+    "event_deadline": "2026-10-28T17:59:00Z",
+    "event_group": "KXFEDDECISION-26OCT",
+    "id": "fed-2",
+    "kind": "real",
+    "no": "The stated qualifying event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined source; see definition-only rules.",
+    "resolve_after": "2026-10-28T17:59:00Z",
+    "text": "Will the Federal Reserve Hike rates by 0bps at their October 2026 meeting? \u2014 Fed maintains rate",
+    "void": "Nonbinary fair-value settlement or a cancelled/invalid contract is excluded from eventual outcome scoring.",
+    "yes": "If the Federal Reserve does a Hike of 0bps on October 28, 2026, then the market resolves to Yes.\n\nThis market is mutually exclusive. Therefore, if the Federal Reserve hikes by 50bps, the 50bps market will resolve to Yes and the 25bps market will resolve to No. Only one bucket, at maximum, can resolve to Yes. Note 4/28/25: For the markets beginning after the May meeting, if a scheduled FOMC meeting is canceled and does not occur on its scheduled date, then the strike for \"Fed maintains rate\" will resolve to Yes and all others will resolve to No."
+  },
+  "question_id": "fed-2",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-19T04:29:34.904712+00:00",
+  "run_id": "run_2351fee938984b02a376",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_9fe78718ea95559d504b77bb",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": []
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

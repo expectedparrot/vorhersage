@@ -1,0 +1,95 @@
+{
+  "arm_id": "arm_3012f290beb34419b99d",
+  "assessment_probability": 0.06,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.016458,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "question_only",
+  "evidence_refs": [],
+  "experiment_id": "experiment_7f50c2431dc346399685",
+  "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r2",
+  "information_as_of": "2026-09-19T01:58:11.498178Z",
+  "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+  "input_manifest": {
+    "arm_3012f290beb34419b99d": "8c1036419c024b2f67708bf6d87cb9eb2399c4b993c88c9c33503d0d3ca23a65",
+    "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+    "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+    "task_result_dcd8011dadea44239a47": "c1573dd626d1608e29025e7ebb5879b14065686915dd691278e17490e25b8a08"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T02:05:35.836146Z",
+  "manifest_sha256": "818dc6993eb5ffb39f97884b70a4b5a6c5881a435bfa293a7acd3aa85bd36129",
+  "method": "method_62c19062d0814cb99b77",
+  "method_spec_id": "method_62c19062d0814cb99b77",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "stopSequences": [],
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.06,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_62c19062d0814cb99b77"
+  },
+  "question": {
+    "domain": "US daily weather",
+    "event_deadline": "2026-09-20T06:00:00Z",
+    "event_group": "KXHIGHAUS-26SEP19",
+    "id": "austin",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2026-09-20T06:00:00Z",
+    "text": "Will the maximum temperature be 98-99\u00b0 on Sep 19, 2026? \u2014 98\u00b0 to 99\u00b0",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If the maximum temperature recorded at Austin (CLIAUS) for Sep 19, 2026, is between 98-99\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+  },
+  "question_id": "austin",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 2,
+  "research_plan": null,
+  "review_at": "2026-09-19T03:45:00+00:00",
+  "run_id": "run_ddcc65e841264402b63e",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_6c5efa1ae8d14135cd651b21",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": []
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

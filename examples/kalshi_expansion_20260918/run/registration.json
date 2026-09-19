@@ -1,0 +1,4058 @@
+{
+  "experiment_id": "experiment_80f863de8e5a406fb8f6",
+  "specification": {
+    "id": "kalshi-expansion-20260918",
+    "version": 1,
+    "description": "New prospective price-blind model comparison on the nominated expansion cohort",
+    "questions": [
+      {
+        "question_id": "candidate-01",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-02",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-03",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-04",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-05",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-06",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-07",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-08",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-12",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-15",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-16",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-17",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-18",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-19",
+        "version": 1
+      },
+      {
+        "question_id": "candidate-20",
+        "version": 1
+      }
+    ],
+    "arm_ids": [
+      "arm_7d4209ec106a447daf75",
+      "arm_93eb606580564eb29eb8",
+      "arm_857dd01d17274c6db060",
+      "arm_0c260a91cff34892a625",
+      "arm_f6bfe1e53b4f4f4eb85a",
+      "arm_78cd74228fbc44f686cc"
+    ],
+    "repetitions": 1,
+    "mode": "prospective",
+    "information_as_of": "2026-09-19T01:06:45.842961Z",
+    "forecast_cutoff": "2026-09-19T07:06:45.842961+00:00",
+    "evidence_policy": "frozen_packets",
+    "order_seed": "expansion-three-models-v1"
+  },
+  "registered_at": "2026-09-19T01:06:45.842961Z",
+  "cases": [
+    {
+      "id": "candidate-01",
+      "question": {
+        "id": "candidate-01",
+        "text": "Will **real GDP** increase by more than 2.0% in Q3 2026? \u2014 Above 2.0%",
+        "yes": "If real GDP (as measured by the BEA\u2019s seasonally adjusted and annualized Advance Estimate) increases by more than 2.0, then the market resolves to Yes.\n\nThe market will close at 8:29 AM on the day of the expected release of the data. The market will expire at the first 10:00 AM following the release of the data for Q3 2026, or 3 months following that expected date of data release. Please note the Expiration Value is the one-decimal value published by the BEA.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-10-30T12:29:00Z",
+        "resolve_after": "2026-10-30T12:29:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXGDP-26OCT30",
+        "domain": "US macroeconomy",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXGDP-26OCT30-T2.0",
+        "title": "Will **real GDP** increase by more than 2.0% in Q3 2026?",
+        "yes_description": "Above 2.0%",
+        "rules": "If real GDP (as measured by the BEA\u2019s seasonally adjusted and annualized Advance Estimate) increases by more than 2.0, then the market resolves to Yes.\n\nThe market will close at 8:29 AM on the day of the expected release of the data. The market will expire at the first 10:00 AM following the release of the data for Q3 2026, or 3 months following that expected date of data release. Please note the Expiration Value is the one-decimal value published by the BEA.",
+        "scheduled_close": "2026-10-30T12:29:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXGDP-26OCT30"
+      },
+      "case_id": "workbench_2473b3b703dd448a833b",
+      "start": {
+        "case_id": "workbench_2473b3b703dd448a833b",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:45.319003Z",
+        "contract": {
+          "event_group": "KXGDP-26OCT30",
+          "market_id": "KXGDP-26OCT30-T2.0",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If real GDP (as measured by the BEA\u2019s seasonally adjusted and annualized Advance Estimate) increases by more than 2.0, then the market resolves to Yes.\n\nThe market will close at 8:29 AM on the day of the expected release of the data. The market will expire at the first 10:00 AM following the release of the data for Q3 2026, or 3 months following that expected date of data release. Please note the Expiration Value is the one-decimal value published by the BEA.",
+          "scheduled_close": "2026-10-30T12:29:00Z",
+          "title": "Will **real GDP** increase by more than 2.0% in Q3 2026?",
+          "venue": "kalshi",
+          "yes_description": "Above 2.0%"
+        },
+        "created_at": "2026-09-19T01:01:45.321415Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:44.964096Z",
+          "specification": {
+            "domain": "US macroeconomy",
+            "event_deadline": "2026-10-30T12:29:00Z",
+            "event_group": "KXGDP-26OCT30",
+            "id": "candidate-01",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-10-30T12:29:00Z",
+            "text": "Will **real GDP** increase by more than 2.0% in Q3 2026? \u2014 Above 2.0%",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If real GDP (as measured by the BEA\u2019s seasonally adjusted and annualized Advance Estimate) increases by more than 2.0, then the market resolves to Yes.\n\nThe market will close at 8:29 AM on the day of the expected release of the data. The market will expire at the first 10:00 AM following the release of the data for Q3 2026, or 3 months following that expected date of data release. Please note the Expiration Value is the one-decimal value published by the BEA."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXGDP-26OCT30-T2.0",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-01",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_eb44a42dcd1945bea3b3",
+        "target_sha256": "a5c085e2530951e5a2050090d1c5a375c9b1d9e9640577fdb0808e471437546f",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXGDP",
+      "dependence_cluster": "US macroeconomy"
+    },
+    {
+      "id": "candidate-02",
+      "question": {
+        "id": "candidate-02",
+        "text": "Will **real GDP** increase by more than 2.0% in Q4 2026? \u2014 Above 2.0%",
+        "yes": "If real GDP (as measured by the BEA\u2019s seasonally adjusted and annualized Advance Estimate) increases by more than 2.0, then the market resolves to Yes.\n\nThe market will close at 8:29 AM on the day of the expected release of the data. The market will expire at the first 10:00 AM following the release of the data for Q4 2026, or 3 months following that expected date of data release. Please note the Expiration Value is the one-decimal value published by the BEA.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2027-01-28T13:29:00Z",
+        "resolve_after": "2027-01-28T13:29:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXGDP-27JAN28",
+        "domain": "US macroeconomy",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXGDP-27JAN28-T2.0",
+        "title": "Will **real GDP** increase by more than 2.0% in Q4 2026?",
+        "yes_description": "Above 2.0%",
+        "rules": "If real GDP (as measured by the BEA\u2019s seasonally adjusted and annualized Advance Estimate) increases by more than 2.0, then the market resolves to Yes.\n\nThe market will close at 8:29 AM on the day of the expected release of the data. The market will expire at the first 10:00 AM following the release of the data for Q4 2026, or 3 months following that expected date of data release. Please note the Expiration Value is the one-decimal value published by the BEA.",
+        "scheduled_close": "2027-01-28T13:29:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXGDP-27JAN28"
+      },
+      "case_id": "workbench_a1e223fe5fc94d2bbe0b",
+      "start": {
+        "case_id": "workbench_a1e223fe5fc94d2bbe0b",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:45.625178Z",
+        "contract": {
+          "event_group": "KXGDP-27JAN28",
+          "market_id": "KXGDP-27JAN28-T2.0",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If real GDP (as measured by the BEA\u2019s seasonally adjusted and annualized Advance Estimate) increases by more than 2.0, then the market resolves to Yes.\n\nThe market will close at 8:29 AM on the day of the expected release of the data. The market will expire at the first 10:00 AM following the release of the data for Q4 2026, or 3 months following that expected date of data release. Please note the Expiration Value is the one-decimal value published by the BEA.",
+          "scheduled_close": "2027-01-28T13:29:00Z",
+          "title": "Will **real GDP** increase by more than 2.0% in Q4 2026?",
+          "venue": "kalshi",
+          "yes_description": "Above 2.0%"
+        },
+        "created_at": "2026-09-19T01:01:45.627138Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:45.327020Z",
+          "specification": {
+            "domain": "US macroeconomy",
+            "event_deadline": "2027-01-28T13:29:00Z",
+            "event_group": "KXGDP-27JAN28",
+            "id": "candidate-02",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2027-01-28T13:29:00Z",
+            "text": "Will **real GDP** increase by more than 2.0% in Q4 2026? \u2014 Above 2.0%",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If real GDP (as measured by the BEA\u2019s seasonally adjusted and annualized Advance Estimate) increases by more than 2.0, then the market resolves to Yes.\n\nThe market will close at 8:29 AM on the day of the expected release of the data. The market will expire at the first 10:00 AM following the release of the data for Q4 2026, or 3 months following that expected date of data release. Please note the Expiration Value is the one-decimal value published by the BEA."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXGDP-27JAN28-T2.0",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-02",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_3f08f7f78b4348ee9bb8",
+        "target_sha256": "a294cc78f591375e7de25962c73e720b73a2a1a0e9455c6fb0618a8e27b0e7a4",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXGDP",
+      "dependence_cluster": "US macroeconomy"
+    },
+    {
+      "id": "candidate-03",
+      "question": {
+        "id": "candidate-03",
+        "text": "Will above 30000 jobs be added in September 2026? \u2014 Above 30,000",
+        "yes": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of September 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-10-02T12:29:00Z",
+        "resolve_after": "2026-10-02T12:29:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXPAYROLLS-26SEP",
+        "domain": "US labor market",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXPAYROLLS-26SEP-T30000",
+        "title": "Will above 30000 jobs be added in September 2026?",
+        "yes_description": "Above 30,000",
+        "rules": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of September 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release.",
+        "scheduled_close": "2026-10-02T12:29:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXPAYROLLS-26SEP"
+      },
+      "case_id": "workbench_a2ba10ec33f94b269542",
+      "start": {
+        "case_id": "workbench_a2ba10ec33f94b269542",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:45.955837Z",
+        "contract": {
+          "event_group": "KXPAYROLLS-26SEP",
+          "market_id": "KXPAYROLLS-26SEP-T30000",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of September 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release.",
+          "scheduled_close": "2026-10-02T12:29:00Z",
+          "title": "Will above 30000 jobs be added in September 2026?",
+          "venue": "kalshi",
+          "yes_description": "Above 30,000"
+        },
+        "created_at": "2026-09-19T01:01:45.957660Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:45.636453Z",
+          "specification": {
+            "domain": "US labor market",
+            "event_deadline": "2026-10-02T12:29:00Z",
+            "event_group": "KXPAYROLLS-26SEP",
+            "id": "candidate-03",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-10-02T12:29:00Z",
+            "text": "Will above 30000 jobs be added in September 2026? \u2014 Above 30,000",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of September 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXPAYROLLS-26SEP-T30000",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-03",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_ad76105970224484953a",
+        "target_sha256": "f646004fdf6ab2e3555ca6eef0098ac45387b2d5eb941b85539e09c983f64d9f",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXPAYROLLS",
+      "dependence_cluster": "US labor market"
+    },
+    {
+      "id": "candidate-04",
+      "question": {
+        "id": "candidate-04",
+        "text": "Will above 30000 jobs be added in October 2026? \u2014 Above 30,000",
+        "yes": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of October 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-11-06T13:29:00Z",
+        "resolve_after": "2026-11-06T13:29:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXPAYROLLS-26OCT",
+        "domain": "US labor market",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXPAYROLLS-26OCT-T30000",
+        "title": "Will above 30000 jobs be added in October 2026?",
+        "yes_description": "Above 30,000",
+        "rules": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of October 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release.",
+        "scheduled_close": "2026-11-06T13:29:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXPAYROLLS-26OCT"
+      },
+      "case_id": "workbench_880d5c8dafa9402496e0",
+      "start": {
+        "case_id": "workbench_880d5c8dafa9402496e0",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:46.268082Z",
+        "contract": {
+          "event_group": "KXPAYROLLS-26OCT",
+          "market_id": "KXPAYROLLS-26OCT-T30000",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of October 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release.",
+          "scheduled_close": "2026-11-06T13:29:00Z",
+          "title": "Will above 30000 jobs be added in October 2026?",
+          "venue": "kalshi",
+          "yes_description": "Above 30,000"
+        },
+        "created_at": "2026-09-19T01:01:46.273480Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:45.967184Z",
+          "specification": {
+            "domain": "US labor market",
+            "event_deadline": "2026-11-06T13:29:00Z",
+            "event_group": "KXPAYROLLS-26OCT",
+            "id": "candidate-04",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-11-06T13:29:00Z",
+            "text": "Will above 30000 jobs be added in October 2026? \u2014 Above 30,000",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of October 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXPAYROLLS-26OCT-T30000",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-04",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_736354e3ef534c32b474",
+        "target_sha256": "871ed3d7ec1b76590fb7e307e033e7e9b6509fc28cff9a6f267c8eae946bc40e",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXPAYROLLS",
+      "dependence_cluster": "US labor market"
+    },
+    {
+      "id": "candidate-05",
+      "question": {
+        "id": "candidate-05",
+        "text": "Will CPI rise more than 0.4% in October 2026? \u2014 Above 0.4%",
+        "yes": "If the Consumer Price Index (CPI) increases by more than 0.4% (single-decimal) in October 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (November 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-11-10T13:25:00Z",
+        "resolve_after": "2026-11-10T13:25:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXCPI-26OCT",
+        "domain": "US inflation",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXCPI-26OCT-T0.4",
+        "title": "Will CPI rise more than 0.4% in October 2026?",
+        "yes_description": "Above 0.4%",
+        "rules": "If the Consumer Price Index (CPI) increases by more than 0.4% (single-decimal) in October 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (November 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown.",
+        "scheduled_close": "2026-11-10T13:25:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXCPI-26OCT"
+      },
+      "case_id": "workbench_8d5000fc41744a14a305",
+      "start": {
+        "case_id": "workbench_8d5000fc41744a14a305",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:46.566444Z",
+        "contract": {
+          "event_group": "KXCPI-26OCT",
+          "market_id": "KXCPI-26OCT-T0.4",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the Consumer Price Index (CPI) increases by more than 0.4% (single-decimal) in October 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (November 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown.",
+          "scheduled_close": "2026-11-10T13:25:00Z",
+          "title": "Will CPI rise more than 0.4% in October 2026?",
+          "venue": "kalshi",
+          "yes_description": "Above 0.4%"
+        },
+        "created_at": "2026-09-19T01:01:46.571496Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:46.277408Z",
+          "specification": {
+            "domain": "US inflation",
+            "event_deadline": "2026-11-10T13:25:00Z",
+            "event_group": "KXCPI-26OCT",
+            "id": "candidate-05",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-11-10T13:25:00Z",
+            "text": "Will CPI rise more than 0.4% in October 2026? \u2014 Above 0.4%",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the Consumer Price Index (CPI) increases by more than 0.4% (single-decimal) in October 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (November 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXCPI-26OCT-T0.4",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-05",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_6e9f8694dd9043208473",
+        "target_sha256": "30d7e24d30522f2c7a7bc38b31fc820e6e5d34c1d36f428a8d90015812385ad9",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXCPI",
+      "dependence_cluster": "US inflation"
+    },
+    {
+      "id": "candidate-06",
+      "question": {
+        "id": "candidate-06",
+        "text": "Will CPI rise more than 0.2% in November 2026? \u2014 Above 0.2%",
+        "yes": "If the Consumer Price Index (CPI) increases by more than 0.2% (single-decimal) in November 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (December 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-12-10T13:25:00Z",
+        "resolve_after": "2026-12-10T13:25:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXCPI-26NOV",
+        "domain": "US inflation",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXCPI-26NOV-T0.2",
+        "title": "Will CPI rise more than 0.2% in November 2026?",
+        "yes_description": "Above 0.2%",
+        "rules": "If the Consumer Price Index (CPI) increases by more than 0.2% (single-decimal) in November 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (December 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown.",
+        "scheduled_close": "2026-12-10T13:25:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXCPI-26NOV"
+      },
+      "case_id": "workbench_ea8f0fc59a09493980e5",
+      "start": {
+        "case_id": "workbench_ea8f0fc59a09493980e5",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:46.952786Z",
+        "contract": {
+          "event_group": "KXCPI-26NOV",
+          "market_id": "KXCPI-26NOV-T0.2",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the Consumer Price Index (CPI) increases by more than 0.2% (single-decimal) in November 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (December 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown.",
+          "scheduled_close": "2026-12-10T13:25:00Z",
+          "title": "Will CPI rise more than 0.2% in November 2026?",
+          "venue": "kalshi",
+          "yes_description": "Above 0.2%"
+        },
+        "created_at": "2026-09-19T01:01:46.957272Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:46.577792Z",
+          "specification": {
+            "domain": "US inflation",
+            "event_deadline": "2026-12-10T13:25:00Z",
+            "event_group": "KXCPI-26NOV",
+            "id": "candidate-06",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-12-10T13:25:00Z",
+            "text": "Will CPI rise more than 0.2% in November 2026? \u2014 Above 0.2%",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the Consumer Price Index (CPI) increases by more than 0.2% (single-decimal) in November 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (December 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXCPI-26NOV-T0.2",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-06",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_0c9f12c6b6c64943aadb",
+        "target_sha256": "e7c6bd61e17f9e5c67e8372dc469a96a2c1b2efd5908f808410fd19e813ce791",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXCPI",
+      "dependence_cluster": "US inflation"
+    },
+    {
+      "id": "candidate-07",
+      "question": {
+        "id": "candidate-07",
+        "text": "Will the unemployment rate (U-3) be above 4.3% in October? \u2014 Above 4.3%",
+        "yes": "If the seasonally adjusted unemployment rate (U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report is above 4.3% in October 2026, then the market resolves to Yes.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-11-06T13:29:00Z",
+        "resolve_after": "2026-11-06T13:29:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXU3-26OCT",
+        "domain": "US labor market",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXU3-26OCT-T4.3",
+        "title": "Will the unemployment rate (U-3) be above 4.3% in October?",
+        "yes_description": "Above 4.3%",
+        "rules": "If the seasonally adjusted unemployment rate (U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report is above 4.3% in October 2026, then the market resolves to Yes.",
+        "scheduled_close": "2026-11-06T13:29:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXU3-26OCT"
+      },
+      "case_id": "workbench_4b5f113f735e408aacc9",
+      "start": {
+        "case_id": "workbench_4b5f113f735e408aacc9",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:47.280393Z",
+        "contract": {
+          "event_group": "KXU3-26OCT",
+          "market_id": "KXU3-26OCT-T4.3",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the seasonally adjusted unemployment rate (U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report is above 4.3% in October 2026, then the market resolves to Yes.",
+          "scheduled_close": "2026-11-06T13:29:00Z",
+          "title": "Will the unemployment rate (U-3) be above 4.3% in October?",
+          "venue": "kalshi",
+          "yes_description": "Above 4.3%"
+        },
+        "created_at": "2026-09-19T01:01:47.287575Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:46.962573Z",
+          "specification": {
+            "domain": "US labor market",
+            "event_deadline": "2026-11-06T13:29:00Z",
+            "event_group": "KXU3-26OCT",
+            "id": "candidate-07",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-11-06T13:29:00Z",
+            "text": "Will the unemployment rate (U-3) be above 4.3% in October? \u2014 Above 4.3%",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the seasonally adjusted unemployment rate (U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report is above 4.3% in October 2026, then the market resolves to Yes."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXU3-26OCT-T4.3",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-07",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_f0e784d30d07455fbbbc",
+        "target_sha256": "42bc3b5d02cf11934d86c95a53bdf28c5966ea330af90e37e9199e8621727649",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXU3",
+      "dependence_cluster": "US labor market"
+    },
+    {
+      "id": "candidate-08",
+      "question": {
+        "id": "candidate-08",
+        "text": "Will the Federal Reserve Hike rates by 0bps at their December 2026 meeting? \u2014 Fed maintains rate",
+        "yes": "If the Federal Reserve does a Hike of 0bps on December 09, 2026, then the market resolves to Yes.\n\nThis market is mutually exclusive. Therefore, if the Federal Reserve hikes by 50bps, the 50bps market will resolve to Yes and the 25bps market will resolve to No. Only one bucket, at maximum, can resolve to Yes. Note 4/28/25: For the markets beginning after the May meeting, if a scheduled FOMC meeting is canceled and does not occur on its scheduled date, then the strike for \"Fed maintains rate\" will resolve to Yes and all others will resolve to No.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-12-09T18:59:00Z",
+        "resolve_after": "2026-12-09T18:59:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXFEDDECISION-26DEC",
+        "domain": "US monetary policy",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXFEDDECISION-26DEC-H0",
+        "title": "Will the Federal Reserve Hike rates by 0bps at their December 2026 meeting?",
+        "yes_description": "Fed maintains rate",
+        "rules": "If the Federal Reserve does a Hike of 0bps on December 09, 2026, then the market resolves to Yes.\n\nThis market is mutually exclusive. Therefore, if the Federal Reserve hikes by 50bps, the 50bps market will resolve to Yes and the 25bps market will resolve to No. Only one bucket, at maximum, can resolve to Yes. Note 4/28/25: For the markets beginning after the May meeting, if a scheduled FOMC meeting is canceled and does not occur on its scheduled date, then the strike for \"Fed maintains rate\" will resolve to Yes and all others will resolve to No.",
+        "scheduled_close": "2026-12-09T18:59:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXFEDDECISION-26DEC"
+      },
+      "case_id": "workbench_19c4e299a8224b89899e",
+      "start": {
+        "case_id": "workbench_19c4e299a8224b89899e",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:47.597157Z",
+        "contract": {
+          "event_group": "KXFEDDECISION-26DEC",
+          "market_id": "KXFEDDECISION-26DEC-H0",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the Federal Reserve does a Hike of 0bps on December 09, 2026, then the market resolves to Yes.\n\nThis market is mutually exclusive. Therefore, if the Federal Reserve hikes by 50bps, the 50bps market will resolve to Yes and the 25bps market will resolve to No. Only one bucket, at maximum, can resolve to Yes. Note 4/28/25: For the markets beginning after the May meeting, if a scheduled FOMC meeting is canceled and does not occur on its scheduled date, then the strike for \"Fed maintains rate\" will resolve to Yes and all others will resolve to No.",
+          "scheduled_close": "2026-12-09T18:59:00Z",
+          "title": "Will the Federal Reserve Hike rates by 0bps at their December 2026 meeting?",
+          "venue": "kalshi",
+          "yes_description": "Fed maintains rate"
+        },
+        "created_at": "2026-09-19T01:01:47.602226Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:47.293706Z",
+          "specification": {
+            "domain": "US monetary policy",
+            "event_deadline": "2026-12-09T18:59:00Z",
+            "event_group": "KXFEDDECISION-26DEC",
+            "id": "candidate-08",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-12-09T18:59:00Z",
+            "text": "Will the Federal Reserve Hike rates by 0bps at their December 2026 meeting? \u2014 Fed maintains rate",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the Federal Reserve does a Hike of 0bps on December 09, 2026, then the market resolves to Yes.\n\nThis market is mutually exclusive. Therefore, if the Federal Reserve hikes by 50bps, the 50bps market will resolve to Yes and the 25bps market will resolve to No. Only one bucket, at maximum, can resolve to Yes. Note 4/28/25: For the markets beginning after the May meeting, if a scheduled FOMC meeting is canceled and does not occur on its scheduled date, then the strike for \"Fed maintains rate\" will resolve to Yes and all others will resolve to No."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXFEDDECISION-26DEC-H0",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-08",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_2f2deea27a5544ca863d",
+        "target_sha256": "1e7e73b250058028cd24a0715024e3b7197f940a63dcd22eb77b0d3ef2cd2ff0",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXFEDDECISION",
+      "dependence_cluster": "US monetary policy"
+    },
+    {
+      "id": "candidate-12",
+      "question": {
+        "id": "candidate-12",
+        "text": "Will there be more than 3 major Atlantic hurricanes in 2026? \u2014 Above 3",
+        "yes": "If the NOAA's National Hurricane Center records more than 3 hurricanes of hurricane category 3 or above between January 1, 2026 and December 01, 2026, then the market resolves to Yes.\n\nThe market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026. The market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-12-02T04:59:00Z",
+        "resolve_after": "2026-12-02T04:59:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXHURCTOTMAJ-26DEC01",
+        "domain": "Atlantic hurricane season",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXHURCTOTMAJ-26DEC01-T3",
+        "title": "Will there be more than 3 major Atlantic hurricanes in 2026?",
+        "yes_description": "Above 3",
+        "rules": "If the NOAA's National Hurricane Center records more than 3 hurricanes of hurricane category 3 or above between January 1, 2026 and December 01, 2026, then the market resolves to Yes.\n\nThe market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026. The market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026.",
+        "scheduled_close": "2026-12-02T04:59:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXHURCTOTMAJ-26DEC01"
+      },
+      "case_id": "workbench_803e30558ad74e0cb55e",
+      "start": {
+        "case_id": "workbench_803e30558ad74e0cb55e",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:48.870535Z",
+        "contract": {
+          "event_group": "KXHURCTOTMAJ-26DEC01",
+          "market_id": "KXHURCTOTMAJ-26DEC01-T3",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the NOAA's National Hurricane Center records more than 3 hurricanes of hurricane category 3 or above between January 1, 2026 and December 01, 2026, then the market resolves to Yes.\n\nThe market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026. The market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026.",
+          "scheduled_close": "2026-12-02T04:59:00Z",
+          "title": "Will there be more than 3 major Atlantic hurricanes in 2026?",
+          "venue": "kalshi",
+          "yes_description": "Above 3"
+        },
+        "created_at": "2026-09-19T01:01:48.875889Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:48.547336Z",
+          "specification": {
+            "domain": "Atlantic hurricane season",
+            "event_deadline": "2026-12-02T04:59:00Z",
+            "event_group": "KXHURCTOTMAJ-26DEC01",
+            "id": "candidate-12",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-12-02T04:59:00Z",
+            "text": "Will there be more than 3 major Atlantic hurricanes in 2026? \u2014 Above 3",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the NOAA's National Hurricane Center records more than 3 hurricanes of hurricane category 3 or above between January 1, 2026 and December 01, 2026, then the market resolves to Yes.\n\nThe market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026. The market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXHURCTOTMAJ-26DEC01-T3",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-12",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_bed8c0317a004b238640",
+        "target_sha256": "1d13be21c01830c3c75139dccae74af6c799765e828f0625faff1a9daef3cd2d",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXHURCTOTMAJ",
+      "dependence_cluster": "Atlantic hurricane season"
+    },
+    {
+      "id": "candidate-15",
+      "question": {
+        "id": "candidate-15",
+        "text": "Cincinnati wins \u2014 Cincinnati",
+        "yes": "If Cincinnati wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-09-20T16:00:00Z",
+        "resolve_after": "2026-09-22T17:00:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXNFLGAME-26SEP20CINHOU",
+        "domain": "NFL season",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNFLGAME-26SEP20CINHOU-CIN",
+        "title": "Cincinnati wins",
+        "yes_description": "Cincinnati",
+        "rules": "If Cincinnati wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "scheduled_close": "2026-09-22T17:00:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNFLGAME-26SEP20CINHOU"
+      },
+      "case_id": "workbench_930e583208c44a38a438",
+      "start": {
+        "case_id": "workbench_930e583208c44a38a438",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:50.075767Z",
+        "contract": {
+          "event_group": "KXNFLGAME-26SEP20CINHOU",
+          "market_id": "KXNFLGAME-26SEP20CINHOU-CIN",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If Cincinnati wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+          "scheduled_close": "2026-09-22T17:00:00Z",
+          "title": "Cincinnati wins",
+          "venue": "kalshi",
+          "yes_description": "Cincinnati"
+        },
+        "created_at": "2026-09-19T01:01:50.082288Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:49.564800Z",
+          "specification": {
+            "domain": "NFL season",
+            "event_deadline": "2026-09-20T16:00:00Z",
+            "event_group": "KXNFLGAME-26SEP20CINHOU",
+            "id": "candidate-15",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-09-22T17:00:00Z",
+            "text": "Cincinnati wins \u2014 Cincinnati",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If Cincinnati wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXNFLGAME-26SEP20CINHOU-CIN",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-15",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_c58e1cafc16a4c50a4f7",
+        "target_sha256": "91b8e3e155e169b7191cd244f4598eef7631807db66d2b6900188ada670637c5",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXNFLGAME",
+      "dependence_cluster": "NFL season"
+    },
+    {
+      "id": "candidate-16",
+      "question": {
+        "id": "candidate-16",
+        "text": "Cleveland wins \u2014 Cleveland",
+        "yes": "If Cleveland wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-09-20T16:00:00Z",
+        "resolve_after": "2026-09-22T17:00:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXNFLGAME-26SEP20CLETB",
+        "domain": "NFL season",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNFLGAME-26SEP20CLETB-CLE",
+        "title": "Cleveland wins",
+        "yes_description": "Cleveland",
+        "rules": "If Cleveland wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "scheduled_close": "2026-09-22T17:00:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNFLGAME-26SEP20CLETB"
+      },
+      "case_id": "workbench_8c78df51acc54704befa",
+      "start": {
+        "case_id": "workbench_8c78df51acc54704befa",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:50.620916Z",
+        "contract": {
+          "event_group": "KXNFLGAME-26SEP20CLETB",
+          "market_id": "KXNFLGAME-26SEP20CLETB-CLE",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If Cleveland wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+          "scheduled_close": "2026-09-22T17:00:00Z",
+          "title": "Cleveland wins",
+          "venue": "kalshi",
+          "yes_description": "Cleveland"
+        },
+        "created_at": "2026-09-19T01:01:50.626617Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:50.093369Z",
+          "specification": {
+            "domain": "NFL season",
+            "event_deadline": "2026-09-20T16:00:00Z",
+            "event_group": "KXNFLGAME-26SEP20CLETB",
+            "id": "candidate-16",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-09-22T17:00:00Z",
+            "text": "Cleveland wins \u2014 Cleveland",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If Cleveland wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXNFLGAME-26SEP20CLETB-CLE",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-16",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_e9b75e61ff1745819c5d",
+        "target_sha256": "6b766e7218339993a80a9f295ec5c10a5b75930be99ef79c821dcda2e9cd5ae1",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXNFLGAME",
+      "dependence_cluster": "NFL season"
+    },
+    {
+      "id": "candidate-17",
+      "question": {
+        "id": "candidate-17",
+        "text": "Denver wins \u2014 Denver",
+        "yes": "If Denver wins the JAC Jaguars vs DEN Broncos Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the JAC Jaguars vs DEN Broncos Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-09-20T16:00:00Z",
+        "resolve_after": "2026-09-22T20:05:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXNFLGAME-26SEP20JACDEN",
+        "domain": "NFL season",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNFLGAME-26SEP20JACDEN-DEN",
+        "title": "Denver wins",
+        "yes_description": "Denver",
+        "rules": "If Denver wins the JAC Jaguars vs DEN Broncos Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the JAC Jaguars vs DEN Broncos Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "scheduled_close": "2026-09-22T20:05:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNFLGAME-26SEP20JACDEN"
+      },
+      "case_id": "workbench_27c7acec223246ddb0e4",
+      "start": {
+        "case_id": "workbench_27c7acec223246ddb0e4",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:50.969899Z",
+        "contract": {
+          "event_group": "KXNFLGAME-26SEP20JACDEN",
+          "market_id": "KXNFLGAME-26SEP20JACDEN-DEN",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If Denver wins the JAC Jaguars vs DEN Broncos Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the JAC Jaguars vs DEN Broncos Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+          "scheduled_close": "2026-09-22T20:05:00Z",
+          "title": "Denver wins",
+          "venue": "kalshi",
+          "yes_description": "Denver"
+        },
+        "created_at": "2026-09-19T01:01:50.974490Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:50.634612Z",
+          "specification": {
+            "domain": "NFL season",
+            "event_deadline": "2026-09-20T16:00:00Z",
+            "event_group": "KXNFLGAME-26SEP20JACDEN",
+            "id": "candidate-17",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-09-22T20:05:00Z",
+            "text": "Denver wins \u2014 Denver",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If Denver wins the JAC Jaguars vs DEN Broncos Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the JAC Jaguars vs DEN Broncos Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXNFLGAME-26SEP20JACDEN-DEN",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-17",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_06fc3db39e8147ce955a",
+        "target_sha256": "ccbd902099ff13260a5fcbe40b25c182c21e9e1e28754033b71ef4725d07e78f",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXNFLGAME",
+      "dependence_cluster": "NFL season"
+    },
+    {
+      "id": "candidate-18",
+      "question": {
+        "id": "candidate-18",
+        "text": "Los Angeles C wins \u2014 Los Angeles C",
+        "yes": "If Los Angeles C wins the LV Raiders vs LA Chargers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the LV Raiders vs LA Chargers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-09-20T16:00:00Z",
+        "resolve_after": "2026-09-22T20:05:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXNFLGAME-26SEP20LVLAC",
+        "domain": "NFL season",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNFLGAME-26SEP20LVLAC-LAC",
+        "title": "Los Angeles C wins",
+        "yes_description": "Los Angeles C",
+        "rules": "If Los Angeles C wins the LV Raiders vs LA Chargers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the LV Raiders vs LA Chargers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "scheduled_close": "2026-09-22T20:05:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNFLGAME-26SEP20LVLAC"
+      },
+      "case_id": "workbench_4f6b9291726042cdb51c",
+      "start": {
+        "case_id": "workbench_4f6b9291726042cdb51c",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:51.296490Z",
+        "contract": {
+          "event_group": "KXNFLGAME-26SEP20LVLAC",
+          "market_id": "KXNFLGAME-26SEP20LVLAC-LAC",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If Los Angeles C wins the LV Raiders vs LA Chargers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the LV Raiders vs LA Chargers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+          "scheduled_close": "2026-09-22T20:05:00Z",
+          "title": "Los Angeles C wins",
+          "venue": "kalshi",
+          "yes_description": "Los Angeles C"
+        },
+        "created_at": "2026-09-19T01:01:51.304722Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:50.982667Z",
+          "specification": {
+            "domain": "NFL season",
+            "event_deadline": "2026-09-20T16:00:00Z",
+            "event_group": "KXNFLGAME-26SEP20LVLAC",
+            "id": "candidate-18",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-09-22T20:05:00Z",
+            "text": "Los Angeles C wins \u2014 Los Angeles C",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If Los Angeles C wins the LV Raiders vs LA Chargers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the LV Raiders vs LA Chargers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXNFLGAME-26SEP20LVLAC-LAC",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-18",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_4bd74e52a9a141caa6a5",
+        "target_sha256": "89aa622daa1f1ba3be749bed303e63569ce371f187c066a2f850ac2d640f9b26",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXNFLGAME",
+      "dependence_cluster": "NFL season"
+    },
+    {
+      "id": "candidate-19",
+      "question": {
+        "id": "candidate-19",
+        "text": "Miami wins \u2014 Miami",
+        "yes": "If Miami wins the MIA Dolphins vs SF 49ers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the MIA Dolphins vs SF 49ers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-09-20T16:00:00Z",
+        "resolve_after": "2026-09-22T20:25:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXNFLGAME-26SEP20MIASF",
+        "domain": "NFL season",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNFLGAME-26SEP20MIASF-MIA",
+        "title": "Miami wins",
+        "yes_description": "Miami",
+        "rules": "If Miami wins the MIA Dolphins vs SF 49ers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the MIA Dolphins vs SF 49ers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "scheduled_close": "2026-09-22T20:25:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNFLGAME-26SEP20MIASF"
+      },
+      "case_id": "workbench_0d2ef873c81c4edbbfbe",
+      "start": {
+        "case_id": "workbench_0d2ef873c81c4edbbfbe",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:51.632186Z",
+        "contract": {
+          "event_group": "KXNFLGAME-26SEP20MIASF",
+          "market_id": "KXNFLGAME-26SEP20MIASF-MIA",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If Miami wins the MIA Dolphins vs SF 49ers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the MIA Dolphins vs SF 49ers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+          "scheduled_close": "2026-09-22T20:25:00Z",
+          "title": "Miami wins",
+          "venue": "kalshi",
+          "yes_description": "Miami"
+        },
+        "created_at": "2026-09-19T01:01:51.637693Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:51.316251Z",
+          "specification": {
+            "domain": "NFL season",
+            "event_deadline": "2026-09-20T16:00:00Z",
+            "event_group": "KXNFLGAME-26SEP20MIASF",
+            "id": "candidate-19",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-09-22T20:25:00Z",
+            "text": "Miami wins \u2014 Miami",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If Miami wins the MIA Dolphins vs SF 49ers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the MIA Dolphins vs SF 49ers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXNFLGAME-26SEP20MIASF-MIA",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-19",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_0e6e354fb739496ead86",
+        "target_sha256": "72830193dece315d3090c0b925ee7387bb7c41214423365f9bdbebf03a804845",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXNFLGAME",
+      "dependence_cluster": "NFL season"
+    },
+    {
+      "id": "candidate-20",
+      "question": {
+        "id": "candidate-20",
+        "text": "Arizona wins \u2014 Arizona",
+        "yes": "If Arizona wins the SEA Seahawks vs ARI Cardinals Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the SEA Seahawks vs ARI Cardinals Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-09-20T16:00:00Z",
+        "resolve_after": "2026-09-22T20:25:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXNFLGAME-26SEP20SEAARI",
+        "domain": "NFL season",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNFLGAME-26SEP20SEAARI-ARI",
+        "title": "Arizona wins",
+        "yes_description": "Arizona",
+        "rules": "If Arizona wins the SEA Seahawks vs ARI Cardinals Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the SEA Seahawks vs ARI Cardinals Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "scheduled_close": "2026-09-22T20:25:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNFLGAME-26SEP20SEAARI"
+      },
+      "case_id": "workbench_93aa8d72692a4585a40b",
+      "start": {
+        "case_id": "workbench_93aa8d72692a4585a40b",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:01:51.948214Z",
+        "contract": {
+          "event_group": "KXNFLGAME-26SEP20SEAARI",
+          "market_id": "KXNFLGAME-26SEP20SEAARI-ARI",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If Arizona wins the SEA Seahawks vs ARI Cardinals Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the SEA Seahawks vs ARI Cardinals Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+          "scheduled_close": "2026-09-22T20:25:00Z",
+          "title": "Arizona wins",
+          "venue": "kalshi",
+          "yes_description": "Arizona"
+        },
+        "created_at": "2026-09-19T01:01:51.955137Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:01:51.645419Z",
+          "specification": {
+            "domain": "NFL season",
+            "event_deadline": "2026-09-20T16:00:00Z",
+            "event_group": "KXNFLGAME-26SEP20SEAARI",
+            "id": "candidate-20",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-09-22T20:25:00Z",
+            "text": "Arizona wins \u2014 Arizona",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If Arizona wins the SEA Seahawks vs ARI Cardinals Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the SEA Seahawks vs ARI Cardinals Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXNFLGAME-26SEP20SEAARI-ARI",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "candidate-20",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_96c3d980da364fefb85e",
+        "target_sha256": "58a09d8c267328aacb6235faedd60e5b1e165da7cc6ab781a2e8e3032e21dd83",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXNFLGAME",
+      "dependence_cluster": "NFL season"
+    }
+  ],
+  "cases_sha256": "d373442f5119ee3d241423850cbd71352d928e24c95dd41143f2018633493992",
+  "protocol_sha256": "dd0f4bcc60b20fc84128ff4b8da9438d07164a942f55ffc0de01c6f8258525be",
+  "eligibility_sha256": "ee205c5d49d7efdbd92401d0b95eca61f2992155218aa7319613e3f3d9858ad4",
+  "packet_hashes": {
+    "candidate-01": "abf2aa4e20981e47f0454afb3a5f457d3fe95f7b859227f0386586d771951944",
+    "candidate-02": "878cdcd8f760e8622f417e24d851369902f7c263618b3dda2996632908fbdfa9",
+    "candidate-03": "e8a534e18f33289496d2b080eb9f4ae80ad74d3fb5882ffd44acb18d5c92c8a3",
+    "candidate-04": "e9a358dc1567337ab2067528f6a1ab1f556fc54d8c246afa94a81caf7fa860a2",
+    "candidate-05": "33d4972e5c2939c1319a8226108f73a5fb46ccb3640b10835e52791a172dc6dd",
+    "candidate-06": "725850190bed54c5d4e7d69ca925c2ee1bcd3295bce45f557df194272205f6dc",
+    "candidate-07": "5a2746ce491190472853e0389d131ed05e3fd00e31b0dc0bcc6520d10c325f99",
+    "candidate-08": "f2b25f6bc7dc39601c222d02f5e76be6488be1639e840b8ee3885f20e1c80024",
+    "candidate-12": "4996b5ee0e0ecea24d42f0cc6a3bc1716f4ff175bc17611f3de335528cde63df",
+    "candidate-15": "25024c078e96cba40cb2c6ffd6689958ebd2abf54b3774d70da0910b0fb77616",
+    "candidate-16": "1f1924e7afe29859fe604d4e01fd096fc2aa37ddb8ea88ba5b13e66e0f62f248",
+    "candidate-17": "d3652699bef5ff4305e720db3e5a1149d4b8a5aedef23a157629819d8b417952",
+    "candidate-18": "b895148d25fd3429bb68ad7cb5c5ed8449027428e8401f3245c2ffc4361511a2",
+    "candidate-19": "8168106c1671294490bcc5ac556e095190991bcbe8932ecbc0711ff50351aafc",
+    "candidate-20": "27c12eb6c71e1976d10b7d926dd992857e10762150c782ebafa1820703073b5f"
+  },
+  "arm_info": {
+    "arm_7d4209ec106a447daf75": {
+      "model_key": "astra",
+      "condition": "question_only"
+    },
+    "arm_93eb606580564eb29eb8": {
+      "model_key": "astra",
+      "condition": "outside_research"
+    },
+    "arm_857dd01d17274c6db060": {
+      "model_key": "fable",
+      "condition": "question_only"
+    },
+    "arm_0c260a91cff34892a625": {
+      "model_key": "fable",
+      "condition": "outside_research"
+    },
+    "arm_f6bfe1e53b4f4f4eb85a": {
+      "model_key": "gemini",
+      "condition": "question_only"
+    },
+    "arm_78cd74228fbc44f686cc": {
+      "model_key": "gemini",
+      "condition": "outside_research"
+    }
+  },
+  "models": {
+    "astra": {
+      "model": "gpt-6-astra",
+      "parameters": {
+        "temperature": 1,
+        "max_tokens": 8192,
+        "top_p": 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0,
+        "logprobs": false,
+        "top_logprobs": 3,
+        "reasoning_effort": "high"
+      },
+      "inference_service": "openai",
+      "edsl_version": "1.0.8.dev1",
+      "edsl_class_name": "LanguageModel"
+    },
+    "fable": {
+      "model": "claude-fable-5-1",
+      "parameters": {
+        "temperature": 0.5,
+        "max_tokens": 8192,
+        "top_p": 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0,
+        "logprobs": false,
+        "top_logprobs": 3,
+        "thinking": {
+          "type": "adaptive"
+        },
+        "output_config": {
+          "effort": "high"
+        }
+      },
+      "inference_service": "anthropic",
+      "edsl_version": "1.0.8.dev1",
+      "edsl_class_name": "Claudefable51"
+    },
+    "gemini": {
+      "model": "gemini-3.1-pro-preview",
+      "parameters": {
+        "temperature": 0.5,
+        "topP": 1,
+        "topK": 40,
+        "maxOutputTokens": 8192,
+        "stopSequences": [],
+        "thinking_budget": 2048
+      },
+      "inference_service": "google",
+      "edsl_version": "1.0.8.dev1",
+      "edsl_class_name": "gemini-3.1-pro-preview"
+    }
+  },
+  "trials": [
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_af779262a2442f9bed4f893a",
+      "run_id": "run_fe12d5dc249643a6be04",
+      "question_id": "candidate-15",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 0,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_355ed86791cbb46b34b6eb8c",
+      "run_id": "run_6c704a0171044303b860",
+      "question_id": "candidate-16",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 1,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_14a0aacae0922f2bbebf1aae",
+      "run_id": "run_18c295ad1a484b8aa9b9",
+      "question_id": "candidate-19",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 2,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_c3355efdce60910f3eca5a3f",
+      "run_id": "run_afdafc1a5458437ba176",
+      "question_id": "candidate-20",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 3,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_c8e84034be47aab17dae761a",
+      "run_id": "run_fdfbd2d53aa64c60970d",
+      "question_id": "candidate-18",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 4,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_12894c4a0b49a3c61811c767",
+      "run_id": "run_2fe993c9867f469ba602",
+      "question_id": "candidate-07",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 5,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_030b6a4674bd0efa7706feab",
+      "run_id": "run_9509b86a83424d37bc05",
+      "question_id": "candidate-20",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 6,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_6ddbc5d36e50d458f098f9d0",
+      "run_id": "run_29abeaa52c2d4362a8ba",
+      "question_id": "candidate-18",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 7,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_aa62b876c9922f79c7134cd9",
+      "run_id": "run_0f1496876a434f79a0f4",
+      "question_id": "candidate-19",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 8,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_d5ed6c578619e18dd01e2dca",
+      "run_id": "run_dd18846ed20e46359679",
+      "question_id": "candidate-08",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 9,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_b9c4e79e266f2aead3a6c411",
+      "run_id": "run_1f286a4ec73b4e56876e",
+      "question_id": "candidate-05",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 10,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_7476307f5a683d5894f04522",
+      "run_id": "run_a0f88a8b70f94bf09c27",
+      "question_id": "candidate-01",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 11,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_a006684352211296d18fffc6",
+      "run_id": "run_fcface80173e426090c7",
+      "question_id": "candidate-08",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 12,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_6e9dce4205ac69b0d4e05529",
+      "run_id": "run_58d301c1498f4f869b6c",
+      "question_id": "candidate-06",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 13,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_f60d69a5c7683324f9eec192",
+      "run_id": "run_9a6e1a86d36c46588906",
+      "question_id": "candidate-20",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 14,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_863261393ec6876fdf7c1b3b",
+      "run_id": "run_5cb73a0ed44a4a5e82c2",
+      "question_id": "candidate-03",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 15,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_2deedc5611bdbd23320e6290",
+      "run_id": "run_3bb32b47d206493ca639",
+      "question_id": "candidate-08",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 16,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_0137d1b326eeaa7de272c905",
+      "run_id": "run_c9f0c19a0c1949d488fc",
+      "question_id": "candidate-06",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 17,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_f86283fedaae112fd011516e",
+      "run_id": "run_b7feeb1f40934af1a741",
+      "question_id": "candidate-02",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 18,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_e707b51ace3ecbfce583d87f",
+      "run_id": "run_b6e7fa52f14840b9a2bd",
+      "question_id": "candidate-04",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 19,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_0658d2caa6162ba1a881f72d",
+      "run_id": "run_3e9bab926d8b487089dd",
+      "question_id": "candidate-05",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 20,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_d75ffe81bad6ea96a58f868e",
+      "run_id": "run_9296e9cfa5c84c0cb2c6",
+      "question_id": "candidate-06",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 21,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_c0685e051a9e9490929d7977",
+      "run_id": "run_7e1f8dbd30294ba3830a",
+      "question_id": "candidate-17",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 22,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_74d1a254532dc8743a1e3599",
+      "run_id": "run_4d59e190971f422eb774",
+      "question_id": "candidate-02",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 23,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_14ca9bf27d5c6fb09e6e58ef",
+      "run_id": "run_9ea35dac538f4e18a896",
+      "question_id": "candidate-02",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 24,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_64ee91683ae30f55b133ed05",
+      "run_id": "run_4cc9e05e35bb4fdba6c4",
+      "question_id": "candidate-12",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 25,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_e2adcd159979ae0ddf5d0043",
+      "run_id": "run_78976fec89194c9e811e",
+      "question_id": "candidate-12",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 26,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_6cb7f8081866610e868a2c48",
+      "run_id": "run_1b5bcaad202d493f8ed1",
+      "question_id": "candidate-06",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 27,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_aa19e6ba102cdc1d8d9258f9",
+      "run_id": "run_0fc4f90fad7f498b9c10",
+      "question_id": "candidate-15",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 28,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_90b4d4dc8c2a7410e60792c1",
+      "run_id": "run_47d816196821457880c0",
+      "question_id": "candidate-20",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 29,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_79551867d69a363358113c56",
+      "run_id": "run_ff729053e2184768a7ac",
+      "question_id": "candidate-07",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 30,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_3aa40ab275088c9f2926b4b8",
+      "run_id": "run_2232f418494847ddb616",
+      "question_id": "candidate-17",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 31,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_c97e8d02f6679916f95c7b69",
+      "run_id": "run_77e6c5745e384767b70a",
+      "question_id": "candidate-04",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 32,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_0b16cc5b45ef0997e0804945",
+      "run_id": "run_e7598eb1f5874c228d17",
+      "question_id": "candidate-03",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 33,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_8d5c52bf2c8db49ea9f85731",
+      "run_id": "run_770a870605b84595be9a",
+      "question_id": "candidate-16",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 34,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_e85ad561dd2106d4753a24aa",
+      "run_id": "run_8ccba1493c4244d9b4ba",
+      "question_id": "candidate-12",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 35,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_17ee68dea20eb31ac8f63c4e",
+      "run_id": "run_c85e8465d38842f59c61",
+      "question_id": "candidate-03",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 36,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_800a80b2a2228466c4d393c7",
+      "run_id": "run_105691c51f3246cf9d1d",
+      "question_id": "candidate-18",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 37,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_32ba79ce3bf133fe8c6ed144",
+      "run_id": "run_07d9950624304921869d",
+      "question_id": "candidate-20",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 38,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_6aba1657cc2ac04c12ad9bd3",
+      "run_id": "run_4fe8bd26351e4865a0d6",
+      "question_id": "candidate-17",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 39,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_78af09f17af5228c70ca8ff7",
+      "run_id": "run_062c921beb1e4d7c9a34",
+      "question_id": "candidate-05",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 40,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_fc246c9f1e1e8e04a9c2c907",
+      "run_id": "run_142306f68d894163a42a",
+      "question_id": "candidate-03",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 41,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_b23139f8049504101a02fafd",
+      "run_id": "run_4ecb1d1cdc374866a16b",
+      "question_id": "candidate-08",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 42,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_e17c692c3681e811fc65307d",
+      "run_id": "run_bcfb92edde26459fa287",
+      "question_id": "candidate-20",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 43,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_61135d358cea8d12ad55db4a",
+      "run_id": "run_108408d79ff84b3aa42d",
+      "question_id": "candidate-01",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 44,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_9da885f60696d1150548e987",
+      "run_id": "run_e6feeb3c6f624362ac8b",
+      "question_id": "candidate-07",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 45,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_0e92888fe16de70deb03cd28",
+      "run_id": "run_00893a9a6e2a4e6893b6",
+      "question_id": "candidate-06",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 46,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_c223bea95bee5cf78f6e2aef",
+      "run_id": "run_78d6b5e88d854387b692",
+      "question_id": "candidate-12",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 47,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_9a9dafa769c8fc1840895dee",
+      "run_id": "run_b3326a9fc0554d9e9796",
+      "question_id": "candidate-07",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 48,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_b5888f19ca728b392562da07",
+      "run_id": "run_c91b07db0b40471f90bc",
+      "question_id": "candidate-01",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 49,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_d0c2165a1d16f1a1fc1c0b99",
+      "run_id": "run_b9fc67f8338049338f13",
+      "question_id": "candidate-19",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 50,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_435d0442115efccdaf1d9d2e",
+      "run_id": "run_338b1c82f3b5444aa57a",
+      "question_id": "candidate-17",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 51,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_f75fad17ae73acdc6fe64e24",
+      "run_id": "run_70233785aa2f43ddb68b",
+      "question_id": "candidate-16",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 52,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_958f131598038bde88f7b3ba",
+      "run_id": "run_3d7a2a24be0a4dfdb7ec",
+      "question_id": "candidate-19",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 53,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_a0c0753a7be434bc68afe766",
+      "run_id": "run_a4ac06bfdcfc49c695ad",
+      "question_id": "candidate-15",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 54,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_8e60b7f3e08af6b1ef25c342",
+      "run_id": "run_251db378ef2f4bc2bc19",
+      "question_id": "candidate-03",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 55,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_bdab486439946f122c9bfddd",
+      "run_id": "run_dbc8c2ba8b124263a1c0",
+      "question_id": "candidate-01",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 56,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_38c68364064ac1439afc1b9d",
+      "run_id": "run_07f09f32a7f345ec9340",
+      "question_id": "candidate-19",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 57,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_d1d86d4464301fac3c1d6243",
+      "run_id": "run_07763841587548c7872b",
+      "question_id": "candidate-15",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 58,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_e5f01b7c0d21b4178c65c2ac",
+      "run_id": "run_911622f331f44820b993",
+      "question_id": "candidate-04",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 59,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_1b02bafb89ba7e07a3084ca1",
+      "run_id": "run_eeaf4beaf24748c9ae95",
+      "question_id": "candidate-12",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 60,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_3f7ad712fc8150d94b021b12",
+      "run_id": "run_af7c2dec4a5e47b682d6",
+      "question_id": "candidate-04",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 61,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_1bb87b5b99367e4014c95cb4",
+      "run_id": "run_4c4ed191fcdc43e7b136",
+      "question_id": "candidate-08",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 62,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_b49fcbb9f39fd49c6973d9ec",
+      "run_id": "run_6e17a9ed06aa4fc18c61",
+      "question_id": "candidate-05",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 63,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_9bb75c8e82195dec6913c433",
+      "run_id": "run_d43ed990c86a4396854f",
+      "question_id": "candidate-01",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 64,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_fd02cc237f282d9a4a174eac",
+      "run_id": "run_19f87746ddff483bb099",
+      "question_id": "candidate-05",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 65,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_565959bd25883eaa725e392a",
+      "run_id": "run_1cdc15b62aa3423e8c40",
+      "question_id": "candidate-18",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 66,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_216a5b41ad86bcf528de8d29",
+      "run_id": "run_f2c3f01b2c6745d5b6de",
+      "question_id": "candidate-15",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 67,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_a13a6a5fb6f2468102f91d36",
+      "run_id": "run_80aa36709a024f40bd88",
+      "question_id": "candidate-15",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 68,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_b8b386e316a1a912f84a1f30",
+      "run_id": "run_777b12c4c8fe4fe58e56",
+      "question_id": "candidate-04",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 69,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_2ff721b0658f5a06ec1870f0",
+      "run_id": "run_bd5bf266bb6a4d9bb774",
+      "question_id": "candidate-02",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 70,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_c25e9e4663ea23ea5bf3eb7a",
+      "run_id": "run_8122d80b8efd4ff39136",
+      "question_id": "candidate-16",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 71,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_f8ac6e8b984681cba0bbb228",
+      "run_id": "run_3cf92e5f049d4b2cb502",
+      "question_id": "candidate-12",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 72,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_da0c94396809d904524bfd2d",
+      "run_id": "run_9664e492ada748c99df6",
+      "question_id": "candidate-05",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 73,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_715c64c93a25e90b43ce3416",
+      "run_id": "run_dcc87331e3d146a8b6be",
+      "question_id": "candidate-07",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 74,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_d0212132b100081ba6fb6eb1",
+      "run_id": "run_7b1a892f09c04f7c88c9",
+      "question_id": "candidate-17",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "position": 75,
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_de90894cbaf70cca2a15ce85",
+      "run_id": "run_2d89061ce87649bda3bb",
+      "question_id": "candidate-02",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 76,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_eef34e69dd458a730be825c1",
+      "run_id": "run_3236738fce774c42a54a",
+      "question_id": "candidate-07",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 77,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_b423c4d09b90e88938af6e9e",
+      "run_id": "run_21eaa6aec9c740559a69",
+      "question_id": "candidate-04",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 78,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_27f9dfad845010a9477a89ab",
+      "run_id": "run_d33194fd8a27442eb8c3",
+      "question_id": "candidate-03",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 79,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_463dcf9f109805ffc0f54214",
+      "run_id": "run_b4e828a900834cff9e12",
+      "question_id": "candidate-19",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 80,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_0cbc2830db661eedc429edaa",
+      "run_id": "run_944ad9e0b3bb4957aa78",
+      "question_id": "candidate-18",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_f6bfe1e53b4f4f4eb85a:r1",
+      "position": 81,
+      "arm_id": "arm_f6bfe1e53b4f4f4eb85a",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_e2028eee578949e90e69d68a",
+      "run_id": "run_29b15408a497466fa0e7",
+      "question_id": "candidate-16",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_7d4209ec106a447daf75:r1",
+      "position": 82,
+      "arm_id": "arm_7d4209ec106a447daf75",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_3cbba3a83d8cc622a0d5474a",
+      "run_id": "run_7d85d0d0741e46e9a15e",
+      "question_id": "candidate-06",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 83,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_62c71f095bb7982244204913",
+      "run_id": "run_3fd200ae3d3a41e585c9",
+      "question_id": "candidate-08",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 84,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_561594d2ef47a6b4c546939c",
+      "run_id": "run_ba59f65dad80420aa98f",
+      "question_id": "candidate-17",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 85,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_a11445f0d99178f25a713501",
+      "run_id": "run_ff1352fba39f4a22bb9e",
+      "question_id": "candidate-02",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_857dd01d17274c6db060:r1",
+      "position": 86,
+      "arm_id": "arm_857dd01d17274c6db060",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_01d8de87d06cf71a838a5dd6",
+      "run_id": "run_9aa6fa902d2f4416983e",
+      "question_id": "candidate-01",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 87,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_64f591e138319c28fba3513e",
+      "run_id": "run_6471d9d219f742458486",
+      "question_id": "candidate-16",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_0c260a91cff34892a625:r1",
+      "position": 88,
+      "arm_id": "arm_0c260a91cff34892a625",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "trial_id": "trial_c29734603469dff4ee0ece41",
+      "run_id": "run_608afff3c380446890d9",
+      "question_id": "candidate-18",
+      "question_version": 1,
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "repetition": 1,
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+      "position": 89,
+      "arm_id": "arm_78cd74228fbc44f686cc",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    }
+  ]
+}

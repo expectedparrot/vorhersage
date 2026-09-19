@@ -1,0 +1,26 @@
+{
+  "task_id": "task_c6edf74fb9a64dd2a2b2",
+  "expected_revision": 0,
+  "idempotency_key": "trial_07256bfabdb2df7d21e822c4-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.38,
+    "rationale": "The NWS point forecast for Austin-Bergstrom on the eve of the target date is 98\u00b0F. The target range is 98-99\u00b0F. While the point forecast falls exactly on the lower bound of the target, typical 1-day forecast errors of 1-2 degrees mean the actual high could easily fall outside this narrow 2-degree band (e.g., 97\u00b0F or 100\u00b0F). Furthermore, if the settlement station (CLIAUS) corresponds to Camp Mabry rather than Bergstrom, it often runs slightly warmer, which could push the temperature to 100\u00b0F or higher. The strongest reason this estimate could be too high is that normal forecast variance or station differences could easily result in a high of 97\u00b0F or 100\u00b0F. The strongest reason this estimate could be too low is that with a stable weather pattern (sunny, calm winds), the 1-day forecast might be highly accurate, making a high of 98\u00b0F or 99\u00b0F very likely.",
+    "limitations": [
+      "Settlement uses The Weather Company at Austin CLIAUS. NWS forecasts are outside evidence and can differ in rounding, grid location, or final station maximum. No fitted forecast-error distribution is supplied.",
+      "Small coordinator-selected packet; no fitted probability model or complete research review.",
+      "Different questions can share source information and economic drivers; do not treat their errors as independent."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_b23bb06fc5e77ebad5659555",
+        "record_id": "austin"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.019628000000000003
+  }
+}

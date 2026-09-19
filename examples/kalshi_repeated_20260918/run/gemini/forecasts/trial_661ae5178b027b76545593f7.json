@@ -1,0 +1,106 @@
+{
+  "arm_id": "arm_16df1ab2e77d40e582a1",
+  "assessment_probability": 0.12,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.014522,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_6c375e7aafeb4b2697210239",
+      "record_id": "measles"
+    }
+  ],
+  "experiment_id": "experiment_7f50c2431dc346399685",
+  "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r3",
+  "information_as_of": "2026-09-19T01:58:11.498178Z",
+  "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+  "input_manifest": {
+    "arm_16df1ab2e77d40e582a1": "d606325b79564961228556ca89abcb516593498ffdfce481afc43dd7f9222d2a",
+    "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+    "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+    "pkt_6c375e7aafeb4b2697210239": "3eca1a7fa4581e3bf693adfed68d95d1ddc5615d4e30fdd1d36096a7c0a9a2ce",
+    "task_result_338f377bec3047d0a53d": "817444fef403b6ced2741bea63b3e9fb70ced33880c5f35a681c85618380be1d"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T02:05:35.678620Z",
+  "manifest_sha256": "30645a09cb62178a78862db7c5e6fc40af0f8eabf90f6d3811e8fb675310f47c",
+  "method": "method_62c19062d0814cb99b77",
+  "method_spec_id": "method_62c19062d0814cb99b77",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "stopSequences": [],
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.12,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_62c19062d0814cb99b77"
+  },
+  "question": {
+    "domain": "US infectious disease",
+    "event_deadline": "2027-01-01T04:59:00Z",
+    "event_group": "KXMEASLES-26",
+    "id": "measles",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2027-01-01T04:59:00Z",
+    "text": "Will there be more than 6000 measles cases in 2026? \u2014 Above 6000",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If the number of measles in 2026 is above 6000, then the market resolves to Yes."
+  },
+  "question_id": "measles",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 3,
+  "research_plan": null,
+  "review_at": "2026-09-19T03:45:00+00:00",
+  "run_id": "run_46937cc28ad248a2aa2a",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_661ae5178b027b76545593f7",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_6c375e7aafeb4b2697210239",
+          "record_id": "measles"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

@@ -1,0 +1,113 @@
+{
+  "arm_id": "arm_a1eea459f4734285bbcd",
+  "assessment_probability": 0.3,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.11657000000000001,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_9edadc73bb432ea5e34ce107",
+      "record_id": "global_heat"
+    }
+  ],
+  "experiment_id": "experiment_7f50c2431dc346399685",
+  "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r1",
+  "information_as_of": "2026-09-19T01:58:11.498178Z",
+  "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+  "input_manifest": {
+    "arm_a1eea459f4734285bbcd": "05ff3909f134a7ca69b9d47e316bf1d68910a12f278f39a8cd766c62aeed8084",
+    "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+    "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+    "pkt_9edadc73bb432ea5e34ce107": "d966678f52ca8c064a6e35e57973c79a9f1963a646a41585f37f95815ff13f08",
+    "task_result_b785871a4cd64a989ffe": "41eb93277052d0360c85e39d7e89b29abb74c0d3987be20ac3551de92fa881ea"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T02:05:34.442715Z",
+  "manifest_sha256": "fd22c9a84c0419b3a8bea63f46497c7d787624e5c693572445f2ccbcc7832ffb",
+  "method": "method_62c19062d0814cb99b77",
+  "method_spec_id": "method_62c19062d0814cb99b77",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "claude-fable-5-1",
+    "parameters": {
+      "frequency_penalty": 0,
+      "logprobs": false,
+      "max_tokens": 8192,
+      "output_config": {
+        "effort": "high"
+      },
+      "presence_penalty": 0,
+      "temperature": 0.5,
+      "thinking": {
+        "type": "adaptive"
+      },
+      "top_logprobs": 3,
+      "top_p": 1
+    },
+    "provider": "anthropic"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.3,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_62c19062d0814cb99b77"
+  },
+  "question": {
+    "domain": "Global climate",
+    "event_deadline": "2027-01-01T04:59:00Z",
+    "event_group": "KXGTEMP-26",
+    "id": "global_heat",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2027-01-01T04:59:00Z",
+    "text": "Will 2026 be the hottest year on record? \u2014 Hottest",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If the unsmoothed Land-Ocean Temperature Index value for 2026 reported by NASA\u2019s Goddard Institute for Space Studies (GISS) is above the 2025 value and 1.28 degrees Celsius, then the market resolves to Yes.\n\nThe market will close at 11:59 PM ET on December 31, 2026. The market will expire at the sooner of the first 10:00 AM following the release of the data for 2026, or 10:00 AM ET April 01, 2027"
+  },
+  "question_id": "global_heat",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-19T03:45:00+00:00",
+  "run_id": "run_309956e8feec486bb3f1",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_c5bdaac8c551606ab6be28da",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_9edadc73bb432ea5e34ce107",
+          "record_id": "global_heat"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

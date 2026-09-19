@@ -1,0 +1,26 @@
+{
+  "task_id": "task_c57df216b6c74473bc4a",
+  "expected_revision": 0,
+  "idempotency_key": "trial_8f5ceda8f7ace88243dc3787-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.32,
+    "rationale": "The supplied NWS forecast, issued the evening before the target day, puts the September 19 high at Austin-Bergstrom near 98\u00b0F, directly within the contract\u2019s 98\u201399\u00b0F band. Sunny skies and light winds support the forecast, but a point high is not a probability distribution. Allowing judgmentally for several degrees of possible forecast error, a narrow two-degree settlement band merits roughly a one-in-three chance rather than a majority probability. Sunday\u2019s forecast near 99\u00b0F provides modest context for continued heat, not an additional forecast of Saturday\u2019s maximum. The strongest reason this estimate could be too high is that forecast uncertainty or a difference between the NWS point forecast and the final Weather Company station value could put substantial probability below 98\u00b0F or above 99\u00b0F. The strongest reason it could be too low is that the short forecast lead and sunny conditions could make the actual high more tightly concentrated around 98\u201399\u00b0F than assumed.",
+    "limitations": [
+      "No fitted local forecast-error distribution, forecast ensemble, or current station observations are supplied; the probability is judgmental.",
+      "Settlement uses The Weather Company\u2019s final maximum for Austin CLIAUS, not the NWS point forecast. Location, rounding, conversion, and reporting differences may matter.",
+      "The evidence packet contains a single forecast source and does not establish the full range of plausible weather outcomes."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_b23bb06fc5e77ebad5659555",
+        "record_id": "austin"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.03096
+  }
+}

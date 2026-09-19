@@ -1,0 +1,275 @@
+{
+  "case_id": "workbench_930e583208c44a38a438",
+  "state": "revealed",
+  "revision": 2,
+  "baseline_captured_at": "2026-09-19T01:01:50.075767Z",
+  "contract": {
+    "event_group": "KXNFLGAME-26SEP20CINHOU",
+    "market_id": "KXNFLGAME-26SEP20CINHOU-CIN",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If Cincinnati wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+    "scheduled_close": "2026-09-22T17:00:00Z",
+    "title": "Cincinnati wins",
+    "venue": "kalshi",
+    "yes_description": "Cincinnati"
+  },
+  "created_at": "2026-09-19T01:01:50.082288Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-19T01:01:49.564800Z",
+    "specification": {
+      "domain": "NFL season",
+      "event_deadline": "2026-09-20T16:00:00Z",
+      "event_group": "KXNFLGAME-26SEP20CINHOU",
+      "id": "candidate-15",
+      "kind": "real",
+      "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+      "profile": "general",
+      "resolution_source": "Contract-defined primary source; see frozen rules.",
+      "resolve_after": "2026-09-22T17:00:00Z",
+      "text": "Cincinnati wins \u2014 Cincinnati",
+      "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+      "yes": "If Cincinnati wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+    "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+    "market_id": "KXNFLGAME-26SEP20CINHOU-CIN",
+    "max_spread": 0.1,
+    "method": "Three-model question-only versus outside-research comparison",
+    "min_contracts_each_side": 1,
+    "mode": "prospective",
+    "question": {
+      "question_id": "candidate-15",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_c58e1cafc16a4c50a4f7",
+  "target_sha256": "91b8e3e155e169b7191cd244f4598eef7631807db66d2b6900188ada670637c5",
+  "journal": [
+    {
+      "id": "workbench_entry_1a1a952b3ca9483598b3",
+      "case_id": "workbench_930e583208c44a38a438",
+      "evidence_manifest": {},
+      "kind": "initial",
+      "model_manifest": {
+        "forecast_90bd9ccfa48141adb703": "11cf7f2e6bb5396ed6962a43527dfbeee783f55ed2f4c47a7981e5ccee607c3c"
+      },
+      "payload": {
+        "assumptions": [
+          "One registered call per model and information condition."
+        ],
+        "evidence_refs": [],
+        "model_artifact_ids": [
+          "forecast_90bd9ccfa48141adb703"
+        ],
+        "probability": 0.46,
+        "rationale": "Representative of the sealed model-arm forecasts; see the trial archive for all forecasts and rationales.",
+        "research_status": "completed",
+        "uncertainties": [
+          "Recorded packet and model limitations."
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T01:24:48.095975Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_0a2d15c9705744bca10a",
+      "case_id": "workbench_930e583208c44a38a438",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "No detected price exposure. Primary source allowlist, separate target store, identical model inputs and no forecast-worker tools; procedural safeguards, not independently enforced isolation.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "All registered model calls have terminal records; accepted forecasts are sealed."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T01:24:48.100910Z",
+      "revision": 2,
+      "trajectory_manifest": {
+        "workbench_entry_1a1a952b3ca9483598b3": "d930a15c5674bd23bf5cd319293c9ac012e720da46220a98b2820f4eb176ff5c"
+      }
+    }
+  ],
+  "evidence": {},
+  "models": {
+    "forecast_90bd9ccfa48141adb703": {
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "assessment_probability": 0.46,
+      "coherence": {
+        "comparisons": [],
+        "limitations": [
+          "Implications are supplied by the agent and pinned to exact question versions.",
+          "Different information cutoffs can explain apparent incoherence; review before revising."
+        ],
+        "missing_forecasts": [],
+        "violations": []
+      },
+      "concern_resolutions": [],
+      "cost_usd": 0.03493,
+      "coverage": {},
+      "cutoff_policy": "fixed",
+      "data_label": "outside_research",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_b909bb3dbc6967101a816231",
+          "record_id": "nfl_standings"
+        },
+        {
+          "packet_id": "pkt_b909bb3dbc6967101a816231",
+          "record_id": "nfl_injuries"
+        }
+      ],
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "information_as_of": "2026-09-19T01:06:45.842961Z",
+      "initial_information_as_of": "2026-09-19T01:06:45.842961Z",
+      "input_manifest": {
+        "arm_93eb606580564eb29eb8": "65b97909d1674c2da0083e96735a21a763541200eb000623f8949b3256d8a5f6",
+        "experiment_80f863de8e5a406fb8f6": "397e1ae2a8f36576e1c65231928570b28a42a11b7af1176c541d3542d94d3f0d",
+        "method_c3d7bb4c19b9451db496": "d807d22ea36cc721887b228e89e68410212a5140052197ca048730a788bee38b",
+        "pkt_b909bb3dbc6967101a816231": "25024c078e96cba40cb2c6ffd6689958ebd2abf54b3774d70da0910b0fb77616",
+        "task_result_7e90c5800d0b409e8cfe": "d8931b124a0794ef8412b9cb34945f435fd935d3f6679d2d47cd851cb5a15ac4"
+      },
+      "inquiry_answers": {},
+      "issued_at": "2026-09-19T01:23:56.209523Z",
+      "manifest_sha256": "dc573d549f0007bbf9bd9a12054df54228b5f39d336ba710b62fd3784a3db4cf",
+      "method": "method_c3d7bb4c19b9451db496",
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "mode": "prospective",
+      "model_calls": 1,
+      "model_challenge": null,
+      "model_map": null,
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "parameter_support": [],
+      "previous_forecast_id": null,
+      "prior_record": {
+        "qualification": "Registered method omits the prior stage.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.46,
+      "probability_basis": "judgment",
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_c3d7bb4c19b9451db496"
+      },
+      "question": {
+        "domain": "NFL season",
+        "event_deadline": "2026-09-20T16:00:00Z",
+        "event_group": "KXNFLGAME-26SEP20CINHOU",
+        "id": "candidate-15",
+        "kind": "real",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "resolve_after": "2026-09-22T17:00:00Z",
+        "text": "Cincinnati wins \u2014 Cincinnati",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "yes": "If Cincinnati wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
+      },
+      "question_id": "candidate-15",
+      "question_version": 1,
+      "reference_class": null,
+      "repetition": 1,
+      "research_plan": null,
+      "review_at": "2026-09-19T07:06:45.842961+00:00",
+      "run_id": "run_0fc4f90fad7f498b9c10",
+      "searches": 0,
+      "sensitivity": null,
+      "stopping_reason": "One frozen-input model call, no repair or additional research.",
+      "trial_id": "trial_aa19e6ba102cdc1d8d9258f9",
+      "triggers": [
+        {
+          "description": "Separate future-data study.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_b909bb3dbc6967101a816231",
+              "record_id": "nfl_standings"
+            },
+            {
+              "packet_id": "pkt_b909bb3dbc6967101a816231",
+              "record_id": "nfl_injuries"
+            }
+          ]
+        }
+      ],
+      "workflow_version": "experiment.stages.v1"
+    }
+  },
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.42,
+      "ask_contracts_within_2c": 7339753.1,
+      "ask_size": 2313182.87,
+      "bid": 0.41,
+      "bid_contracts_within_2c": 190230.27000000002,
+      "bid_size": 107558.14,
+      "midpoint": 0.415,
+      "spread": 0.01
+    },
+    "target_captured_at": "2026-09-19T01:01:50.075767Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_1a1a952b3ca9483598b3",
+        "label": "Initial",
+        "recorded_at": "2026-09-19T01:24:48.095975Z",
+        "probability": 0.46,
+        "difference_pp": 4.5000000000000036,
+        "squared_market_error": 0.002025000000000004,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 4.0000000000000036
+      }
+    ],
+    "net_squared_error_improvement": 0.0,
+    "followup_quote": {
+      "ask": 0.42,
+      "ask_contracts_within_2c": 7339095.54,
+      "ask_size": 2312485.44,
+      "bid": 0.41,
+      "bid_contracts_within_2c": 188161.36,
+      "bid_size": 107486.23,
+      "midpoint": 0.415,
+      "spread": 0.01
+    },
+    "followup_captured_at": "2026-09-19T01:24:48.420856Z",
+    "market_movement_pp": 0.0,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-19T01:24:48.421220Z"
+}

@@ -1,0 +1,25 @@
+{
+  "task_id": "task_0b5c46e2d5a1499ebe43",
+  "expected_revision": 0,
+  "idempotency_key": "trial_088b4780148dfb3fc7c1d82f-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.32,
+    "rationale": "The NWS forecast for Miami on September 19 predicts a high near 89\u00b0F with an 80% chance of thunderstorms. The target interval of 88-89\u00b0F includes the forecast point, making it a strong candidate. However, high precipitation probability introduces significant variance; early rain could suppress the high below 88\u00b0F, while delayed storms could allow temperatures to reach 90\u00b0F or higher. The estimate could be too high if the rain consistently keeps the temperature cooler than forecast, or too low if the forecast of 89\u00b0F is highly accurate and pre-storm heating reliably peaks in this narrow two-degree band.",
+    "limitations": [
+      "The NWS point forecast may differ slightly from The Weather Company's final settlement data.",
+      "Forecast errors are not explicitly modeled, and the exact timing of thunderstorms, which heavily dictates the maximum temperature, is unknown."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_926aa3369a3e513e8c385e5e",
+        "record_id": "miami"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.015354
+  }
+}

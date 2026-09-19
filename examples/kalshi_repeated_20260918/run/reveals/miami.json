@@ -1,0 +1,267 @@
+{
+  "case_id": "workbench_4c32bda067b542e1bf34",
+  "state": "revealed",
+  "revision": 2,
+  "baseline_captured_at": "2026-09-19T01:50:40.862053Z",
+  "contract": {
+    "event_group": "KXHIGHMIA-26SEP19",
+    "market_id": "KXHIGHMIA-26SEP19-B88.5",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If the maximum temperature recorded at Miami (CLIMIA) for Sep 19, 2026, is between 88-89\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+    "scheduled_close": "2026-09-20T05:00:00Z",
+    "title": "Will the maximum temperature be 88-89\u00b0 on Sep 19, 2026?",
+    "venue": "kalshi",
+    "yes_description": "88\u00b0 to 89\u00b0"
+  },
+  "created_at": "2026-09-19T01:50:40.864601Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-19T01:50:40.533422Z",
+    "specification": {
+      "domain": "US daily weather",
+      "event_deadline": "2026-09-20T05:00:00Z",
+      "event_group": "KXHIGHMIA-26SEP19",
+      "id": "miami",
+      "kind": "real",
+      "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+      "profile": "general",
+      "resolution_source": "Contract-defined primary source; see frozen rules.",
+      "resolve_after": "2026-09-20T05:00:00Z",
+      "text": "Will the maximum temperature be 88-89\u00b0 on Sep 19, 2026? \u2014 88\u00b0 to 89\u00b0",
+      "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+      "yes": "If the maximum temperature recorded at Miami (CLIMIA) for Sep 19, 2026, is between 88-89\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+    "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+    "market_id": "KXHIGHMIA-26SEP19-B88.5",
+    "max_spread": 0.1,
+    "method": "Three-model question-only versus outside-research comparison",
+    "min_contracts_each_side": 1,
+    "mode": "prospective",
+    "question": {
+      "question_id": "miami",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_20ee775ff6ae48dc8dbf",
+  "target_sha256": "30c41f851198e84825a9b11b475aca9f4d68cae2713e8f3e36c7914caabcf86c",
+  "journal": [
+    {
+      "id": "workbench_entry_1ddd311e44224a5ab28b",
+      "case_id": "workbench_4c32bda067b542e1bf34",
+      "evidence_manifest": {},
+      "kind": "initial",
+      "model_manifest": {
+        "forecast_ee8548f879cd4021a395": "c3b50fe655cffa4475f231607694afe98bb64b21fa36d511f07d90fd81e08e1f"
+      },
+      "payload": {
+        "assumptions": [
+          "Three independent calls per cell; no repair."
+        ],
+        "evidence_refs": [],
+        "model_artifact_ids": [
+          "forecast_ee8548f879cd4021a395"
+        ],
+        "probability": 0.34,
+        "rationale": "Representative sealed forecast; all registered repetitions scored separately from their immutable records.",
+        "research_status": "completed",
+        "uncertainties": [
+          "Frozen packet limitations and within-model variation."
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T02:06:50.833720Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_f2dd4094479946ffaf2e",
+      "case_id": "workbench_4c32bda067b542e1bf34",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "Exact provider inputs checked; strict source screening; market-mentions-v2 content review before reveal. Procedural coordinator separation, no independently enforced sandbox.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "Every call has a terminal receipt; forecasts and pre-reveal content reviews are sealed."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T02:06:50.837174Z",
+      "revision": 2,
+      "trajectory_manifest": {
+        "workbench_entry_1ddd311e44224a5ab28b": "ca31b39e89b8ee7edfc39d0a3e818b33057fc84292f92126cf624c328315e2cb"
+      }
+    }
+  ],
+  "evidence": {},
+  "models": {
+    "forecast_ee8548f879cd4021a395": {
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "assessment_probability": 0.34,
+      "coherence": {
+        "comparisons": [],
+        "limitations": [
+          "Implications are supplied by the agent and pinned to exact question versions.",
+          "Different information cutoffs can explain apparent incoherence; review before revising."
+        ],
+        "missing_forecasts": [],
+        "violations": []
+      },
+      "concern_resolutions": [],
+      "cost_usd": 0.03072,
+      "coverage": {},
+      "cutoff_policy": "fixed",
+      "data_label": "outside_research",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_926aa3369a3e513e8c385e5e",
+          "record_id": "miami"
+        }
+      ],
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r1",
+      "information_as_of": "2026-09-19T01:58:11.498178Z",
+      "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+      "input_manifest": {
+        "arm_bb1dcdfd7f2e46ad9d7d": "adc7b2f8ef1a27a5c6c45ff007dc289373df197b9bd75ec5bf9341a534a77639",
+        "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+        "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+        "pkt_926aa3369a3e513e8c385e5e": "734ee1394db306f3380ac5a840ed06f450d0129818f26f373c964fe4a7fd728c",
+        "task_result_9fcb4557ffba4f34baee": "13fcac3c03f358b086caca169ea946081617982484f787a8f0fc9af3524d96b2"
+      },
+      "inquiry_answers": {},
+      "issued_at": "2026-09-19T02:05:32.668662Z",
+      "manifest_sha256": "9f5b35484365361d6cc781caa83450e1c1fec0616c3880a37f3dc46718e90ffa",
+      "method": "method_62c19062d0814cb99b77",
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "mode": "prospective",
+      "model_calls": 1,
+      "model_challenge": null,
+      "model_map": null,
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "parameter_support": [],
+      "previous_forecast_id": null,
+      "prior_record": {
+        "qualification": "Registered method omits the prior stage.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.34,
+      "probability_basis": "judgment",
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_62c19062d0814cb99b77"
+      },
+      "question": {
+        "domain": "US daily weather",
+        "event_deadline": "2026-09-20T05:00:00Z",
+        "event_group": "KXHIGHMIA-26SEP19",
+        "id": "miami",
+        "kind": "real",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "resolve_after": "2026-09-20T05:00:00Z",
+        "text": "Will the maximum temperature be 88-89\u00b0 on Sep 19, 2026? \u2014 88\u00b0 to 89\u00b0",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "yes": "If the maximum temperature recorded at Miami (CLIMIA) for Sep 19, 2026, is between 88-89\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+      },
+      "question_id": "miami",
+      "question_version": 1,
+      "reference_class": null,
+      "repetition": 1,
+      "research_plan": null,
+      "review_at": "2026-09-19T03:45:00+00:00",
+      "run_id": "run_7f06520becfc400887ad",
+      "searches": 0,
+      "sensitivity": null,
+      "stopping_reason": "One frozen-input model call, no repair or additional research.",
+      "trial_id": "trial_d9e78317958263ffc16a1456",
+      "triggers": [
+        {
+          "description": "Separate future-data study.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_926aa3369a3e513e8c385e5e",
+              "record_id": "miami"
+            }
+          ]
+        }
+      ],
+      "workflow_version": "experiment.stages.v1"
+    }
+  },
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.46,
+      "ask_contracts_within_2c": 114.23,
+      "ask_size": 22.23,
+      "bid": 0.45,
+      "bid_contracts_within_2c": 113.0,
+      "bid_size": 47.0,
+      "midpoint": 0.455,
+      "spread": 0.01
+    },
+    "target_captured_at": "2026-09-19T01:50:40.862053Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_1ddd311e44224a5ab28b",
+        "label": "Initial",
+        "recorded_at": "2026-09-19T02:06:50.833720Z",
+        "probability": 0.34,
+        "difference_pp": -11.5,
+        "squared_market_error": 0.013224999999999997,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 10.999999999999998
+      }
+    ],
+    "net_squared_error_improvement": 0.0,
+    "followup_quote": {
+      "ask": 0.46,
+      "ask_contracts_within_2c": 144.67000000000002,
+      "ask_size": 54.09,
+      "bid": 0.45,
+      "bid_contracts_within_2c": 192.23000000000002,
+      "bid_size": 95.0,
+      "midpoint": 0.455,
+      "spread": 0.01
+    },
+    "followup_captured_at": "2026-09-19T02:06:51.148398Z",
+    "market_movement_pp": 0.0,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-19T02:06:51.148614Z"
+}

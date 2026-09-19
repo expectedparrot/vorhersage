@@ -1,0 +1,68 @@
+{
+  "schema_version": "1",
+  "status": "ok",
+  "command": "workbench",
+  "data": {
+    "case_id": "workbench_99b666aae9114c089f49",
+    "state": "awaiting_initial",
+    "revision": 0,
+    "baseline_captured_at": "2026-09-16T14:59:25.889771Z",
+    "contract": {
+      "event_group": "KXHIGHCHI-26SEP17",
+      "market_id": "KXHIGHCHI-26SEP17-B76.5",
+      "resolution_source": "See frozen Kalshi rules and series contract.",
+      "rules": "If the maximum temperature recorded at Chicago (CLIMDW) for Sep 17, 2026, is between 76-77\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+      "scheduled_close": "2026-09-18T06:00:00Z",
+      "title": "Will the maximum temperature be 76-77\u00b0 on Sep 17, 2026?",
+      "venue": "kalshi",
+      "yes_description": "76\u00b0 to 77\u00b0"
+    },
+    "created_at": "2026-09-16T14:59:25.896584Z",
+    "limitations": [
+      "Prices are separated from this project, not protected by an operating-system sandbox.",
+      "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+      "The agent must verify the event is still unknown; an open market alone cannot establish this."
+    ],
+    "question": {
+      "created_at": "2026-09-16T14:59:21.853423Z",
+      "specification": {
+        "domain": "weather",
+        "event_deadline": "2026-09-18T06:00:00Z",
+        "event_group": "KXHIGHCHI-26SEP17",
+        "id": "chicago_high_76_77_20260917",
+        "kind": "real",
+        "no": "The final qualifying maximum is outside the inclusive 76\u201377\u00b0F bracket.",
+        "profile": "general",
+        "resolution_source": "The Weather Company final CLIMDW daily maximum, per frozen Kalshi KXHIGHCHI rules and weather.com/kalshi. Forecasts and IEM station observations are research proxies.",
+        "resolve_after": "2026-09-19T06:00:00Z",
+        "text": "Will the maximum temperature reported for Chicago Midway (CLIMDW) on September 17, 2026 be 76\u201377\u00b0F?",
+        "void": "Last-fair-price settlement, unresolved material data errors, or unavailable final source data fall outside this binary comparison.",
+        "yes": "The Weather Company final maximum for Chicago CLIMDW for September 17, 2026 is in the inclusive 76\u201377\u00b0F bracket."
+      },
+      "version": 1
+    },
+    "specification": {
+      "contract_match_rationale": "76\u201377\u00b0F inclusive for CLIMDW, with TWC final reporting and error/last-fair-price exceptions. Daily date and trading close are recorded separately; cutoff uses end of local standard-time day.",
+      "eligibility_rationale": "Tomorrow\u2019s September 17 daily high is unobserved. The 78\u201379\u00b0F bracket failed the ten-contract depth requirement. This adjacent bracket is the second candidate, selected before weather research with the same thresholds.",
+      "market_id": "KXHIGHCHI-26SEP17-B76.5",
+      "max_spread": 0.05,
+      "method": "Predeclared next-day weather residual model; hidden market comparison",
+      "min_contracts_each_side": 10,
+      "mode": "prospective",
+      "question": {
+        "question_id": "chicago_high_76_77_20260917",
+        "version": 1
+      },
+      "venue": "kalshi"
+    },
+    "target_id": "market_target_4de554cee3384755885d",
+    "target_sha256": "1fb25837fb6a1499a9f2ab51b42fe5625090a6137a36fadb1d3be54b39464016",
+    "journal": [],
+    "evidence": {},
+    "models": {},
+    "next_action": "initial"
+  },
+  "warnings": [],
+  "errors": [],
+  "next_actions": []
+}

@@ -1,0 +1,50 @@
+{
+  "kind": "checkpoint",
+  "payload": {
+    "probability": 0.1877785433996466,
+    "rationale": "First stage of the declared model: use recent three-month headline momentum and43 available historical prediction residuals. Mean0.01472pp and SD0.26552pp give18.78% above the effective0.25pp threshold. Large June decline depresses the raw trend. This intermediate calculation omits already-collected gasoline evidence; it is not an independent research run.",
+    "findings": "Missing October2025 headline data invalidate five targets; no imputation. Recent holdout RMSE is much worse than earlier fitted spread.",
+    "changed_assumptions": [
+      "Replace subjective0.20pp center and0.15pp SD with the predeclared empirical momentum model.",
+      "Use actual valid sample size43 in the1+1/n mean-uncertainty term."
+    ],
+    "remaining_uncertainties": [
+      "Gasoline adjustment still to incorporate",
+      "Historical regime and revised data",
+      "Seven-observation holdout is small and shows poor coverage"
+    ],
+    "sources_checked": [
+      "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL,CUSR0000SETB01,CUUR0000SETB01&cosd=2021-08-01&coed=2026-08-01",
+      "https://www.bls.gov/news.release/cpi.nr0.htm",
+      "https://www.bls.gov/cpi/seasonal-adjustment/questions-and-answers.htm"
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_320e7ec936174cc70c759ac3",
+        "record_id": "momentum"
+      },
+      {
+        "packet_id": "pkt_320e7ec936174cc70c759ac3",
+        "record_id": "holdout"
+      }
+    ],
+    "limitations": [
+      "Historical indices are revised; October2025 missing data remove five residual targets.",
+      "Gaussian stable residual distribution and three-month momentum are declared modeling assumptions.",
+      "Gasoline is a linear contribution approximation; EIA prices, sampling and weights differ from BLS gasoline CPI.",
+      "September remainder is projected flat at last observed price; no oil-price, inventory or shock model.",
+      "Seasonal correction is five-year September median, not the exact published2026 adjustment factor.",
+      "August release reports July relative importance; primary uses its3.770% lagged weight, with updated-weight sensitivity.",
+      "Residual spread is from the momentum model, not a validated gasoline-adjusted model.",
+      "Core, shelter, food and other energy keep implicit three-month trend; no separate forward-looking models.",
+      "No model for exceptional delayed-release or no-data fallback; ordinary release assumed.",
+      "Same assistant context and procedural price separation, not verified independent blinding.",
+      "Source retrieval timestamps conservatively use bundle capture time.",
+      "The CPI summary/table/FAQ were read through the web tool after direct HTTP403 failures; their relevant facts were transcribed, not saved as complete raw HTML.",
+      "Gasoline evidence was collected in the same research pass before the momentum checkpoint; stages isolate calculations, not independent experiments.",
+      "Costs and model usage are unmetered."
+    ]
+  },
+  "expected_revision": 2,
+  "idempotency_key": "cpi-2-checkpoint"
+}

@@ -1,0 +1,124 @@
+{
+  "arm_id": "arm_a08e6eca487441edadeb",
+  "assessment_probability": 0.68,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.12487000000000001,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_b8d3c6c6678936c4a47b3a21",
+      "record_id": "global_heat"
+    },
+    {
+      "packet_id": "pkt_b8d3c6c6678936c4a47b3a21",
+      "record_id": "global_heat_firecrawl_1"
+    },
+    {
+      "packet_id": "pkt_b8d3c6c6678936c4a47b3a21",
+      "record_id": "global_heat_firecrawl_4"
+    }
+  ],
+  "experiment_id": "experiment_5990dfe02e12441789b6",
+  "forecaster": "experiment_5990dfe02e12441789b6:arm_a08e6eca487441edadeb:r1",
+  "information_as_of": "2026-09-19T03:03:28.502267Z",
+  "initial_information_as_of": "2026-09-19T03:03:28.502267Z",
+  "input_manifest": {
+    "arm_a08e6eca487441edadeb": "93fb3161347ace720230f37fbb51086b6f1babe5368b5f953b1f12f26137c613",
+    "experiment_5990dfe02e12441789b6": "5cf66fa2aa2ed5e9cb079f61cab66a365ad46158fa43dd32a2073c0e9a6cdc2b",
+    "method_e8fd2b47932a4ebebd3a": "60235ac86af77b708fc562c5fba70d59e81bb7510efb3722de3b345bae454df2",
+    "pkt_b8d3c6c6678936c4a47b3a21": "c54f3c7c4a24496f43800c7726d2a445fa42419ecddb4b08add035d73cf1e797",
+    "task_result_e5ce9d623ca147b2a851": "2615b289a06d55a4c71636c9377c9f19f74652e5659b4497a623e49a3e5350b9"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T03:10:54.211107Z",
+  "manifest_sha256": "a8fcfb1d7967a223b6d81f1a7fc68438ae924af804f5ea4e3307efd13d2e4393",
+  "method": "method_e8fd2b47932a4ebebd3a",
+  "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gpt-6-astra",
+    "parameters": {
+      "frequency_penalty": 0,
+      "logprobs": false,
+      "max_tokens": 8192,
+      "presence_penalty": 0,
+      "reasoning_effort": "high",
+      "temperature": 1,
+      "top_logprobs": 3,
+      "top_p": 1
+    },
+    "provider": "openai"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.68,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_e8fd2b47932a4ebebd3a"
+  },
+  "question": {
+    "domain": "Global climate",
+    "event_deadline": "2027-01-01T04:59:00Z",
+    "event_group": "KXGTEMP-26",
+    "id": "global_heat",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2027-01-01T04:59:00Z",
+    "text": "Will 2026 be the hottest year on record? \u2014 Hottest",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If the unsmoothed Land-Ocean Temperature Index value for 2026 reported by NASA\u2019s Goddard Institute for Space Studies (GISS) is above the 2025 value and 1.28 degrees Celsius, then the market resolves to Yes.\n\nThe market will close at 11:59 PM ET on December 31, 2026. The market will expire at the sooner of the first 10:00 AM following the release of the data for 2026, or 10:00 AM ET April 01, 2027"
+  },
+  "question_id": "global_heat",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-19T03:45:00+00:00",
+  "run_id": "run_b0300f1f44a04934b3a0",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_7a9f7d9116a11a2f9437fa03",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_b8d3c6c6678936c4a47b3a21",
+          "record_id": "global_heat"
+        },
+        {
+          "packet_id": "pkt_b8d3c6c6678936c4a47b3a21",
+          "record_id": "global_heat_firecrawl_1"
+        },
+        {
+          "packet_id": "pkt_b8d3c6c6678936c4a47b3a21",
+          "record_id": "global_heat_firecrawl_4"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

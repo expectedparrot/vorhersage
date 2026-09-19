@@ -1,0 +1,27 @@
+{
+  "task_id": "task_378a92d182f84539ac7a",
+  "expected_revision": 0,
+  "idempotency_key": "trial_73263a472c1f6440285b13c7-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.07,
+    "rationale": "Observed: CDC reports 3,471 confirmed 2026 U.S. measles cases as of September 17, 2026 (updated Sept 18). Reaching >6,000 requires roughly 2,530 additional cases with onset in the remaining ~15 weeks of the year and reported before expiration\u2014about 169 cases/week. The year-to-date average is ~94/week, and U.S. measles incidence is typically front-loaded (winter/spring peaks; the large 2025 and early-2026 outbreak waves followed this pattern), so the required pace is roughly 1.8x the year's average sustained through a seasonally weaker period. Additionally, CDC assigns cases by rash-onset week and reporting lags mean late-December cases will partly be uncounted at settlement, since post-expiration revisions are excluded. Historical analog: in late 2025, roughly 800\u2013900 cases accrued from mid-September to year end despite new outbreaks (Utah/Arizona, South Carolina), far below what is needed here. Why this could be too low: 39 active outbreaks and 95% outbreak-associated cases indicate ongoing community transmission in under-vaccinated populations; a single explosive outbreak (Texas 2025-scale, or the South Carolina outbreak) can generate hundreds of cases per month, and the packet gives no recent weekly trajectory\u2014if the current run rate is already 150+/week, the probability would be materially higher. Why this could be too high: fall seasonality, reporting lag at settlement, and the fact that no U.S. year since elimination has added ~2,500 cases in a single autumn quarter all argue for an even lower chance. Net estimate about 7%.",
+    "limitations": [
+      "No weekly incidence series supplied; the current run rate (the key variable) is inferred, not observed.",
+      "Provisional CDC counts subject to revision; settlement uses the count at expiration, excluding later revisions, so reporting lag cuts against YES.",
+      "Outbreak dynamics in under-vaccinated communities are heavy-tailed; a single large outbreak could invalidate the seasonal-pace assumption.",
+      "Small, coordinator-selected evidence packet without a fitted model."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_6c375e7aafeb4b2697210239",
+        "record_id": "measles"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.08674000000000001
+  }
+}

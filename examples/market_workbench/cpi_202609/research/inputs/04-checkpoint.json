@@ -1,0 +1,65 @@
+{
+  "kind": "checkpoint",
+  "payload": {
+    "probability": 0.6691726825804136,
+    "rationale": "Apply the originally declared gasoline replacement. Add0.351478pp to the momentum center for final mean0.366199pp; keep SD0.265519pp rather than asserting new evidence justifies tighter uncertainty. Normal tail above0.25pp gives66.9173%. This model is provisional: poor holdout coverage challenges stationary uncertainty. Using its0.50164pp RMSE as an alternative width gives59.16%, a diagnostic not a fitted replacement.",
+    "findings": "Primary EIA data extend one week beyond FRED. The implied4.22% raw gasoline rise plus September seasonal adjustment reverses the backward-looking gasoline drag. Lagged3.770% weight is transparent; rolled-forward weight sensitivity gives67.97%.",
+    "changed_assumptions": [
+      "Replace only the gasoline contribution with observed partial-month prices plus declared flat remainder.",
+      "Five-year September median correction approximates gasoline seasonality.",
+      "Lagged published weight3.770%, rather than mistakenly labeling it an August observation."
+    ],
+    "remaining_uncertainties": [
+      "Remaining-month prices and shocks",
+      "EIA-to-BLS gasoline mapping and exact seasonal factor",
+      "Other CPI components retain backward-looking trends",
+      "Historical residual spread may not describe the current regime"
+    ],
+    "sources_checked": [
+      "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL,CUSR0000SETB01,CUUR0000SETB01&cosd=2021-08-01&coed=2026-08-01",
+      "https://www.bls.gov/news.release/cpi.nr0.htm",
+      "https://www.bls.gov/news.release/cpi.t01.htm",
+      "https://www.eia.gov/dnav/pet/hist_xls/EMM_EPM0_PTE_NUS_DPGw.xls",
+      "https://fred.stlouisfed.org/graph/fredgraph.csv?id=GASALLW&cosd=2026-07-01&coed=2026-09-16",
+      "https://www.bls.gov/cpi/seasonal-adjustment/questions-and-answers.htm",
+      "https://www.eia.gov/petroleum/gasdiesel/gas_proc-methods.php",
+      "https://assets.kalshi.com/contract_terms/CPI.pdf"
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_320e7ec936174cc70c759ac3",
+        "record_id": "fresh_gas"
+      },
+      {
+        "packet_id": "pkt_320e7ec936174cc70c759ac3",
+        "record_id": "gas_adjustment"
+      },
+      {
+        "packet_id": "pkt_320e7ec936174cc70c759ac3",
+        "record_id": "final"
+      },
+      {
+        "packet_id": "pkt_320e7ec936174cc70c759ac3",
+        "record_id": "holdout"
+      }
+    ],
+    "limitations": [
+      "Historical indices are revised; October2025 missing data remove five residual targets.",
+      "Gaussian stable residual distribution and three-month momentum are declared modeling assumptions.",
+      "Gasoline is a linear contribution approximation; EIA prices, sampling and weights differ from BLS gasoline CPI.",
+      "September remainder is projected flat at last observed price; no oil-price, inventory or shock model.",
+      "Seasonal correction is five-year September median, not the exact published2026 adjustment factor.",
+      "August release reports July relative importance; primary uses its3.770% lagged weight, with updated-weight sensitivity.",
+      "Residual spread is from the momentum model, not a validated gasoline-adjusted model.",
+      "Core, shelter, food and other energy keep implicit three-month trend; no separate forward-looking models.",
+      "No model for exceptional delayed-release or no-data fallback; ordinary release assumed.",
+      "Same assistant context and procedural price separation, not verified independent blinding.",
+      "Source retrieval timestamps conservatively use bundle capture time.",
+      "The CPI summary/table/FAQ were read through the web tool after direct HTTP403 failures; their relevant facts were transcribed, not saved as complete raw HTML.",
+      "Gasoline evidence was collected in the same research pass before the momentum checkpoint; stages isolate calculations, not independent experiments.",
+      "Costs and model usage are unmetered."
+    ]
+  },
+  "expected_revision": 4,
+  "idempotency_key": "cpi-4-checkpoint"
+}

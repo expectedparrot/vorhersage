@@ -17,3 +17,12 @@ Run into a new directory:
 The directory contains separate researcher and evaluator projects, all input
 JSON, a report before reveal, a comparison after reveal, and an integrity check.
 See the [workbench guide](../../docs/MARKET_WORKBENCH.md) for live markets.
+
+## Live cases
+
+- [September CPI](cpi_202609/README.md): 66.9% forecast versus 98.5% opening midpoint; current gasoline data and a substantial uncertainty-model mismatch.
+
+- [NYC, September 16](nyc_20260916/README.md): 28.6% forecast versus 28% opening midpoint.
+- [Chicago Midway, September 17](chicago_20260917/README.md): 24.4% versus 36.5%; predeclared residual estimator and a substantial dispersion disagreement.
+
+These compare sealed estimates with market snapshots; they do not establish accuracy.

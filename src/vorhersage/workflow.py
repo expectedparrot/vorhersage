@@ -17,7 +17,9 @@ INSTRUCTIONS = {
     "intake": "Name the model inputs and missing case facts before estimating. Link each unknown to input IDs and choose ask_user, search, assumption, or unobservable. Give a concrete action and explain why it matters. When several influential facts are known to the human user and ep is available, offer a short personal survey via ep humanize; explain which inputs the answers could inform. Chat answers also work. See vorhersage guide for survey creation and response capture. An empty unknown list needs an explanation in rationale.",
     "inquiry": "Carry out the declared research action. Ask the user for facts they know; use dated evidence for observations. Related ask_user questions can be collected through an optional ep humanize survey for that user; preserve the question-to-input mapping and capture the actual answers as self-reported evidence. Record an answer or explicitly leave this unresolved with reasons. Do not turn an interpretation into an observed fact.",
     "model_challenge": "Inspect the actual quantities in context.model_map. For each input, decide whether its cited passages support that quantity, merely inform an assumption, or concern a different quantity. Inspect influential inputs first. For scenario models test concrete boundary trajectories and a spike followed by reversal before the deadline; record zero/multiple matches honestly. Name material concerns and concrete actions: investigate now, await evidence, or retain an assumption with reasons. These are declared judgments, not automated verification.",
-    "prior": "Establish a labeled judgmental prior or a reference class with cases and evidence. Explain comparability and limitations.",
+    "prior": "Establish an empirical reference class before assigning a prior. Use Flyvbjerg (or an equivalent auditable reference-class artifact) to define the population, selection rule, cases, metric, maturity, dependence, and sensitivity. If no defensible class exists, document a concrete reference_class_exception explaining what you searched, why it failed, and which judgmental assumptions remain.",
+    "reference_class_design": "Design the empirical reference class before collecting cases. Define the target population, inclusion and exclusion rule, outcome metric, horizon, search plan, and likely dependence or maturity problems.",
+    "reference_class_analysis": "Complete and freeze the reference-class analysis. Register or link the cases and captures in Flyvbjerg when available, verify the estimator, report case and independent-episode counts, and record limitations or a concrete blockage.",
     "drivers": "Map mechanisms and necessary steps, including concrete paths to YES and NO. Identify important unknowns.",
     "research": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
     "assessment": "Form a probability from the researched evidence. Label judgments; supply nested conditionals or exact ensemble membership when used. State limitations.",
@@ -140,13 +142,19 @@ class Workflow:
         id = identifier("run")
         body = {**spec, "cutoff_policy": cutoff_policy, "id": id, "question_version": question["version"], "question": q,
                 "research_status": spec.get("research_status", "unspecified"),
+                # Low-level runs retain the historical standard behavior; the
+                # single-question front end opts into deep research explicitly.
+                "research_effort": spec.get("research_effort", "standard"),
                 "profile": profile, "created_at": now(), "workflow_version": "1", **(protocol or {})}
         if workflow == "timeline":
             body.update(workflow="timeline", workflow_version="timeline.v1")
         if spec.get("research_contract") == "structured_v2":
             body["workflow_version"] = workflow + ".structured_v2"
-        state = {"pending": [task("prior"), task("drivers"), *[task("research", domain=d) for d in profile["domains"]],
-                             task("assessment"), task("review"), task("issue")],
+        pending = [task("prior"), task("drivers"), *[task("research", domain=d) for d in profile["domains"]],
+                             task("assessment"), task("review"), task("issue")]
+        if body["research_effort"] == "deep":
+            pending = [task("reference_class_design"), task("reference_class_analysis"), *pending]
+        state = {"pending": pending,
                  "artifact_ids": [previous] if previous else [], "evidence_refs": [], "coverage": {},
                  "used_searches": 0, "cost_usd": 0, "model_calls": 0, "extra_tasks": 0,
                  "probability": None, "forecast_id": None, "information_as_of": spec["information_as_of"]}
@@ -326,6 +334,22 @@ class Workflow:
         kind = selected["kind"]
         structured = run.get("research_contract") in ("structured_v1", "structured_v2")
         v2 = run.get("research_contract") == "structured_v2"
+        if kind == "reference_class_design":
+            require(p["search_plan"], "Reference-class design needs a concrete search plan.")
+            state["reference_class_design"] = p
+            return {"population": p["population"], "metric": p["metric"]}
+        if kind == "reference_class_analysis":
+            require(state.get("reference_class_design"), "Submit reference-class design before analysis.")
+            if p["status"] == "complete":
+                require(p["case_count"] > 0 and p["independent_episode_count"] > 0,
+                        "A completed reference-class analysis needs cases and independent episodes.")
+                require(p["analysis_id"], "Completed reference-class analyses need an analysis_id.")
+                from .flyvbjerg_adapter import validate_export
+                state["flyvbjerg_analysis"] = validate_export(p)
+            else:
+                require(p["limitations"], "A blocked reference-class analysis needs explicit limitations.")
+            state["reference_class_analysis"] = p
+            return {"status": p["status"], "analysis_id": p["analysis_id"]}
         if kind == "intake":
             research_model.validate_intake(p)
             state["research_plan"] = p
@@ -385,6 +409,12 @@ class Workflow:
             require(not structured or "research_status_at_estimate" in p,
                     "Declare research_status_at_estimate; run-start status does not describe later research.")
             declared = p.get("research_status_at_estimate", status)
+            if run.get("research_effort", "standard") == "deep":
+                require(state.get("reference_class_design") and state.get("reference_class_analysis"),
+                        "Deep research requires completed reference-class design and analysis before the prior.")
+            if run.get("research_effort", "deep") == "deep" and p["method"] == "judgment":
+                require(bool(p.get("reference_class_exception")),
+                        "Deep research requires an empirical reference class. If none is defensible, provide reference_class_exception describing the searches, rejection criteria, and remaining assumptions.")
             observed_research = bool(state["used_searches"] or evidence_refs(p) or
                                      any(a["status"] == "answered" for a in state.get("inquiry_answers", {}).values()))
             after = observed_research or status in ("in_progress", "completed") or declared in ("in_progress", "completed")

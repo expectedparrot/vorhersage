@@ -1,0 +1,13 @@
+{
+  "kind": "plan",
+  "payload": {
+    "uncertainty": "How much do KMDW next-day NBS forecasts miss actual station daily maxima, and do current conditions make those residuals misleading?",
+    "why_it_matters": "This two-degree bracket is below the 78\u00b0F point forecast; small bias and spread changes can change its probability substantially.",
+    "higher_if": "Historical errors shift probability into 76\u201377\u00b0F or concentrate mass around that band; weather checks corroborate cooler conditions.",
+    "lower_if": "Errors shift the center away from the band or increase dispersion; conditions show the next-day forecast is not a usable center.",
+    "search_plan": "Primary estimator fixed now: include every target day July 18\u2013September 15, 2026 (60 days). Pair IEM IL_ASOS MDW daily max_temp_f with KMDW NBS previous-day 06 UTC TXN reported at target-day+1 00 UTC (42-hour lead). No outcome-based filtering; exclude only missing/non-numeric pairs and list them. Current center is fixed September 16 06 UTC TXN for September 17. Set mean = current TXN + sample mean residual (observed minus forecast); SD = sqrt(sample residual variance*(1+1/n)+1^2). Use Gaussian mass over [75.5,77.5). The 1\u00b0F provider/window SD and normality are declared assumptions. Do not choose a different estimator after observing market prices. Report unsmoothed empirical frequency and sensitivities to mean +/-1\u00b0F and extra SD 0,1,2\u00b0F. As a diagnostic only, fit bias and SD on first 40 complete chronological target days and report next 20 residual RMSE and interval coverage alongside unbiased raw forecasts. Minimum 30 valid pairs for revised estimator; otherwise retain initial and flag failure. Check TWC page for final-report conventions; check NOAA product definition, IEM daily definitions, current NWS point forecast and Chicago discussion. Preserve failed access and contradictions. NWS may motivate a labeled alternative-center sensitivity, not replace the fixed primary estimator.",
+    "stopping_rule": "Stop after those defined sources and one complete 60-day extraction/calculation. No search for market odds. If definitions prevent a defensible mapping, report a qualified estimate or abort; do not silently change station, horizon, historical window, or liquidity requirements."
+  },
+  "expected_revision": 1,
+  "idempotency_key": "chicago-1-plan"
+}

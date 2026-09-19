@@ -21,6 +21,12 @@ The package checks the recorded inputs, computes the declared model, identifies
 missing inputs, and preserves the work. Its tools cover deadline models,
 scenario calculations, reference classes, evidence review, and forecast revision.
 
+The single-question workflow defaults to **deep research**: before issuing a
+prior, the agent must construct an auditable empirical reference class (using
+Flyvbjerg when available) or record why no defensible class exists. Explicit
+standard and experimental-ablation runs remain available. See
+[Deep research mode](docs/DEEP_RESEARCH.md).
+
 ## Install
 
 ```bash

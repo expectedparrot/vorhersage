@@ -1,0 +1,220 @@
+{
+  "record_sha256": "7d5815bd1c540e5f1b8c296b1905028a7710190563285610fd19b8d39356123f",
+  "title": "Will Chicago Midway’s high land at 76–77°F?",
+  "summary": "Our sealed forecast is 24.4%. Kalshi’s opening midpoint was 36.5%, a 12.1-point disagreement. A predeclared 60-day reference class raised our initial estimate by 2.1 points but did not explain the market’s greater concentration in this narrow temperature band. The event remained unresolved at the forecast cutoff.",
+  "sections": [
+    {
+      "heading": "The event and the forecast",
+      "paragraphs": [
+        "Will Chicago Midway’s maximum temperature for September 17, 2026 be 76°F or 77°F? Our sealed estimate is 24.4%, or roughly one chance in four. The Weather Company’s final CLIMDW report determines settlement for Kalshi contract KXHIGHCHI-26SEP17-B76.5. Midway is the relevant station; this is not an O’Hare forecast.",
+        "The event was still in the future when we sealed the estimate on September 16. A final daily maximum outside the two-degree band means No. Exceptional last-fair-price settlement or unavailable final data is outside this binary comparison. Forecast products and station observations are evidence, not the contractual settlement authority."
+      ],
+      "finding_refs": []
+    },
+    {
+      "heading": "Methodology at a glance",
+      "paragraphs": [
+        "We saved the market quote first, then fixed the estimator before downloading historical outcomes. Evidence is shown in blue, assumptions in amber, and calculated results in green. The final quote comparison took place only after sealing the estimate."
+      ],
+      "finding_refs": [],
+      "flowchart": {
+        "caption": "The executed sequence. Sample dates, forecast horizon, Gaussian estimator and extra uncertainty allowance were declared before collecting the historical sample.",
+        "steps": [
+          {
+            "title": "1. Select an eligible contract and freeze the quote",
+            "text": "Chicago Midway, September 17, 76–77°F. Require a spread of at most 5 cents and at least 10 contracts on each best quote. Store price separately.",
+            "kind": "process"
+          },
+          {
+            "title": "2. Record the initial model",
+            "text": "NBS predicts 78°F with model standard deviation 3°F. Add a declared 1°F source allowance: initial probability 22.3%.",
+            "kind": "result"
+          },
+          {
+            "title": "3. Declare the sample and formula",
+            "text": "All 60 target days July 18–September 15; previous-day 06 UTC forecasts. Fix the bias correction, spread formula, interval and sensitivity checks.",
+            "kind": "judgment"
+          },
+          {
+            "title": "4. Collect matched forecasts and observations",
+            "text": "All 60 days match. Mean error +0.083°F; sample standard deviation 2.513°F. No days excluded.",
+            "kind": "data"
+          },
+          {
+            "title": "5. Calculate a predictive distribution",
+            "text": "Mean 78.083°F; standard deviation 2.724°F. Probability in the rounding interval [75.5,77.5): 24.4%.",
+            "kind": "result",
+            "inputs": [
+              {
+                "title": "Empirical inputs",
+                "text": "Current NBS forecast plus local next-day residuals, matched by station, cycle and forecast lead.",
+                "kind": "data"
+              },
+              {
+                "title": "Modeling assumptions",
+                "text": "Normal errors, stable bias, nearest-integer reporting and independent 1°F source/window allowance.",
+                "kind": "judgment"
+              }
+            ]
+          },
+          {
+            "title": "6. Check contradictions and sensitivity",
+            "text": "NWS predicts 76°F. Alternative center gives 28.2%; held-out bias correction does not improve RMSE. Preserve these qualifications.",
+            "kind": "data"
+          },
+          {
+            "title": "7. Seal, then reveal",
+            "text": "Seal at 15:04 UTC. Opening quote, captured 14:59 UTC: 35–38%. Later quote at 15:17 UTC: 34–36%.",
+            "kind": "process"
+          },
+          {
+            "title": "8. Diagnose the disagreement",
+            "text": "The final estimate is 12.1 points below the opening midpoint. At the estimated spread, shifting the center alone cannot reach 36.5%.",
+            "kind": "result"
+          }
+        ]
+      }
+    },
+    {
+      "heading": "How the prediction changed",
+      "paragraphs": [
+        "Both probabilities were recorded before the opening quote was revealed. The smaller empirical error spread raised the probability of the narrow band; the estimated bias was close to zero. Kalshi was more confident that the high would land inside this particular band."
+      ],
+      "finding_refs": [],
+      "table": {
+        "headers": [
+          "Stage",
+          "Probability",
+          "Gap below opening midpoint"
+        ],
+        "rows": [
+          [
+            "Initial NBS model",
+            "22.3%",
+            "14.2 percentage points"
+          ],
+          [
+            "After declared reference-class research",
+            "24.4%",
+            "12.1 percentage points"
+          ],
+          [
+            "Opening Kalshi midpoint",
+            "36.5%",
+            "Target, not an outcome"
+          ],
+          [
+            "Later Kalshi midpoint",
+            "35.0%",
+            "Market movement reported separately"
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Selection, timing and what was hidden",
+      "paragraphs": [
+        "This is a one-question process-development exercise. We selected the next-day Chicago market to change both city and forecast horizon from the earlier NYC case. Selection was opportunistic, not a random sample of Kalshi contracts. The first bracket, 78–79°F, failed the ten-contract depth requirement. The adjacent 76–77°F bracket passed the same requirements; they were not relaxed.",
+        "The opening quote was captured at 14:59:25 UTC on September 16, before weather research. The initial probability and research plan were recorded at 15:01 UTC. The final checkpoint and seal were recorded at 15:04 UTC. The quote was revealed at 15:17:29 UTC. The initial forecast used the current NBS product, so it is not a completely uninformed prior.",
+        "The same assistant context handled the NYC and Chicago cases. The evaluator’s store was not inspected during research, but no separate context or enforced access barrier was used. No target probability was observed before sealing; contract thresholds were visible. Costs and model usage were not separately metered.",
+        "The opening order book had a 35-cent Yes bid and 38-cent Yes ask, with 24.02 and 20 contracts at those best quotes. About 92 bid-side and 101 ask-side contracts were within two cents of the best quotes. These figures establish that this snapshot passed the declared screen. They do not establish sustained depth, trading volume, or probability calibration."
+      ],
+      "finding_refs": []
+    },
+    {
+      "heading": "The reference class: matching the forecast we actually made",
+      "paragraphs": [
+        "We paired every completed target day from July 18 through September 15 with its previous-day 06 UTC NBS forecast for KMDW. NOAA defines the daytime maximum TXN as covering 12 UTC through the following 06 UTC, reported at the following 00 UTC. For this next-day exercise, that is a 42-hour forecast lead. Matching the lead matters: same-day forecast errors would answer a different question.",
+        "IEM supplied both archived forecasts and MDW station daily maxima. All 60 dates were present; none were removed for unusually large errors. The average observation minus forecast was +0.083°F, with a sample standard deviation of 2.513°F. This sample shows almost no overall bias, but individual-day errors remain large compared with a two-degree contract band.",
+        "These are 60 consecutive late-summer days, not 60 independent weather experiments. Seasonal changes and persistent weather patterns limit transfer to tomorrow. IEM’s daily summaries and TWC’s final settlement values have not been shown to be identical. The live archive also does not certify exactly what data was available at each historical forecast time."
+      ],
+      "finding_refs": [
+        "pkt_0f9495b8202397b68c559849:residuals",
+        "pkt_0f9495b8202397b68c559849:settlement_gap"
+      ]
+    },
+    {
+      "heading": "The calculation, including the subjective choices",
+      "paragraphs": [
+        "The current 06 UTC NBS run predicts 78°F for September 17. Add the sample mean residual to obtain a predictive center of 78.083°F. Use residual variance multiplied by (1 + 1/60) to allow for uncertainty in the estimated mean, then add 1°F squared for a separately assumed source and reporting-window discrepancy. The resulting standard deviation is 2.724°F.",
+        "Assuming a normal distribution and nearest-integer reporting, a final report of 76°F or 77°F corresponds approximately to an underlying value from 75.5°F to 77.5°F. The area under this distribution over that interval is 24.3743%. Decimal places make the computation reproducible; they do not indicate corresponding forecasting precision.",
+        "The model distribution, constant bias, 1°F allowance and rounding rule were all fixed before historical retrieval. They remain assumptions. The extra allowance is not estimated from a matched sample of TWC versus IEM reports. The simpler unsmoothed residual calculation puts 13 of 60 translated observations in the band, or 21.7%."
+      ],
+      "finding_refs": [
+        "pkt_0f9495b8202397b68c559849:calculation",
+        "pkt_0f9495b8202397b68c559849:settlement_gap"
+      ],
+      "table": {
+        "headers": [
+          "Quantity",
+          "Value",
+          "Status"
+        ],
+        "rows": [
+          [
+            "Current NBS point forecast",
+            "78°F",
+            "Observed forecast input"
+          ],
+          [
+            "Historical mean residual",
+            "+0.083°F",
+            "Estimated from 60 proxy pairs"
+          ],
+          [
+            "Historical residual spread",
+            "2.513°F",
+            "Estimated sample standard deviation"
+          ],
+          [
+            "Additional source/window spread",
+            "1°F",
+            "Declared subjective assumption"
+          ],
+          [
+            "Final distribution",
+            "Mean 78.083°F; SD 2.724°F",
+            "Gaussian model"
+          ],
+          [
+            "Probability of 76–77°F",
+            "24.4%",
+            "Calculated under those assumptions"
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Checks that challenge the model",
+      "paragraphs": [
+        "A chronological diagnostic fitted the first 40 days and checked the final 20. Uncorrected forecast RMSE was 2.559°F; applying the earlier sample’s bias made it slightly worse, at 2.596°F. Nineteen of the 20 observations fell within the model’s nominal 90% interval. That is a small check, and does not demonstrate improved bias correction or reliable probability calibration. The final model still uses all 60 days because that choice was declared in advance.",
+        "The NWS Midway point forecast, updated at 10:45 UTC before the quote capture, predicts 76°F rather than NBS’s 78°F. The Chicago discussion describes showers and storms potentially lasting into Thursday morning, followed by drier conditions. Clouds, rain placement and wind direction create a plausible reason for forecast disagreement. We did not convert that narrative into an arbitrary numerical adjustment.",
+        "Using the NWS raw center of 76°F with the final model’s spread gives 28.2%. We do not transfer the NBS bias correction to NWS, a different forecast product. Shifting our own final center by ±1°F yields 18.6–28.0%; the full declared combination of mean shifts and 0–2°F extra spread yields 17.8–29.9%. These are assumption sensitivities, not confidence intervals.",
+        "The TWC portal loaded, but its retrieved page shell and one inspected script did not provide an exact historical settlement series or establish rounding conventions. That check was limited. The report retains the provider mismatch rather than claiming the station archive resolved it."
+      ],
+      "finding_refs": [
+        "pkt_0f9495b8202397b68c559849:holdout",
+        "pkt_0f9495b8202397b68c559849:weather_disagreement",
+        "pkt_0f9495b8202397b68c559849:settlement_gap",
+        "pkt_0f9495b8202397b68c559849:calculation"
+      ]
+    },
+    {
+      "heading": "What comparison with Kalshi tells us",
+      "paragraphs": [
+        "The opening midpoint was 36.5%, making the final estimate 12.1 percentage points lower and 10.6 points below the opening bid. Research reduced squared distance from the opening midpoint from 0.02028 to 0.01470. This describes closer agreement on one selected case; it is not a Brier score and does not establish accuracy or a causal benefit from research.",
+        "The later quote was 34–36%, midpoint 35%, a decline of 1.5 points. The best later ask had only four contracts, below the ten-contract opening requirement. We preserve that later snapshot with this qualification and continue to use the opening target. The contract terms did not change.",
+        "A post-reveal diagnostic pinpoints a limitation: with standard deviation 2.724°F, the highest possible Gaussian probability in any two-degree interval is 28.65%, achieved when centered exactly on that interval. Changing the point forecast alone therefore cannot reproduce the opening midpoint. An optimally centered Gaussian would require a standard deviation near 2.11°F to reach 36.5%. That is a diagnosis of the disagreement, not a fitted replacement forecast or evidence that the market is right."
+      ],
+      "finding_refs": []
+    },
+    {
+      "heading": "The next process experiment",
+      "paragraphs": [
+        "The main research opportunity is conditional uncertainty: does a model’s current dispersion, forecast lead and weather regime identify days with a narrower or wider error distribution? On a fresh hidden target, specify that conditioning method and a chronological validation procedure before inspecting outcomes. Use enough data to avoid carving a tiny, favorable reference class out of the history.",
+        "Also specify the latest available forecast cycle and obtain observations from the exact settlement source where possible. The 06 UTC run here was convenient for matching history, but was already several hours old when the target was captured. Retain this sealed 24.4% forecast unchanged; evaluate the improved process on a new case."
+      ],
+      "finding_refs": []
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "task_id": "task_2efb523637534d12a765",
+  "expected_revision": 0,
+  "idempotency_key": "trial_09b23dc4e93be102821d52dd-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.34,
+    "rationale": "The supplied NWS search-index capture forecasts a high near 89\u00b0F at Miami International Airport for September 19, placing the forecast inside the requested 88\u201389\u00b0F interval. That supports a meaningful chance of YES, but a point forecast does not establish the probability of a narrow two-degree bin. My 34% estimate assumes ordinary next-day high-temperature uncertainty of a few degrees, rather than treating 89\u00b0F as an exact prediction. The 80% precipitation forecast and thunderstorms make cloud cover and storm timing important: early storms could suppress the maximum, while sunshine before storms could allow it to exceed 89\u00b0F. The strongest reason this estimate could be too high is that convective uncertainty or a stale search-index forecast could spread outcomes more widely than assumed. The strongest reason it could be too low is that the airport forecast could be well calibrated and local temperatures more tightly concentrated around 88\u201389\u00b0F. Settlement depends on The Weather Company's final reported maximum, not the NWS forecast or a preliminary observation.",
+    "limitations": [
+      "The forecast is supplied as a search-index capture and was not independently verified against a current direct forecast page.",
+      "No current observations, hourly forecast, or fitted forecast-error distribution is supplied; the numerical probability is judgmental.",
+      "NWS airport-point forecasts may differ from the contract's Weather Company result through station representation, rounding, conversion, or revisions.",
+      "An 80% precipitation probability does not specify storm timing, duration, or its effect on the daily maximum."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_926aa3369a3e513e8c385e5e",
+        "record_id": "miami"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.031170000000000003
+  }
+}

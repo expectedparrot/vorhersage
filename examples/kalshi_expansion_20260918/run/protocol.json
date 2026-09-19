@@ -1,0 +1,57 @@
+{
+  "registered_at": "2026-09-19T01:01:44.958011Z",
+  "candidate_inventory_sha256": "a0b84d1c9f97a823c9934c142c11db238b4cd2623bc1fddbb2f023272b2f86a4",
+  "selection": "Use the exact 20 nominated contracts, in their existing order. No replacement after quote eligibility or outcome checks.",
+  "eligibility": {
+    "max_spread": 0.1,
+    "min_contracts_each_side": 1,
+    "require_unknown_outcome": true,
+    "minimum_hours_before_event": 12
+  },
+  "design": "Three models crossed with question-only/outside research; one independent call per cell; shared evidence.",
+  "models": {
+    "astra": {
+      "provider": "openai",
+      "name": "gpt-6-astra",
+      "parameters": {
+        "max_tokens": 8192,
+        "reasoning_effort": "high",
+        "temperature": 1
+      }
+    },
+    "fable": {
+      "provider": "anthropic",
+      "name": "claude-fable-5-1",
+      "parameters": {
+        "max_tokens": 8192,
+        "thinking": {
+          "type": "adaptive"
+        },
+        "output_config": {
+          "effort": "high"
+        }
+      }
+    },
+    "gemini": {
+      "provider": "google",
+      "name": "gemini-3.1-pro-preview",
+      "parameters": {
+        "maxOutputTokens": 8192,
+        "temperature": 0.5,
+        "thinking_budget": 2048,
+        "topK": 40,
+        "topP": 1
+      }
+    }
+  },
+  "maximum_model_calls": 120,
+  "planning_budget_usd": 20,
+  "budget_note": "Not a provider-enforced cap. Include rejected response costs and report unknown usage.",
+  "sources": "Primary nonmarket domains, captured receipts, no price-bearing search results or market-derived evidence.",
+  "blinding": "Opening prices sealed before research. No quote inspection until all calls have terminal records and forecasts are sealed.",
+  "output_rule": "Strict JSON and exact identities; no forecast repairs or study retries. Excluded market mentions remain excluded.",
+  "analysis": "Same-contract comparisons, MAE/RMSE/outside-spread distance. All-available and fully matched cohorts separately. Equal-weight ensemble only where all members accepted.",
+  "nfl": "Forecast probability of a win. Ties pay 0.5, so the market price is a payout proxy rather than exactly a win probability; also report non-NFL scores.",
+  "calibration": "Exploratory expansion only. No correction fitted or deployed; reserve a separate future cohort for validation.",
+  "dependence": "Report macroeconomic, labor/inflation, launch-count, and NFL clusters. Distinct contracts are not independent observations."
+}

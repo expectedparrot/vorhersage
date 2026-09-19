@@ -1,0 +1,10 @@
+{
+  "kind": "reflection",
+  "payload": {
+    "what_helped": "Predeclaring the window, horizon and estimator made the calculation reproducible. All60 pairs were retained. Residual calibration reduced the opening-midpoint gap from14.24 to12.13 points; this is a descriptive change on one case. The chronological check surfaced that bias correction did not improve held-out RMSE.",
+    "what_did_not": "The final24.37% remains below the35\u201338% opening spread. With SD2.724\u00b0F, even a Gaussian centered optimally in the bracket has at most28.65% probability, so merely substituting the cooler NWS center cannot close the gap. The later midpoint was35% with only4 contracts at the best ask, failing our opening depth threshold. We lack exact TWC settlements and conditional forecast-error calibration.",
+    "next_method_change": "On a new hidden-price case, predeclare a latest-available forecast cycle and a calibration method that conditions on forecast horizon and model dispersion or weather regime, using sufficiently many historical examples and a chronological holdout. Obtain exact settlement observations before fitting if possible. A centered Gaussian would need SD about2.11\u00b0F to match this opening midpoint; that is a post-reveal diagnostic, not permission to select that SD or rewrite this forecast. Treat the unresolved market as a development target, not proof of truth."
+  },
+  "expected_revision": 4,
+  "idempotency_key": "chicago-4-reflection"
+}

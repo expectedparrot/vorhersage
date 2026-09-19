@@ -1,0 +1,26 @@
+{
+  "task_id": "task_85ea7f98f6e14c09b774",
+  "expected_revision": 0,
+  "idempotency_key": "trial_2d726bb311f1e1edf37b2840-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.34,
+    "rationale": "The supplied NWS search-index capture forecasts a September 19 high near 89\u00b0F at Miami International Airport, placing the forecast within the requested 88\u201389\u00b0F interval. That supports a meaningful chance of YES, but a point forecast is not an interval probability. My 34% estimate assumes ordinary next-day forecast uncertainty of a few degrees, with additional variability from thunderstorm timing. The reported 80% precipitation chance does not establish whether rain will suppress the day's maximum. The strongest reason this estimate could be too high is that the qualifying interval is narrow: sunshine before storms could readily produce 90\u00b0F or higher, while early clouds and rain could hold the high below 88\u00b0F. The strongest reason it could be too low is that the forecast may be particularly accurate and temperatures may concentrate tightly around 88\u201389\u00b0F. This is a judgmental estimate, not a calibrated forecast-error calculation, and the final Weather Company maximum\u2014not the NWS forecast\u2014determines settlement.",
+    "limitations": [
+      "The forecast evidence is a search-index capture rather than a verified current direct-page forecast.",
+      "No observed temperatures for the target day, hourly storm timing, ensemble guidance, or fitted forecast-error distribution are supplied.",
+      "The NWS airport-point forecast may differ from the contract's Weather Company CLIMIA maximum because of location, reporting, rounding, or final revisions."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_926aa3369a3e513e8c385e5e",
+        "record_id": "miami"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.03087
+  }
+}

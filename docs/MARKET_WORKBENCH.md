@@ -251,6 +251,46 @@ workbench stores its own checkpoints rather than manufacturing issued ordinary
 forecasts or resolutions. Existing forecasting workflows can be used alongside it
 and their artifacts linked to checkpoints.
 
+## 7. Screen output mentions and evaluate repeated calls
+
+The optional Python helper `vorhersage.market_screen.screen_market_mentions`
+uses the versioned policy `market-mentions-v2`. It retains an audit flag for a
+complete denial such as “No prediction-market odds were used” without treating
+that sentence as affirmative evidence of exposure. Other references, including
+qualified denials and quoted prices, return `review_required`.
+
+```python
+from vorhersage.market_screen import screen_market_mentions
+
+screening = screen_market_mentions("No prediction-market odds were used.")
+assert screening["status"] == "denials_only"
+```
+
+This is lexical triage, not a truth or isolation check. A study must specify its
+review policy before inference, preserve decisions against exact response hashes,
+and finish review before revealing targets. Source screening remains stricter:
+the denial exception is for forecast prose, not permission to ingest market
+sources. Existing studies retain their registered acceptance rules.
+
+`vorhersage.market_evaluation.score_draws` distinguishes the mean loss of repeated
+calls from the loss of their average forecast:
+
+```python
+from vorhersage.market_evaluation import score_draws
+
+scores = score_draws([0.0, 1.0], 0.5, bid=0.49, ask=0.51)
+assert scores["mean_draw_absolute_error_pp"] == 50.0
+assert scores["mean_forecast_absolute_error_pp"] == 0.0
+```
+
+The helper also reports sample standard deviation, range, root mean squared
+distance, and mean distance outside the spread. One draw has unknown sample
+standard deviation (`None`), not zero. Aggregate repeated-call losses within
+question before averaging equally across questions. Repetitions do not add
+independent events, and their spread is not a confidence interval for forecast
+accuracy. See the [repeated blinded study](../examples/kalshi_repeated_20260918/README.md)
+for a registered three-model, two-condition, three-repetition example.
+
 ### API references
 
 - [Kalshi public market-data quickstart](https://docs.kalshi.com/getting_started/quick_start_market_data)

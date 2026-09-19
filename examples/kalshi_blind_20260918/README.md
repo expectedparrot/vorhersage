@@ -18,8 +18,14 @@ midpoint from 33.17 to 8.58 percentage points.** Five forecasts moved closer;
 one was unchanged. All 12 model responses passed strict validation and were
 issued before any target price was revealed. None were repaired or rerun.
 
-This tests market agreement on six selected unresolved contracts. It does not
-establish outcome accuracy, calibration, or superiority of an elaborate workflow.
+This uses market prices as a prospective intermediate benchmark on six selected
+unresolved contracts. The future realized outcomes are unavailable to memorize
+or retrieve, while prices provide immediate evaluation targets. Research on
+[market forecasting performance](https://doi.org/10.1257/0895330041371321) and
+[probability calibration](https://doi.org/10.1111/j.1468-0297.2012.02561.x)
+supports this use, particularly for well-traded contracts with appropriate
+horizons. The pilot measures improvement against that benchmark; its small
+sample and single draw per arm limit generalization.
 
 | Contract (YES event) | Opening bid–ask | Midpoint | Question only | Outside research | Absolute gap after research |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -42,10 +48,13 @@ from 3 to 7 cents. No case was removed from the paired comparison.
 | Root mean squared gap | 40.83 pp | 11.40 pp | 33.64 pp |
 | Mean distance outside opening spread | 32.25 pp | 7.67 pp | 26.83 pp |
 
-These are probability-distance metrics against a quote, **not Brier scores
-against outcomes**. The spread is not a confidence interval. In particular,
-Neutron's opening best bid had only five contracts of size, so its midpoint
-should not be treated as a precise estimate of truth.
+These probability-distance metrics provide immediate feedback against the market
+benchmark; scoring after settlement can complement them with realized-outcome
+evaluation. The report explains the connection between squared probability
+distance and expected Brier loss under an ideal probability reference.
+Liquidity remains a contract-specific consideration: Neutron's opening best
+bid had only five contracts of size. Larger studies should apply stronger
+depth criteria. The bid–ask spread describes quotes, not a confidence interval.
 
 ## What was held fixed
 
@@ -101,9 +110,10 @@ allowed evidence; they are not market probabilities for the target event.
 
 This is auditable input separation, not proof of independent blinding. The
 coordinator could technically read the vault but did not do so before sealing.
-Lexical filters are incomplete, and unknown model pretraining exposure cannot
-be ruled out. Contract selection and thresholds themselves remain part of the
-question definition. No training-contamination certification is claimed.
+Lexical filters are incomplete, so indirect exposure to prices or market-derived
+commentary remains possible. This is distinct from leakage of the future realized
+outcomes, which are unavailable at forecast time. Contract selection and
+thresholds themselves remain part of the question definition.
 
 ## Research and failure analysis
 

@@ -1,0 +1,34 @@
+{
+  "registered_at": "2026-09-19T01:49:54.148298Z",
+  "candidate_inventory_sha256": "dd3366fea49bf2c135a36b4b2bc9b07d15fc24a89bc02f679d3d04ef44b25305",
+  "selection": "Exact 11 nominations, no replacement. Spread <=0.10, size >=1 each side, nonextreme uncrossed active book. Unknown outcome verified from primary sources before inference. Exclude incomplete definitions or unavailable threshold-crossing checks.",
+  "timing": "At least 12 hours until defined event deadline; daily-weather forecasts must additionally be issued before the local target day begins. Global forecast cutoff 2026-09-19T03:45:00Z.",
+  "design": {
+    "models": [
+      "gpt-6-astra",
+      "claude-fable-5-1",
+      "gemini-3.1-pro-preview"
+    ],
+    "conditions": [
+      "question_only",
+      "outside_research"
+    ],
+    "repetitions": 3,
+    "maximum_calls": 198,
+    "planning_budget_usd": 20
+  },
+  "budget_note": "Planning bound, not provider-enforced aggregate cap. Preserve cost of all attempts. No study retries or repairs.",
+  "screening": {
+    "policy": "market-mentions-v2",
+    "benign": "Narrow complete denials pass with flags retained. All other lexical mentions require a recorded pre-reveal decision. Allow only explicit non-use statements or definition-only references containing no quoted or reconstructed market information. Claimed or ambiguous price use is excluded. No content review after target reveal.",
+    "source_boundary": "Strict primary-domain and excluded-market-text checks remain unchanged in purpose. The output denial exception never applies to sources."
+  },
+  "research": "Primary nonmarket receipts and curated frozen packets; no model tools, prior results, or other forecasts in prompts. All models see the same prompt per question/condition/repetition. Administrative replicate ID distinguishes fresh calls; remote cache disabled.",
+  "analysis": {
+    "primary": "Complete across all models, conditions, and three repetitions. Average absolute loss within each question/model/condition, then equally across questions; calls are not independent questions.",
+    "secondary": "Score each model's three-draw mean separately from expected single-draw loss. Equal-weight cross-model average uses three-draw research means. Report per-cell sample SD and ranges, acceptance, costs, domain-group summaries, and follow-up quote sensitivity.",
+    "uncertainty": "Descriptive only: small selected sample of dependent groups. No confidence claim from repeated calls or pooled trials.",
+    "calibration": "No fitted correction or weights in this batch. No reuse as an untouched validation cohort after examining its scores."
+  },
+  "blinding": "Commit evaluator prices before research. Verify actual prompts, model identities, all terminal attempts, pre-reveal reviews, and forecast seals before revealing any target."
+}

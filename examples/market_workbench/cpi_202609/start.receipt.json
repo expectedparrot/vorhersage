@@ -1,0 +1,68 @@
+{
+  "schema_version": "1",
+  "status": "ok",
+  "command": "workbench",
+  "data": {
+    "case_id": "workbench_1ae01f8856bf4dc5926f",
+    "state": "awaiting_initial",
+    "revision": 0,
+    "baseline_captured_at": "2026-09-16T16:41:57.200854Z",
+    "contract": {
+      "event_group": "KXCPI-26SEP",
+      "market_id": "KXCPI-26SEP-T0.2",
+      "resolution_source": "See frozen Kalshi rules and series contract.",
+      "rules": "If the Consumer Price Index (CPI) increases by more than 0.2% (single-decimal) in September 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (October 14, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown.",
+      "scheduled_close": "2026-10-14T12:25:00Z",
+      "title": "Will CPI rise more than 0.2% in September 2026?",
+      "venue": "kalshi",
+      "yes_description": "Above 0.2%"
+    },
+    "created_at": "2026-09-16T16:41:57.207957Z",
+    "limitations": [
+      "Prices are separated from this project, not protected by an operating-system sandbox.",
+      "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+      "The agent must verify the event is still unknown; an open market alone cannot establish this."
+    ],
+    "question": {
+      "created_at": "2026-09-16T16:40:06.267936Z",
+      "specification": {
+        "domain": "economics",
+        "event_deadline": "2026-10-14T12:30:00Z",
+        "event_group": "KXCPI-26SEP",
+        "id": "cpi_sep2026_above_0_2",
+        "kind": "real",
+        "no": "The qualifying expiration value is 0.2% or lower.",
+        "profile": "general",
+        "resolution_source": "BLS September CPI release, scheduled October14 at08:30EDT; Kalshi KXCPI-26SEP-T0.2 rules and CPI contract PDF control rounding, delays, expiration and fallback. Market close08:25EDT differs from release time.",
+        "resolve_after": "2026-10-14T12:31:00Z",
+        "text": "Will the published seasonally adjusted monthly CPI-U increase for September 2026 exceed 0.2%?",
+        "void": "Nonbinary discretionary settlement or unresolved ambiguity about a contingency is outside this binary comparison.",
+        "yes": "The Kalshi expiration value for September 2026 monthly seasonally adjusted all-items CPI-U, published to one decimal place by BLS, is strictly greater than 0.2%; ordinarily a reported 0.3% or higher. The published contract fallback applies if no underlying is released."
+      },
+      "version": 1
+    },
+    "specification": {
+      "contract_match_rationale": "Monthly all-items CPI-U seasonally adjusted, signed one-decimal change; strictly above0.2. Generic terms and market-specific shutdown/close rules retained. Calculation assumes ordinary release; fallback is not independently modeled.",
+      "eligibility_rationale": "September is incomplete and its BLS CPI release is scheduled for October14. Select the0.2% threshold without looking at odds. Require at most5-cent spread and at least10 contracts each side.",
+      "market_id": "KXCPI-26SEP-T0.2",
+      "max_spread": 0.05,
+      "method": "Inflation momentum plus a declared gasoline contribution adjustment; hidden market comparison",
+      "min_contracts_each_side": 10,
+      "mode": "prospective",
+      "question": {
+        "question_id": "cpi_sep2026_above_0_2",
+        "version": 1
+      },
+      "venue": "kalshi"
+    },
+    "target_id": "market_target_801400e0751048d38379",
+    "target_sha256": "0a7d7dada1f4c3a070328db75b3a1a819a7bbec896f7552a354dd9705131e5ac",
+    "journal": [],
+    "evidence": {},
+    "models": {},
+    "next_action": "initial"
+  },
+  "warnings": [],
+  "errors": [],
+  "next_actions": []
+}

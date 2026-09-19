@@ -1,0 +1,27 @@
+{
+  "task_id": "task_488c6d725de14cfab39a",
+  "expected_revision": 0,
+  "idempotency_key": "trial_fe9fc3bbc6a460507ffeaccf-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.3,
+    "rationale": "The latest observed Freddie Mac PMMS 30-year rate is 6.95% (Sep 17, 2026), after a sharp 19 bp weekly jump from 6.76%. Resolution YES requires the Sep 24 print to be at least 7.02% (published to two decimals), i.e., a further rise of about 7 bps or more. Historically, week-to-week PMMS changes have a standard deviation of roughly 10-13 bps with little persistent drift, so a +7 bp move is somewhat less likely than not but far from rare. Because the PMMS is a weekly average of daily rates, a large jump often means end-of-week daily rates were above the weekly mean, which gives modest positive carryover into the next week; this argues for a slightly higher probability than a naive zero-mean random walk. Balancing these, I estimate roughly a 30% chance. Too high: large weekly jumps frequently partially reverse (mean reversion after rate spikes), and the threshold sits 6-7 bps above the current level, so a flat or down week resolves NO. Too low: if the recent surge reflects an ongoing bond-yield selloff (e.g., hawkish Fed repricing or inflation surprise), rates could keep climbing and end-of-week daily rates may already be near or above 7%, making a 7.02%+ weekly average quite plausible. No Treasury/MBS yield or daily lender-rate data are available to resolve this.",
+    "limitations": [
+      "Only five weekly PMMS observations supplied; no daily rate, 10-year Treasury, or MBS spread data to gauge momentum after the Sep 17 jump.",
+      "Weekly change distribution is assumed from general historical behavior, not fitted to current volatility regime.",
+      "Unknown macro catalysts (Fed communications, inflation data) in the Sep 18-24 window could move rates sharply in either direction.",
+      "Rounding/publication conventions assumed standard (two decimals, first published value)."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_af5c51c841cf8552c1d3e224",
+        "record_id": "mortgage"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.07494
+  }
+}

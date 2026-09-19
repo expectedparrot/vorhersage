@@ -1,0 +1,63 @@
+{
+  "kind": "checkpoint",
+  "payload": {
+    "probability": 0.243743131027777,
+    "rationale": "Apply the estimator fixed in the plan without changing its historical window, horizon, Gaussian assumption or 1\u00b0F extra spread. With mean78.0833\u00b0F and SD2.7240\u00b0F, the 76\u201377\u00b0F band has probability24.3743%. Relative to the22.2586% initial, lower estimated dispersion raises band mass; near-zero warm correction offsets a little. NWS disagrees on center, so report its28.19% alternative without silently changing the declared model. The holdout does not support claiming the bias correction improves skill.",
+    "findings": "All60 matched days available. Bias+0.0833\u00b0F; residual SD2.5130\u00b0F. Holdout RMSE worsened slightly after bias correction. NWS76\u00b0F vs NBS78\u00b0F; cloudy/showery regime raises transfer uncertainty. TWC daily history and rounding remain unverified.",
+    "changed_assumptions": [
+      "Empirical local next-day residual SD replaces model XND for primary spread.",
+      "Estimated mean residual+0.0833\u00b0F replaces initial zero-bias assumption.",
+      "Normality,1\u00b0F extra SD,and forecast product remain as declared before historical retrieval."
+    ],
+    "remaining_uncertainties": [
+      "Whether summer pooled residuals transfer to tomorrow\u2019s cloudy/rainy conditions",
+      "Which point forecast center is better for Midway",
+      "Exact TWC settlement versus IEM daily reporting",
+      "Serial dependence and small holdout sample"
+    ],
+    "sources_checked": [
+      "https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KMDW&model=NBS&sts=2026-07-17T00%3A00Z&ets=2026-09-15T00%3A00Z&format=csv",
+      "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-07-18&ets=2026-09-15&network=IL_ASOS&stations=MDW&var=max_temp_f&format=csv",
+      "https://api.weather.gov/gridpoints/LOT/72,69/forecast",
+      "https://forecast.weather.gov/product.php?site=LOT&issuedby=LOT&product=AFD&format=TXT&version=1&glossary=0",
+      "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?help=",
+      "https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0",
+      "https://weather.com/kalshi"
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_0f9495b8202397b68c559849",
+        "record_id": "residuals"
+      },
+      {
+        "packet_id": "pkt_0f9495b8202397b68c559849",
+        "record_id": "holdout"
+      },
+      {
+        "packet_id": "pkt_0f9495b8202397b68c559849",
+        "record_id": "weather_disagreement"
+      },
+      {
+        "packet_id": "pkt_0f9495b8202397b68c559849",
+        "record_id": "settlement_gap"
+      },
+      {
+        "packet_id": "pkt_0f9495b8202397b68c559849",
+        "record_id": "calculation"
+      }
+    ],
+    "limitations": [
+      "IEM daily maxima are not exact TWC settlements.",
+      "NBS daytime maximum and full daily-report time windows differ.",
+      "Gaussian errors, constant bias, nearest-integer rounding and independent 1\u00b0F extra SD are assumptions.",
+      "60 adjacent summer days may be correlated and may not match the current rainy autumn regime.",
+      "Forecast archive is retrieved now, not immutable original publication vintages.",
+      "Same assistant context as NYC; price separation is procedural, not enforced isolation.",
+      "Opening thresholds screen best quotes only, not trading volume or market calibration.",
+      "Usage and monetary costs are unmetered.",
+      "TWC portal check stopped at the public HTML and one script; no authenticated or comprehensive archive search was performed."
+    ]
+  },
+  "expected_revision": 2,
+  "idempotency_key": "chicago-2-checkpoint"
+}

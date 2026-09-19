@@ -1,0 +1,35 @@
+{
+  "sources": [
+    {
+      "id": "current",
+      "url": "https://mesonet.agron.iastate.edu/api/1/mos.json?station=KMDW&model=NBS&runtime=2026-09-16T06%3A00Z",
+      "title": "IEM archived NBS 06 UTC forecast for Midway",
+      "excerpt": "September 16 06 UTC run gives September 17 daytime maximum TXN 78\u00b0F and XND 3\u00b0F, reported at September 18 00 UTC.",
+      "retrieved_at": "2026-09-16T15:00:28.336555+00:00",
+      "excerpt_kind": "paraphrase"
+    },
+    {
+      "id": "definitions",
+      "url": "https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0",
+      "title": "NOAA NBM station card definitions",
+      "excerpt": "NBS maximum TXN spans 12 UTC through following-day 06 UTC and is reported at following-day 00 UTC. XND is the maximum/minimum temperature standard deviation in Fahrenheit.",
+      "retrieved_at": "2026-09-16T15:00:28.336555+00:00",
+      "excerpt_kind": "paraphrase"
+    }
+  ],
+  "findings": [
+    {
+      "id": "forecast78",
+      "claim": "At the next-day horizon the frozen NBS forecast is 78\u00b0F with a 3\u00b0F reported model standard deviation. XND is model uncertainty, not independently demonstrated error calibration.",
+      "source_ids": [
+        "current",
+        "definitions"
+      ],
+      "claim_type": "observation"
+    }
+  ],
+  "limitations": [
+    "Initialization time is not an exact publication timestamp. Retrieval times use conservative bundle capture time.",
+    "NBS daytime maximum and IEM station daily maximum remain proxies for TWC settlement."
+  ]
+}

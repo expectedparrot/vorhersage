@@ -1,0 +1,121 @@
+{
+  "arm_id": "arm_7b67eee7d3b74b8fbad6",
+  "assessment_probability": 0.5,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.08485999999999999,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_a199dcd4fddc25dbdc0c1ef1",
+      "record_id": "fed_statement"
+    },
+    {
+      "packet_id": "pkt_a199dcd4fddc25dbdc0c1ef1",
+      "record_id": "fed_projections"
+    }
+  ],
+  "experiment_id": "experiment_a0bde5a6165d4b359f62",
+  "forecaster": "experiment_a0bde5a6165d4b359f62:arm_7b67eee7d3b74b8fbad6:r1",
+  "information_as_of": "2026-09-18T11:19:02.785870Z",
+  "initial_information_as_of": "2026-09-18T11:19:02.785870Z",
+  "input_manifest": {
+    "arm_7b67eee7d3b74b8fbad6": "97a7789f99e22e22435e20a9f73999cf34cb9e0fa894ef57525291240a27f810",
+    "experiment_a0bde5a6165d4b359f62": "0d03f113f0d69da849a656388f52343453f6b0551baab77fc6647d9e1544fd18",
+    "method_ff6a7919deb641a8ae6b": "83fed5c13c708c76933f5576f8cb15a6c3cd464ecbaaa4d75891a40a9dec1503",
+    "pkt_a199dcd4fddc25dbdc0c1ef1": "0bcd43db7b3412c4121dd68751088c3e85ecb5558509628cd333f3d8d47b2e58",
+    "task_result_95a88aec54b847d3b5f9": "0870a3910de0ed352a1c0ee71a73aa86db3d0f4bc045ae7f22d3ea8b9da4b4b0"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T00:35:57.274128Z",
+  "manifest_sha256": "9b6a35b01d4fbf62febe1dbfb428a897f9b00093bef8c6eb2a22ac376301fca3",
+  "method": "method_ff6a7919deb641a8ae6b",
+  "method_spec_id": "method_ff6a7919deb641a8ae6b",
+  "mode": "retrospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "claude-fable-5-1",
+    "parameters": {
+      "frequency_penalty": 0,
+      "logprobs": false,
+      "max_tokens": 8192,
+      "output_config": {
+        "effort": "high"
+      },
+      "presence_penalty": 0,
+      "temperature": 0.5,
+      "thinking": {
+        "type": "adaptive"
+      },
+      "top_logprobs": 3,
+      "top_p": 1
+    },
+    "provider": "anthropic"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.5,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_ff6a7919deb641a8ae6b"
+  },
+  "question": {
+    "domain": "Monetary policy",
+    "event_deadline": "2026-10-28T17:59:00Z",
+    "event_group": "KXFEDDECISION-26OCT",
+    "id": "fed-2",
+    "kind": "real",
+    "no": "The stated qualifying event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined source; see definition-only rules.",
+    "resolve_after": "2026-10-28T17:59:00Z",
+    "text": "Will the Federal Reserve Hike rates by 0bps at their October 2026 meeting? \u2014 Fed maintains rate",
+    "void": "Nonbinary fair-value settlement or a cancelled/invalid contract is excluded from eventual outcome scoring.",
+    "yes": "If the Federal Reserve does a Hike of 0bps on October 28, 2026, then the market resolves to Yes.\n\nThis market is mutually exclusive. Therefore, if the Federal Reserve hikes by 50bps, the 50bps market will resolve to Yes and the 25bps market will resolve to No. Only one bucket, at maximum, can resolve to Yes. Note 4/28/25: For the markets beginning after the May meeting, if a scheduled FOMC meeting is canceled and does not occur on its scheduled date, then the strike for \"Fed maintains rate\" will resolve to Yes and all others will resolve to No."
+  },
+  "question_id": "fed-2",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-19T04:29:34.904712+00:00",
+  "run_id": "run_be43f1ec3cfa4010bed7",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_7d2f5fb52c92487f4612c51d",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_a199dcd4fddc25dbdc0c1ef1",
+          "record_id": "fed_statement"
+        },
+        {
+          "packet_id": "pkt_a199dcd4fddc25dbdc0c1ef1",
+          "record_id": "fed_projections"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

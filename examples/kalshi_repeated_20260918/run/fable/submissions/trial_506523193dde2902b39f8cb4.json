@@ -1,0 +1,31 @@
+{
+  "task_id": "task_222c7aa122134cc6a83a",
+  "expected_revision": 0,
+  "idempotency_key": "trial_506523193dde2902b39f8cb4-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.43,
+    "rationale": "Observed: August 2026 starts printed 1.275M SAAR (down 2.6% from revised July 1.309M), with permits at 1.394M, and 30-year mortgage rates climbing from ~6.65% in late August to 6.95% by September 17. The question asks whether the first print of September starts exceeds 1.300M, roughly 2% above August. Monthly starts are very noisy (typical month-over-month moves of 5-8%, i.e., roughly \u00b170-100k), so the outcome is close to a coin flip around the recent level. Factors pulling toward a bounce: the wide permits-starts gap (~120k) suggests a pipeline of authorized-but-not-started units, and single-month dips are often partly reversed. Factors pulling down: the sharp late-summer rise in mortgage rates weighs on builder sentiment and single-family starts, and the two-month trajectory (1.309 \u2192 1.275) is declining. My central expectation for the September print is roughly 1.28-1.30M, slightly below the threshold, giving a probability modestly under 50%. Too high risk: if the rate spike quickly dampens single-family starts and the August weakness reflects a genuine downtrend, prints in the 1.22-1.27 range become likely and 1.300 would be missed comfortably. Too low risk: multifamily starts are lumpy and a single large multifamily month, or catch-up from the permit backlog, could easily push the headline to 1.32M+; also August may be revised and the 1.275 figure may understate the underlying level. Transfer assumptions: I assume historical volatility of starts and typical lag of rate effects apply; no September data (builder surveys, weekly mortgage applications after Sept 17) were supplied.",
+    "limitations": [
+      "September data not yet released; August figure is preliminary and subject to revision.",
+      "No information on multifamily vs single-family composition, builder sentiment, or weather/hurricane disruptions in September.",
+      "Estimate relies on general historical volatility of housing starts rather than a fitted model.",
+      "Mortgage rate data ends September 17; later moves unknown."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_0c399e3114671f1068f334fb",
+        "record_id": "housing"
+      },
+      {
+        "packet_id": "pkt_0c399e3114671f1068f334fb",
+        "record_id": "mortgage"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.08346
+  }
+}

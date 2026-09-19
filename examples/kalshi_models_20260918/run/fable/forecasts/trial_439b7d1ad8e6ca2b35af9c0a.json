@@ -1,0 +1,102 @@
+{
+  "arm_id": "arm_55f14f11aa5d4ec1a10f",
+  "assessment_probability": 0.57,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.06854,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "question_only",
+  "evidence_refs": [],
+  "experiment_id": "experiment_a0bde5a6165d4b359f62",
+  "forecaster": "experiment_a0bde5a6165d4b359f62:arm_55f14f11aa5d4ec1a10f:r1",
+  "information_as_of": "2026-09-18T11:19:02.785870Z",
+  "initial_information_as_of": "2026-09-18T11:19:02.785870Z",
+  "input_manifest": {
+    "arm_55f14f11aa5d4ec1a10f": "6864b876274917d0105b19396d57fb77b3f35d2ce6c32052851b9478a9eee28d",
+    "experiment_a0bde5a6165d4b359f62": "0d03f113f0d69da849a656388f52343453f6b0551baab77fc6647d9e1544fd18",
+    "method_ff6a7919deb641a8ae6b": "83fed5c13c708c76933f5576f8cb15a6c3cd464ecbaaa4d75891a40a9dec1503",
+    "task_result_4a15171058a04b50a7e1": "0309c7354e662aaf6e887021975cdbed4f52451e5f58315b5b040784b9335cc9"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T00:35:57.281644Z",
+  "manifest_sha256": "6af1f71e7e33e6577a704464fb719f8f97aa7d18f754ba8efb552f00c2e2acb8",
+  "method": "method_ff6a7919deb641a8ae6b",
+  "method_spec_id": "method_ff6a7919deb641a8ae6b",
+  "mode": "retrospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "claude-fable-5-1",
+    "parameters": {
+      "frequency_penalty": 0,
+      "logprobs": false,
+      "max_tokens": 8192,
+      "output_config": {
+        "effort": "high"
+      },
+      "presence_penalty": 0,
+      "temperature": 0.5,
+      "thinking": {
+        "type": "adaptive"
+      },
+      "top_logprobs": 3,
+      "top_p": 1
+    },
+    "provider": "anthropic"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.57,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_ff6a7919deb641a8ae6b"
+  },
+  "question": {
+    "domain": "Monetary policy",
+    "event_deadline": "2026-10-28T17:59:00Z",
+    "event_group": "KXFEDDECISION-26OCT",
+    "id": "fed-2",
+    "kind": "real",
+    "no": "The stated qualifying event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined source; see definition-only rules.",
+    "resolve_after": "2026-10-28T17:59:00Z",
+    "text": "Will the Federal Reserve Hike rates by 0bps at their October 2026 meeting? \u2014 Fed maintains rate",
+    "void": "Nonbinary fair-value settlement or a cancelled/invalid contract is excluded from eventual outcome scoring.",
+    "yes": "If the Federal Reserve does a Hike of 0bps on October 28, 2026, then the market resolves to Yes.\n\nThis market is mutually exclusive. Therefore, if the Federal Reserve hikes by 50bps, the 50bps market will resolve to Yes and the 25bps market will resolve to No. Only one bucket, at maximum, can resolve to Yes. Note 4/28/25: For the markets beginning after the May meeting, if a scheduled FOMC meeting is canceled and does not occur on its scheduled date, then the strike for \"Fed maintains rate\" will resolve to Yes and all others will resolve to No."
+  },
+  "question_id": "fed-2",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-19T04:29:34.904712+00:00",
+  "run_id": "run_ffa309893b14460eabdc",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_439b7d1ad8e6ca2b35af9c0a",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": []
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

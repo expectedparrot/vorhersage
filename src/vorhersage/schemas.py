@@ -40,6 +40,7 @@ RUN = obj({"question_id": TEXT, "question_version": {"type": "integer", "minimum
            "coherence_policy": enum("warn", "strict"),
            "workflow": enum("standard", "timeline"),
            "research_contract": enum("structured_v1", "structured_v2"),
+           "research_effort": enum("deep", "standard", "minimal"),
            "previous_forecast_id": TEXT},
           ["question_id", "forecaster", "method", "mode", "information_as_of", "max_searches", "max_extra_tasks"])
 REFERENCE_QUERY = obj({"tags": array(TEXT, 1), "horizon_days": {"type": "number", "minimum": 0.000001},
@@ -48,8 +49,17 @@ PRIOR = obj({"method": enum("judgment", "reference_class"), "rationale": TEXT,
              "research_status_at_estimate": enum("not_started", "in_progress", "completed", "unspecified"),
              "limitations": array(), "evidence_refs": REFS, "probability": PROB,
              "selection_rule": TEXT, "reference_query": REFERENCE_QUERY,
-             "cases": array(obj({"id": TEXT, "outcome": enum(0, 1), "evidence_refs": array(REF, 1)}), 1)},
-            ["method", "rationale", "limitations", "evidence_refs"])
+             "cases": array(obj({"id": TEXT, "outcome": enum(0, 1), "evidence_refs": array(REF, 1)}), 1),
+             "reference_class_exception": TEXT},
+             ["method", "rationale", "limitations", "evidence_refs"])
+REFERENCE_CLASS_DESIGN = obj({"rationale": TEXT, "population": TEXT, "selection_rule": TEXT,
+                              "metric": TEXT, "search_plan": array(TEXT, 1), "limitations": array(),
+                              "evidence_refs": REFS})
+REFERENCE_CLASS_ANALYSIS = obj({"status": enum("complete", "blocked"), "analysis_id": TEXT,
+                                "case_count": {"type": "integer", "minimum": 0},
+                                "independent_episode_count": {"type": "integer", "minimum": 0},
+                                "estimator": TEXT, "result": TEXT, "limitations": array(),
+                                "evidence_refs": REFS, "analysis_path": TEXT})
 DRIVERS = obj({"drivers": array(obj({"name": TEXT, "mechanism": TEXT, "evidence_refs": REFS}), 1),
                "yes_path": TEXT, "no_path": TEXT, "unknowns": array()})
 RESEARCH = obj({"disposition": enum("assessed", "unknown"), "interpretation": TEXT,
@@ -354,6 +364,7 @@ WORKBENCH_SUBMIT = obj({"kind": enum("initial", "plan", "checkpoint", "finish", 
                         "expected_revision": COUNT, "idempotency_key": TEXT, "payload": {"type": "object"}})
 
 SCHEMAS = {"question": QUESTION, "profile": PROFILE, "run": RUN, "submit": SUBMIT,
+           "reference_class_design": REFERENCE_CLASS_DESIGN, "reference_class_analysis": REFERENCE_CLASS_ANALYSIS,
            "model_map": MODEL_MAP, "model_challenge": MODEL_CHALLENGE,
            "intake": INTAKE, "inquiry": INQUIRY, "parameter_support": PARAMETER_SUPPORT,
            "prior": PRIOR, "drivers": DRIVERS, "research": RESEARCH, "assessment": ASSESSMENT,

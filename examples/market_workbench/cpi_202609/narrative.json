@@ -1,0 +1,220 @@
+{
+  "record_sha256": "1e693802426ef1db3df4b38705474eb1ec94370797176a6347a91ef49e45755a",
+  "title": "Will September CPI rise more than 0.2%?",
+  "summary": "Our sealed estimate is 66.9%; Kalshi’s opening midpoint was 98.5%. Current gasoline data changed the model sharply, but a 31.6-point disagreement remains. This non-weather case exposes a concrete process weakness: we adjusted the expected CPI increase without validating the uncertainty of the complete model.",
+  "sections": [
+    {
+      "heading": "What counts as Yes?",
+      "paragraphs": [
+        "Kalshi contract KXCPI-26SEP-T0.2 concerns the signed, seasonally adjusted monthly increase in the all-items Consumer Price Index for All Urban Consumers (CPI-U) for September 2026. It is not annual inflation or core inflation. The BLS figure must be greater than 0.2% when published to one decimal place: ordinarily 0.3% or higher.",
+        "The release is scheduled for October 14 at 8:30 a.m. Eastern. The market-specific rules close trading five minutes earlier. Delay, shutdown, no-data fallback and review provisions are retained in the contract record. Our numerical model assumes an ordinary release; it does not separately model those exceptional cases."
+      ],
+      "finding_refs": []
+    },
+    {
+      "heading": "Methodology at a glance",
+      "paragraphs": [
+        "The market quote stayed in a separate evaluator store until the forecast was sealed. The reference window, formula and gasoline adjustment were specified before data extraction. Blue boxes contain evidence, amber boxes assumptions, and green boxes calculated results."
+      ],
+      "finding_refs": [],
+      "flowchart": {
+        "caption": "Two model stages within one research pass. The stages are not independent experiments; gasoline information had already been collected when the intermediate momentum result was journaled.",
+        "steps": [
+          {
+            "title": "1. Freeze a usable Kalshi quote",
+            "text": "Require spread at most 5 cents and at least 10 contracts on each best quote. Save price separately before substantive CPI research.",
+            "kind": "process"
+          },
+          {
+            "title": "2. Record the starting assumptions",
+            "text": "Subjective monthly CPI center 0.20%, SD 0.15 percentage points; probability above the rounding cutoff: 36.9%.",
+            "kind": "judgment"
+          },
+          {
+            "title": "3. Fit the declared momentum model",
+            "text": "Use the mean of June–August headline changes. Estimate errors over 48 calendar targets; 43 are usable after missing-data exclusions. Result: 18.8%.",
+            "kind": "data"
+          },
+          {
+            "title": "4. Check the influential gasoline input",
+            "text": "FRED is one week behind. EIA provides September 14 price of $4.455 per gallon. Project the rest of September flat at that price.",
+            "kind": "data"
+          },
+          {
+            "title": "5. Replace the gasoline contribution",
+            "text": "Projected raw gasoline increase 4.22%; September seasonal correction about +2.22 points. Replace the prior three-month gasoline trend.",
+            "kind": "result",
+            "inputs": [
+              {
+                "title": "Published expenditure weight",
+                "text": "Gasoline weight 3.770% from the August BLS release, explicitly labeled as July relative importance.",
+                "kind": "data"
+              },
+              {
+                "title": "Declared approximations",
+                "text": "Flat remaining-month prices, five-year seasonal correction and linear contribution arithmetic.",
+                "kind": "judgment"
+              }
+            ]
+          },
+          {
+            "title": "6. Calculate and challenge the estimate",
+            "text": "Headline center 0.366%; retained SD 0.266 percentage points. Probability 66.9%. Check price-path sensitivity and weak holdout coverage.",
+            "kind": "result"
+          },
+          {
+            "title": "7. Seal, then reveal the market",
+            "text": "Seal September 16 at 16:47 UTC. Opening market target: 98.5%. The forecast misses that target by 31.6 percentage points.",
+            "kind": "process"
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The recorded estimates",
+      "paragraphs": [
+        "Our initial estimate was a subjective starting model. The momentum stage replaces it with a reproducible historical calculation. The gasoline stage incorporates current information about an influential component. All three estimates were recorded before the market quote was revealed."
+      ],
+      "finding_refs": [],
+      "table": {
+        "headers": [
+          "Stage",
+          "Probability",
+          "Gap below opening midpoint"
+        ],
+        "rows": [
+          [
+            "Subjective initial model",
+            "36.9%",
+            "61.6 percentage points"
+          ],
+          [
+            "Historical headline momentum",
+            "18.8%",
+            "79.7 percentage points"
+          ],
+          [
+            "After current gasoline adjustment",
+            "66.9%",
+            "31.6 percentage points"
+          ],
+          [
+            "Opening Kalshi quote",
+            "98–99%; midpoint 98.5%",
+            "Frozen development target"
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Selection, chronology and liquidity",
+      "paragraphs": [
+        "The contract was chosen without viewing its price. Its opening quote was captured at 16:41:57 UTC on September 16. The initial estimate and plan followed at 16:42. The two calculated checkpoints and seal were saved at 16:47. Reveal occurred at 22:28:05 UTC; the later quote was still 98–99%. The research record does not use intervening information to rewrite the estimate.",
+        "The opening best bid had 595.01 contracts and the best ask 2,954.5. There were 5,140.01 bid-side contracts within two cents of the best bid. Both snapshots passed the original ten-contract screen, with unchanged contract terms. This is materially stronger quote depth than the weather examples, although two snapshots do not establish sustained liquidity or market calibration.",
+        "This was the same assistant context, with broad macroeconomic information from an earlier Fed case already present. The evaluator store was not inspected before sealing, but no independent context or enforced access barrier was used. Contract thresholds were visible. Research and monetary costs were not separately metered."
+      ],
+      "finding_refs": []
+    },
+    {
+      "heading": "Why the momentum-only estimate was low",
+      "paragraphs": [
+        "The fixed baseline averages the preceding three monthly headline CPI changes. Calculated from the downloaded BLS indices, June was −0.4225%, July +0.0737% and August +0.3960%. Their mean is just +0.0157%. A large June decline therefore continues to pull down this simple September extrapolation.",
+        "We compared the same three-month rule with subsequent monthly changes for every target month from September 2022 through August 2026. October 2025 has no published headline index in the downloaded series. That breaks both the target change and several lagged changes, leaving five excluded target months, October 2025 through February 2026. No values were interpolated.",
+        "The 43 remaining errors have mean −0.0010 percentage points and sample standard deviation 0.2625. Adding the estimated mean error and its simple sampling-uncertainty allowance gives a baseline center of 0.0147% and spread of 0.2655 percentage points. Under a normal approximation, that implies an 18.8% chance above the effective 0.25% rounding cutoff."
+      ],
+      "finding_refs": [
+        "pkt_320e7ec936174cc70c759ac3:momentum"
+      ]
+    },
+    {
+      "heading": "What the gasoline research changed",
+      "paragraphs": [
+        "The FRED gasoline download ended with September 7. Checking EIA’s original spreadsheet found the September 14 all-grades price of $4.455 per gallon, compared with $4.295 a week earlier. The primary-source check prevented us from treating a lagging mirror as current.",
+        "We carried each weekly price forward to the next observation and the latest price through September 30. The resulting calendar-day averages are $4.1912 for August and $4.3681 for projected September, a 4.22% increase. This is an explicit projection of unobserved days, not a completed monthly observation.",
+        "Gasoline normally has a seasonal pattern. Across all five Septembers from 2021 through 2025, the median difference between seasonally adjusted and raw gasoline changes was +2.22 percentage points. Applying that proxy yields about 6.44% seasonally adjusted gasoline growth. The preceding three-month gasoline trend was −2.88%.",
+        "Replacing that old gasoline contribution with the new one, using the published 3.770% expenditure weight, adds 0.3515 percentage points to the headline estimate. The August release labels this weight as July relative importance; we preserve that lag explicitly. Rolling it forward approximately gives a 68.0% sensitivity result rather than the selected 66.9%. The linear contribution calculation is an approximation to BLS aggregation."
+      ],
+      "finding_refs": [
+        "pkt_320e7ec936174cc70c759ac3:fresh_gas",
+        "pkt_320e7ec936174cc70c759ac3:gas_adjustment"
+      ],
+      "table": {
+        "headers": [
+          "Input or calculation",
+          "Value"
+        ],
+        "rows": [
+          [
+            "August daily-step gasoline average",
+            "$4.1912/gallon"
+          ],
+          [
+            "Projected September average",
+            "$4.3681/gallon"
+          ],
+          [
+            "Projected raw gasoline change",
+            "+4.22%"
+          ],
+          [
+            "Median September seasonal correction",
+            "+2.22 percentage points"
+          ],
+          [
+            "Projected adjusted gasoline change",
+            "+6.44%"
+          ],
+          [
+            "Prior three-month adjusted gasoline trend",
+            "−2.88%"
+          ],
+          [
+            "Replacement effect on headline CPI",
+            "+0.3515 percentage points"
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "From a CPI point estimate to a probability",
+      "paragraphs": [
+        "The final headline center is 0.0147% + 0.3515% = 0.3662%. We retain the baseline model’s 0.2655-percentage-point spread, as declared before retrieval. Assuming normal forecast errors, the chance of an unrounded change at least 0.25% is 66.9%. The empirical historical-error version gives 72.1%. Neither figure is validated calibration for this gasoline-adjusted model.",
+        "Keeping an old spread is a modeling choice, not a mathematical requirement. It avoids automatically claiming that additional research increases precision, but it also creates a mismatch: the center uses current gasoline information while the error distribution comes from a model that ignored it. That mismatch is a central limitation of this exercise."
+      ],
+      "finding_refs": [
+        "pkt_320e7ec936174cc70c759ac3:final",
+        "pkt_320e7ec936174cc70c759ac3:holdout"
+      ]
+    },
+    {
+      "heading": "Sensitivity and a failed calibration check",
+      "paragraphs": [
+        "A fixed chronological diagnostic used the first 36 calendar months for fitting and the next 12 for checking. Missing data left only seven usable holdout forecasts. Their RMSE was 0.502 percentage points, and a nominal 90% interval covered just four of seven outcomes. This is a warning about instability, not evidence that the primary normal approximation is reliable.",
+        "Before revealing the market, we also computed a wider-distribution diagnostic using that holdout RMSE as a stand-in for spread. It gives 59.2%. Seven errors cannot establish a calibrated alternative distribution; we report this to show how much the uncertainty choice matters.",
+        "If prices for the unobserved remainder of September are 5% below or above the flat-price assumption, the primary model gives 53.4–78.5%. Using each of the five individual historical seasonal corrections gives 65.4–68.1%. Shifting the final headline center by ±0.05 percentage points gives 59.8–73.4%. These are assumption sensitivities, not confidence intervals."
+      ],
+      "finding_refs": [
+        "pkt_320e7ec936174cc70c759ac3:holdout",
+        "pkt_320e7ec936174cc70c759ac3:final"
+      ]
+    },
+    {
+      "heading": "A substantial miss against the chosen development target",
+      "paragraphs": [
+        "Kalshi’s opening midpoint was 98.5%. Our final 66.9% estimate is 31.6 percentage points lower and 31.1 points below the opening bid. The later midpoint was unchanged. With market agreement as the development criterion, this is a substantial miss even though the gasoline research moved the model closer.",
+        "The outcome remains unresolved. Closer agreement is not a resolution score, and these sequential calculations do not identify the causal value of research. We have no basis to claim the market is wrong. Equally, the market quote alone does not tell us which of our inputs or distributional assumptions is responsible for the difference.",
+        "A post-reveal Gaussian diagnostic makes the scale explicit. Holding our spread fixed would require a center near 0.826% to reach 98.5%. Holding our center fixed would require a spread near 0.054 percentage points. Those are arithmetic descriptions of disagreement, not recommended parameters or new forecasts."
+      ],
+      "finding_refs": []
+    },
+    {
+      "heading": "What should change on the next fresh question",
+      "paragraphs": [
+        "Build forecasts for the major CPI components, including shelter/core, food and energy, with dated inputs available at the intended forecast time. Estimate the errors of that complete model using original-release outcomes. A model with a new center and an unrelated old error distribution is not enough.",
+        "Make freshness checks explicit: compare mirrored datasets with the primary release and record missing periods. Use the published current seasonal factors where available instead of treating a five-year median as an exact factor. Model the remaining-month gasoline path as a source of uncertainty.",
+        "This run uses revised historical CPI indices, a coarse seasonal proxy and a small, weak holdout. It does not establish a calibrated probability. Preserve the sealed 66.9% result and test the revised process on a new hidden market target rather than tuning this case to 98.5%."
+      ],
+      "finding_refs": []
+    }
+  ]
+}

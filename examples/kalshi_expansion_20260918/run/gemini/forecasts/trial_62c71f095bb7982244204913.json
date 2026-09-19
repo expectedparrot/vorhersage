@@ -1,0 +1,122 @@
+{
+  "arm_id": "arm_78cd74228fbc44f686cc",
+  "assessment_probability": 0.55,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.019934,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_0228705f8dc57a992a29a2bf",
+      "record_id": "fed"
+    },
+    {
+      "packet_id": "pkt_0228705f8dc57a992a29a2bf",
+      "record_id": "projections"
+    },
+    {
+      "packet_id": "pkt_0228705f8dc57a992a29a2bf",
+      "record_id": "jobs"
+    }
+  ],
+  "experiment_id": "experiment_80f863de8e5a406fb8f6",
+  "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+  "information_as_of": "2026-09-19T01:06:45.842961Z",
+  "initial_information_as_of": "2026-09-19T01:06:45.842961Z",
+  "input_manifest": {
+    "arm_78cd74228fbc44f686cc": "2f73b7ac8a7a3f06fd57e69baa862fb56bb2ec38c4e05ce90ba1274d34c3111c",
+    "experiment_80f863de8e5a406fb8f6": "397e1ae2a8f36576e1c65231928570b28a42a11b7af1176c541d3542d94d3f0d",
+    "method_c3d7bb4c19b9451db496": "d807d22ea36cc721887b228e89e68410212a5140052197ca048730a788bee38b",
+    "pkt_0228705f8dc57a992a29a2bf": "f2b25f6bc7dc39601c222d02f5e76be6488be1639e840b8ee3885f20e1c80024",
+    "task_result_2edf8aa7030a41a3b03f": "8e45f68d4b50f5401b41894346dcb23635932ded23fa5c754edffe3c28b08bed"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T01:23:58.702704Z",
+  "manifest_sha256": "f2530d32da43f618c4d9fbd111e519a6c17ff2982d3af2bfa56b9c6738cf0c4c",
+  "method": "method_c3d7bb4c19b9451db496",
+  "method_spec_id": "method_c3d7bb4c19b9451db496",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "stopSequences": [],
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.55,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_c3d7bb4c19b9451db496"
+  },
+  "question": {
+    "domain": "US monetary policy",
+    "event_deadline": "2026-12-09T18:59:00Z",
+    "event_group": "KXFEDDECISION-26DEC",
+    "id": "candidate-08",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2026-12-09T18:59:00Z",
+    "text": "Will the Federal Reserve Hike rates by 0bps at their December 2026 meeting? \u2014 Fed maintains rate",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If the Federal Reserve does a Hike of 0bps on December 09, 2026, then the market resolves to Yes.\n\nThis market is mutually exclusive. Therefore, if the Federal Reserve hikes by 50bps, the 50bps market will resolve to Yes and the 25bps market will resolve to No. Only one bucket, at maximum, can resolve to Yes. Note 4/28/25: For the markets beginning after the May meeting, if a scheduled FOMC meeting is canceled and does not occur on its scheduled date, then the strike for \"Fed maintains rate\" will resolve to Yes and all others will resolve to No."
+  },
+  "question_id": "candidate-08",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-19T07:06:45.842961+00:00",
+  "run_id": "run_3fd200ae3d3a41e585c9",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_62c71f095bb7982244204913",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0228705f8dc57a992a29a2bf",
+          "record_id": "fed"
+        },
+        {
+          "packet_id": "pkt_0228705f8dc57a992a29a2bf",
+          "record_id": "projections"
+        },
+        {
+          "packet_id": "pkt_0228705f8dc57a992a29a2bf",
+          "record_id": "jobs"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

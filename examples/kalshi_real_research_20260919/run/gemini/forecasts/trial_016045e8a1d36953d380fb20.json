@@ -1,0 +1,122 @@
+{
+  "arm_id": "arm_6db650207ba64e8ab706",
+  "assessment_probability": 0.35,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.034456,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_b8d3c6c6678936c4a47b3a21",
+      "record_id": "global_heat"
+    },
+    {
+      "packet_id": "pkt_b8d3c6c6678936c4a47b3a21",
+      "record_id": "global_heat_firecrawl_3"
+    },
+    {
+      "packet_id": "pkt_b8d3c6c6678936c4a47b3a21",
+      "record_id": "global_heat_firecrawl_4"
+    }
+  ],
+  "experiment_id": "experiment_5990dfe02e12441789b6",
+  "forecaster": "experiment_5990dfe02e12441789b6:arm_6db650207ba64e8ab706:r2",
+  "information_as_of": "2026-09-19T03:03:28.502267Z",
+  "initial_information_as_of": "2026-09-19T03:03:28.502267Z",
+  "input_manifest": {
+    "arm_6db650207ba64e8ab706": "bb106963dee26e8c60c92032e60f54e9aad44b500545d15f25505f6e47594e3b",
+    "experiment_5990dfe02e12441789b6": "5cf66fa2aa2ed5e9cb079f61cab66a365ad46158fa43dd32a2073c0e9a6cdc2b",
+    "method_e8fd2b47932a4ebebd3a": "60235ac86af77b708fc562c5fba70d59e81bb7510efb3722de3b345bae454df2",
+    "pkt_b8d3c6c6678936c4a47b3a21": "c54f3c7c4a24496f43800c7726d2a445fa42419ecddb4b08add035d73cf1e797",
+    "task_result_206ced0245a744948836": "e10aa1145e07aa06b1eaecfd673ac561e2ef326832278c2fe2b10d36243fb7b3"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T03:10:57.943662Z",
+  "manifest_sha256": "b90bef0bae658bb7682439e1228d71b337da374c249b94f897ec698a7dd0f039",
+  "method": "method_e8fd2b47932a4ebebd3a",
+  "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "stopSequences": [],
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.35,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_e8fd2b47932a4ebebd3a"
+  },
+  "question": {
+    "domain": "Global climate",
+    "event_deadline": "2027-01-01T04:59:00Z",
+    "event_group": "KXGTEMP-26",
+    "id": "global_heat",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2027-01-01T04:59:00Z",
+    "text": "Will 2026 be the hottest year on record? \u2014 Hottest",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If the unsmoothed Land-Ocean Temperature Index value for 2026 reported by NASA\u2019s Goddard Institute for Space Studies (GISS) is above the 2025 value and 1.28 degrees Celsius, then the market resolves to Yes.\n\nThe market will close at 11:59 PM ET on December 31, 2026. The market will expire at the sooner of the first 10:00 AM following the release of the data for 2026, or 10:00 AM ET April 01, 2027"
+  },
+  "question_id": "global_heat",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 2,
+  "research_plan": null,
+  "review_at": "2026-09-19T03:45:00+00:00",
+  "run_id": "run_eb16861eb88f48f891df",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_016045e8a1d36953d380fb20",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_b8d3c6c6678936c4a47b3a21",
+          "record_id": "global_heat"
+        },
+        {
+          "packet_id": "pkt_b8d3c6c6678936c4a47b3a21",
+          "record_id": "global_heat_firecrawl_3"
+        },
+        {
+          "packet_id": "pkt_b8d3c6c6678936c4a47b3a21",
+          "record_id": "global_heat_firecrawl_4"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

@@ -1,0 +1,106 @@
+{
+  "arm_id": "arm_16df1ab2e77d40e582a1",
+  "assessment_probability": 0.35,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.016378,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_af5c51c841cf8552c1d3e224",
+      "record_id": "mortgage"
+    }
+  ],
+  "experiment_id": "experiment_7f50c2431dc346399685",
+  "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r3",
+  "information_as_of": "2026-09-19T01:58:11.498178Z",
+  "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+  "input_manifest": {
+    "arm_16df1ab2e77d40e582a1": "d606325b79564961228556ca89abcb516593498ffdfce481afc43dd7f9222d2a",
+    "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+    "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+    "pkt_af5c51c841cf8552c1d3e224": "fa856714d59993dd3f709a48f8f0a795112f5a4059ef159ef8ebcfc57f7471ff",
+    "task_result_308be1b9b33a4b36b98b": "c1d256d7d826d42d3d779d9d5ddd5fc3748cf556fe43b632cf1f3c3e8137b56f"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T02:05:35.496284Z",
+  "manifest_sha256": "9aaf641742a18825fe065a5bf7a4c888f24a522393b3844e36359fcb3cd46226",
+  "method": "method_62c19062d0814cb99b77",
+  "method_spec_id": "method_62c19062d0814cb99b77",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "stopSequences": [],
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.35,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_62c19062d0814cb99b77"
+  },
+  "question": {
+    "domain": "US housing and interest rates",
+    "event_deadline": "2026-09-24T15:59:00Z",
+    "event_group": "KX30YMORTW-26SEP24",
+    "id": "mortgage",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2026-09-24T15:59:00Z",
+    "text": "Will the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 be above 7.01%? \u2014 Above 7.01%",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 is above \n\n7.01%, then the market resolves to Yes.\n\nThe Underlying is the 30-Year Fixed-Rate Mortgage national average published by Freddie Mac in its Primary Mortgage Market Survey (PMMS) for Sep 24, 2026.\n\nFor a standard Thursday publication, the weekly measurement period runs from 12:00 a.m. ET on the preceding Thursday through 11:59 p.m. ET on Wednesday. The resulting national average is published Thursday at 12:00 p.m. ET. This market will use Freddie Mac's first published PMMS value for the specified week. Subsequent corrections or revisions made after expiration will not affect resolution."
+  },
+  "question_id": "mortgage",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 3,
+  "research_plan": null,
+  "review_at": "2026-09-19T03:45:00+00:00",
+  "run_id": "run_1d2650da4c5f469e9826",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_89f3c7148555644447c8f7ab",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_af5c51c841cf8552c1d3e224",
+          "record_id": "mortgage"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

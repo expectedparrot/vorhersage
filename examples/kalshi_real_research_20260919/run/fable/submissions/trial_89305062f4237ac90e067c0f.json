@@ -1,0 +1,31 @@
+{
+  "task_id": "task_544ad3a4d6964c55940d",
+  "expected_revision": 0,
+  "idempotency_key": "trial_89305062f4237ac90e067c0f-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.05,
+    "rationale": "Observed: CDC reports 3,471 confirmed 2026 US measles cases as of Sept 17, 2026 (week ~37), with 39 outbreaks and 95% outbreak-associated. Reaching >6,000 requires ~2,530 additional cases in roughly 15 remaining weeks, i.e., ~170 cases/week, versus a year-to-date average of ~94/week. That would mean the final quarter alone exceeds the entire 2025 total (2,289). Measles incidence in the US is typically lower in autumn than in late winter/spring, and because CDC assigns cases by rash-onset week and the contract ignores post-expiration revisions, late-December onsets may not be counted at settlement, further raising the effective bar. Transfer assumption: no weekly trajectory is supplied, so I assume the recent rate is roughly near or below the year-to-date average rather than sharply accelerating. Reasons the estimate could be too low: 2026 is already the largest year since 1992, with many active outbreaks; a single explosive outbreak in a large undervaccinated community (as in Texas 2025 or South Carolina early 2026) could add hundreds per week, and late 2025 showed that autumn/winter surges can occur; if the current weekly rate is already well above average (unknown), the required acceleration is smaller. Reasons it could be too high: seasonal decline, reporting lag at year-end, and the sheer size of the required jump (nearly doubling the sustained rate) make this an extreme tail outcome; most outbreaks are controlled within weeks. Net: roughly 5%.",
+    "limitations": [
+      "No weekly incidence series supplied; recent growth rate is unknown and is the key driver of the tail.",
+      "CDC counts are provisional and assigned by rash-onset week; settlement timing relative to reporting lag is uncertain.",
+      "Judgment-based estimate without a fitted transmission or time-series model.",
+      "Small packet; possible unobserved large outbreaks or policy/vaccination changes not reflected."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_63fcce17f3993715c961af24",
+        "record_id": "measles"
+      },
+      {
+        "packet_id": "pkt_63fcce17f3993715c961af24",
+        "record_id": "measles_firecrawl_1"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.10498000000000002
+  }
+}

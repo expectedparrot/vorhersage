@@ -1,0 +1,102 @@
+{
+  "arm_id": "arm_48a1e459e3694006b725",
+  "assessment_probability": 0.1,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.05757,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "question_only",
+  "evidence_refs": [],
+  "experiment_id": "experiment_7f50c2431dc346399685",
+  "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r3",
+  "information_as_of": "2026-09-19T01:58:11.498178Z",
+  "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+  "input_manifest": {
+    "arm_48a1e459e3694006b725": "55f7eef77f74897a27473877e424aafb852fa798fc2c339a26233d0de1485614",
+    "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+    "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+    "task_result_0fa66ac0a327446f8dc3": "1ba92579e0d89d17c5959cddc8353ae6de9d78ccbe97b1ea9d2f30eeb6132b92"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T02:05:34.496695Z",
+  "manifest_sha256": "8cad98dd0412ca7467c2cec833c8cf5d42640d274631bf548ca0d00772b59a95",
+  "method": "method_62c19062d0814cb99b77",
+  "method_spec_id": "method_62c19062d0814cb99b77",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "claude-fable-5-1",
+    "parameters": {
+      "frequency_penalty": 0,
+      "logprobs": false,
+      "max_tokens": 8192,
+      "output_config": {
+        "effort": "high"
+      },
+      "presence_penalty": 0,
+      "temperature": 0.5,
+      "thinking": {
+        "type": "adaptive"
+      },
+      "top_logprobs": 3,
+      "top_p": 1
+    },
+    "provider": "anthropic"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.1,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_62c19062d0814cb99b77"
+  },
+  "question": {
+    "domain": "US daily weather",
+    "event_deadline": "2026-09-20T06:00:00Z",
+    "event_group": "KXHIGHAUS-26SEP19",
+    "id": "austin",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2026-09-20T06:00:00Z",
+    "text": "Will the maximum temperature be 98-99\u00b0 on Sep 19, 2026? \u2014 98\u00b0 to 99\u00b0",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If the maximum temperature recorded at Austin (CLIAUS) for Sep 19, 2026, is between 98-99\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+  },
+  "question_id": "austin",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 3,
+  "research_plan": null,
+  "review_at": "2026-09-19T03:45:00+00:00",
+  "run_id": "run_330f33fd19214b2484d5",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_e3024f70059151cdb919fe3c",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": []
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

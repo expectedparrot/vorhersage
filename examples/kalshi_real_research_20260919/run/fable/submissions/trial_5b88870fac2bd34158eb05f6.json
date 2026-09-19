@@ -1,0 +1,31 @@
+{
+  "task_id": "task_dad1f7f7dc1e479aa1b2",
+  "expected_revision": 0,
+  "idempotency_key": "trial_5b88870fac2bd34158eb05f6-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.1,
+    "rationale": "CDC reported 3,471 confirmed 2026 US measles cases as of September 17, 2026. Reaching >6,000 requires ~2,530 additional cases in roughly 15 remaining weeks (~170/week), versus a year-to-date average of ~94/week, and the year-to-date figure likely includes an elevated early-year period (spillover of large late-2025 outbreaks, plus measles' typical late-winter/spring seasonal peak). Late summer/fall is usually the seasonal trough, though the 2025 experience showed that new outbreaks in undervaccinated communities can ignite in Nov\u2013Dec. Additionally, the contract uses the CDC count at expiration without later revisions, and CDC assigns cases by rash-onset week, so reporting lag will exclude some late-December cases, effectively raising the bar. Absent a supplied weekly series, I assume the current pace is roughly at or below the annual average; sustaining nearly double that pace for the entire remainder of the year would require one or more very large, fast-growing outbreaks. That is possible (39 outbreaks are active, 95% of cases outbreak-associated, and immunization coverage has been eroding), but it is a tail scenario. Too high if the fall pace has actually slowed to 2025-like levels (~40\u201360/week), which would land near 4,000\u20134,500. Too low if a large explosive outbreak (e.g., in a big undervaccinated community with school-based spread) is already underway and generating hundreds of cases weekly, or if CDC batch-adds backlogged cases before year-end; such surges occurred in early 2025 and late 2025, so the risk is not negligible.",
+    "limitations": [
+      "No weekly growth series or current outbreak-size data supplied; the recent pace is inferred, not observed.",
+      "Provisional CDC counts with reporting lags; year assignment by rash-onset week and the no-post-expiration-revision rule affect the effective threshold.",
+      "Measles dynamics are highly nonlinear; a single large outbreak in an undervaccinated community could change the trajectory quickly.",
+      "Small coordinator-selected evidence packet; no fitted model."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_63fcce17f3993715c961af24",
+        "record_id": "measles"
+      },
+      {
+        "packet_id": "pkt_63fcce17f3993715c961af24",
+        "record_id": "measles_firecrawl_1"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.11338000000000001
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "task_id": "task_69b3959531014115abaf",
+  "expected_revision": 0,
+  "idempotency_key": "trial_d4494f9e145f57c30c657a04-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.38,
+    "rationale": "The NWS forecast from the afternoon of September 18 predicts a high near 89\u00b0F for Miami on September 19, with an 80% chance of precipitation and thunderstorms. The target interval is 88-89\u00b0F, which includes the exact forecast value and one degree below it. While the forecast aligns perfectly with the target band, an 80% chance of thunderstorms introduces significant variance; early rain could suppress the high temperature to the mid-80s, whereas delayed rain could allow temperatures to spike to 90\u00b0F or higher. \n\nStrongest reason the estimate could be too high: The high probability of rain makes a lower temperature (e.g., 85-87\u00b0F) quite likely if storms arrive early in the day.\n\nStrongest reason the estimate could be too low: 88-89\u00b0F is a very typical high for Miami in September, and the forecast is exactly within this narrow 2-degree band, making it a strong candidate for the actual outcome despite the rain.",
+    "limitations": [
+      "The current forecast is a search-index capture. Two direct coordinate pages were inaccessible; another direct open returned a September 13 forecast, so it was not treated as the September 18 forecast.",
+      "Settlement uses The Weather Company; NWS airport-point forecasts may differ in location, rounding, or final station maximum. No fitted forecast-error distribution is supplied.",
+      "Small coordinator-selected packet; no fitted probability model or complete research review.",
+      "Different questions can share source information and economic drivers; do not treat their errors as independent."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_926aa3369a3e513e8c385e5e",
+        "record_id": "miami"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.016374
+  }
+}

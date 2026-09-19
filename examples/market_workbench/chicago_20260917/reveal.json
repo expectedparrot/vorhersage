@@ -1,0 +1,467 @@
+{
+  "schema_version": "1",
+  "status": "ok",
+  "command": "workbench",
+  "data": {
+    "case_id": "workbench_99b666aae9114c089f49",
+    "state": "revealed",
+    "revision": 4,
+    "baseline_captured_at": "2026-09-16T14:59:25.889771Z",
+    "contract": {
+      "event_group": "KXHIGHCHI-26SEP17",
+      "market_id": "KXHIGHCHI-26SEP17-B76.5",
+      "resolution_source": "See frozen Kalshi rules and series contract.",
+      "rules": "If the maximum temperature recorded at Chicago (CLIMDW) for Sep 17, 2026, is between 76-77\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+      "scheduled_close": "2026-09-18T06:00:00Z",
+      "title": "Will the maximum temperature be 76-77\u00b0 on Sep 17, 2026?",
+      "venue": "kalshi",
+      "yes_description": "76\u00b0 to 77\u00b0"
+    },
+    "created_at": "2026-09-16T14:59:25.896584Z",
+    "limitations": [
+      "Prices are separated from this project, not protected by an operating-system sandbox.",
+      "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+      "The agent must verify the event is still unknown; an open market alone cannot establish this."
+    ],
+    "question": {
+      "created_at": "2026-09-16T14:59:21.853423Z",
+      "specification": {
+        "domain": "weather",
+        "event_deadline": "2026-09-18T06:00:00Z",
+        "event_group": "KXHIGHCHI-26SEP17",
+        "id": "chicago_high_76_77_20260917",
+        "kind": "real",
+        "no": "The final qualifying maximum is outside the inclusive 76\u201377\u00b0F bracket.",
+        "profile": "general",
+        "resolution_source": "The Weather Company final CLIMDW daily maximum, per frozen Kalshi KXHIGHCHI rules and weather.com/kalshi. Forecasts and IEM station observations are research proxies.",
+        "resolve_after": "2026-09-19T06:00:00Z",
+        "text": "Will the maximum temperature reported for Chicago Midway (CLIMDW) on September 17, 2026 be 76\u201377\u00b0F?",
+        "void": "Last-fair-price settlement, unresolved material data errors, or unavailable final source data fall outside this binary comparison.",
+        "yes": "The Weather Company final maximum for Chicago CLIMDW for September 17, 2026 is in the inclusive 76\u201377\u00b0F bracket."
+      },
+      "version": 1
+    },
+    "specification": {
+      "contract_match_rationale": "76\u201377\u00b0F inclusive for CLIMDW, with TWC final reporting and error/last-fair-price exceptions. Daily date and trading close are recorded separately; cutoff uses end of local standard-time day.",
+      "eligibility_rationale": "Tomorrow\u2019s September 17 daily high is unobserved. The 78\u201379\u00b0F bracket failed the ten-contract depth requirement. This adjacent bracket is the second candidate, selected before weather research with the same thresholds.",
+      "market_id": "KXHIGHCHI-26SEP17-B76.5",
+      "max_spread": 0.05,
+      "method": "Predeclared next-day weather residual model; hidden market comparison",
+      "min_contracts_each_side": 10,
+      "mode": "prospective",
+      "question": {
+        "question_id": "chicago_high_76_77_20260917",
+        "version": 1
+      },
+      "venue": "kalshi"
+    },
+    "target_id": "market_target_4de554cee3384755885d",
+    "target_sha256": "1fb25837fb6a1499a9f2ab51b42fe5625090a6137a36fadb1d3be54b39464016",
+    "journal": [
+      {
+        "id": "workbench_entry_4bbbd8eb8a82494384a9",
+        "case_id": "workbench_99b666aae9114c089f49",
+        "evidence_manifest": {
+          "pkt_c687fdc6b2c6bac6de66623b": "bc98a90a82db679be578daae6589b3022356cb3ebf843c1b296468c6d3887736"
+        },
+        "kind": "initial",
+        "model_manifest": {},
+        "payload": {
+          "assumptions": [
+            "Gaussian error with zero bias initially",
+            "Model XND can serve as an initial spread proxy",
+            "Nearest-integer reporting approximation",
+            "Independent 1\u00b0F provider/window SD, selected before historical data"
+          ],
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_c687fdc6b2c6bac6de66623b",
+              "record_id": "forecast78"
+            }
+          ],
+          "probability": 0.22258588036127136,
+          "rationale": "Frozen next-day NBS forecast is 78\u00b0F and model XND is 3\u00b0F. A declared Gaussian distribution with mean 78 and SD sqrt(3^2+1^2) incorporates a subjective independent 1\u00b0F settlement/provider allowance. Integrate over [75.5,77.5) for integer 76\u201377\u00b0F. This is model-based, not empirical calibration.",
+          "research_status": "in_progress",
+          "uncertainties": [
+            "Local next-day forecast bias and dispersion",
+            "TWC versus station reporting",
+            "Current synoptic conditions and alternative NWS forecast"
+          ]
+        },
+        "phase": "pre_reveal",
+        "recorded_at": "2026-09-16T15:01:06.843363Z",
+        "revision": 1
+      },
+      {
+        "id": "workbench_entry_af319cebbd5d4b228423",
+        "case_id": "workbench_99b666aae9114c089f49",
+        "evidence_manifest": {},
+        "kind": "plan",
+        "model_manifest": {},
+        "payload": {
+          "higher_if": "Historical errors shift probability into 76\u201377\u00b0F or concentrate mass around that band; weather checks corroborate cooler conditions.",
+          "lower_if": "Errors shift the center away from the band or increase dispersion; conditions show the next-day forecast is not a usable center.",
+          "search_plan": "Primary estimator fixed now: include every target day July 18\u2013September 15, 2026 (60 days). Pair IEM IL_ASOS MDW daily max_temp_f with KMDW NBS previous-day 06 UTC TXN reported at target-day+1 00 UTC (42-hour lead). No outcome-based filtering; exclude only missing/non-numeric pairs and list them. Current center is fixed September 16 06 UTC TXN for September 17. Set mean = current TXN + sample mean residual (observed minus forecast); SD = sqrt(sample residual variance*(1+1/n)+1^2). Use Gaussian mass over [75.5,77.5). The 1\u00b0F provider/window SD and normality are declared assumptions. Do not choose a different estimator after observing market prices. Report unsmoothed empirical frequency and sensitivities to mean +/-1\u00b0F and extra SD 0,1,2\u00b0F. As a diagnostic only, fit bias and SD on first 40 complete chronological target days and report next 20 residual RMSE and interval coverage alongside unbiased raw forecasts. Minimum 30 valid pairs for revised estimator; otherwise retain initial and flag failure. Check TWC page for final-report conventions; check NOAA product definition, IEM daily definitions, current NWS point forecast and Chicago discussion. Preserve failed access and contradictions. NWS may motivate a labeled alternative-center sensitivity, not replace the fixed primary estimator.",
+          "stopping_rule": "Stop after those defined sources and one complete 60-day extraction/calculation. No search for market odds. If definitions prevent a defensible mapping, report a qualified estimate or abort; do not silently change station, horizon, historical window, or liquidity requirements.",
+          "uncertainty": "How much do KMDW next-day NBS forecasts miss actual station daily maxima, and do current conditions make those residuals misleading?",
+          "why_it_matters": "This two-degree bracket is below the 78\u00b0F point forecast; small bias and spread changes can change its probability substantially."
+        },
+        "phase": "pre_reveal",
+        "recorded_at": "2026-09-16T15:01:06.951119Z",
+        "revision": 2
+      },
+      {
+        "id": "workbench_entry_c5369e4ce2114ee0b856",
+        "case_id": "workbench_99b666aae9114c089f49",
+        "evidence_manifest": {
+          "pkt_0f9495b8202397b68c559849": "d5026b7b2503414ed26e9b9f1b1c18c29f8294d16d1fbb5eb297d6acf31580a6"
+        },
+        "kind": "checkpoint",
+        "model_manifest": {},
+        "payload": {
+          "changed_assumptions": [
+            "Empirical local next-day residual SD replaces model XND for primary spread.",
+            "Estimated mean residual+0.0833\u00b0F replaces initial zero-bias assumption.",
+            "Normality,1\u00b0F extra SD,and forecast product remain as declared before historical retrieval."
+          ],
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_0f9495b8202397b68c559849",
+              "record_id": "residuals"
+            },
+            {
+              "packet_id": "pkt_0f9495b8202397b68c559849",
+              "record_id": "holdout"
+            },
+            {
+              "packet_id": "pkt_0f9495b8202397b68c559849",
+              "record_id": "weather_disagreement"
+            },
+            {
+              "packet_id": "pkt_0f9495b8202397b68c559849",
+              "record_id": "settlement_gap"
+            },
+            {
+              "packet_id": "pkt_0f9495b8202397b68c559849",
+              "record_id": "calculation"
+            }
+          ],
+          "findings": "All60 matched days available. Bias+0.0833\u00b0F; residual SD2.5130\u00b0F. Holdout RMSE worsened slightly after bias correction. NWS76\u00b0F vs NBS78\u00b0F; cloudy/showery regime raises transfer uncertainty. TWC daily history and rounding remain unverified.",
+          "limitations": [
+            "IEM daily maxima are not exact TWC settlements.",
+            "NBS daytime maximum and full daily-report time windows differ.",
+            "Gaussian errors, constant bias, nearest-integer rounding and independent 1\u00b0F extra SD are assumptions.",
+            "60 adjacent summer days may be correlated and may not match the current rainy autumn regime.",
+            "Forecast archive is retrieved now, not immutable original publication vintages.",
+            "Same assistant context as NYC; price separation is procedural, not enforced isolation.",
+            "Opening thresholds screen best quotes only, not trading volume or market calibration.",
+            "Usage and monetary costs are unmetered.",
+            "TWC portal check stopped at the public HTML and one script; no authenticated or comprehensive archive search was performed."
+          ],
+          "probability": 0.243743131027777,
+          "rationale": "Apply the estimator fixed in the plan without changing its historical window, horizon, Gaussian assumption or 1\u00b0F extra spread. With mean78.0833\u00b0F and SD2.7240\u00b0F, the 76\u201377\u00b0F band has probability24.3743%. Relative to the22.2586% initial, lower estimated dispersion raises band mass; near-zero warm correction offsets a little. NWS disagrees on center, so report its28.19% alternative without silently changing the declared model. The holdout does not support claiming the bias correction improves skill.",
+          "remaining_uncertainties": [
+            "Whether summer pooled residuals transfer to tomorrow\u2019s cloudy/rainy conditions",
+            "Which point forecast center is better for Midway",
+            "Exact TWC settlement versus IEM daily reporting",
+            "Serial dependence and small holdout sample"
+          ],
+          "sources_checked": [
+            "https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KMDW&model=NBS&sts=2026-07-17T00%3A00Z&ets=2026-09-15T00%3A00Z&format=csv",
+            "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-07-18&ets=2026-09-15&network=IL_ASOS&stations=MDW&var=max_temp_f&format=csv",
+            "https://api.weather.gov/gridpoints/LOT/72,69/forecast",
+            "https://forecast.weather.gov/product.php?site=LOT&issuedby=LOT&product=AFD&format=TXT&version=1&glossary=0",
+            "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?help=",
+            "https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0",
+            "https://weather.com/kalshi"
+          ]
+        },
+        "phase": "pre_reveal",
+        "plan_id": "workbench_entry_af319cebbd5d4b228423",
+        "recorded_at": "2026-09-16T15:04:10.381702Z",
+        "revision": 3
+      },
+      {
+        "id": "workbench_entry_c7aba215be6b41879b2c",
+        "case_id": "workbench_99b666aae9114c089f49",
+        "evidence_manifest": {},
+        "kind": "finish",
+        "model_manifest": {},
+        "payload": {
+          "exposure_notes": "No opening or outside probability for this event was seen or sought. Contract thresholds were visible. Same assistant context as NYC; evaluator storage was separate but accessible, with no enforced isolation. Market quote remains uninspected.",
+          "market_exposure": "none",
+          "outcome_status": "unresolved",
+          "stopping_reason": "Completed the predeclared60-day extraction, chronological check, weather-source comparison and provider-definition checks. Remaining precision requires matched TWC settlement history or a separately validated regime model; do not tune further on this case."
+        },
+        "phase": "pre_reveal",
+        "recorded_at": "2026-09-16T15:04:10.490117Z",
+        "revision": 4,
+        "trajectory_manifest": {
+          "workbench_entry_4bbbd8eb8a82494384a9": "d1fbb2ddabad79220a2a458f8cfb61a5b44ed4044cbfa4cac6358f3ddc2fbc8f",
+          "workbench_entry_af319cebbd5d4b228423": "913a707eb44a31ffd0918f5bebaa42bdcbfe51fed50cc7e8918ceaff6b9785e4",
+          "workbench_entry_c5369e4ce2114ee0b856": "27a4df5fbdf501979eb03f302123c292d301910f0dca83897b9dc1f19a230719"
+        }
+      }
+    ],
+    "evidence": {
+      "pkt_c687fdc6b2c6bac6de66623b:forecast78": {
+        "claim": "At the next-day horizon the frozen NBS forecast is 78\u00b0F with a 3\u00b0F reported model standard deviation. XND is model uncertainty, not independently demonstrated error calibration.",
+        "claim_type": "observation",
+        "entity_ids": [],
+        "id": "forecast78",
+        "observed_at": "2026-09-16T15:00:28.336555+00:00",
+        "provenance": {
+          "adapter": "vorhersage.research_bundle.v1"
+        },
+        "sources": [
+          {
+            "excerpt": "September 16 06 UTC run gives September 17 daytime maximum TXN 78\u00b0F and XND 3\u00b0F, reported at September 18 00 UTC.",
+            "excerpt_kind": "paraphrase",
+            "id": "current",
+            "retrieved_at": "2026-09-16T15:00:28.336555+00:00",
+            "title": "IEM archived NBS 06 UTC forecast for Midway",
+            "url": "https://mesonet.agron.iastate.edu/api/1/mos.json?station=KMDW&model=NBS&runtime=2026-09-16T06%3A00Z"
+          },
+          {
+            "excerpt": "NBS maximum TXN spans 12 UTC through following-day 06 UTC and is reported at following-day 00 UTC. XND is the maximum/minimum temperature standard deviation in Fahrenheit.",
+            "excerpt_kind": "paraphrase",
+            "id": "definitions",
+            "retrieved_at": "2026-09-16T15:00:28.336555+00:00",
+            "title": "NOAA NBM station card definitions",
+            "url": "https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0"
+          }
+        ],
+        "value": null
+      },
+      "pkt_0f9495b8202397b68c559849:residuals": {
+        "claim": "All 60 predefined days were matched without exclusions. Mean observed-minus-NBS error is 0.083333\u00b0F; sample SD is 2.512961\u00b0F.",
+        "claim_type": "inference",
+        "entity_ids": [],
+        "id": "residuals",
+        "observed_at": "2026-09-16T15:01:23.357979+00:00",
+        "provenance": {
+          "adapter": "vorhersage.research_bundle.v1"
+        },
+        "sources": [
+          {
+            "excerpt": "All 60 target dates have a previous-day 06 UTC KMDW NBS forecast with 42-hour TXN. Forecast dates run July 17 through September 14.",
+            "excerpt_kind": "paraphrase",
+            "id": "history",
+            "retrieved_at": "2026-09-16T15:01:23.357979+00:00",
+            "title": "IEM NBS forecast archive for Midway",
+            "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KMDW&model=NBS&sts=2026-07-17T00%3A00Z&ets=2026-09-15T00%3A00Z&format=csv"
+          },
+          {
+            "excerpt": "All 60 predetermined target dates July 18 through September 15 have a station daily high. These are proxy observations, not verified TWC settlements.",
+            "excerpt_kind": "paraphrase",
+            "id": "observed",
+            "retrieved_at": "2026-09-16T15:01:20.766125+00:00",
+            "title": "IEM Midway station daily maxima",
+            "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-07-18&ets=2026-09-15&network=IL_ASOS&stations=MDW&var=max_temp_f&format=csv"
+          }
+        ],
+        "value": null
+      },
+      "pkt_0f9495b8202397b68c559849:holdout": {
+        "claim": "Fitting on the first 40 days and checking the last 20: raw forecast RMSE 2.5593\u00b0F, bias-corrected RMSE 2.5957\u00b0F; 19/20 observations lie in the declared nominal 90% interval. This small check does not demonstrate improved bias correction or calibration.",
+        "claim_type": "inference",
+        "entity_ids": [],
+        "id": "holdout",
+        "observed_at": "2026-09-16T15:01:23.357979+00:00",
+        "provenance": {
+          "adapter": "vorhersage.research_bundle.v1"
+        },
+        "sources": [
+          {
+            "excerpt": "All 60 target dates have a previous-day 06 UTC KMDW NBS forecast with 42-hour TXN. Forecast dates run July 17 through September 14.",
+            "excerpt_kind": "paraphrase",
+            "id": "history",
+            "retrieved_at": "2026-09-16T15:01:23.357979+00:00",
+            "title": "IEM NBS forecast archive for Midway",
+            "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KMDW&model=NBS&sts=2026-07-17T00%3A00Z&ets=2026-09-15T00%3A00Z&format=csv"
+          },
+          {
+            "excerpt": "All 60 predetermined target dates July 18 through September 15 have a station daily high. These are proxy observations, not verified TWC settlements.",
+            "excerpt_kind": "paraphrase",
+            "id": "observed",
+            "retrieved_at": "2026-09-16T15:01:20.766125+00:00",
+            "title": "IEM Midway station daily maxima",
+            "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-07-18&ets=2026-09-15&network=IL_ASOS&stations=MDW&var=max_temp_f&format=csv"
+          }
+        ],
+        "value": null
+      },
+      "pkt_0f9495b8202397b68c559849:weather_disagreement": {
+        "claim": "NWS Thursday point forecast is 76\u00b0F versus NBS 78\u00b0F; rain timing, cloud cover and wind direction remain uncertain. With the same final spread, using the raw NWS center gives 28.19%. This is an alternative assumption, not an independent probability vote.",
+        "claim_type": "inference",
+        "entity_ids": [],
+        "id": "weather_disagreement",
+        "observed_at": "2026-09-16T15:01:20.887929+00:00",
+        "provenance": {
+          "adapter": "vorhersage.research_bundle.v1"
+        },
+        "sources": [
+          {
+            "excerpt": "NWS forecasts September 17 high near 76\u00b0F, mostly cloudy, with possible showers and thunderstorms before 1pm. This is 2\u00b0F below the frozen NBS point forecast.",
+            "excerpt_kind": "paraphrase",
+            "id": "nws",
+            "published_at": "2026-09-16T10:45:49Z",
+            "retrieved_at": "2026-09-16T15:01:20.583547+00:00",
+            "title": "NWS Midway point forecast",
+            "url": "https://api.weather.gov/gridpoints/LOT/72,69/forecast"
+          },
+          {
+            "excerpt": "Rain and storms may affect Thursday morning; drier conditions are expected later. The location of heavier overnight rain is uncertain. Clouds, wind direction and precipitation create regime uncertainty in daily highs.",
+            "excerpt_kind": "paraphrase",
+            "id": "discussion",
+            "published_at": "2026-09-16T12:00:00Z",
+            "retrieved_at": "2026-09-16T15:01:20.887929+00:00",
+            "title": "NWS Chicago forecast discussion",
+            "url": "https://forecast.weather.gov/product.php?site=LOT&issuedby=LOT&product=AFD&format=TXT&version=1&glossary=0"
+          }
+        ],
+        "value": null
+      },
+      "pkt_0f9495b8202397b68c559849:settlement_gap": {
+        "claim": "No matched TWC settlement history or exact rounding convention was extracted. Station and NBS windows differ; the 1\u00b0F extra spread is an explicit assumption, not an empirically measured settlement correction.",
+        "claim_type": "inference",
+        "entity_ids": [],
+        "id": "settlement_gap",
+        "observed_at": "2026-09-16T15:01:21.139491+00:00",
+        "provenance": {
+          "adapter": "vorhersage.research_bundle.v1"
+        },
+        "sources": [
+          {
+            "excerpt": "The archive mixes computed calendar-day summaries and explicit official totals. Airport daily windows typically follow standard time, or 1am to 1am daylight time.",
+            "excerpt_kind": "paraphrase",
+            "id": "daily_definition",
+            "retrieved_at": "2026-09-16T15:01:21.139491+00:00",
+            "title": "IEM daily-summary definitions",
+            "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?help="
+          },
+          {
+            "excerpt": "NBS maximum TXN spans 12 UTC through next-day 06 UTC and appears at next-day 00 UTC. XND measures model maximum/minimum temperature standard deviation.",
+            "excerpt_kind": "paraphrase",
+            "id": "nbm_definition",
+            "retrieved_at": "2026-09-16T14:59:41.593273+00:00",
+            "title": "NOAA NBM station card definitions",
+            "url": "https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0"
+          },
+          {
+            "excerpt": "The public HTML presents a climate portal with daily and hourly views. The retrieved shell and one script did not establish a historical TWC settlement series, exact rounding, or full daily-window conventions.",
+            "excerpt_kind": "paraphrase",
+            "id": "twc",
+            "retrieved_at": "2026-09-16T15:01:20.649853+00:00",
+            "title": "The Weather Company climate data portal",
+            "url": "https://weather.com/kalshi"
+          }
+        ],
+        "value": null
+      },
+      "pkt_0f9495b8202397b68c559849:calculation": {
+        "claim": "The predeclared estimator gives mean 78.083333\u00b0F, SD 2.724008\u00b0F and probability 0.243743131. Empirical unsmoothed estimate is 13/60=21.67%. Mean shifts +/-1\u00b0F give 18.64\u201328.02%. Calculation SHA256: c9be200514ec50e354c2149caa3e3a45cfd1ac00a852fafa3908ff01fd09b7ae",
+        "claim_type": "inference",
+        "entity_ids": [],
+        "id": "calculation",
+        "observed_at": "2026-09-16T15:01:23.357979+00:00",
+        "provenance": {
+          "adapter": "vorhersage.research_bundle.v1"
+        },
+        "sources": [
+          {
+            "excerpt": "All 60 target dates have a previous-day 06 UTC KMDW NBS forecast with 42-hour TXN. Forecast dates run July 17 through September 14.",
+            "excerpt_kind": "paraphrase",
+            "id": "history",
+            "retrieved_at": "2026-09-16T15:01:23.357979+00:00",
+            "title": "IEM NBS forecast archive for Midway",
+            "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KMDW&model=NBS&sts=2026-07-17T00%3A00Z&ets=2026-09-15T00%3A00Z&format=csv"
+          },
+          {
+            "excerpt": "All 60 predetermined target dates July 18 through September 15 have a station daily high. These are proxy observations, not verified TWC settlements.",
+            "excerpt_kind": "paraphrase",
+            "id": "observed",
+            "retrieved_at": "2026-09-16T15:01:20.766125+00:00",
+            "title": "IEM Midway station daily maxima",
+            "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-07-18&ets=2026-09-15&network=IL_ASOS&stations=MDW&var=max_temp_f&format=csv"
+          },
+          {
+            "excerpt": "NBS maximum TXN spans 12 UTC through next-day 06 UTC and appears at next-day 00 UTC. XND measures model maximum/minimum temperature standard deviation.",
+            "excerpt_kind": "paraphrase",
+            "id": "nbm_definition",
+            "retrieved_at": "2026-09-16T14:59:41.593273+00:00",
+            "title": "NOAA NBM station card definitions",
+            "url": "https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0"
+          }
+        ],
+        "value": null
+      }
+    },
+    "models": {},
+    "next_action": "reflection",
+    "comparison": {
+      "target": {
+        "ask": 0.38,
+        "ask_contracts_within_2c": 101.28999999999999,
+        "ask_size": 20.0,
+        "bid": 0.35,
+        "bid_contracts_within_2c": 92.02,
+        "bid_size": 24.02,
+        "midpoint": 0.365,
+        "spread": 0.03
+      },
+      "target_captured_at": "2026-09-16T14:59:25.889771Z",
+      "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+      "rows": [
+        {
+          "entry_id": "workbench_entry_4bbbd8eb8a82494384a9",
+          "label": "Initial",
+          "recorded_at": "2026-09-16T15:01:06.843363Z",
+          "probability": 0.22258588036127136,
+          "difference_pp": -14.241411963872864,
+          "squared_market_error": 0.02028178147247411,
+          "improvement_from_previous": null,
+          "outside_spread_pp": 12.741411963872862
+        },
+        {
+          "entry_id": "workbench_entry_c5369e4ce2114ee0b856",
+          "label": "Research 1: How much do KMDW next-day NBS forecasts miss actual station daily maxima, and do current conditions make those residuals misleading?",
+          "recorded_at": "2026-09-16T15:04:10.381702Z",
+          "probability": 0.243743131027777,
+          "difference_pp": -12.125686897222298,
+          "squared_market_error": 0.014703228272946853,
+          "improvement_from_previous": 0.0055785531995272575,
+          "outside_spread_pp": 10.625686897222298
+        }
+      ],
+      "net_squared_error_improvement": 0.0055785531995272575,
+      "followup_quote": {
+        "ask": 0.36,
+        "ask_contracts_within_2c": 52.6,
+        "ask_size": 4.0,
+        "bid": 0.34,
+        "bid_contracts_within_2c": 203.01,
+        "bid_size": 50.0,
+        "midpoint": 0.35,
+        "spread": 0.02
+      },
+      "followup_captured_at": "2026-09-16T15:17:29.303904Z",
+      "market_movement_pp": -1.5000000000000013,
+      "followup_error": null,
+      "contract_changed": false,
+      "eligible_for_blind_comparison": true,
+      "qualification_reasons": [],
+      "limitations": [
+        "Market agreement is not an outcome score or proof of forecast accuracy.",
+        "Step improvements are descriptive; sequential research does not identify causal effects.",
+        "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+        "No exposure reported is an agent declaration, not independently verified isolation.",
+        "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+      ]
+    },
+    "revealed_at": "2026-09-16T15:17:29.304335Z"
+  },
+  "warnings": [],
+  "errors": [],
+  "next_actions": []
+}

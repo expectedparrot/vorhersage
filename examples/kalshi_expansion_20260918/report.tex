@@ -1,0 +1,304 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,booktabs,amsmath,graphicx,pdfpages}
+\usepackage[colorlinks=true,allcolors=blue!50!black]{hyperref}
+\usepackage{xcolor}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parskip}{4pt}
+\title{Research and Market Agreement Across Frontier Models:\\An Expanded Prospective Comparison}
+\author{Vorhersage experimental series}
+\date{September 18, 2026 (America/New\_York)}
+\begin{document}
+\maketitle
+\begin{abstract}
+We compare three language models on 15 unresolved prediction-market contracts,
+using identical questions and a common set of outside evidence. Each model
+produces a question-only forecast and a separate research-informed forecast,
+for 90 calls in total. Market prices are committed before research and withheld
+from all forecasting inputs. On the 13 contracts with accepted research forecasts
+from every model, mean absolute distance from the opening Kalshi midpoint is
+8.92 percentage points for Claude Fable 5.1, 11.08 for GPT-6 Astra, and 13.08
+for Gemini 3.1 Pro. Equal-weight averaging yields 10.87 points. On the nine
+contracts with all six accepted forecasts, research reduces mean distance by
+38--45\% across models. An overly broad lexical screen excludes ten otherwise
+valid responses; an explicitly post-hoc analysis of the original responses
+preserves the aggregate direction. The results support further study of research
+augmentation while revealing substantial sensitivity to question composition
+and response-screening policy.
+\end{abstract}
+
+\section{Objective and experimental design}
+Market probabilities offer a useful intermediate target for evaluating forecasts
+before events resolve. They incorporate contemporaneous information and permit
+rapid comparison without importing realized outcomes into the exercise. This
+study asks whether supplying a fixed body of nonmarket research moves model
+forecasts toward those contemporaneous prices. It extends an earlier six-contract
+model comparison with additional questions; results below concern only the new
+cohort.
+
+The experiment crosses three models with two information conditions. In the
+\emph{question-only} condition, the worker receives the event definition and
+forecasting instructions. In the \emph{outside-research} condition, it also receives
+a frozen evidence packet. Calls are separate: the research worker does not see
+the question-only response. Thus, a line connecting the two estimates represents
+a comparison between calls rather than a conversational revision. There is one
+call per model--question--condition cell. Models share the same prompts and
+source material within each condition, but retain provider-specific reasoning
+settings. The design compares the use of common evidence; it does not compare
+models' autonomous search strategies or isolate the effect of every stage in
+the broader forecasting package.
+
+\subsection{Selection and chronology}
+The candidate inventory contained 20 nominated contracts. Before collecting
+quotes, the protocol fixed that inventory, its order, a no-replacement rule,
+and eligibility requirements: an active, nonextreme, uncrossed book with spread
+at most 10 percentage points and at least one contract available on each side;
+the outcome must remain unknown, with at least 12 hours before the relevant
+future event. Three candidates lacked a usable two-sided book: September SpaceX
+launches, Sam Altman for the Nobel Peace Prize, and \emph{I Love Boosters} for
+Best Picture.
+
+Two more were excluded before inference. The current annual SpaceX launch total
+could not be established from the accessible primary material, so an already
+crossed threshold could not be ruled out. The earthquake definition did not
+unambiguously state the start of the counting window. The final cohort comprised
+eight macroeconomic contracts, one major-hurricane count, and six NFL games.
+No excluded candidate was replaced.
+
+Opening targets were captured around 01:01--01:02 UTC on September 19
+(September 18 in New York). Research followed, and the 90 trials were registered
+at 01:06:45 UTC. All batches were sealed before target revelation at approximately
+01:24 UTC. The largest absolute change between opening and follow-up midpoints
+was 0.5 percentage points. This ordering makes the opening midpoint the fixed
+primary target; later quotes provide a timing sensitivity rather than a
+replacement chosen after observing performance.
+
+\subsection{Evidence and blinding}
+Research used primary material from BEA, BLS, the Federal Reserve, the Atlanta
+Fed, the National Hurricane Center, and NFL.com. Macroeconomic packets contained
+recent releases and relevant projections, with distinctions between historical
+measurements, current-quarter nowcasts, and annual projections. NFL packets
+contained early-season standings and scoring, scheduled games, and injury
+reports. They were deliberately bounded packets, not comprehensive estimates
+of team strength. Hurricane evidence relied on captured search-index material
+from primary NHC pages because direct access returned HTTP 403; this limitation
+was supplied to the workers.
+
+Kalshi provided event definitions and separately stored evaluator targets. It
+provided no research evidence or numerical prices to forecasting workers.
+Workers had no retrieval tools. For each of the 90 responses, the returned
+system and user prompt receipts, scenario identity, and model identity were
+checked against the registered inputs. Source packets, jobs, raw results,
+accepted forecasts, and evaluator targets were preserved with content hashes.
+The coordinator followed procedural separation of the price store; this was
+not independent operating-system isolation of that coordinator.
+
+\section{Measures and matched comparisons}
+Let $p_{imc}$ denote the probability from model $m$ for question $i$ under
+condition $c$, and let $q_i$ be the committed opening midpoint. We report
+\[
+ \operatorname{MAE}_{mc}=\frac{100}{|S|}\sum_{i\in S}|p_{imc}-q_i|,
+ \qquad
+ \operatorname{RMSE}_{mc}=100\sqrt{\frac{1}{|S|}\sum_{i\in S}(p_{imc}-q_i)^2}.
+\]
+Both are in percentage points. For a given pair, the absolute improvement is
+$100\{|p_{imQ}-q_i|-|p_{imR}-q_i|\}$. Its percentage improvement divides this
+quantity by the question-only absolute gap. A zero initial gap has undefined
+relative improvement; negative improvement denotes deterioration. Aggregate
+relative improvements below use the ratio of aggregate MAEs, rather than an
+average of question-level ratios.
+
+Comparisons use common question sets. The primary research-model comparison
+requires an accepted research forecast from all three models ($n=13$). The
+paired research-effect comparison requires all six accepted forecasts ($n=9$).
+Available-case scores are also retained in the machine-readable results, but
+are not used to rank models across unequal question sets. An equal-weight
+average of the three research probabilities is evaluated on the same 13
+questions as its members.
+
+\begin{table}[htbp]
+\centering
+\caption{Agreement with the opening midpoint: common research cohort ($n=13$).}
+\begin{tabular}{lrr}
+\toprule
+Model or benchmark & MAE (pp) & RMSE (pp)\\
+\midrule
+Claude Fable 5.1 & 8.92 & 11.28\\
+GPT-6 Astra & 11.08 & 13.84\\
+Gemini 3.1 Pro & 13.08 & 15.64\\
+Equal-weight research average & 10.87 & 12.68\\
+Constant 50\% & 19.38 & 22.41\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Research comparison: fully matched cohort ($n=9$). Distances and absolute reductions are in percentage points.}
+\begin{tabular}{lrrrr}
+\toprule
+Model & Question only & Research & Reduction & Relative\\
+\midrule
+GPT-6 Astra & 14.56 & 8.00 & 6.56 & 45.0\%\\
+Claude Fable 5.1 & 17.33 & 9.56 & 7.78 & 44.9\%\\
+Gemini 3.1 Pro & 15.33 & 9.44 & 5.89 & 38.4\%\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Research improves aggregate agreement for each model, but individual questions
+show both gains and losses. For example, all three research forecasts for Q4 GDP
+are 42\%, below the 55\% midpoint and farther from it than their question-only
+forecasts. All three research forecasts for the December Fed decision are 55\%,
+compared with a 30.5\% midpoint. Averaging cannot remove an error shared by all
+members. Conversely, research moves the hurricane forecasts close to the 5\%
+midpoint. The appended question-faceted slope graphs display each accepted
+estimate and its distance reduction, with a labeled horizontal reference at
+the midpoint.
+
+The overall model ranking depends on the question mix. Removing NFL contracts
+from the common research cohort leaves eight questions: Astra's MAE is 8.44 pp,
+Gemini's 9.81 pp, and Claude's 10.44 pp. NFL contracts additionally have a payoff
+distinction: a tie pays half, whereas the requested forecast is the probability
+of a win. Under a simple expected-payout interpretation, the price corresponds
+to $P(\mathrm{win})+\tfrac12P(\mathrm{tie})$, not exactly $P(\mathrm{win})$.
+The non-NFL analysis was specified before inference.
+
+\section{Response screening and sensitivity analysis}
+All 90 calls completed without provider-reported exceptions. The registered
+acceptance rule nevertheless excluded ten responses, leaving 25/30 for Astra,
+25/30 for Claude, and 30/30 for Gemini. All ten contain valid JSON probabilities
+and valid supplied evidence references. Nine merely deny using market or
+sportsbook odds. The remaining response mentions the Kalshi naming convention
+when inferring a home team. None of these ten reports numerical market odds;
+the lexical matches do not establish price exposure.
+
+The registered exclusions remain unchanged. To expose their effect, a separate
+\emph{post-hoc} diagnostic includes all 90 original probabilities, without
+editing text, issuing the excluded forecasts, or obtaining replacement calls.
+The content review occurred after price revelation and is therefore not part
+of the preregistered primary analysis.
+
+\begin{table}[htbp]
+\centering
+\caption{Post-hoc diagnostic using all original responses ($n=15$). MAE in percentage points.}
+\begin{tabular}{lrr}
+\toprule
+Model & Question only & Research\\
+\midrule
+GPT-6 Astra & 15.67 & 11.73\\
+Claude Fable 5.1 & 15.20 & 9.47\\
+Gemini 3.1 Pro & 17.60 & 13.13\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The equal-weight research average in this diagnostic scores 11.31 pp. The
+aggregate direction and overall research ranking agree with the registered
+analysis. The screening problem still matters: a future protocol should define
+how to distinguish explicit denials from assertions of price use before any
+responses are examined. A vocabulary match is useful as an audit flag but is an
+imprecise exclusion criterion.
+
+\section{Interpretation and next experiments}
+The study provides additional evidence that the supplied research improves
+agreement with contemporaneous market assessments on this selected cohort.
+The comparison is useful precisely because the events remain unresolved:
+realized outcomes cannot explain the observed agreement. Market disagreement
+also identifies concrete questions on which evidence selection or numerical
+interpretation deserves further examination.
+
+The scope of inference remains the observed questions and settings. A two-sided
+quote screen establishes a usable benchmark, not that every contract has deep
+liquidity. Related economic releases share information and risks; six games
+also do not supply six independent replications of a general forecasting
+method. With one draw per cell and a small number of broader topic groups,
+we report descriptive differences rather than unsupported precision for a
+population ranking. These market-distance measures are intermediate outcomes;
+subsequent realized outcomes can support a separate proper-scoring evaluation.
+
+No transformation $f(p)$ or ensemble weights were fitted. Training one on these
+same observations and reporting the resulting fit would not establish useful
+out-of-sample calibration. The next experiment should freeze any proposed
+correction before testing on later, untouched event groups, preserve a simple
+identity correction and equal-weight ensemble as controls, and expand coverage
+across dates and domains. Research packets and response-screening rules should
+be versioned as experimental factors rather than changed within a completed
+comparison.
+
+\appendix
+\section{Package implementation and reproducibility}
+Vorhersage supplies the deterministic records and evaluation machinery around
+external research and model judgment. The market workbench stores a question
+version and contract definition, checks quote eligibility, and places the opening
+quote in a separate evaluator store. A public hash commits to that target before
+the research begins. Evidence packets preserve claims, values, source excerpts,
+retrieval timestamps, captured content, and declared limitations.
+
+First-class experimental arms combine a method, a model configuration, and a
+data specification. Here, six arms cross the three models with either no
+current evidence or the same frozen packet for each question. Registration pins
+the question versions, information cutoff, arm identities, and one repetition.
+The transport exports the exact tasks to independent provider calls. The
+importer checks response identity, JSON structure, references, and the declared
+acceptance policy before issuing immutable forecast artifacts. Every attempt,
+including an excluded response, remains in the usage record.
+
+The reveal gate requires terminal records for every registered trial and seals
+for all model batches. It verifies raw-result and forecast commitments before
+opening prices. The published comparison then scores all accepted model/condition
+forecasts against each question's committed target. A representative forecast
+in the workbench journal is only the bridge to that reveal; it is not the source
+of the multi-model comparison. An offline verifier independently recomputes
+MAE, RMSE, and distance outside the bid--ask spread, and checks target hashes,
+retrieval-before-registration timing, and seal-before-reveal ordering.
+
+\begin{table}[htbp]
+\centering
+\caption{Reported provider inference cost, including excluded responses.}
+\begin{tabular}{lrr}
+\toprule
+Model & Calls & USD\\
+\midrule
+GPT-6 Astra & 30 & 0.99960\\
+Claude Fable 5.1 & 30 & 2.25114\\
+Gemini 3.1 Pro & 30 & 0.39297\\
+\midrule
+Total & 90 & 3.64371\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Exact identifiers are \texttt{gpt-6-astra}, \texttt{claude-fable-5-1}, and
+\texttt{gemini-3.1-pro-preview}. Astra uses high reasoning effort; Claude uses
+adaptive thinking with high output effort; Gemini uses a 2,048-token thinking
+budget and temperature 0.5. All have an 8,192-token configured output limit.
+Serialized legacy sampling defaults may be omitted or ignored by adapters for
+reasoning models; the archived configurations and raw provider responses are
+the operational record. These settings are not equal compute budgets. The
+reported costs exclude research/coordinator work, for which cost is unknown.
+
+Artifacts reside in \texttt{examples/kalshi\_expansion\_20260918/}.
+The accompanying README maps protocols, evidence, tasks, jobs, results, seals,
+and target disclosures. \texttt{run/comparison.json} contains all cohort
+metrics; \texttt{run/output-review-sensitivity.json} contains the post-hoc
+review and diagnostic. The saved database integrity check passed for 415
+artifacts. The targeted study tests pass 30 tests. No core package dependency
+was added for this expansion.
+
+The following commands verify the saved study and regenerate its figures and PDF
+from the repository root (with the study dependencies installed):
+\begin{quote}\small\ttfamily
+.venv/bin/python examples/kalshi\_expansion\_20260918/verify\_results.py\\
+Rscript examples/kalshi\_expansion\_20260918/plot\_performance.R\\
+latexmk -cd -pdf examples/kalshi\_expansion\_20260918/report.tex
+\end{quote}
+The offline check needs neither inference calls nor private-store access.
+The following ggplot2 plates show the primary comparison: blue circles denote
+question-only forecasts, green squares research forecasts, and dashed lines the
+opening midpoint. Missing responses are never assigned zero probability.
+\clearpage
+\includepdf[pages=-,fitpaper=true,pagecommand={}]{figures/performance.pdf}
+\end{document}

@@ -1,0 +1,26 @@
+{
+  "task_id": "task_decaf7dab8564f92ab56",
+  "expected_revision": 0,
+  "idempotency_key": "trial_a32c8c6ef29f4d4ac9df9e6f-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.44,
+    "rationale": "The NWS point forecast issued the evening before (Sep 18, 5:48 pm CDT) gives a high near 98\u00b0F for Austin-Bergstrom on Sep 19, with sunny skies and light southeast winds\u2014conditions that favor forecast accuracy. The YES band (98\u201399\u00b0F) is a two-degree window centered on the point forecast and slightly skewed warm, which fits well since the Sunday forecast of 99\u00b0F suggests a warming trend and day-ahead NWS highs in dry, sunny late-summer Austin regimes have roughly a 1.5\u20132\u00b0F typical absolute error. A rough normal-error model (\u03c3 \u2248 1.8\u00b0F) centered at ~98.2\u00b0F puts about 40\u201345% of mass on 98 or 99. Too-high risk: settlement uses The Weather Company's CLIAUS value, which may differ from the NWS grid point, and any bust (e.g., subtle moisture increase, high clouds, or a stronger-than-forecast onshore flow) pushing the high to 96\u201397\u00b0F would resolve NO; also, with a warming trend, 100\u00b0F is plausible. Too-low risk: late-season Austin dry regimes often verify at or 1\u00b0F above the forecast, and the band captures both the point value and the most likely upside, so the probability could reasonably exceed 50%. No current observations for Sep 19 were available to refine the estimate.",
+    "limitations": [
+      "Only a single NWS point forecast is supplied; no ensemble spread, MOS, or fitted error distribution.",
+      "Settlement source is The Weather Company at CLIAUS, which may differ from the NWS forecast point and rounding conventions.",
+      "No same-day observations (morning temperature, cloud cover, dewpoint) available to update the estimate."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_b23bb06fc5e77ebad5659555",
+        "record_id": "austin"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.05002000000000001
+  }
+}

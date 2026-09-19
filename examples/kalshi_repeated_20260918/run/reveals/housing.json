@@ -1,0 +1,256 @@
+{
+  "case_id": "workbench_1256989fb75f491db61c",
+  "state": "revealed",
+  "revision": 2,
+  "baseline_captured_at": "2026-09-19T01:50:39.550205Z",
+  "contract": {
+    "event_group": "KXHOUSINGSTART-26OCT20",
+    "market_id": "KXHOUSINGSTART-26OCT20-T1.300",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If US housing starts for September 2026 is above 1.300M, then the market resolves to Yes.\n\nThe Underlying is the \"Housing Starts\" figure reported in the U.S. Census Bureau\u2019s New Residential Construction release for September 2026 (as displayed on Trading Economics). If the September 2026 release is delayed or rescheduled, the market will resolve based on the first official publication of the September 2026 Housing Starts value.",
+    "scheduled_close": "2026-10-20T12:29:00Z",
+    "title": "Will US housing starts for September 2026 be above 1.300M?",
+    "venue": "kalshi",
+    "yes_description": "Above 1.300M"
+  },
+  "created_at": "2026-09-19T01:50:39.551409Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-19T01:50:39.251783Z",
+    "specification": {
+      "domain": "US housing and interest rates",
+      "event_deadline": "2026-10-20T12:29:00Z",
+      "event_group": "KXHOUSINGSTART-26OCT20",
+      "id": "housing",
+      "kind": "real",
+      "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+      "profile": "general",
+      "resolution_source": "Contract-defined primary source; see frozen rules.",
+      "resolve_after": "2026-10-20T12:29:00Z",
+      "text": "Will US housing starts for September 2026 be above 1.300M? \u2014 Above 1.300M",
+      "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+      "yes": "If US housing starts for September 2026 is above 1.300M, then the market resolves to Yes.\n\nThe Underlying is the \"Housing Starts\" figure reported in the U.S. Census Bureau\u2019s New Residential Construction release for September 2026 (as displayed on Trading Economics). If the September 2026 release is delayed or rescheduled, the market will resolve based on the first official publication of the September 2026 Housing Starts value."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+    "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+    "market_id": "KXHOUSINGSTART-26OCT20-T1.300",
+    "max_spread": 0.1,
+    "method": "Three-model question-only versus outside-research comparison",
+    "min_contracts_each_side": 1,
+    "mode": "prospective",
+    "question": {
+      "question_id": "housing",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_ee7fe1d3f63e4d7ebef9",
+  "target_sha256": "e016d3cd76c206a0358d95a910044b25c1dbcfec4b9c4e739f8886e727005be1",
+  "journal": [
+    {
+      "id": "workbench_entry_d1fa20ce7baf4e6482f6",
+      "case_id": "workbench_1256989fb75f491db61c",
+      "evidence_manifest": {},
+      "kind": "initial",
+      "model_manifest": {
+        "forecast_725abcef0b604f7c8469": "59f92391126f41c17299c641f941365eae2eb32c23f0ebdafbd05ae270fcd11a"
+      },
+      "payload": {
+        "assumptions": [
+          "Three independent calls per cell; no repair."
+        ],
+        "evidence_refs": [],
+        "model_artifact_ids": [
+          "forecast_725abcef0b604f7c8469"
+        ],
+        "probability": 0.58,
+        "rationale": "Representative sealed forecast; all registered repetitions scored separately from their immutable records.",
+        "research_status": "completed",
+        "uncertainties": [
+          "Frozen packet limitations and within-model variation."
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T02:06:49.838402Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_f93b9392ab2c4b9d89ad",
+      "case_id": "workbench_1256989fb75f491db61c",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "Exact provider inputs checked; strict source screening; market-mentions-v2 content review before reveal. Procedural coordinator separation, no independently enforced sandbox.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "Every call has a terminal receipt; forecasts and pre-reveal content reviews are sealed."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T02:06:49.843295Z",
+      "revision": 2,
+      "trajectory_manifest": {
+        "workbench_entry_d1fa20ce7baf4e6482f6": "77b9842e45b6015841cd7f86c3e90183621c7012f5509aac91a2f9cc3f3951d6"
+      }
+    }
+  ],
+  "evidence": {},
+  "models": {
+    "forecast_725abcef0b604f7c8469": {
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "assessment_probability": 0.58,
+      "coherence": {
+        "comparisons": [],
+        "limitations": [
+          "Implications are supplied by the agent and pinned to exact question versions.",
+          "Different information cutoffs can explain apparent incoherence; review before revising."
+        ],
+        "missing_forecasts": [],
+        "violations": []
+      },
+      "concern_resolutions": [],
+      "cost_usd": 0.02681,
+      "coverage": {},
+      "cutoff_policy": "fixed",
+      "data_label": "question_only",
+      "evidence_refs": [],
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r1",
+      "information_as_of": "2026-09-19T01:58:11.498178Z",
+      "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+      "input_manifest": {
+        "arm_d016b89aa4504d278e31": "94c56be7789280998e2497b62dc837d51bc9a6fc32a50b8f5fdf0f488e1c2ab1",
+        "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+        "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+        "task_result_fe56b80608bf4376b5cf": "905cfcb10191daf85b3688ff1231e714d5fa3367177c911c48d1ab2e8bf404e6"
+      },
+      "inquiry_answers": {},
+      "issued_at": "2026-09-19T02:05:32.765303Z",
+      "manifest_sha256": "a83cf4356e69d1a35358741eb7006b0393dd246d240c90861e6a47e2529fc98b",
+      "method": "method_62c19062d0814cb99b77",
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "mode": "prospective",
+      "model_calls": 1,
+      "model_challenge": null,
+      "model_map": null,
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "parameter_support": [],
+      "previous_forecast_id": null,
+      "prior_record": {
+        "qualification": "Registered method omits the prior stage.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.58,
+      "probability_basis": "judgment",
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_62c19062d0814cb99b77"
+      },
+      "question": {
+        "domain": "US housing and interest rates",
+        "event_deadline": "2026-10-20T12:29:00Z",
+        "event_group": "KXHOUSINGSTART-26OCT20",
+        "id": "housing",
+        "kind": "real",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "resolve_after": "2026-10-20T12:29:00Z",
+        "text": "Will US housing starts for September 2026 be above 1.300M? \u2014 Above 1.300M",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "yes": "If US housing starts for September 2026 is above 1.300M, then the market resolves to Yes.\n\nThe Underlying is the \"Housing Starts\" figure reported in the U.S. Census Bureau\u2019s New Residential Construction release for September 2026 (as displayed on Trading Economics). If the September 2026 release is delayed or rescheduled, the market will resolve based on the first official publication of the September 2026 Housing Starts value."
+      },
+      "question_id": "housing",
+      "question_version": 1,
+      "reference_class": null,
+      "repetition": 1,
+      "research_plan": null,
+      "review_at": "2026-09-19T03:45:00+00:00",
+      "run_id": "run_1a62cf818d24466da159",
+      "searches": 0,
+      "sensitivity": null,
+      "stopping_reason": "One frozen-input model call, no repair or additional research.",
+      "trial_id": "trial_808e1aef845aca0fa72c35d3",
+      "triggers": [
+        {
+          "description": "Separate future-data study.",
+          "evidence_refs": []
+        }
+      ],
+      "workflow_version": "experiment.stages.v1"
+    }
+  },
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.53,
+      "ask_contracts_within_2c": 1250.0,
+      "ask_size": 200.0,
+      "bid": 0.43,
+      "bid_contracts_within_2c": 1550.19,
+      "bid_size": 1250.19,
+      "midpoint": 0.48,
+      "spread": 0.1
+    },
+    "target_captured_at": "2026-09-19T01:50:39.550205Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_d1fa20ce7baf4e6482f6",
+        "label": "Initial",
+        "recorded_at": "2026-09-19T02:06:49.838402Z",
+        "probability": 0.58,
+        "difference_pp": 9.999999999999998,
+        "squared_market_error": 0.009999999999999995,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 4.999999999999993
+      }
+    ],
+    "net_squared_error_improvement": 0.0,
+    "followup_quote": {
+      "ask": 0.54,
+      "ask_contracts_within_2c": 300.0,
+      "ask_size": 200.0,
+      "bid": 0.43,
+      "bid_contracts_within_2c": 1350.19,
+      "bid_size": 1250.19,
+      "midpoint": 0.485,
+      "spread": 0.11
+    },
+    "followup_captured_at": "2026-09-19T02:06:50.160209Z",
+    "market_movement_pp": 0.5000000000000004,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-19T02:06:50.160467Z"
+}

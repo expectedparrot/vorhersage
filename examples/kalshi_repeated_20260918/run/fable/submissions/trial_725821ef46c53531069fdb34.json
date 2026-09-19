@@ -1,0 +1,31 @@
+{
+  "task_id": "task_41557982df51447bb321",
+  "expected_revision": 0,
+  "idempotency_key": "trial_725821ef46c53531069fdb34-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.4,
+    "rationale": "The most recent observed starting point is August 2026 starts at 1.275M SAAR (preliminary), down from a revised 1.309M in July, with permits falling to 1.394M from 1.433M. To resolve YES, the first-print September figure must rise about 2% (roughly +25K) above the August level. Monthly starts are noisy (typical month-to-month moves of 4-7%), so a move of this size is well within range in either direction; the question is largely about where the center of the distribution sits. Permits near 1.39M are consistent with starts hovering around 1.28-1.32M, which pulls the center slightly up toward the threshold. Against that, 30-year mortgage rates jumped from ~6.65% in late August to 6.95% by September 17, and permits are trending down, both pointing to softer builder activity, though rate effects on starts operate with a lag of a month or more. Balancing mean-reversion toward permit-implied levels against deteriorating financing conditions and a downward permit trend, I place the September median a bit below 1.30M and estimate roughly a 40% chance the first print exceeds 1.300M. Too high: the sharp rate spike and falling permits could produce a sub-1.25M print, and August itself may be revised in ways that don't affect resolution but signal weaker momentum. Too low: starts are volatile and frequently rebound after a soft month; multifamily starts can swing the headline by 50K+ in a single month, and the permit level supports a print near or above 1.30M.",
+    "limitations": [
+      "September starts are unreleased; August is preliminary and subject to revision.",
+      "No fitted model; estimate relies on general knowledge of starts volatility and the permits-starts relationship.",
+      "Small evidence packet; no data on builder sentiment, multifamily pipeline, weather, or regional factors.",
+      "Mortgage rate pass-through to starts has uncertain lag."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_0c399e3114671f1068f334fb",
+        "record_id": "housing"
+      },
+      {
+        "packet_id": "pkt_0c399e3114671f1068f334fb",
+        "record_id": "mortgage"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.07526000000000001
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "task_id": "task_c8bf72d669e848bd8169",
+  "expected_revision": 0,
+  "idempotency_key": "trial_57fe80eb99908c34559f1b65-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.45,
+    "rationale": "August starts printed 1.275M (preliminary), down from a revised 1.309M in July, so the threshold of 1.300M requires roughly a +2% rebound in the first September print. Monthly housing starts are noisy: typical month-to-month moves have a standard deviation on the order of 6-8% (roughly 80-100K at this level), so a 25K move is well within normal variation and the outcome is close to a coin flip. Offsetting considerations: permits remain well above starts (1.394M in August, ~1.09x starts versus a more typical ~1.05x), which points to some upside catch-up in starts, and the two-month average (~1.29M) suggests August may have been a low reading subject to mean reversion. Against that, 30-year mortgage rates rose sharply to 6.95% by September 17 (from ~6.65% in late August), which dampens builder sentiment and demand, though September starts largely reflect decisions made before the rate jump. My central expectation is roughly 1.29-1.30M with wide dispersion, giving a probability slightly below 50%. Reasons the estimate could be too high: the downtrend in both starts and permits from July to August plus rising rates could signal continued softening, and August could be revised down with September following. Reasons it could be too low: the permits gap is sizable and starts frequently snap back after a weak month; a single-family or multifamily bounce could easily push the headline above 1.30M.",
+    "limitations": [
+      "September data not yet released; August figures are preliminary and subject to revision.",
+      "No fitted statistical model; volatility assumptions are from general historical knowledge, not supplied data.",
+      "Mortgage rate impact on same-month starts is uncertain and lagged.",
+      "Resolution depends on the first official print as displayed on Trading Economics; rounding conventions near 1.300M could matter."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_0c399e3114671f1068f334fb",
+        "record_id": "housing"
+      },
+      {
+        "packet_id": "pkt_0c399e3114671f1068f334fb",
+        "record_id": "mortgage"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.07266
+  }
+}

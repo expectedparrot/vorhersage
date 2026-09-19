@@ -1,0 +1,767 @@
+{
+  "created_at": "2026-09-19T00:56:32.155143Z",
+  "purpose": "Candidate inventory for a larger study, not a registered experiment or a completed run.",
+  "prices_retrieved_for_selection": false,
+  "selection_rule": "Specified per-series quotas, earliest returned close dates, one contract per event, lexicographic middle returned contract per event. No prices or volume used. Discovery is bounded, not a census.",
+  "excluded_event_groups": [
+    "KXCPI-26SEP",
+    "KXCPICORE-26SEP",
+    "KXFEDDECISION-26OCT",
+    "KXHIGHLAX-26SEP18",
+    "KXMLBGAME-26SEP201920MILBAL",
+    "KXNETFLIXRANKMOVIE-26SEP21",
+    "KXRKLBLAUNCH-NEUT",
+    "KXU3-26SEP"
+  ],
+  "candidate_count": 20,
+  "independence_note": "Distinct event IDs do not establish statistical independence. Labor, inflation and policy events share macroeconomic drivers; team games share season effects. Group related events in calibration evaluation.",
+  "candidates": [
+    {
+      "id": "candidate-01",
+      "series": "KXGDP",
+      "dependence_cluster": "US macroeconomy",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXGDP-26OCT30-T2.0",
+        "title": "Will **real GDP** increase by more than 2.0% in Q3 2026?",
+        "yes_description": "Above 2.0%",
+        "rules": "If real GDP (as measured by the BEA\u2019s seasonally adjusted and annualized Advance Estimate) increases by more than 2.0, then the market resolves to Yes.\n\nThe market will close at 8:29 AM on the day of the expected release of the data. The market will expire at the first 10:00 AM following the release of the data for Q3 2026, or 3 months following that expected date of data release. Please note the Expiration Value is the one-decimal value published by the BEA.",
+        "scheduled_close": "2026-10-30T12:29:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXGDP-26OCT30"
+      },
+      "candidate_alternatives": [
+        "KXGDP-26OCT30-T0.0",
+        "KXGDP-26OCT30-T0.5",
+        "KXGDP-26OCT30-T1.0",
+        "KXGDP-26OCT30-T1.5",
+        "KXGDP-26OCT30-T2.0",
+        "KXGDP-26OCT30-T2.5",
+        "KXGDP-26OCT30-T3.0",
+        "KXGDP-26OCT30-T3.5",
+        "KXGDP-26OCT30-T4.0"
+      ],
+      "primary_research_domains": [
+        "bea.gov"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-02",
+      "series": "KXGDP",
+      "dependence_cluster": "US macroeconomy",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXGDP-27JAN28-T2.0",
+        "title": "Will **real GDP** increase by more than 2.0% in Q4 2026?",
+        "yes_description": "Above 2.0%",
+        "rules": "If real GDP (as measured by the BEA\u2019s seasonally adjusted and annualized Advance Estimate) increases by more than 2.0, then the market resolves to Yes.\n\nThe market will close at 8:29 AM on the day of the expected release of the data. The market will expire at the first 10:00 AM following the release of the data for Q4 2026, or 3 months following that expected date of data release. Please note the Expiration Value is the one-decimal value published by the BEA.",
+        "scheduled_close": "2027-01-28T13:29:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXGDP-27JAN28"
+      },
+      "candidate_alternatives": [
+        "KXGDP-27JAN28-T0.0",
+        "KXGDP-27JAN28-T0.5",
+        "KXGDP-27JAN28-T1.0",
+        "KXGDP-27JAN28-T1.5",
+        "KXGDP-27JAN28-T2.0",
+        "KXGDP-27JAN28-T2.5",
+        "KXGDP-27JAN28-T3.0",
+        "KXGDP-27JAN28-T3.5",
+        "KXGDP-27JAN28-T4.0"
+      ],
+      "primary_research_domains": [
+        "bea.gov"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-03",
+      "series": "KXPAYROLLS",
+      "dependence_cluster": "US labor market",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXPAYROLLS-26SEP-T30000",
+        "title": "Will above 30000 jobs be added in September 2026?",
+        "yes_description": "Above 30,000",
+        "rules": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of September 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release.",
+        "scheduled_close": "2026-10-02T12:29:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXPAYROLLS-26SEP"
+      },
+      "candidate_alternatives": [
+        "KXPAYROLLS-26SEP-T-25000",
+        "KXPAYROLLS-26SEP-T0",
+        "KXPAYROLLS-26SEP-T10000",
+        "KXPAYROLLS-26SEP-T100000",
+        "KXPAYROLLS-26SEP-T125000",
+        "KXPAYROLLS-26SEP-T20000",
+        "KXPAYROLLS-26SEP-T30000",
+        "KXPAYROLLS-26SEP-T40000",
+        "KXPAYROLLS-26SEP-T50000",
+        "KXPAYROLLS-26SEP-T60000",
+        "KXPAYROLLS-26SEP-T70000",
+        "KXPAYROLLS-26SEP-T80000",
+        "KXPAYROLLS-26SEP-T90000"
+      ],
+      "primary_research_domains": [
+        "bls.gov"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-04",
+      "series": "KXPAYROLLS",
+      "dependence_cluster": "US labor market",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXPAYROLLS-26OCT-T30000",
+        "title": "Will above 30000 jobs be added in October 2026?",
+        "yes_description": "Above 30,000",
+        "rules": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of October 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release.",
+        "scheduled_close": "2026-11-06T13:29:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXPAYROLLS-26OCT"
+      },
+      "candidate_alternatives": [
+        "KXPAYROLLS-26OCT-T-25000",
+        "KXPAYROLLS-26OCT-T0",
+        "KXPAYROLLS-26OCT-T10000",
+        "KXPAYROLLS-26OCT-T100000",
+        "KXPAYROLLS-26OCT-T125000",
+        "KXPAYROLLS-26OCT-T20000",
+        "KXPAYROLLS-26OCT-T30000",
+        "KXPAYROLLS-26OCT-T40000",
+        "KXPAYROLLS-26OCT-T50000",
+        "KXPAYROLLS-26OCT-T60000",
+        "KXPAYROLLS-26OCT-T70000",
+        "KXPAYROLLS-26OCT-T80000",
+        "KXPAYROLLS-26OCT-T90000"
+      ],
+      "primary_research_domains": [
+        "bls.gov"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-05",
+      "series": "KXCPI",
+      "dependence_cluster": "US inflation",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXCPI-26OCT-T0.4",
+        "title": "Will CPI rise more than 0.4% in October 2026?",
+        "yes_description": "Above 0.4%",
+        "rules": "If the Consumer Price Index (CPI) increases by more than 0.4% (single-decimal) in October 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (November 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown.",
+        "scheduled_close": "2026-11-10T13:25:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXCPI-26OCT"
+      },
+      "candidate_alternatives": [
+        "KXCPI-26OCT-T-0.1",
+        "KXCPI-26OCT-T0.0",
+        "KXCPI-26OCT-T0.1",
+        "KXCPI-26OCT-T0.2",
+        "KXCPI-26OCT-T0.3",
+        "KXCPI-26OCT-T0.4",
+        "KXCPI-26OCT-T0.5",
+        "KXCPI-26OCT-T0.6",
+        "KXCPI-26OCT-T0.7",
+        "KXCPI-26OCT-T0.8",
+        "KXCPI-26OCT-T0.9",
+        "KXCPI-26OCT-T1.0"
+      ],
+      "primary_research_domains": [
+        "bls.gov",
+        "eia.gov"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-06",
+      "series": "KXCPI",
+      "dependence_cluster": "US inflation",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXCPI-26NOV-T0.2",
+        "title": "Will CPI rise more than 0.2% in November 2026?",
+        "yes_description": "Above 0.2%",
+        "rules": "If the Consumer Price Index (CPI) increases by more than 0.2% (single-decimal) in November 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (December 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown.",
+        "scheduled_close": "2026-12-10T13:25:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXCPI-26NOV"
+      },
+      "candidate_alternatives": [
+        "KXCPI-26NOV-T-0.1",
+        "KXCPI-26NOV-T0.0",
+        "KXCPI-26NOV-T0.1",
+        "KXCPI-26NOV-T0.2",
+        "KXCPI-26NOV-T0.3",
+        "KXCPI-26NOV-T0.4",
+        "KXCPI-26NOV-T0.5"
+      ],
+      "primary_research_domains": [
+        "bls.gov",
+        "eia.gov"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-07",
+      "series": "KXU3",
+      "dependence_cluster": "US labor market",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXU3-26OCT-T4.3",
+        "title": "Will the unemployment rate (U-3) be above 4.3% in October?",
+        "yes_description": "Above 4.3%",
+        "rules": "If the seasonally adjusted unemployment rate (U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report is above 4.3% in October 2026, then the market resolves to Yes.",
+        "scheduled_close": "2026-11-06T13:29:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXU3-26OCT"
+      },
+      "candidate_alternatives": [
+        "KXU3-26OCT-T3.7",
+        "KXU3-26OCT-T3.8",
+        "KXU3-26OCT-T3.9",
+        "KXU3-26OCT-T4.0",
+        "KXU3-26OCT-T4.1",
+        "KXU3-26OCT-T4.2",
+        "KXU3-26OCT-T4.3",
+        "KXU3-26OCT-T4.4",
+        "KXU3-26OCT-T4.5",
+        "KXU3-26OCT-T4.6",
+        "KXU3-26OCT-T4.7",
+        "KXU3-26OCT-T4.8",
+        "KXU3-26OCT-T4.9",
+        "KXU3-26OCT-T5.0"
+      ],
+      "primary_research_domains": [
+        "bls.gov"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-08",
+      "series": "KXFEDDECISION",
+      "dependence_cluster": "US monetary policy",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXFEDDECISION-26DEC-H0",
+        "title": "Will the Federal Reserve Hike rates by 0bps at their December 2026 meeting?",
+        "yes_description": "Fed maintains rate",
+        "rules": "If the Federal Reserve does a Hike of 0bps on December 09, 2026, then the market resolves to Yes.\n\nThis market is mutually exclusive. Therefore, if the Federal Reserve hikes by 50bps, the 50bps market will resolve to Yes and the 25bps market will resolve to No. Only one bucket, at maximum, can resolve to Yes. Note 4/28/25: For the markets beginning after the May meeting, if a scheduled FOMC meeting is canceled and does not occur on its scheduled date, then the strike for \"Fed maintains rate\" will resolve to Yes and all others will resolve to No.",
+        "scheduled_close": "2026-12-09T18:59:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXFEDDECISION-26DEC"
+      },
+      "candidate_alternatives": [
+        "KXFEDDECISION-26DEC-C25",
+        "KXFEDDECISION-26DEC-C26",
+        "KXFEDDECISION-26DEC-H0",
+        "KXFEDDECISION-26DEC-H25",
+        "KXFEDDECISION-26DEC-H26"
+      ],
+      "primary_research_domains": [
+        "federalreserve.gov"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-09",
+      "series": "KXSPACEXCOUNT",
+      "dependence_cluster": "SpaceX launch activity",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXSPACEXCOUNT-26SEP-15",
+        "title": "How many launches will SpaceX have in Sep 2026?",
+        "yes_description": "Above 15",
+        "rules": "If SpaceX has more than 15 launches in Sep 2026, then the market resolves to Yes.",
+        "scheduled_close": "2026-10-01T14:00:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXSPACEXCOUNT-26SEP"
+      },
+      "candidate_alternatives": [
+        "KXSPACEXCOUNT-26SEP-10",
+        "KXSPACEXCOUNT-26SEP-11",
+        "KXSPACEXCOUNT-26SEP-12",
+        "KXSPACEXCOUNT-26SEP-13",
+        "KXSPACEXCOUNT-26SEP-14",
+        "KXSPACEXCOUNT-26SEP-15",
+        "KXSPACEXCOUNT-26SEP-16",
+        "KXSPACEXCOUNT-26SEP-17",
+        "KXSPACEXCOUNT-26SEP-18",
+        "KXSPACEXCOUNT-26SEP-7",
+        "KXSPACEXCOUNT-26SEP-8",
+        "KXSPACEXCOUNT-26SEP-9"
+      ],
+      "primary_research_domains": [
+        "spacex.com",
+        "faa.gov"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-10",
+      "series": "KXSPACEXCOUNT",
+      "dependence_cluster": "SpaceX launch activity",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXSPACEXCOUNT-26B-170",
+        "title": "How many launches will SpaceX have in 2026?",
+        "yes_description": "Above 170",
+        "rules": "If SpaceX has more than 170 launches in 2026, then the market resolves to Yes.\n\nIf source agency data from FAA is delayed due to a data delay, then the market will expire following data updating in accordance with Kalshi Rule 6.3b.",
+        "scheduled_close": "2027-01-01T15:00:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXSPACEXCOUNT-26B"
+      },
+      "candidate_alternatives": [
+        "KXSPACEXCOUNT-26B-120",
+        "KXSPACEXCOUNT-26B-140",
+        "KXSPACEXCOUNT-26B-150",
+        "KXSPACEXCOUNT-26B-160",
+        "KXSPACEXCOUNT-26B-170",
+        "KXSPACEXCOUNT-26B-180",
+        "KXSPACEXCOUNT-26B-190",
+        "KXSPACEXCOUNT-26B-200",
+        "KXSPACEXCOUNT-26B-210",
+        "KXSPACEXCOUNT-26DEC-145"
+      ],
+      "primary_research_domains": [
+        "spacex.com",
+        "faa.gov"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-11",
+      "series": "KXEARTHQUAKEM",
+      "dependence_cluster": "Global seismic activity",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXEARTHQUAKEM-26SEP-74",
+        "title": "Will an earthquake of at least 7.4 magnitude occur worldwide before Oct 1, 2026?",
+        "yes_description": "7.4+",
+        "rules": "If an earthquake with a magnitude at least 7.4 on the Moment Magnitude Scale occurs with its epicenter in worldwide before Oct 1, 2026, then the market resolves to Yes.",
+        "scheduled_close": "2026-10-01T03:59:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXEARTHQUAKEM-26SEP"
+      },
+      "candidate_alternatives": [
+        "KXEARTHQUAKEM-26SEP-68",
+        "KXEARTHQUAKEM-26SEP-69",
+        "KXEARTHQUAKEM-26SEP-70",
+        "KXEARTHQUAKEM-26SEP-71",
+        "KXEARTHQUAKEM-26SEP-72",
+        "KXEARTHQUAKEM-26SEP-73",
+        "KXEARTHQUAKEM-26SEP-74",
+        "KXEARTHQUAKEM-26SEP-75",
+        "KXEARTHQUAKEM-26SEP-76",
+        "KXEARTHQUAKEM-26SEP-77",
+        "KXEARTHQUAKEM-26SEP-78",
+        "KXEARTHQUAKEM-26SEP-79",
+        "KXEARTHQUAKEM-26SEP-80"
+      ],
+      "primary_research_domains": [
+        "usgs.gov"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-12",
+      "series": "KXHURCTOTMAJ",
+      "dependence_cluster": "Atlantic hurricane season",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXHURCTOTMAJ-26DEC01-T3",
+        "title": "Will there be more than 3 major Atlantic hurricanes in 2026?",
+        "yes_description": "Above 3",
+        "rules": "If the NOAA's National Hurricane Center records more than 3 hurricanes of hurricane category 3 or above between January 1, 2026 and December 01, 2026, then the market resolves to Yes.\n\nThe market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026. The market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026.",
+        "scheduled_close": "2026-12-02T04:59:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXHURCTOTMAJ-26DEC01"
+      },
+      "candidate_alternatives": [
+        "KXHURCTOTMAJ-26DEC01-T0",
+        "KXHURCTOTMAJ-26DEC01-T1",
+        "KXHURCTOTMAJ-26DEC01-T2",
+        "KXHURCTOTMAJ-26DEC01-T3",
+        "KXHURCTOTMAJ-26DEC01-T4",
+        "KXHURCTOTMAJ-26DEC01-T5",
+        "KXHURCTOTMAJ-26DEC01-T6",
+        "KXHURCTOTMAJ-26DEC01-T7"
+      ],
+      "primary_research_domains": [
+        "nhc.noaa.gov",
+        "noaa.gov"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-13",
+      "series": "KXNOBELPEACE",
+      "dependence_cluster": "Nobel Peace Prize",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNOBELPEACE-26-SAM",
+        "title": "Who will win the Nobel Peace Prize?",
+        "yes_description": "Sam Altman",
+        "rules": "If Sam Altman wins the Nobel Peace Prize in 2026, then the market resolves to Yes.\n\nThis market and these products have not been endorsed by the Nobel Foundation. Any references to the Nobel Foundation or any associated marks are descriptive only and do not indicate an endorsement of this product or any affiliation between the Nobel Foundation and Kalshi.",
+        "scheduled_close": "2027-01-01T15:00:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNOBELPEACE-26"
+      },
+      "candidate_alternatives": [
+        "KXNOBELPEACE-26-CE",
+        "KXNOBELPEACE-26-DAR",
+        "KXNOBELPEACE-26-DJT",
+        "KXNOBELPEACE-26-DOC",
+        "KXNOBELPEACE-26-ELO",
+        "KXNOBELPEACE-26-EUR",
+        "KXNOBELPEACE-26-FRA",
+        "KXNOBELPEACE-26-ICJ",
+        "KXNOBELPEACE-26-MAR",
+        "KXNOBELPEACE-26-MIN",
+        "KXNOBELPEACE-26-NAR",
+        "KXNOBELPEACE-26-SAM",
+        "KXNOBELPEACE-26-SAR",
+        "KXNOBELPEACE-26-SUD",
+        "KXNOBELPEACE-26-TAM",
+        "KXNOBELPEACE-26-VOL",
+        "KXNOBELPEACE-27-CPJ",
+        "KXNOBELPEACE-27-ICC",
+        "KXNOBELPEACE-27-MKUL",
+        "KXNOBELPEACE-27-PLEO",
+        "KXNOBELPEACE-27-SSHA",
+        "KXNOBELPEACE-27-STC",
+        "KXNOBELPEACE-27-UNRWA",
+        "KXNOBELPEACE-27-YNAV"
+      ],
+      "primary_research_domains": [
+        "nobelprize.org"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-14",
+      "series": "KXOSCARPIC",
+      "dependence_cluster": "Academy Awards",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXOSCARPIC-27-ILO",
+        "title": "Will I Love Boosters win Best Picture at the Oscars?",
+        "yes_description": "I Love Boosters",
+        "rules": "If I Love Boosters has won Best Picture at the 99th Academy Awards, then the market resolves to Yes.\n\nThe 99th Academy Awards are expected to be held in March 2027.\n\nThis market and these products have not been endorsed by the Oscars. Any references to Oscars, or any associated marks are descriptive only and do not indicate an endorsement of this product or any affiliation between Oscars and Kalshi.",
+        "scheduled_close": "2027-12-31T15:00:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXOSCARPIC-27"
+      },
+      "candidate_alternatives": [
+        "KXOSCARPIC-27-ADV",
+        "KXOSCARPIC-27-ALL",
+        "KXOSCARPIC-27-ART",
+        "KXOSCARPIC-27-AVEN",
+        "KXOSCARPIC-27-BEH",
+        "KXOSCARPIC-27-BEI",
+        "KXOSCARPIC-27-BLA",
+        "KXOSCARPIC-27-CLU",
+        "KXOSCARPIC-27-CRY",
+        "KXOSCARPIC-27-DEA",
+        "KXOSCARPIC-27-DEB",
+        "KXOSCARPIC-27-DIG",
+        "KXOSCARPIC-27-DIS",
+        "KXOSCARPIC-27-DRA",
+        "KXOSCARPIC-27-DUN",
+        "KXOSCARPIC-27-ELS",
+        "KXOSCARPIC-27-ENT",
+        "KXOSCARPIC-27-FAT",
+        "KXOSCARPIC-27-FJO",
+        "KXOSCARPIC-27-HOP",
+        "KXOSCARPIC-27-ILO",
+        "KXOSCARPIC-27-INK",
+        "KXOSCARPIC-27-INV",
+        "KXOSCARPIC-27-JAC",
+        "KXOSCARPIC-27-JOS",
+        "KXOSCARPIC-27-MIC",
+        "KXOSCARPIC-27-MIN",
+        "KXOSCARPIC-27-NAR",
+        "KXOSCARPIC-27-OBS",
+        "KXOSCARPIC-27-ODY",
+        "KXOSCARPIC-27-PAP",
+        "KXOSCARPIC-27-PAR",
+        "KXOSCARPIC-27-PRI",
+        "KXOSCARPIC-27-PRO",
+        "KXOSCARPIC-27-SEN",
+        "KXOSCARPIC-27-SOC",
+        "KXOSCARPIC-27-TEN",
+        "KXOSCARPIC-27-TIE",
+        "KXOSCARPIC-27-WER",
+        "KXOSCARPIC-27-WIL",
+        "KXOSCARPIC-27-YOU"
+      ],
+      "primary_research_domains": [
+        "oscars.org"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-15",
+      "series": "KXNFLGAME",
+      "dependence_cluster": "NFL season",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNFLGAME-26SEP20CINHOU-CIN",
+        "title": "Cincinnati wins",
+        "yes_description": "Cincinnati",
+        "rules": "If Cincinnati wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CIN Bengals vs HOU Texans Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "scheduled_close": "2026-09-22T17:00:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNFLGAME-26SEP20CINHOU"
+      },
+      "candidate_alternatives": [
+        "KXNFLGAME-26SEP20CINHOU-CIN",
+        "KXNFLGAME-26SEP20CINHOU-HOU"
+      ],
+      "primary_research_domains": [
+        "nfl.com"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-16",
+      "series": "KXNFLGAME",
+      "dependence_cluster": "NFL season",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNFLGAME-26SEP20CLETB-CLE",
+        "title": "Cleveland wins",
+        "yes_description": "Cleveland",
+        "rules": "If Cleveland wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the CLE Browns vs TB Buccaneers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "scheduled_close": "2026-09-22T17:00:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNFLGAME-26SEP20CLETB"
+      },
+      "candidate_alternatives": [
+        "KXNFLGAME-26SEP20CLETB-CLE",
+        "KXNFLGAME-26SEP20CLETB-TB"
+      ],
+      "primary_research_domains": [
+        "nfl.com"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-17",
+      "series": "KXNFLGAME",
+      "dependence_cluster": "NFL season",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNFLGAME-26SEP20JACDEN-DEN",
+        "title": "Denver wins",
+        "yes_description": "Denver",
+        "rules": "If Denver wins the JAC Jaguars vs DEN Broncos Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the JAC Jaguars vs DEN Broncos Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "scheduled_close": "2026-09-22T20:05:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNFLGAME-26SEP20JACDEN"
+      },
+      "candidate_alternatives": [
+        "KXNFLGAME-26SEP20JACDEN-DEN",
+        "KXNFLGAME-26SEP20JACDEN-JAC"
+      ],
+      "primary_research_domains": [
+        "nfl.com"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-18",
+      "series": "KXNFLGAME",
+      "dependence_cluster": "NFL season",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNFLGAME-26SEP20LVLAC-LAC",
+        "title": "Los Angeles C wins",
+        "yes_description": "Los Angeles C",
+        "rules": "If Los Angeles C wins the LV Raiders vs LA Chargers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the LV Raiders vs LA Chargers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "scheduled_close": "2026-09-22T20:05:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNFLGAME-26SEP20LVLAC"
+      },
+      "candidate_alternatives": [
+        "KXNFLGAME-26SEP20LVLAC-LAC",
+        "KXNFLGAME-26SEP20LVLAC-LV"
+      ],
+      "primary_research_domains": [
+        "nfl.com"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-19",
+      "series": "KXNFLGAME",
+      "dependence_cluster": "NFL season",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNFLGAME-26SEP20MIASF-MIA",
+        "title": "Miami wins",
+        "yes_description": "Miami",
+        "rules": "If Miami wins the MIA Dolphins vs SF 49ers Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the MIA Dolphins vs SF 49ers Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "scheduled_close": "2026-09-22T20:25:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNFLGAME-26SEP20MIASF"
+      },
+      "candidate_alternatives": [
+        "KXNFLGAME-26SEP20MIASF-MIA",
+        "KXNFLGAME-26SEP20MIASF-SF"
+      ],
+      "primary_research_domains": [
+        "nfl.com"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    },
+    {
+      "id": "candidate-20",
+      "series": "KXNFLGAME",
+      "dependence_cluster": "NFL season",
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXNFLGAME-26SEP20SEAARI-ARI",
+        "title": "Arizona wins",
+        "yes_description": "Arizona",
+        "rules": "If Arizona wins the SEA Seahawks vs ARI Cardinals Pro Football game originally scheduled for Sep 20, 2026, then the market resolves to Yes.\n\nThe following market refers to the team who wins the SEA Seahawks vs ARI Cardinals Pro Football game originally scheduled for Sep 20, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+        "scheduled_close": "2026-09-22T20:25:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXNFLGAME-26SEP20SEAARI"
+      },
+      "candidate_alternatives": [
+        "KXNFLGAME-26SEP20SEAARI-ARI",
+        "KXNFLGAME-26SEP20SEAARI-SEA"
+      ],
+      "primary_research_domains": [
+        "nfl.com"
+      ],
+      "status": "definition-screened candidate; not yet outcome- or quote-eligible",
+      "required_checks": [
+        "Verify actual event time and unknown outcome from primary sources; exchange close may be later than event.",
+        "Check active binary market and two-sided liquidity in a separate evaluator; do not reveal quotes.",
+        "Register selection and train/evaluation grouping before model calls.",
+        "Collect and freeze one outside-source packet shared by all model arms."
+      ]
+    }
+  ]
+}

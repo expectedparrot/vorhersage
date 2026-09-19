@@ -1,0 +1,114 @@
+{
+  "arm_id": "arm_78cd74228fbc44f686cc",
+  "assessment_probability": 0.25,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.015982,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_00ba69d9d7a9d2a00eb75cbb",
+      "record_id": "cpi"
+    },
+    {
+      "packet_id": "pkt_00ba69d9d7a9d2a00eb75cbb",
+      "record_id": "projections"
+    }
+  ],
+  "experiment_id": "experiment_80f863de8e5a406fb8f6",
+  "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+  "information_as_of": "2026-09-19T01:06:45.842961Z",
+  "initial_information_as_of": "2026-09-19T01:06:45.842961Z",
+  "input_manifest": {
+    "arm_78cd74228fbc44f686cc": "2f73b7ac8a7a3f06fd57e69baa862fb56bb2ec38c4e05ce90ba1274d34c3111c",
+    "experiment_80f863de8e5a406fb8f6": "397e1ae2a8f36576e1c65231928570b28a42a11b7af1176c541d3542d94d3f0d",
+    "method_c3d7bb4c19b9451db496": "d807d22ea36cc721887b228e89e68410212a5140052197ca048730a788bee38b",
+    "pkt_00ba69d9d7a9d2a00eb75cbb": "33d4972e5c2939c1319a8226108f73a5fb46ccb3640b10835e52791a172dc6dd",
+    "task_result_dee20f755b764db78eb2": "f90c98246299b7ed5f0e2ca19494d86b7036d306f11c052901423f7f412510de"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T01:23:58.370322Z",
+  "manifest_sha256": "257ecc74c429b8138eaf9f3258596b22cf39eefe2a81f0e649352b657a4975c9",
+  "method": "method_c3d7bb4c19b9451db496",
+  "method_spec_id": "method_c3d7bb4c19b9451db496",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "stopSequences": [],
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.25,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_c3d7bb4c19b9451db496"
+  },
+  "question": {
+    "domain": "US inflation",
+    "event_deadline": "2026-11-10T13:25:00Z",
+    "event_group": "KXCPI-26OCT",
+    "id": "candidate-05",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2026-11-10T13:25:00Z",
+    "text": "Will CPI rise more than 0.4% in October 2026? \u2014 Above 0.4%",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If the Consumer Price Index (CPI) increases by more than 0.4% (single-decimal) in October 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (November 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown."
+  },
+  "question_id": "candidate-05",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-19T07:06:45.842961+00:00",
+  "run_id": "run_1f286a4ec73b4e56876e",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_b9c4e79e266f2aead3a6c411",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_00ba69d9d7a9d2a00eb75cbb",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_00ba69d9d7a9d2a00eb75cbb",
+          "record_id": "projections"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

@@ -1,0 +1,46 @@
+{
+  "packet_id": "pkt_0f9495b8202397b68c559849",
+  "sha256": "0f9495b8202397b68c5598496d919e8ad5445383823e811638ee7269962dc08a",
+  "records": [
+    {
+      "record_id": "residuals",
+      "claim": "All 60 predefined days were matched without exclusions. Mean observed-minus-NBS error is 0.083333\u00b0F; sample SD is 2.512961\u00b0F.",
+      "evidence_ref": {
+        "packet_id": "pkt_0f9495b8202397b68c559849",
+        "record_id": "residuals"
+      }
+    },
+    {
+      "record_id": "holdout",
+      "claim": "Fitting on the first 40 days and checking the last 20: raw forecast RMSE 2.5593\u00b0F, bias-corrected RMSE 2.5957\u00b0F; 19/20 observations lie in the declared nominal 90% interval. This small check does not demonstrate improved bias correction or calibration.",
+      "evidence_ref": {
+        "packet_id": "pkt_0f9495b8202397b68c559849",
+        "record_id": "holdout"
+      }
+    },
+    {
+      "record_id": "weather_disagreement",
+      "claim": "NWS Thursday point forecast is 76\u00b0F versus NBS 78\u00b0F; rain timing, cloud cover and wind direction remain uncertain. With the same final spread, using the raw NWS center gives 28.19%. This is an alternative assumption, not an independent probability vote.",
+      "evidence_ref": {
+        "packet_id": "pkt_0f9495b8202397b68c559849",
+        "record_id": "weather_disagreement"
+      }
+    },
+    {
+      "record_id": "settlement_gap",
+      "claim": "No matched TWC settlement history or exact rounding convention was extracted. Station and NBS windows differ; the 1\u00b0F extra spread is an explicit assumption, not an empirically measured settlement correction.",
+      "evidence_ref": {
+        "packet_id": "pkt_0f9495b8202397b68c559849",
+        "record_id": "settlement_gap"
+      }
+    },
+    {
+      "record_id": "calculation",
+      "claim": "The predeclared estimator gives mean 78.083333\u00b0F, SD 2.724008\u00b0F and probability 0.243743131. Empirical unsmoothed estimate is 13/60=21.67%. Mean shifts +/-1\u00b0F give 18.64\u201328.02%. Calculation SHA256: c9be200514ec50e354c2149caa3e3a45cfd1ac00a852fafa3908ff01fd09b7ae",
+      "evidence_ref": {
+        "packet_id": "pkt_0f9495b8202397b68c559849",
+        "record_id": "calculation"
+      }
+    }
+  ]
+}

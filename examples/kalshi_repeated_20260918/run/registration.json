@@ -1,0 +1,4320 @@
+{
+  "experiment_id": "experiment_7f50c2431dc346399685",
+  "specification": {
+    "id": "kalshi-repeated-20260918",
+    "version": 1,
+    "description": "New prospective price-blind model comparison on the nominated expansion cohort",
+    "questions": [
+      {
+        "question_id": "mortgage",
+        "version": 1
+      },
+      {
+        "question_id": "housing",
+        "version": 1
+      },
+      {
+        "question_id": "measles",
+        "version": 1
+      },
+      {
+        "question_id": "global_heat",
+        "version": 1
+      },
+      {
+        "question_id": "miami",
+        "version": 1
+      },
+      {
+        "question_id": "austin",
+        "version": 1
+      },
+      {
+        "question_id": "dune",
+        "version": 1
+      }
+    ],
+    "arm_ids": [
+      "arm_d016b89aa4504d278e31",
+      "arm_bb1dcdfd7f2e46ad9d7d",
+      "arm_48a1e459e3694006b725",
+      "arm_a1eea459f4734285bbcd",
+      "arm_3012f290beb34419b99d",
+      "arm_16df1ab2e77d40e582a1"
+    ],
+    "repetitions": 3,
+    "mode": "prospective",
+    "information_as_of": "2026-09-19T01:58:11.498178Z",
+    "forecast_cutoff": "2026-09-19T03:45:00+00:00",
+    "evidence_policy": "frozen_packets",
+    "order_seed": "repeated-three-models-v2"
+  },
+  "registered_at": "2026-09-19T01:58:11.498178Z",
+  "definition_notes": {
+    "measles": {
+      "clarification": "The full MEASLES contract terms define the underlying as the number of measles cases in the United States in the specified year according to CDC. Revisions after expiration are not used. This is a definition clarification, not evidence for likelihood.",
+      "terms_url": "https://assets.kalshi.com/contract_terms/MEASLES.pdf"
+    }
+  },
+  "implementation_hashes": {
+    "examples/kalshi_repeated_20260918/batch.py": "34ccc86feaa465af1dd30abc06850d4a8aa6d6397ee10c57dda874397fbb1daa",
+    "examples/kalshi_repeated_20260918/sources.py": "2e879cb6f87a5c826a492d098d784e236c6959aeaef9d673133c76eb86079a3f",
+    "src/vorhersage/market_screen.py": "2b3d65c7c07b3c3796a9aacb6bdf42bfc06e7bf1f559375717c754e6c05cd45a",
+    "src/vorhersage/market_evaluation.py": "37500d0e8daeab625030c1a74715cf431ef42874dd7d1bd173913e9cbee39599",
+    "examples/kalshi_models_20260918/compare.py": "7de6009a328c69a7a95327ae2807fceeeb4049b4e94f167dfdbde6c2ddc63df5",
+    "examples/kalshi_blind_20260918/study.py": "6751cb6c79b8017450e9509e1b9267c9cc860031e8a71cf8bf63be1fb7256e4e"
+  },
+  "cases": [
+    {
+      "id": "mortgage",
+      "question": {
+        "id": "mortgage",
+        "text": "Will the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 be above 7.01%? \u2014 Above 7.01%",
+        "yes": "If the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 is above \n\n7.01%, then the market resolves to Yes.\n\nThe Underlying is the 30-Year Fixed-Rate Mortgage national average published by Freddie Mac in its Primary Mortgage Market Survey (PMMS) for Sep 24, 2026.\n\nFor a standard Thursday publication, the weekly measurement period runs from 12:00 a.m. ET on the preceding Thursday through 11:59 p.m. ET on Wednesday. The resulting national average is published Thursday at 12:00 p.m. ET. This market will use Freddie Mac's first published PMMS value for the specified week. Subsequent corrections or revisions made after expiration will not affect resolution.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-09-24T15:59:00Z",
+        "resolve_after": "2026-09-24T15:59:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KX30YMORTW-26SEP24",
+        "domain": "US housing and interest rates",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KX30YMORTW-26SEP24-T7.01",
+        "title": "Will the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 be above 7.01%?",
+        "yes_description": "Above 7.01%",
+        "rules": "If the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 is above \n\n7.01%, then the market resolves to Yes.\n\nThe Underlying is the 30-Year Fixed-Rate Mortgage national average published by Freddie Mac in its Primary Mortgage Market Survey (PMMS) for Sep 24, 2026.\n\nFor a standard Thursday publication, the weekly measurement period runs from 12:00 a.m. ET on the preceding Thursday through 11:59 p.m. ET on Wednesday. The resulting national average is published Thursday at 12:00 p.m. ET. This market will use Freddie Mac's first published PMMS value for the specified week. Subsequent corrections or revisions made after expiration will not affect resolution.",
+        "scheduled_close": "2026-09-24T15:59:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KX30YMORTW-26SEP24"
+      },
+      "case_id": "workbench_6494380445144955aae0",
+      "start": {
+        "case_id": "workbench_6494380445144955aae0",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:50:37.596932Z",
+        "contract": {
+          "event_group": "KX30YMORTW-26SEP24",
+          "market_id": "KX30YMORTW-26SEP24-T7.01",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 is above \n\n7.01%, then the market resolves to Yes.\n\nThe Underlying is the 30-Year Fixed-Rate Mortgage national average published by Freddie Mac in its Primary Mortgage Market Survey (PMMS) for Sep 24, 2026.\n\nFor a standard Thursday publication, the weekly measurement period runs from 12:00 a.m. ET on the preceding Thursday through 11:59 p.m. ET on Wednesday. The resulting national average is published Thursday at 12:00 p.m. ET. This market will use Freddie Mac's first published PMMS value for the specified week. Subsequent corrections or revisions made after expiration will not affect resolution.",
+          "scheduled_close": "2026-09-24T15:59:00Z",
+          "title": "Will the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 be above 7.01%?",
+          "venue": "kalshi",
+          "yes_description": "Above 7.01%"
+        },
+        "created_at": "2026-09-19T01:50:37.598314Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:50:35.167829Z",
+          "specification": {
+            "domain": "US housing and interest rates",
+            "event_deadline": "2026-09-24T15:59:00Z",
+            "event_group": "KX30YMORTW-26SEP24",
+            "id": "mortgage",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-09-24T15:59:00Z",
+            "text": "Will the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 be above 7.01%? \u2014 Above 7.01%",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 is above \n\n7.01%, then the market resolves to Yes.\n\nThe Underlying is the 30-Year Fixed-Rate Mortgage national average published by Freddie Mac in its Primary Mortgage Market Survey (PMMS) for Sep 24, 2026.\n\nFor a standard Thursday publication, the weekly measurement period runs from 12:00 a.m. ET on the preceding Thursday through 11:59 p.m. ET on Wednesday. The resulting national average is published Thursday at 12:00 p.m. ET. This market will use Freddie Mac's first published PMMS value for the specified week. Subsequent corrections or revisions made after expiration will not affect resolution."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KX30YMORTW-26SEP24-T7.01",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "mortgage",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_d0828ee0e9cc481db3b4",
+        "target_sha256": "dc1f6b92af08a072fb2e3ac9ce7bd21dd774d3d155267aae509c55c5d1827cee",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KX30YMORTW",
+      "dependence_cluster": "US housing and interest rates"
+    },
+    {
+      "id": "housing",
+      "question": {
+        "id": "housing",
+        "text": "Will US housing starts for September 2026 be above 1.300M? \u2014 Above 1.300M",
+        "yes": "If US housing starts for September 2026 is above 1.300M, then the market resolves to Yes.\n\nThe Underlying is the \"Housing Starts\" figure reported in the U.S. Census Bureau\u2019s New Residential Construction release for September 2026 (as displayed on Trading Economics). If the September 2026 release is delayed or rescheduled, the market will resolve based on the first official publication of the September 2026 Housing Starts value.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-10-20T12:29:00Z",
+        "resolve_after": "2026-10-20T12:29:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXHOUSINGSTART-26OCT20",
+        "domain": "US housing and interest rates",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXHOUSINGSTART-26OCT20-T1.300",
+        "title": "Will US housing starts for September 2026 be above 1.300M?",
+        "yes_description": "Above 1.300M",
+        "rules": "If US housing starts for September 2026 is above 1.300M, then the market resolves to Yes.\n\nThe Underlying is the \"Housing Starts\" figure reported in the U.S. Census Bureau\u2019s New Residential Construction release for September 2026 (as displayed on Trading Economics). If the September 2026 release is delayed or rescheduled, the market will resolve based on the first official publication of the September 2026 Housing Starts value.",
+        "scheduled_close": "2026-10-20T12:29:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXHOUSINGSTART-26OCT20"
+      },
+      "case_id": "workbench_1256989fb75f491db61c",
+      "start": {
+        "case_id": "workbench_1256989fb75f491db61c",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:50:39.550205Z",
+        "contract": {
+          "event_group": "KXHOUSINGSTART-26OCT20",
+          "market_id": "KXHOUSINGSTART-26OCT20-T1.300",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If US housing starts for September 2026 is above 1.300M, then the market resolves to Yes.\n\nThe Underlying is the \"Housing Starts\" figure reported in the U.S. Census Bureau\u2019s New Residential Construction release for September 2026 (as displayed on Trading Economics). If the September 2026 release is delayed or rescheduled, the market will resolve based on the first official publication of the September 2026 Housing Starts value.",
+          "scheduled_close": "2026-10-20T12:29:00Z",
+          "title": "Will US housing starts for September 2026 be above 1.300M?",
+          "venue": "kalshi",
+          "yes_description": "Above 1.300M"
+        },
+        "created_at": "2026-09-19T01:50:39.551409Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:50:39.251783Z",
+          "specification": {
+            "domain": "US housing and interest rates",
+            "event_deadline": "2026-10-20T12:29:00Z",
+            "event_group": "KXHOUSINGSTART-26OCT20",
+            "id": "housing",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-10-20T12:29:00Z",
+            "text": "Will US housing starts for September 2026 be above 1.300M? \u2014 Above 1.300M",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If US housing starts for September 2026 is above 1.300M, then the market resolves to Yes.\n\nThe Underlying is the \"Housing Starts\" figure reported in the U.S. Census Bureau\u2019s New Residential Construction release for September 2026 (as displayed on Trading Economics). If the September 2026 release is delayed or rescheduled, the market will resolve based on the first official publication of the September 2026 Housing Starts value."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXHOUSINGSTART-26OCT20-T1.300",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "housing",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_ee7fe1d3f63e4d7ebef9",
+        "target_sha256": "e016d3cd76c206a0358d95a910044b25c1dbcfec4b9c4e739f8886e727005be1",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXHOUSINGSTART",
+      "dependence_cluster": "US housing and interest rates"
+    },
+    {
+      "id": "measles",
+      "question": {
+        "id": "measles",
+        "text": "Will there be more than 6000 measles cases in 2026? \u2014 Above 6000",
+        "yes": "If the number of measles in 2026 is above 6000, then the market resolves to Yes.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2027-01-01T04:59:00Z",
+        "resolve_after": "2027-01-01T04:59:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXMEASLES-26",
+        "domain": "US infectious disease",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXMEASLES-26-6000",
+        "title": "Will there be more than 6000 measles cases in 2026?",
+        "yes_description": "Above 6000",
+        "rules": "If the number of measles in 2026 is above 6000, then the market resolves to Yes.",
+        "scheduled_close": "2027-01-01T04:59:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXMEASLES-26"
+      },
+      "case_id": "workbench_2f1fb945a9f848188e7e",
+      "start": {
+        "case_id": "workbench_2f1fb945a9f848188e7e",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:50:39.867993Z",
+        "contract": {
+          "event_group": "KXMEASLES-26",
+          "market_id": "KXMEASLES-26-6000",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the number of measles in 2026 is above 6000, then the market resolves to Yes.",
+          "scheduled_close": "2027-01-01T04:59:00Z",
+          "title": "Will there be more than 6000 measles cases in 2026?",
+          "venue": "kalshi",
+          "yes_description": "Above 6000"
+        },
+        "created_at": "2026-09-19T01:50:39.868820Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:50:39.557065Z",
+          "specification": {
+            "domain": "US infectious disease",
+            "event_deadline": "2027-01-01T04:59:00Z",
+            "event_group": "KXMEASLES-26",
+            "id": "measles",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2027-01-01T04:59:00Z",
+            "text": "Will there be more than 6000 measles cases in 2026? \u2014 Above 6000",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the number of measles in 2026 is above 6000, then the market resolves to Yes."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXMEASLES-26-6000",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "measles",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_69708eda288c463881db",
+        "target_sha256": "bde835fdb687468115bb2ad2dd191675a7ff5724c80fdd5bb1855baa7b5b12da",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXMEASLES",
+      "dependence_cluster": "US infectious disease"
+    },
+    {
+      "id": "global_heat",
+      "question": {
+        "id": "global_heat",
+        "text": "Will 2026 be the hottest year on record? \u2014 Hottest",
+        "yes": "If the unsmoothed Land-Ocean Temperature Index value for 2026 reported by NASA\u2019s Goddard Institute for Space Studies (GISS) is above the 2025 value and 1.28 degrees Celsius, then the market resolves to Yes.\n\nThe market will close at 11:59 PM ET on December 31, 2026. The market will expire at the sooner of the first 10:00 AM following the release of the data for 2026, or 10:00 AM ET April 01, 2027",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2027-01-01T04:59:00Z",
+        "resolve_after": "2027-01-01T04:59:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXGTEMP-26",
+        "domain": "Global climate",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXGTEMP-26-P0",
+        "title": "Will 2026 be the hottest year on record?",
+        "yes_description": "Hottest",
+        "rules": "If the unsmoothed Land-Ocean Temperature Index value for 2026 reported by NASA\u2019s Goddard Institute for Space Studies (GISS) is above the 2025 value and 1.28 degrees Celsius, then the market resolves to Yes.\n\nThe market will close at 11:59 PM ET on December 31, 2026. The market will expire at the sooner of the first 10:00 AM following the release of the data for 2026, or 10:00 AM ET April 01, 2027",
+        "scheduled_close": "2027-01-01T04:59:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXGTEMP-26"
+      },
+      "case_id": "workbench_6b5615009d6a488bab57",
+      "start": {
+        "case_id": "workbench_6b5615009d6a488bab57",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:50:40.522578Z",
+        "contract": {
+          "event_group": "KXGTEMP-26",
+          "market_id": "KXGTEMP-26-P0",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the unsmoothed Land-Ocean Temperature Index value for 2026 reported by NASA\u2019s Goddard Institute for Space Studies (GISS) is above the 2025 value and 1.28 degrees Celsius, then the market resolves to Yes.\n\nThe market will close at 11:59 PM ET on December 31, 2026. The market will expire at the sooner of the first 10:00 AM following the release of the data for 2026, or 10:00 AM ET April 01, 2027",
+          "scheduled_close": "2027-01-01T04:59:00Z",
+          "title": "Will 2026 be the hottest year on record?",
+          "venue": "kalshi",
+          "yes_description": "Hottest"
+        },
+        "created_at": "2026-09-19T01:50:40.524899Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:50:40.197305Z",
+          "specification": {
+            "domain": "Global climate",
+            "event_deadline": "2027-01-01T04:59:00Z",
+            "event_group": "KXGTEMP-26",
+            "id": "global_heat",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2027-01-01T04:59:00Z",
+            "text": "Will 2026 be the hottest year on record? \u2014 Hottest",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the unsmoothed Land-Ocean Temperature Index value for 2026 reported by NASA\u2019s Goddard Institute for Space Studies (GISS) is above the 2025 value and 1.28 degrees Celsius, then the market resolves to Yes.\n\nThe market will close at 11:59 PM ET on December 31, 2026. The market will expire at the sooner of the first 10:00 AM following the release of the data for 2026, or 10:00 AM ET April 01, 2027"
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXGTEMP-26-P0",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "global_heat",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_0ac2069a2f754436a17b",
+        "target_sha256": "ddc183ea1d43a36d69e6932dd8653e1564173a6fe95b28df6e368237fa570523",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXGTEMP",
+      "dependence_cluster": "Global climate"
+    },
+    {
+      "id": "miami",
+      "question": {
+        "id": "miami",
+        "text": "Will the maximum temperature be 88-89\u00b0 on Sep 19, 2026? \u2014 88\u00b0 to 89\u00b0",
+        "yes": "If the maximum temperature recorded at Miami (CLIMIA) for Sep 19, 2026, is between 88-89\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-09-20T05:00:00Z",
+        "resolve_after": "2026-09-20T05:00:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXHIGHMIA-26SEP19",
+        "domain": "US daily weather",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXHIGHMIA-26SEP19-B88.5",
+        "title": "Will the maximum temperature be 88-89\u00b0 on Sep 19, 2026?",
+        "yes_description": "88\u00b0 to 89\u00b0",
+        "rules": "If the maximum temperature recorded at Miami (CLIMIA) for Sep 19, 2026, is between 88-89\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+        "scheduled_close": "2026-09-20T05:00:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXHIGHMIA-26SEP19"
+      },
+      "case_id": "workbench_4c32bda067b542e1bf34",
+      "start": {
+        "case_id": "workbench_4c32bda067b542e1bf34",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:50:40.862053Z",
+        "contract": {
+          "event_group": "KXHIGHMIA-26SEP19",
+          "market_id": "KXHIGHMIA-26SEP19-B88.5",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the maximum temperature recorded at Miami (CLIMIA) for Sep 19, 2026, is between 88-89\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+          "scheduled_close": "2026-09-20T05:00:00Z",
+          "title": "Will the maximum temperature be 88-89\u00b0 on Sep 19, 2026?",
+          "venue": "kalshi",
+          "yes_description": "88\u00b0 to 89\u00b0"
+        },
+        "created_at": "2026-09-19T01:50:40.864601Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:50:40.533422Z",
+          "specification": {
+            "domain": "US daily weather",
+            "event_deadline": "2026-09-20T05:00:00Z",
+            "event_group": "KXHIGHMIA-26SEP19",
+            "id": "miami",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-09-20T05:00:00Z",
+            "text": "Will the maximum temperature be 88-89\u00b0 on Sep 19, 2026? \u2014 88\u00b0 to 89\u00b0",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the maximum temperature recorded at Miami (CLIMIA) for Sep 19, 2026, is between 88-89\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXHIGHMIA-26SEP19-B88.5",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "miami",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_20ee775ff6ae48dc8dbf",
+        "target_sha256": "30c41f851198e84825a9b11b475aca9f4d68cae2713e8f3e36c7914caabcf86c",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXHIGHMIA",
+      "dependence_cluster": "US daily weather"
+    },
+    {
+      "id": "austin",
+      "question": {
+        "id": "austin",
+        "text": "Will the maximum temperature be 98-99\u00b0 on Sep 19, 2026? \u2014 98\u00b0 to 99\u00b0",
+        "yes": "If the maximum temperature recorded at Austin (CLIAUS) for Sep 19, 2026, is between 98-99\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-09-20T06:00:00Z",
+        "resolve_after": "2026-09-20T06:00:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXHIGHAUS-26SEP19",
+        "domain": "US daily weather",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXHIGHAUS-26SEP19-B98.5",
+        "title": "Will the maximum temperature be 98-99\u00b0 on Sep 19, 2026?",
+        "yes_description": "98\u00b0 to 99\u00b0",
+        "rules": "If the maximum temperature recorded at Austin (CLIAUS) for Sep 19, 2026, is between 98-99\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+        "scheduled_close": "2026-09-20T06:00:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXHIGHAUS-26SEP19"
+      },
+      "case_id": "workbench_dcb3295d149b4c7a8d2d",
+      "start": {
+        "case_id": "workbench_dcb3295d149b4c7a8d2d",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:50:41.174649Z",
+        "contract": {
+          "event_group": "KXHIGHAUS-26SEP19",
+          "market_id": "KXHIGHAUS-26SEP19-B98.5",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the maximum temperature recorded at Austin (CLIAUS) for Sep 19, 2026, is between 98-99\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+          "scheduled_close": "2026-09-20T06:00:00Z",
+          "title": "Will the maximum temperature be 98-99\u00b0 on Sep 19, 2026?",
+          "venue": "kalshi",
+          "yes_description": "98\u00b0 to 99\u00b0"
+        },
+        "created_at": "2026-09-19T01:50:41.176703Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:50:40.877896Z",
+          "specification": {
+            "domain": "US daily weather",
+            "event_deadline": "2026-09-20T06:00:00Z",
+            "event_group": "KXHIGHAUS-26SEP19",
+            "id": "austin",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-09-20T06:00:00Z",
+            "text": "Will the maximum temperature be 98-99\u00b0 on Sep 19, 2026? \u2014 98\u00b0 to 99\u00b0",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the maximum temperature recorded at Austin (CLIAUS) for Sep 19, 2026, is between 98-99\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXHIGHAUS-26SEP19-B98.5",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "austin",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_41b564b97afa4b638e34",
+        "target_sha256": "da14cecc3759eb9f85f162ad50bd778492ce44d51b88d99deb84adfbe44b4e25",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXHIGHAUS",
+      "dependence_cluster": "US daily weather"
+    },
+    {
+      "id": "dune",
+      "question": {
+        "id": "dune",
+        "text": "Will Dune: Part Three be delayed? \u2014 Before Dec 18, 2026",
+        "yes": "If Dune: Part Three's release is delayed past December 18, 2026, then the market resolves to Yes.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2026-12-18T04:59:00Z",
+        "resolve_after": "2026-12-18T04:59:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXMOVIEDELAYDUNEPT3-26DEC18",
+        "domain": "Film production",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXMOVIEDELAYDUNEPT3-26DEC18",
+        "title": "Will Dune: Part Three be delayed?",
+        "yes_description": "Before Dec 18, 2026",
+        "rules": "If Dune: Part Three's release is delayed past December 18, 2026, then the market resolves to Yes.",
+        "scheduled_close": "2026-12-18T04:59:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXMOVIEDELAYDUNEPT3-26DEC18"
+      },
+      "case_id": "workbench_7e4eaaf2149c436486fc",
+      "start": {
+        "case_id": "workbench_7e4eaaf2149c436486fc",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:50:41.509304Z",
+        "contract": {
+          "event_group": "KXMOVIEDELAYDUNEPT3-26DEC18",
+          "market_id": "KXMOVIEDELAYDUNEPT3-26DEC18",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If Dune: Part Three's release is delayed past December 18, 2026, then the market resolves to Yes.",
+          "scheduled_close": "2026-12-18T04:59:00Z",
+          "title": "Will Dune: Part Three be delayed?",
+          "venue": "kalshi",
+          "yes_description": "Before Dec 18, 2026"
+        },
+        "created_at": "2026-09-19T01:50:41.511299Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:50:41.186683Z",
+          "specification": {
+            "domain": "Film production",
+            "event_deadline": "2026-12-18T04:59:00Z",
+            "event_group": "KXMOVIEDELAYDUNEPT3-26DEC18",
+            "id": "dune",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2026-12-18T04:59:00Z",
+            "text": "Will Dune: Part Three be delayed? \u2014 Before Dec 18, 2026",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If Dune: Part Three's release is delayed past December 18, 2026, then the market resolves to Yes."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXMOVIEDELAYDUNEPT3-26DEC18",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "dune",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_f948e1e2524d465281f7",
+        "target_sha256": "e0a8bddbe919fac605b3c53463aed877390ac95e0b79e1cc885e6768ae801678",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXMOVIEDELAYDUNEPT3",
+      "dependence_cluster": "Film production"
+    }
+  ],
+  "cases_sha256": "416f4d96085731c4e0dd121c75fb7259ac38ee7553e0416c9da07351020c4da4",
+  "protocol_sha256": "2e93d7c88375052674fbd604b74ba209a3413d929cb55eb590c69e3aa6a3635e",
+  "eligibility_sha256": "a29f8e5fc66f09425dd0f6ef054235eb7b045567667d9ca0d2ab69b163ada739",
+  "packet_hashes": {
+    "mortgage": "fa856714d59993dd3f709a48f8f0a795112f5a4059ef159ef8ebcfc57f7471ff",
+    "housing": "31a0c0f9049ea13efcb99f46edb2afe9ff708de51ef7be076ad4abb40cceb0dd",
+    "measles": "3eca1a7fa4581e3bf693adfed68d95d1ddc5615d4e30fdd1d36096a7c0a9a2ce",
+    "global_heat": "d966678f52ca8c064a6e35e57973c79a9f1963a646a41585f37f95815ff13f08",
+    "miami": "734ee1394db306f3380ac5a840ed06f450d0129818f26f373c964fe4a7fd728c",
+    "austin": "7edc2286250624a1fd8d50bf7b2618cb921907e33b0deed3664e69ffcf082b28",
+    "dune": "3bde6a8bb5b665fa3803297d1f8d9bc50897ad937d6357c02fe885dc62ce1ec7"
+  },
+  "arm_info": {
+    "arm_d016b89aa4504d278e31": {
+      "model_key": "astra",
+      "condition": "question_only"
+    },
+    "arm_bb1dcdfd7f2e46ad9d7d": {
+      "model_key": "astra",
+      "condition": "outside_research"
+    },
+    "arm_48a1e459e3694006b725": {
+      "model_key": "fable",
+      "condition": "question_only"
+    },
+    "arm_a1eea459f4734285bbcd": {
+      "model_key": "fable",
+      "condition": "outside_research"
+    },
+    "arm_3012f290beb34419b99d": {
+      "model_key": "gemini",
+      "condition": "question_only"
+    },
+    "arm_16df1ab2e77d40e582a1": {
+      "model_key": "gemini",
+      "condition": "outside_research"
+    }
+  },
+  "models": {
+    "astra": {
+      "model": "gpt-6-astra",
+      "parameters": {
+        "temperature": 1,
+        "max_tokens": 8192,
+        "top_p": 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0,
+        "logprobs": false,
+        "top_logprobs": 3,
+        "reasoning_effort": "high"
+      },
+      "inference_service": "openai",
+      "edsl_version": "1.0.8.dev1",
+      "edsl_class_name": "LanguageModel"
+    },
+    "fable": {
+      "model": "claude-fable-5-1",
+      "parameters": {
+        "temperature": 0.5,
+        "max_tokens": 8192,
+        "top_p": 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0,
+        "logprobs": false,
+        "top_logprobs": 3,
+        "thinking": {
+          "type": "adaptive"
+        },
+        "output_config": {
+          "effort": "high"
+        }
+      },
+      "inference_service": "anthropic",
+      "edsl_version": "1.0.8.dev1",
+      "edsl_class_name": "Claudefable51"
+    },
+    "gemini": {
+      "model": "gemini-3.1-pro-preview",
+      "parameters": {
+        "temperature": 0.5,
+        "topP": 1,
+        "topK": 40,
+        "maxOutputTokens": 8192,
+        "stopSequences": [],
+        "thinking_budget": 2048
+      },
+      "inference_service": "google",
+      "edsl_version": "1.0.8.dev1",
+      "edsl_class_name": "gemini-3.1-pro-preview"
+    }
+  },
+  "trials": [
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_5d5ceda7f3c1ec421de8f6d9",
+      "run_id": "run_d84d2c3ad6694e129cf8",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r1",
+      "position": 0,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_d9e78317958263ffc16a1456",
+      "run_id": "run_7f06520becfc400887ad",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r1",
+      "position": 1,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_2d726bb311f1e1edf37b2840",
+      "run_id": "run_bc4fdaf3e3ae44e0b7ca",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r2",
+      "position": 2,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_6a6315bd0356f83ad63f8d13",
+      "run_id": "run_dec7c6ff4c0d49ab84c1",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r2",
+      "position": 3,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_23ba028addb6d4fa59b1369c",
+      "run_id": "run_b544def655e84665bb50",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r2",
+      "position": 4,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_39b12c868f8442a8b24e575f",
+      "run_id": "run_3076eb985c314c1495bc",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r2",
+      "position": 5,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_6f1d32e6b842c17af8bff519",
+      "run_id": "run_5e454e470b8e43a6b21b",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r2",
+      "position": 6,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_24355d742ffeccf5106e7821",
+      "run_id": "run_b6caf2c2e47340308d7d",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r2",
+      "position": 7,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_9f01783ebab84dc8441a3568",
+      "run_id": "run_302e39ac3d1c4f9cbaec",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r3",
+      "position": 8,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_f6e1b539ecad3f2f88502f62",
+      "run_id": "run_955f9812c1244d82b92a",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r1",
+      "position": 9,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_e92c24e89ca22cff11506247",
+      "run_id": "run_b70b8bb96008458ebfe9",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r1",
+      "position": 10,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_89f3c7148555644447c8f7ab",
+      "run_id": "run_1d2650da4c5f469e9826",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r3",
+      "position": 11,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_7b9c57d97a2b0333505f739e",
+      "run_id": "run_a081486dd4b8438bb03a",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r2",
+      "position": 12,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_98bcd8a04b984674f2d695cc",
+      "run_id": "run_d51a8933840d40dca963",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r3",
+      "position": 13,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_ed69215a9ae4ea5063b75328",
+      "run_id": "run_75bc098ad8f74acd8511",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r2",
+      "position": 14,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_a694f0bdd9db213ea6c95306",
+      "run_id": "run_dcdbb4b6467e4a3789b8",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r1",
+      "position": 15,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_bd3adab46079c479105ccfe9",
+      "run_id": "run_300ee3d93f074902bc65",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r1",
+      "position": 16,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_dcb045bb08c2ac04d933aedf",
+      "run_id": "run_28f94fffa00e4f308c54",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r3",
+      "position": 17,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_c770590780d5de566b6594de",
+      "run_id": "run_4835ba3c573d4d958336",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r3",
+      "position": 18,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_3715e2fd1c307e86f1182603",
+      "run_id": "run_fbf688bd168642ee8b2b",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r3",
+      "position": 19,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_10e2892958309cd22bfa6ed7",
+      "run_id": "run_b69f7f62c3d242b6b1a8",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r2",
+      "position": 20,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_760031c0448ac16af2cd9fcb",
+      "run_id": "run_1c0f53a6ac044eee99d5",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r2",
+      "position": 21,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_1d9d74f4a9c1d7a9cab78c61",
+      "run_id": "run_41b857fdba9f4f1182a4",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r3",
+      "position": 22,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_8ae3a8921a8149773e365ef7",
+      "run_id": "run_370ef3aa63e643fa98b7",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r1",
+      "position": 23,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_fc3d4a2342359cd6ce43218e",
+      "run_id": "run_6ccb8f36342544d1bcf7",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r1",
+      "position": 24,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_73263a472c1f6440285b13c7",
+      "run_id": "run_942051f8bf1e47468982",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r1",
+      "position": 25,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_3ad646124fa56b32e516962c",
+      "run_id": "run_be8282d74ebe43698d54",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r1",
+      "position": 26,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_808e1aef845aca0fa72c35d3",
+      "run_id": "run_1a62cf818d24466da159",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r1",
+      "position": 27,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_35ec1079f859d1a48c330dfe",
+      "run_id": "run_a5fbb5178a064c798d94",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r1",
+      "position": 28,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_17259e89b6256e00d25ea75f",
+      "run_id": "run_dc1869a779474614b081",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r2",
+      "position": 29,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_f1824cdd320b7940140a6fa9",
+      "run_id": "run_37a9f5a0c67b4abc8d95",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r2",
+      "position": 30,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_b854e731d0518acd00c5377e",
+      "run_id": "run_40cc13924dd6416cad93",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r3",
+      "position": 31,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_d97d17966ebba9e256c70a37",
+      "run_id": "run_07ae7421e7424e58a30d",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r3",
+      "position": 32,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_a32c8c6ef29f4d4ac9df9e6f",
+      "run_id": "run_65c78fae2feb42a4a7ff",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r1",
+      "position": 33,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_d6e17550705a6bf0a84949ac",
+      "run_id": "run_bbfd12c631d5455fba30",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r2",
+      "position": 34,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_1a3c9ce8517a78249f5b542e",
+      "run_id": "run_950a8cbc7a51431d8644",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r2",
+      "position": 35,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_4822cbb42f6ab75ffe84a845",
+      "run_id": "run_0fce43fb5d824d2ebfb7",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r1",
+      "position": 36,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_483da6acb93220b7a9a514b1",
+      "run_id": "run_ee821066a6a8412ca305",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r2",
+      "position": 37,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_f2cac4f946415c6f6d62d46e",
+      "run_id": "run_44bef7f492c049e7804f",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r3",
+      "position": 38,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_ab3b9917b15378afa4642c57",
+      "run_id": "run_894b2b32fdd449968ce4",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r3",
+      "position": 39,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_382792e30ca95dacc4b5192a",
+      "run_id": "run_d0d19795189c421b8f09",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r2",
+      "position": 40,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_661ae5178b027b76545593f7",
+      "run_id": "run_46937cc28ad248a2aa2a",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r3",
+      "position": 41,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_1554afc2fccd4e2cd8227c4f",
+      "run_id": "run_29ca4531659d4d8b81f3",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r3",
+      "position": 42,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_91af679c9ec5d3f6e4a66e7c",
+      "run_id": "run_15ac7d025d024be99caf",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r3",
+      "position": 43,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_29f96340f6edb4918a5fadb1",
+      "run_id": "run_c02676395b2740868fdd",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r2",
+      "position": 44,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_1cfed4a646f821a0fc71196e",
+      "run_id": "run_b8f8c181878b459b8590",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r1",
+      "position": 45,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_fe9fc3bbc6a460507ffeaccf",
+      "run_id": "run_4caaa31cd11e42a1ae49",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r1",
+      "position": 46,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_57fe80eb99908c34559f1b65",
+      "run_id": "run_7b2aa781cefc449582b6",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r1",
+      "position": 47,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_12343d371c19237cb4bbc7b3",
+      "run_id": "run_6cd64ad1097a47f58077",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r3",
+      "position": 48,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_9dd412d3e6c2b4e862cafb30",
+      "run_id": "run_42d51bd55a34477584ba",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r1",
+      "position": 49,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_f590c1904d075ce584339d3a",
+      "run_id": "run_e490545b21f8462c8118",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r3",
+      "position": 50,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_09d7caaddd2fd503cd8f9d79",
+      "run_id": "run_1b46aad038064bba8742",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r2",
+      "position": 51,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_5a16977712098276e095089c",
+      "run_id": "run_57137508eda940eaa486",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r3",
+      "position": 52,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_6656730c656d116dbec3809c",
+      "run_id": "run_22528db48ac640fdb0e1",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r3",
+      "position": 53,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_fe2f38577fab8744a851ce3a",
+      "run_id": "run_e14ca4973ddc412ea73b",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r3",
+      "position": 54,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_ce899d63b497e67a85c12f22",
+      "run_id": "run_a2f11f21606a4bceaf41",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r3",
+      "position": 55,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_3ba14e90a883f27fb1d107c6",
+      "run_id": "run_a5eb90232d1a4f4695fb",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r3",
+      "position": 56,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_7b2a1a369233c5096800ba6c",
+      "run_id": "run_6a5e224bdb1f46c7848a",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r1",
+      "position": 57,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_0a241dc78019eddd4d1543ee",
+      "run_id": "run_9f3c9e2a057f4765a2aa",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r1",
+      "position": 58,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_1d95cfc5230c7267bb4aaab1",
+      "run_id": "run_f528902c55fc4312b70a",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r1",
+      "position": 59,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_0ce152175593465d898f7c3f",
+      "run_id": "run_33b052d6bf944181bf74",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r3",
+      "position": 60,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_2e99278832d2516c3075dbef",
+      "run_id": "run_7d83607974e34d64941d",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r3",
+      "position": 61,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_92e5b96ab08737094cfccd8c",
+      "run_id": "run_70962d17d78443a4a050",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r2",
+      "position": 62,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_d474292a4b3a50b5d15a64cb",
+      "run_id": "run_cdbf42a2db3e497593fa",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r3",
+      "position": 63,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_8480da943f8f8bbb36a5042e",
+      "run_id": "run_e836080405e14d888644",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r1",
+      "position": 64,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_e5c0e85f5fb5d2092ffeaccc",
+      "run_id": "run_8b7674d60630423e9998",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r1",
+      "position": 65,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_f41828268d86b552d2b7dfea",
+      "run_id": "run_0b8588d66f6d4e2f95f6",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r1",
+      "position": 66,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_50c413bf375a653d5c6b523d",
+      "run_id": "run_42476147ae584881bfb3",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r2",
+      "position": 67,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_09b23dc4e93be102821d52dd",
+      "run_id": "run_53fc65151ce94e0083ed",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r3",
+      "position": 68,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_1e5f6dacf7a9705ddbf4f0e7",
+      "run_id": "run_17b89865438a46fabb14",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r2",
+      "position": 69,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_615b6d6b474b818188709853",
+      "run_id": "run_f397994d1f25463eb328",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r1",
+      "position": 70,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_2885a0d01dfe00b6ecf32caf",
+      "run_id": "run_5006c3859840464db815",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r1",
+      "position": 71,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_32591d887ff8b82eebe45a22",
+      "run_id": "run_e7993ea2cc6b4a4aa953",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r2",
+      "position": 72,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_cdabb1e16cbd581c8f2d0a97",
+      "run_id": "run_1310df3e1efc432bbb0f",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r3",
+      "position": 73,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_86e8c234ce0729b9cfad87c1",
+      "run_id": "run_9c5a7ade9fed48a492c3",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r2",
+      "position": 74,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_83a452e6ee65382cce4a4b54",
+      "run_id": "run_f611eade91934aed8973",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r1",
+      "position": 75,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_fa1c31eed8f735a05b0ba8eb",
+      "run_id": "run_13de20e9d2c640f6964b",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r1",
+      "position": 76,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_6c5efa1ae8d14135cd651b21",
+      "run_id": "run_ddcc65e841264402b63e",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r2",
+      "position": 77,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_5097cc32c5cede9819a0dcf2",
+      "run_id": "run_5f41377dc00b43f8a1e6",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r3",
+      "position": 78,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_637092936ed98f228fd4a3c7",
+      "run_id": "run_a10d706174fa42e6889e",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r2",
+      "position": 79,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_da077f5caea06c6fb946957b",
+      "run_id": "run_07fea74b0158432eb280",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r1",
+      "position": 80,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_088b4780148dfb3fc7c1d82f",
+      "run_id": "run_bb8a177aed7e497c8809",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r3",
+      "position": 81,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_bf69b2c50faa3d939f1aa96e",
+      "run_id": "run_e0959543ae6843de8582",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r1",
+      "position": 82,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_7cfb6948103f97713015883c",
+      "run_id": "run_b2d55b60d91e463eba0f",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r1",
+      "position": 83,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_7c0e4b6b56a0f3829663b034",
+      "run_id": "run_b21fba999ade4e059321",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r3",
+      "position": 84,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_f38c6d1780f12df0833d1dc1",
+      "run_id": "run_e1fe7506fff9451f98de",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r2",
+      "position": 85,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_c5bdaac8c551606ab6be28da",
+      "run_id": "run_309956e8feec486bb3f1",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r1",
+      "position": 86,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_dace73f1581d7c2428585088",
+      "run_id": "run_20045eafc2014bf7905d",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r1",
+      "position": 87,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_246cb4935023f038bcfa86cd",
+      "run_id": "run_494bcfc549574d26a83c",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r3",
+      "position": 88,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_65a2183200c963243c903c9c",
+      "run_id": "run_fd970bf44bf34dfeb6c3",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r3",
+      "position": 89,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_07256bfabdb2df7d21e822c4",
+      "run_id": "run_e7cceb9a410a49a8ad6e",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r2",
+      "position": 90,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_50b06f33111866e0dd475fab",
+      "run_id": "run_e4d5ecf678ce4f71ae8a",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r3",
+      "position": 91,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_fe6768a8cfe8458b2c08f42b",
+      "run_id": "run_c2c7f19ffe594eb18e18",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r1",
+      "position": 92,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_f9d2b0572734a794397dd279",
+      "run_id": "run_44148c12bcad4ac8a867",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r2",
+      "position": 93,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_d90c40753837aac4d8b840b7",
+      "run_id": "run_3daaf20620474ce59580",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r3",
+      "position": 94,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_7ed8e91aaeaebb7bae7557de",
+      "run_id": "run_a2d444e0b4794421a3b0",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r2",
+      "position": 95,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_263d1a8dcd73ffa20ef2e2ef",
+      "run_id": "run_120ff1a6c5264b109c1d",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r2",
+      "position": 96,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_0668e556fa7def6cba973c57",
+      "run_id": "run_1bc719b134ef4535ae39",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r3",
+      "position": 97,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_e3024f70059151cdb919fe3c",
+      "run_id": "run_330f33fd19214b2484d5",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r3",
+      "position": 98,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_fc3d100d14d7f8dcbec292ba",
+      "run_id": "run_fb4b9c9d79ae4d7a92e7",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r2",
+      "position": 99,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_f998cf3d20afbe043c74ba4c",
+      "run_id": "run_904085dc6d6041f48139",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r2",
+      "position": 100,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_2956eaf38509349d91e59ce8",
+      "run_id": "run_3ecfda8850c1468c8bd5",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r2",
+      "position": 101,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_c9b08742e9906eb3a927e9fd",
+      "run_id": "run_e53ec85cd0124d2286aa",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r2",
+      "position": 102,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_b129e03798633b7132fc50c9",
+      "run_id": "run_928953a9c9414aabbc84",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r1",
+      "position": 103,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_9166f9a2c01fb7f037240433",
+      "run_id": "run_9e320f4ca2e24b8ba6f7",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r2",
+      "position": 104,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_725821ef46c53531069fdb34",
+      "run_id": "run_4be60bbb162d4ecd9bd2",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r3",
+      "position": 105,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_b27473b904b12cbd7c06dc14",
+      "run_id": "run_7acb7772a2344b9ba4a0",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r3",
+      "position": 106,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_b163564e1d2a278803526c4a",
+      "run_id": "run_f140251e6c9049ac9bc1",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r2",
+      "position": 107,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_76405c8106a6fa3157876ace",
+      "run_id": "run_6939bc8795534df5a5d2",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r3",
+      "position": 108,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_9a3b55c9051c3b777d281da6",
+      "run_id": "run_5aeba10b068a429f8df2",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r2",
+      "position": 109,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_6d8200ef61f107f6a6b1cfb6",
+      "run_id": "run_cfd3f8c5949a4407bf13",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r1",
+      "position": 110,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_48710462708082a6c1745791",
+      "run_id": "run_1423014f4a0449b2ae03",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r3",
+      "position": 111,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_496f6021cea1d8b0d34905f4",
+      "run_id": "run_22e703ac4d2248959882",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r2",
+      "position": 112,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_227253846a49d386474151d8",
+      "run_id": "run_57e828a29d0243c58ad7",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r1",
+      "position": 113,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_b4c239f1d390b9fd67d50447",
+      "run_id": "run_53c067f15e8648f1b573",
+      "question_id": "mortgage",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r1",
+      "position": 114,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_5de83192e1d00a5f01489800",
+      "run_id": "run_884460e713c148a8a0ab",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r3",
+      "position": 115,
+      "arm_id": "arm_3012f290beb34419b99d",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_8f5ceda8f7ace88243dc3787",
+      "run_id": "run_8c44044518f441229073",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r3",
+      "position": 116,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_f79af136d48d0f7bbaa7a984",
+      "run_id": "run_113155156f4b41e1a904",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r2",
+      "position": 117,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_ae536d1599f035d3b29f92ba",
+      "run_id": "run_2a30870e73624426ae9c",
+      "question_id": "dune",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 3,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r3",
+      "position": 118,
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_36fae3ad783267d5d559ea7a",
+      "run_id": "run_8ff5d667dde54778a03a",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r1",
+      "position": 119,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_8d4a48722981f43e82468dc2",
+      "run_id": "run_230daaf5dab8496eb3fa",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r1",
+      "position": 120,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_506523193dde2902b39f8cb4",
+      "run_id": "run_332c4495405a4e0f8e07",
+      "question_id": "housing",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_a1eea459f4734285bbcd:r2",
+      "position": 121,
+      "arm_id": "arm_a1eea459f4734285bbcd",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_b4db35269086304e6f6618b0",
+      "run_id": "run_ec621016e3db4f4e9a4b",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r1",
+      "position": 122,
+      "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_c27ac6d78191b3c31b99d1af",
+      "run_id": "run_72333df5dca9405285a1",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r2",
+      "position": 123,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_d4494f9e145f57c30c657a04",
+      "run_id": "run_e3224a999800476ea316",
+      "question_id": "miami",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 2,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_16df1ab2e77d40e582a1:r2",
+      "position": 124,
+      "arm_id": "arm_16df1ab2e77d40e582a1",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "trial_id": "trial_2173f55f0c86a72ce7acb475",
+      "run_id": "run_fc53b641cb0f4567ab58",
+      "question_id": "austin",
+      "question_version": 1,
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "repetition": 1,
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r1",
+      "position": 125,
+      "arm_id": "arm_48a1e459e3694006b725",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    }
+  ]
+}

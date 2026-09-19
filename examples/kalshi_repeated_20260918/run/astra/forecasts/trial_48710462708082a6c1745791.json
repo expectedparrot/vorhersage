@@ -1,0 +1,116 @@
+{
+  "arm_id": "arm_bb1dcdfd7f2e46ad9d7d",
+  "assessment_probability": 0.46,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.03719,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_0c399e3114671f1068f334fb",
+      "record_id": "housing"
+    },
+    {
+      "packet_id": "pkt_0c399e3114671f1068f334fb",
+      "record_id": "mortgage"
+    }
+  ],
+  "experiment_id": "experiment_7f50c2431dc346399685",
+  "forecaster": "experiment_7f50c2431dc346399685:arm_bb1dcdfd7f2e46ad9d7d:r3",
+  "information_as_of": "2026-09-19T01:58:11.498178Z",
+  "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+  "input_manifest": {
+    "arm_bb1dcdfd7f2e46ad9d7d": "adc7b2f8ef1a27a5c6c45ff007dc289373df197b9bd75ec5bf9341a534a77639",
+    "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+    "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+    "pkt_0c399e3114671f1068f334fb": "31a0c0f9049ea13efcb99f46edb2afe9ff708de51ef7be076ad4abb40cceb0dd",
+    "task_result_1853ca7009334ce0b0a3": "1edaa8b8d06a742233437353a956e3f53f8b1d0bdca4bc7e42528cc482172efd"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T02:05:33.033418Z",
+  "manifest_sha256": "fab72072bd36196ddcbf1285a6b6a3037f3368c9f93559fc6f2751451a80aae7",
+  "method": "method_62c19062d0814cb99b77",
+  "method_spec_id": "method_62c19062d0814cb99b77",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gpt-6-astra",
+    "parameters": {
+      "frequency_penalty": 0,
+      "logprobs": false,
+      "max_tokens": 8192,
+      "presence_penalty": 0,
+      "reasoning_effort": "high",
+      "temperature": 1,
+      "top_logprobs": 3,
+      "top_p": 1
+    },
+    "provider": "openai"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.46,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_62c19062d0814cb99b77"
+  },
+  "question": {
+    "domain": "US housing and interest rates",
+    "event_deadline": "2026-10-20T12:29:00Z",
+    "event_group": "KXHOUSINGSTART-26OCT20",
+    "id": "housing",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2026-10-20T12:29:00Z",
+    "text": "Will US housing starts for September 2026 be above 1.300M? \u2014 Above 1.300M",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If US housing starts for September 2026 is above 1.300M, then the market resolves to Yes.\n\nThe Underlying is the \"Housing Starts\" figure reported in the U.S. Census Bureau\u2019s New Residential Construction release for September 2026 (as displayed on Trading Economics). If the September 2026 release is delayed or rescheduled, the market will resolve based on the first official publication of the September 2026 Housing Starts value."
+  },
+  "question_id": "housing",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 3,
+  "research_plan": null,
+  "review_at": "2026-09-19T03:45:00+00:00",
+  "run_id": "run_1423014f4a0449b2ae03",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_48710462708082a6c1745791",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0c399e3114671f1068f334fb",
+          "record_id": "housing"
+        },
+        {
+          "packet_id": "pkt_0c399e3114671f1068f334fb",
+          "record_id": "mortgage"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

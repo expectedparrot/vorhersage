@@ -1,0 +1,106 @@
+{
+  "arm_id": "arm_25b7244ab6214768b017",
+  "assessment_probability": 0.04,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.01548,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_bc68e468ecc37c3620fcaad2",
+      "record_id": "bls_august"
+    }
+  ],
+  "experiment_id": "experiment_a0bde5a6165d4b359f62",
+  "forecaster": "experiment_a0bde5a6165d4b359f62:arm_25b7244ab6214768b017:r1",
+  "information_as_of": "2026-09-18T11:19:02.785870Z",
+  "initial_information_as_of": "2026-09-18T11:19:02.785870Z",
+  "input_manifest": {
+    "arm_25b7244ab6214768b017": "bc51a41ebe9ebc2e6c02bf9a992f184dffd9e5199dbafe8527b5e66a82196bd4",
+    "experiment_a0bde5a6165d4b359f62": "0d03f113f0d69da849a656388f52343453f6b0551baab77fc6647d9e1544fd18",
+    "method_ff6a7919deb641a8ae6b": "83fed5c13c708c76933f5576f8cb15a6c3cd464ecbaaa4d75891a40a9dec1503",
+    "pkt_bc68e468ecc37c3620fcaad2": "77d8f9c70d0d6f9fe48e37a0679d7a076a179f454fb1f414529547118dda5f29",
+    "task_result_af342f23ee3a4a65b804": "6947f29ac1f509b8818fb5785ec36481693161e2e4b4b66687e3d95a12d65b6b"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T00:35:58.126894Z",
+  "manifest_sha256": "eb7d10523084e259aafd68ea6f7b9b13ddf5fae8ade4a399d2ab665ae0c0a438",
+  "method": "method_ff6a7919deb641a8ae6b",
+  "method_spec_id": "method_ff6a7919deb641a8ae6b",
+  "mode": "retrospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "stopSequences": [],
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.04,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_ff6a7919deb641a8ae6b"
+  },
+  "question": {
+    "domain": "Economics",
+    "event_deadline": "2026-10-02T12:29:00Z",
+    "event_group": "KXU3-26SEP",
+    "id": "employment-1",
+    "kind": "real",
+    "no": "The stated qualifying event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined source; see definition-only rules.",
+    "resolve_after": "2026-10-02T12:29:00Z",
+    "text": "Will the unemployment rate (U-3) be above 4.4% in September? \u2014 Above 4.4%",
+    "void": "Nonbinary fair-value settlement or a cancelled/invalid contract is excluded from eventual outcome scoring.",
+    "yes": "If the seasonally adjusted unemployment rate (U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report is above 4.4% in September 2026, then the market resolves to Yes."
+  },
+  "question_id": "employment-1",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-19T04:29:34.904712+00:00",
+  "run_id": "run_6dbdc0708bdd486195df",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_97d9d313921709dc3cfbaff7",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_bc68e468ecc37c3620fcaad2",
+          "record_id": "bls_august"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

@@ -1,0 +1,256 @@
+{
+  "case_id": "workbench_dcb3295d149b4c7a8d2d",
+  "state": "revealed",
+  "revision": 2,
+  "baseline_captured_at": "2026-09-19T01:50:41.174649Z",
+  "contract": {
+    "event_group": "KXHIGHAUS-26SEP19",
+    "market_id": "KXHIGHAUS-26SEP19-B98.5",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If the maximum temperature recorded at Austin (CLIAUS) for Sep 19, 2026, is between 98-99\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+    "scheduled_close": "2026-09-20T06:00:00Z",
+    "title": "Will the maximum temperature be 98-99\u00b0 on Sep 19, 2026?",
+    "venue": "kalshi",
+    "yes_description": "98\u00b0 to 99\u00b0"
+  },
+  "created_at": "2026-09-19T01:50:41.176703Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-19T01:50:40.877896Z",
+    "specification": {
+      "domain": "US daily weather",
+      "event_deadline": "2026-09-20T06:00:00Z",
+      "event_group": "KXHIGHAUS-26SEP19",
+      "id": "austin",
+      "kind": "real",
+      "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+      "profile": "general",
+      "resolution_source": "Contract-defined primary source; see frozen rules.",
+      "resolve_after": "2026-09-20T06:00:00Z",
+      "text": "Will the maximum temperature be 98-99\u00b0 on Sep 19, 2026? \u2014 98\u00b0 to 99\u00b0",
+      "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+      "yes": "If the maximum temperature recorded at Austin (CLIAUS) for Sep 19, 2026, is between 98-99\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+    "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+    "market_id": "KXHIGHAUS-26SEP19-B98.5",
+    "max_spread": 0.1,
+    "method": "Three-model question-only versus outside-research comparison",
+    "min_contracts_each_side": 1,
+    "mode": "prospective",
+    "question": {
+      "question_id": "austin",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_41b564b97afa4b638e34",
+  "target_sha256": "da14cecc3759eb9f85f162ad50bd778492ce44d51b88d99deb84adfbe44b4e25",
+  "journal": [
+    {
+      "id": "workbench_entry_d34a62df417e4453992a",
+      "case_id": "workbench_dcb3295d149b4c7a8d2d",
+      "evidence_manifest": {},
+      "kind": "initial",
+      "model_manifest": {
+        "forecast_e0fd5065e99a4aa8adab": "dfadb8f001f76e9690135fd0fc4b6bd557c808cd67c5023d84ae6d2b9ca2edb2"
+      },
+      "payload": {
+        "assumptions": [
+          "Three independent calls per cell; no repair."
+        ],
+        "evidence_refs": [],
+        "model_artifact_ids": [
+          "forecast_e0fd5065e99a4aa8adab"
+        ],
+        "probability": 0.07,
+        "rationale": "Representative sealed forecast; all registered repetitions scored separately from their immutable records.",
+        "research_status": "completed",
+        "uncertainties": [
+          "Frozen packet limitations and within-model variation."
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T02:06:51.162522Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_a90d467e64144b4181c0",
+      "case_id": "workbench_dcb3295d149b4c7a8d2d",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "Exact provider inputs checked; strict source screening; market-mentions-v2 content review before reveal. Procedural coordinator separation, no independently enforced sandbox.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "Every call has a terminal receipt; forecasts and pre-reveal content reviews are sealed."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T02:06:51.167931Z",
+      "revision": 2,
+      "trajectory_manifest": {
+        "workbench_entry_d34a62df417e4453992a": "e35fb6d78ec0ae5be6e7f0b0f5d983d82fc598299ccc217b0b9911f9da605288"
+      }
+    }
+  ],
+  "evidence": {},
+  "models": {
+    "forecast_e0fd5065e99a4aa8adab": {
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "assessment_probability": 0.07,
+      "coherence": {
+        "comparisons": [],
+        "limitations": [
+          "Implications are supplied by the agent and pinned to exact question versions.",
+          "Different information cutoffs can explain apparent incoherence; review before revising."
+        ],
+        "missing_forecasts": [],
+        "violations": []
+      },
+      "concern_resolutions": [],
+      "cost_usd": 0.029700000000000004,
+      "coverage": {},
+      "cutoff_policy": "fixed",
+      "data_label": "question_only",
+      "evidence_refs": [],
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r2",
+      "information_as_of": "2026-09-19T01:58:11.498178Z",
+      "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+      "input_manifest": {
+        "arm_d016b89aa4504d278e31": "94c56be7789280998e2497b62dc837d51bc9a6fc32a50b8f5fdf0f488e1c2ab1",
+        "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+        "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+        "task_result_3a8e20d5c62949ec8047": "eab1162ea6a12117ede2d91062083fea09677708ac0711318a9b875d590a89de"
+      },
+      "inquiry_answers": {},
+      "issued_at": "2026-09-19T02:05:32.699163Z",
+      "manifest_sha256": "c71ac946a8cac9cc8c9020f2a5c23aa043c5cc011a43c683192cdc05c17fec2a",
+      "method": "method_62c19062d0814cb99b77",
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "mode": "prospective",
+      "model_calls": 1,
+      "model_challenge": null,
+      "model_map": null,
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "parameter_support": [],
+      "previous_forecast_id": null,
+      "prior_record": {
+        "qualification": "Registered method omits the prior stage.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.07,
+      "probability_basis": "judgment",
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_62c19062d0814cb99b77"
+      },
+      "question": {
+        "domain": "US daily weather",
+        "event_deadline": "2026-09-20T06:00:00Z",
+        "event_group": "KXHIGHAUS-26SEP19",
+        "id": "austin",
+        "kind": "real",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "resolve_after": "2026-09-20T06:00:00Z",
+        "text": "Will the maximum temperature be 98-99\u00b0 on Sep 19, 2026? \u2014 98\u00b0 to 99\u00b0",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "yes": "If the maximum temperature recorded at Austin (CLIAUS) for Sep 19, 2026, is between 98-99\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+      },
+      "question_id": "austin",
+      "question_version": 1,
+      "reference_class": null,
+      "repetition": 2,
+      "research_plan": null,
+      "review_at": "2026-09-19T03:45:00+00:00",
+      "run_id": "run_3076eb985c314c1495bc",
+      "searches": 0,
+      "sensitivity": null,
+      "stopping_reason": "One frozen-input model call, no repair or additional research.",
+      "trial_id": "trial_39b12c868f8442a8b24e575f",
+      "triggers": [
+        {
+          "description": "Separate future-data study.",
+          "evidence_refs": []
+        }
+      ],
+      "workflow_version": "experiment.stages.v1"
+    }
+  },
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.57,
+      "ask_contracts_within_2c": 237.68,
+      "ask_size": 61.35,
+      "bid": 0.56,
+      "bid_contracts_within_2c": 13.0,
+      "bid_size": 6.0,
+      "midpoint": 0.565,
+      "spread": 0.01
+    },
+    "target_captured_at": "2026-09-19T01:50:41.174649Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_d34a62df417e4453992a",
+        "label": "Initial",
+        "recorded_at": "2026-09-19T02:06:51.162522Z",
+        "probability": 0.07,
+        "difference_pp": -49.49999999999999,
+        "squared_market_error": 0.24502499999999994,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 49.00000000000001
+      }
+    ],
+    "net_squared_error_improvement": 0.0,
+    "followup_quote": {
+      "ask": 0.56,
+      "ask_contracts_within_2c": 414.69,
+      "ask_size": 29.19,
+      "bid": 0.55,
+      "bid_contracts_within_2c": 63.77,
+      "bid_size": 16.0,
+      "midpoint": 0.555,
+      "spread": 0.01
+    },
+    "followup_captured_at": "2026-09-19T02:06:51.468029Z",
+    "market_movement_pp": -0.9999999999999898,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-19T02:06:51.468652Z"
+}

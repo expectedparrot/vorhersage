@@ -1,0 +1,275 @@
+{
+  "case_id": "workbench_8d5000fc41744a14a305",
+  "state": "revealed",
+  "revision": 2,
+  "baseline_captured_at": "2026-09-19T01:01:46.566444Z",
+  "contract": {
+    "event_group": "KXCPI-26OCT",
+    "market_id": "KXCPI-26OCT-T0.4",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If the Consumer Price Index (CPI) increases by more than 0.4% (single-decimal) in October 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (November 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown.",
+    "scheduled_close": "2026-11-10T13:25:00Z",
+    "title": "Will CPI rise more than 0.4% in October 2026?",
+    "venue": "kalshi",
+    "yes_description": "Above 0.4%"
+  },
+  "created_at": "2026-09-19T01:01:46.571496Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-19T01:01:46.277408Z",
+    "specification": {
+      "domain": "US inflation",
+      "event_deadline": "2026-11-10T13:25:00Z",
+      "event_group": "KXCPI-26OCT",
+      "id": "candidate-05",
+      "kind": "real",
+      "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+      "profile": "general",
+      "resolution_source": "Contract-defined primary source; see frozen rules.",
+      "resolve_after": "2026-11-10T13:25:00Z",
+      "text": "Will CPI rise more than 0.4% in October 2026? \u2014 Above 0.4%",
+      "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+      "yes": "If the Consumer Price Index (CPI) increases by more than 0.4% (single-decimal) in October 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (November 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+    "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+    "market_id": "KXCPI-26OCT-T0.4",
+    "max_spread": 0.1,
+    "method": "Three-model question-only versus outside-research comparison",
+    "min_contracts_each_side": 1,
+    "mode": "prospective",
+    "question": {
+      "question_id": "candidate-05",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_6e9f8694dd9043208473",
+  "target_sha256": "30d7e24d30522f2c7a7bc38b31fc820e6e5d34c1d36f428a8d90015812385ad9",
+  "journal": [
+    {
+      "id": "workbench_entry_1e5d78be88224f96b5b8",
+      "case_id": "workbench_8d5000fc41744a14a305",
+      "evidence_manifest": {},
+      "kind": "initial",
+      "model_manifest": {
+        "forecast_21dd9da5cdf44fcc8459": "0c61c57e59c07aef68e29e4dc76c431fd8a65d10747ebe9c47c237a9a13c34c7"
+      },
+      "payload": {
+        "assumptions": [
+          "One registered call per model and information condition."
+        ],
+        "evidence_refs": [],
+        "model_artifact_ids": [
+          "forecast_21dd9da5cdf44fcc8459"
+        ],
+        "probability": 0.3,
+        "rationale": "Representative of the sealed model-arm forecasts; see the trial archive for all forecasts and rationales.",
+        "research_status": "completed",
+        "uncertainties": [
+          "Recorded packet and model limitations."
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T01:24:46.455074Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_bd5c3a6fc8a24edd84a5",
+      "case_id": "workbench_8d5000fc41744a14a305",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "No detected price exposure. Primary source allowlist, separate target store, identical model inputs and no forecast-worker tools; procedural safeguards, not independently enforced isolation.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "All registered model calls have terminal records; accepted forecasts are sealed."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T01:24:46.459396Z",
+      "revision": 2,
+      "trajectory_manifest": {
+        "workbench_entry_1e5d78be88224f96b5b8": "eca9fd27e8074d7c7bc2df590edfd58812e1ab96afe7dae024d2a6bea55c40fd"
+      }
+    }
+  ],
+  "evidence": {},
+  "models": {
+    "forecast_21dd9da5cdf44fcc8459": {
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "assessment_probability": 0.3,
+      "coherence": {
+        "comparisons": [],
+        "limitations": [
+          "Implications are supplied by the agent and pinned to exact question versions.",
+          "Different information cutoffs can explain apparent incoherence; review before revising."
+        ],
+        "missing_forecasts": [],
+        "violations": []
+      },
+      "concern_resolutions": [],
+      "cost_usd": 0.04046,
+      "coverage": {},
+      "cutoff_policy": "fixed",
+      "data_label": "outside_research",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_00ba69d9d7a9d2a00eb75cbb",
+          "record_id": "cpi"
+        },
+        {
+          "packet_id": "pkt_00ba69d9d7a9d2a00eb75cbb",
+          "record_id": "projections"
+        }
+      ],
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "information_as_of": "2026-09-19T01:06:45.842961Z",
+      "initial_information_as_of": "2026-09-19T01:06:45.842961Z",
+      "input_manifest": {
+        "arm_93eb606580564eb29eb8": "65b97909d1674c2da0083e96735a21a763541200eb000623f8949b3256d8a5f6",
+        "experiment_80f863de8e5a406fb8f6": "397e1ae2a8f36576e1c65231928570b28a42a11b7af1176c541d3542d94d3f0d",
+        "method_c3d7bb4c19b9451db496": "d807d22ea36cc721887b228e89e68410212a5140052197ca048730a788bee38b",
+        "pkt_00ba69d9d7a9d2a00eb75cbb": "33d4972e5c2939c1319a8226108f73a5fb46ccb3640b10835e52791a172dc6dd",
+        "task_result_85270ef87ea645428c71": "c2e531c94931b4446918a7fe8489da9fba6a21b277390a4216616d99dc4c696d"
+      },
+      "inquiry_answers": {},
+      "issued_at": "2026-09-19T01:23:56.339615Z",
+      "manifest_sha256": "4a4ae290a47039a5ea978f9cbbb9df5bc41d5a6a8954f25f674ae46f50085700",
+      "method": "method_c3d7bb4c19b9451db496",
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "mode": "prospective",
+      "model_calls": 1,
+      "model_challenge": null,
+      "model_map": null,
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "parameter_support": [],
+      "previous_forecast_id": null,
+      "prior_record": {
+        "qualification": "Registered method omits the prior stage.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.3,
+      "probability_basis": "judgment",
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_c3d7bb4c19b9451db496"
+      },
+      "question": {
+        "domain": "US inflation",
+        "event_deadline": "2026-11-10T13:25:00Z",
+        "event_group": "KXCPI-26OCT",
+        "id": "candidate-05",
+        "kind": "real",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "resolve_after": "2026-11-10T13:25:00Z",
+        "text": "Will CPI rise more than 0.4% in October 2026? \u2014 Above 0.4%",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "yes": "If the Consumer Price Index (CPI) increases by more than 0.4% (single-decimal) in October 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (November 10, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market\u2019s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown."
+      },
+      "question_id": "candidate-05",
+      "question_version": 1,
+      "reference_class": null,
+      "repetition": 1,
+      "research_plan": null,
+      "review_at": "2026-09-19T07:06:45.842961+00:00",
+      "run_id": "run_6e17a9ed06aa4fc18c61",
+      "searches": 0,
+      "sensitivity": null,
+      "stopping_reason": "One frozen-input model call, no repair or additional research.",
+      "trial_id": "trial_b49fcbb9f39fd49c6973d9ec",
+      "triggers": [
+        {
+          "description": "Separate future-data study.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_00ba69d9d7a9d2a00eb75cbb",
+              "record_id": "cpi"
+            },
+            {
+              "packet_id": "pkt_00ba69d9d7a9d2a00eb75cbb",
+              "record_id": "projections"
+            }
+          ]
+        }
+      ],
+      "workflow_version": "experiment.stages.v1"
+    }
+  },
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.32,
+      "ask_contracts_within_2c": 243.39,
+      "ask_size": 100.0,
+      "bid": 0.31,
+      "bid_contracts_within_2c": 317.5,
+      "bid_size": 242.28,
+      "midpoint": 0.315,
+      "spread": 0.01
+    },
+    "target_captured_at": "2026-09-19T01:01:46.566444Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_1e5d78be88224f96b5b8",
+        "label": "Initial",
+        "recorded_at": "2026-09-19T01:24:46.455074Z",
+        "probability": 0.3,
+        "difference_pp": -1.5000000000000013,
+        "squared_market_error": 0.0002250000000000004,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 1.0000000000000009
+      }
+    ],
+    "net_squared_error_improvement": 0.0,
+    "followup_quote": {
+      "ask": 0.32,
+      "ask_contracts_within_2c": 247.39,
+      "ask_size": 100.0,
+      "bid": 0.31,
+      "bid_contracts_within_2c": 317.5,
+      "bid_size": 242.28,
+      "midpoint": 0.315,
+      "spread": 0.01
+    },
+    "followup_captured_at": "2026-09-19T01:24:46.779078Z",
+    "market_movement_pp": 0.0,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-19T01:24:46.779257Z"
+}

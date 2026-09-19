@@ -1,0 +1,275 @@
+{
+  "case_id": "workbench_a2ba10ec33f94b269542",
+  "state": "revealed",
+  "revision": 2,
+  "baseline_captured_at": "2026-09-19T01:01:45.955837Z",
+  "contract": {
+    "event_group": "KXPAYROLLS-26SEP",
+    "market_id": "KXPAYROLLS-26SEP-T30000",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of September 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release.",
+    "scheduled_close": "2026-10-02T12:29:00Z",
+    "title": "Will above 30000 jobs be added in September 2026?",
+    "venue": "kalshi",
+    "yes_description": "Above 30,000"
+  },
+  "created_at": "2026-09-19T01:01:45.957660Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-19T01:01:45.636453Z",
+    "specification": {
+      "domain": "US labor market",
+      "event_deadline": "2026-10-02T12:29:00Z",
+      "event_group": "KXPAYROLLS-26SEP",
+      "id": "candidate-03",
+      "kind": "real",
+      "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+      "profile": "general",
+      "resolution_source": "Contract-defined primary source; see frozen rules.",
+      "resolve_after": "2026-10-02T12:29:00Z",
+      "text": "Will above 30000 jobs be added in September 2026? \u2014 Above 30,000",
+      "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+      "yes": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of September 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+    "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+    "market_id": "KXPAYROLLS-26SEP-T30000",
+    "max_spread": 0.1,
+    "method": "Three-model question-only versus outside-research comparison",
+    "min_contracts_each_side": 1,
+    "mode": "prospective",
+    "question": {
+      "question_id": "candidate-03",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_ad76105970224484953a",
+  "target_sha256": "f646004fdf6ab2e3555ca6eef0098ac45387b2d5eb941b85539e09c983f64d9f",
+  "journal": [
+    {
+      "id": "workbench_entry_2e11df34f59d425aafb5",
+      "case_id": "workbench_a2ba10ec33f94b269542",
+      "evidence_manifest": {},
+      "kind": "initial",
+      "model_manifest": {
+        "forecast_c2d827a2ec474cd0ba9d": "a96f2bc7b017f56dc8020c4eb021782bd52b3cba4ed563f5adbc957d82641d2b"
+      },
+      "payload": {
+        "assumptions": [
+          "One registered call per model and information condition."
+        ],
+        "evidence_refs": [],
+        "model_artifact_ids": [
+          "forecast_c2d827a2ec474cd0ba9d"
+        ],
+        "probability": 0.7,
+        "rationale": "Representative of the sealed model-arm forecasts; see the trial archive for all forecasts and rationales.",
+        "research_status": "completed",
+        "uncertainties": [
+          "Recorded packet and model limitations."
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T01:24:45.801433Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_9d195bd264364f49a891",
+      "case_id": "workbench_a2ba10ec33f94b269542",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "No detected price exposure. Primary source allowlist, separate target store, identical model inputs and no forecast-worker tools; procedural safeguards, not independently enforced isolation.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "All registered model calls have terminal records; accepted forecasts are sealed."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T01:24:45.805963Z",
+      "revision": 2,
+      "trajectory_manifest": {
+        "workbench_entry_2e11df34f59d425aafb5": "ae015e8d2c7622ccf0a065de01129db91f21c128b7b98952a40aecbe94fed97d"
+      }
+    }
+  ],
+  "evidence": {},
+  "models": {
+    "forecast_c2d827a2ec474cd0ba9d": {
+      "arm_id": "arm_93eb606580564eb29eb8",
+      "assessment_probability": 0.7,
+      "coherence": {
+        "comparisons": [],
+        "limitations": [
+          "Implications are supplied by the agent and pinned to exact question versions.",
+          "Different information cutoffs can explain apparent incoherence; review before revising."
+        ],
+        "missing_forecasts": [],
+        "violations": []
+      },
+      "concern_resolutions": [],
+      "cost_usd": 0.03734,
+      "coverage": {},
+      "cutoff_policy": "fixed",
+      "data_label": "outside_research",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_6779823b4a19990b9a682ae0",
+          "record_id": "jobs"
+        },
+        {
+          "packet_id": "pkt_6779823b4a19990b9a682ae0",
+          "record_id": "projections"
+        }
+      ],
+      "experiment_id": "experiment_80f863de8e5a406fb8f6",
+      "forecaster": "experiment_80f863de8e5a406fb8f6:arm_93eb606580564eb29eb8:r1",
+      "information_as_of": "2026-09-19T01:06:45.842961Z",
+      "initial_information_as_of": "2026-09-19T01:06:45.842961Z",
+      "input_manifest": {
+        "arm_93eb606580564eb29eb8": "65b97909d1674c2da0083e96735a21a763541200eb000623f8949b3256d8a5f6",
+        "experiment_80f863de8e5a406fb8f6": "397e1ae2a8f36576e1c65231928570b28a42a11b7af1176c541d3542d94d3f0d",
+        "method_c3d7bb4c19b9451db496": "d807d22ea36cc721887b228e89e68410212a5140052197ca048730a788bee38b",
+        "pkt_6779823b4a19990b9a682ae0": "e8a534e18f33289496d2b080eb9f4ae80ad74d3fb5882ffd44acb18d5c92c8a3",
+        "task_result_66dd7884a7e84666bcfc": "73596ff44a58aa2e21522f35b409823a8494670b8258cc19cc4fd9301f049f16"
+      },
+      "inquiry_answers": {},
+      "issued_at": "2026-09-19T01:23:56.154972Z",
+      "manifest_sha256": "86717fd60efdaf7921af5fde0a34f5d02feadb84d092b77ef341292a6bf93bf4",
+      "method": "method_c3d7bb4c19b9451db496",
+      "method_spec_id": "method_c3d7bb4c19b9451db496",
+      "mode": "prospective",
+      "model_calls": 1,
+      "model_challenge": null,
+      "model_map": null,
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "parameter_support": [],
+      "previous_forecast_id": null,
+      "prior_record": {
+        "qualification": "Registered method omits the prior stage.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.7,
+      "probability_basis": "judgment",
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_c3d7bb4c19b9451db496"
+      },
+      "question": {
+        "domain": "US labor market",
+        "event_deadline": "2026-10-02T12:29:00Z",
+        "event_group": "KXPAYROLLS-26SEP",
+        "id": "candidate-03",
+        "kind": "real",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "resolve_after": "2026-10-02T12:29:00Z",
+        "text": "Will above 30000 jobs be added in September 2026? \u2014 Above 30,000",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "yes": "If the increase in total non-farm payroll employment is above 30000 as reported by the Bureau of Labor Statistics Monthly Employment Situation Report for the month of September 2026, then the market resolves to Yes.\n\nThe market closes at 8:29 AM ET on the expected date of the data release."
+      },
+      "question_id": "candidate-03",
+      "question_version": 1,
+      "reference_class": null,
+      "repetition": 1,
+      "research_plan": null,
+      "review_at": "2026-09-19T07:06:45.842961+00:00",
+      "run_id": "run_5cb73a0ed44a4a5e82c2",
+      "searches": 0,
+      "sensitivity": null,
+      "stopping_reason": "One frozen-input model call, no repair or additional research.",
+      "trial_id": "trial_863261393ec6876fdf7c1b3b",
+      "triggers": [
+        {
+          "description": "Separate future-data study.",
+          "evidence_refs": [
+            {
+              "packet_id": "pkt_6779823b4a19990b9a682ae0",
+              "record_id": "jobs"
+            },
+            {
+              "packet_id": "pkt_6779823b4a19990b9a682ae0",
+              "record_id": "projections"
+            }
+          ]
+        }
+      ],
+      "workflow_version": "experiment.stages.v1"
+    }
+  },
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.82,
+      "ask_contracts_within_2c": 2361.0,
+      "ask_size": 1.0,
+      "bid": 0.78,
+      "bid_contracts_within_2c": 20.0,
+      "bid_size": 20.0,
+      "midpoint": 0.8,
+      "spread": 0.04
+    },
+    "target_captured_at": "2026-09-19T01:01:45.955837Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_2e11df34f59d425aafb5",
+        "label": "Initial",
+        "recorded_at": "2026-09-19T01:24:45.801433Z",
+        "probability": 0.7,
+        "difference_pp": -10.000000000000009,
+        "squared_market_error": 0.010000000000000018,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 8.000000000000007
+      }
+    ],
+    "net_squared_error_improvement": 0.0,
+    "followup_quote": {
+      "ask": 0.83,
+      "ask_contracts_within_2c": 2360.0,
+      "ask_size": 1798.0,
+      "bid": 0.78,
+      "bid_contracts_within_2c": 20.0,
+      "bid_size": 20.0,
+      "midpoint": 0.8049999999999999,
+      "spread": 0.05
+    },
+    "followup_captured_at": "2026-09-19T01:24:46.130923Z",
+    "market_movement_pp": 0.49999999999998934,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-19T01:24:46.131275Z"
+}

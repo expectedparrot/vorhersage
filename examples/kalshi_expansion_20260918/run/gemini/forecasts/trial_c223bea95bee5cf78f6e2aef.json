@@ -1,0 +1,114 @@
+{
+  "arm_id": "arm_78cd74228fbc44f686cc",
+  "assessment_probability": 0.01,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.013066000000000001,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_e8569afe522be7cd110b15da",
+      "record_id": "hurricane_summary"
+    },
+    {
+      "packet_id": "pkt_e8569afe522be7cd110b15da",
+      "record_id": "hurricane_climatology"
+    }
+  ],
+  "experiment_id": "experiment_80f863de8e5a406fb8f6",
+  "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+  "information_as_of": "2026-09-19T01:06:45.842961Z",
+  "initial_information_as_of": "2026-09-19T01:06:45.842961Z",
+  "input_manifest": {
+    "arm_78cd74228fbc44f686cc": "2f73b7ac8a7a3f06fd57e69baa862fb56bb2ec38c4e05ce90ba1274d34c3111c",
+    "experiment_80f863de8e5a406fb8f6": "397e1ae2a8f36576e1c65231928570b28a42a11b7af1176c541d3542d94d3f0d",
+    "method_c3d7bb4c19b9451db496": "d807d22ea36cc721887b228e89e68410212a5140052197ca048730a788bee38b",
+    "pkt_e8569afe522be7cd110b15da": "4996b5ee0e0ecea24d42f0cc6a3bc1716f4ff175bc17611f3de335528cde63df",
+    "task_result_2bf49b8ece23473f9fdd": "df89c8ec88396589ed9ae9c8ab92e602dd4de806ddaf5d2cdc0a5974551119f1"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T01:23:58.510300Z",
+  "manifest_sha256": "397bd7f8842b131c5ff70454d63fb522dfbbcd849081c63f8959d385e85f3742",
+  "method": "method_c3d7bb4c19b9451db496",
+  "method_spec_id": "method_c3d7bb4c19b9451db496",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "stopSequences": [],
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.01,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_c3d7bb4c19b9451db496"
+  },
+  "question": {
+    "domain": "Atlantic hurricane season",
+    "event_deadline": "2026-12-02T04:59:00Z",
+    "event_group": "KXHURCTOTMAJ-26DEC01",
+    "id": "candidate-12",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2026-12-02T04:59:00Z",
+    "text": "Will there be more than 3 major Atlantic hurricanes in 2026? \u2014 Above 3",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If the NOAA's National Hurricane Center records more than 3 hurricanes of hurricane category 3 or above between January 1, 2026 and December 01, 2026, then the market resolves to Yes.\n\nThe market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026. The market will expire at the sooner of the occurrence of the event, or one day after December 01, 2026."
+  },
+  "question_id": "candidate-12",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-19T07:06:45.842961+00:00",
+  "run_id": "run_78d6b5e88d854387b692",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_c223bea95bee5cf78f6e2aef",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_e8569afe522be7cd110b15da",
+          "record_id": "hurricane_summary"
+        },
+        {
+          "packet_id": "pkt_e8569afe522be7cd110b15da",
+          "record_id": "hurricane_climatology"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

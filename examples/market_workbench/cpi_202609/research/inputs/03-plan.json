@@ -1,0 +1,13 @@
+{
+  "kind": "plan",
+  "payload": {
+    "uncertainty": "Complete the gasoline contribution adjustment specified in the original plan.",
+    "why_it_matters": "The three-month trend averages a sharp June gasoline decline; current gasoline is rising.",
+    "higher_if": "Current September gasoline growth exceeds the prior three-month gasoline trend.",
+    "lower_if": "Remaining-month prices decline or the seasonal contribution is smaller.",
+    "search_plan": "Use the inputs already collected under the initial pre-data plan and its same formula; this is a continuation, not a claim these inputs are still unseen. Technical clarification: the August BLS release labels3.770% as July relative importance, so use that published lagged weight and show a rolled-forward August-weight sensitivity. Retain original residual spread for primary model. Add a diagnostic using recent holdout RMSE as an alternative width; do not claim it is calibrated or select it to match the hidden quote.",
+    "stopping_rule": "Record the gasoline-adjusted model and declared sensitivities, flag the weak uncertainty calibration, then seal."
+  },
+  "expected_revision": 3,
+  "idempotency_key": "cpi-3-plan"
+}

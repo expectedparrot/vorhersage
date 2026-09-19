@@ -1,0 +1,122 @@
+{
+  "sources": [
+    {
+      "id": "history",
+      "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/mos.py?station=KMDW&model=NBS&sts=2026-07-17T00%3A00Z&ets=2026-09-15T00%3A00Z&format=csv",
+      "title": "IEM NBS forecast archive for Midway",
+      "excerpt": "All 60 target dates have a previous-day 06 UTC KMDW NBS forecast with 42-hour TXN. Forecast dates run July 17 through September 14.",
+      "retrieved_at": "2026-09-16T15:01:23.357979+00:00",
+      "excerpt_kind": "paraphrase"
+    },
+    {
+      "id": "observed",
+      "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?sts=2026-07-18&ets=2026-09-15&network=IL_ASOS&stations=MDW&var=max_temp_f&format=csv",
+      "title": "IEM Midway station daily maxima",
+      "excerpt": "All 60 predetermined target dates July 18 through September 15 have a station daily high. These are proxy observations, not verified TWC settlements.",
+      "retrieved_at": "2026-09-16T15:01:20.766125+00:00",
+      "excerpt_kind": "paraphrase"
+    },
+    {
+      "id": "nws",
+      "url": "https://api.weather.gov/gridpoints/LOT/72,69/forecast",
+      "title": "NWS Midway point forecast",
+      "excerpt": "NWS forecasts September 17 high near 76\u00b0F, mostly cloudy, with possible showers and thunderstorms before 1pm. This is 2\u00b0F below the frozen NBS point forecast.",
+      "retrieved_at": "2026-09-16T15:01:20.583547+00:00",
+      "excerpt_kind": "paraphrase",
+      "published_at": "2026-09-16T10:45:49Z"
+    },
+    {
+      "id": "discussion",
+      "url": "https://forecast.weather.gov/product.php?site=LOT&issuedby=LOT&product=AFD&format=TXT&version=1&glossary=0",
+      "title": "NWS Chicago forecast discussion",
+      "excerpt": "Rain and storms may affect Thursday morning; drier conditions are expected later. The location of heavier overnight rain is uncertain. Clouds, wind direction and precipitation create regime uncertainty in daily highs.",
+      "retrieved_at": "2026-09-16T15:01:20.887929+00:00",
+      "excerpt_kind": "paraphrase",
+      "published_at": "2026-09-16T12:00:00Z"
+    },
+    {
+      "id": "daily_definition",
+      "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/daily.py?help=",
+      "title": "IEM daily-summary definitions",
+      "excerpt": "The archive mixes computed calendar-day summaries and explicit official totals. Airport daily windows typically follow standard time, or 1am to 1am daylight time.",
+      "retrieved_at": "2026-09-16T15:01:21.139491+00:00",
+      "excerpt_kind": "paraphrase"
+    },
+    {
+      "id": "nbm_definition",
+      "url": "https://vlab.noaa.gov/web/mdl/nbm-textcard-v5.0",
+      "title": "NOAA NBM station card definitions",
+      "excerpt": "NBS maximum TXN spans 12 UTC through next-day 06 UTC and appears at next-day 00 UTC. XND measures model maximum/minimum temperature standard deviation.",
+      "retrieved_at": "2026-09-16T14:59:41.593273+00:00",
+      "excerpt_kind": "paraphrase"
+    },
+    {
+      "id": "twc",
+      "url": "https://weather.com/kalshi",
+      "title": "The Weather Company climate data portal",
+      "excerpt": "The public HTML presents a climate portal with daily and hourly views. The retrieved shell and one script did not establish a historical TWC settlement series, exact rounding, or full daily-window conventions.",
+      "retrieved_at": "2026-09-16T15:01:20.649853+00:00",
+      "excerpt_kind": "paraphrase"
+    }
+  ],
+  "findings": [
+    {
+      "id": "residuals",
+      "claim": "All 60 predefined days were matched without exclusions. Mean observed-minus-NBS error is 0.083333\u00b0F; sample SD is 2.512961\u00b0F.",
+      "source_ids": [
+        "history",
+        "observed"
+      ],
+      "claim_type": "inference"
+    },
+    {
+      "id": "holdout",
+      "claim": "Fitting on the first 40 days and checking the last 20: raw forecast RMSE 2.5593\u00b0F, bias-corrected RMSE 2.5957\u00b0F; 19/20 observations lie in the declared nominal 90% interval. This small check does not demonstrate improved bias correction or calibration.",
+      "source_ids": [
+        "history",
+        "observed"
+      ],
+      "claim_type": "inference"
+    },
+    {
+      "id": "weather_disagreement",
+      "claim": "NWS Thursday point forecast is 76\u00b0F versus NBS 78\u00b0F; rain timing, cloud cover and wind direction remain uncertain. With the same final spread, using the raw NWS center gives 28.19%. This is an alternative assumption, not an independent probability vote.",
+      "source_ids": [
+        "nws",
+        "discussion"
+      ],
+      "claim_type": "inference"
+    },
+    {
+      "id": "settlement_gap",
+      "claim": "No matched TWC settlement history or exact rounding convention was extracted. Station and NBS windows differ; the 1\u00b0F extra spread is an explicit assumption, not an empirically measured settlement correction.",
+      "source_ids": [
+        "daily_definition",
+        "nbm_definition",
+        "twc"
+      ],
+      "claim_type": "inference"
+    },
+    {
+      "id": "calculation",
+      "claim": "The predeclared estimator gives mean 78.083333\u00b0F, SD 2.724008\u00b0F and probability 0.243743131. Empirical unsmoothed estimate is 13/60=21.67%. Mean shifts +/-1\u00b0F give 18.64\u201328.02%. Calculation SHA256: c9be200514ec50e354c2149caa3e3a45cfd1ac00a852fafa3908ff01fd09b7ae",
+      "source_ids": [
+        "history",
+        "observed",
+        "nbm_definition"
+      ],
+      "claim_type": "inference"
+    }
+  ],
+  "limitations": [
+    "IEM daily maxima are not exact TWC settlements.",
+    "NBS daytime maximum and full daily-report time windows differ.",
+    "Gaussian errors, constant bias, nearest-integer rounding and independent 1\u00b0F extra SD are assumptions.",
+    "60 adjacent summer days may be correlated and may not match the current rainy autumn regime.",
+    "Forecast archive is retrieved now, not immutable original publication vintages.",
+    "Same assistant context as NYC; price separation is procedural, not enforced isolation.",
+    "Opening thresholds screen best quotes only, not trading volume or market calibration.",
+    "Usage and monetary costs are unmetered.",
+    "TWC portal check stopped at the public HTML and one script; no authenticated or comprehensive archive search was performed."
+  ]
+}

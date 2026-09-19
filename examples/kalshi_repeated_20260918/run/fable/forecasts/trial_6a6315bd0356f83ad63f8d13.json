@@ -1,0 +1,102 @@
+{
+  "arm_id": "arm_48a1e459e3694006b725",
+  "assessment_probability": 0.3,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.0746,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "question_only",
+  "evidence_refs": [],
+  "experiment_id": "experiment_7f50c2431dc346399685",
+  "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r2",
+  "information_as_of": "2026-09-19T01:58:11.498178Z",
+  "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+  "input_manifest": {
+    "arm_48a1e459e3694006b725": "55f7eef77f74897a27473877e424aafb852fa798fc2c339a26233d0de1485614",
+    "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+    "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+    "task_result_debc65ed6c394195ac05": "00e401fdc628e24e4fb804a190c4beacd585fb82d992039b8b3a5b5c0a13d981"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T02:05:34.145105Z",
+  "manifest_sha256": "27c7b55a5fa5dee1ba0aaf074ba86cfa30b5105660386ff8c4389db8a0b7d8d0",
+  "method": "method_62c19062d0814cb99b77",
+  "method_spec_id": "method_62c19062d0814cb99b77",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "claude-fable-5-1",
+    "parameters": {
+      "frequency_penalty": 0,
+      "logprobs": false,
+      "max_tokens": 8192,
+      "output_config": {
+        "effort": "high"
+      },
+      "presence_penalty": 0,
+      "temperature": 0.5,
+      "thinking": {
+        "type": "adaptive"
+      },
+      "top_logprobs": 3,
+      "top_p": 1
+    },
+    "provider": "anthropic"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.3,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_62c19062d0814cb99b77"
+  },
+  "question": {
+    "domain": "US housing and interest rates",
+    "event_deadline": "2026-09-24T15:59:00Z",
+    "event_group": "KX30YMORTW-26SEP24",
+    "id": "mortgage",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2026-09-24T15:59:00Z",
+    "text": "Will the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 be above 7.01%? \u2014 Above 7.01%",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 is above \n\n7.01%, then the market resolves to Yes.\n\nThe Underlying is the 30-Year Fixed-Rate Mortgage national average published by Freddie Mac in its Primary Mortgage Market Survey (PMMS) for Sep 24, 2026.\n\nFor a standard Thursday publication, the weekly measurement period runs from 12:00 a.m. ET on the preceding Thursday through 11:59 p.m. ET on Wednesday. The resulting national average is published Thursday at 12:00 p.m. ET. This market will use Freddie Mac's first published PMMS value for the specified week. Subsequent corrections or revisions made after expiration will not affect resolution."
+  },
+  "question_id": "mortgage",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 2,
+  "research_plan": null,
+  "review_at": "2026-09-19T03:45:00+00:00",
+  "run_id": "run_dec7c6ff4c0d49ab84c1",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_6a6315bd0356f83ad63f8d13",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": []
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

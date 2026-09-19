@@ -1,0 +1,256 @@
+{
+  "case_id": "workbench_2f1fb945a9f848188e7e",
+  "state": "revealed",
+  "revision": 2,
+  "baseline_captured_at": "2026-09-19T01:50:39.867993Z",
+  "contract": {
+    "event_group": "KXMEASLES-26",
+    "market_id": "KXMEASLES-26-6000",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If the number of measles in 2026 is above 6000, then the market resolves to Yes.",
+    "scheduled_close": "2027-01-01T04:59:00Z",
+    "title": "Will there be more than 6000 measles cases in 2026?",
+    "venue": "kalshi",
+    "yes_description": "Above 6000"
+  },
+  "created_at": "2026-09-19T01:50:39.868820Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-19T01:50:39.557065Z",
+    "specification": {
+      "domain": "US infectious disease",
+      "event_deadline": "2027-01-01T04:59:00Z",
+      "event_group": "KXMEASLES-26",
+      "id": "measles",
+      "kind": "real",
+      "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+      "profile": "general",
+      "resolution_source": "Contract-defined primary source; see frozen rules.",
+      "resolve_after": "2027-01-01T04:59:00Z",
+      "text": "Will there be more than 6000 measles cases in 2026? \u2014 Above 6000",
+      "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+      "yes": "If the number of measles in 2026 is above 6000, then the market resolves to Yes."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+    "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+    "market_id": "KXMEASLES-26-6000",
+    "max_spread": 0.1,
+    "method": "Three-model question-only versus outside-research comparison",
+    "min_contracts_each_side": 1,
+    "mode": "prospective",
+    "question": {
+      "question_id": "measles",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_69708eda288c463881db",
+  "target_sha256": "bde835fdb687468115bb2ad2dd191675a7ff5724c80fdd5bb1855baa7b5b12da",
+  "journal": [
+    {
+      "id": "workbench_entry_6952a27a226e4f9fa071",
+      "case_id": "workbench_2f1fb945a9f848188e7e",
+      "evidence_manifest": {},
+      "kind": "initial",
+      "model_manifest": {
+        "forecast_8191ebe669414aca906c": "f4c5a8bf8d7ec8c40943dd59d0519295c21d009ca8a15dddc96bcc00552146e2"
+      },
+      "payload": {
+        "assumptions": [
+          "Three independent calls per cell; no repair."
+        ],
+        "evidence_refs": [],
+        "model_artifact_ids": [
+          "forecast_8191ebe669414aca906c"
+        ],
+        "probability": 0.18,
+        "rationale": "Representative sealed forecast; all registered repetitions scored separately from their immutable records.",
+        "research_status": "completed",
+        "uncertainties": [
+          "Frozen packet limitations and within-model variation."
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T02:06:50.173276Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_df648b166ccc49e18964",
+      "case_id": "workbench_2f1fb945a9f848188e7e",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "Exact provider inputs checked; strict source screening; market-mentions-v2 content review before reveal. Procedural coordinator separation, no independently enforced sandbox.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "Every call has a terminal receipt; forecasts and pre-reveal content reviews are sealed."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T02:06:50.178519Z",
+      "revision": 2,
+      "trajectory_manifest": {
+        "workbench_entry_6952a27a226e4f9fa071": "1a86d5901fb3d2fc663af9ae25886ee5796f5230b8c113f68af23c3bb80e1a1a"
+      }
+    }
+  ],
+  "evidence": {},
+  "models": {
+    "forecast_8191ebe669414aca906c": {
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "assessment_probability": 0.18,
+      "coherence": {
+        "comparisons": [],
+        "limitations": [
+          "Implications are supplied by the agent and pinned to exact question versions.",
+          "Different information cutoffs can explain apparent incoherence; review before revising."
+        ],
+        "missing_forecasts": [],
+        "violations": []
+      },
+      "concern_resolutions": [],
+      "cost_usd": 0.03165,
+      "coverage": {},
+      "cutoff_policy": "fixed",
+      "data_label": "question_only",
+      "evidence_refs": [],
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r3",
+      "information_as_of": "2026-09-19T01:58:11.498178Z",
+      "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+      "input_manifest": {
+        "arm_d016b89aa4504d278e31": "94c56be7789280998e2497b62dc837d51bc9a6fc32a50b8f5fdf0f488e1c2ab1",
+        "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+        "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+        "task_result_c7c3587e50f74af59bb6": "8cb572eb3eb71c5b3971486e1c223846186915eeef0be6267f69a3b394a7c733"
+      },
+      "inquiry_answers": {},
+      "issued_at": "2026-09-19T02:05:32.745302Z",
+      "manifest_sha256": "3617f3dca31d4c709ff5710b6ebcc4c925fad4644456f01272e3ddba7f43ec46",
+      "method": "method_62c19062d0814cb99b77",
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "mode": "prospective",
+      "model_calls": 1,
+      "model_challenge": null,
+      "model_map": null,
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "parameter_support": [],
+      "previous_forecast_id": null,
+      "prior_record": {
+        "qualification": "Registered method omits the prior stage.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.18,
+      "probability_basis": "judgment",
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_62c19062d0814cb99b77"
+      },
+      "question": {
+        "domain": "US infectious disease",
+        "event_deadline": "2027-01-01T04:59:00Z",
+        "event_group": "KXMEASLES-26",
+        "id": "measles",
+        "kind": "real",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "resolve_after": "2027-01-01T04:59:00Z",
+        "text": "Will there be more than 6000 measles cases in 2026? \u2014 Above 6000",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "yes": "If the number of measles in 2026 is above 6000, then the market resolves to Yes."
+      },
+      "question_id": "measles",
+      "question_version": 1,
+      "reference_class": null,
+      "repetition": 3,
+      "research_plan": null,
+      "review_at": "2026-09-19T03:45:00+00:00",
+      "run_id": "run_d51a8933840d40dca963",
+      "searches": 0,
+      "sensitivity": null,
+      "stopping_reason": "One frozen-input model call, no repair or additional research.",
+      "trial_id": "trial_98bcd8a04b984674f2d695cc",
+      "triggers": [
+        {
+          "description": "Separate future-data study.",
+          "evidence_refs": []
+        }
+      ],
+      "workflow_version": "experiment.stages.v1"
+    }
+  },
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.63,
+      "ask_contracts_within_2c": 547.03,
+      "ask_size": 20.0,
+      "bid": 0.59,
+      "bid_contracts_within_2c": 1058.54,
+      "bid_size": 115.18,
+      "midpoint": 0.61,
+      "spread": 0.04
+    },
+    "target_captured_at": "2026-09-19T01:50:39.867993Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_6952a27a226e4f9fa071",
+        "label": "Initial",
+        "recorded_at": "2026-09-19T02:06:50.173276Z",
+        "probability": 0.18,
+        "difference_pp": -43.0,
+        "squared_market_error": 0.18489999999999998,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 41.0
+      }
+    ],
+    "net_squared_error_improvement": 0.0,
+    "followup_quote": {
+      "ask": 0.63,
+      "ask_contracts_within_2c": 520.0,
+      "ask_size": 20.0,
+      "bid": 0.59,
+      "bid_contracts_within_2c": 1058.74,
+      "bid_size": 115.38,
+      "midpoint": 0.61,
+      "spread": 0.04
+    },
+    "followup_captured_at": "2026-09-19T02:06:50.479568Z",
+    "market_movement_pp": 0.0,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-19T02:06:50.479770Z"
+}

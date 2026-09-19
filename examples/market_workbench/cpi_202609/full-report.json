@@ -1,0 +1,1238 @@
+{
+  "case_id": "workbench_1ae01f8856bf4dc5926f",
+  "state": "revealed",
+  "revision": 7,
+  "baseline_captured_at": "2026-09-16T16:41:57.200854Z",
+  "contract": {
+    "event_group": "KXCPI-26SEP",
+    "market_id": "KXCPI-26SEP-T0.2",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If the Consumer Price Index (CPI) increases by more than 0.2% (single-decimal) in September 2026, then the market resolves to Yes.\n\nThe market will always close at 8:25 AM ET on the scheduled day of the data release (October 14, 2026). Please note: the Expiration Value is the single-decimal value published at the Source Agency. In the case of a delay in data caused by a federal government shutdown impacting the reliability of the Source Agency, the market’s latest Expiration Date will be extended to the sooner of the release of the Underlying or six months after the end of the government shutdown.",
+    "scheduled_close": "2026-10-14T12:25:00Z",
+    "title": "Will CPI rise more than 0.2% in September 2026?",
+    "venue": "kalshi",
+    "yes_description": "Above 0.2%"
+  },
+  "created_at": "2026-09-16T16:41:57.207957Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-16T16:40:06.267936Z",
+    "specification": {
+      "domain": "economics",
+      "event_deadline": "2026-10-14T12:30:00Z",
+      "event_group": "KXCPI-26SEP",
+      "id": "cpi_sep2026_above_0_2",
+      "kind": "real",
+      "no": "The qualifying expiration value is 0.2% or lower.",
+      "profile": "general",
+      "resolution_source": "BLS September CPI release, scheduled October14 at08:30EDT; Kalshi KXCPI-26SEP-T0.2 rules and CPI contract PDF control rounding, delays, expiration and fallback. Market close08:25EDT differs from release time.",
+      "resolve_after": "2026-10-14T12:31:00Z",
+      "text": "Will the published seasonally adjusted monthly CPI-U increase for September 2026 exceed 0.2%?",
+      "void": "Nonbinary discretionary settlement or unresolved ambiguity about a contingency is outside this binary comparison.",
+      "yes": "The Kalshi expiration value for September 2026 monthly seasonally adjusted all-items CPI-U, published to one decimal place by BLS, is strictly greater than 0.2%; ordinarily a reported 0.3% or higher. The published contract fallback applies if no underlying is released."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Monthly all-items CPI-U seasonally adjusted, signed one-decimal change; strictly above0.2. Generic terms and market-specific shutdown/close rules retained. Calculation assumes ordinary release; fallback is not independently modeled.",
+    "eligibility_rationale": "September is incomplete and its BLS CPI release is scheduled for October14. Select the0.2% threshold without looking at odds. Require at most5-cent spread and at least10 contracts each side.",
+    "market_id": "KXCPI-26SEP-T0.2",
+    "max_spread": 0.05,
+    "method": "Inflation momentum plus a declared gasoline contribution adjustment; hidden market comparison",
+    "min_contracts_each_side": 10,
+    "mode": "prospective",
+    "question": {
+      "question_id": "cpi_sep2026_above_0_2",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_801400e0751048d38379",
+  "target_sha256": "0a7d7dada1f4c3a070328db75b3a1a819a7bbec896f7552a354dd9705131e5ac",
+  "journal": [
+    {
+      "id": "workbench_entry_9b312ecf943747608ac4",
+      "case_id": "workbench_1ae01f8856bf4dc5926f",
+      "evidence_manifest": {},
+      "kind": "initial",
+      "model_manifest": {},
+      "payload": {
+        "assumptions": [
+          "Ordinary BLS release and usual nearest-tenth rounding",
+          "Mean0.20pp, SD0.15pp subjective",
+          "No separate probability assigned to shutdown/no-data fallback"
+        ],
+        "evidence_refs": [],
+        "probability": 0.36944134018176367,
+        "rationale": "A deliberately simple starting distribution for unrounded monthly headline CPI: normal mean0.20 percentage points and SD0.15 percentage points. Both parameters are subjective macro assumptions, not fitted data. Published single-decimal change must exceed0.2, approximated by unrounded change>=0.25. Broad macro context from the prior Fed example was already present; this is not a fresh-context prior.",
+        "research_status": "in_progress",
+        "uncertainties": [
+          "Recent headline and core momentum",
+          "Gasoline contribution and seasonal adjustment",
+          "Forecast error around a short-run momentum model"
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-16T16:42:39.950330Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_a0b06e56ffc1457688f0",
+      "case_id": "workbench_1ae01f8856bf4dc5926f",
+      "evidence_manifest": {},
+      "kind": "plan",
+      "model_manifest": {},
+      "payload": {
+        "higher_if": "Recent headline momentum and seasonally adjusted gasoline price movement lift the forecast above0.25pp.",
+        "lower_if": "Underlying momentum is softer or gasoline contributes less than in the preceding three months.",
+        "search_plan": "Fix this primary model before data: compute unrounded monthly rates from headline CPI-U seasonally adjusted indices. Baseline center is mean June,July,August2026 monthly rates. Estimate bias and residual SD for the same three-prior-month mean rule on all48 target months September2022–August2026, without outcome filtering. Primary spread=s*sqrt(1+1/48); normal residual distribution. First checkpoint is this calibrated momentum model. Then adjust only gasoline: project September US all-grades retail gasoline average using weekly EIA/FRED GASALLW observations available by September16, carrying each Monday observation forward until the next and carrying the last observed price through September30. Compute August and projected September calendar-day averages using the same step rule. Translate raw gasoline change to seasonal-adjusted change by adding median September correction (CPI gasoline SA monthly change minus gasoline NSA change) for all five Septembers2021–2025. Replace the average June–August SA gasoline contribution in the momentum model with this projected contribution, using August2026 BLS gasoline relative importance divided by100. Adjustment=w_gas*(projected gasoline SA change - mean June–August gasoline SA change). Other components retain their implicit three-month trend. Keep the historical momentum-model spread; do not claim new evidence automatically tightens it. Record a second checkpoint using that fixed calculation. Check BLS release and component table, seasonality definitions, CPI index histories, and EIA weekly retail gasoline definitions. Report empirical residual estimate, a chronological36/12 holdout diagnostic, gasoline remaining-month price sensitivity +/-5%, seasonal correction across all five individual years, and center shifts +/-0.05pp. No market odds or third-party event probabilities. Do not switch estimators to improve market agreement.",
+        "stopping_rule": "Complete these specified datasets and two checkpoints. If an input cannot be obtained, retain the last supported model and disclose the missing calculation. No guessing missing weight or seasonality. Minimum36 valid residual targets. Primary historical data may be revised as of today: disclose that they do not recreate original as-released CPI vintages. Stop and seal before revealing price.",
+        "uncertainty": "Does current inflation momentum plus observable gasoline pricing put September above the0.25pp unrounded cutoff, and how uncertain is that estimate?",
+        "why_it_matters": "The release threshold is narrow; energy can move headline CPI by several hundredths of a percentage point. A point forecast alone cannot answer the contract."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-16T16:42:40.060260Z",
+      "revision": 2
+    },
+    {
+      "id": "workbench_entry_0679ebebe89a48ab8c88",
+      "case_id": "workbench_1ae01f8856bf4dc5926f",
+      "evidence_manifest": {
+        "pkt_320e7ec936174cc70c759ac3": "f2da6f90c6e06786b730c22fe8e9f8a79afc11bafb42639ae9dee6467517e27b"
+      },
+      "kind": "checkpoint",
+      "model_manifest": {},
+      "payload": {
+        "changed_assumptions": [
+          "Replace subjective0.20pp center and0.15pp SD with the predeclared empirical momentum model.",
+          "Use actual valid sample size43 in the1+1/n mean-uncertainty term."
+        ],
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_320e7ec936174cc70c759ac3",
+            "record_id": "momentum"
+          },
+          {
+            "packet_id": "pkt_320e7ec936174cc70c759ac3",
+            "record_id": "holdout"
+          }
+        ],
+        "findings": "Missing October2025 headline data invalidate five targets; no imputation. Recent holdout RMSE is much worse than earlier fitted spread.",
+        "limitations": [
+          "Historical indices are revised; October2025 missing data remove five residual targets.",
+          "Gaussian stable residual distribution and three-month momentum are declared modeling assumptions.",
+          "Gasoline is a linear contribution approximation; EIA prices, sampling and weights differ from BLS gasoline CPI.",
+          "September remainder is projected flat at last observed price; no oil-price, inventory or shock model.",
+          "Seasonal correction is five-year September median, not the exact published2026 adjustment factor.",
+          "August release reports July relative importance; primary uses its3.770% lagged weight, with updated-weight sensitivity.",
+          "Residual spread is from the momentum model, not a validated gasoline-adjusted model.",
+          "Core, shelter, food and other energy keep implicit three-month trend; no separate forward-looking models.",
+          "No model for exceptional delayed-release or no-data fallback; ordinary release assumed.",
+          "Same assistant context and procedural price separation, not verified independent blinding.",
+          "Source retrieval timestamps conservatively use bundle capture time.",
+          "The CPI summary/table/FAQ were read through the web tool after direct HTTP403 failures; their relevant facts were transcribed, not saved as complete raw HTML.",
+          "Gasoline evidence was collected in the same research pass before the momentum checkpoint; stages isolate calculations, not independent experiments.",
+          "Costs and model usage are unmetered."
+        ],
+        "probability": 0.1877785433996466,
+        "rationale": "First stage of the declared model: use recent three-month headline momentum and43 available historical prediction residuals. Mean0.01472pp and SD0.26552pp give18.78% above the effective0.25pp threshold. Large June decline depresses the raw trend. This intermediate calculation omits already-collected gasoline evidence; it is not an independent research run.",
+        "remaining_uncertainties": [
+          "Gasoline adjustment still to incorporate",
+          "Historical regime and revised data",
+          "Seven-observation holdout is small and shows poor coverage"
+        ],
+        "sources_checked": [
+          "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL,CUSR0000SETB01,CUUR0000SETB01&cosd=2021-08-01&coed=2026-08-01",
+          "https://www.bls.gov/news.release/cpi.nr0.htm",
+          "https://www.bls.gov/cpi/seasonal-adjustment/questions-and-answers.htm"
+        ]
+      },
+      "phase": "pre_reveal",
+      "plan_id": "workbench_entry_a0b06e56ffc1457688f0",
+      "recorded_at": "2026-09-16T16:47:47.928840Z",
+      "revision": 3
+    },
+    {
+      "id": "workbench_entry_615f5ca864c348a5a918",
+      "case_id": "workbench_1ae01f8856bf4dc5926f",
+      "evidence_manifest": {},
+      "kind": "plan",
+      "model_manifest": {},
+      "payload": {
+        "higher_if": "Current September gasoline growth exceeds the prior three-month gasoline trend.",
+        "lower_if": "Remaining-month prices decline or the seasonal contribution is smaller.",
+        "search_plan": "Use the inputs already collected under the initial pre-data plan and its same formula; this is a continuation, not a claim these inputs are still unseen. Technical clarification: the August BLS release labels3.770% as July relative importance, so use that published lagged weight and show a rolled-forward August-weight sensitivity. Retain original residual spread for primary model. Add a diagnostic using recent holdout RMSE as an alternative width; do not claim it is calibrated or select it to match the hidden quote.",
+        "stopping_rule": "Record the gasoline-adjusted model and declared sensitivities, flag the weak uncertainty calibration, then seal.",
+        "uncertainty": "Complete the gasoline contribution adjustment specified in the original plan.",
+        "why_it_matters": "The three-month trend averages a sharp June gasoline decline; current gasoline is rising."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-16T16:47:48.035648Z",
+      "revision": 4
+    },
+    {
+      "id": "workbench_entry_5ce6787d6f6741b1bac5",
+      "case_id": "workbench_1ae01f8856bf4dc5926f",
+      "evidence_manifest": {
+        "pkt_320e7ec936174cc70c759ac3": "f2da6f90c6e06786b730c22fe8e9f8a79afc11bafb42639ae9dee6467517e27b"
+      },
+      "kind": "checkpoint",
+      "model_manifest": {},
+      "payload": {
+        "changed_assumptions": [
+          "Replace only the gasoline contribution with observed partial-month prices plus declared flat remainder.",
+          "Five-year September median correction approximates gasoline seasonality.",
+          "Lagged published weight3.770%, rather than mistakenly labeling it an August observation."
+        ],
+        "evidence_refs": [
+          {
+            "packet_id": "pkt_320e7ec936174cc70c759ac3",
+            "record_id": "fresh_gas"
+          },
+          {
+            "packet_id": "pkt_320e7ec936174cc70c759ac3",
+            "record_id": "gas_adjustment"
+          },
+          {
+            "packet_id": "pkt_320e7ec936174cc70c759ac3",
+            "record_id": "final"
+          },
+          {
+            "packet_id": "pkt_320e7ec936174cc70c759ac3",
+            "record_id": "holdout"
+          }
+        ],
+        "findings": "Primary EIA data extend one week beyond FRED. The implied4.22% raw gasoline rise plus September seasonal adjustment reverses the backward-looking gasoline drag. Lagged3.770% weight is transparent; rolled-forward weight sensitivity gives67.97%.",
+        "limitations": [
+          "Historical indices are revised; October2025 missing data remove five residual targets.",
+          "Gaussian stable residual distribution and three-month momentum are declared modeling assumptions.",
+          "Gasoline is a linear contribution approximation; EIA prices, sampling and weights differ from BLS gasoline CPI.",
+          "September remainder is projected flat at last observed price; no oil-price, inventory or shock model.",
+          "Seasonal correction is five-year September median, not the exact published2026 adjustment factor.",
+          "August release reports July relative importance; primary uses its3.770% lagged weight, with updated-weight sensitivity.",
+          "Residual spread is from the momentum model, not a validated gasoline-adjusted model.",
+          "Core, shelter, food and other energy keep implicit three-month trend; no separate forward-looking models.",
+          "No model for exceptional delayed-release or no-data fallback; ordinary release assumed.",
+          "Same assistant context and procedural price separation, not verified independent blinding.",
+          "Source retrieval timestamps conservatively use bundle capture time.",
+          "The CPI summary/table/FAQ were read through the web tool after direct HTTP403 failures; their relevant facts were transcribed, not saved as complete raw HTML.",
+          "Gasoline evidence was collected in the same research pass before the momentum checkpoint; stages isolate calculations, not independent experiments.",
+          "Costs and model usage are unmetered."
+        ],
+        "probability": 0.6691726825804136,
+        "rationale": "Apply the originally declared gasoline replacement. Add0.351478pp to the momentum center for final mean0.366199pp; keep SD0.265519pp rather than asserting new evidence justifies tighter uncertainty. Normal tail above0.25pp gives66.9173%. This model is provisional: poor holdout coverage challenges stationary uncertainty. Using its0.50164pp RMSE as an alternative width gives59.16%, a diagnostic not a fitted replacement.",
+        "remaining_uncertainties": [
+          "Remaining-month prices and shocks",
+          "EIA-to-BLS gasoline mapping and exact seasonal factor",
+          "Other CPI components retain backward-looking trends",
+          "Historical residual spread may not describe the current regime"
+        ],
+        "sources_checked": [
+          "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL,CUSR0000SETB01,CUUR0000SETB01&cosd=2021-08-01&coed=2026-08-01",
+          "https://www.bls.gov/news.release/cpi.nr0.htm",
+          "https://www.bls.gov/news.release/cpi.t01.htm",
+          "https://www.eia.gov/dnav/pet/hist_xls/EMM_EPM0_PTE_NUS_DPGw.xls",
+          "https://fred.stlouisfed.org/graph/fredgraph.csv?id=GASALLW&cosd=2026-07-01&coed=2026-09-16",
+          "https://www.bls.gov/cpi/seasonal-adjustment/questions-and-answers.htm",
+          "https://www.eia.gov/petroleum/gasdiesel/gas_proc-methods.php",
+          "https://assets.kalshi.com/contract_terms/CPI.pdf"
+        ]
+      },
+      "phase": "pre_reveal",
+      "plan_id": "workbench_entry_615f5ca864c348a5a918",
+      "recorded_at": "2026-09-16T16:47:48.144970Z",
+      "revision": 5
+    },
+    {
+      "id": "workbench_entry_cbde94ad40694d69b776",
+      "case_id": "workbench_1ae01f8856bf4dc5926f",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "No CPI market price or outside event probability observed before seal. Same existing assistant context, including prior Fed-study macro context. Evaluator file store not inspected; no enforced isolation.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "Completed the fixed momentum model, primary-source gasoline update, seasonal proxy, lagged-weight clarification and sensitivity diagnostics. Report a provisional estimate with weak uncertainty validation; further method changes belong on a fresh target."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-16T16:47:48.251320Z",
+      "revision": 6,
+      "trajectory_manifest": {
+        "workbench_entry_0679ebebe89a48ab8c88": "0baaca74c9d12bd37f6e94d390b7a37a841683d7f830ae12c974dd8e8c112b9e",
+        "workbench_entry_5ce6787d6f6741b1bac5": "4b07b17ea033d1171dce397f6b2f0269ad21b73214d8103699c542fd794eb82f",
+        "workbench_entry_615f5ca864c348a5a918": "37fb7337df74e032b6d824744ca19f8fd02fd880fe9ab4c93c80ce1b1262085a",
+        "workbench_entry_9b312ecf943747608ac4": "7203074e1706d5d68ca83da9e8b85a30f60b2365dee551f09e400dd5ffb41a31",
+        "workbench_entry_a0b06e56ffc1457688f0": "bc90aadee906d64780c0a9ba46e9240e20221d0b983440d3826935a4a80cb453"
+      }
+    },
+    {
+      "id": "workbench_entry_1bca3421c6164ef2a880",
+      "case_id": "workbench_1ae01f8856bf4dc5926f",
+      "evidence_manifest": {},
+      "kind": "reflection",
+      "model_manifest": {},
+      "payload": {
+        "next_method_change": "On a fresh hidden target, use a component model with explicit food, shelter/core and energy forecasts. Calibrate the complete model on dated historical partial-month inputs and first-release outcomes, not revised data or baseline-model errors. Add a source-freshness requirement comparing mirrors with the primary release. Use current published seasonal factors if available, and record reasons for exceptional-release assumptions. Do not choose a smaller SD merely to fit this revealed98.5% quote. Under the user’s market-target criterion, this run is a substantial miss despite the useful gasoline update.",
+        "what_did_not": "The sealed forecast remains31.6 points below the opening midpoint. Three-month headline momentum is distorted by large changing gasoline contributions; its historical residual variance is not the conditional uncertainty of the gasoline-adjusted model. Recent holdout coverage was poor. We did not validate the full adjusted model, model other CPI components forward, use exact2026 seasonal factors, or forecast the remaining gasoline-price path. These are concrete shortcomings, not evidence that Kalshi is wrong.",
+        "what_helped": "The primary EIA workbook supplied a week missing from FRED, and explicit gasoline seasonality/contribution arithmetic changed the estimate from18.8% momentum-only to66.9%. This moved markedly closer to the opening98.5% midpoint. Quote depth passed the predeclared screen without relaxing it."
+      },
+      "phase": "post_reveal",
+      "recorded_at": "2026-09-16T22:29:38.890291Z",
+      "revision": 7
+    }
+  ],
+  "evidence": {
+    "pkt_320e7ec936174cc70c759ac3:momentum": {
+      "claim": "Fixed three-month momentum center 0.015735pp; mean residual -0.001014pp;43 valid residual targets out of48, excludingOctober2025–February2026 due to the missing CPI index. SD0.265519pp gives18.777854% above0.25pp.",
+      "claim_type": "inference",
+      "entity_ids": [],
+      "id": "momentum",
+      "observed_at": "2026-09-16T16:47:47.744196+00:00",
+      "provenance": {
+        "adapter": "vorhersage.research_bundle.v1"
+      },
+      "sources": [
+        {
+          "excerpt": "Downloaded headline SA and gasoline SA/NSA monthly index levels through August2026. October2025 headline is missing. The calculation filters observations to the predeclared window.",
+          "excerpt_kind": "paraphrase",
+          "id": "indices",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "BLS CPI indices via Federal Reserve Bank of St Louis",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL,CUSR0000SETB01,CUUR0000SETB01&cosd=2021-08-01&coed=2026-08-01"
+        },
+        {
+          "excerpt": "Published September11. Headline monthly changes were -0.4%,+0.1%,+0.4% for June–August; August core rose0.3%. Gasoline increased3.9% in August. September release scheduled October14. Seasonal data are revised annually.",
+          "excerpt_kind": "paraphrase",
+          "id": "bls",
+          "published_at": "2026-09-11T12:30:00Z",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "BLS August2026 CPI release",
+          "url": "https://www.bls.gov/news.release/cpi.nr0.htm"
+        },
+        {
+          "excerpt": "Seasonality removes recurring calendar effects. Factors and historical seasonally adjusted series are revised. October2025 was unavailable for many series because of the funding lapse; special methods were used in seasonal estimation.",
+          "excerpt_kind": "paraphrase",
+          "id": "seasonal",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "BLS seasonal adjustment FAQ",
+          "url": "https://www.bls.gov/cpi/seasonal-adjustment/questions-and-answers.htm"
+        }
+      ],
+      "value": null
+    },
+    "pkt_320e7ec936174cc70c759ac3:holdout": {
+      "claim": "Fixed36-month training and12-calendar-month holdout leave36 and7 valid observations. Held-out RMSE0.5016pp; bias correction does not improve it. Nominal90% interval covers4/7=57.1%. This raises a calibration/regime warning, not a validated accuracy claim.",
+      "claim_type": "inference",
+      "entity_ids": [],
+      "id": "holdout",
+      "observed_at": "2026-09-16T16:47:47.744196+00:00",
+      "provenance": {
+        "adapter": "vorhersage.research_bundle.v1"
+      },
+      "sources": [
+        {
+          "excerpt": "Downloaded headline SA and gasoline SA/NSA monthly index levels through August2026. October2025 headline is missing. The calculation filters observations to the predeclared window.",
+          "excerpt_kind": "paraphrase",
+          "id": "indices",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "BLS CPI indices via Federal Reserve Bank of St Louis",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL,CUSR0000SETB01,CUUR0000SETB01&cosd=2021-08-01&coed=2026-08-01"
+        },
+        {
+          "excerpt": "Seasonality removes recurring calendar effects. Factors and historical seasonally adjusted series are revised. October2025 was unavailable for many series because of the funding lapse; special methods were used in seasonal estimation.",
+          "excerpt_kind": "paraphrase",
+          "id": "seasonal",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "BLS seasonal adjustment FAQ",
+          "url": "https://www.bls.gov/cpi/seasonal-adjustment/questions-and-answers.htm"
+        }
+      ],
+      "value": null
+    },
+    "pkt_320e7ec936174cc70c759ac3:fresh_gas": {
+      "claim": "FRED stopped September7; the EIA workbook adds September14 all-grades$4.455/gal. Carrying the last price through month-end gives a September average$4.3681 versus August$4.1912, a4.2201% increase.",
+      "claim_type": "inference",
+      "entity_ids": [],
+      "id": "fresh_gas",
+      "observed_at": "2026-09-16T16:47:47.744196+00:00",
+      "provenance": {
+        "adapter": "vorhersage.research_bundle.v1"
+      },
+      "sources": [
+        {
+          "excerpt": "Latest observed Monday September14 price is$4.455/gal, versus$4.295 September7 and$4.207 August31. Archived original workbook and extracted recent rows.",
+          "excerpt_kind": "paraphrase",
+          "id": "eia",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "EIA weekly US all-grades all-formulations retail gasoline price history",
+          "url": "https://www.eia.gov/dnav/pet/hist_xls/EMM_EPM0_PTE_NUS_DPGw.xls"
+        },
+        {
+          "excerpt": "Downloaded series ended September7 at$4.295. Primary EIA workbook supplies the missing September14 observation; do not treat the mirror as current.",
+          "excerpt_kind": "paraphrase",
+          "id": "fredgas",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "FRED EIA weekly gasoline mirror",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=GASALLW&cosd=2026-07-01&coed=2026-09-16"
+        },
+        {
+          "excerpt": "Weekly retail prices are survey estimates. EIA gasoline measurement and CPI sampling are not identical; calendar-day step averages are our approximation, not an official monthly CPI estimator.",
+          "excerpt_kind": "paraphrase",
+          "id": "eiamethod",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "EIA retail gasoline survey methodology",
+          "url": "https://www.eia.gov/petroleum/gasdiesel/gas_proc-methods.php"
+        }
+      ],
+      "value": null
+    },
+    "pkt_320e7ec936174cc70c759ac3:gas_adjustment": {
+      "claim": "September seasonal correction from all five2021–2025 Septembers has median+2.2219 percentage points. Projected gasoline SA growth6.4420% replaces the prior three-month average-2.8810%; a3.770% lagged weight adds0.351478pp to headline prediction. Linear contribution is approximate.",
+      "claim_type": "inference",
+      "entity_ids": [],
+      "id": "gas_adjustment",
+      "observed_at": "2026-09-16T16:47:47.744196+00:00",
+      "provenance": {
+        "adapter": "vorhersage.research_bundle.v1"
+      },
+      "sources": [
+        {
+          "excerpt": "Downloaded headline SA and gasoline SA/NSA monthly index levels through August2026. October2025 headline is missing. The calculation filters observations to the predeclared window.",
+          "excerpt_kind": "paraphrase",
+          "id": "indices",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "BLS CPI indices via Federal Reserve Bank of St Louis",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL,CUSR0000SETB01,CUUR0000SETB01&cosd=2021-08-01&coed=2026-08-01"
+        },
+        {
+          "excerpt": "August release reports July2026 gasoline relative importance3.770%. NSA gasoline indices July350.846,August359.738; headline July333.918,August334.980. Published weight is lagged, not an August weight.",
+          "excerpt_kind": "paraphrase",
+          "id": "weight",
+          "published_at": "2026-09-11T12:30:00Z",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "BLS CPI August2026 Table1",
+          "url": "https://www.bls.gov/news.release/cpi.t01.htm"
+        },
+        {
+          "excerpt": "Latest observed Monday September14 price is$4.455/gal, versus$4.295 September7 and$4.207 August31. Archived original workbook and extracted recent rows.",
+          "excerpt_kind": "paraphrase",
+          "id": "eia",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "EIA weekly US all-grades all-formulations retail gasoline price history",
+          "url": "https://www.eia.gov/dnav/pet/hist_xls/EMM_EPM0_PTE_NUS_DPGw.xls"
+        },
+        {
+          "excerpt": "Seasonality removes recurring calendar effects. Factors and historical seasonally adjusted series are revised. October2025 was unavailable for many series because of the funding lapse; special methods were used in seasonal estimation.",
+          "excerpt_kind": "paraphrase",
+          "id": "seasonal",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "BLS seasonal adjustment FAQ",
+          "url": "https://www.bls.gov/cpi/seasonal-adjustment/questions-and-answers.htm"
+        }
+      ],
+      "value": null
+    },
+    "pkt_320e7ec936174cc70c759ac3:final": {
+      "claim": "Primary final headline center 0.366199pp and retained momentum-model SD0.265519pp imply66.917268% probability. Remaining-month gasoline prices +/-5% give53.41–78.52%. Calculation SHA256 f6eee597d3fd622fe665ef6378b253d61c113493f8f60002774cd5318ddfb2dd",
+      "claim_type": "inference",
+      "entity_ids": [],
+      "id": "final",
+      "observed_at": "2026-09-16T16:47:47.744196+00:00",
+      "provenance": {
+        "adapter": "vorhersage.research_bundle.v1"
+      },
+      "sources": [
+        {
+          "excerpt": "Downloaded headline SA and gasoline SA/NSA monthly index levels through August2026. October2025 headline is missing. The calculation filters observations to the predeclared window.",
+          "excerpt_kind": "paraphrase",
+          "id": "indices",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "BLS CPI indices via Federal Reserve Bank of St Louis",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL,CUSR0000SETB01,CUUR0000SETB01&cosd=2021-08-01&coed=2026-08-01"
+        },
+        {
+          "excerpt": "Latest observed Monday September14 price is$4.455/gal, versus$4.295 September7 and$4.207 August31. Archived original workbook and extracted recent rows.",
+          "excerpt_kind": "paraphrase",
+          "id": "eia",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "EIA weekly US all-grades all-formulations retail gasoline price history",
+          "url": "https://www.eia.gov/dnav/pet/hist_xls/EMM_EPM0_PTE_NUS_DPGw.xls"
+        },
+        {
+          "excerpt": "August release reports July2026 gasoline relative importance3.770%. NSA gasoline indices July350.846,August359.738; headline July333.918,August334.980. Published weight is lagged, not an August weight.",
+          "excerpt_kind": "paraphrase",
+          "id": "weight",
+          "published_at": "2026-09-11T12:30:00Z",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "BLS CPI August2026 Table1",
+          "url": "https://www.bls.gov/news.release/cpi.t01.htm"
+        },
+        {
+          "excerpt": "Underlying is signed one-month,one-decimal seasonally adjusted CPI-U. Strictly greater than threshold resolves Yes. Post-expiration revisions are excluded. No-data fallback and discretionary review provisions apply.",
+          "excerpt_kind": "paraphrase",
+          "id": "contract",
+          "retrieved_at": "2026-09-16T16:47:47.744196+00:00",
+          "title": "Kalshi CPI contract terms",
+          "url": "https://assets.kalshi.com/contract_terms/CPI.pdf"
+        }
+      ],
+      "value": null
+    }
+  },
+  "models": {},
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.99,
+      "ask_contracts_within_2c": 2954.5,
+      "ask_size": 2954.5,
+      "bid": 0.98,
+      "bid_contracts_within_2c": 5140.01,
+      "bid_size": 595.01,
+      "midpoint": 0.985,
+      "spread": 0.01
+    },
+    "target_captured_at": "2026-09-16T16:41:57.200854Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_9b312ecf943747608ac4",
+        "label": "Initial",
+        "recorded_at": "2026-09-16T16:42:39.950330Z",
+        "probability": 0.36944134018176367,
+        "difference_pp": -61.55586598182363,
+        "squared_market_error": 0.3789124636772232,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 61.05586598182363
+      },
+      {
+        "entry_id": "workbench_entry_0679ebebe89a48ab8c88",
+        "label": "Research 1: Does current inflation momentum plus observable gasoline pricing put September above the0.25pp unrounded cutoff, and how uncertain is that estimate?",
+        "recorded_at": "2026-09-16T16:47:47.928840Z",
+        "probability": 0.1877785433996466,
+        "difference_pp": -79.72214566003534,
+        "squared_market_error": 0.6355620508639891,
+        "improvement_from_previous": -0.2566495871867659,
+        "outside_spread_pp": 79.22214566003534
+      },
+      {
+        "entry_id": "workbench_entry_5ce6787d6f6741b1bac5",
+        "label": "Research 2: Complete the gasoline contribution adjustment specified in the original plan.",
+        "recorded_at": "2026-09-16T16:47:48.144970Z",
+        "probability": 0.6691726825804136,
+        "difference_pp": -31.582731741958636,
+        "squared_market_error": 0.09974689442845217,
+        "improvement_from_previous": 0.5358151564355369,
+        "outside_spread_pp": 31.082731741958636
+      }
+    ],
+    "net_squared_error_improvement": 0.279165569248771,
+    "followup_quote": {
+      "ask": 0.99,
+      "ask_contracts_within_2c": 2500.0,
+      "ask_size": 2500.0,
+      "bid": 0.98,
+      "bid_contracts_within_2c": 52884.22,
+      "bid_size": 455.16,
+      "midpoint": 0.985,
+      "spread": 0.01
+    },
+    "followup_captured_at": "2026-09-16T22:28:05.744687Z",
+    "market_movement_pp": 0.0,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-16T22:28:05.745298Z",
+  "report_metadata": {
+    "schema_version": "vorhersage.report.v1",
+    "generated_at": "2026-09-16T22:31:28.338949Z",
+    "record_sha256": "1e693802426ef1db3df4b38705474eb1ec94370797176a6347a91ef49e45755a",
+    "format": "json",
+    "latex_engine": "XeLaTeX or LuaLaTeX",
+    "narrative_sha256": "f149195f938a47d568f4427840c41ef6adc1c7fdfe6632b0b265c560601cd45a"
+  },
+  "report_attachments": [
+    {
+      "name": "calculation.json",
+      "sha256": "f6eee597d3fd622fe665ef6378b253d61c113493f8f60002774cd5318ddfb2dd",
+      "provenance": "report_time_attachment",
+      "content": {
+        "units": "Monthly inflation percentage points, not fractions. Probability is a fraction.",
+        "initial_probability": 0.36944134018176367,
+        "n": 43,
+        "pairs": [
+          {
+            "month": "2022-09-01",
+            "actual_change_pp": 0.42426727482827165,
+            "three_month_forecast_pp": 0.434525283831666,
+            "error_pp": -0.010258009003394353
+          },
+          {
+            "month": "2022-10-01",
+            "actual_change_pp": 0.5594754832984217,
+            "three_month_forecast_pp": 0.15724704256090036,
+            "error_pp": 0.4022284407375213
+          },
+          {
+            "month": "2022-11-01",
+            "actual_change_pp": 0.2614032556282231,
+            "three_month_forecast_pp": 0.34871134654108626,
+            "error_pp": -0.08730809091286318
+          },
+          {
+            "month": "2022-12-01",
+            "actual_change_pp": 0.01539563433359259,
+            "three_month_forecast_pp": 0.4150486712516388,
+            "error_pp": -0.3996530369180462
+          },
+          {
+            "month": "2023-01-01",
+            "actual_change_pp": 0.5314022594635093,
+            "three_month_forecast_pp": 0.27875812442007913,
+            "error_pp": 0.25264413504343014
+          },
+          {
+            "month": "2023-02-01",
+            "actual_change_pp": 0.3428533386591992,
+            "three_month_forecast_pp": 0.269400383141775,
+            "error_pp": 0.0734529555174242
+          },
+          {
+            "month": "2023-03-01",
+            "actual_change_pp": 0.12307181953890023,
+            "three_month_forecast_pp": 0.29655041081876704,
+            "error_pp": -0.1734785912798668
+          },
+          {
+            "month": "2023-04-01",
+            "actual_change_pp": 0.3392739405144063,
+            "three_month_forecast_pp": 0.33244247255386955,
+            "error_pp": 0.006831467960536741
+          },
+          {
+            "month": "2023-05-01",
+            "actual_change_pp": 0.1614687381333635,
+            "three_month_forecast_pp": 0.26839969957083526,
+            "error_pp": -0.10693096143747177
+          },
+          {
+            "month": "2023-06-01",
+            "actual_change_pp": 0.224175331482801,
+            "three_month_forecast_pp": 0.20793816606222335,
+            "error_pp": 0.016237165420577654
+          },
+          {
+            "month": "2023-07-01",
+            "actual_change_pp": 0.1957146710348745,
+            "three_month_forecast_pp": 0.24163933671019025,
+            "error_pp": -0.04592466567531575
+          },
+          {
+            "month": "2023-08-01",
+            "actual_change_pp": 0.4835707415079771,
+            "three_month_forecast_pp": 0.19378624688367965,
+            "error_pp": 0.28978449462429745
+          },
+          {
+            "month": "2023-09-01",
+            "actual_change_pp": 0.3900915440960384,
+            "three_month_forecast_pp": 0.3011535813418842,
+            "error_pp": 0.08893796275415422
+          },
+          {
+            "month": "2023-10-01",
+            "actual_change_pp": 0.13668493471667986,
+            "three_month_forecast_pp": 0.3564589855462967,
+            "error_pp": -0.21977405082961682
+          },
+          {
+            "month": "2023-11-01",
+            "actual_change_pp": 0.14689823722116024,
+            "three_month_forecast_pp": 0.33678240677356513,
+            "error_pp": -0.1898841695524049
+          },
+          {
+            "month": "2023-12-01",
+            "actual_change_pp": 0.1924399963653789,
+            "three_month_forecast_pp": 0.22455823867795952,
+            "error_pp": -0.03211824231258062
+          },
+          {
+            "month": "2024-01-01",
+            "actual_change_pp": 0.30996854969052023,
+            "three_month_forecast_pp": 0.15867438943440634,
+            "error_pp": 0.1512941602561139
+          },
+          {
+            "month": "2024-02-01",
+            "actual_change_pp": 0.40975401843086345,
+            "three_month_forecast_pp": 0.21643559442568647,
+            "error_pp": 0.193318424005177
+          },
+          {
+            "month": "2024-03-01",
+            "actual_change_pp": 0.4431338373525273,
+            "three_month_forecast_pp": 0.3040541881622542,
+            "error_pp": 0.1390796491902731
+          },
+          {
+            "month": "2024-04-01",
+            "actual_change_pp": 0.21706766556210955,
+            "three_month_forecast_pp": 0.387618801824637,
+            "error_pp": -0.17055113626252744
+          },
+          {
+            "month": "2024-05-01",
+            "actual_change_pp": 0.04855873210594108,
+            "three_month_forecast_pp": 0.3566518404485001,
+            "error_pp": -0.30809310834255904
+          },
+          {
+            "month": "2024-06-01",
+            "actual_change_pp": -0.041829647960411886,
+            "three_month_forecast_pp": 0.23625341167352598,
+            "error_pp": -0.27808305963393787
+          },
+          {
+            "month": "2024-07-01",
+            "actual_change_pp": 0.16770805381991494,
+            "three_month_forecast_pp": 0.07459891656921291,
+            "error_pp": 0.09310913725070202
+          },
+          {
+            "month": "2024-08-01",
+            "actual_change_pp": 0.1572221743858515,
+            "three_month_forecast_pp": 0.05814571265514804,
+            "error_pp": 0.09907646173070347
+          },
+          {
+            "month": "2024-09-01",
+            "actual_change_pp": 0.2133336729690294,
+            "three_month_forecast_pp": 0.09436686008178485,
+            "error_pp": 0.11896681288724453
+          },
+          {
+            "month": "2024-10-01",
+            "actual_change_pp": 0.2856398459641696,
+            "three_month_forecast_pp": 0.17942130039159862,
+            "error_pp": 0.10621854557257096
+          },
+          {
+            "month": "2024-11-01",
+            "actual_change_pp": 0.28419261732848256,
+            "three_month_forecast_pp": 0.21873189777301683,
+            "error_pp": 0.06546071955546573
+          },
+          {
+            "month": "2024-12-01",
+            "actual_change_pp": 0.3399383308901438,
+            "three_month_forecast_pp": 0.26105537875389384,
+            "error_pp": 0.07888295213624996
+          },
+          {
+            "month": "2025-01-01",
+            "actual_change_pp": 0.42726162139017365,
+            "three_month_forecast_pp": 0.3032569313942653,
+            "error_pp": 0.12400468999590836
+          },
+          {
+            "month": "2025-02-01",
+            "actual_change_pp": 0.22510589068882592,
+            "three_month_forecast_pp": 0.3504641898696,
+            "error_pp": -0.12535829918077407
+          },
+          {
+            "month": "2025-03-01",
+            "actual_change_pp": 0.03315826188146076,
+            "three_month_forecast_pp": 0.33076861432304777,
+            "error_pp": -0.297610352441587
+          },
+          {
+            "month": "2025-04-01",
+            "actual_change_pp": 0.16167112278562268,
+            "three_month_forecast_pp": 0.22850859132015344,
+            "error_pp": -0.06683746853453076
+          },
+          {
+            "month": "2025-05-01",
+            "actual_change_pp": 0.09928130327003792,
+            "three_month_forecast_pp": 0.13997842511863645,
+            "error_pp": -0.04069712184859853
+          },
+          {
+            "month": "2025-06-01",
+            "actual_change_pp": 0.2541949971929469,
+            "three_month_forecast_pp": 0.09803689597904046,
+            "error_pp": 0.15615810121390644
+          },
+          {
+            "month": "2025-07-01",
+            "actual_change_pp": 0.22835098853577485,
+            "three_month_forecast_pp": 0.17171580774953585,
+            "error_pp": 0.056635180786239
+          },
+          {
+            "month": "2025-08-01",
+            "actual_change_pp": 0.3482644202266627,
+            "three_month_forecast_pp": 0.19394242966625322,
+            "error_pp": 0.1543219905604095
+          },
+          {
+            "month": "2025-09-01",
+            "actual_change_pp": 0.2950901819104068,
+            "three_month_forecast_pp": 0.27693680198512816,
+            "error_pp": 0.018153379925278657
+          },
+          {
+            "month": "2026-03-01",
+            "actual_change_pp": 0.8651438343614481,
+            "three_month_forecast_pp": 0.24521138428212166,
+            "error_pp": 0.6199324500793265
+          },
+          {
+            "month": "2026-04-01",
+            "actual_change_pp": 0.6400377846336402,
+            "three_month_forecast_pp": 0.43432985283440306,
+            "error_pp": 0.2057079317992372
+          },
+          {
+            "month": "2026-05-01",
+            "actual_change_pp": 0.47291422864139676,
+            "three_month_forecast_pp": 0.5907282310682641,
+            "error_pp": -0.11781400242686735
+          },
+          {
+            "month": "2026-06-01",
+            "actual_change_pp": -0.42248165303806484,
+            "three_month_forecast_pp": 0.6593652825454951,
+            "error_pp": -1.08184693558356
+          },
+          {
+            "month": "2026-07-01",
+            "actual_change_pp": 0.07366914435544825,
+            "three_month_forecast_pp": 0.2301567867456574,
+            "error_pp": -0.15648764239020915
+          },
+          {
+            "month": "2026-08-01",
+            "actual_change_pp": 0.3960181843858157,
+            "three_month_forecast_pp": 0.04136723998626005,
+            "error_pp": 0.35465094439955563
+          }
+        ],
+        "excluded": [
+          {
+            "month": "2025-10-01",
+            "reason": "Missing target or one of three lagged monthly changes; no interpolation."
+          },
+          {
+            "month": "2025-11-01",
+            "reason": "Missing target or one of three lagged monthly changes; no interpolation."
+          },
+          {
+            "month": "2025-12-01",
+            "reason": "Missing target or one of three lagged monthly changes; no interpolation."
+          },
+          {
+            "month": "2026-01-01",
+            "reason": "Missing target or one of three lagged monthly changes; no interpolation."
+          },
+          {
+            "month": "2026-02-01",
+            "reason": "Missing target or one of three lagged monthly changes; no interpolation."
+          }
+        ],
+        "recent_headline_changes_pp": {
+          "2026-06": -0.42248165303806484,
+          "2026-07": 0.07366914435544825,
+          "2026-08": 0.3960181843858157
+        },
+        "raw_momentum_center_pp": 0.015735225234399703,
+        "mean_residual_pp": -0.0010144370038234426,
+        "sample_residual_sd_pp": 0.26248394571848377,
+        "predictive_sd_pp": 0.2655185430145959,
+        "momentum_center_pp": 0.01472078823057626,
+        "momentum_probability": 0.1877785433996466,
+        "holdout": {
+          "train_n": 36,
+          "test_n": 7,
+          "train_bias_pp": 0.0031689745286897367,
+          "train_sd_pp": 0.17983254839871332,
+          "raw_rmse_pp": 0.5016401879054787,
+          "corrected_rmse_pp": 0.5017924959255947,
+          "nominal90_coverage": 0.5714285714285714,
+          "halfwidth_pp": 0.2998783876611614,
+          "qualification": "Fixed first36/last12 calendar months; missing data reduce valid holdout to seven. Revised-vintage diagnostic, not original-release validation."
+        },
+        "gasoline": {
+          "latest_observation": "2026-09-14",
+          "latest_price": 4.455,
+          "august_daily_step_average": 4.191193548387097,
+          "september_projected_daily_step_average": 4.3680666666666665,
+          "raw_projected_change_pct": 4.22011334569925,
+          "seasonal_corrections": [
+            {
+              "year": 2021,
+              "sa_change_pct": 2.394040566415989,
+              "nsa_change_pct": 0.32078083100257615,
+              "correction_pp": 2.073259735413413
+            },
+            {
+              "year": 2022,
+              "sa_change_pct": -3.7216736795961047,
+              "nsa_change_pct": -5.644117925489045,
+              "correction_pp": 1.9224442458929403
+            },
+            {
+              "year": 2023,
+              "sa_change_pct": 2.7899203277098383,
+              "nsa_change_pct": 0.5679879161609502,
+              "correction_pp": 2.221932411548888
+            },
+            {
+              "year": 2024,
+              "sa_change_pct": -2.8270912930686842,
+              "nsa_change_pct": -5.06482727606401,
+              "correction_pp": 2.237735982995326
+            },
+            {
+              "year": 2025,
+              "sa_change_pct": 3.5936542621123335,
+              "nsa_change_pct": 1.1464169600294838,
+              "correction_pp": 2.4472373020828497
+            }
+          ],
+          "median_seasonal_correction_pp": 2.221932411548888,
+          "projected_sa_change_pct": 6.442045757248138,
+          "recent_three_month_sa_change_pct": -2.8809794370296,
+          "weight_fraction": 0.0377,
+          "weight_reference_month": "2026-07",
+          "headline_adjustment_pp": 0.3514780498242707
+        },
+        "final_center_pp": 0.366198838054847,
+        "final_probability": 0.6691726825804136,
+        "empirical_residual_probability": 0.7209302325581395,
+        "remaining_month_gas_sensitivity": [
+          {
+            "future_price_shift": -0.05,
+            "center_pp": 0.2726952822119506,
+            "probability": 0.5340582419535114
+          },
+          {
+            "future_price_shift": 0,
+            "center_pp": 0.366198838054847,
+            "probability": 0.6691726825804136
+          },
+          {
+            "future_price_shift": 0.05,
+            "center_pp": 0.4597023938977433,
+            "probability": 0.7851731442463052
+          }
+        ],
+        "seasonal_sensitivity": [
+          {
+            "year": 2021,
+            "center_pp": 0.3605938781645396,
+            "probability": 0.6614853626020221
+          },
+          {
+            "year": 2022,
+            "center_pp": 0.35490813420961775,
+            "probability": 0.6536178984474103
+          },
+          {
+            "year": 2023,
+            "center_pp": 0.366198838054847,
+            "probability": 0.6691726825804136
+          },
+          {
+            "year": 2024,
+            "center_pp": 0.3667946326983777,
+            "probability": 0.6699857193865957
+          },
+          {
+            "year": 2025,
+            "center_pp": 0.3746928324279773,
+            "probability": 0.6806867526595564
+          }
+        ],
+        "center_sensitivity": [
+          {
+            "shift_pp": -0.05,
+            "probability": 0.5984430120545602
+          },
+          {
+            "shift_pp": 0,
+            "probability": 0.6691726825804136
+          },
+          {
+            "shift_pp": 0.05,
+            "probability": 0.7343230507843395
+          }
+        ],
+        "rolled_weight_sensitivity": {
+          "weight_fraction": 0.038532934906495134,
+          "probability": 0.6797058036818716,
+          "label": "Approximate August weight rolled forward with NSA relative changes; not selected primary."
+        },
+        "limitations": [
+          "Historical indices are revised; October2025 missing data remove five residual targets.",
+          "Gaussian stable residual distribution and three-month momentum are declared modeling assumptions.",
+          "Gasoline is a linear contribution approximation; EIA prices, sampling and weights differ from BLS gasoline CPI.",
+          "September remainder is projected flat at last observed price; no oil-price, inventory or shock model.",
+          "Seasonal correction is five-year September median, not the exact published2026 adjustment factor.",
+          "August release reports July relative importance; primary uses its3.770% lagged weight, with updated-weight sensitivity.",
+          "Residual spread is from the momentum model, not a validated gasoline-adjusted model.",
+          "Core, shelter, food and other energy keep implicit three-month trend; no separate forward-looking models.",
+          "No model for exceptional delayed-release or no-data fallback; ordinary release assumed.",
+          "Same assistant context and procedural price separation, not verified independent blinding."
+        ],
+        "raw_sha256": {
+          "bls_weight.json": "2dd141c4a1d4c470a33721ea9cf2e7d0d4388391cb4d176d8d3b4a28773cbfdb",
+          "contract.pdf": "2317b1d8e823082b409f6ff3415fb135804d9682681f9f92f640b3681b29a872",
+          "contract.txt": "72aa0a88d67087b387a4294f17eee41eaaa1aef6a01caa9f7490286cfb047bdf",
+          "cpi_indices.csv": "beba624d05a9b5106081951632efe5b41047fef956ac1b0ad59246f68f9cb0dc",
+          "eia_gasoline_weekly.xls": "a6f774ea70a2b0f32db48e4255ba5ff7fe7d99c106320d22683ab5a9d64e7aac",
+          "eia_method.html": "6bb5835afeb9681731b884f73ea6c96b54715eebaadbd319addcaeb73ab341f4",
+          "gasoline_primary.csv": "b8ae43b752def92b626764ef54112762625b6e01656edc0f7fa8acf28ddd2b5b",
+          "gasoline_weekly.csv": "52f2068c19c092b36af9e3a50f60ca13da9d02b86a735bc1c84cdd68e40abe57",
+          "series.json": "f5c410bc20a280d5fc14e33d1b028777a3a88aa6a955938eeee03cc481866e60"
+        }
+      }
+    }
+  ],
+  "report_narrative": {
+    "record_sha256": "1e693802426ef1db3df4b38705474eb1ec94370797176a6347a91ef49e45755a",
+    "title": "Will September CPI rise more than 0.2%?",
+    "summary": "Our sealed estimate is 66.9%; Kalshi’s opening midpoint was 98.5%. Current gasoline data changed the model sharply, but a 31.6-point disagreement remains. This non-weather case exposes a concrete process weakness: we adjusted the expected CPI increase without validating the uncertainty of the complete model.",
+    "sections": [
+      {
+        "heading": "What counts as Yes?",
+        "paragraphs": [
+          "Kalshi contract KXCPI-26SEP-T0.2 concerns the signed, seasonally adjusted monthly increase in the all-items Consumer Price Index for All Urban Consumers (CPI-U) for September 2026. It is not annual inflation or core inflation. The BLS figure must be greater than 0.2% when published to one decimal place: ordinarily 0.3% or higher.",
+          "The release is scheduled for October 14 at 8:30 a.m. Eastern. The market-specific rules close trading five minutes earlier. Delay, shutdown, no-data fallback and review provisions are retained in the contract record. Our numerical model assumes an ordinary release; it does not separately model those exceptional cases."
+        ],
+        "finding_refs": []
+      },
+      {
+        "heading": "Methodology at a glance",
+        "paragraphs": [
+          "The market quote stayed in a separate evaluator store until the forecast was sealed. The reference window, formula and gasoline adjustment were specified before data extraction. Blue boxes contain evidence, amber boxes assumptions, and green boxes calculated results."
+        ],
+        "finding_refs": [],
+        "flowchart": {
+          "caption": "Two model stages within one research pass. The stages are not independent experiments; gasoline information had already been collected when the intermediate momentum result was journaled.",
+          "steps": [
+            {
+              "title": "1. Freeze a usable Kalshi quote",
+              "text": "Require spread at most 5 cents and at least 10 contracts on each best quote. Save price separately before substantive CPI research.",
+              "kind": "process"
+            },
+            {
+              "title": "2. Record the starting assumptions",
+              "text": "Subjective monthly CPI center 0.20%, SD 0.15 percentage points; probability above the rounding cutoff: 36.9%.",
+              "kind": "judgment"
+            },
+            {
+              "title": "3. Fit the declared momentum model",
+              "text": "Use the mean of June–August headline changes. Estimate errors over 48 calendar targets; 43 are usable after missing-data exclusions. Result: 18.8%.",
+              "kind": "data"
+            },
+            {
+              "title": "4. Check the influential gasoline input",
+              "text": "FRED is one week behind. EIA provides September 14 price of $4.455 per gallon. Project the rest of September flat at that price.",
+              "kind": "data"
+            },
+            {
+              "title": "5. Replace the gasoline contribution",
+              "text": "Projected raw gasoline increase 4.22%; September seasonal correction about +2.22 points. Replace the prior three-month gasoline trend.",
+              "kind": "result",
+              "inputs": [
+                {
+                  "title": "Published expenditure weight",
+                  "text": "Gasoline weight 3.770% from the August BLS release, explicitly labeled as July relative importance.",
+                  "kind": "data"
+                },
+                {
+                  "title": "Declared approximations",
+                  "text": "Flat remaining-month prices, five-year seasonal correction and linear contribution arithmetic.",
+                  "kind": "judgment"
+                }
+              ]
+            },
+            {
+              "title": "6. Calculate and challenge the estimate",
+              "text": "Headline center 0.366%; retained SD 0.266 percentage points. Probability 66.9%. Check price-path sensitivity and weak holdout coverage.",
+              "kind": "result"
+            },
+            {
+              "title": "7. Seal, then reveal the market",
+              "text": "Seal September 16 at 16:47 UTC. Opening market target: 98.5%. The forecast misses that target by 31.6 percentage points.",
+              "kind": "process"
+            }
+          ]
+        }
+      },
+      {
+        "heading": "The recorded estimates",
+        "paragraphs": [
+          "Our initial estimate was a subjective starting model. The momentum stage replaces it with a reproducible historical calculation. The gasoline stage incorporates current information about an influential component. All three estimates were recorded before the market quote was revealed."
+        ],
+        "finding_refs": [],
+        "table": {
+          "headers": [
+            "Stage",
+            "Probability",
+            "Gap below opening midpoint"
+          ],
+          "rows": [
+            [
+              "Subjective initial model",
+              "36.9%",
+              "61.6 percentage points"
+            ],
+            [
+              "Historical headline momentum",
+              "18.8%",
+              "79.7 percentage points"
+            ],
+            [
+              "After current gasoline adjustment",
+              "66.9%",
+              "31.6 percentage points"
+            ],
+            [
+              "Opening Kalshi quote",
+              "98–99%; midpoint 98.5%",
+              "Frozen development target"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "Selection, chronology and liquidity",
+        "paragraphs": [
+          "The contract was chosen without viewing its price. Its opening quote was captured at 16:41:57 UTC on September 16. The initial estimate and plan followed at 16:42. The two calculated checkpoints and seal were saved at 16:47. Reveal occurred at 22:28:05 UTC; the later quote was still 98–99%. The research record does not use intervening information to rewrite the estimate.",
+          "The opening best bid had 595.01 contracts and the best ask 2,954.5. There were 5,140.01 bid-side contracts within two cents of the best bid. Both snapshots passed the original ten-contract screen, with unchanged contract terms. This is materially stronger quote depth than the weather examples, although two snapshots do not establish sustained liquidity or market calibration.",
+          "This was the same assistant context, with broad macroeconomic information from an earlier Fed case already present. The evaluator store was not inspected before sealing, but no independent context or enforced access barrier was used. Contract thresholds were visible. Research and monetary costs were not separately metered."
+        ],
+        "finding_refs": []
+      },
+      {
+        "heading": "Why the momentum-only estimate was low",
+        "paragraphs": [
+          "The fixed baseline averages the preceding three monthly headline CPI changes. Calculated from the downloaded BLS indices, June was −0.4225%, July +0.0737% and August +0.3960%. Their mean is just +0.0157%. A large June decline therefore continues to pull down this simple September extrapolation.",
+          "We compared the same three-month rule with subsequent monthly changes for every target month from September 2022 through August 2026. October 2025 has no published headline index in the downloaded series. That breaks both the target change and several lagged changes, leaving five excluded target months, October 2025 through February 2026. No values were interpolated.",
+          "The 43 remaining errors have mean −0.0010 percentage points and sample standard deviation 0.2625. Adding the estimated mean error and its simple sampling-uncertainty allowance gives a baseline center of 0.0147% and spread of 0.2655 percentage points. Under a normal approximation, that implies an 18.8% chance above the effective 0.25% rounding cutoff."
+        ],
+        "finding_refs": [
+          "pkt_320e7ec936174cc70c759ac3:momentum"
+        ]
+      },
+      {
+        "heading": "What the gasoline research changed",
+        "paragraphs": [
+          "The FRED gasoline download ended with September 7. Checking EIA’s original spreadsheet found the September 14 all-grades price of $4.455 per gallon, compared with $4.295 a week earlier. The primary-source check prevented us from treating a lagging mirror as current.",
+          "We carried each weekly price forward to the next observation and the latest price through September 30. The resulting calendar-day averages are $4.1912 for August and $4.3681 for projected September, a 4.22% increase. This is an explicit projection of unobserved days, not a completed monthly observation.",
+          "Gasoline normally has a seasonal pattern. Across all five Septembers from 2021 through 2025, the median difference between seasonally adjusted and raw gasoline changes was +2.22 percentage points. Applying that proxy yields about 6.44% seasonally adjusted gasoline growth. The preceding three-month gasoline trend was −2.88%.",
+          "Replacing that old gasoline contribution with the new one, using the published 3.770% expenditure weight, adds 0.3515 percentage points to the headline estimate. The August release labels this weight as July relative importance; we preserve that lag explicitly. Rolling it forward approximately gives a 68.0% sensitivity result rather than the selected 66.9%. The linear contribution calculation is an approximation to BLS aggregation."
+        ],
+        "finding_refs": [
+          "pkt_320e7ec936174cc70c759ac3:fresh_gas",
+          "pkt_320e7ec936174cc70c759ac3:gas_adjustment"
+        ],
+        "table": {
+          "headers": [
+            "Input or calculation",
+            "Value"
+          ],
+          "rows": [
+            [
+              "August daily-step gasoline average",
+              "$4.1912/gallon"
+            ],
+            [
+              "Projected September average",
+              "$4.3681/gallon"
+            ],
+            [
+              "Projected raw gasoline change",
+              "+4.22%"
+            ],
+            [
+              "Median September seasonal correction",
+              "+2.22 percentage points"
+            ],
+            [
+              "Projected adjusted gasoline change",
+              "+6.44%"
+            ],
+            [
+              "Prior three-month adjusted gasoline trend",
+              "−2.88%"
+            ],
+            [
+              "Replacement effect on headline CPI",
+              "+0.3515 percentage points"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "From a CPI point estimate to a probability",
+        "paragraphs": [
+          "The final headline center is 0.0147% + 0.3515% = 0.3662%. We retain the baseline model’s 0.2655-percentage-point spread, as declared before retrieval. Assuming normal forecast errors, the chance of an unrounded change at least 0.25% is 66.9%. The empirical historical-error version gives 72.1%. Neither figure is validated calibration for this gasoline-adjusted model.",
+          "Keeping an old spread is a modeling choice, not a mathematical requirement. It avoids automatically claiming that additional research increases precision, but it also creates a mismatch: the center uses current gasoline information while the error distribution comes from a model that ignored it. That mismatch is a central limitation of this exercise."
+        ],
+        "finding_refs": [
+          "pkt_320e7ec936174cc70c759ac3:final",
+          "pkt_320e7ec936174cc70c759ac3:holdout"
+        ]
+      },
+      {
+        "heading": "Sensitivity and a failed calibration check",
+        "paragraphs": [
+          "A fixed chronological diagnostic used the first 36 calendar months for fitting and the next 12 for checking. Missing data left only seven usable holdout forecasts. Their RMSE was 0.502 percentage points, and a nominal 90% interval covered just four of seven outcomes. This is a warning about instability, not evidence that the primary normal approximation is reliable.",
+          "Before revealing the market, we also computed a wider-distribution diagnostic using that holdout RMSE as a stand-in for spread. It gives 59.2%. Seven errors cannot establish a calibrated alternative distribution; we report this to show how much the uncertainty choice matters.",
+          "If prices for the unobserved remainder of September are 5% below or above the flat-price assumption, the primary model gives 53.4–78.5%. Using each of the five individual historical seasonal corrections gives 65.4–68.1%. Shifting the final headline center by ±0.05 percentage points gives 59.8–73.4%. These are assumption sensitivities, not confidence intervals."
+        ],
+        "finding_refs": [
+          "pkt_320e7ec936174cc70c759ac3:holdout",
+          "pkt_320e7ec936174cc70c759ac3:final"
+        ]
+      },
+      {
+        "heading": "A substantial miss against the chosen development target",
+        "paragraphs": [
+          "Kalshi’s opening midpoint was 98.5%. Our final 66.9% estimate is 31.6 percentage points lower and 31.1 points below the opening bid. The later midpoint was unchanged. With market agreement as the development criterion, this is a substantial miss even though the gasoline research moved the model closer.",
+          "The outcome remains unresolved. Closer agreement is not a resolution score, and these sequential calculations do not identify the causal value of research. We have no basis to claim the market is wrong. Equally, the market quote alone does not tell us which of our inputs or distributional assumptions is responsible for the difference.",
+          "A post-reveal Gaussian diagnostic makes the scale explicit. Holding our spread fixed would require a center near 0.826% to reach 98.5%. Holding our center fixed would require a spread near 0.054 percentage points. Those are arithmetic descriptions of disagreement, not recommended parameters or new forecasts."
+        ],
+        "finding_refs": []
+      },
+      {
+        "heading": "What should change on the next fresh question",
+        "paragraphs": [
+          "Build forecasts for the major CPI components, including shelter/core, food and energy, with dated inputs available at the intended forecast time. Estimate the errors of that complete model using original-release outcomes. A model with a new center and an unrelated old error distribution is not enough.",
+          "Make freshness checks explicit: compare mirrored datasets with the primary release and record missing periods. Use the published current seasonal factors where available instead of treating a five-year median as an exact factor. Model the remaining-month gasoline path as a source of uncertainty.",
+          "This run uses revised historical CPI indices, a coarse seasonal proxy and a small, weak holdout. It does not establish a calibrated probability. Preserve the sealed 66.9% result and test the revised process on a new hidden market target rather than tuning this case to 98.5%."
+        ],
+        "finding_refs": []
+      }
+    ]
+  }
+}

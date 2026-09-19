@@ -2,7 +2,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{tgpagella,microtype}
-\usepackage{amsmath,booktabs,tabularx,array,graphicx,xcolor}
+\usepackage{amsmath,amssymb,booktabs,tabularx,array,graphicx,xcolor}
 \usepackage{enumitem,caption,placeins}
 \usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue!45!black,
  pdftitle={External Evidence and Language-Model Forecasts: A Blinded Comparison with Prediction-Market Prices},
@@ -23,41 +23,63 @@ A Blinded Comparison with Prediction-Market Prices}
 \begin{document}
 \maketitle
 \begin{abstract}
-We examine whether access to current primary-source evidence improves a
-language model's agreement with prediction-market prices. Using the Vorhersage
-forecasting workbench, we compare question-only and evidence-supplied forecasts
-for six unresolved Kalshi contracts across six subject areas. The model,
-instructions, and response schema are held fixed, with one independent call
-per contract and condition. Opening market quotes are withheld until all
-forecasts are recorded and sealed; Kalshi is excluded as a source of research
-evidence. Mean absolute deviation from the opening bid--ask midpoint is
+We use prediction-market prices as prospective intermediate benchmarks for
+evaluating language-model forecasts. Unresolved future events avoid leakage
+of realized outcomes, while market prices provide immediate feedback from an
+external, financially incentivized forecasting mechanism. Using the Vorhersage
+workbench, we compare question-only and evidence-supplied forecasts for six
+unresolved Kalshi contracts across six subject areas. The model, instructions,
+and response schema are held fixed, with one independent call per contract
+and condition. Opening quotes are withheld until forecasts are sealed, and
+Kalshi is excluded as a source of research evidence. Mean absolute deviation
+from the opening bid--ask midpoint is
 33.17 percentage points in the question-only condition and 8.58 points in the
 research condition. Research is associated with a smaller deviation in five
-cases and an unchanged deviation in one. A documented entity-identification
-error persists in the researched Netflix forecast. The small purposive sample,
-single draw per condition, and use of prices rather than resolved outcomes
-limit interpretation. The study provides a reproducible pilot of evidence
-ablation and market agreement, rather than evidence of calibrated forecasting
-accuracy or a general advantage from a particular forecasting workflow.
+cases and an unchanged deviation in one. These results demonstrate improved
+agreement with an economically meaningful intermediate benchmark. The small
+purposive sample and single draw per condition limit generalization; a
+documented entity-identification error also persists in the Netflix forecast.
+The design supports rapid, reproducible comparisons before settlement, which
+can subsequently be extended with outcome scoring.
 \end{abstract}
 
 \section{Introduction}
 A forecasting system must translate evidence about an event into a numerical
-probability. A useful preliminary question is whether supplying current,
-relevant facts changes those probabilities in a direction consistent with an
-external benchmark. This study addresses that question by comparing two
+probability. Liquid prediction markets provide a useful intermediate benchmark
+for evaluating those probabilities before events resolve. This study asks
+whether supplying current, relevant facts moves a model's forecasts closer to
+that benchmark by comparing two
 information conditions on the same set of unresolved prediction-market
 contracts. One condition supplies only the event definition; the other adds a
 frozen packet of primary-source evidence. Both use the same language model and
 forecasting instructions.
 
-The comparison uses contemporaneous market midpoints as reference values.
-These values provide an immediate benchmark before events resolve, but they
-are neither known event probabilities nor observed outcomes. We therefore
-measure \emph{market agreement}, defined as proximity to a recorded quote,
-and reserve claims about forecasting accuracy and calibration for evaluation
-against subsequent outcomes. The design also requires that neither target
-prices nor market commentary enter the forecasting inputs.
+There is a substantial empirical basis for this choice. Wolfers and Zitzewitz
+\cite{wolfers2004} document accurate market forecasts across several settings
+and favorable comparisons with conventional benchmarks. Page and Clemen
+\cite{page2013} find reasonably well-calibrated probabilities for shorter-horizon
+contracts, alongside horizon-dependent biases. In a distinct test of
+forecasting accuracy, Berg, Nelson, and Rietz \cite{berg2008} find that Iowa
+Electronic Markets vote-share forecasts are closer to eventual election
+results than 74\% of 964 contemporaneous polls. The latter is evidence about
+vote-share accuracy, rather than calibration of binary event probabilities.
+Wolfers and Zitzewitz \cite{wolfers2006} also provide theoretical conditions
+under which prices recover average beliefs, and show useful approximations
+under broader assumptions. Together, this literature motivates well-traded,
+clearly specified contracts as informative probability benchmarks, with
+attention to liquidity and forecast horizon.
+
+The prospective design has an additional advantage for evaluating language
+models. For a genuinely unresolved future event, the eventual realized outcome
+does not yet exist to be memorized in training data or retrieved from a later
+account. Evaluating at that point avoids the realized-outcome leakage that can
+affect historical forecasting exercises, without requiring reconstruction of
+a historical information set. Market quotes make evaluation possible
+immediately, rather than only after all events settle. Exposure to the market
+price is a separate issue: this experiment withholds target quotes and excludes
+market commentary from the forecasting inputs. The measured quantity is
+\emph{market agreement}, interpreted as performance against an empirically
+motivated intermediate probability benchmark.
 
 Vorhersage provides the registration, evidence storage, forecast validation,
 and separation of hidden targets from model inputs. The present experiment
@@ -109,6 +131,7 @@ deterministic issuance, with no model review or adjudication. Full settings
 and execution details appear in Appendix~\ref{app:package}.
 
 \subsection{Blinding and provenance}
+\label{sec:blinding}
 Kalshi supplied contract definitions and evaluator targets, but no Kalshi
 material was used as research evidence. The package exposed only allowlisted
 contract-definition fields to the researcher. Opening order books were saved
@@ -124,11 +147,12 @@ between 11:40:25 and 11:40:27 UTC, after the study's reveal routine verified an
 unchanged forecast seal and a terminal attempt for every registered trial.
 The subsequent audit checked target commitments, evidence and forecast
 hashes, and recorded timing \cite{audit}. The design provides auditable
-procedural blinding rather than independently enforced isolation: the
-coordinator could technically access the evaluator database. Lexical filters
-cannot exclude every indirect reference, and model pretraining exposure is
-unobserved. The information supplied to the hosted calls is inspectable, but
-these checks cannot establish the absence of every possible information channel.
+procedural blinding: the exact hosted-model inputs are inspectable, although
+the coordinator was not isolated from the evaluator database by operating
+system permissions. Remaining leakage concerns involve market prices or
+market-derived commentary, which lexical filters may not always detect.
+These are distinct from leakage of the future realized outcome, which is
+unavailable at the time of this prospective exercise.
 
 \subsection{Evaluation measures}
 Let $i=1,\ldots,n$ index contracts, with $n=6$, and let
@@ -150,9 +174,24 @@ opening bid--ask interval:
 The paired improvement for contract $i$ is
 $\Delta_i=100(|p_{iQ}-q_i|-|p_{iR}-q_i|)$; positive values indicate closer
 agreement in the research arm. A constant forecast of 0.5 provides an
-additional reference. No outcome-based Brier score is computed. Neither the
-bid--ask interval nor the variation across these six purposively selected
-contracts is treated as a confidence interval for predictive accuracy.
+additional reference. The bid--ask interval describes quoted trading prices,
+not a statistical confidence interval.
+
+Squared distance from a probability benchmark has a direct scoring
+interpretation. In the ideal case where $q_i=\mathbb{E}[Y_i\mid\mathcal{I}_i]$
+is the event probability conditional on the relevant information set and
+$p_{ik}$ is measurable with respect to that set,
+\begin{equation}
+\mathbb{E}\!\left[(p_{ik}-Y_i)^2-(q_i-Y_i)^2\mid\mathcal{I}_i\right]
+= (p_{ik}-q_i)^2.
+\end{equation}
+Thus squared deviation equals expected excess Brier loss relative to that
+ideal benchmark, without needing to observe the particular realization.
+Market prices provide an empirically motivated proxy for this conditional
+probability. The identity states the ideal-reference assumption explicitly;
+marginal calibration alone does not establish it for each contract. The
+current analysis measures the proxy directly, while subsequent settlement
+permits a complementary outcome-based evaluation.
 
 \section{Results}
 \subsection{Aggregate and contract-level agreement}
@@ -225,8 +264,8 @@ Measure (percentage points) & Question only & Research & Constant 50\%\\
 \end{tabularx}
 \par\vspace{4pt}
 \begin{minipage}{\linewidth}\footnotesize
-\emph{Notes:} Equal-weight averages over all six contracts. The benchmark is a
-quoted market price, not a resolved event outcome. The constant-50\% condition
+\emph{Notes:} Equal-weight averages over all six contracts, using the opening
+midpoint as an intermediate probability benchmark. The constant-50\% condition
 is computed mechanically and requires no additional model calls.
 \end{minipage}
 \end{table}
@@ -262,15 +301,21 @@ probabilities therefore do not imply equal factual grounding.
 \FloatBarrier
 
 \section{Discussion}
-The observed pattern is consistent with current evidence improving market
-agreement in this cohort. Its interpretation is narrower than a general
-claim about research quality. The question-only condition lacks fresh facts
-that are directly relevant to several events. The comparison therefore does
-not distinguish a minimal factual update from deeper, adaptive research. Nor
-does it estimate the contribution of review, scenario modeling, ensembles,
-or other features of the package. Source collection was performed by an
-external coding agent, so the results do not measure autonomous search by
-the forecasting model.
+The results show a substantial improvement against the market benchmark:
+research reduces the mean absolute gap by 24.58 percentage points and improves
+agreement in five of six cases. Given the forecasting and calibration evidence
+for prediction markets, this is a useful intermediate performance result.
+The design produces feedback while outcomes remain in the future, permitting
+research methods to be compared without waiting for settlement or introducing
+realized-outcome leakage through retrospective data collection.
+
+The relevant experimental contrast is access to current evidence. The
+question-only condition lacks fresh facts that are directly relevant to
+several events, so a subsequent comparison can distinguish a minimal factual
+update from deeper, adaptive research. Review, scenario modeling, and
+ensembles remain additional dimensions to test. Source collection here was
+performed by an external coding agent; the results concern that research
+pipeline coupled to the forecasting model.
 
 Several additional limitations matter. First, six purposively selected
 contracts do not support a population-level performance estimate. Employment
@@ -278,13 +323,16 @@ and monetary policy are related, and contract horizons differ substantially.
 Second, one draw per condition leaves model sampling variability unmeasured;
 the observed paired differences combine information-condition differences
 with stochastic generation. We report no significance test or inferential
-interval. Third, prices may reflect liquidity and trading frictions as well
-as beliefs. Neutron's opening best bid has a size of only five contracts,
-which limits its interpretation as a precise reference value. Fourth,
+interval. Third, the strongest case for a price benchmark concerns liquid,
+well-functioning markets. This pilot's minimal two-sided-quote requirement
+does not establish deep liquidity: Neutron's opening best bid has a size of
+only five contracts. Larger studies should prespecify stronger depth and
+spread criteria and examine performance by horizon, reflecting the empirical
+calibration evidence \cite{page2013}. Fourth,
 research follows the opening snapshots. Unchanged follow-up midpoints reduce
 concern about observed price movement during the run but do not establish
-identical information sets. Finally, procedural input separation does not
-certify the absence of unobserved leakage or pretraining exposure.
+identical information sets. The remaining blinding limitations concern price
+exposure, as described in Section~\ref{sec:blinding}.
 
 The pilot also identifies a concrete design improvement: both information
 conditions in a subsequent research-depth comparison should include verified
@@ -292,12 +340,30 @@ entity identities and relevant release or publication dates. A fresh,
 unrevealed cohort could then compare a small current-facts packet with
 additional targeted research, using repeated forecasts and registered
 handling of failed submissions. Larger cohorts would permit paired
-uncertainty estimates that account for related event groups. Evaluation
-against resolved outcomes would be required to determine whether greater
-market agreement translates into better forecasts.
+uncertainty estimates that account for related event groups. Retaining these
+forecasts through settlement would add outcome scores and calibration checks
+to the immediate market-based evaluation. These two forms of assessment are
+complementary: prices support timely development and comparison, while
+realizations allow the intermediate benchmark and the model forecasts to be
+evaluated over repeated events.
 
 \begin{thebibliography}{9}
 \small
+\bibitem{wolfers2004} Wolfers, J., and Zitzewitz, E. (2004).
+Prediction markets. \emph{Journal of Economic Perspectives}, 18(2), 107--126.
+\href{https://doi.org/10.1257/0895330041371321}{doi:10.1257/0895330041371321}.
+\bibitem{page2013} Page, L., and Clemen, R. T. (2013).
+Do prediction markets produce well-calibrated probability forecasts?
+\emph{The Economic Journal}, 123(568), 491--513.
+\href{https://doi.org/10.1111/j.1468-0297.2012.02561.x}{doi:10.1111/j.1468-0297.2012.02561.x}.
+\bibitem{berg2008} Berg, J. E., Nelson, F. D., and Rietz, T. A. (2008).
+Prediction market accuracy in the long run. \emph{International Journal of
+Forecasting}, 24(2), 285--300.
+\href{https://doi.org/10.1016/j.ijforecast.2008.03.007}{doi:10.1016/j.ijforecast.2008.03.007}.
+\bibitem{wolfers2006} Wolfers, J., and Zitzewitz, E. (2006).
+Interpreting prediction market prices as probabilities.
+\emph{NBER Working Paper} 12200.
+\href{https://doi.org/10.3386/w12200}{doi:10.3386/w12200}.
 \bibitem{protocol} Study protocol and experimental registration (2026).
 Vorhersage blinded Kalshi pilot, September 18.
 \file{protocol.json}, \file{run/selection.json}, and \file{run/registration.json}.

@@ -1,0 +1,27 @@
+{
+  "task_id": "task_52a302f2bdbb4f41b176",
+  "expected_revision": 0,
+  "idempotency_key": "trial_f6e1b539ecad3f2f88502f62-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.42,
+    "rationale": "The only supplied evidence is an NWS point forecast issued the afternoon before, calling for a high near 89\u00b0F at Miami International Airport with an 80% chance of showers/thunderstorms. The target bin (88\u201389\u00b0F) sits directly on the forecast value, which is favorable. Mid-September Miami climatology has normal highs around 88\u201389\u00b0F, so the forecast is near-normal and not an outlier. However, day-ahead high-temperature forecast errors for Miami typically have a standard deviation of roughly 2\u00b0F, and a two-degree bin centered slightly below a point forecast of 89 usually captures on the order of 35\u201345% of outcomes. The high precipitation probability adds skew: convection timing strongly affects the max. If storms arrive early or a sea-breeze/outflow pattern caps heating, highs could be 85\u201387\u00b0F; if the morning stays sunny and storms hold off until afternoon, 90\u201391\u00b0F is quite plausible. Settlement is via The Weather Company's reported daily max for the Miami station, which usually matches NWS observations but can differ by rounding or preliminary/final revisions. Too high: the 80% storm chance creates a wide, somewhat bimodal outcome distribution (early clouds cutting the high to 86\u201387, or a sunny window pushing to 90+), so mass may leak out of the bin on both sides more than a symmetric error model suggests. Too low: the forecast value lies inside the bin and Miami's maritime climate compresses day-to-day high variability, so a hit rate near 50% is possible when the forecast is this well-centered. I settle a little above the generic bin base rate given the favorable centering, tempered by the convective uncertainty.",
+    "limitations": [
+      "Only one forecast source (NWS search-index capture) is supplied; no Weather Company forecast, no observed conditions, and no fitted error distribution.",
+      "Settlement uses The Weather Company's reported station maximum, which may differ from NWS point forecasts or observations via rounding or revisions.",
+      "High precipitation probability makes the max-temperature distribution skewed and timing-dependent, which is not quantified here.",
+      "No morning-of observations or later forecast updates were available before the information cutoff."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_926aa3369a3e513e8c385e5e",
+        "record_id": "miami"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.05795
+  }
+}

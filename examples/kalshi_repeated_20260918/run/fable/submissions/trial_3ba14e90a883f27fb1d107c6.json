@@ -1,0 +1,27 @@
+{
+  "task_id": "task_4686438a096043759b94",
+  "expected_revision": 0,
+  "idempotency_key": "trial_3ba14e90a883f27fb1d107c6-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.42,
+    "rationale": "The only supplied observation is an NWS point forecast (issued Sep 18, 4:06 pm EDT) for Miami International Airport of a high near 89\u00b0F on Sep 19 with 80% chance of thunderstorms. The contract's YES bin is 88\u201389\u00b0F inclusive, so the point forecast sits inside the bin at its upper edge. Mid-September Miami climatology has normal highs near 88\u201389\u00b0F, consistent with the forecast. Day-ahead NWS high-temperature forecasts for Miami typically have mean absolute errors around 1.5\u20132\u00b0F; a two-degree bin centered near the forecast usually captures roughly 40\u201350% of outcomes. However, the 80% precipitation chance with thunderstorms adds downside skew: early-afternoon convection or cloud cover could cap the high in the mid-80s (miss low), while a late-storm day or drier-than-forecast morning could push the airport to 90\u201391\u00b0F (miss high). The forecast at 89 leaves only one degree of upside margin versus two of downside, roughly balancing the convective downside skew. Settlement uses The Weather Company's reported maximum for CLIMIA, which may differ slightly from the NWS forecast point or rounding conventions, adding a small amount of extra uncertainty. Reasons the estimate could be too high: heavy convective activity frequently holds Miami highs to 84\u201387\u00b0F on 80%-POP days, and the settlement source may differ from the NWS forecast. Reasons it could be too low: the forecast is squarely inside the bin, day-ahead forecasts are fairly reliable, and September Miami highs cluster tightly around 88\u201390\u00b0F, so a 45\u201350% hit rate would not be surprising.",
+    "limitations": [
+      "Single NWS point forecast from a search-index capture; no direct verification of the Sep 18 forecast or later updates.",
+      "No observed temperatures for Sep 19 available; no fitted forecast-error distribution supplied.",
+      "Settlement source (The Weather Company, CLIMIA) may differ from NWS airport point forecast in location, rounding, or final reported maximum.",
+      "High precipitation probability introduces convective uncertainty not captured by a symmetric error assumption."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_926aa3369a3e513e8c385e5e",
+        "record_id": "miami"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.0582
+  }
+}

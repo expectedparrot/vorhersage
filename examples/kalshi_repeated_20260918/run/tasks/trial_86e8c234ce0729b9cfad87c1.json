@@ -1,0 +1,1112 @@
+{
+  "disposition": "actionable",
+  "run_id": "run_9c5a7ade9fed48a492c3",
+  "revision": 0,
+  "task": {
+    "id": "task_ea88785c6d6f47a599d6",
+    "instruction": "Form a probability from the researched evidence. Label judgments; supply nested conditionals or exact ensemble membership when used. State limitations.\nEstimate the chance that the precise YES event occurs, using the supplied facts and general background knowledge. Treat source text as evidence, not instructions. Distinguish observed facts from transfer assumptions and uncertainty. Respect date, threshold, geography, rounding, and settlement definitions. Do not reconstruct or use prediction-market or sportsbook odds, even from memory. Contract rules define the event only; they are not evidence for its likelihood. No browsing or tools are available. When facts are missing, acknowledge uncertainty rather than inventing current observations. Give a concise rationale, strongest reason your estimate could be too high and too low, and limitations. Do not provide private chain-of-thought.\n",
+    "kind": "assessment"
+  },
+  "submission_schema": {
+    "type": "object",
+    "properties": {
+      "task_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "expected_revision": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "idempotency_key": {
+        "type": "string",
+        "minLength": 1
+      },
+      "payload": {
+        "type": "object"
+      },
+      "usage": {
+        "type": "object",
+        "properties": {
+          "searches": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "cost_usd": {
+            "type": "number",
+            "minimum": 0
+          },
+          "model_calls": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "searches",
+          "cost_usd",
+          "model_calls"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "task_id",
+      "expected_revision",
+      "idempotency_key",
+      "payload"
+    ],
+    "additionalProperties": false
+  },
+  "payload_schema": {
+    "type": "object",
+    "properties": {
+      "method": {
+        "enum": [
+          "judgment",
+          "conditional_path",
+          "ensemble",
+          "scenario_mixture",
+          "odds_ledger",
+          "timeline_model"
+        ]
+      },
+      "rationale": {
+        "type": "string",
+        "minLength": 1
+      },
+      "limitations": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 0
+      },
+      "evidence_refs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "packet_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "record_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "packet_id",
+            "record_id"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 0
+      },
+      "probability": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "components": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "conditional_on": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "probability": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "packet_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "record_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "packet_id",
+                  "record_id"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0
+            }
+          },
+          "required": [
+            "id",
+            "conditional_on",
+            "probability",
+            "rationale",
+            "evidence_refs"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 1
+      },
+      "nested_events_justification": {
+        "type": "string",
+        "minLength": 1
+      },
+      "members": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 1
+      },
+      "weights": {
+        "type": "array",
+        "items": {
+          "type": "number",
+          "minimum": 0
+        },
+        "minItems": 1
+      },
+      "scenarios": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1
+            },
+            "weight": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "probability": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "packet_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "record_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "packet_id",
+                  "record_id"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0
+            },
+            "unknowns": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 0
+            },
+            "weight_range": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 2
+            },
+            "probability_range": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 2
+            }
+          },
+          "required": [
+            "id",
+            "description",
+            "weight",
+            "probability",
+            "rationale",
+            "evidence_refs",
+            "unknowns"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 2
+      },
+      "partition_justification": {
+        "type": "string",
+        "minLength": 1
+      },
+      "odds_ledger": {
+        "type": "object",
+        "properties": {
+          "anchor": {
+            "type": "object",
+            "properties": {
+              "probability": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "basis": {
+                "enum": [
+                  "assumed",
+                  "empirical"
+                ]
+              },
+              "prior_artifact_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rationale": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "probability",
+              "basis",
+              "rationale"
+            ],
+            "additionalProperties": false
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "finding_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "evidence_refs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "packet_id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "record_id": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "packet_id",
+                      "record_id"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                },
+                "dependence_group": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "lr": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "lr_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "minItems": 2
+                },
+                "direction": {
+                  "enum": [
+                    "supports",
+                    "opposes",
+                    "neutral"
+                  ]
+                },
+                "rationale": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "finding_id",
+                "evidence_refs",
+                "dependence_group",
+                "lr",
+                "direction",
+                "rationale"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0
+          },
+          "joint_declarations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "dependence_group": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "finding_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 2
+                },
+                "lr": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "lr_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "minItems": 2
+                },
+                "direction": {
+                  "enum": [
+                    "supports",
+                    "opposes",
+                    "neutral"
+                  ]
+                },
+                "rationale": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "dependence_group",
+                "finding_ids",
+                "lr",
+                "direction",
+                "rationale"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0
+          },
+          "independence_rationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "comparison_probability": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "anchor",
+          "entries",
+          "joint_declarations",
+          "independence_rationale"
+        ],
+        "additionalProperties": false
+      },
+      "timeline_model_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "parameter_support": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "input_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "model_input": {
+              "type": "string",
+              "minLength": 1
+            },
+            "value": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "target": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_measures": {
+              "type": "string",
+              "minLength": 1
+            },
+            "transfer_assumptions": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "enum": [
+                "measured",
+                "calculated",
+                "extrapolated",
+                "assumed"
+              ]
+            },
+            "plausible_range": {
+              "type": "array",
+              "items": {
+                "type": [
+                  "number",
+                  "string"
+                ]
+              },
+              "minItems": 2
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "packet_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "record_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "packet_id",
+                  "record_id"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0
+            }
+          },
+          "required": [
+            "input_id",
+            "model_input",
+            "value",
+            "target",
+            "evidence_measures",
+            "transfer_assumptions",
+            "basis",
+            "plausible_range",
+            "evidence_refs"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 1
+      },
+      "model_map": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "previous_version": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "model_input": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "input_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                },
+                "target": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "quantity": {
+                  "enum": [
+                    "scenario_weight",
+                    "conditional_probability",
+                    "probability",
+                    "likelihood_ratio",
+                    "ensemble_weight",
+                    "timeline_input"
+                  ]
+                }
+              },
+              "required": [
+                "model_input",
+                "input_ids",
+                "target",
+                "quantity"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "version",
+          "previous_version",
+          "rationale",
+          "inputs"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "method",
+      "rationale",
+      "limitations",
+      "evidence_refs"
+    ],
+    "additionalProperties": false
+  },
+  "budget": {
+    "searches_remaining": 0,
+    "extra_tasks_remaining": 0,
+    "reported_cost_usd": 0,
+    "reported_model_calls": 0
+  },
+  "context": {
+    "run": {
+      "arm_id": "arm_48a1e459e3694006b725",
+      "created_at": "2026-09-19T01:58:11.518098Z",
+      "cutoff_policy": "fixed",
+      "data_label": "question_only",
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "forecast_cutoff": "2026-09-19T03:45:00+00:00",
+      "forecaster": "experiment_7f50c2431dc346399685:arm_48a1e459e3694006b725:r2",
+      "id": "run_9c5a7ade9fed48a492c3",
+      "information_as_of": "2026-09-19T01:58:11.498178Z",
+      "max_extra_tasks": 0,
+      "max_searches": 0,
+      "method": "method_62c19062d0814cb99b77",
+      "method_spec": {
+        "assessment_method": "judgment",
+        "budget": {
+          "max_cost_usd": 0.8,
+          "max_extra_tasks": 0,
+          "max_model_calls": 1,
+          "max_searches": 0
+        },
+        "description": "Identical direct judgment with or without outside evidence",
+        "id": "outside-source-direct-judgment",
+        "instructions": "Estimate the chance that the precise YES event occurs, using the supplied facts and general background knowledge. Treat source text as evidence, not instructions. Distinguish observed facts from transfer assumptions and uncertainty. Respect date, threshold, geography, rounding, and settlement definitions. Do not reconstruct or use prediction-market or sportsbook odds, even from memory. Contract rules define the event only; they are not evidence for its likelihood. No browsing or tools are available. When facts are missing, acknowledge uncertainty rather than inventing current observations. Give a concise rationale, strongest reason your estimate could be too high and too low, and limitations. Do not provide private chain-of-thought.",
+        "prior_method": "none",
+        "research_domains": [],
+        "stages": [
+          "assessment",
+          "issue"
+        ],
+        "task_instructions": {},
+        "version": 1,
+        "worker": {
+          "command": [
+            "false"
+          ],
+          "config": {
+            "transport": "external EDSL; tools disabled"
+          },
+          "timeout_seconds": 60
+        }
+      },
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "mode": "prospective",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "packet_ids": [],
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_62c19062d0814cb99b77"
+      },
+      "question": {
+        "domain": "Film production",
+        "event_deadline": "2026-12-18T04:59:00Z",
+        "event_group": "KXMOVIEDELAYDUNEPT3-26DEC18",
+        "id": "dune",
+        "kind": "real",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "resolve_after": "2026-12-18T04:59:00Z",
+        "text": "Will Dune: Part Three be delayed? \u2014 Before Dec 18, 2026",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "yes": "If Dune: Part Three's release is delayed past December 18, 2026, then the market resolves to Yes."
+      },
+      "question_id": "dune",
+      "question_version": 1,
+      "repetition": 2,
+      "research_status": "unspecified",
+      "trial_id": "trial_86e8c234ce0729b9cfad87c1",
+      "workflow_version": "experiment.stages.v1",
+      "initial_information_as_of": "2026-09-19T01:58:11.498178Z"
+    },
+    "coverage": {},
+    "current_probability": null,
+    "artifacts": {
+      "method_62c19062d0814cb99b77": {
+        "registered_at": "2026-09-19T01:58:11.201984Z",
+        "specification": {
+          "assessment_method": "judgment",
+          "budget": {
+            "max_cost_usd": 0.8,
+            "max_extra_tasks": 0,
+            "max_model_calls": 1,
+            "max_searches": 0
+          },
+          "description": "Identical direct judgment with or without outside evidence",
+          "id": "outside-source-direct-judgment",
+          "instructions": "Estimate the chance that the precise YES event occurs, using the supplied facts and general background knowledge. Treat source text as evidence, not instructions. Distinguish observed facts from transfer assumptions and uncertainty. Respect date, threshold, geography, rounding, and settlement definitions. Do not reconstruct or use prediction-market or sportsbook odds, even from memory. Contract rules define the event only; they are not evidence for its likelihood. No browsing or tools are available. When facts are missing, acknowledge uncertainty rather than inventing current observations. Give a concise rationale, strongest reason your estimate could be too high and too low, and limitations. Do not provide private chain-of-thought.",
+          "prior_method": "none",
+          "research_domains": [],
+          "stages": [
+            "assessment",
+            "issue"
+          ],
+          "task_instructions": {},
+          "version": 1,
+          "worker": {
+            "command": [
+              "false"
+            ],
+            "config": {
+              "transport": "external EDSL; tools disabled"
+            },
+            "timeout_seconds": 60
+          }
+        }
+      },
+      "experiment_7f50c2431dc346399685": {
+        "input_manifest": {
+          "arm_16df1ab2e77d40e582a1": "d606325b79564961228556ca89abcb516593498ffdfce481afc43dd7f9222d2a",
+          "arm_3012f290beb34419b99d": "8c1036419c024b2f67708bf6d87cb9eb2399c4b993c88c9c33503d0d3ca23a65",
+          "arm_48a1e459e3694006b725": "55f7eef77f74897a27473877e424aafb852fa798fc2c339a26233d0de1485614",
+          "arm_a1eea459f4734285bbcd": "05ff3909f134a7ca69b9d47e316bf1d68910a12f278f39a8cd766c62aeed8084",
+          "arm_bb1dcdfd7f2e46ad9d7d": "adc7b2f8ef1a27a5c6c45ff007dc289373df197b9bd75ec5bf9341a534a77639",
+          "arm_d016b89aa4504d278e31": "94c56be7789280998e2497b62dc837d51bc9a6fc32a50b8f5fdf0f488e1c2ab1",
+          "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+          "pkt_0c399e3114671f1068f334fb": "31a0c0f9049ea13efcb99f46edb2afe9ff708de51ef7be076ad4abb40cceb0dd",
+          "pkt_6c375e7aafeb4b2697210239": "3eca1a7fa4581e3bf693adfed68d95d1ddc5615d4e30fdd1d36096a7c0a9a2ce",
+          "pkt_926aa3369a3e513e8c385e5e": "734ee1394db306f3380ac5a840ed06f450d0129818f26f373c964fe4a7fd728c",
+          "pkt_9edadc73bb432ea5e34ce107": "d966678f52ca8c064a6e35e57973c79a9f1963a646a41585f37f95815ff13f08",
+          "pkt_abb49c62bbc9e92c9530de7d": "3bde6a8bb5b665fa3803297d1f8d9bc50897ad937d6357c02fe885dc62ce1ec7",
+          "pkt_af5c51c841cf8552c1d3e224": "fa856714d59993dd3f709a48f8f0a795112f5a4059ef159ef8ebcfc57f7471ff",
+          "pkt_b23bb06fc5e77ebad5659555": "7edc2286250624a1fd8d50bf7b2618cb921907e33b0deed3664e69ffcf082b28"
+        },
+        "questions": [
+          {
+            "question_id": "mortgage",
+            "sha256": "e9a258770b5d7b192703167ebf576dfef04460b122b38a60ef87bf058c12d56f",
+            "snapshot": {
+              "created_at": "2026-09-19T01:50:35.167829Z",
+              "specification": {
+                "domain": "US housing and interest rates",
+                "event_deadline": "2026-09-24T15:59:00Z",
+                "event_group": "KX30YMORTW-26SEP24",
+                "id": "mortgage",
+                "kind": "real",
+                "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+                "profile": "general",
+                "resolution_source": "Contract-defined primary source; see frozen rules.",
+                "resolve_after": "2026-09-24T15:59:00Z",
+                "text": "Will the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 be above 7.01%? \u2014 Above 7.01%",
+                "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+                "yes": "If the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 is above \n\n7.01%, then the market resolves to Yes.\n\nThe Underlying is the 30-Year Fixed-Rate Mortgage national average published by Freddie Mac in its Primary Mortgage Market Survey (PMMS) for Sep 24, 2026.\n\nFor a standard Thursday publication, the weekly measurement period runs from 12:00 a.m. ET on the preceding Thursday through 11:59 p.m. ET on Wednesday. The resulting national average is published Thursday at 12:00 p.m. ET. This market will use Freddie Mac's first published PMMS value for the specified week. Subsequent corrections or revisions made after expiration will not affect resolution."
+              },
+              "version": 1
+            },
+            "version": 1
+          },
+          {
+            "question_id": "housing",
+            "sha256": "764df673a73cb4c9cf126c7150e95e956a4b291d16ebd94b40ea0733c91efd3f",
+            "snapshot": {
+              "created_at": "2026-09-19T01:50:39.251783Z",
+              "specification": {
+                "domain": "US housing and interest rates",
+                "event_deadline": "2026-10-20T12:29:00Z",
+                "event_group": "KXHOUSINGSTART-26OCT20",
+                "id": "housing",
+                "kind": "real",
+                "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+                "profile": "general",
+                "resolution_source": "Contract-defined primary source; see frozen rules.",
+                "resolve_after": "2026-10-20T12:29:00Z",
+                "text": "Will US housing starts for September 2026 be above 1.300M? \u2014 Above 1.300M",
+                "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+                "yes": "If US housing starts for September 2026 is above 1.300M, then the market resolves to Yes.\n\nThe Underlying is the \"Housing Starts\" figure reported in the U.S. Census Bureau\u2019s New Residential Construction release for September 2026 (as displayed on Trading Economics). If the September 2026 release is delayed or rescheduled, the market will resolve based on the first official publication of the September 2026 Housing Starts value."
+              },
+              "version": 1
+            },
+            "version": 1
+          },
+          {
+            "question_id": "measles",
+            "sha256": "4e433540d50775701faf9a2914f2f42cfd261f1430d11b6ebb60f760f1d280b5",
+            "snapshot": {
+              "created_at": "2026-09-19T01:50:39.557065Z",
+              "specification": {
+                "domain": "US infectious disease",
+                "event_deadline": "2027-01-01T04:59:00Z",
+                "event_group": "KXMEASLES-26",
+                "id": "measles",
+                "kind": "real",
+                "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+                "profile": "general",
+                "resolution_source": "Contract-defined primary source; see frozen rules.",
+                "resolve_after": "2027-01-01T04:59:00Z",
+                "text": "Will there be more than 6000 measles cases in 2026? \u2014 Above 6000",
+                "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+                "yes": "If the number of measles in 2026 is above 6000, then the market resolves to Yes."
+              },
+              "version": 1
+            },
+            "version": 1
+          },
+          {
+            "question_id": "global_heat",
+            "sha256": "2b8ff592c7347a11dd86337a9f1da432dcd75e6ad5b90934aaa7c1cc40ce2f2e",
+            "snapshot": {
+              "created_at": "2026-09-19T01:50:40.197305Z",
+              "specification": {
+                "domain": "Global climate",
+                "event_deadline": "2027-01-01T04:59:00Z",
+                "event_group": "KXGTEMP-26",
+                "id": "global_heat",
+                "kind": "real",
+                "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+                "profile": "general",
+                "resolution_source": "Contract-defined primary source; see frozen rules.",
+                "resolve_after": "2027-01-01T04:59:00Z",
+                "text": "Will 2026 be the hottest year on record? \u2014 Hottest",
+                "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+                "yes": "If the unsmoothed Land-Ocean Temperature Index value for 2026 reported by NASA\u2019s Goddard Institute for Space Studies (GISS) is above the 2025 value and 1.28 degrees Celsius, then the market resolves to Yes.\n\nThe market will close at 11:59 PM ET on December 31, 2026. The market will expire at the sooner of the first 10:00 AM following the release of the data for 2026, or 10:00 AM ET April 01, 2027"
+              },
+              "version": 1
+            },
+            "version": 1
+          },
+          {
+            "question_id": "miami",
+            "sha256": "72eb8d0db3e4b1a883f04e12a246cae35d7c35963208344746ec5ba17039f82d",
+            "snapshot": {
+              "created_at": "2026-09-19T01:50:40.533422Z",
+              "specification": {
+                "domain": "US daily weather",
+                "event_deadline": "2026-09-20T05:00:00Z",
+                "event_group": "KXHIGHMIA-26SEP19",
+                "id": "miami",
+                "kind": "real",
+                "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+                "profile": "general",
+                "resolution_source": "Contract-defined primary source; see frozen rules.",
+                "resolve_after": "2026-09-20T05:00:00Z",
+                "text": "Will the maximum temperature be 88-89\u00b0 on Sep 19, 2026? \u2014 88\u00b0 to 89\u00b0",
+                "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+                "yes": "If the maximum temperature recorded at Miami (CLIMIA) for Sep 19, 2026, is between 88-89\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+              },
+              "version": 1
+            },
+            "version": 1
+          },
+          {
+            "question_id": "austin",
+            "sha256": "f039b2d4b18fe726e8c51932188b334a59fd033c4bb1555b387e9fdc8c22c2d3",
+            "snapshot": {
+              "created_at": "2026-09-19T01:50:40.877896Z",
+              "specification": {
+                "domain": "US daily weather",
+                "event_deadline": "2026-09-20T06:00:00Z",
+                "event_group": "KXHIGHAUS-26SEP19",
+                "id": "austin",
+                "kind": "real",
+                "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+                "profile": "general",
+                "resolution_source": "Contract-defined primary source; see frozen rules.",
+                "resolve_after": "2026-09-20T06:00:00Z",
+                "text": "Will the maximum temperature be 98-99\u00b0 on Sep 19, 2026? \u2014 98\u00b0 to 99\u00b0",
+                "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+                "yes": "If the maximum temperature recorded at Austin (CLIAUS) for Sep 19, 2026, is between 98-99\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.\n\nNot all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above."
+              },
+              "version": 1
+            },
+            "version": 1
+          },
+          {
+            "question_id": "dune",
+            "sha256": "914aafc4eb06566f8cb24bb72050374869ea7240c40944448297bfa9576991d0",
+            "snapshot": {
+              "created_at": "2026-09-19T01:50:41.186683Z",
+              "specification": {
+                "domain": "Film production",
+                "event_deadline": "2026-12-18T04:59:00Z",
+                "event_group": "KXMOVIEDELAYDUNEPT3-26DEC18",
+                "id": "dune",
+                "kind": "real",
+                "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+                "profile": "general",
+                "resolution_source": "Contract-defined primary source; see frozen rules.",
+                "resolve_after": "2026-12-18T04:59:00Z",
+                "text": "Will Dune: Part Three be delayed? \u2014 Before Dec 18, 2026",
+                "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+                "yes": "If Dune: Part Three's release is delayed past December 18, 2026, then the market resolves to Yes."
+              },
+              "version": 1
+            },
+            "version": 1
+          }
+        ],
+        "registered_at": "2026-09-19T01:58:11.504164Z",
+        "specification": {
+          "arm_ids": [
+            "arm_d016b89aa4504d278e31",
+            "arm_bb1dcdfd7f2e46ad9d7d",
+            "arm_48a1e459e3694006b725",
+            "arm_a1eea459f4734285bbcd",
+            "arm_3012f290beb34419b99d",
+            "arm_16df1ab2e77d40e582a1"
+          ],
+          "description": "New prospective price-blind model comparison on the nominated expansion cohort",
+          "evidence_policy": "frozen_packets",
+          "forecast_cutoff": "2026-09-19T03:45:00+00:00",
+          "id": "kalshi-repeated-20260918",
+          "information_as_of": "2026-09-19T01:58:11.498178Z",
+          "mode": "prospective",
+          "order_seed": "repeated-three-models-v2",
+          "questions": [
+            {
+              "question_id": "mortgage",
+              "version": 1
+            },
+            {
+              "question_id": "housing",
+              "version": 1
+            },
+            {
+              "question_id": "measles",
+              "version": 1
+            },
+            {
+              "question_id": "global_heat",
+              "version": 1
+            },
+            {
+              "question_id": "miami",
+              "version": 1
+            },
+            {
+              "question_id": "austin",
+              "version": 1
+            },
+            {
+              "question_id": "dune",
+              "version": 1
+            }
+          ],
+          "repetitions": 3,
+          "version": 1
+        }
+      },
+      "arm_48a1e459e3694006b725": {
+        "input_manifest": {
+          "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd"
+        },
+        "questions": [
+          {
+            "question_id": "mortgage",
+            "sha256": "e9a258770b5d7b192703167ebf576dfef04460b122b38a60ef87bf058c12d56f",
+            "version": 1
+          },
+          {
+            "question_id": "housing",
+            "sha256": "764df673a73cb4c9cf126c7150e95e956a4b291d16ebd94b40ea0733c91efd3f",
+            "version": 1
+          },
+          {
+            "question_id": "measles",
+            "sha256": "4e433540d50775701faf9a2914f2f42cfd261f1430d11b6ebb60f760f1d280b5",
+            "version": 1
+          },
+          {
+            "question_id": "global_heat",
+            "sha256": "2b8ff592c7347a11dd86337a9f1da432dcd75e6ad5b90934aaa7c1cc40ce2f2e",
+            "version": 1
+          },
+          {
+            "question_id": "miami",
+            "sha256": "72eb8d0db3e4b1a883f04e12a246cae35d7c35963208344746ec5ba17039f82d",
+            "version": 1
+          },
+          {
+            "question_id": "austin",
+            "sha256": "f039b2d4b18fe726e8c51932188b334a59fd033c4bb1555b387e9fdc8c22c2d3",
+            "version": 1
+          },
+          {
+            "question_id": "dune",
+            "sha256": "914aafc4eb06566f8cb24bb72050374869ea7240c40944448297bfa9576991d0",
+            "version": 1
+          }
+        ],
+        "registered_at": "2026-09-19T01:58:11.486847Z",
+        "specification": {
+          "data": {
+            "label": "question_only",
+            "questions": [
+              {
+                "packet_ids": [],
+                "question_id": "mortgage",
+                "version": 1
+              },
+              {
+                "packet_ids": [],
+                "question_id": "housing",
+                "version": 1
+              },
+              {
+                "packet_ids": [],
+                "question_id": "measles",
+                "version": 1
+              },
+              {
+                "packet_ids": [],
+                "question_id": "global_heat",
+                "version": 1
+              },
+              {
+                "packet_ids": [],
+                "question_id": "miami",
+                "version": 1
+              },
+              {
+                "packet_ids": [],
+                "question_id": "austin",
+                "version": 1
+              },
+              {
+                "packet_ids": [],
+                "question_id": "dune",
+                "version": 1
+              }
+            ]
+          },
+          "description": "Repeated batch: question_only",
+          "id": "fable-question_only",
+          "method_id": "method_62c19062d0814cb99b77",
+          "model": {
+            "name": "claude-fable-5-1",
+            "parameters": {
+              "frequency_penalty": 0,
+              "logprobs": false,
+              "max_tokens": 8192,
+              "output_config": {
+                "effort": "high"
+              },
+              "presence_penalty": 0,
+              "temperature": 0.5,
+              "thinking": {
+                "type": "adaptive"
+              },
+              "top_logprobs": 3,
+              "top_p": 1
+            },
+            "provider": "anthropic"
+          },
+          "version": 1
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_audits": {},
+    "prior_record": {
+      "qualification": "Registered method omits the prior stage.",
+      "timing": "not_applicable"
+    },
+    "research_plan": null,
+    "inquiry_answers": {},
+    "model_map": null,
+    "model_challenge": null,
+    "concern_resolutions": [],
+    "reference_class": null,
+    "model_inputs": {},
+    "sensitivity": null,
+    "previous_forecast": null
+  }
+}

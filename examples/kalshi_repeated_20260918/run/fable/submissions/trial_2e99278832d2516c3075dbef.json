@@ -1,0 +1,27 @@
+{
+  "task_id": "task_f241a3d5351e4dbf9d1f",
+  "expected_revision": 0,
+  "idempotency_key": "trial_2e99278832d2516c3075dbef-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.3,
+    "rationale": "The most recent Freddie Mac PMMS reading (Sep 17, 2026) is 6.95%, after a sharp 19 bp weekly jump from 6.76%. YES requires the Sep 24 first-published value to be 7.02% or higher, i.e., a further rise of at least 7 bps. Historically, week-to-week PMMS changes have a standard deviation of roughly 8-12 bps, larger in volatile weeks; a 19 bp move signals an elevated-volatility regime. Because the PMMS averages lender quotes over Thursday\u2013Wednesday, if daily rates rose late in the prior survey window (e.g., after a mid-September FOMC or data surprise), the Sep 24 average could carry upward momentum even if daily rates plateau, modestly shifting the expected change positive. Balancing this against the tendency for partial mean reversion after outsized moves and the need for a 7+ bp increase, I estimate roughly a 30% chance. Too high risk: large jumps often partially retrace as bond markets digest the shock; if yields eased during Sep 17-23, the reading could fall back toward 6.8-6.9%, making 7.02%+ unlikely. Too low risk: if the driver of the jump was a persistent repricing (hawkish Fed path, hot inflation, Treasury supply), rates could keep climbing and the lag structure of the survey would push the average above 7% quickly; a 19 bp move suggests a regime where 7+ bp moves are common, and 7% is only 5 bps away.",
+    "limitations": [
+      "No Treasury yield, MBS spread, or daily lender-rate data for the Sep 17-23 measurement window; the direction of intra-week rates is unknown.",
+      "Weekly change distribution is assumed from historical patterns, not fitted to current conditions.",
+      "Cause of the 19 bp jump (e.g., FOMC, inflation data) is not in the evidence, so momentum vs. reversion is judgmental.",
+      "Resolution uses the first-published value; small rounding effects near 7.01% matter."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_af5c51c841cf8552c1d3e224",
+        "record_id": "mortgage"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.07939
+  }
+}

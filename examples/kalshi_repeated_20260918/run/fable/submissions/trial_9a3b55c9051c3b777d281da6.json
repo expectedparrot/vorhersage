@@ -1,0 +1,27 @@
+{
+  "task_id": "task_76ad633638cf4592b9e6",
+  "expected_revision": 0,
+  "idempotency_key": "trial_9a3b55c9051c3b777d281da6-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.42,
+    "rationale": "The only supplied observation is an NWS point forecast (issued Sep 18 afternoon) of a high near 89\u00b0F for Miami International Airport on Sep 19, with an 80% chance of thunderstorms. The 88\u201389\u00b0 bin sits centered slightly below the point forecast. Late-September Miami highs cluster tightly (climatology roughly 87\u201391\u00b0), and day-ahead NWS high-temperature errors at MIA typically have a standard deviation of about 2\u00b0F. A two-degree bin near the forecast center would normally capture roughly 35\u201345% of outcomes. The high precipitation probability adds downside skew: convection or cloud cover before the afternoon peak can cap highs in the mid-80s, which shifts mass toward and below the bin rather than above it, so 88\u201389 is arguably the modal bin, with 86\u201387 and 90\u201391 as the main alternatives. Settlement is via The Weather Company for Miami (CLIMIA), which generally tracks the MIA ASOS observation, but rounding/reporting differences add small extra noise. Too high: if the settlement value is systematically warmer than the NWS point (e.g., 90\u201391 on a drier-than-forecast day) or if storms arrive early and cap the high at 85\u201387, the bin misses; NWS 'near 89' may also be rounded from a value in the 89.5 region. Too low: rain-suppressed days still often reach 88\u201389 when convection is late-afternoon, and Miami's tight climatological spread means a centered two-degree bin can capture near half of outcomes.",
+    "limitations": [
+      "Single search-index NWS capture; no direct current forecast page, no model ensembles, and no observed conditions for the target day.",
+      "Settlement source (The Weather Company, CLIMIA) may differ from the NWS airport point forecast in location, rounding, or final reported maximum.",
+      "Forecast-error distribution assumed from general background knowledge, not fitted to this station or period.",
+      "High precipitation probability introduces skew whose magnitude is uncertain."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_926aa3369a3e513e8c385e5e",
+        "record_id": "miami"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.05500000000000001
+  }
+}

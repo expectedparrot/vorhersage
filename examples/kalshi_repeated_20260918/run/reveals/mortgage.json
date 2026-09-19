@@ -1,0 +1,256 @@
+{
+  "case_id": "workbench_6494380445144955aae0",
+  "state": "revealed",
+  "revision": 2,
+  "baseline_captured_at": "2026-09-19T01:50:37.596932Z",
+  "contract": {
+    "event_group": "KX30YMORTW-26SEP24",
+    "market_id": "KX30YMORTW-26SEP24-T7.01",
+    "resolution_source": "See frozen Kalshi rules and series contract.",
+    "rules": "If the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 is above \n\n7.01%, then the market resolves to Yes.\n\nThe Underlying is the 30-Year Fixed-Rate Mortgage national average published by Freddie Mac in its Primary Mortgage Market Survey (PMMS) for Sep 24, 2026.\n\nFor a standard Thursday publication, the weekly measurement period runs from 12:00 a.m. ET on the preceding Thursday through 11:59 p.m. ET on Wednesday. The resulting national average is published Thursday at 12:00 p.m. ET. This market will use Freddie Mac's first published PMMS value for the specified week. Subsequent corrections or revisions made after expiration will not affect resolution.",
+    "scheduled_close": "2026-09-24T15:59:00Z",
+    "title": "Will the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 be above 7.01%?",
+    "venue": "kalshi",
+    "yes_description": "Above 7.01%"
+  },
+  "created_at": "2026-09-19T01:50:37.598314Z",
+  "limitations": [
+    "Prices are separated from this project, not protected by an operating-system sandbox.",
+    "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+    "The agent must verify the event is still unknown; an open market alone cannot establish this."
+  ],
+  "question": {
+    "created_at": "2026-09-19T01:50:35.167829Z",
+    "specification": {
+      "domain": "US housing and interest rates",
+      "event_deadline": "2026-09-24T15:59:00Z",
+      "event_group": "KX30YMORTW-26SEP24",
+      "id": "mortgage",
+      "kind": "real",
+      "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+      "profile": "general",
+      "resolution_source": "Contract-defined primary source; see frozen rules.",
+      "resolve_after": "2026-09-24T15:59:00Z",
+      "text": "Will the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 be above 7.01%? \u2014 Above 7.01%",
+      "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+      "yes": "If the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 is above \n\n7.01%, then the market resolves to Yes.\n\nThe Underlying is the 30-Year Fixed-Rate Mortgage national average published by Freddie Mac in its Primary Mortgage Market Survey (PMMS) for Sep 24, 2026.\n\nFor a standard Thursday publication, the weekly measurement period runs from 12:00 a.m. ET on the preceding Thursday through 11:59 p.m. ET on Wednesday. The resulting national average is published Thursday at 12:00 p.m. ET. This market will use Freddie Mac's first published PMMS value for the specified week. Subsequent corrections or revisions made after expiration will not affect resolution."
+    },
+    "version": 1
+  },
+  "specification": {
+    "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+    "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+    "market_id": "KX30YMORTW-26SEP24-T7.01",
+    "max_spread": 0.1,
+    "method": "Three-model question-only versus outside-research comparison",
+    "min_contracts_each_side": 1,
+    "mode": "prospective",
+    "question": {
+      "question_id": "mortgage",
+      "version": 1
+    },
+    "venue": "kalshi"
+  },
+  "target_id": "market_target_d0828ee0e9cc481db3b4",
+  "target_sha256": "dc1f6b92af08a072fb2e3ac9ce7bd21dd774d3d155267aae509c55c5d1827cee",
+  "journal": [
+    {
+      "id": "workbench_entry_4c78b20a64f643fa8e06",
+      "case_id": "workbench_6494380445144955aae0",
+      "evidence_manifest": {},
+      "kind": "initial",
+      "model_manifest": {
+        "forecast_6cd630c718344fd2a3db": "85bec9440e9ac6406c7da3546520b0b5fb45c00b6fb901f55e34d659c5e8b5aa"
+      },
+      "payload": {
+        "assumptions": [
+          "Three independent calls per cell; no repair."
+        ],
+        "evidence_refs": [],
+        "model_artifact_ids": [
+          "forecast_6cd630c718344fd2a3db"
+        ],
+        "probability": 0.25,
+        "rationale": "Representative sealed forecast; all registered repetitions scored separately from their immutable records.",
+        "research_status": "completed",
+        "uncertainties": [
+          "Frozen packet limitations and within-model variation."
+        ]
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T02:06:49.460502Z",
+      "revision": 1
+    },
+    {
+      "id": "workbench_entry_701d78bdb57747be8976",
+      "case_id": "workbench_6494380445144955aae0",
+      "evidence_manifest": {},
+      "kind": "finish",
+      "model_manifest": {},
+      "payload": {
+        "exposure_notes": "Exact provider inputs checked; strict source screening; market-mentions-v2 content review before reveal. Procedural coordinator separation, no independently enforced sandbox.",
+        "market_exposure": "none",
+        "outcome_status": "unresolved",
+        "stopping_reason": "Every call has a terminal receipt; forecasts and pre-reveal content reviews are sealed."
+      },
+      "phase": "pre_reveal",
+      "recorded_at": "2026-09-19T02:06:49.467918Z",
+      "revision": 2,
+      "trajectory_manifest": {
+        "workbench_entry_4c78b20a64f643fa8e06": "b46cd7e7ecd5db09545cbd521228fe36f2797cab96b994cbe98a8ba48efa9e19"
+      }
+    }
+  ],
+  "evidence": {},
+  "models": {
+    "forecast_6cd630c718344fd2a3db": {
+      "arm_id": "arm_d016b89aa4504d278e31",
+      "assessment_probability": 0.25,
+      "coherence": {
+        "comparisons": [],
+        "limitations": [
+          "Implications are supplied by the agent and pinned to exact question versions.",
+          "Different information cutoffs can explain apparent incoherence; review before revising."
+        ],
+        "missing_forecasts": [],
+        "violations": []
+      },
+      "concern_resolutions": [],
+      "cost_usd": 0.029810000000000003,
+      "coverage": {},
+      "cutoff_policy": "fixed",
+      "data_label": "question_only",
+      "evidence_refs": [],
+      "experiment_id": "experiment_7f50c2431dc346399685",
+      "forecaster": "experiment_7f50c2431dc346399685:arm_d016b89aa4504d278e31:r3",
+      "information_as_of": "2026-09-19T01:58:11.498178Z",
+      "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+      "input_manifest": {
+        "arm_d016b89aa4504d278e31": "94c56be7789280998e2497b62dc837d51bc9a6fc32a50b8f5fdf0f488e1c2ab1",
+        "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+        "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+        "task_result_30a6b6f773bd44fc87e6": "610deaee1161238b26bff44550fb27fb806c60cb6f56b1200cb47888ebee3054"
+      },
+      "inquiry_answers": {},
+      "issued_at": "2026-09-19T02:05:32.717105Z",
+      "manifest_sha256": "36ed3069a92edbe0ca698eba20260bd1c34bb8b6aee175b89bb81cc658923041",
+      "method": "method_62c19062d0814cb99b77",
+      "method_spec_id": "method_62c19062d0814cb99b77",
+      "mode": "prospective",
+      "model_calls": 1,
+      "model_challenge": null,
+      "model_map": null,
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "parameter_support": [],
+      "previous_forecast_id": null,
+      "prior_record": {
+        "qualification": "Registered method omits the prior stage.",
+        "timing": "not_applicable"
+      },
+      "probability": 0.25,
+      "probability_basis": "judgment",
+      "profile": {
+        "description": "Frozen method research domains",
+        "domains": [],
+        "id": "method_62c19062d0814cb99b77"
+      },
+      "question": {
+        "domain": "US housing and interest rates",
+        "event_deadline": "2026-09-24T15:59:00Z",
+        "event_group": "KX30YMORTW-26SEP24",
+        "id": "mortgage",
+        "kind": "real",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "profile": "general",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "resolve_after": "2026-09-24T15:59:00Z",
+        "text": "Will the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 be above 7.01%? \u2014 Above 7.01%",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "yes": "If the average U.S. 30-year fixed-rate mortgage rate for Sep 24, 2026 is above \n\n7.01%, then the market resolves to Yes.\n\nThe Underlying is the 30-Year Fixed-Rate Mortgage national average published by Freddie Mac in its Primary Mortgage Market Survey (PMMS) for Sep 24, 2026.\n\nFor a standard Thursday publication, the weekly measurement period runs from 12:00 a.m. ET on the preceding Thursday through 11:59 p.m. ET on Wednesday. The resulting national average is published Thursday at 12:00 p.m. ET. This market will use Freddie Mac's first published PMMS value for the specified week. Subsequent corrections or revisions made after expiration will not affect resolution."
+      },
+      "question_id": "mortgage",
+      "question_version": 1,
+      "reference_class": null,
+      "repetition": 3,
+      "research_plan": null,
+      "review_at": "2026-09-19T03:45:00+00:00",
+      "run_id": "run_302e39ac3d1c4f9cbaec",
+      "searches": 0,
+      "sensitivity": null,
+      "stopping_reason": "One frozen-input model call, no repair or additional research.",
+      "trial_id": "trial_9f01783ebab84dc8441a3568",
+      "triggers": [
+        {
+          "description": "Separate future-data study.",
+          "evidence_refs": []
+        }
+      ],
+      "workflow_version": "experiment.stages.v1"
+    }
+  },
+  "next_action": "reflection",
+  "comparison": {
+    "target": {
+      "ask": 0.41,
+      "ask_contracts_within_2c": 88.29,
+      "ask_size": 88.29,
+      "bid": 0.4,
+      "bid_contracts_within_2c": 101.84,
+      "bid_size": 101.84,
+      "midpoint": 0.405,
+      "spread": 0.01
+    },
+    "target_captured_at": "2026-09-19T01:50:37.596932Z",
+    "target_method": "Opening order-book midpoint, frozen before initial assessment.",
+    "rows": [
+      {
+        "entry_id": "workbench_entry_4c78b20a64f643fa8e06",
+        "label": "Initial",
+        "recorded_at": "2026-09-19T02:06:49.460502Z",
+        "probability": 0.25,
+        "difference_pp": -15.500000000000004,
+        "squared_market_error": 0.024025000000000008,
+        "improvement_from_previous": null,
+        "outside_spread_pp": 15.000000000000002
+      }
+    ],
+    "net_squared_error_improvement": 0.0,
+    "followup_quote": {
+      "ask": 0.41,
+      "ask_contracts_within_2c": 88.29,
+      "ask_size": 88.29,
+      "bid": 0.4,
+      "bid_contracts_within_2c": 101.84,
+      "bid_size": 101.84,
+      "midpoint": 0.405,
+      "spread": 0.01
+    },
+    "followup_captured_at": "2026-09-19T02:06:49.828377Z",
+    "market_movement_pp": 0.0,
+    "followup_error": null,
+    "contract_changed": false,
+    "eligible_for_blind_comparison": true,
+    "qualification_reasons": [],
+    "limitations": [
+      "Market agreement is not an outcome score or proof of forecast accuracy.",
+      "Step improvements are descriptive; sequential research does not identify causal effects.",
+      "Research may include information arriving after the opening target. Inspect market movement and timestamps.",
+      "No exposure reported is an agent declaration, not independently verified isolation.",
+      "Bid-ask spread is not a confidence interval. Missing follow-up data does not replace the opening target."
+    ]
+  },
+  "revealed_at": "2026-09-19T02:06:49.828529Z"
+}

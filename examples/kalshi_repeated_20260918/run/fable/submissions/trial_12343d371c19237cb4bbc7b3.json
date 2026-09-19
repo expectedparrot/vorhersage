@@ -1,0 +1,26 @@
+{
+  "task_id": "task_c044dcbac2d945eb88f3",
+  "expected_revision": 0,
+  "idempotency_key": "trial_12343d371c19237cb4bbc7b3-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.42,
+    "rationale": "The NWS point forecast issued the evening before gives Saturday's high at Austin-Bergstrom near 98\u00b0F under sunny skies with light winds, and Sunday near 99\u00b0F, indicating a hot, dry, stable pattern. The contract's YES window (98\u201399\u00b0F) is a two-degree bin centered on the point forecast. Day-ahead NWS high-temperature errors at a well-observed airport site typically have a standard deviation around 2\u20133\u00b0F, so a two-degree bin containing the point forecast usually captures roughly 35\u201345% of outcomes. Late-September Austin in a sunny, light-wind regime often runs slightly warmer than forecast, which mildly favors 98\u201399 over 96\u201397, but also raises the chance of overshooting to 100+. Reasons the estimate could be too high: forecast error is often larger than idealized, the Weather Company/CLIAUS value may differ from NWS grid rounding, and a clear-sky heat regime could push the observed maximum to 100\u00b0F or above. Reasons it could be too low: light winds and sunshine with a forecast right at 98 make the modal outcome fall inside the bin, and the neighboring Sunday forecast of 99 suggests the regime is well characterized, so errors may be smaller than climatological averages. Overall, roughly 0.42.",
+    "limitations": [
+      "Only a single NWS point forecast is supplied; no ensemble spread, observed morning temperatures, or same-day model guidance.",
+      "Settlement uses The Weather Company CLIAUS value, which may differ from NWS forecast rounding or observation handling.",
+      "No fitted forecast-error distribution for this station and season; error assumptions are from general background knowledge."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_b23bb06fc5e77ebad5659555",
+        "record_id": "austin"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.04897
+  }
+}

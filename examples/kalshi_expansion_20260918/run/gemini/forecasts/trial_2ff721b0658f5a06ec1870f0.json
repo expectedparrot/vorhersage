@@ -1,0 +1,122 @@
+{
+  "arm_id": "arm_78cd74228fbc44f686cc",
+  "assessment_probability": 0.42,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.025374,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "outside_research",
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_0f55a0ef49c654299dec1a6d",
+      "record_id": "gdp"
+    },
+    {
+      "packet_id": "pkt_0f55a0ef49c654299dec1a6d",
+      "record_id": "gdpnow"
+    },
+    {
+      "packet_id": "pkt_0f55a0ef49c654299dec1a6d",
+      "record_id": "projections"
+    }
+  ],
+  "experiment_id": "experiment_80f863de8e5a406fb8f6",
+  "forecaster": "experiment_80f863de8e5a406fb8f6:arm_78cd74228fbc44f686cc:r1",
+  "information_as_of": "2026-09-19T01:06:45.842961Z",
+  "initial_information_as_of": "2026-09-19T01:06:45.842961Z",
+  "input_manifest": {
+    "arm_78cd74228fbc44f686cc": "2f73b7ac8a7a3f06fd57e69baa862fb56bb2ec38c4e05ce90ba1274d34c3111c",
+    "experiment_80f863de8e5a406fb8f6": "397e1ae2a8f36576e1c65231928570b28a42a11b7af1176c541d3542d94d3f0d",
+    "method_c3d7bb4c19b9451db496": "d807d22ea36cc721887b228e89e68410212a5140052197ca048730a788bee38b",
+    "pkt_0f55a0ef49c654299dec1a6d": "878cdcd8f760e8622f417e24d851369902f7c263618b3dda2996632908fbdfa9",
+    "task_result_e655b9e0bc1246b49349": "fde8a26dfcf3550297be403a1ea0c15c1a9e0f38616f530b55b1f9f091240fe3"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T01:23:58.592088Z",
+  "manifest_sha256": "be877a2d1b892142a624af6692d7a2b22eb6d7df3598051841743e3115caa7e5",
+  "method": "method_c3d7bb4c19b9451db496",
+  "method_spec_id": "method_c3d7bb4c19b9451db496",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "stopSequences": [],
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.42,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_c3d7bb4c19b9451db496"
+  },
+  "question": {
+    "domain": "US macroeconomy",
+    "event_deadline": "2027-01-28T13:29:00Z",
+    "event_group": "KXGDP-27JAN28",
+    "id": "candidate-02",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2027-01-28T13:29:00Z",
+    "text": "Will **real GDP** increase by more than 2.0% in Q4 2026? \u2014 Above 2.0%",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If real GDP (as measured by the BEA\u2019s seasonally adjusted and annualized Advance Estimate) increases by more than 2.0, then the market resolves to Yes.\n\nThe market will close at 8:29 AM on the day of the expected release of the data. The market will expire at the first 10:00 AM following the release of the data for Q4 2026, or 3 months following that expected date of data release. Please note the Expiration Value is the one-decimal value published by the BEA."
+  },
+  "question_id": "candidate-02",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 1,
+  "research_plan": null,
+  "review_at": "2026-09-19T07:06:45.842961+00:00",
+  "run_id": "run_bd5bf266bb6a4d9bb774",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_2ff721b0658f5a06ec1870f0",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_0f55a0ef49c654299dec1a6d",
+          "record_id": "gdp"
+        },
+        {
+          "packet_id": "pkt_0f55a0ef49c654299dec1a6d",
+          "record_id": "gdpnow"
+        },
+        {
+          "packet_id": "pkt_0f55a0ef49c654299dec1a6d",
+          "record_id": "projections"
+        }
+      ]
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

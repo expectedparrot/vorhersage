@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{tgpagella,microtype,booktabs,amsmath,graphicx,pdflscape}
+\usepackage[hidelinks]{hyperref}
+\title{Forecasting with a Fixed Evidence Set:\\A Three-Model Comparison against Prediction-Market Probabilities}
+\author{Vorhersage experimental series}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We compare three frontier models on six prediction questions, holding the question
+definitions, evidence packets, elicitation prompts, and market benchmarks fixed.
+Thirty-six new calls cross three models with question-only and outside-research
+conditions. All eighteen research forecasts pass validation. Their mean absolute
+distances from the original Kalshi midpoints are 5.42 percentage points for Claude
+Fable 5.1, 6.25 for GPT-6 Astra, and 8.42 for Gemini 3.1 Pro. The original Gemini
+run yielded 8.58 points. Research reduces average distance for every model on the
+three contracts with accepted responses in all six arms. These observations
+illustrate a controlled comparison of forecasting methods using timely market
+benchmarks; the small sample and single draw per cell do not establish a general
+ranking of forecasting ability.
+\end{abstract}
+
+\section{Design}
+The original study selected six contracts spanning weather, employment, monetary
+policy, space technology, entertainment, and baseball. Its outside evidence came
+from primary sources rather than Kalshi or other prediction markets. This
+follow-up retains those exact questions and evidence packets. Three models each
+receive the six questions twice: once without current research and once with the
+corresponding frozen packet. The calls are independent; a research-condition call
+does not see a question-only forecast. All 36 returned system and user prompt
+receipts exactly match their respective prompts from the original study.
+
+Prediction-market probabilities provide informative intermediate evaluation
+targets and immediate feedback while event outcomes remain unavailable. Evidence
+for their forecasting value and calibration, subject to liquidity and horizon,
+is discussed in the companion report. We measure agreement with the same opening
+midpoints used there, without downloading new prices or outcomes.
+
+The information cutoff remains September 18, 2026, 11:19 UTC. New inference
+occurred later that evening Eastern time (September 19 UTC). The coordinator had
+already seen the original prices and forecasts; new model contexts contained
+neither. These are therefore registered, frozen-data follow-up runs rather than
+a new fully blind prospective study. The same-day weather outcome may have become
+known by the later execution time. The original advantage of evaluating genuinely
+future events before their outcomes exist should not be attributed unconditionally
+to that later weather call.
+
+\section{Evaluation}
+Let $p_{imc}$ denote the forecast for question $i$, model $m$, and information
+condition $c$, and let $q_i$ denote the original market midpoint. On a common
+eligible cohort $S$, the principal statistic is
+\[
+ \operatorname{MAE}_{mc}=\frac{100}{|S|}\sum_{i\in S}|p_{imc}-q_i|.
+\]
+We also report root mean squared distance and preserve distances outside each
+original bid--ask spread. Research improvement for an individual question is
+$100(|p_{im0}-q_i|-|p_{im1}-q_i|)$ percentage points. Its relative improvement
+divides that change by the original absolute distance. A negative value denotes
+deterioration. These are market-agreement statistics, distinct from outcome
+scores. Under the stronger assumption that $q_i$ is the conditional event
+probability for the reference information set, squared distance also equals
+conditional expected excess Brier loss; marginal calibration alone does not
+establish that assumption.
+
+\section{Results}
+Table~\ref{tab:research} uses all six questions because every research forecast
+passed validation. Claude is closest on this sample, followed by Astra and
+Gemini. The new Gemini mean closely resembles its earlier mean, although
+question-level estimates change. With only one new draw per cell, this is a
+replication observation rather than a precise estimate of stochastic variability.
+Excluding same-day weather leaves research MAE of 5.60 points for Claude,
+6.20 for Astra, and 9.80 for Gemini on the same five remaining contracts.
+
+\begin{table}[ht]
+\centering
+\caption{Research forecasts on the same six contracts. Distances are percentage
+points. Cost includes both information conditions and rejected responses.}
+\label{tab:research}
+\begin{tabular}{lrrr}
+\toprule Model & MAE & RMSE & Cost (USD) \\
+\midrule
+Claude Fable 5.1 & 5.42 & 6.99 & 0.84760 \\
+GPT-6 Astra & 6.25 & 8.68 & 0.39430 \\
+Gemini 3.1 Pro, new & 8.42 & 11.70 & 0.17177 \\
+Gemini 3.1 Pro, original & 8.58 & 11.40 & 0.16835 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The unchanged conservative text rule excluded three question-only responses:
+Claude on employment and weather, and Gemini on Netflix. Each mentions prediction
+markets and infers information from contract selection or threshold placement,
+despite instructions treating contract rules as definitions only. Claude's
+employment response also includes an explicit disclaimer of using odds; a mere
+mention is not proof of price exposure. These responses remain excluded without
+repair. Acceptance is 12/12 for Astra, 10/12 for Claude, and 11/12 for Gemini.
+
+The fully matched before/after cohort consequently contains Fed, Neutron, and
+baseball. Table~\ref{tab:paired} compares identical questions in all arms. Dropping
+same-day weather, as prespecified, does not change this cohort. Available-case
+results are archived separately rather than substituted for matched comparisons.
+
+\begin{table}[ht]
+\centering
+\caption{Fully matched comparison on three contracts.}
+\label{tab:paired}
+\begin{tabular}{lrrr}
+\toprule Model & Question-only MAE & Research MAE & Reduction \\
+\midrule
+GPT-6 Astra & 18.00 & 7.67 & 57.4\% \\
+Claude Fable 5.1 & 17.00 & 4.00 & 76.5\% \\
+Gemini 3.1 Pro, new & 30.33 & 8.00 & 73.6\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figure~\ref{fig:slopes} preserves the question-level comparison. Effects are
+heterogeneous: Claude's Netflix forecast moves slightly away from the midpoint,
+and Gemini's Fed forecast does not move. The unchanged Netflix packet also
+retains incomplete release context from the original study; replacing it would
+constitute a different data experiment. A larger repeated comparison could
+separate model variation from evidence-quality effects.
+
+\clearpage
+\begin{figure}[p]
+\centering
+\includegraphics[width=\textwidth,height=.91\textheight,keepaspectratio]{figures/performance.pdf}
+\caption{Fixed-data model comparison. Slopes connect independent question-only
+and research forecasts. Dashed lines mark the original Kalshi midpoints.
+Annotations report absolute and relative gap reductions. Excluded responses have
+no point or connecting segment; their accepted counterpart is retained.}
+\label{fig:slopes}
+\end{figure}
+\clearpage
+\appendix
+\section{Implementation and reproducibility}
+Vorhersage separates deterministic record keeping from external model judgment.
+The experiment registers six immutable arms, each combining the same
+direct-judgment method with a specific model and evidence condition. Frozen
+packets carry source provenance and content-derived identifiers. Every trial
+has independent assessment and issuance state; deterministic issuance requires
+no additional model call. Runs are marked retrospective and preserve actual
+execution times rather than backdating forecasts to the information cutoff.
+
+Expected Parrot transports one fresh, tool-free EDSL interview per cell. Astra
+uses high reasoning effort, Claude adaptive thinking at high effort, and Gemini
+the original 2,048-token thinking budget and temperature 0.5. All have an
+8,192-token output ceiling. These are model configurations rather than matched
+computation budgets. Provider adapters may omit serialized legacy defaults;
+the archive verifies returned model identities and prompt receipts without
+claiming independent attestation of server-side settings or metering.
+
+Import validates scenario, model, agent, JSON schema, evidence references, and
+the excluded-content rule. An initial importer defect compared plain scenario
+dictionaries with EDSL's serialized dictionaries and rejected all rows. The
+corrected validator requires the two exact serialization metadata fields and
+unchanged substantive content. Initial rejection records are retained. Neither
+forecasts nor registered inputs changed, and no additional inference occurred.
+
+Reported new response costs total \$1.41367, including excluded responses; all
+costs are known in the returned records. Provider job summaries report twelve
+completed interviews and no interviews with exceptions for each model. Source
+collection and coordination costs are outside this total. Raw responses, model
+settings, prompt hashes, submissions, acceptance records, issued forecasts,
+and seal commitments are archived under \texttt{run/}.
+
+The comparison script is \texttt{compare.py}. A separate ggplot2 script,
+\texttt{plot\_performance.R}, generates the figure. Running \texttt{verify}, \texttt{audit},
+and \texttt{score} commands rechecks inputs and reconstructs the comparison
+without new inference or web access. The new boundary tests cover unchanged
+prompts, serialization metadata, unexpected context, changed model settings,
+and retention of the strict output exclusion policy. No dependency is added to
+the core package.
+\end{document}

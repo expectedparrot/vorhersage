@@ -1,0 +1,31 @@
+{
+  "task_id": "task_a6893ded19e94b2ca890",
+  "expected_revision": 0,
+  "idempotency_key": "trial_216a5b41ad86bcf528de8d29-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.44,
+    "rationale": "Cincinnati visits Houston at 1 p.m. ET. Observed facts: Bengals are 1-0 (33-27 win), Texans 0-1 (31-36 loss) \u2014 a one-game sample with almost no predictive weight. The key evidence is the Sept. 18 injury report: Cincinnati's QB Joe Burrow is questionable (back) along with DT B.J. Hill; Houston is missing WR Nico Collins (its primary receiver), G Ed Ingram, OLB Jadeveon Clowney and LB Jake Hummel. Background priors: a healthy Burrow-led Bengals offense with elite receivers is roughly comparable to a Stroud-led Texans team known for a strong defense; home field is typically worth about 2-3 points, which would make Houston a modest favorite at neutral health. Collins' absence weakens Houston's passing game meaningfully, partially offsetting home advantage. But the Burrow designation introduces downside asymmetry: a 'questionable' starting QB with a back issue plausibly carries a 20-30% chance of not playing or playing limited, and a Burrow-less Cincinnati would be a clear underdog. Weighting those scenarios, I land slightly below a coin flip for Cincinnati. Too high if Burrow sits or is hampered, or if Houston's defense is as dominant as its recent-form reputation suggests against a historically porous Bengals defense. Too low if Burrow is fully healthy (questionable tags on franchise QBs often resolve to active), the Collins absence cripples Houston's offense more than assumed, and Cincinnati's Week 1 win reflects genuine improvement. Ties (~0.3%) settle at 0.50 and are excluded from binary scoring.",
+    "limitations": [
+      "Injury designations are from Sept. 18; final inactives and Burrow's status are unknown.",
+      "One-game records/scoring provide negligible strength signal; no opponent-adjusted model available.",
+      "No information on 2026 offseason roster changes, coaching, or Week 1 opponents.",
+      "Home-field and QB-absence adjustments are general priors, not fitted estimates."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_b909bb3dbc6967101a816231",
+        "record_id": "nfl_standings"
+      },
+      {
+        "packet_id": "pkt_b909bb3dbc6967101a816231",
+        "record_id": "nfl_injuries"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.08123000000000001
+  }
+}

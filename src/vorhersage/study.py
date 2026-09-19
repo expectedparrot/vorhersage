@@ -70,6 +70,7 @@ def define(workflow, question, *, forecaster="user", method="declared judgment",
         require(question["text"] == saved["question"], "Definition must retain the original question.")
         request = {"question": question, "forecaster": forecaster, "method": method,
                    "research_status": research_status, "workflow": workflow_name,
+                   "research_effort": "deep",
                    "max_searches": max_searches, "max_extra_tasks": max_extra_tasks}
         if c.execute("SELECT 1 FROM artifacts WHERE id=?", (BINDING,)).fetchone():
             previous = Store.artifact(c, BINDING, BINDING)
@@ -82,6 +83,7 @@ def define(workflow, question, *, forecaster="user", method="declared judgment",
                 "mode": "simulation" if question["kind"] == "simulation" else "prospective",
                 "information_as_of": now(), "research_status": research_status,
                 "workflow": workflow_name, "max_searches": max_searches, "max_extra_tasks": max_extra_tasks,
+                "research_effort": "deep",
                 "research_contract": research_contract,
             })
             Store.put(c, BINDING, {"question_id": question["id"], "question_version": 1,

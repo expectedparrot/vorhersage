@@ -1,0 +1,260 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,booktabs,amsmath,graphicx,pdfpages,xcolor}
+\usepackage[colorlinks=true,allcolors=blue!45!black]{hyperref}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parskip}{4pt}
+\title{Stable Disagreement with Markets:\\Research and Repeated Forecasts on New Contracts}
+\author{Vorhersage experimental series}
+\date{September 18, 2026 (New York)}
+\begin{document}
+\maketitle
+\begin{abstract}
+We extend a blinded model comparison to seven new unresolved contracts and
+three fresh calls per model--question--condition cell. The 126 calls cross
+GPT-6 Astra, Claude Fable 5.1, and Gemini 3.1 Pro with question-only and
+outside-research conditions. Market targets are committed before research and
+revealed after all responses are screened and sealed. Research reduces mean
+absolute distance from opening midpoints by 26--43\%, but research distances
+of 18.11--22.92 percentage points exceed the constant-50\% control's 15.16 points.
+Average within-question research standard deviations are 1.16--3.28 points.
+Repeated calls expose relatively stable disagreement, particularly on disease
+incidence and global temperature; simple averaging offers little relief.
+The study also implements versioned output triage that distinguishes narrowly
+specified denials of market use from references requiring pre-reveal review.
+\end{abstract}
+
+\section{Motivation and design}
+The preceding experiment suggested that current outside evidence can move
+language-model forecasts toward market assessments, while also producing
+shared mistakes and rankings sensitive to the question mix. It exposed a
+measurement problem: a lexical rule excluded responses that merely denied
+using prediction-market odds. This extension improves that rule, broadens
+topic coverage, and adds repetitions to distinguish variable responses from
+stable disagreement.
+
+Prediction-market prices provide a timely intermediate benchmark for unresolved
+events. The comparison can be performed before outcomes occur, avoiding the
+use of realized outcomes as inputs and making repeated method development
+practical. Here, market distance measures agreement with contemporaneous
+assessments. It does not substitute for a later proper-scoring evaluation
+against outcomes, and a minimal book screen does not establish deep liquidity
+for every selected contract.
+
+The protocol nominated eleven exact contracts from price-free definitions,
+with one threshold per event and no replacements after screening. Four failed
+the registered book requirements: TSA travel had insufficient top-of-book
+size; gasoline and Arctic ice lacked usable two-sided books; Rocket Lab
+launches exceeded the 10-point spread limit. Seven passed quote and outcome
+checks: mortgage rates, housing starts, measles, global temperature, Miami and
+Austin daily maximum temperatures, and a film-release delay. These span five
+declared broader dependence groups; housing and interest rates share a group,
+as do the two daily-weather contracts. This extends domains on the same
+collection date, not across multiple independent dates.
+
+For each question, three models each receive three question-only calls and
+three research calls. Research calls receive the same frozen packet; they do
+not see the question-only answers or other models' forecasts. The method and
+provider configurations match the preceding comparison. An administrative
+replicate identifier distinguishes requests, caching is disabled, and the
+archive contains 126 distinct raw provider response identifiers. Repetition
+numbers do not imply common random draws across conditions.
+
+\section{Evidence, eligibility, and blinding}
+Evidence was collected after opening prices were sealed and before trial
+registration. It consists of official Freddie Mac weekly mortgage observations,
+the Census construction release, CDC case counts, NASA GISS temperature tables,
+NWS forecasts, and the dedicated official film site. The measles contract's
+full terms clarified its U.S./CDC definition; this definition supplement was
+provided in \emph{both} conditions, never treated as likelihood evidence.
+
+The current CDC count was below the nominated threshold; NASA's final four
+monthly values and annual value were missing; both weather target days had yet
+to begin; and the film site continued to advertise its scheduled release.
+Weather forecasts were required to be issued before the local target day,
+with a global forecast cutoff of 03:45 UTC on September 19. All calls and seals
+preceded that cutoff.
+
+Each forecasting worker received only the event definition, instructions,
+and assigned evidence. No Kalshi research evidence, prices, browsing tools,
+prior-study results, or other forecasts were supplied. Verification compared
+all 126 returned model identities and actual system/user prompt receipts with
+registered inputs. All terminal attempts, screening records, and accepted
+forecasts were sealed before price revelation. Target commitments match the
+subsequently disclosed records. The coordinator's separation from the evaluator
+was procedural, not independently enforced operating-system isolation.
+
+The packets also preserve consequential access limitations. A current Miami
+forecast was available as an NWS search-index capture; two direct coordinate
+opens failed and another returned a September 13 page. The older page was not
+presented as the September 18 update. Weather settlement uses The Weather
+Company, so NWS point forecasts can differ in station/grid treatment and
+rounding. The climate packet supplied monthly observations but no ENSO or
+annual-temperature outlook; the disease packet supplied cumulative totals but
+no recent weekly incidence series. These omissions are visible to every model.
+
+\section{Measures and results}
+Let $p_{imcr}$ be replicate $r$ from model $m$, condition $c$, and question $i$;
+let $q_i$ be the sealed opening midpoint. The primary measure averages absolute
+loss within question before averaging equally over the common question set:
+\[
+ L_{mc}=\frac{100}{N}\sum_{i=1}^{N}\left\{\frac{1}{R}\sum_{r=1}^{R}
+ |p_{imcr}-q_i|\right\},\qquad N=7,\ R=3.
+\]
+This estimates the descriptive average loss of an individual call on the
+selected cohort. A distinct secondary measure scores the three-call mean
+$\bar p_{imc}$: $100N^{-1}\sum_i|\bar p_{imc}-q_i|$. Their difference quantifies
+any improvement in absolute distance from averaging repetitions. We also
+report RMSE, distance outside the spread, per-cell sample standard deviations,
+and ranges. Repetitions do not increase the number of independent questions.
+
+All 126 responses passed structural validation, identity checks, and screening,
+so every question is complete across all six model--condition cells and all
+three repetitions. No missing-value imputation, replacement calls, or manual
+response repairs were needed.
+
+\begin{table}[htbp]\centering
+\caption{Primary mean absolute distance from opening midpoints (percentage points). The matched cohort contains seven questions, not 126 independent events.}
+\begin{tabular}{lrrrr}\toprule
+Model & Question only & Research & Reduction & Relative\\\midrule
+GPT-6 Astra & 28.54 & 18.11 & 10.43 & 36.5\%\\
+Claude Fable 5.1 & 25.54 & 18.82 & 6.71 & 26.3\%\\
+Gemini 3.1 Pro & 40.01 & 22.92 & 17.10 & 42.7\%\\
+\bottomrule\end{tabular}
+\end{table}
+
+Research improves average agreement for all three models. However, the
+\textbf{constant-50\% control scores 15.16 pp}, better than every model's
+research forecasts on this cohort. The equal-weight average of the three
+research means scores 18.98 pp and does not outperform Astra.
+The constant control was present in the analysis implementation pinned at
+registration. The largest opening-to-follow-up midpoint movement is 1 pp;
+using follow-up quotes preserves the model ranking.
+
+\begin{table}[htbp]\centering
+\caption{Within-question variation and averaging. SD is averaged over questions; all values are in percentage points. It is not a confidence interval.}
+\begin{tabular}{lrrr}\toprule
+ & \multicolumn{2}{c}{Mean within-question SD} & Research mean\\
+Model & Question only & Research & forecast MAE\\\midrule
+GPT-6 Astra & 1.08 & 1.31 & 18.11\\
+Claude Fable 5.1 & 5.44 & 1.16 & 18.82\\
+Gemini 3.1 Pro & 1.99 & 3.28 & 22.63\\
+\bottomrule\end{tabular}
+\end{table}
+
+Averaging repetitions leaves Astra and Claude's MAEs unchanged because their
+research draws lie on the same side of each target. Gemini's mean-forecast
+MAE falls only from 22.92 to 22.63 pp. Low variability therefore should not
+be interpreted as well-calibrated confidence. The forecasts can be reproducible
+while remaining far from the external benchmark.
+
+Two questions account for especially large shared gaps. For measles, the
+midpoint is 61\%, while research means are approximately 24\% (Astra), 7\%
+(Claude), and 13\% (Gemini). For global temperature, the midpoint is 74.6\%
+and research means are approximately 32\%, 32\%, and 11\%. In contrast,
+research substantially narrows the gap for the Austin temperature interval
+and film delay. Question-faceted slope graphs follow the appendix; their
+annotations score the \emph{mean forecast}, while Table 1 reports the primary
+mean of individual-call losses.
+
+\section{Interpretation}
+This batch reinforces the value of supplying current information but weakens
+any claim that the present research method is already reliably competitive
+with a simple benchmark across topics. Absolute performance is worse than in
+the previous cohort, but the questions differ; that is not evidence that a
+model or the package deteriorated between runs. Rankings remain dependent on
+the selected questions and source packets.
+
+The observed within-model variation is generally small relative to the large
+market gaps. A useful next diagnostic is therefore targeted evidence variation:
+for example, recent weekly disease incidence and a relevant scientific
+annual-temperature outlook. The present experiment does not establish that
+these omissions caused the gaps; it identifies a testable explanation. Simply
+buying more draws of the same packet is unlikely to address stable disagreement
+of this magnitude.
+
+No calibration function or learned ensemble weights were fitted. The seven
+questions and five broader groups do not support a general correction, and
+repeated calls cannot supply the missing event diversity. This cohort is now
+available for exploratory diagnosis, not untouched validation. Any correction
+or richer evidence policy should be frozen before testing on a later cohort,
+with identity calibration, equal weights, and the constant control retained.
+No significance claims or population confidence intervals are made here.
+
+\appendix
+\section{Package changes and operational record}
+Two dependency-free Python helpers were added to Vorhersage. The versioned
+\path{market_screen.screen_market_mentions} returns lexical audit flags.
+Narrow, complete denials of using market information are labeled
+\texttt{denials\_only}; qualified denials and other mentions require a recorded
+review before target revelation. Matching a word does not itself establish
+price exposure, and absence of a match does not certify isolation. The exception
+applies only to forecast prose; source-domain and source-content checks remain
+strict. Older studies retain their original registered acceptance rules.
+
+The helper \texttt{market\_evaluation.score\_draws} computes expected
+single-call loss separately from loss of the mean forecast, along with sample
+SD, range, RMSE, and outside-spread distance. Missing or invalid values cannot
+silently enter as zero. A single draw has undefined sample SD, represented as
+\texttt{None}. Regression tests cover averaging across opposite sides of a
+target, missing repetitions, identity changes, denial-plus-price statements,
+and review decisions applied to the wrong response hash.
+
+This batch had no market references in its 537 screened rationale/limitation
+fields, so no manual review was needed. It consequently does not estimate an
+acceptance-rate effect of the new rule. All 126 calls were accepted under the
+new policy, and 126 provider IDs establish distinct returned responses.
+
+Experimental arms bind a method, model settings, and data policy. Immutable
+question versions and evidence packets are assigned to the six arms; the
+experiment expands each question/arm into three trials. Exact tasks and jobs
+are hashed before inference. Returned identities and prompts are checked,
+accepted forecasts are issued as immutable artifacts, and all attempts remain
+in cost accounting. A separate seal binds screening and any review decisions
+to the raw results and forecast seal. The workbench reveals its committed
+opening targets only after these checks complete. Independent verification
+recalculates the published scores and checks chronology and target commitments.
+
+\begin{table}[htbp]\centering
+\caption{Reported inference cost, including all attempted work. Research/coordinator cost is unknown and excluded.}
+\begin{tabular}{lrr}\toprule
+Model & Calls & USD\\\midrule
+GPT-6 Astra & 42 & 1.359340\\
+Claude Fable 5.1 & 42 & 3.021870\\
+Gemini 3.1 Pro & 42 & 0.637074\\
+\midrule Total & 126 & 5.018284\\\bottomrule
+\end{tabular}
+\end{table}
+
+Astra uses high reasoning effort; Claude uses adaptive thinking with high output
+effort; Gemini uses a 2,048-token thinking budget and temperature 0.5. Each has
+an 8,192-token configured output limit. These are provider-specific settings,
+not equal compute budgets. Exact serialized settings and raw provider responses
+are archived. Job-level and per-response cost sums differ slightly by rounding.
+The full package suite passes 346 tests; two upstream deprecation warnings are
+unrelated to this change. The database integrity check passes for 547 artifacts.
+
+\section{Source and artifact index}
+The source receipts, failed opens, frozen packets, definitions, protocol, six
+arms, 126 tasks, provider jobs/results, screening records, seals, and revealed
+targets are preserved under
+\path{examples/kalshi_repeated_20260918/}. The accompanying README gives the
+reproduction commands. \texttt{run/comparison.json} contains the scores;
+\texttt{verify\_results.py} checks them without new inference or private-vault
+access. \texttt{plot\_performance.R} generates the following vector plates
+with ggplot2. Their bars show the observed three-draw range, not uncertainty
+intervals for a latent true probability.
+
+Primary source routes are the
+\href{https://www.freddiemac.com/pmms/archive}{Freddie Mac PMMS archive},
+\href{https://www.census.gov/construction/nrc/current/}{Census construction release},
+\href{https://www.cdc.gov/measles/data-research/index.html}{CDC measles counts},
+\href{https://data.giss.nasa.gov/gistemp/}{NASA GISS temperature analysis},
+\href{https://forecast.weather.gov/}{NWS point forecasts}, and the
+\href{https://www.dunemovie.com/}{official Dune film site}. Dynamic pages may
+change; the saved receipts and retrieval timestamps define this study's evidence.
+\clearpage
+\includepdf[pages=-,fitpaper=true,pagecommand={}]{figures/performance.pdf}
+\end{document}

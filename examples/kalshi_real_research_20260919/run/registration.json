@@ -1,0 +1,1325 @@
+{
+  "experiment_id": "experiment_5990dfe02e12441789b6",
+  "specification": {
+    "id": "kalshi-repeated-20260918",
+    "version": 1,
+    "description": "New prospective price-blind model comparison on the nominated expansion cohort",
+    "questions": [
+      {
+        "question_id": "measles",
+        "version": 1
+      },
+      {
+        "question_id": "global_heat",
+        "version": 1
+      }
+    ],
+    "arm_ids": [
+      "arm_3d3f6b638048448a9f7a",
+      "arm_a08e6eca487441edadeb",
+      "arm_27d7247141314268889b",
+      "arm_6eeec55eacca4c8584f7",
+      "arm_bf8716fffb014daaace0",
+      "arm_6db650207ba64e8ab706"
+    ],
+    "repetitions": 3,
+    "mode": "prospective",
+    "information_as_of": "2026-09-19T03:03:28.502267Z",
+    "forecast_cutoff": "2026-09-19T03:45:00+00:00",
+    "evidence_policy": "frozen_packets",
+    "order_seed": "real-research-two-question-v1"
+  },
+  "registered_at": "2026-09-19T03:03:28.502267Z",
+  "definition_notes": {
+    "measles": {
+      "clarification": "The full MEASLES contract terms define the underlying as the number of measles cases in the United States in the specified year according to CDC. Revisions after expiration are not used. This is a definition clarification, not evidence for likelihood.",
+      "terms_url": "https://assets.kalshi.com/contract_terms/MEASLES.pdf"
+    }
+  },
+  "implementation_hashes": {
+    "examples/kalshi_real_research_20260919/batch.py": "94633f779cd50da196838deee7cd1bb0e2f8486c5396ee20f19302425aec9ad7",
+    "examples/kalshi_real_research_20260919/sources.py": "2e879cb6f87a5c826a492d098d784e236c6959aeaef9d673133c76eb86079a3f",
+    "src/vorhersage/market_screen.py": "2b3d65c7c07b3c3796a9aacb6bdf42bfc06e7bf1f559375717c754e6c05cd45a",
+    "src/vorhersage/market_evaluation.py": "37500d0e8daeab625030c1a74715cf431ef42874dd7d1bd173913e9cbee39599",
+    "examples/kalshi_models_20260918/compare.py": "7de6009a328c69a7a95327ae2807fceeeb4049b4e94f167dfdbde6c2ddc63df5",
+    "examples/kalshi_blind_20260918/study.py": "6751cb6c79b8017450e9509e1b9267c9cc860031e8a71cf8bf63be1fb7256e4e"
+  },
+  "cases": [
+    {
+      "id": "measles",
+      "question": {
+        "id": "measles",
+        "text": "Will there be more than 6000 measles cases in 2026? \u2014 Above 6000",
+        "yes": "If the number of measles in 2026 is above 6000, then the market resolves to Yes.",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2027-01-01T04:59:00Z",
+        "resolve_after": "2027-01-01T04:59:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXMEASLES-26",
+        "domain": "US infectious disease",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXMEASLES-26-6000",
+        "title": "Will there be more than 6000 measles cases in 2026?",
+        "yes_description": "Above 6000",
+        "rules": "If the number of measles in 2026 is above 6000, then the market resolves to Yes.",
+        "scheduled_close": "2027-01-01T04:59:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXMEASLES-26"
+      },
+      "case_id": "workbench_2f1fb945a9f848188e7e",
+      "start": {
+        "case_id": "workbench_2f1fb945a9f848188e7e",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:50:39.867993Z",
+        "contract": {
+          "event_group": "KXMEASLES-26",
+          "market_id": "KXMEASLES-26-6000",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the number of measles in 2026 is above 6000, then the market resolves to Yes.",
+          "scheduled_close": "2027-01-01T04:59:00Z",
+          "title": "Will there be more than 6000 measles cases in 2026?",
+          "venue": "kalshi",
+          "yes_description": "Above 6000"
+        },
+        "created_at": "2026-09-19T01:50:39.868820Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:50:39.557065Z",
+          "specification": {
+            "domain": "US infectious disease",
+            "event_deadline": "2027-01-01T04:59:00Z",
+            "event_group": "KXMEASLES-26",
+            "id": "measles",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2027-01-01T04:59:00Z",
+            "text": "Will there be more than 6000 measles cases in 2026? \u2014 Above 6000",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the number of measles in 2026 is above 6000, then the market resolves to Yes."
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXMEASLES-26-6000",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "measles",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_69708eda288c463881db",
+        "target_sha256": "bde835fdb687468115bb2ad2dd191675a7ff5724c80fdd5bb1855baa7b5b12da",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXMEASLES",
+      "dependence_cluster": "US infectious disease"
+    },
+    {
+      "id": "global_heat",
+      "question": {
+        "id": "global_heat",
+        "text": "Will 2026 be the hottest year on record? \u2014 Hottest",
+        "yes": "If the unsmoothed Land-Ocean Temperature Index value for 2026 reported by NASA\u2019s Goddard Institute for Space Studies (GISS) is above the 2025 value and 1.28 degrees Celsius, then the market resolves to Yes.\n\nThe market will close at 11:59 PM ET on December 31, 2026. The market will expire at the sooner of the first 10:00 AM following the release of the data for 2026, or 10:00 AM ET April 01, 2027",
+        "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+        "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+        "event_deadline": "2027-01-01T04:59:00Z",
+        "resolve_after": "2027-01-01T04:59:00Z",
+        "resolution_source": "Contract-defined primary source; see frozen rules.",
+        "event_group": "KXGTEMP-26",
+        "domain": "Global climate",
+        "profile": "general",
+        "kind": "real"
+      },
+      "contract": {
+        "venue": "kalshi",
+        "market_id": "KXGTEMP-26-P0",
+        "title": "Will 2026 be the hottest year on record?",
+        "yes_description": "Hottest",
+        "rules": "If the unsmoothed Land-Ocean Temperature Index value for 2026 reported by NASA\u2019s Goddard Institute for Space Studies (GISS) is above the 2025 value and 1.28 degrees Celsius, then the market resolves to Yes.\n\nThe market will close at 11:59 PM ET on December 31, 2026. The market will expire at the sooner of the first 10:00 AM following the release of the data for 2026, or 10:00 AM ET April 01, 2027",
+        "scheduled_close": "2027-01-01T04:59:00Z",
+        "resolution_source": "See frozen Kalshi rules and series contract.",
+        "event_group": "KXGTEMP-26"
+      },
+      "case_id": "workbench_6b5615009d6a488bab57",
+      "start": {
+        "case_id": "workbench_6b5615009d6a488bab57",
+        "state": "awaiting_initial",
+        "revision": 0,
+        "baseline_captured_at": "2026-09-19T01:50:40.522578Z",
+        "contract": {
+          "event_group": "KXGTEMP-26",
+          "market_id": "KXGTEMP-26-P0",
+          "resolution_source": "See frozen Kalshi rules and series contract.",
+          "rules": "If the unsmoothed Land-Ocean Temperature Index value for 2026 reported by NASA\u2019s Goddard Institute for Space Studies (GISS) is above the 2025 value and 1.28 degrees Celsius, then the market resolves to Yes.\n\nThe market will close at 11:59 PM ET on December 31, 2026. The market will expire at the sooner of the first 10:00 AM following the release of the data for 2026, or 10:00 AM ET April 01, 2027",
+          "scheduled_close": "2027-01-01T04:59:00Z",
+          "title": "Will 2026 be the hottest year on record?",
+          "venue": "kalshi",
+          "yes_description": "Hottest"
+        },
+        "created_at": "2026-09-19T01:50:40.524899Z",
+        "limitations": [
+          "Prices are separated from this project, not protected by an operating-system sandbox.",
+          "Selection checks spread and top-of-book size only; neither establishes market accuracy.",
+          "The agent must verify the event is still unknown; an open market alone cannot establish this."
+        ],
+        "question": {
+          "created_at": "2026-09-19T01:50:40.197305Z",
+          "specification": {
+            "domain": "Global climate",
+            "event_deadline": "2027-01-01T04:59:00Z",
+            "event_group": "KXGTEMP-26",
+            "id": "global_heat",
+            "kind": "real",
+            "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+            "profile": "general",
+            "resolution_source": "Contract-defined primary source; see frozen rules.",
+            "resolve_after": "2027-01-01T04:59:00Z",
+            "text": "Will 2026 be the hottest year on record? \u2014 Hottest",
+            "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+            "yes": "If the unsmoothed Land-Ocean Temperature Index value for 2026 reported by NASA\u2019s Goddard Institute for Space Studies (GISS) is above the 2025 value and 1.28 degrees Celsius, then the market resolves to Yes.\n\nThe market will close at 11:59 PM ET on December 31, 2026. The market will expire at the sooner of the first 10:00 AM following the release of the data for 2026, or 10:00 AM ET April 01, 2027"
+          },
+          "version": 1
+        },
+        "specification": {
+          "contract_match_rationale": "Frozen full contract rules. Earlier conservative pre-event deadlines for NFL and awards.",
+          "eligibility_rationale": "Candidate quote screen only. Primary-source outcome eligibility must pass before inference.",
+          "market_id": "KXGTEMP-26-P0",
+          "max_spread": 0.1,
+          "method": "Three-model question-only versus outside-research comparison",
+          "min_contracts_each_side": 1,
+          "mode": "prospective",
+          "question": {
+            "question_id": "global_heat",
+            "version": 1
+          },
+          "venue": "kalshi"
+        },
+        "target_id": "market_target_0ac2069a2f754436a17b",
+        "target_sha256": "ddc183ea1d43a36d69e6932dd8653e1564173a6fe95b28df6e368237fa570523",
+        "journal": [],
+        "evidence": {},
+        "models": {},
+        "next_action": "initial"
+      },
+      "series": "KXGTEMP",
+      "dependence_cluster": "Global climate"
+    }
+  ],
+  "cases_sha256": "416f4d96085731c4e0dd121c75fb7259ac38ee7553e0416c9da07351020c4da4",
+  "protocol_sha256": "2e93d7c88375052674fbd604b74ba209a3413d929cb55eb590c69e3aa6a3635e",
+  "eligibility_sha256": "a29f8e5fc66f09425dd0f6ef054235eb7b045567667d9ca0d2ab69b163ada739",
+  "packet_hashes": {
+    "measles": "092a47279e7fa7a8bfdfbeb5a488f8adfb687f56277a9f00b6cd2330bef4f9d7",
+    "global_heat": "c54f3c7c4a24496f43800c7726d2a445fa42419ecddb4b08add035d73cf1e797"
+  },
+  "arm_info": {
+    "arm_3d3f6b638048448a9f7a": {
+      "model_key": "astra",
+      "condition": "question_only"
+    },
+    "arm_a08e6eca487441edadeb": {
+      "model_key": "astra",
+      "condition": "outside_research"
+    },
+    "arm_27d7247141314268889b": {
+      "model_key": "fable",
+      "condition": "question_only"
+    },
+    "arm_6eeec55eacca4c8584f7": {
+      "model_key": "fable",
+      "condition": "outside_research"
+    },
+    "arm_bf8716fffb014daaace0": {
+      "model_key": "gemini",
+      "condition": "question_only"
+    },
+    "arm_6db650207ba64e8ab706": {
+      "model_key": "gemini",
+      "condition": "outside_research"
+    }
+  },
+  "models": {
+    "astra": {
+      "model": "gpt-6-astra",
+      "parameters": {
+        "temperature": 1,
+        "max_tokens": 8192,
+        "top_p": 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0,
+        "logprobs": false,
+        "top_logprobs": 3,
+        "reasoning_effort": "high"
+      },
+      "inference_service": "openai",
+      "edsl_version": "1.0.8.dev1",
+      "edsl_class_name": "LanguageModel"
+    },
+    "fable": {
+      "model": "claude-fable-5-1",
+      "parameters": {
+        "temperature": 0.5,
+        "max_tokens": 8192,
+        "top_p": 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0,
+        "logprobs": false,
+        "top_logprobs": 3,
+        "thinking": {
+          "type": "adaptive"
+        },
+        "output_config": {
+          "effort": "high"
+        }
+      },
+      "inference_service": "anthropic",
+      "edsl_version": "1.0.8.dev1",
+      "edsl_class_name": "Claudefable51"
+    },
+    "gemini": {
+      "model": "gemini-3.1-pro-preview",
+      "parameters": {
+        "temperature": 0.5,
+        "topP": 1,
+        "topK": 40,
+        "maxOutputTokens": 8192,
+        "stopSequences": [],
+        "thinking_budget": 2048
+      },
+      "inference_service": "google",
+      "edsl_version": "1.0.8.dev1",
+      "edsl_class_name": "gemini-3.1-pro-preview"
+    }
+  },
+  "trials": [
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_4bee2c982c8e5f574ed40483",
+      "run_id": "run_9d27d356c7f24bacb9a2",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 1,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_bf8716fffb014daaace0:r1",
+      "position": 0,
+      "arm_id": "arm_bf8716fffb014daaace0",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_1abf9e670cac683de8639008",
+      "run_id": "run_7a258cf713d34477a7e3",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 2,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_a08e6eca487441edadeb:r2",
+      "position": 1,
+      "arm_id": "arm_a08e6eca487441edadeb",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_e1662484528f7af961045019",
+      "run_id": "run_215e5e2be9744cae8381",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 2,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_3d3f6b638048448a9f7a:r2",
+      "position": 2,
+      "arm_id": "arm_3d3f6b638048448a9f7a",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_09ac2b8759de7c9f9a5cea69",
+      "run_id": "run_51c7810c174f476795b3",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 2,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_3d3f6b638048448a9f7a:r2",
+      "position": 3,
+      "arm_id": "arm_3d3f6b638048448a9f7a",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_5072d37c4e9d77ce4a2e1094",
+      "run_id": "run_1178e4a033334af3a5f1",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 1,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_27d7247141314268889b:r1",
+      "position": 4,
+      "arm_id": "arm_27d7247141314268889b",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_97c88873dcb3fb76e33ff91d",
+      "run_id": "run_5d3ab5ffc75e4e1f82f4",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 1,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_27d7247141314268889b:r1",
+      "position": 5,
+      "arm_id": "arm_27d7247141314268889b",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_4ab523dd4ab8b024b1aeeea2",
+      "run_id": "run_3e363b1b025a45f7951d",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 3,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_a08e6eca487441edadeb:r3",
+      "position": 6,
+      "arm_id": "arm_a08e6eca487441edadeb",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_f3f556e4698f3f6cfa37a337",
+      "run_id": "run_1de7f6fe21d245b5be8e",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 1,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_6eeec55eacca4c8584f7:r1",
+      "position": 7,
+      "arm_id": "arm_6eeec55eacca4c8584f7",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_4eb92a06b3e0c080a5ce3d79",
+      "run_id": "run_cf6c6fbeaddf4a61b379",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 3,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_27d7247141314268889b:r3",
+      "position": 8,
+      "arm_id": "arm_27d7247141314268889b",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_72dd5413c36546719387355d",
+      "run_id": "run_3291c7d4ec864264bd3f",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 3,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_6db650207ba64e8ab706:r3",
+      "position": 9,
+      "arm_id": "arm_6db650207ba64e8ab706",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_51198bfe82607952162d3c53",
+      "run_id": "run_aa0807ed87b24f8a8410",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 3,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_6eeec55eacca4c8584f7:r3",
+      "position": 10,
+      "arm_id": "arm_6eeec55eacca4c8584f7",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_89305062f4237ac90e067c0f",
+      "run_id": "run_5f260b015b5045e8a14a",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 2,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_6eeec55eacca4c8584f7:r2",
+      "position": 11,
+      "arm_id": "arm_6eeec55eacca4c8584f7",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_7f07e11ffa3244bcb115a83b",
+      "run_id": "run_e4299611b8d44510a65d",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 1,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_3d3f6b638048448a9f7a:r1",
+      "position": 12,
+      "arm_id": "arm_3d3f6b638048448a9f7a",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_b928988016aa6285a0695ef2",
+      "run_id": "run_f09b69405c5d44798154",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 2,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_6eeec55eacca4c8584f7:r2",
+      "position": 13,
+      "arm_id": "arm_6eeec55eacca4c8584f7",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_558fd84b7c03b4a87a27d46c",
+      "run_id": "run_d8017714b87c4787be41",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 3,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_3d3f6b638048448a9f7a:r3",
+      "position": 14,
+      "arm_id": "arm_3d3f6b638048448a9f7a",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_5f882c6f6d9483f5b510c230",
+      "run_id": "run_e7743063f66a43bdb604",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 1,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_6db650207ba64e8ab706:r1",
+      "position": 15,
+      "arm_id": "arm_6db650207ba64e8ab706",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_7a9f7d9116a11a2f9437fa03",
+      "run_id": "run_b0300f1f44a04934b3a0",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 1,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_a08e6eca487441edadeb:r1",
+      "position": 16,
+      "arm_id": "arm_a08e6eca487441edadeb",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_5a9ba1d4b8095ea654ab0e4e",
+      "run_id": "run_6fbd19ac5bf44ecf866f",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 3,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_3d3f6b638048448a9f7a:r3",
+      "position": 17,
+      "arm_id": "arm_3d3f6b638048448a9f7a",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_5ea54c977e4e74b960564665",
+      "run_id": "run_0793502d00834665aae3",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 2,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_6db650207ba64e8ab706:r2",
+      "position": 18,
+      "arm_id": "arm_6db650207ba64e8ab706",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_407b0f84b1ca680ec97d3194",
+      "run_id": "run_32bfffc1cc8d4ae6bcb4",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 3,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_6db650207ba64e8ab706:r3",
+      "position": 19,
+      "arm_id": "arm_6db650207ba64e8ab706",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_5090ad28a7baa76c754669b7",
+      "run_id": "run_92633c7b0c9949309076",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 2,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_27d7247141314268889b:r2",
+      "position": 20,
+      "arm_id": "arm_27d7247141314268889b",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_d8ec6f9eab1c65f1ae0f01e1",
+      "run_id": "run_a587ce8183bd409a9597",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 1,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_6db650207ba64e8ab706:r1",
+      "position": 21,
+      "arm_id": "arm_6db650207ba64e8ab706",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_6f4d15f194dcac374ed878b7",
+      "run_id": "run_3e018bc8669a47ea884c",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 3,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_bf8716fffb014daaace0:r3",
+      "position": 22,
+      "arm_id": "arm_bf8716fffb014daaace0",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_016045e8a1d36953d380fb20",
+      "run_id": "run_eb16861eb88f48f891df",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 2,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_6db650207ba64e8ab706:r2",
+      "position": 23,
+      "arm_id": "arm_6db650207ba64e8ab706",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_27617c255be09a2ed1f26cb6",
+      "run_id": "run_67f30058bdef4ffbb5c7",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 2,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_bf8716fffb014daaace0:r2",
+      "position": 24,
+      "arm_id": "arm_bf8716fffb014daaace0",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_78fa0e5dfc28a8d0a0bcd0e2",
+      "run_id": "run_6d2aa4a4c78844b28808",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 1,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_bf8716fffb014daaace0:r1",
+      "position": 25,
+      "arm_id": "arm_bf8716fffb014daaace0",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_b56a819423abe3c302b8219f",
+      "run_id": "run_ddcb6682f8544c6da16e",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 3,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_bf8716fffb014daaace0:r3",
+      "position": 26,
+      "arm_id": "arm_bf8716fffb014daaace0",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_07d9aecfeb49c1541c0005d9",
+      "run_id": "run_170305df39db4011865a",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 1,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_a08e6eca487441edadeb:r1",
+      "position": 27,
+      "arm_id": "arm_a08e6eca487441edadeb",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_6ccbea4528cfa9f6647672df",
+      "run_id": "run_006dced87bcf4efa8617",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 2,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_bf8716fffb014daaace0:r2",
+      "position": 28,
+      "arm_id": "arm_bf8716fffb014daaace0",
+      "model_spec": {
+        "name": "gemini-3.1-pro-preview",
+        "parameters": {
+          "maxOutputTokens": 8192,
+          "stopSequences": [],
+          "temperature": 0.5,
+          "thinking_budget": 2048,
+          "topK": 40,
+          "topP": 1
+        },
+        "provider": "google"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_811dc12af433d540a2b3ecc0",
+      "run_id": "run_d5249bee87ec4fca9d17",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 3,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_a08e6eca487441edadeb:r3",
+      "position": 29,
+      "arm_id": "arm_a08e6eca487441edadeb",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_25cceada9707a35955ae2ebf",
+      "run_id": "run_d1054524444f4befbdee",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 2,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_a08e6eca487441edadeb:r2",
+      "position": 30,
+      "arm_id": "arm_a08e6eca487441edadeb",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_0316c5a76c5b11b1acc8f35f",
+      "run_id": "run_1936febecce94941875f",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 3,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_6eeec55eacca4c8584f7:r3",
+      "position": 31,
+      "arm_id": "arm_6eeec55eacca4c8584f7",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_bcef082e27ada0fbdb56d8b1",
+      "run_id": "run_c24ec881224242b197c2",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 1,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_3d3f6b638048448a9f7a:r1",
+      "position": 32,
+      "arm_id": "arm_3d3f6b638048448a9f7a",
+      "model_spec": {
+        "name": "gpt-6-astra",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "presence_penalty": 0,
+          "reasoning_effort": "high",
+          "temperature": 1,
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "openai"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_d39368e8e2e5833f2d817782",
+      "run_id": "run_97496af99f1842cfb88d",
+      "question_id": "global_heat",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 2,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_27d7247141314268889b:r2",
+      "position": 33,
+      "arm_id": "arm_27d7247141314268889b",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_5b88870fac2bd34158eb05f6",
+      "run_id": "run_d4cd7a5e09b2491fbc87",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 1,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_6eeec55eacca4c8584f7:r1",
+      "position": 34,
+      "arm_id": "arm_6eeec55eacca4c8584f7",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "outside_research"
+    },
+    {
+      "experiment_id": "experiment_5990dfe02e12441789b6",
+      "trial_id": "trial_ec55679dec791f71c0629bc4",
+      "run_id": "run_7aa6e341bc7e4873bc30",
+      "question_id": "measles",
+      "question_version": 1,
+      "method_spec_id": "method_e8fd2b47932a4ebebd3a",
+      "repetition": 3,
+      "forecaster": "experiment_5990dfe02e12441789b6:arm_27d7247141314268889b:r3",
+      "position": 35,
+      "arm_id": "arm_27d7247141314268889b",
+      "model_spec": {
+        "name": "claude-fable-5-1",
+        "parameters": {
+          "frequency_penalty": 0,
+          "logprobs": false,
+          "max_tokens": 8192,
+          "output_config": {
+            "effort": "high"
+          },
+          "presence_penalty": 0,
+          "temperature": 0.5,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "top_logprobs": 3,
+          "top_p": 1
+        },
+        "provider": "anthropic"
+      },
+      "data_label": "question_only"
+    }
+  ]
+}

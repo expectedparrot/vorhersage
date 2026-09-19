@@ -1,0 +1,27 @@
+{
+  "task_id": "task_f242b873d54549079527",
+  "expected_revision": 0,
+  "idempotency_key": "trial_fc3d100d14d7f8dcbec292ba-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.08,
+    "rationale": "Observed: CDC provisional count is 3,471 confirmed 2026 cases as of Sept 17, 2026 (updated Sept 18), with 39 outbreaks and 95% outbreak-associated. Reaching >6,000 requires roughly 2,530 additional cases in about 15 remaining weeks, i.e., ~170 cases/week sustained through December. The year-to-date average is ~94/week, and US measles incidence historically peaks in late winter/spring and slows in autumn, though 2025 showed that large late-year outbreaks (e.g., in undervaccinated communities) can occur. Additionally, the contract likely settles on the CDC figure available around Jan 1, 2027, and CDC assigns cases by rash-onset week with reporting lags, so late-December cases may not be counted before expiration, effectively raising the hurdle. Absent a supplied weekly series, I assume current weekly incidence is near or somewhat above the year average; doubling that rate for the rest of the year and sustaining it would require a new, very large, fast-growing outbreak. Too high risk: if transmission is genuinely seasonal and current weekly counts are already declining, the probability could be well under 5%. Too low risk: 39 active outbreaks and 95% outbreak-association indicate substantial ongoing community transmission; an explosive outbreak in a large undervaccinated population (as seen in 2025 Texas or late-2025 South Carolina) could add 1,500+ cases in weeks, and the current weekly rate could already be higher than the annual average if the year is back-loaded. Overall I estimate roughly 8%.",
+    "limitations": [
+      "No weekly incidence series or outbreak trajectory supplied; recent growth rate is inferred, not observed.",
+      "Settlement timing versus CDC reporting lag and year-assignment by rash onset week is uncertain.",
+      "Provisional CDC counts subject to revision; single-source packet without a fitted model.",
+      "Large outbreak dynamics in undervaccinated communities are fat-tailed and hard to forecast."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_6c375e7aafeb4b2697210239",
+        "record_id": "measles"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.07599
+  }
+}

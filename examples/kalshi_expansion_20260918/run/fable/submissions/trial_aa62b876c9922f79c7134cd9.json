@@ -1,0 +1,31 @@
+{
+  "task_id": "task_36d44384f0ca48bea58b",
+  "expected_revision": 0,
+  "idempotency_key": "trial_aa62b876c9922f79c7134cd9-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.3,
+    "rationale": "Miami visits San Francisco in Week 2 of the 2026 season. Supplied facts: Miami is 0-1 after a 13-27 loss; San Francisco is 1-0 after a 27-7 win. Injury report shows Miami missing two linebackers (Chop Robinson notably), while the 49ers' listed absences are minor (a depth WR out; RB and K questionable). Background: the 49ers have been a structurally stronger franchise with a top-tier offensive scheme and roster core, playing at home where NFL home advantage is worth roughly 2-2.5 points; Miami entered 2026 with more roster and quarterback uncertainty and has historically struggled on the road against strong NFC opponents. Combining a prior that San Francisco is the better team, home-field advantage, and the (small-sample) Week 1 point differentials, a road Miami win looks like roughly a 30% proposition. Reasons this could be too high: if the 49ers are healthy and Miami's Week 1 loss reflects genuine decline (or Miami's QB situation is poor), the true probability could be closer to 22-25%. Reasons this could be too low: one-game samples are noisy, Miami's offense has recently had explosive upside, unknown 49ers injuries (e.g., to key skill players or QB) are not reflected in this packet, and NFL single-game outcomes are inherently high-variance; a near coin-flip is possible if the teams are closer than assumed. Ties are excluded from scoring.",
+    "limitations": [
+      "Only Week 1 results available; very small sample and no opponent adjustment.",
+      "Final inactive lists and possible late injuries are unknown.",
+      "No fitted power-rating model; estimate relies on general background knowledge of team strength that may be outdated for 2026.",
+      "Rosters, coaching changes, and QB situations for 2026 are not supplied."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_6c8b50ee4a91dae78705bfc4",
+        "record_id": "nfl_standings"
+      },
+      {
+        "packet_id": "pkt_6c8b50ee4a91dae78705bfc4",
+        "record_id": "nfl_injuries"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.06011000000000001
+  }
+}

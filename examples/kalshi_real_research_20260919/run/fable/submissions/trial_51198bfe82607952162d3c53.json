@@ -1,0 +1,31 @@
+{
+  "task_id": "task_37acfc10643542258da8",
+  "expected_revision": 0,
+  "idempotency_key": "trial_51198bfe82607952162d3c53-assessment",
+  "payload": {
+    "method": "judgment",
+    "probability": 0.08,
+    "rationale": "Observed: CDC reports 3,471 confirmed 2026 U.S. measles cases as of September 17, 2026 (updated Sept 18), with 39 outbreaks and 95% outbreak-associated. Reaching >6,000 requires ~2,530 additional cases in roughly the remaining 15 weeks of the year (plus any post-year reporting lag captured before settlement), i.e., about 170 cases/week sustained. The year-to-date average is ~94/week, and that average is inflated by the late-winter/spring seasonal peak; fall is historically a lower-transmission period, and even the sizable late-2025 outbreaks (Utah/Arizona, South Carolina) produced weekly national counts well below the required pace. The outbreak count (39) indicates ongoing multi-focal transmission and undervaccinated communities remain vulnerable, so a large new outbreak in a low-coverage community (analogous to West Texas in early 2025) is plausible but would need to be unusually explosive and start almost immediately. Rash-onset year assignment and CDC's confirmed-only reporting also cap late additions. Too low if: an already-seeded large outbreak in an undervaccinated community is accelerating now (no weekly trend supplied), reporting backlogs release a large batch, or holiday-season travel seeds several simultaneous outbreaks that show up before settlement. Too high if: seasonal decline holds and weekly counts drift toward 50\u201380, making even 5,000 unreachable. Net: a roughly 1.8x acceleration over the annual average during the off-season is a tail scenario, so ~8%.",
+    "limitations": [
+      "No weekly incidence series or trend data supplied; assessment of current growth rate is inferred from cumulative totals and seasonal priors.",
+      "CDC counts are provisional and revised; timing of the settlement snapshot relative to year-end reporting lag is uncertain.",
+      "Seasonality assumption drawn from historical U.S. patterns (2019, 2025) may not hold if a large undervaccinated-community outbreak is underway.",
+      "Single-source packet; no independent verification of the Sept 17 figure."
+    ],
+    "evidence_refs": [
+      {
+        "packet_id": "pkt_63fcce17f3993715c961af24",
+        "record_id": "measles"
+      },
+      {
+        "packet_id": "pkt_63fcce17f3993715c961af24",
+        "record_id": "measles_firecrawl_1"
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "model_calls": 1,
+    "cost_usd": 0.10403000000000001
+  }
+}

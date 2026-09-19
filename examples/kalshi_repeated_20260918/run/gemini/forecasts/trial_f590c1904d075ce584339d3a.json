@@ -1,0 +1,95 @@
+{
+  "arm_id": "arm_3012f290beb34419b99d",
+  "assessment_probability": 0.65,
+  "coherence": {
+    "comparisons": [],
+    "limitations": [
+      "Implications are supplied by the agent and pinned to exact question versions.",
+      "Different information cutoffs can explain apparent incoherence; review before revising."
+    ],
+    "missing_forecasts": [],
+    "violations": []
+  },
+  "concern_resolutions": [],
+  "cost_usd": 0.011224,
+  "coverage": {},
+  "cutoff_policy": "fixed",
+  "data_label": "question_only",
+  "evidence_refs": [],
+  "experiment_id": "experiment_7f50c2431dc346399685",
+  "forecaster": "experiment_7f50c2431dc346399685:arm_3012f290beb34419b99d:r3",
+  "information_as_of": "2026-09-19T01:58:11.498178Z",
+  "initial_information_as_of": "2026-09-19T01:58:11.498178Z",
+  "input_manifest": {
+    "arm_3012f290beb34419b99d": "8c1036419c024b2f67708bf6d87cb9eb2399c4b993c88c9c33503d0d3ca23a65",
+    "experiment_7f50c2431dc346399685": "cdb3b22c6ae8c3374f1edce769dbf2115b722bff49f2677f0ff10b40f485d630",
+    "method_62c19062d0814cb99b77": "87e5c7d50fae39cddbc8d11e0df3485c64144b9fbf039255bc60cbf6dd7e55cd",
+    "task_result_23744cce1a5f4c1c9802": "576f2489286786c9155fd8af55db63dcded7d27594af3305dec8672de54e45d7"
+  },
+  "inquiry_answers": {},
+  "issued_at": "2026-09-19T02:05:35.707139Z",
+  "manifest_sha256": "b573ee126a59c3b7008c7e1894b2d3d0d288e43b5c08856d4f5783e458a9e5cb",
+  "method": "method_62c19062d0814cb99b77",
+  "method_spec_id": "method_62c19062d0814cb99b77",
+  "mode": "prospective",
+  "model_calls": 1,
+  "model_challenge": null,
+  "model_map": null,
+  "model_spec": {
+    "name": "gemini-3.1-pro-preview",
+    "parameters": {
+      "maxOutputTokens": 8192,
+      "stopSequences": [],
+      "temperature": 0.5,
+      "thinking_budget": 2048,
+      "topK": 40,
+      "topP": 1
+    },
+    "provider": "google"
+  },
+  "parameter_support": [],
+  "previous_forecast_id": null,
+  "prior_record": {
+    "qualification": "Registered method omits the prior stage.",
+    "timing": "not_applicable"
+  },
+  "probability": 0.65,
+  "probability_basis": "judgment",
+  "profile": {
+    "description": "Frozen method research domains",
+    "domains": [],
+    "id": "method_62c19062d0814cb99b77"
+  },
+  "question": {
+    "domain": "US housing and interest rates",
+    "event_deadline": "2026-10-20T12:29:00Z",
+    "event_group": "KXHOUSINGSTART-26OCT20",
+    "id": "housing",
+    "kind": "real",
+    "no": "The stated YES event does not occur, subject to the frozen contract rules.",
+    "profile": "general",
+    "resolution_source": "Contract-defined primary source; see frozen rules.",
+    "resolve_after": "2026-10-20T12:29:00Z",
+    "text": "Will US housing starts for September 2026 be above 1.300M? \u2014 Above 1.300M",
+    "void": "Nonbinary fair-value settlement, NFL ties, and cancelled or invalid events are excluded from eventual binary outcome scoring.",
+    "yes": "If US housing starts for September 2026 is above 1.300M, then the market resolves to Yes.\n\nThe Underlying is the \"Housing Starts\" figure reported in the U.S. Census Bureau\u2019s New Residential Construction release for September 2026 (as displayed on Trading Economics). If the September 2026 release is delayed or rescheduled, the market will resolve based on the first official publication of the September 2026 Housing Starts value."
+  },
+  "question_id": "housing",
+  "question_version": 1,
+  "reference_class": null,
+  "repetition": 3,
+  "research_plan": null,
+  "review_at": "2026-09-19T03:45:00+00:00",
+  "run_id": "run_e490545b21f8462c8118",
+  "searches": 0,
+  "sensitivity": null,
+  "stopping_reason": "One frozen-input model call, no repair or additional research.",
+  "trial_id": "trial_f590c1904d075ce584339d3a",
+  "triggers": [
+    {
+      "description": "Separate future-data study.",
+      "evidence_refs": []
+    }
+  ],
+  "workflow_version": "experiment.stages.v1"
+}

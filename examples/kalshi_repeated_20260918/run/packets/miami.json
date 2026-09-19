@@ -1,0 +1,53 @@
+{
+  "schema_version": "vorhersage.evidence.v1",
+  "kind": "manual",
+  "information_as_of": "2026-09-19T01:57:57.174978Z",
+  "created_at": "2026-09-19T01:57:57.174979Z",
+  "records": [
+    {
+      "id": "miami",
+      "claim": "An NWS search-index capture for Miami International Airport, updated September 18 at 4:06 pm EDT, forecasts Saturday September 19 high near 89 F, with an 80% precipitation chance and thunderstorms. This is a point forecast, not the probability of a two-degree temperature interval.",
+      "claim_type": "reporting",
+      "value": {
+        "target_date": "2026-09-19",
+        "point_high_F": 89,
+        "precipitation_probability": 0.8,
+        "publication_time": "2026-09-18T16:06:00-04:00"
+      },
+      "entity_ids": [],
+      "sources": [
+        {
+          "id": "miami",
+          "url": "https://forecast.weather.gov/MapClick.php?FcstType=text&TextType=2&lat=25.7939&lg=english&lon=-80.313&unit=0",
+          "title": "National Weather Service (https://forecast.weather.gov/MapClick.php?FcstType=text&TextType=2&lat=25.7939&lg=english&lon=-80.313&unit=0)",
+          "excerpt": "An NWS search-index capture for Miami International Airport, updated September 18 at 4:06 pm EDT, forecasts Saturday September 19 high near 89 F, with an 80% precipitation chance and thunderstorms. This is a point forecast, not the probability of a two-degree temperature interval.",
+          "excerpt_kind": "paraphrase",
+          "retrieved_at": "2026-09-19T01:53:07+00:00",
+          "capture": {
+            "method": "manual",
+            "captured_at": "2026-09-19T01:53:07+00:00",
+            "content": "National Weather Service (https://forecast.weather.gov/MapClick.php?FcstType=text&TextType=2&lat=25.7939&lg=english&lon=-80.313&unit=0)\n\ue200cite\ue202turn51search3\ue201 [wordlim: 200] Published: yesterday; Crawled: today; NWS Forecast for: Miami International Airport FLIssued by: National Weather Service Miami - South FloridaLast Update: 4:06 pm EDT Sep 18, 2026  | Image: Print ... * Saturday\n7-Day Forecast 25.79\u00b0N 80.31\u00b0W (Text-Only)\n\nNWS Forecast for: Miami International Airport FL\nIssued by: National Weather Service Miami - South Florida\nLast Update: 4:06 pm EDT Sep 18, 2026  | Image: Print\n\n* Tonight\nImage: Tonight: A 40 percent chance of showers and thunderstorms, mainly before 10pm. Partly cloudy, with a low around 77. Northeast wind around 5 mph becoming calm in the evening. Low: 77 \u00b0F Chance\nT-storms\n* Saturday\nImage: Saturday: Showers and thunderstorms likely, then showers and possibly a thunderstorm after 5pm. High near 89. Light and variable wind becoming northeast around 6 mph in the morning. Chance of precipitation is 80%. New rainfall amounts between a tenth and quarter of an inch, except higher amounts possible in thunderstorms. High: 89 \u00b0F Slight Chance\nT-storms then\nT-storms\n* Saturday\nNight \u30104\u2020Image: Saturday Night: Showers and thunderstorms likely before 3am, then a chance of thunderstorms after 5am. Mostly cloudy, with a low around 76.",
+            "metadata": {
+              "receipt": "research/miami-search.json",
+              "mechanism": "Search-index source excerpt; direct page access failed.",
+              "interpretation": "Coordinator-selected paraphrase and deterministic table extraction; sources remain external assertions."
+            },
+            "content_sha256": "6a1031c12d46ed28d4617a8b3585e1de1745a3707035d0199d8f8e528de0eec0"
+          }
+        }
+      ],
+      "observed_at": "2026-09-19T01:53:07+00:00",
+      "provenance": {
+        "adapter": "vorhersage.research_bundle.v1"
+      }
+    }
+  ],
+  "relationships": [],
+  "limitations": [
+    "The current forecast is a search-index capture. Two direct coordinate pages were inaccessible; another direct open returned a September 13 forecast, so it was not treated as the September 18 forecast.",
+    "Settlement uses The Weather Company; NWS airport-point forecasts may differ in location, rounding, or final station maximum. No fitted forecast-error distribution is supplied.",
+    "Small coordinator-selected packet; no fitted probability model or complete research review.",
+    "Different questions can share source information and economic drivers; do not treat their errors as independent."
+  ],
+  "sha256": "926aa3369a3e513e8c385e5ee547761f83535b5dec5264056acfb916a49e36ef"
+}
