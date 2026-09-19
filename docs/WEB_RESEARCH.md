@@ -7,7 +7,8 @@ and interpretations that turn retrieved material into evidence.
 
 ## Setup and requests
 
-No additional Python dependencies are required. Set `EXA_API_KEY` and/or
+No additional web-provider Python dependencies are required beyond the package
+installation (which includes Flyvbjerg). Set `EXA_API_KEY` and/or
 `FIRECRAWL_API_KEY` in the process environment using your usual secret management.
 The package does not load `.env` files automatically. Authentication headers
 are not written to retrieval artifacts.

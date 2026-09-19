@@ -22,8 +22,8 @@ missing inputs, and preserves the work. Its tools cover deadline models,
 scenario calculations, reference classes, evidence review, and forecast revision.
 
 The single-question workflow defaults to **deep research**: before issuing a
-prior, the agent must construct an auditable empirical reference class (using
-Flyvbjerg when available) or record why no defensible class exists. Explicit
+prior, the agent must construct an auditable empirical reference class using
+the required Flyvbjerg dependency, or record why no defensible class exists. Explicit
 standard and experimental-ablation runs remain available. See
 [Deep research mode](docs/DEEP_RESEARCH.md).
 
@@ -721,8 +721,8 @@ The implementation separates responsibilities:
 | [Workflow](src/vorhersage/workflow.py) | Advance research and review tasks, accept submissions, and issue forecasts. |
 | [CLI](src/vorhersage/cli.py) and [terminal views](src/vorhersage/timeline_text.py) | Parse commands and present results; the same domain functions serve JSON and readable output. |
 
-The core package requires Python 3.11+ and has no runtime dependencies.
-EDSL and Epiq are optional integrations. The current implementation targets small
+The core package requires Python 3.11+ and Flyvbjerg. EDSL and Epiq are optional
+integrations. The current implementation targets small
 portfolios; database migrations and large-scale operation remain future work.
 
 [Learnings](LEARNINGS.md) records what the forecasting exercises taught us,

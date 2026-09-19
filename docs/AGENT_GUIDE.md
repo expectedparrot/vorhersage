@@ -204,7 +204,9 @@ source conflicts, including unresolved ones and their treatment. Unknowns can
 advance the workflow; missing coverage cannot. A schema validates coverage,
 not the substantive quality of the research.
 
-The prior may be a judgment or a reference class. An empirical prior requires
+In standard mode the prior may be a judgment or a reference class. Deep mode
+requires a Flyvbjerg-backed reference-class design and analysis before a prior
+can be issued; a judgmental fallback requires an explicit exception. An empirical prior requires
 unique case IDs, outcomes, evidence, a selection rule and comparability caveats.
 The package computes its frequency. Drivers describe mechanisms and paths to
 both YES and NO.
