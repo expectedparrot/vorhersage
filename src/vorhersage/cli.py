@@ -26,6 +26,7 @@ from .reference import add as add_reference, query as query_reference
 from . import experiments, sessions, session_runtime, session_studies, session_reports
 from . import market_data, workbench, reports, report_context, setup, study, study_text
 from . import research as web_research
+from . import report_check
 
 GUIDE = """Vorhersage records research, computes declared models, and preserves issued forecasts and their revisions. You collect evidence and judge the inputs.
 For one question, use start TEXT --project FOLDER. This saves an undefined question, without inventing a probability.
@@ -33,6 +34,9 @@ Supply --deadline TIME --yes CRITERIA --source SOURCE to start research immediat
 Agents should agree on the event definition with the user and supply --forecaster NAME for attribution. The default forecaster is user.
 Define starts research automatically. Use --workflow timeline for a deadline model; declare --research-status in_progress or completed if research has already begun.
 Use show --project FOLDER for readable progress, and next --project FOLDER --output task.json for the agent task and context.
+Prospective studies, including timelines, accept research captured after start. Timeline schedule_as_of fixes the reference date for durations while information_as_of advances with evidence. Never move the schedule reference date just to admit evidence.
+Resume an existing study with resume --project FOLDER. For an older unfinished prospective study stuck on a fixed cutoff, use resume --project FOLDER --live --reason TEXT, then export a fresh task. This preserves its run, tasks, evidence and research contract. Frozen experiments, historical runs and issued forecasts cannot use this recovery. Do not recreate the project or switch to an unstructured portfolio run to bypass validation.
+All commands accept --json for the same machine-readable envelope. --usage takes a file path, not inline JSON. Portfolio next --run ID --output TASK.json and submit --run ID --task TASK.json --answer ANSWER.json use the same task format and retry guards as studies.
 Fill the task file's submission.payload according to payload_schema; add submission.usage for research/model usage. Preserve its run_id and submission bookkeeping.
 Use submit --project FOLDER --from task.json, then next with a new output filename. Exact retries are safe; stale or altered retries fail.
 Alternatively write just the payload to answer.json, then submit --project FOLDER --task task.json --answer answer.json [--usage usage.json]. The exported task retains all identifiers and retry guards.
@@ -52,10 +56,12 @@ Capture one claim per finding. evidence add creates claim_support linking its pa
 For an empirical prior, use reference add --from CASE.json to register dated cases with episode_id and eligibility, then reference query --from QUERY.json. Query fields: tags, horizon_days, known_as_of, selection_rule. Only a non-null prior_payload is eligible: the cohort must have matured by the cutoff and all mature outcomes must be ascertained. resolved_case_frequency is descriptive only. Immature early successes are excluded along with immature unresolved cases; censored cases are never failures. Shared episode IDs prevent duplicate trials. Every new empirical prior requires reference_query matching the eligible registered cases. Supply research_status_at_estimate for structured runs. Use a judgment prior when no defensible denominator exists.
 Model input paths are probability for judgment, scenarios/ID/weight and scenarios/ID/probability for mixtures, components/ID/probability for paths, anchor/probability and entries/ID/lr or joint/GROUP/lr for odds, scenarios/ID/weight and scenarios/ID/inputs/PARAMETER for timelines, members/ID/weight for ensembles.
 Review must include sensitivity_review with interpretation, influential_inputs (actual model_input paths), and next_evidence. Inspect context.sensitivity: its bounds vary assumptions and are not confidence intervals. In new studies, review decision revise returns to assessment and model challenge; do not supply an inline replacement probability. Existing structured_v1 studies retain their original review contract.
+Timeline model challenges also require event_alignment {target, matches_question, rationale, concern_ids}. Map the target to the exact YES criteria: initial traffic opening, partial service and full project completion differ. A mismatch needs a concern. Test mixed funding/construction outcomes and explain scenario weights; a cost-or-schedule overrun rate does not measure schedule failure alone. Timeline sensitivity computes declared range endpoints, with other weights redistributed proportionally, and is not evidence of calibration.
 After new evidence arrives, use revise --project FOLDER --reason REASON --evidence PACKET:RECORD (repeat evidence as needed), then next/submit/report. This starts a linked revision with a fresh cutoff and carries prior evidence/model records. show distinguishes the previous issued forecast from the working revision. A signal alone never changes a probability.
 The forecaster does the research and judgment, directly or with an agent; these commands do not call a model or browse automatically.
 For an agent-authored report, use report context --project FOLDER --output analysis/forecast-report-context.json. Read that bounded evidence and writing handoff; a hash-bound full-material JSON file is saved beside it. Select --run RUN for a portfolio or --case CASE for a workbench; ambiguous runs are rejected. reportability distinguishes a completed forecast from a draft; readiness is not a quality certification. Preserve probabilities, evidence links, assumptions, challenges, and hidden-market boundaries; consult full material for omitted details.
 The calling agent authors the explanation. In ep-agent, load skill:report-authoring, write writeup/report.md, and follow its branding, optional-review, compilation, and checking workflow to produce writeup/report.html. This package does not call another model to narrate results. Its legacy report --project FOLDER HTML/LaTeX exports remain inspection views, not the agent's final narrative.
+Before delivering a forecast report, run report check --context analysis/forecast-report-context.json --report writeup/report.md --claims analysis/report-claims.json. The claims file has record_sha256 and claims [{pointer: /material/..., value: exact recorded scalar, format: literal|percent|date|month_year, text: exact report passage, evidence_ids: [PACKET:RECORD]}]. Pointers select the full-material snapshot. Include the issued probability and every substantive reported number/date; link original sources for evidence. Optional arithmetic [{terms: [pointer,...], total: pointer}] checks component totals. These offline checks do not replace reading sources or establish calibration; optional paid review is separate. Disclose forecaster-supplied assumptions and weights.
 The commands below support portfolios and explicit low-level control.
 Create a project, register a precise binary question, and start a run.
 Use init PROJECT --question TEXT --deadline TIME --yes CRITERIA --source SOURCE to create a project and question together.
@@ -132,6 +138,8 @@ def run_options(parser):
     parser.add_argument("--mode", choices=("prospective", "retrospective", "simulation"), help="Default: prospective for real questions, simulation for fixtures")
     parser.add_argument("--as-of", dest="information_as_of", help="Information cutoff (default: now)")
     parser.add_argument("--workflow", choices=("standard", "timeline"), help="Research workflow (default: standard)")
+    parser.add_argument("--cutoff-policy", choices=("live", "fixed"), help="Prospective defaults to live; frozen research uses fixed")
+    parser.add_argument("--research-contract", choices=("structured_v1", "structured_v2"), help="Use structured_v2 for intake, mapping and model challenge")
     parser.add_argument("--research-status", choices=("not_started", "in_progress", "completed", "unspecified"), help="Prior research state (default: not_started)")
     parser.add_argument("--max-searches", type=int, help="Reported search budget (default: 20)")
     parser.add_argument("--max-extra-tasks", type=int, help="Additional review tasks (default: 2)")
@@ -161,7 +169,7 @@ def human_output(args):
         return True
     if args.command in ("next", "submit"):
         return args.run is None
-    return args.command == "report" and args.report_action != "context" and not args.question and args.format not in ("json", "markdown")
+    return args.command == "report" and args.report_action not in ("context", "check") and not args.question and args.format not in ("json", "markdown")
 
 
 def parser():
@@ -175,6 +183,10 @@ def parser():
     for ap in (start, define):
         study_options(ap)
     show = commands.add_parser("show", help="Read the forecast and research progress")
+    resume = commands.add_parser("resume", help="Resume existing tasks; preserve research and contract")
+    resume.add_argument("--run", help="Explicit portfolio run; omit for the active study")
+    resume.add_argument("--live", action="store_true", help="Explicitly upgrade an unfinished ordinary prospective run to live evidence")
+    resume.add_argument("--reason", help="Required with --live; recorded in the audit log")
     revise = commands.add_parser("revise", help="Begin a linked revision after new evidence")
     revise.add_argument("--reason", required=True)
     revise.add_argument("--evidence", action="append", default=[], help="PACKET:RECORD; repeat for multiple findings")
@@ -427,7 +439,10 @@ def parser():
         ap = commands.add_parser(name)
         ap.add_argument("--from", dest="input", required=True)
     report = commands.add_parser("report")
-    report.add_argument("report_action", nargs="?", choices=["context"], help="Export evidence and writing guidance for an agent-authored report")
+    report.add_argument("report_action", nargs="?", choices=["context", "check"], help="Export evidence or check authored claims against the snapshot")
+    report.add_argument("--context", type=Path, help="Context JSON for report check")
+    report.add_argument("--report", dest="report_file", type=Path, help="Authored Markdown for report check")
+    report.add_argument("--claims", type=Path, help="Recorded claim inventory for report check")
     selection = report.add_mutually_exclusive_group()
     selection.add_argument("--run", help="Run to use for report context; defaults to the active single-question study")
     selection.add_argument("--case", help="Workbench case to use for report context; preserves hidden targets")
@@ -474,6 +489,10 @@ def parser():
         score.add_argument("--" + name, required=True)
     score.add_argument("--from", dest="input", required=True)
     def project_options(ap):
+        if "--json" not in ap._option_string_actions:
+            ap.add_argument("--json", action="store_true", default=argparse.SUPPRESS, help="Machine-readable output")
+        else:
+            ap._option_string_actions["--json"].default = argparse.SUPPRESS
         if "--project" not in ap._option_string_actions:
             ap.add_argument("--project", type=Path, default=argparse.SUPPRESS)
         for action in ap._actions:
@@ -481,6 +500,7 @@ def parser():
                 for child in action.choices.values():
                     project_options(child)
     project_options(p)
+    p.set_defaults(json=False)
     return p
 
 
@@ -516,6 +536,8 @@ def dispatch(args):
         return study.define(w, question, **study_settings(args))
     if command == "show":
         return study.show(s)
+    if command == "resume":
+        return w.resume(args.run or study.binding(s)["run_id"], live=args.live, reason=args.reason)
     if command == "revise":
         return study.revise(w, reason=args.reason, refs=evidence_references(args.evidence), expected_forecast=args.expected_forecast)
     if command == "evidence":
@@ -722,9 +744,8 @@ def dispatch(args):
     if command in ("status", "monitor", "doctor"):
         return getattr(w, command)()
     if command == "next":
-        require(not (args.run and args.output), "Task file export is for single-question studies; omit --run.")
         if args.run:
-            return w.next(args.run)
+            return study.next_task(w, args.output, args.run)
         with s.connect() as c:
             defined = c.execute("SELECT 1 FROM artifacts WHERE id=?", (study.BINDING,)).fetchone()
         if not defined:
@@ -735,9 +756,11 @@ def dispatch(args):
         require(bool(args.task) == bool(args.answer), "Use --task TASK.json together with --answer ANSWER.json.")
         require(args.usage is None or args.task is not None, "--usage accompanies --task and --answer.")
         if args.task:
-            require(args.run is None, "--task uses the single-question study binding; omit --run.")
-            return study.submit(w, load(args.task), load(args.answer), load(args.usage) if args.usage else None)
-        return w.submit(args.run, load(args.input)) if args.run else study.submit(w, load(args.input))
+            return study.submit(w, load(args.task), load(args.answer), load(args.usage) if args.usage else None, args.run)
+        document = load(args.input)
+        if args.run and "submission" not in document:
+            return w.submit(args.run, document)
+        return study.submit(w, document, run_id=args.run)
     if command == "profile":
         if args.action == "add":
             return w.add_profile(load(args.input))
@@ -778,6 +801,11 @@ def dispatch(args):
             return start_case(args.project, load(args.cases), args.case, args.forecaster, args.method)
         return evaluate_replay(s, load(args.cases), load(args.labels), load(args.manifest), load(args.input))
     if command == "report":
+        if args.report_action == "check":
+            require(args.context and args.report_file and args.claims, "report check requires --context, --report and --claims.")
+            result = report_check.check(args.context, args.report_file, args.claims)
+            require(result['ok'], json.dumps(result, ensure_ascii=False), "report_fidelity_failed")
+            return result
         if args.report_action == "context":
             require(not args.format and not args.attachment and not args.narrative,
                     "Report context exports JSON evidence; formatting and narrative belong to the author.")
@@ -840,7 +868,7 @@ def main(argv=None):
                     print("\nTask saved to " + str(args.output.resolve()) +
                           ". Fill submission.payload, then submit --from this file.")
             return
-        if args.command == "timeline" and args.format == "text":
+        if args.command == "timeline" and args.format == "text" and not args.json:
             if args.action == "diagram":
                 if "diagram" in data:
                     print(data["diagram"], end="")
@@ -851,7 +879,7 @@ def main(argv=None):
             else:
                 print(timeline_text.render("add" if args.action == "save" else args.action, data))
             return
-        if args.command == "report" and args.format == "markdown" and not args.output:
+        if args.command == "report" and args.format == "markdown" and not args.output and not args.json:
             print("# " + data["question"]["specification"]["text"] + "\n")
             for f in data["forecasts"]:
                 print(f"- {f['issued_at']}: **{f['probability']:.2%}**, {f['forecaster']} ({f['mode']}); `{f['id']}`")
@@ -865,7 +893,7 @@ def main(argv=None):
                 or (args.command == "benchmark" and args.action == "start")):
             actions.append({"argv": ["vorhersage", "--project", str(args.project.resolve()), "next", "--run", data["run_id"]], "mutates": False, "network": False})
         print(json.dumps({"schema_version": "1", "status": "ok", "command": args.command,
-                          "data": data, "warnings": [], "errors": [], "next_actions": actions}, indent=2, allow_nan=False))
+                          "data": data, "warnings": data.get("warnings", []) if isinstance(data, dict) else [], "errors": [], "next_actions": actions}, indent=2, allow_nan=False))
     except (Error, OSError, ValueError, KeyError, TypeError, sqlite3.Error, subprocess.SubprocessError) as exc:
         if args is not None and human_output(args):
             print("Error: " + str(exc), file=sys.stderr)

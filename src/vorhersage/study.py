@@ -132,14 +132,14 @@ def revise(workflow, *, reason, refs=(), expected_forecast=None):
     return show(store)
 
 
-def next_task(workflow, output=None):
-    linked = binding(workflow.store)
-    result = workflow.next(linked["run_id"])
+def next_task(workflow, output=None, run_id=None):
+    result = workflow.next(run_id or binding(workflow.store)["run_id"])
     if result["disposition"] == "actionable":
         result["submission"] = {
             "task_id": result["task"]["id"], "expected_revision": result["revision"],
             "idempotency_key": "study-" + digest([result["run_id"], result["revision"]])[:24],
-            "payload": None,
+            "payload": ({"method": "timeline_model", "timeline_model_id": result["task"]["timeline_context"]["timeline_model_id"]}
+                        if result["task"]["kind"] == "assessment" and result["context"]["run"].get("workflow") == "timeline" else None),
         }
     if output:
         require(result["disposition"] == "actionable", "There is no research task to export: " + result["disposition"] + ".")
@@ -151,10 +151,10 @@ def next_task(workflow, output=None):
     return result
 
 
-def submit(workflow, document, answer=None, usage=None):
+def submit(workflow, document, answer=None, usage=None, run_id=None):
     require(isinstance(document, dict), "A task file must contain a JSON object.")
-    linked = binding(workflow.store)
-    require(document.get("run_id") == linked["run_id"], "Task file belongs to a different forecast.")
+    selected = run_id or binding(workflow.store)["run_id"]
+    require(document.get("run_id") == selected, "Task file belongs to a different forecast.")
     require(isinstance(document.get("submission"), dict),
             "Use the task file written by next --output; fill its submission.payload.")
     submission = copy.deepcopy(document["submission"])
@@ -162,7 +162,7 @@ def submit(workflow, document, answer=None, usage=None):
         submission["payload"] = answer
     if usage is not None:
         submission["usage"] = usage
-    return workflow.submit(linked["run_id"], submission)
+    return workflow.submit(selected, submission)
 
 
 def show(store):

@@ -7,7 +7,7 @@ their links and calculates their consequences.
 
 import copy
 
-from .common import require, time
+from .common import Error, require, time
 
 
 def validate_intake(plan):
@@ -146,6 +146,12 @@ def validate_challenge(payload, state):
             require(all(ref in support[row['model_input']]['evidence_refs'] for ref in row['evidence_refs']),
                     'A supported verdict must inspect the evidence cited for that model input.')
     concerns = payload['concerns']
+    if state.get('event_alignment'):
+        alignment = payload.get('event_alignment')
+        require(alignment and alignment['target'] == state['event_alignment']['target'],
+                'Challenge must map the actual target milestone to the question in event_alignment.')
+        require(set(alignment['concern_ids']) <= {c['id'] for c in concerns}, 'Event alignment names an unknown concern.')
+        require(alignment['matches_question'] or alignment['concern_ids'], 'A target/event mismatch needs a concern.')
     require(len({c['id'] for c in concerns}) == len(concerns), 'Concern IDs must be unique.')
     for concern in concerns:
         require(set(concern['model_inputs']) <= paths, 'Concern must link to actual model inputs.')
@@ -189,3 +195,45 @@ def followup_inquiries(payload, state):
     require(bool(inquiries) == (payload['decision'] == 'research'),
             'Use decision research exactly when a concern is marked investigate.')
     return inquiries
+
+
+def timeline_sensitivity(spec, support):
+    """Compute declared one-input range endpoints, retaining the joint scenarios."""
+    from . import timeline
+    base = timeline.analyze(spec)
+    rows = []
+    require(len(support) <= 2000, 'Timeline sensitivity is limited to 2000 supported inputs.')
+    for item in support:
+        path = item['model_input']
+        _, sid, field, *parameter = path.split('/')
+        for value in dict.fromkeys(item['plausible_range']):
+            if value == item['value']:
+                continue
+            candidate = copy.deepcopy(spec)
+            scenario = next(s for s in candidate['scenarios'] if s['id'] == sid)
+            row = {'model_input': path, 'value': value}
+            try:
+                if field == 'weight':
+                    remaining = 1 - scenario['weight']
+                    require(remaining > 0, 'Cannot redistribute weight from a single positive-weight scenario.')
+                    for other in candidate['scenarios']:
+                        if other['id'] != sid:
+                            other['weight'] *= (1 - value) / remaining
+                    scenario['weight'] = value
+                else:
+                    assessment = next(a for a in scenario['assessments'] if a['parameter_id'] == parameter[0])
+                    require(assessment['basis'] != 'observed', 'Observed inputs need new evidence, not a sensitivity substitution.')
+                    assessment.update(value=value, basis='assumed', evidence_refs=[], rationale='Declared range stress test.')
+                result = timeline.analyze(candidate)
+                row.update(probability=result['probability'], delta=result['probability'] - base['probability'])
+            except Error as exc:
+                row['invalid_combination'] = str(exc)
+            rows.append(row)
+    return {'probability': base['probability'], 'substitutions': sorted(rows, key=lambda r: -abs(r.get('delta', 0))),
+            'successful_scenarios': [s['scenario_id'] for s in base['scenarios'] if s['meets_deadline']],
+            'point_ranges': [r['model_input'] for r in support if r['plausible_range'][0] == r['plausible_range'][1]],
+            'limitations': ['One-input range endpoints are stress tests, not confidence intervals or calibration evidence.',
+                            'Weight changes redistribute other weights proportionally; this is an explicit sensitivity convention.',
+                            'Joint movements, structural alternatives and intermediate thresholds are not covered.'],
+            'range_status': ('declared_ranges' if rows else 'All declared ranges are point values; no variation was tested.')
+                            if support else 'No declared input ranges; sensitivity remains unassessed.'}

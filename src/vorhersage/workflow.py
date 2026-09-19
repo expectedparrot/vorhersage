@@ -34,6 +34,25 @@ def task(kind, **fields):
     return {"id": identifier("task"), "kind": kind, "instruction": INSTRUCTIONS[kind], **fields}
 
 
+def workflow_requirements(run):
+    contract = run.get("research_contract")
+    omitted = []
+    if contract not in ("structured_v1", "structured_v2"):
+        omitted.extend(["intake and inquiry", "parameter support", "sensitivity review"])
+    if contract != "structured_v2":
+        omitted.extend(["versioned model mapping", "model challenge and concern resolutions"])
+    return {"research_contract": contract, "omitted": omitted}
+
+
+def differing_paths(left, right, path=""):
+    if isinstance(left, dict) and isinstance(right, dict):
+        return [p for key in sorted(left.keys() | right.keys()) for p in
+                ([path + '/' + key] if key not in left or key not in right else differing_paths(left[key], right[key], path + '/' + key))]
+    if isinstance(left, list) and isinstance(right, list) and len(left) == len(right):
+        return [p for i, (a, b) in enumerate(zip(left, right)) for p in differing_paths(a, b, path + '/' + str(i))]
+    return [] if left == right else [path]
+
+
 def evidence_refs(value):
     """Only explicit evidence_refs fields establish a forecast dependency."""
     refs = []
@@ -124,7 +143,7 @@ class Workflow:
         workflow = spec.get("workflow", default_workflow)
         if protocol:
             require((workflow == "timeline") == (protocol["method_spec"]["assessment_method"] == "timeline_model"), "Workflow and registered method disagree.")
-        cutoff_policy = spec.get("cutoff_policy", "live" if spec["mode"] == "prospective" and workflow != "timeline" else "fixed")
+        cutoff_policy = spec.get("cutoff_policy", "live" if spec["mode"] == "prospective" and not protocol else "fixed")
         require(cutoff_policy != "live" or spec["mode"] == "prospective", "Live cutoffs require prospective mode.")
         if spec["mode"] == "prospective":
             require(time(now()) < time(q["event_deadline"]), "Prospective forecasting deadline has passed.")
@@ -179,7 +198,10 @@ class Workflow:
                 state["artifact_ids"].append(protocol["arm_id"])
         c.execute("INSERT INTO runs VALUES (?,?,?,0)", (id, canonical(body), canonical(state)))
         Store.event(c, "run.start", body)
-        return {"run_id": id, "revision": 0}
+        return {"run_id": id, "revision": 0, "research_contract": body.get("research_contract"),
+                "warnings": [] if body.get("research_contract") == "structured_v2" else
+                ["This low-level run does not require structured_v2 intake, parameter support and model challenge. "
+                 "For an existing study use resume; for a new ordinary study use start, or specify --research-contract structured_v2."]}
 
     @staticmethod
     def _resolutions(c, question, version):
@@ -194,6 +216,25 @@ class Workflow:
 
     def next(self, run_id):
         with self.store.connect() as c:
+            return self._next(c, run_id)
+
+    def resume(self, run_id, *, live=False, reason=None):
+        """Recover an unfinished run without discarding its contract or evidence."""
+        with self.store.connect(True) as c:
+            run, state, revision = Store.run(c, run_id)
+            require(state["pending"] and not state["forecast_id"], "This run has issued; use revise for new evidence.")
+            if live:
+                require(reason and reason.strip(), "Changing a cutoff policy requires --reason.")
+                require(run["mode"] == "prospective" and not run.get("method_spec"),
+                        "Only ordinary prospective runs can resume with --live; frozen experiments and historical runs stay fixed.")
+                require(time(now()) < time(run["question"]["event_deadline"]) and not
+                        self._resolutions(c, run["question_id"], run["question_version"]), "The forecasting event has closed.")
+                if run["cutoff_policy"] != "live":
+                    state["cutoff_policy"] = "live"
+                    state["information_as_of"] = now()
+                    c.execute("UPDATE runs SET state=?,revision=? WHERE id=?", (canonical(state), revision + 1, run_id))
+                    Store.event(c, "run.resume", {"run_id": run_id, "reason": reason, "old_policy": run["cutoff_policy"],
+                                                "new_policy": "live", "revision": revision + 1})
             return self._next(c, run_id)
 
     def _next(self, c, run_id):
@@ -221,6 +262,11 @@ class Workflow:
                         "reason": "Experiment forecast cutoff passed."}
         packet_ids = sorted({r["packet_id"] for r in state["evidence_refs"]})
         payload_schema = copy.deepcopy(SCHEMAS[selected["kind"]])
+        if selected["kind"] == "assessment" and run.get("workflow") == "timeline":
+            selected["instruction"] += " Use the current task.timeline_context.timeline_model_id; research creates new immutable model versions."
+        if selected["kind"] == "model_challenge" and state.get("event_alignment"):
+            payload_schema["required"].append("event_alignment")
+            selected["instruction"] += " Supply event_alignment: target, matches_question, rationale, and concern_ids. Compare initial opening with full completion and the exact YES criteria. Challenge mixed funding/delay cases and scenario weights; a cost-or-schedule overrun rate is not a schedule-only probability."
         if run.get("research_contract") in ("structured_v1", "structured_v2"):
             extra = {"prior": "research_status_at_estimate", "assessment": "parameter_support", "review": "sensitivity_review"}.get(selected["kind"])
             if extra:
@@ -259,6 +305,8 @@ class Workflow:
                             "concern_resolutions": state.get("concern_resolutions", []),
                             "reference_class": state.get("reference_class"),
                             "model_inputs": state.get("model_inputs", {}),
+                            "event_alignment": state.get("event_alignment"),
+                            "workflow_requirements": workflow_requirements(run),
                             "sensitivity": state.get("sensitivity"),
                             "previous_forecast": Store.artifact(c, run["previous_forecast_id"], "forecast") if run.get("previous_forecast_id") else None}}
 
@@ -381,6 +429,7 @@ class Workflow:
             spec = self._bind_timeline(c, run, state, p["timeline_model_id"])
             # Each structure pass owns its revisions, including repeated experiment trials.
             spec = copy.deepcopy(spec)
+            spec.setdefault("schedule_as_of", spec["information_as_of"])
             spec.pop("previous_model_id", None)
             spec.update(id="timeline_" + run["id"] + "_" + selected["id"], version=1,
                         derived_from_model_id=p["timeline_model_id"])
@@ -392,6 +441,9 @@ class Workflow:
         if kind == "timeline_research":
             model_id = state["timeline_model_id"]
             spec = copy.deepcopy(timeline.read(c, model_id)["specification"])
+            spec.setdefault("schedule_as_of", spec["information_as_of"])
+            if run["cutoff_policy"] == "live":
+                spec["information_as_of"] = run["information_as_of"]
             pid = selected["parameter_id"]
             supplied = {a["scenario_id"]: a["assessment"] for a in p["assessments"]}
             require(len(supplied) == len(p["assessments"]) and set(supplied) == {s["id"] for s in spec["scenarios"]},
@@ -491,10 +543,16 @@ class Workflow:
                     final = timeline.read(c, p["timeline_model_id"])["specification"]
                     def researched_inputs(model):
                         return {"nodes": model["nodes"], "parameters": model["parameters"], "target": model["target"],
-                                "information_as_of": model["information_as_of"], "deadline_rule": model["deadline_rule"],
+                                "information_as_of": model["information_as_of"],
+                                "schedule_as_of": model.get("schedule_as_of", model["information_as_of"]), "deadline_rule": model["deadline_rule"],
                                 "scenarios": [{"id": s["id"], "assessments": s["assessments"]} for s in model["scenarios"]]}
-                    require(researched_inputs(old) == researched_inputs(final),
-                            "Assessment may add weights but cannot replace researched inputs; use a new structure/research pass.")
+                    before, after = researched_inputs(old), researched_inputs(final)
+                    require(before == after,
+                            "Assessment may add weights but cannot replace researched inputs. "
+                            f"Submitted model: {p['timeline_model_id']}; current researched model: {state['timeline_model_id']}. "
+                            "Differing paths (first 20): " + ", ".join(differing_paths(before, after)[:20]) + ". "
+                            f"Run next --run {run['id']} --output fresh-task.json and use task.timeline_context.timeline_model_id. "
+                            "For intentional input changes, use a new structure/research pass; do not remove parameter support.", "stale_timeline_model")
                 spec = self._bind_timeline(c, run, state, p["timeline_model_id"])
                 if run.get("workflow") == "timeline":
                     require({param["id"] for param in spec["parameters"]} <= set(state["coverage"]), "Model has parameters without research tasks; submit structure first.")
@@ -548,10 +606,16 @@ class Workflow:
                 state["pending"].insert(1, task("model_challenge"))
             state["model_inputs"] = research_model.model_inputs(p, spec if method == "timeline_model" else None)
             state["parameter_support"] = p.get("parameter_support", [])
+            state.pop("event_alignment", None)
             state["sensitivity"] = calculation if method == "scenario_mixture" else (
                 {"probability": value, "bounded_range": p["parameter_support"][0]["plausible_range"],
                  "limitations": ["Declared assumption range, not a confidence interval."]}
                 if method == "judgment" and p.get("parameter_support") else None)
+            if method == "timeline_model":
+                state["sensitivity"] = research_model.timeline_sensitivity(spec, p.get("parameter_support", []))
+                target = next(n for n in spec["nodes"] if n["id"] == spec["target"])
+                state["event_alignment"] = {"target": spec["target"], "completion_condition": target["completion_condition"],
+                                            "yes": run["question"]["yes"], "deadline": run["question"]["event_deadline"]}
             require("probability" not in p or math.isclose(p["probability"], value), "Supplied probability differs from computed estimate.")
             state["probability"] = value
             state["probability_basis"] = method
@@ -567,6 +631,9 @@ class Workflow:
         if kind == "review":
             if v2:
                 require(state.get("model_challenge") is not None, "Complete the model challenge before review.")
+                alignment = state["model_challenge"].get("event_alignment")
+                require(not alignment or alignment["matches_question"] or p["decision"] in ("revise", "research"),
+                        "The target does not match the question. Revise the structure or investigate before retaining a forecast.")
                 require(not any(k in p for k in ("parameter_support", "probability", "research_tasks")),
                         "Structured v2 review uses concern_resolutions; decision revise returns to assessment without an inline probability.")
                 inquiries = research_model.followup_inquiries(p, state)

@@ -11,6 +11,8 @@ from .common import digest, now, require
 from .store import Store
 from . import study, workbench
 from .reports import _refs
+from .evidence import audit as audit_evidence
+from .workflow import workflow_requirements
 
 WRITING_GUIDANCE = [
     "Write an explanation for the reader, organized around the question and forecast rather than the task log.",
@@ -127,12 +129,29 @@ def _run_material(raw):
                 "methodology": {**_pick(run, ("forecaster", "mode", "method", "workflow", "workflow_version", "research_contract", "created_at")),
                                 **_pick(state, ("information_as_of", "prior_record", "research_plan", "inquiry_answers", "coverage", "reference_class"))},
                 "model": {**_pick(state, ("model_map", "model_inputs", "parameter_support", "sensitivity", "model_challenge", "concern_resolutions")),
+                          "event_alignment": state.get("event_alignment"),
                           "assessment_status": "current_run" if latest.get("assessment") else "not_assessed_in_current_run",
                           "assessment": latest.get("assessment"), "related_models": models},
                 "latest_work": _pick(latest, ("prior", "drivers", "review", "issue")), "evidence": evidence,
                 "resolutions": raw["resolutions"],
                 "pending_tasks": [{"kind": t["kind"], **_pick(t, ("domain", "inquiry", "parameter_id"))} for t in state["pending"]],
                 "usage": _pick(state, ("used_searches", "cost_usd", "model_calls"))}
+    analysis = (latest.get("assessment") or {}).get("calculation", {}) or {}
+    analysis = analysis.get("timeline_analysis", {})
+    material["summary"] = {
+        "qualification": "Computed from forecaster-supplied assumptions; issuance is not evidence of calibration.",
+        "workflow_requirements": workflow_requirements(run),
+        "scenario_results": [_pick(s, ("scenario_id", "weight", "launch_at", "meets_deadline")) for s in analysis.get("scenarios", [])],
+        "concerns": (state.get("model_challenge") or {}).get("concerns", []),
+        "concern_resolutions": state.get("concern_resolutions", []),
+        "review": (latest.get("review") or {}).get("answer"),
+        "limitations": (latest.get("assessment") or {}).get("answer", {}).get("limitations", []),
+        "event_alignment": state.get("event_alignment"),
+        "source_index": [{"evidence_id": e["evidence_id"], "claim": e["claim"],
+                          "sources": [_pick(s, ("id", "title", "url")) for s in e["sources"]]} for e in evidence],
+        "evidence_audits": {aid: audit_evidence(r["record"]) for aid, r in records.items() if r["kind"] == "packet"},
+        "sensitivity": state.get("sensitivity"),
+    }
     blockers = [] if issued else ["The selected run has not issued a forecast; label any report as work in progress."]
     return material, blockers
 
@@ -177,13 +196,30 @@ def _bounded(value, omissions, path="", budget=None):
     return value
 
 
+def bounded_material(material, omissions):
+    """Independent budgets prevent a large model from erasing later sections."""
+    result = {}
+    for key, value in material.items():
+        if key == 'summary':
+            continue
+        result[key] = _bounded(value, omissions, '/' + key, [350, 7000])
+    if isinstance(material.get('latest_work'), dict):
+        result['latest_work'] = {key: _bounded(value, omissions, '/latest_work/' + key, [350, 7000])
+                                 for key, value in material['latest_work'].items()}
+    if 'summary' in material:
+        # Sources, outcomes, concerns and diagnostics cannot starve each other.
+        result['summary'] = {key: _bounded(value, omissions, '/summary/' + key, [500, 9000])
+                             for key, value in material['summary'].items()}
+    return result
+
+
 def export(store, *, output=None, question_id=None, run_id=None, case_id=None):
     raw = snapshot(store, question_id=question_id, run_id=run_id, case_id=case_id)
     material, blockers = _run_material(raw) if raw["kind"] == "run" else _case_material(raw)
     full = {"schema_version": "vorhersage.report_material.v1", "snapshot": raw, "material": material}
     sha = digest(full)
     omissions = []
-    bounded = _bounded(material, omissions)
+    bounded = bounded_material(material, omissions)
     context = {"schema_version": "vorhersage.report_context.v1", "generated_at": now(),
                "record_sha256": sha, "selection": raw["selection"],
                "reportability": {"ready_for_report_agent": not blockers, "draft_available": True,

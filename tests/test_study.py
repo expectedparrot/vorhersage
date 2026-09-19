@@ -64,7 +64,10 @@ def challenge(context, scenarios=()):
                           for p in context["model_inputs"]],
             "boundary_cases": [{"description": text, "scenario_ids": [scenarios[0]], "reason": "Fixture assignment."}
                                for text in ("At threshold", "Spike then reversal")] if scenarios else [],
-            "partition_review": "Synthetic fixture partition.", "concerns": []}
+            "partition_review": "Synthetic fixture partition.", "concerns": [],
+            **({"event_alignment": {"target": context["event_alignment"]["target"], "matches_question": True,
+                                   "rationale": "The fixture target is the exact qualifying launch.", "concern_ids": []}}
+               if context.get("event_alignment") else {})}
 
 
 class StudyTests(unittest.TestCase):

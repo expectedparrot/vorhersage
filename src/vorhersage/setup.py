@@ -76,11 +76,11 @@ def initialize(project, name, question):
 
 
 RUN_OPTIONS = ("forecaster", "method", "mode", "information_as_of", "workflow",
-               "research_status", "max_searches", "max_extra_tasks")
+               "research_status", "max_searches", "max_extra_tasks", "research_contract", "cutoff_policy")
 
 
 def run_input(args, workflow):
-    supplied = {field: getattr(args, field) for field in RUN_OPTIONS if getattr(args, field) is not None}
+    supplied = {field: getattr(args, field) for field in RUN_OPTIONS if getattr(args, field, None) is not None}
     if args.input:
         require(not args.question_id and not supplied, "Use either --from or inline run options, not both.")
         return load(args.input)

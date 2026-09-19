@@ -104,7 +104,7 @@ class Store:
         body, state = json.loads(row["body"]), json.loads(row["state"])
         body["initial_information_as_of"] = body["information_as_of"]
         body["information_as_of"] = state.get("information_as_of", body["information_as_of"])
-        body["cutoff_policy"] = body.get("cutoff_policy", "live" if body["mode"] == "prospective" else "fixed")
+        body["cutoff_policy"] = state.get("cutoff_policy", body.get("cutoff_policy", "live" if body["mode"] == "prospective" else "fixed"))
         return body, state, row["revision"]
 
     @staticmethod

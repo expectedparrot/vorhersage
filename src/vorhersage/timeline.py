@@ -14,6 +14,7 @@ LIMITATIONS = [
     "Each scenario is one joint assignment. No independent sampling or equal weighting is implicit.",
     "Unweighted scenario counts are not probabilities. Weighted scenarios require a declared exhaustive partition.",
     "Durations are elapsed days of 86400 seconds. Resource contention and working-day calendars are not modeled.",
+    "schedule_as_of anchors start/remaining-duration calculations; a later evidence cutoff does not move that reference date.",
     "Sensitivity is a declared-input stress test, not a confidence interval or an estimate of research value.",
 ]
 
@@ -29,6 +30,8 @@ def validate(spec):
     require(len(spec["nodes"]) <= 100 and len(spec["parameters"]) <= 100 and len(spec["scenarios"]) <= 500,
             "Timeline limits: 100 nodes, 100 parameters, 500 scenarios.")
     as_of = time(spec["information_as_of"])
+    require(time(spec.get("schedule_as_of", spec["information_as_of"])) <= as_of,
+            "Schedule reference date cannot follow the evidence cutoff.")
     require(as_of < time(spec["deadline"]), "Timeline cutoff must precede its deadline.")
     params = _unique(spec["parameters"], "id", "parameter ID")
     nodes = _unique(spec["nodes"], "id", "node ID")
@@ -61,6 +64,8 @@ def validate(spec):
                 require("parameter_id" not in n, "Joins compute dates without parameters.")
         if state == "in_progress":
             require("started_at" in n and time(n["started_at"]) <= as_of, "In-progress task needs an actual start by the cutoff.")
+            require(time(n["started_at"]) <= time(spec.get("schedule_as_of", spec["information_as_of"])),
+                    "In-progress duration is remaining work at schedule_as_of; revise the schedule reference date for a later start.")
             require(n["evidence_refs"], "In-progress task needs evidence of its start.")
             require("not_before" not in n or time(n["not_before"]) <= time(n["started_at"]), "Observed start precedes earliest start.")
         else:
@@ -124,7 +129,7 @@ def validate_assessments(params, scenarios, as_of):
 def _schedule(spec, scenario, nodes, order):
     values = {a["parameter_id"]: a for a in scenario["assessments"]}
     rows, dates = {}, {}
-    as_of = time(spec["information_as_of"])
+    as_of = time(spec.get("schedule_as_of", spec["information_as_of"]))
     for id in order:
         n = nodes[id]
         parents = n["parents"]
@@ -220,7 +225,8 @@ def analyze(spec):
         low = math.fsum(r["weight"] for r in rows if r["meets_deadline"] is True)
         bounds = [low, low + math.fsum(r["weight"] for r in rows if r["meets_deadline"] is None)]
     return {"engine_version": ENGINE_VERSION, "model_sha256": digest(spec), "question": spec["question"],
-            "information_as_of": spec["information_as_of"], "deadline": spec["deadline"], "deadline_rule": spec["deadline_rule"],
+            "information_as_of": spec["information_as_of"], "schedule_as_of": spec.get("schedule_as_of", spec["information_as_of"]),
+            "deadline": spec["deadline"], "deadline_rule": spec["deadline_rule"],
             "probability": p, "probability_bounds": bounds,
             "disposition": "incomplete" if unresolved else "weighted" if weighted else "unweighted",
             "scenarios": rows, "gaps": gaps(spec), "limitations": LIMITATIONS + spec["limitations"]}

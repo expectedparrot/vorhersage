@@ -630,6 +630,22 @@ evidence actually measures and what assumptions connect it to the forecast.
 The [single-question guide](docs/SINGLE_QUESTION.md) walks through an answer,
 submission, review, and report export.
 
+Prospective timeline studies accept evidence gathered after starting. Their
+`schedule_as_of` keeps duration calculations anchored while the evidence cutoff
+advances. Use `resume --project launch` to continue an interrupted study. For an
+older unfinished prospective run with a fixed cutoff, `resume --project launch
+--live --reason "Continue prospective research"` records the policy change and
+preserves its tasks, evidence, and research contract; export a fresh task afterward.
+Historical runs and frozen experiments remain fixed.
+
+Authored forecasts have a separate offline fidelity check:
+`vorhersage report check --context analysis/forecast-report-context.json
+--report writeup/report.md --claims analysis/report-claims.json`.
+The installed `guide` describes the claim inventory. It checks recorded numbers,
+dates, source links and declared arithmetic; source reading and semantic review
+remain the author's responsibility. This check is separate from optional paid
+review and the HTML/branding checks in `ep report check`.
+
 For an agent with Expected Parrot access, copy the setup below and ask it to
 show you the model and the assumptions you should review, alongside the number.
 
@@ -662,7 +678,10 @@ For a new single-question study, use `start` and supply the agreed event
 definition. Set --forecaster to your agent name. Use `next --output` and
 `submit --task TASK.json --answer ANSWER.json` to advance the research and review
 tasks without rewriting task IDs. Follow intake and inquiry tasks before making
-an estimate; use `evidence add` for dated findings and user answers. Follow the
+an estimate. Recover with `resume`, preserving the research contract; do not
+recreate the study or switch to low-level runs to bypass validation. Distinguish
+initial opening from full completion when mapping timeline targets.
+Use `evidence add` for dated findings and user answers. Follow the
 guide's model-mapping, parameter-support, model-challenge, and sensitivity-review requirements. If several
 important facts are things I know, offer to design a short survey for me using
 `ep humanize`, share its respondent link, and use my answers as evidence to
@@ -673,7 +692,10 @@ evidence, use `revise`; preserve actual timestamps. Finish the research with
 Use that evidence and writing handoff to author an explanatory report; preserve
 its numbers, citations, assumptions, and unresolved concerns. In ep-agent, follow
 `skill:report-authoring` to write `writeup/report.md` and compile the branded
-`writeup/report.html`. Show me the forecast, its main drivers, and that report. For an existing
+`writeup/report.html`. Run the guide's offline `report check` with a recorded
+claim inventory even if optional paid review is skipped. Disclose agent-supplied
+assumptions and weights; deterministic calculation does not establish calibration.
+Show me the forecast, its main drivers, and that report. For an existing
 portfolio, follow the guide's explicit question and run commands.
 ```
 
