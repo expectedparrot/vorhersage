@@ -162,7 +162,7 @@ def start_case(project, bundle, case_id, forecaster, method):
     result = w.start({"question_id": case_id, "forecaster": forecaster, "method": method,
                       "mode": "retrospective", "information_as_of": case["information_as_of"],
                       "cutoff_policy": "fixed", "max_searches": 0, "max_extra_tasks": 0})
-    return {**result, "case_id": case_id, "cases_sha256": digest(bundle), "limitations": LIMITATIONS}
+    return {**result, "case_id": case_id, "cases_sha256": digest(bundle), "limitations": bundle.get("limitations", LIMITATIONS)}
 
 
 def evaluate_replay(store, bundle, labels, manifest, policy):
@@ -239,7 +239,7 @@ def evaluate_replay(store, bundle, labels, manifest, policy):
         body = {"evaluation_kind": "historical_replay", "created_at": now(), "policy": policy,
                 "cases_bundle": bundle, "labels_bundle": labels, "bundle_manifest": manifest,
                 "selected": rows, "exclusions": exclusions, "summaries": summaries, "comparisons": paired,
-                "input_manifest": inputs, "limitations": LIMITATIONS + [
+                "input_manifest": inputs, "limitations": bundle.get("limitations", LIMITATIONS) + [
                     "Label separation is a process convention, not a filesystem sandbox.",
                     "No calibration or group uncertainty estimates on this smoke cohort."]}
         eid = Store.put(c, "replay_evaluation", body)

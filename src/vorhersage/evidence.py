@@ -67,8 +67,18 @@ def validate_packet(value):
         if record.get("claim_support") and record.get("claim_type") == "inference":
             require(record.get("inference_rationale"), "Inference findings need an inference_rationale.")
         for source in record["sources"]:
-            require(time(source["retrieved_at"]) <= cutoff, "Source retrieval is after packet cutoff.")
             capture = source.get("capture", {})
+            if capture.get("method") == "exa_snapshot":
+                require(capture.get("snapshot_as_of") and capture.get("content") and capture.get("captured_at"),
+                        "Exa snapshot requires a cutoff, content, and actual capture time.")
+                require(capture.get("metadata", {}).get("provider") == "exa"
+                        and capture.get("metadata", {}).get("retrieval_id"), "Exa snapshot requires retrieval provenance.")
+                require(time(capture["snapshot_as_of"]) <= cutoff, "Snapshot is after packet cutoff.")
+                require(time(capture["snapshot_as_of"]) <= time(source["retrieved_at"])
+                        <= time(packet["created_at"]), "Invalid snapshot retrieval chronology.")
+            else:
+                require("snapshot_as_of" not in capture, "Snapshot cutoff requires exa_snapshot capture.")
+                require(time(source["retrieved_at"]) <= cutoff, "Source retrieval is after packet cutoff.")
             if capture.get("captured_at"):
                 require(time(capture["captured_at"]) <= time(source["retrieved_at"]), "Capture time is after retrieval.")
             if capture.get("method") == "fetched":
@@ -129,8 +139,10 @@ def capture_bundle(spec):
         records.append({"id": f["id"], "claim": f["claim"], "claim_type": f["claim_type"],
                         **{k: f[k] for k in ("claim_support", "inference_rationale") if k in f},
                         "value": f.get("value"), "entity_ids": f.get("entity_ids", []),
-                        "sources": selected, "observed_at": max((s["retrieved_at"] for s in selected), key=time),
-                        "provenance": {"adapter": "vorhersage.research_bundle.v1"}})
+                        "sources": selected, "observed_at": max((
+                            s["capture"]["snapshot_as_of"] if s.get("capture", {}).get("method") == "exa_snapshot"
+                            else s["retrieved_at"] for s in selected), key=time),
+                        "provenance": {"adapter": "vorhersage.research_bundle.v1", "recorded_at": now()}})
     return validate_packet({"schema_version": "vorhersage.evidence.v1", "kind": "manual",
                             "information_as_of": spec.get("information_as_of", now()), "created_at": now(),
                             "records": records, "relationships": spec.get("relationships", []),

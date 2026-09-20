@@ -34,9 +34,30 @@ def study_payload(kind, refs, estimate=.6, context=None):
         return intake()
     if kind == "model_challenge":
         return challenge(context)
+    if kind == "reference_class_design":
+        return {"rationale": "Synthetic widening fixture.", "population": "Fictional launches",
+                "selection_rule": "Declared fictional episodes", "metric": "Completion by deadline",
+                "search_plan": ["Look for close and broader episodes"], "limitations": ["Synthetic fixture"],
+                "evidence_refs": [], "search_allocation": {"discovery": 2, "verification": 2, "followup": 1},
+                "classes": [{"id": distance, "population": "Fictional " + distance + " episodes", "distance": distance,
+                             "selection_rule": "Declared fictional episodes", "target_input_ids": ["outcome"],
+                             "transfer_rationale": "Shared fictional completion mechanism", "search_plan": ["Find dated outcomes"]}
+                            for distance in ("close", "nearby")]}
+    if kind == "reference_class_search":
+        done = {row["class_id"] for row in context["reference_research"]["searches"]}
+        cid = next(row["id"] for row in context["reference_research"]["classes"] if row["id"] not in done)
+        return {"class_id": cid, "status": "unavailable", "searches": [], "candidates": [],
+                "limitations": ["This synthetic fixture does not perform external searches"], "next_action": "Use declared fixture assumptions"}
+    if kind == "reference_class_analysis":
+        return {"status": "search_incomplete", "analysis_id": "fixture", "case_count": 0,
+                "independent_episode_count": 0, "estimator": "None", "result": "Synthetic fixture has no empirical cohort",
+                "limitations": ["No external searches"], "evidence_refs": [], "analysis_path": "No empirical export",
+                "class_results": [{"class_id": distance, "assessment": "Not searched in synthetic fixture"} for distance in ("close", "nearby")],
+                "remaining_assumptions": ["All fixture inputs are assumed"]}
     answer = payload(kind, refs, estimate)
     if kind == "prior":
         answer["research_status_at_estimate"] = "not_started"
+        answer["reference_class_exception"] = "Synthetic fixture has no external research; inputs remain assumptions."
     if kind == "assessment":
         answer["parameter_support"] = support(answer)
     if kind == "review":
@@ -190,7 +211,7 @@ class StudyTests(unittest.TestCase):
         self.cli("report", "--project", self.project)
         self.assertTrue((self.project / "report.html").exists())
         refs = [self.w.import_packet(packet())["records"][0]["evidence_ref"]]
-        for index in range(11):
+        for index in range(15):
             path = self.root / f"task-{index}.json"
             self.cli("next", "--project", self.project, "--output", path)
             task = json.loads(path.read_text())
@@ -198,10 +219,10 @@ class StudyTests(unittest.TestCase):
             task["submission"]["usage"] = {"searches": 0, "cost_usd": 0, "model_calls": 0}
             path.write_text(json.dumps(task))
             output = self.cli("submit", "--project", self.project, "--from", path)
-            if index == 2:
+            if task["task"]["kind"] == "drivers":
                 self.assertIn("Remaining delays.", output)
                 self.assertIn("Synthetic factory record", output)
-            if index == 7:
+            if task["task"]["kind"] == "assessment":
                 self.assertIn("Working estimate: 60.0%", output)
                 self.assertIn("Not an accuracy claim.", output)
         self.assertIn("Published forecast: 60.0%", output)
@@ -253,9 +274,9 @@ class StudyTests(unittest.TestCase):
             task["submission"]["payload"] = answer
             study.submit(self.w, task)
             output = self.cli("show", "--project", self.project)
-            if kind != "intake":
+            if kind != "intake" and not kind.startswith("reference_class_"):
                 self.assertIn("Model calculation: 70.0%", output)
-            if kind not in ("intake", "issue"):
+            if kind not in ("intake", "issue") and not kind.startswith("reference_class_"):
                 self.assertIn("not an issued forecast", output)
         self.assertIn("Published forecast: 70.0%", output)
         self.assertTrue(self.w.doctor()["ok"])

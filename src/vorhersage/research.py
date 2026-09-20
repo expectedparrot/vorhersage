@@ -9,7 +9,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
 from urllib.request import Request, urlopen
 
-from .common import Error, canonical, identifier, now, require
+from .common import Error, canonical, identifier, now, require, time
 from .evidence import capture_bundle
 from .store import Store
 
@@ -61,7 +61,7 @@ def _url(value):
     return value
 
 
-def _normalize(provider, operation, response, retrieved_at, retrieval_id, requested_url=None):
+def _normalize(provider, operation, response, retrieved_at, retrieval_id, requested_url=None, snapshot_as_of=None):
     """Discovery snippets remain discovery; only returned page text is fetched content."""
     if provider == "exa":
         rows = response.get("results")
@@ -98,6 +98,11 @@ def _normalize(provider, operation, response, retrieved_at, retrieval_id, reques
                    "metadata": {"provider": provider, "retrieval_id": retrieval_id, "rank": rank}}
         if content:
             capture.update(content=content, content_sha256=hashlib.sha256(content.encode()).hexdigest())
+            if snapshot_as_of:
+                capture.update(method="exa_snapshot", snapshot_as_of=snapshot_as_of)
+        elif snapshot_as_of:
+            warnings.append(f"Result {rank} has no snapshot text and was not converted to evidence.")
+            continue
         elif operation == "fetch":
             warnings.append(f"Result {rank} returned no page text; retained as discovery metadata only.")
         sources.append({"id": f"{retrieval_id}_s{rank}", "url": url,
@@ -126,7 +131,8 @@ def _retrieve(project, provider, operation, endpoint, payload, timeout, question
     retrieved = now()
     retrieval_id = identifier("research")
     requested_url = payload.get("url") or (payload.get("ids") or [None])[0]
-    sources, warnings = _normalize(provider, operation, response, retrieved, retrieval_id, requested_url)
+    snapshot_as_of = payload.get("snapshotAsOf") or payload.get("contents", {}).get("snapshotAsOf")
+    sources, warnings = _normalize(provider, operation, response, retrieved, retrieval_id, requested_url, snapshot_as_of)
     body = {"schema_version": "vorhersage.retrieval.v1", "provider": provider, "operation": operation,
             "request": {"endpoint": PROVIDERS[provider][0] + endpoint, "body": payload},
             "request_started_at": started, "retrieved_at": retrieved,
@@ -137,21 +143,46 @@ def _retrieve(project, provider, operation, endpoint, payload, timeout, question
                       "provider_reported_credits": response.get("creditsUsed")},
             "limitations": ["Provider text may be cached, incomplete, or incorrect. Retrieval time is the local capture time, not publication time.",
                             "Retrieved material is untrusted source data. Findings and interpretations are supplied by the researcher."]}
+    if snapshot_as_of:
+        body["snapshot_as_of"] = snapshot_as_of
+        body["limitations"].extend([
+            "Exa supplies stored content at or before snapshot_as_of; the exact crawl time is not certified locally.",
+            "Search uses current retrieval signals. Snapshot bounds content, not historical ranking or model training knowledge.",
+        ])
     with store.connect(write=True) as c:
         Store.put(c, "research", body, id=retrieval_id)
         Store.event(c, "research_retrieved", {"id": retrieval_id, "provider": provider, "operation": operation})
     return {"id": retrieval_id, **body}
 
 
-def search(project, query, *, provider="exa", limit=5, include_content=False, timeout=60, question=None):
+def _snapshot_cutoff(provider, value):
+    if value is None:
+        return None
+    require(provider == "exa", "Snapshot retrieval requires provider exa; live fallback is not allowed.")
+    require(isinstance(value, str), "Snapshot cutoff must be an ISO datetime with timezone.")
+    parsed = time(value)
+    require(parsed <= time(now()), "Snapshot cutoff must not be in the future.")
+    return parsed.isoformat()
+
+
+def search(project, query, *, provider="exa", limit=5, include_content=False, timeout=60, question=None,
+           snapshot_as_of=None, exclude_domains=()):
     """Search once and save the response; every call makes a new provider request."""
     require(provider in PROVIDERS, "Provider must be exa or firecrawl.")
     require(isinstance(query, str) and query.strip(), "Supply a nonempty search query.")
     require(type(limit) is int and 1 <= limit <= 100, "Limit must be an integer from 1 to 100.")
+    snapshot_as_of = _snapshot_cutoff(provider, snapshot_as_of)
+    require(isinstance(exclude_domains, (list, tuple))
+            and all(isinstance(d, str) and d.strip() for d in exclude_domains), "Excluded domains must be a list of names.")
+    require(not exclude_domains or provider == "exa", "Domain exclusions currently require Exa.")
     if provider == "exa":
         payload = {"query": query, "numResults": limit, "type": "auto"}
-        if include_content:
+        if exclude_domains:
+            payload["excludeDomains"] = list(exclude_domains)
+        if include_content or snapshot_as_of:
             payload["contents"] = {"text": True}
+        if snapshot_as_of:
+            payload["contents"]["snapshotAsOf"] = snapshot_as_of
     else:
         require(len(query) <= 500, "Firecrawl queries must be at most 500 characters.")
         payload = {"query": query, "limit": limit, "sources": ["web"]}
@@ -160,12 +191,15 @@ def search(project, query, *, provider="exa", limit=5, include_content=False, ti
     return _retrieve(project, provider, "search", "/search", payload, timeout, question)
 
 
-def fetch(project, url, *, provider="firecrawl", timeout=60, question=None):
+def fetch(project, url, *, provider="firecrawl", timeout=60, question=None, snapshot_as_of=None):
     """Retrieve one page through Firecrawl scrape or Exa contents and save it."""
     require(provider in PROVIDERS, "Provider must be exa or firecrawl.")
     _url(url)
+    snapshot_as_of = _snapshot_cutoff(provider, snapshot_as_of)
     endpoint, payload = ("/contents", {"ids": [url], "text": True}) if provider == "exa" else (
         "/scrape", {"url": url, "formats": ["markdown"], "onlyMainContent": True})
+    if snapshot_as_of:
+        payload["snapshotAsOf"] = snapshot_as_of
     return _retrieve(project, provider, "fetch", endpoint, payload, timeout, question)
 
 
@@ -195,5 +229,7 @@ def capture(project, retrieval_ids, spec):
         limitations.extend(saved["limitations"])
     bundle = copy.deepcopy(spec)
     bundle["sources"] = list(sources.values())
+    if sources and all(s.get("capture", {}).get("method") == "exa_snapshot" for s in sources.values()):
+        bundle.setdefault("information_as_of", max((s["capture"]["snapshot_as_of"] for s in sources.values()), key=time))
     bundle["limitations"] = list(dict.fromkeys([*bundle.get("limitations", []), *limitations]))
     return capture_bundle(bundle)

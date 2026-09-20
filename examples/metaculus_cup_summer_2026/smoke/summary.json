@@ -1,0 +1,35 @@
+{
+  "purpose": "Live API integration smoke only; not a forecast",
+  "snapshot_as_of": "2026-07-01T00:00:00+00:00",
+  "retrieved_at": "2026-09-20T11:40:37.659239Z",
+  "request": {
+    "endpoint": "https://api.exa.ai/search",
+    "body": {
+      "query": "latest stable Python release notes",
+      "numResults": 2,
+      "type": "auto",
+      "contents": {
+        "text": true,
+        "snapshotAsOf": "2026-07-01T00:00:00+00:00"
+      }
+    }
+  },
+  "sources": [
+    {
+      "url": "https://docs.python.org/3/whatsnew/changelog.html",
+      "content_sha256": "b7ecde87d24926151e782a13f775a9a42d5570a48c56ab985d6695ac364cdd1b"
+    },
+    {
+      "url": "https://docs.python.org/3/whatsnew/index.html",
+      "content_sha256": "ce4769847c2f547c50fc46d9c0e99fd8ca0bcbbf030b29e18897f016cff73d4f"
+    }
+  ],
+  "saved_json_sha256": "b49566658b5261cd57a0e7a3e711365d41d2aebfbe9636d0d82590f5d7e2b1f3",
+  "warnings": [],
+  "usage": {
+    "requests": 1,
+    "searches": 1,
+    "provider_reported_cost": null,
+    "provider_reported_credits": null
+  }
+}

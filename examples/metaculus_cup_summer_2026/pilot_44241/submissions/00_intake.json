@@ -1,0 +1,41 @@
+{
+  "task_id": "task_1b3531248d7e44028464",
+  "expected_revision": 0,
+  "idempotency_key": "task_1b3531248d7e44028464",
+  "payload": {
+    "rationale": "Model the completion probability by classifying repair scope and schedule feasibility. The historical contract snapshot was unavailable; use the frozen title-based definition and disclose that exact contract scoring needs reconciliation.",
+    "inputs": [
+      {
+        "id": "completion",
+        "target": "Probability repair is complete and normal filled operation has resumed before September 2026."
+      }
+    ],
+    "unknowns": [
+      {
+        "id": "status",
+        "question": "What work was underway and what completion schedule was announced as of July 7?",
+        "input_ids": [
+          "completion"
+        ],
+        "route": "search",
+        "why_it_matters": "Determines remaining work and whether an announced completion date is credible.",
+        "action": "Search historical NPS notices and contemporaneous reporting with Exa cutoff July 7."
+      },
+      {
+        "id": "comparables",
+        "question": "Is there a defensible reference class of comparable pool repairs with known dates and outcomes by the cutoff?",
+        "input_ids": [
+          "completion"
+        ],
+        "route": "search",
+        "why_it_matters": "Avoid mistaking a political or contractor promise for an empirical completion probability.",
+        "action": "Search historic reflecting-pool repair/reopening episodes and distinguish routine cleaning, lining work and structural reconstruction."
+      }
+    ]
+  },
+  "usage": {
+    "searches": 0,
+    "cost_usd": 0,
+    "model_calls": 0
+  }
+}

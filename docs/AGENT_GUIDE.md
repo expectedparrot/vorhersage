@@ -204,9 +204,12 @@ source conflicts, including unresolved ones and their treatment. Unknowns can
 advance the workflow; missing coverage cannot. A schema validates coverage,
 not the substantive quality of the research.
 
-In standard mode the prior may be a judgment or a reference class. Deep mode
-requires a Flyvbjerg-backed reference-class design and analysis before a prior
-can be issued; a judgmental fallback requires an explicit exception. An empirical prior requires
+In standard mode the prior may be a judgment or a reference class. New deep runs
+plan close and broader classes before inquiries, then search them and assess the
+results. Keep imperfect input analogies even when they cannot support an empirical
+rate; use further research to verify outcomes and broaden discovery. A judgmental
+fallback preserves a structured search disposition and an explicit exception.
+See [the widening workflow](DEEP_RESEARCH.md). An empirical prior requires
 unique case IDs, outcomes, evidence, a selection rule and comparability caveats.
 The package computes its frequency. Drivers describe mechanisms and paths to
 both YES and NO.
@@ -219,7 +222,10 @@ must not be presented as an original pre-research prior.
 Research usage is reported by the agent. `max_searches` limits submitted search
 counts; it does not control external browsing. Existing evidence can still be
 used when this budget is exhausted. `max_extra_tasks` limits additional research
-requested by reviews, reserving a path to finalization. Every review must address
+requested by reviews and reference-class follow-ups. Ordinary studies default to
+60 searches and eight follow-up tasks; use `budget --max-searches N
+--max-extra-tasks N --reason TEXT` to increase ceilings with an audit record.
+Frozen experiment ceilings cannot change. Every review must address
 objections that the probability is too high and too low. An unchanged estimate
 is legitimate.
 

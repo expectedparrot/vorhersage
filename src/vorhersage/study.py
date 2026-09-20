@@ -13,7 +13,7 @@ from tempfile import TemporaryDirectory
 from .common import canonical, digest, now, require
 from .store import Store
 from .workflow import Workflow, verify_refs
-from . import timeline
+from . import timeline, reference_research
 
 
 BRIEF = "study_brief"
@@ -63,14 +63,15 @@ def brief(c):
 
 
 def define(workflow, question, *, forecaster="user", method="declared judgment",
-           research_status="not_started", workflow_name="standard", max_searches=20, max_extra_tasks=2, research_contract="structured_v2"):
+           research_status="not_started", workflow_name="standard", max_searches=60, max_extra_tasks=8,
+           research_contract="structured_v2", research_effort="deep"):
     store = workflow.store
     with store.connect(True) as c:
         saved = brief(c)
         require(question["text"] == saved["question"], "Definition must retain the original question.")
         request = {"question": question, "forecaster": forecaster, "method": method,
                    "research_status": research_status, "workflow": workflow_name,
-                   "research_effort": "deep",
+                   "research_effort": research_effort,
                    "max_searches": max_searches, "max_extra_tasks": max_extra_tasks}
         if c.execute("SELECT 1 FROM artifacts WHERE id=?", (BINDING,)).fetchone():
             previous = Store.artifact(c, BINDING, BINDING)
@@ -83,7 +84,7 @@ def define(workflow, question, *, forecaster="user", method="declared judgment",
                 "mode": "simulation" if question["kind"] == "simulation" else "prospective",
                 "information_as_of": now(), "research_status": research_status,
                 "workflow": workflow_name, "max_searches": max_searches, "max_extra_tasks": max_extra_tasks,
-                "research_effort": "deep",
+                "research_effort": research_effort,
                 "research_contract": research_contract,
             })
             Store.put(c, BINDING, {"question_id": question["id"], "question_version": 1,
@@ -112,6 +113,8 @@ def revise(workflow, *, reason, refs=(), expected_forecast=None):
             spec = {k: old_run[k] for k in ("question_id", "question_version", "forecaster", "method", "mode", "max_searches", "max_extra_tasks")}
             spec.update(information_as_of=cutoff, previous_forecast_id=previous,
                         research_status="in_progress", research_contract=old_run.get("research_contract", "structured_v2"),
+                        research_effort=old_run.get("research_effort", "standard"),
+                        reference_policy=old_run.get("reference_policy", "legacy"),
                         workflow=old_run.get("workflow", "standard"))
             started = workflow._start(c, spec)
             run_id = started["run_id"]
@@ -120,6 +123,10 @@ def revise(workflow, *, reason, refs=(), expected_forecast=None):
                 state["pending"] = [t for t in state["pending"] if t["kind"] in ("intake", "assessment", "review", "issue")]
                 state["coverage"] = copy.deepcopy(old_state["coverage"])
             state["model_map"] = copy.deepcopy(old_state.get("model_map"))
+            for key in ("reference_class", "reference_class_design", "reference_classes", "reference_searches",
+                        "reference_class_analysis", "reference_analysis_history"):
+                if key in old_state:
+                    state[key] = copy.deepcopy(old_state[key])
             state["evidence_refs"] = list({canonical(r): r for r in old_state["evidence_refs"] + list(refs)}.values())
             state["prior_record"] = {"timing": "not_applicable", "qualification": "Revision of an issued forecast; new evidence is not a pre-research prior."}
             state["artifact_ids"] = list(dict.fromkeys(state["artifact_ids"] + old_state["artifact_ids"]))
@@ -185,6 +192,8 @@ def show(store):
                       findings=verify_refs(c, state["evidence_refs"], run["information_as_of"]),
                       work=work, next=task, stage=task.get("task", {}).get("kind", task["disposition"]))
         result.update(model_map=state.get("model_map"), model_challenge=state.get("model_challenge"),
+                      reference_research=reference_research.summary(state),
+                      research_priorities=reference_research.priorities(state),
                       concern_resolutions=state.get("concern_resolutions", []), reference_class=state.get("reference_class"),
                       research_plan=state.get("research_plan"), inquiry_answers=state.get("inquiry_answers", {}),
                       parameter_support=state.get("parameter_support", []), sensitivity=state.get("sensitivity"),

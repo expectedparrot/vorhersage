@@ -41,6 +41,7 @@ RUN = obj({"question_id": TEXT, "question_version": {"type": "integer", "minimum
            "workflow": enum("standard", "timeline"),
            "research_contract": enum("structured_v1", "structured_v2"),
            "research_effort": enum("deep", "standard", "minimal"),
+           "reference_policy": enum("legacy", "widening_v1"),
            "previous_forecast_id": TEXT},
           ["question_id", "forecaster", "method", "mode", "information_as_of", "max_searches", "max_extra_tasks"])
 REFERENCE_QUERY = obj({"tags": array(TEXT, 1), "horizon_days": {"type": "number", "minimum": 0.000001},
@@ -60,6 +61,35 @@ REFERENCE_CLASS_ANALYSIS = obj({"status": enum("complete", "blocked"), "analysis
                                 "independent_episode_count": {"type": "integer", "minimum": 0},
                                 "estimator": TEXT, "result": TEXT, "limitations": array(),
                                 "evidence_refs": REFS, "analysis_path": TEXT})
+# Optional on legacy records; required by the versioned widening workflow.
+REFERENCE_CLASS = obj({"id": TEXT, "population": TEXT,
+                       "distance": enum("close", "nearby", "mechanism"),
+                       "selection_rule": TEXT, "target_input_ids": array(TEXT, 1),
+                       "transfer_rationale": TEXT, "search_plan": array(TEXT, 1)})
+REFERENCE_CANDIDATE = obj({"id": TEXT, "episode_id": TEXT, "description": TEXT,
+                          "use": enum("base_rate", "input_analogy", "context_only", "excluded"),
+                          "target_input_ids": array(TEXT), "similarities": TEXT, "differences": TEXT,
+                          "outcome_status": enum("verified", "partial", "unknown"),
+                          "rationale": TEXT, "evidence_refs": REFS})
+REFERENCE_SEARCH = obj({"class_id": TEXT,
+                       "status": enum("searched", "unavailable", "budget_exhausted"),
+                       "searches": array(obj({"query": TEXT, "retrieval_ids": array(TEXT),
+                                              "evidence_refs": REFS, "finding": TEXT})),
+                       "candidates": array(REFERENCE_CANDIDATE), "limitations": array(),
+                       "next_action": TEXT})
+REFERENCE_CLASS_DESIGN["properties"].update({
+    "classes": array(REFERENCE_CLASS, 2),
+    "search_allocation": obj({"discovery": COUNT, "verification": COUNT, "followup": COUNT}),
+})
+REFERENCE_CLASS_ANALYSIS["properties"]["status"] = enum(
+    "complete", "blocked", "partial", "search_incomplete", "budget_exhausted",
+    "outcomes_unavailable", "no_usable_cases_found", "continue_research")
+REFERENCE_CLASS_ANALYSIS["properties"].update({
+    "class_results": array(obj({"class_id": TEXT, "assessment": TEXT}), 2),
+    "remaining_assumptions": array(TEXT),
+    "followups": array(obj({"class_id": TEXT, "action": TEXT})),
+    "additional_classes": array(REFERENCE_CLASS),
+})
 DRIVERS = obj({"drivers": array(obj({"name": TEXT, "mechanism": TEXT, "evidence_refs": REFS}), 1),
                "yes_path": TEXT, "no_path": TEXT, "unknowns": array()})
 RESEARCH = obj({"disposition": enum("assessed", "unknown"), "interpretation": TEXT,
@@ -162,7 +192,8 @@ REPLAY_EVALUATION = obj({"forecast_ids": array(TEXT), "forecasters": array(TEXT,
 SOURCE = obj({"id": TEXT, "url": TEXT, "title": TEXT, "excerpt": TEXT, "retrieved_at": TIME,
               "published_at": {"type": ["string", "null"]}, "origin_id": TEXT,
               "excerpt_kind": enum("quotation", "paraphrase"),
-              "capture": obj({"method": enum("manual", "discovery", "fetched", "epiq"),
+              "capture": obj({"method": enum("manual", "discovery", "fetched", "epiq", "exa_snapshot"),
+                              "snapshot_as_of": TIME,
                               "captured_at": TIME, "content": TEXT, "content_sha256": TEXT,
                               "metadata": {"type": "object"}}, ["method"])},
              ["id", "url", "title", "excerpt", "retrieved_at"])
@@ -367,6 +398,7 @@ WORKBENCH_SUBMIT = obj({"kind": enum("initial", "plan", "checkpoint", "finish", 
                         "expected_revision": COUNT, "idempotency_key": TEXT, "payload": {"type": "object"}})
 
 SCHEMAS = {"question": QUESTION, "profile": PROFILE, "run": RUN, "submit": SUBMIT,
+           "reference_class_search": REFERENCE_SEARCH,
            "reference_class_design": REFERENCE_CLASS_DESIGN, "reference_class_analysis": REFERENCE_CLASS_ANALYSIS,
            "model_map": MODEL_MAP, "model_challenge": MODEL_CHALLENGE,
            "intake": INTAKE, "inquiry": INQUIRY, "parameter_support": PARAMETER_SUPPORT,

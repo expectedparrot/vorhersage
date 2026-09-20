@@ -74,6 +74,8 @@ class ReferenceTests(unittest.TestCase):
         self.assertEqual(result["unascertained_mature"], ["lost"])
         self.assertIsNone(result["prior_payload"])
         self.assertEqual(result["resolved_case_frequency"]["probability"], 1)
+        self.assertEqual(result["partial_identification"]["probability_bounds"], [0.5, 1.0])
+        self.assertEqual(result["partial_identification"]["unknown_outcomes"], 1)
         run = self.w.start(run_spec())["run_id"]
         request = response(self.w.next(run), self.refs)
         request["payload"] = {"method": "reference_class", "probability": 1, "cases": result["cases"],
@@ -94,6 +96,24 @@ class ReferenceTests(unittest.TestCase):
         self.assertEqual(result["immature"], ["future-at-cutoff"])
         self.assertEqual(result["excluded_after_cutoff"], ["later-known"])
         self.assertEqual(result["probability"], 0)
+
+    def test_partial_bounds_use_all_mature_cases_and_ignore_immature_success(self):
+        self.add("yes1", -100, -99, -99)
+        self.add("yes2", -100, -95, -95)
+        self.add("no", -100, -5)
+        self.add("missing1", -100, -50)
+        self.add("missing2", -100, -50)
+        self.add("young-success", -30, -20, -20)
+        result = reference.query(self.w.store, self.query)
+        self.assertEqual(result["partial_identification"]["probability_bounds"], [.4, .8])
+        self.assertEqual(result["partial_identification"]["mature_cases"], 5)
+        self.assertIsNone(result["prior_payload"])
+
+    def test_all_missing_outcomes_remain_informative_about_uncertainty(self):
+        self.add("missing", -100, -50)
+        result = reference.query(self.w.store, self.query)
+        self.assertEqual(result["partial_identification"]["probability_bounds"], [0, 1])
+        self.assertIsNone(result["probability"])
 
     def test_legacy_cases_without_episode_metadata_remain_descriptive(self):
         reference.add(self.w.store, {"id": "legacy", "description": "Old fixture", "tags": ["test"],

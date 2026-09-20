@@ -18,7 +18,7 @@ from test_study import intake, study_payload, support
 def begin(tmp_path):
     w = Workflow(tmp_path / "study")
     q = question(kind="real")
-    study.start(w.store.root, q["text"], q, forecaster="tester", research_contract="structured_v1")
+    study.start(w.store.root, q["text"], q, forecaster="tester", research_contract="structured_v1", research_effort="standard")
     return w
 
 

@@ -19,7 +19,7 @@ def timeline_study(tmp_path):
     w = Workflow(tmp_path)
     q = question(kind='real')
     q.update(event_deadline='2029-01-01T00:00:00Z', resolve_after='2029-01-01T00:00:00Z')
-    study.start(tmp_path, q['text'], q, workflow_name='timeline')
+    study.start(tmp_path, q['text'], q, workflow_name='timeline', research_effort='standard')
     return w
 
 

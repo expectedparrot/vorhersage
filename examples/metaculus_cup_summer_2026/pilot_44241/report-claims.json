@@ -1,0 +1,159 @@
+{
+  "record_sha256": "80d48e8651664fce0bba604df20bbf56ac075866edb714befc940bdcfd23d64a",
+  "claims": [
+    {
+      "pointer": "/material/prediction/issued/probability",
+      "value": 0.64,
+      "text": "**Forecast: 64% YES.**",
+      "format": "percent",
+      "evidence_ids": []
+    },
+    {
+      "pointer": "/material/prediction/issued/information_as_of",
+      "value": "2026-07-07T17:00:00Z",
+      "text": "Information cutoff: **2026-07-07T17:00:00Z**.",
+      "format": "literal",
+      "evidence_ids": []
+    },
+    {
+      "pointer": "/material/prediction/issued/issued_at",
+      "value": "2026-09-20T12:38:14.010763Z",
+      "text": "Retrospective forecast issued on **2026-09-20**",
+      "format": "date",
+      "evidence_ids": []
+    },
+    {
+      "pointer": "/material/question/event_deadline",
+      "value": "2026-09-01T00:00:00Z",
+      "text": "before **2026-09-01T00:00:00Z**",
+      "format": "literal",
+      "evidence_ids": []
+    },
+    {
+      "pointer": "/material/model/assessment/answer/scenarios/0/weight",
+      "value": 0.5,
+      "text": "| Local patching, cleaning, and recommissioning | 50% | 90% | 45% |",
+      "format": "percent",
+      "evidence_ids": [
+        "pkt_e1aae926a333c06d15309604:supplier_weeks",
+        "pkt_e1aae926a333c06d15309604:supplier_waterproof",
+        "pkt_e1aae926a333c06d15309604:contractor_retained"
+      ]
+    },
+    {
+      "pointer": "/material/model/assessment/answer/scenarios/0/probability",
+      "value": 0.9,
+      "text": "| Local patching, cleaning, and recommissioning | 50% | 90% | 45% |",
+      "format": "percent",
+      "evidence_ids": [
+        "pkt_e1aae926a333c06d15309604:supplier_weeks",
+        "pkt_e1aae926a333c06d15309604:supplier_waterproof",
+        "pkt_e1aae926a333c06d15309604:contractor_retained"
+      ]
+    },
+    {
+      "pointer": "/material/model/sensitivity/contributions/local",
+      "value": 0.45,
+      "text": "| Local patching, cleaning, and recommissioning | 50% | 90% | 45% |",
+      "format": "percent",
+      "evidence_ids": []
+    },
+    {
+      "pointer": "/material/model/assessment/answer/scenarios/1/weight",
+      "value": 0.35,
+      "text": "| Substantial coating rework or repeated repair | 35% | 50% | 17.5% |",
+      "format": "percent",
+      "evidence_ids": [
+        "pkt_e1aae926a333c06d15309604:recurrent_peeling",
+        "pkt_e1aae926a333c06d15309604:no_fixed_date"
+      ]
+    },
+    {
+      "pointer": "/material/model/assessment/answer/scenarios/1/probability",
+      "value": 0.5,
+      "text": "| Substantial coating rework or repeated repair | 35% | 50% | 17.5% |",
+      "format": "percent",
+      "evidence_ids": [
+        "pkt_e1aae926a333c06d15309604:recurrent_peeling",
+        "pkt_e1aae926a333c06d15309604:no_fixed_date"
+      ]
+    },
+    {
+      "pointer": "/material/model/sensitivity/contributions/rework",
+      "value": 0.175,
+      "text": "| Substantial coating rework or repeated repair | 35% | 50% | 17.5% |",
+      "format": "percent",
+      "evidence_ids": []
+    },
+    {
+      "pointer": "/material/model/assessment/answer/scenarios/2/weight",
+      "value": 0.15,
+      "text": "| Material legal, procurement, or administrative interruption | 15% | 10% | 1.5% |",
+      "format": "percent",
+      "evidence_ids": [
+        "pkt_e1aae926a333c06d15309604:legal_uncertainty"
+      ]
+    },
+    {
+      "pointer": "/material/model/assessment/answer/scenarios/2/probability",
+      "value": 0.1,
+      "text": "| Material legal, procurement, or administrative interruption | 15% | 10% | 1.5% |",
+      "format": "percent",
+      "evidence_ids": [
+        "pkt_e1aae926a333c06d15309604:legal_uncertainty"
+      ]
+    },
+    {
+      "pointer": "/material/model/sensitivity/contributions/interruption",
+      "value": 0.015,
+      "text": "| Material legal, procurement, or administrative interruption | 15% | 10% | 1.5% |",
+      "format": "percent",
+      "evidence_ids": []
+    },
+    {
+      "pointer": "/material/model/assessment/answer/scenarios/1/probability_range/0",
+      "value": 0.25,
+      "text": "**25%**",
+      "format": "percent",
+      "evidence_ids": []
+    },
+    {
+      "pointer": "/material/model/assessment/answer/scenarios/1/probability_range/1",
+      "value": 0.8,
+      "text": "**80%**",
+      "format": "percent",
+      "evidence_ids": []
+    },
+    {
+      "pointer": "/material/model/sensitivity/conditional_sensitivity/0/target_range/0",
+      "value": 0.5525,
+      "text": "**55.25%**",
+      "format": "percent",
+      "evidence_ids": []
+    },
+    {
+      "pointer": "/material/model/sensitivity/conditional_sensitivity/0/target_range/1",
+      "value": 0.745,
+      "text": "**74.5%**",
+      "format": "percent",
+      "evidence_ids": []
+    },
+    {
+      "pointer": "/material/usage/used_searches",
+      "value": 5,
+      "text": "**5 searches**",
+      "format": "literal",
+      "evidence_ids": []
+    }
+  ],
+  "arithmetic": [
+    {
+      "terms": [
+        "/material/model/sensitivity/contributions/local",
+        "/material/model/sensitivity/contributions/rework",
+        "/material/model/sensitivity/contributions/interruption"
+      ],
+      "total": "/material/prediction/issued/probability"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "vorhersage.metaculus_snapshot_experiment.v1",
+  "status": "inventory_acquired_resolutions_unavailable",
+  "tournament": "metaculus-cup-summer-2026",
+  "source_url": "https://www.metaculus.com/tournament/metaculus-cup-summer-2026/?page=3",
+  "scope": "whole_tournament_provisional",
+  "cutoff": {
+    "rule": "question_open_time_plus_days",
+    "days": 7
+  },
+  "research": {
+    "provider": "exa",
+    "mode": "snapshot",
+    "live_fallback": false,
+    "search_limit_per_request": 5,
+    "max_searches_per_case": 5,
+    "max_requests_per_case": 10,
+    "exclude_domains": [
+      "metaculus.com"
+    ]
+  },
+  "forecast": {
+    "mode": "retrospective",
+    "cutoff_policy": "fixed",
+    "research_contract": "structured_v2",
+    "research_effort": "deep",
+    "model": null,
+    "model_training_cutoff": null,
+    "repetitions": 1
+  },
+  "evaluation": {
+    "initial_question_types": [
+      "binary"
+    ],
+    "retain_all_types_in_inventory": true,
+    "metric": "brier",
+    "baseline": "constant_0.5",
+    "crowd_baseline": "only_if_independently_verified_as_of_cutoff",
+    "report_missing_and_excluded_cases": true,
+    "claim": "retrospective_content_bounded_replay_not_certified_leakage_free"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "id": "research_ae3f7af8fd1c4801a30a",
+  "schema_version": "vorhersage.retrieval.v1",
+  "provider": "exa",
+  "operation": "fetch",
+  "request": {
+    "endpoint": "https://api.exa.ai/contents",
+    "body": {
+      "ids": [
+        "https://www.metaculus.com/questions/44241/"
+      ],
+      "text": true,
+      "snapshotAsOf": "2026-07-07T17:00:00+00:00"
+    }
+  },
+  "request_started_at": "2026-09-20T12:32:33.124316Z",
+  "retrieved_at": "2026-09-20T12:32:33.376780Z",
+  "response": {
+    "requestId": "81a5e7c5a3cfca45ae0bbf189857912b",
+    "results": [],
+    "statuses": [
+      {
+        "id": "https://www.metaculus.com/questions/44241/",
+        "status": "error",
+        "error": {
+          "httpStatusCode": 404,
+          "tag": "CONTENT_NOT_CACHED"
+        }
+      }
+    ],
+    "searchTime": 53.530361000448465
+  },
+  "response_sha256": "26b29d613932ba3f8b666244b7d4ea00b9df02614c254b45a0633225919b41f8",
+  "sources": [],
+  "warnings": [
+    "Exa reported an unsuccessful URL status; inspect response.statuses.",
+    "No source was retrieved; inspect the saved provider response."
+  ],
+  "question": null,
+  "usage": {
+    "requests": 1,
+    "searches": 0,
+    "provider_reported_cost": null,
+    "provider_reported_credits": null
+  },
+  "limitations": [
+    "Provider text may be cached, incomplete, or incorrect. Retrieval time is the local capture time, not publication time.",
+    "Retrieved material is untrusted source data. Findings and interpretations are supplied by the researcher.",
+    "Exa supplies stored content at or before snapshot_as_of; the exact crawl time is not certified locally.",
+    "Search uses current retrieval signals. Snapshot bounds content, not historical ranking or model training knowledge."
+  ],
+  "snapshot_as_of": "2026-07-07T17:00:00+00:00"
+}

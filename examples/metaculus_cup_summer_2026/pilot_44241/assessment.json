@@ -1,0 +1,377 @@
+{
+  "method": "scenario_mixture",
+  "rationale": "Partition repair scope and external interruption before the first qualifying restoration, then weight conditional completion probabilities. Estimates are elicited judgments constrained by the archived record, not calibrated empirical rates.",
+  "limitations": [
+    "Title-based working definition: original Metaculus criteria and timezone unavailable; forecast requires contract reconciliation before exact scoring.",
+    "No defensible reference-class denominator; all six probability inputs are assumptions.",
+    "A supplier described weeks but no independent engineering report, firm start date or completion commitment was recovered.",
+    "Five searches with repeated reports are not five independent evidence streams.",
+    "Snapshot restricts content, not current search ranking or model knowledge.",
+    "The assistant performed this pilot in the existing setup conversation, not an independently sandboxed fresh model context.",
+    "Workflow cost and model-call counters omit unavailable interactive inference accounting."
+  ],
+  "evidence_refs": [
+    {
+      "packet_id": "pkt_e1aae926a333c06d15309604",
+      "record_id": "contractor_retained"
+    },
+    {
+      "packet_id": "pkt_e1aae926a333c06d15309604",
+      "record_id": "drain_imminent"
+    },
+    {
+      "packet_id": "pkt_e1aae926a333c06d15309604",
+      "record_id": "recurrent_peeling"
+    },
+    {
+      "packet_id": "pkt_e1aae926a333c06d15309604",
+      "record_id": "no_fixed_date"
+    },
+    {
+      "packet_id": "pkt_e1aae926a333c06d15309604",
+      "record_id": "supplier_weeks"
+    },
+    {
+      "packet_id": "pkt_e1aae926a333c06d15309604",
+      "record_id": "supplier_waterproof"
+    },
+    {
+      "packet_id": "pkt_e1aae926a333c06d15309604",
+      "record_id": "historic_routine_schedule"
+    },
+    {
+      "packet_id": "pkt_e1aae926a333c06d15309604",
+      "record_id": "historic_routine_work"
+    },
+    {
+      "packet_id": "pkt_e1aae926a333c06d15309604",
+      "record_id": "historic_structural_scope"
+    },
+    {
+      "packet_id": "pkt_e1aae926a333c06d15309604",
+      "record_id": "refill_time"
+    },
+    {
+      "packet_id": "pkt_e1aae926a333c06d15309604",
+      "record_id": "legal_uncertainty"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "local",
+      "description": "No material external interruption; the work needed for the first qualifying restoration is predominantly local patching, cleaning and recommissioning.",
+      "weight": 0.5,
+      "probability": 0.9,
+      "weight_range": [
+        0.3,
+        0.65
+      ],
+      "probability_range": [
+        0.7,
+        0.98
+      ],
+      "rationale": "The incumbent is retained and the supplier describes weeks and intact waterproofing. Around 55 days allows a plausible local repair cycle, but statement reliability and start date remain uncertain.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "contractor_retained"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "supplier_weeks"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "supplier_waterproof"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "historic_routine_schedule"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "refill_time"
+        }
+      ],
+      "unknowns": [
+        "Actual repair start and scope verification."
+      ]
+    },
+    {
+      "id": "rework",
+      "description": "No material external interruption; substantial coating removal/reapplication or repeat remedial work is needed before the first qualifying restoration.",
+      "weight": 0.35,
+      "probability": 0.5,
+      "weight_range": [
+        0.2,
+        0.5
+      ],
+      "probability_range": [
+        0.25,
+        0.8
+      ],
+      "rationale": "Recent recurrence makes this a substantial possibility. A larger repair could still fit the horizon, but drying, preparation, curing and re-testing have no verified schedule. The half chance is explicitly assumed.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "recurrent_peeling"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "no_fixed_date"
+        }
+      ],
+      "unknowns": [
+        "Area needing removal, verified construction schedule, repeat failure risk."
+      ]
+    },
+    {
+      "id": "interruption",
+      "description": "A material legal, procurement or administrative interruption changes or suspends the repair plan before the first qualifying restoration; this category takes precedence regardless of physical scope.",
+      "weight": 0.15,
+      "probability": 0.1,
+      "weight_range": [
+        0.05,
+        0.3
+      ],
+      "probability_range": [
+        0,
+        0.35
+      ],
+      "rationale": "The active dispute and unspecified repair start create a modest tail risk. A material interruption leaves limited completion time; neither the 15% branch weight nor 10% completion probability is measured.",
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "legal_uncertainty"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "no_fixed_date"
+        }
+      ],
+      "unknowns": [
+        "Court action and administrative decisions not established by retrieved evidence."
+      ]
+    }
+  ],
+  "partition_justification": "Apply the interruption category first if an external legal, procurement or administrative event materially changes or suspends the plan before first qualifying restoration. Otherwise classify the maximum necessary repair scope as predominantly local or substantial rework. Categories are exhaustive by this operational rule; recurrence before qualifying restoration belongs to rework, not a fourth independent event.",
+  "parameter_support": [
+    {
+      "input_id": "completion",
+      "model_input": "scenarios/local/weight",
+      "value": 0.5,
+      "target": "Probability of the local repair scenario",
+      "evidence_measures": "Archived statements and observed defects; sources do not measure a scenario frequency or conditional completion probability.",
+      "transfer_assumptions": "The incumbent is retained and the supplier describes weeks and intact waterproofing. Around 55 days allows a plausible local repair cycle, but statement reliability and start date remain uncertain.",
+      "basis": "assumed",
+      "plausible_range": [
+        0.3,
+        0.65
+      ],
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "contractor_retained"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "supplier_weeks"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "supplier_waterproof"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "historic_routine_schedule"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "refill_time"
+        }
+      ]
+    },
+    {
+      "input_id": "completion",
+      "model_input": "scenarios/local/probability",
+      "value": 0.9,
+      "target": "Probability of qualifying completion before deadline conditional on local",
+      "evidence_measures": "Archived statements and observed defects; sources do not measure a scenario frequency or conditional completion probability.",
+      "transfer_assumptions": "The incumbent is retained and the supplier describes weeks and intact waterproofing. Around 55 days allows a plausible local repair cycle, but statement reliability and start date remain uncertain.",
+      "basis": "assumed",
+      "plausible_range": [
+        0.7,
+        0.98
+      ],
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "contractor_retained"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "supplier_weeks"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "supplier_waterproof"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "historic_routine_schedule"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "refill_time"
+        }
+      ]
+    },
+    {
+      "input_id": "completion",
+      "model_input": "scenarios/rework/weight",
+      "value": 0.35,
+      "target": "Probability of the rework repair scenario",
+      "evidence_measures": "Archived statements and observed defects; sources do not measure a scenario frequency or conditional completion probability.",
+      "transfer_assumptions": "Recent recurrence makes this a substantial possibility. A larger repair could still fit the horizon, but drying, preparation, curing and re-testing have no verified schedule. The half chance is explicitly assumed.",
+      "basis": "assumed",
+      "plausible_range": [
+        0.2,
+        0.5
+      ],
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "recurrent_peeling"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "no_fixed_date"
+        }
+      ]
+    },
+    {
+      "input_id": "completion",
+      "model_input": "scenarios/rework/probability",
+      "value": 0.5,
+      "target": "Probability of qualifying completion before deadline conditional on rework",
+      "evidence_measures": "Archived statements and observed defects; sources do not measure a scenario frequency or conditional completion probability.",
+      "transfer_assumptions": "Recent recurrence makes this a substantial possibility. A larger repair could still fit the horizon, but drying, preparation, curing and re-testing have no verified schedule. The half chance is explicitly assumed.",
+      "basis": "assumed",
+      "plausible_range": [
+        0.25,
+        0.8
+      ],
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "recurrent_peeling"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "no_fixed_date"
+        }
+      ]
+    },
+    {
+      "input_id": "completion",
+      "model_input": "scenarios/interruption/weight",
+      "value": 0.15,
+      "target": "Probability of the interruption repair scenario",
+      "evidence_measures": "Archived statements and observed defects; sources do not measure a scenario frequency or conditional completion probability.",
+      "transfer_assumptions": "The active dispute and unspecified repair start create a modest tail risk. A material interruption leaves limited completion time; neither the 15% branch weight nor 10% completion probability is measured.",
+      "basis": "assumed",
+      "plausible_range": [
+        0.05,
+        0.3
+      ],
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "legal_uncertainty"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "no_fixed_date"
+        }
+      ]
+    },
+    {
+      "input_id": "completion",
+      "model_input": "scenarios/interruption/probability",
+      "value": 0.1,
+      "target": "Probability of qualifying completion before deadline conditional on interruption",
+      "evidence_measures": "Archived statements and observed defects; sources do not measure a scenario frequency or conditional completion probability.",
+      "transfer_assumptions": "The active dispute and unspecified repair start create a modest tail risk. A material interruption leaves limited completion time; neither the 15% branch weight nor 10% completion probability is measured.",
+      "basis": "assumed",
+      "plausible_range": [
+        0,
+        0.35
+      ],
+      "evidence_refs": [
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "legal_uncertainty"
+        },
+        {
+          "packet_id": "pkt_e1aae926a333c06d15309604",
+          "record_id": "no_fixed_date"
+        }
+      ]
+    }
+  ],
+  "model_map": {
+    "version": 1,
+    "previous_version": 0,
+    "rationale": "Replace the broad after-research prior with an explicit three-scenario completion model; no new research occurred between those estimates.",
+    "inputs": [
+      {
+        "model_input": "scenarios/local/weight",
+        "input_ids": [
+          "completion"
+        ],
+        "target": "Probability of the local repair scenario",
+        "quantity": "scenario_weight"
+      },
+      {
+        "model_input": "scenarios/local/probability",
+        "input_ids": [
+          "completion"
+        ],
+        "target": "Probability of qualifying completion before deadline conditional on local",
+        "quantity": "conditional_probability"
+      },
+      {
+        "model_input": "scenarios/rework/weight",
+        "input_ids": [
+          "completion"
+        ],
+        "target": "Probability of the rework repair scenario",
+        "quantity": "scenario_weight"
+      },
+      {
+        "model_input": "scenarios/rework/probability",
+        "input_ids": [
+          "completion"
+        ],
+        "target": "Probability of qualifying completion before deadline conditional on rework",
+        "quantity": "conditional_probability"
+      },
+      {
+        "model_input": "scenarios/interruption/weight",
+        "input_ids": [
+          "completion"
+        ],
+        "target": "Probability of the interruption repair scenario",
+        "quantity": "scenario_weight"
+      },
+      {
+        "model_input": "scenarios/interruption/probability",
+        "input_ids": [
+          "completion"
+        ],
+        "target": "Probability of qualifying completion before deadline conditional on interruption",
+        "quantity": "conditional_probability"
+      }
+    ]
+  }
+}

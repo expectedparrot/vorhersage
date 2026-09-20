@@ -3,6 +3,9 @@
 import shlex
 
 STAGES = {
+    "reference_class_design": "Plan close and broader reference classes",
+    "reference_class_search": "Find and verify comparable cases and useful analogies",
+    "reference_class_analysis": "Assess reference evidence and decide whether to research further",
     "intake": "Identify missing facts and plan how to obtain them", "inquiry": "Answer a linked research question",
     "prior": "Establish a starting estimate", "drivers": "Map what could make it happen or prevent it",
     "research": "Collect and check evidence", "assessment": "Build the estimate",
@@ -62,6 +65,28 @@ def render(data):
             lines.append("    Evidence measures: " + row["evidence_measures"])
             lines.append("    Transfer assumptions: " + row["transfer_assumptions"])
         lines.append("")
+    reference = data.get("reference_research") or {}
+    if reference.get("classes"):
+        lines.append("Reference research:")
+        latest_searches = {row["class_id"]: row for row in reference["searches"]}
+        for row in reference["classes"]:
+            search = latest_searches.get(row["id"], {})
+            lines.append(f"  {row['population']} ({row['distance']}): {search.get('status', 'pending')}")
+            for case in reference["candidates"]:
+                if case["class_id"] != row["id"]:
+                    continue
+                lines.append(f"    {case['description']} [{case['use']}; outcome {case['outcome_status']}]")
+                lines.append("      " + case["rationale"])
+        if reference.get("analysis"):
+            lines.append("  Analysis: " + reference["analysis"]["status"] + " — " + reference["analysis"]["result"])
+        lines += ["  " + reference["qualification"], ""]
+    if data.get("research_priorities") and not data["issued"]:
+        lines.append("Research leads among assumed or extrapolated inputs:")
+        for row in data["research_priorities"][:3]:
+            impact = f"; tested probability swing {row['probability_swing']:.1%}" if row["probability_swing"] is not None else ""
+            lines.append(f"  {row['target']} ({row['basis']}{impact})")
+        lines.append("  These are research leads, not measured expected values of information.")
+        lines.append("")
     if data.get("model_map"):
         mapping = data["model_map"]
         lines += [f"Research-to-model mapping, version {mapping['version']}: " + mapping["rationale"]]
@@ -97,7 +122,7 @@ def render(data):
     latest = {}
     for item in data["work"]:
         todo = item["task"]
-        latest[(todo["kind"], todo.get("domain", todo.get("parameter_id")))] = item
+        latest[(todo["kind"], todo.get("domain", todo.get("parameter_id", todo.get("class_id"))))] = item
     if latest:
         lines.append("Recorded reasoning:")
         for item in latest.values():
@@ -138,6 +163,11 @@ def render(data):
         lines += ["Next: " + todo["instruction"]]
         if todo.get("domain"):
             lines.append("Research topic: " + todo["domain"].replace("_", " "))
+        if todo.get("reference_class"):
+            lines.append("Reference population: " + todo["reference_class"]["population"])
+            lines.extend("  Search: " + query for query in todo["reference_class"]["search_plan"])
+        if todo.get("action"):
+            lines.append("Follow-up: " + todo["action"])
         if todo.get("inquiry"):
             inquiry = todo["inquiry"]
             lines += ["Question: " + inquiry["question"], "Action (" + inquiry["route"] + "): " + inquiry["action"],

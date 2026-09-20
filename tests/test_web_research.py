@@ -1,4 +1,5 @@
 import contextlib
+import copy
 import io
 import json
 import tempfile
@@ -10,8 +11,9 @@ from urllib.error import HTTPError, URLError
 from vorhersage import research
 from vorhersage.cli import main
 from vorhersage.common import Error
+from vorhersage.evidence import validate_packet
 from vorhersage.store import Store
-from vorhersage.workflow import Workflow
+from vorhersage.workflow import Workflow, verify_refs
 
 
 class ResearchTests(unittest.TestCase):
@@ -105,6 +107,7 @@ class ResearchTests(unittest.TestCase):
         network.return_value = self.response({"results": [], "statuses": [{"id": "https://example.com", "status": "error"}]})
         saved = research.fetch(self.project, "https://example.com", provider="exa")
         self.assertTrue(saved["warnings"])
+
         self.assertEqual(saved["sources"], [])
         network.return_value = self.response({"success": True, "data": {"markdown": "Not found", "metadata": {"statusCode": 404}}})
         saved = research.fetch(self.project, "https://example.com")
@@ -114,6 +117,64 @@ class ResearchTests(unittest.TestCase):
         saved = research.fetch(self.project, "https://example.com")
         self.assertEqual(saved["sources"][0]["capture"]["method"], "discovery")
         self.assertTrue(saved["warnings"])
+
+    @patch("vorhersage.research.urlopen")
+    def test_snapshot_search_and_fetch_keep_real_times_and_support_replay(self, network):
+        cutoff = "2026-05-15T00:00:00+00:00"
+        response = {"results": [{"url": "https://example.com", "title": "Plan", "text": "Launch is planned for August."}]}
+        for action, value in (("search", "launch plan"), ("fetch", "https://example.com")):
+            network.return_value = self.response(response)
+            saved = self.cli("research", action, value, "--provider", "exa", "--snapshot-as-of", cutoff)
+            payload = json.loads(network.call_args.args[0].data)
+            options = payload["contents"] if action == "search" else payload
+            self.assertEqual(options["snapshotAsOf"], cutoff)
+            self.assertTrue(options["text"])
+            self.assertNotIn("livecrawl", json.dumps(payload))
+            source = saved["sources"][0]
+            self.assertGreater(source["retrieved_at"], cutoff)
+            self.assertEqual(source["capture"]["captured_at"], source["retrieved_at"])
+            self.assertEqual(source["capture"]["method"], "exa_snapshot")
+            spec = {"findings": [{"id": "plan", "claim": "August launch planned.", "claim_type": "reporting",
+                    "source_ids": [source["id"]], "claim_support": [{"source_id": source["id"],
+                    "passage": "Launch is planned for August.", "relation": "direct", "rationale": "Stated plan."}]}],
+                    "limitations": []}
+            packet = research.capture(self.project, [saved["id"]], spec)
+            self.assertEqual(packet["information_as_of"], cutoff)
+            self.assertGreater(packet["created_at"], cutoff)
+            self.assertGreater(packet["records"][0]["provenance"]["recorded_at"], cutoff)
+            receipt = Workflow(self.project).import_packet(packet)
+            with Store(self.project).connect() as c:
+                refs = [{"packet_id": receipt["packet_id"], "record_id": "plan"}]
+                verify_refs(c, refs, cutoff)
+                with self.assertRaisesRegex(Error, "later than"):
+                    verify_refs(c, refs, "2026-05-14T00:00:00Z")
+            for mutate in (lambda s: s["capture"].update(method="fetched"),
+                           lambda s: s["capture"].update(snapshot_as_of="2026-05-16T00:00:00Z"),
+                           lambda s: s["capture"].update(content="Changed body"),
+                           lambda s: s["capture"].pop("snapshot_as_of"),
+                           lambda s: s["capture"].update(metadata={})):
+                bad = copy.deepcopy(packet)
+                bad.pop("sha256")
+                mutate(bad["records"][0]["sources"][0])
+                with self.assertRaises(Error):
+                    validate_packet(bad)
+        self.assertTrue(Workflow(self.project).doctor()["ok"])
+
+    @patch("vorhersage.research.urlopen")
+    def test_snapshot_rejects_live_provider_invalid_dates_and_missing_content(self, network):
+        for kwargs in ({"provider": "firecrawl", "snapshot_as_of": "2026-05-01T00:00:00Z"},
+                       {"snapshot_as_of": "2026-05-01"}, {"snapshot_as_of": "2999-01-01T00:00:00Z"}):
+            with self.assertRaises(Error):
+                research.search(self.project, "query", **kwargs)
+            with self.assertRaises(Error):
+                research.fetch(self.project, "https://example.com", **kwargs)
+        network.assert_not_called()
+        network.return_value = self.response({"results": [{"url": "https://example.com", "title": "Metadata only"}],
+            "statuses": [{"id": "https://missing.example.com", "status": "error", "tag": "CONTENT_NOT_CACHED"}]})
+        saved = research.search(self.project, "query", snapshot_as_of="2026-05-01T00:00:00Z")
+        self.assertEqual(saved["sources"], [])
+        self.assertTrue(saved["warnings"])
+        network.assert_called_once()
 
     @patch("vorhersage.research.urlopen")
     def test_validation_precedes_network(self, network):

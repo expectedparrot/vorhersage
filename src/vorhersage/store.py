@@ -102,6 +102,7 @@ class Store:
         row = c.execute("SELECT * FROM runs WHERE id=?", (id,)).fetchone()
         require(row is not None, "Unknown run: " + id, "not_found")
         body, state = json.loads(row["body"]), json.loads(row["state"])
+        body.update(state.get("budget_overrides", {}))
         body["initial_information_as_of"] = body["information_as_of"]
         body["information_as_of"] = state.get("information_as_of", body["information_as_of"])
         body["cutoff_policy"] = state.get("cutoff_policy", body.get("cutoff_policy", "live" if body["mode"] == "prospective" else "fixed"))

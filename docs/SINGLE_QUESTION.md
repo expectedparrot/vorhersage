@@ -299,11 +299,29 @@ The final task records a stopping
 reason, review date, and observable triggers; submitting it issues the forecast.
 There is no separate command that bypasses these steps to publish a number.
 
-The default budget is 20 reported searches and two additional review tasks;
+The default budget is 60 reported searches and eight additional research tasks;
 `--max-searches` and `--max-extra-tasks` can change these at definition. Report
 usage in `submission.usage` or `--usage` when measured. Count only newly performed
 searches, not repeated citations to the same search. Do not reduce actual usage
 to pass a budget check. Omitted usage is not evidence of zero-cost research.
+
+New deep runs use [widening reference research](DEEP_RESEARCH.md) before ordinary
+inquiries and estimation. Search close and broader classes; retain partial
+outcomes and useful analogies with explicit transfer assumptions. An analysis
+can request more verification or add broader classes instead of stopping at an
+exception. Budgets are ceilings, not requirements to spend every search.
+
+For an unfinished ordinary study, extend the budget without restarting:
+
+```bash
+vorhersage budget --max-searches 90 --max-extra-tasks 12 \
+  --reason "Verify completion dates and investigate broader repair analogies"
+```
+
+These are new total ceilings. Existing usage and initial budgets are preserved;
+fetch a fresh task file afterward. Frozen experiment budgets cannot be extended.
+`--research-effort standard` opts out of the additional reference-class stages
+when supplied to `start` or `define`.
 
 ## Start from a timeline model
 

@@ -40,6 +40,40 @@ automatic retries or local cache hits; providers may return cached text. Failed
 HTTP requests raise an error. The package cannot determine whether a timed-out
 request incurred charges. It does not retry if saving a result locally fails.
 
+## Historical research with Exa Snapshot
+
+Pin both search and page retrieval to stored content with an explicit UTC cutoff:
+
+```bash
+vorhersage research search "launch plans" --provider exa \
+  --snapshot-as-of 2026-07-01T00:00:00Z --project research-project
+vorhersage research fetch "https://example.com/report" --provider exa \
+  --snapshot-as-of 2026-07-01T00:00:00Z --project research-project
+```
+
+Python calls accept `snapshot_as_of="2026-07-01T00:00:00Z"`. Snapshot search
+automatically requests text. Firecrawl is rejected when a snapshot cutoff is
+supplied. Missing archived pages stay missing; there is no live fallback.
+
+Saved sources have `capture.method: exa_snapshot` and `capture.snapshot_as_of`.
+Retrieval, capture, packet creation, and finding recording timestamps remain the
+actual current times. For packets made entirely from snapshots, `research capture`
+uses the latest source cutoff as the default information cutoff. The observation
+date represents the source's historical information boundary, not the date the
+researcher wrote the finding. Ordinary live sources retain their existing checks.
+Imported packets are assertions of provider provenance, not cryptographic proof
+that a page existed at the claimed date; retain the retrieval artifacts.
+
+[Exa's contract](https://exa.ai/docs/search/snapshot) bounds returned content,
+including titles, to the stored version. Search still uses current ranking
+signals. It cannot remove knowledge from model weights, later question edits,
+or outcomes revealed elsewhere in an agent's context. Use a fresh, restricted
+forecasting environment and keep labels separate.
+
+As documented September 20, 2026, pay-as-you-go access has a rolling five-month
+window and a 100-request preview allowance before contacting Exa. Archive
+responses promptly and record missing coverage; do not silently advance cutoffs.
+
 ## Read saved research
 
 ```bash

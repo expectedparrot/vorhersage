@@ -8,7 +8,7 @@ from .common import canonical, digest, identifier, now, probability, require, ti
 from .evidence import validate_packet, audit as evidence_audit
 from .scenarios import calculate as scenario_calculate
 from .odds import calculate as odds_calculate
-from . import timeline, research_model
+from . import timeline, research_model, reference_research
 from .relations import audit as coherence_audit
 from .schemas import SCHEMAS, check
 from .store import Store
@@ -17,9 +17,10 @@ INSTRUCTIONS = {
     "intake": "Name the model inputs and missing case facts before estimating. Link each unknown to input IDs and choose ask_user, search, assumption, or unobservable. Give a concrete action and explain why it matters. When several influential facts are known to the human user and ep is available, offer a short personal survey via ep humanize; explain which inputs the answers could inform. Chat answers also work. See vorhersage guide for survey creation and response capture. An empty unknown list needs an explanation in rationale.",
     "inquiry": "Carry out the declared research action. Ask the user for facts they know; use dated evidence for observations. Related ask_user questions can be collected through an optional ep humanize survey for that user; preserve the question-to-input mapping and capture the actual answers as self-reported evidence. Record an answer or explicitly leave this unresolved with reasons. Do not turn an interpretation into an observed fact.",
     "model_challenge": "Inspect the actual quantities in context.model_map. For each input, decide whether its cited passages support that quantity, merely inform an assumption, or concern a different quantity. Inspect influential inputs first. For scenario models test concrete boundary trajectories and a spike followed by reversal before the deadline; record zero/multiple matches honestly. Name material concerns and concrete actions: investigate now, await evidence, or retain an assumption with reasons. These are declared judgments, not automated verification.",
-    "prior": "Establish an empirical reference class before assigning a prior. Use Flyvbjerg (or an equivalent auditable reference-class artifact) to define the population, selection rule, cases, metric, maturity, dependence, and sensitivity. If no defensible class exists, document a concrete reference_class_exception explaining what you searched, why it failed, and which judgmental assumptions remain.",
-    "reference_class_design": "Design the empirical reference class before collecting cases. Define the target population, inclusion and exclusion rule, outcome metric, horizon, search plan, and likely dependence or maturity problems.",
+    "prior": "Seek an empirical reference class and useful nearby analogies before assigning a prior. Use Flyvbjerg (or an equivalent auditable artifact) for empirical populations, selection rules, cases, metrics, maturity, dependence, and sensitivity. Imperfect cases can inform judgment through explicit transfer and missingness assumptions. If an empirical prior is not justified, preserve the partial evidence and document reference_class_exception describing search coverage, remaining work and assumptions.",
+    "reference_class_design": "Plan empirical reference classes and nearby analogies before collecting cases. Define the target populations, inclusion and exclusion rules, outcome metric, horizon, search plan, and likely dependence or maturity problems. Seek shared mechanisms as well as surface similarity.",
     "reference_class_analysis": "Complete and freeze the reference-class analysis. Register or link the cases and captures in Flyvbjerg when available, verify the estimator, report case and independent-episode counts, and record limitations or a concrete blockage.",
+    "reference_class_search": "Search the selected class beyond the focal entity. Capture queries and retrievals, including empty results. Seek outcomes as well as announcements. Keep imperfect cases: distinguish whole-event base rates, input analogies, contextual evidence and exclusions; explain similarities, differences and uncertain outcomes. Repeated reports of one episode are not independent cases. Partial dates or outcomes can inform assumptions without becoming empirical successes or failures.",
     "drivers": "Map mechanisms and necessary steps, including concrete paths to YES and NO. Identify important unknowns.",
     "research": "Investigate this domain, including contrary evidence and net changes. Link frozen evidence or record an explicit unknown. Reconcile conflicts or explain remaining uncertainty.",
     "assessment": "Form a probability from the researched evidence. Label judgments; supply nested conditionals or exact ensemble membership when used. State limitations.",
@@ -165,6 +166,10 @@ class Workflow:
                 # single-question front end opts into deep research explicitly.
                 "research_effort": spec.get("research_effort", "standard"),
                 "profile": profile, "created_at": now(), "workflow_version": "1", **(protocol or {})}
+        body["reference_policy"] = spec.get("reference_policy", "widening_v1" if
+                                           body["research_effort"] == "deep" and not protocol else "legacy")
+        require(not reference_research.enabled(body) or body["research_effort"] == "deep",
+                "Widening reference research requires research_effort deep.")
         if workflow == "timeline":
             body.update(workflow="timeline", workflow_version="timeline.v1")
         if spec.get("research_contract") == "structured_v2":
@@ -179,6 +184,8 @@ class Workflow:
                  "probability": None, "forecast_id": None, "information_as_of": spec["information_as_of"]}
         if workflow == "timeline":
             state["pending"] = [task("timeline_structure"), task("assessment"), task("review"), task("issue")]
+            if reference_research.enabled(body):
+                state["pending"][:0] = [task("reference_class_design"), task("reference_class_analysis")]
             state["prior_record"] = {"timing": "not_applicable", "qualification": "Timeline workflow has no starting-probability task."}
             if old and old.get("timeline_model_id"):
                 self._bind_timeline(c, body, state, old["timeline_model_id"])
@@ -237,6 +244,31 @@ class Workflow:
                                                 "new_policy": "live", "revision": revision + 1})
             return self._next(c, run_id)
 
+    def extend_budget(self, run_id, *, max_searches=None, max_extra_tasks=None, reason):
+        """Increase an ordinary run's ceilings; preserve initial budgets and usage."""
+        require(reason and reason.strip(), "Explain why more research is useful.")
+        with self.store.connect(True) as c:
+            run, state, revision = Store.run(c, run_id)
+            require(state["pending"] and not state["forecast_id"], "Only unfinished runs can extend their budget.")
+            require(not run.get("experiment_id") and not run.get("method_spec"),
+                    "Frozen experiment budgets cannot be extended; register a separate comparison arm.")
+            limits = {"max_searches": max_searches, "max_extra_tasks": max_extra_tasks}
+            require(any(v is not None for v in limits.values()), "Supply a new search or follow-up ceiling.")
+            changes = {}
+            for key, value in limits.items():
+                if value is not None:
+                    require(type(value) is int and value >= run[key], "Budget extensions cannot lower a ceiling.")
+                    if value > run[key]:
+                        changes[key] = {"before": run[key], "after": value}
+                        state.setdefault("budget_overrides", {})[key] = value
+            if changes:
+                record = {"run_id": run_id, "reason": reason, "changes": changes, "recorded_at": now()}
+                aid = Store.put(c, "budget_amendment", record, run_id)
+                state["artifact_ids"].append(aid)
+                c.execute("UPDATE runs SET state=?,revision=? WHERE id=?", (canonical(state), revision + 1, run_id))
+                Store.event(c, "run.budget", record)
+            return self._next(c, run_id)
+
     def _next(self, c, run_id):
         """Read a task within the caller's consistent database snapshot."""
         run, state, revision = Store.run(c, run_id)
@@ -262,6 +294,17 @@ class Workflow:
                         "reason": "Experiment forecast cutoff passed."}
         packet_ids = sorted({r["packet_id"] for r in state["evidence_refs"]})
         payload_schema = copy.deepcopy(SCHEMAS[selected["kind"]])
+        if reference_research.enabled(run):
+            if selected["kind"] == "reference_class_design":
+                payload_schema["required"] += ["classes", "search_allocation"]
+                selected["instruction"] += " Plan close, nearby and shared-mechanism classes before research. Include at least a close class and a broader class, linked to intake input IDs. Allocate searches to discovery, outcome verification and follow-up; allocations are advisory, not extra caps. Preserve useful imperfect analogies instead of rejecting everything unlike the target."
+            if selected["kind"] == "reference_class_search":
+                selected["reference_class"] = state["reference_classes"][selected["class_id"]]
+            if selected["kind"] == "reference_class_analysis":
+                payload_schema["required"] += ["class_results", "remaining_assumptions"]
+                selected["instruction"] += " Use continue_research with followups or additional_classes when widening or outcome verification could improve influential inputs. Otherwise distinguish partial, search_incomplete, budget_exhausted, outcomes_unavailable, no_usable_cases_found and complete. Imperfect evidence is usable with explicit transfer assumptions; an incomplete search is not evidence that no useful class exists."
+            if selected["kind"] in ("assessment", "timeline_structure", "prior", "review"):
+                selected["instruction"] += " Use context.reference_research, including input analogies and partial outcomes. Explain transfers to model inputs; do not pool incompatible classes or convert missing outcomes to NO. Prefer further targeted research on influential weak assumptions when budget remains; wide ranges alone do not improve evidence."
         if selected["kind"] == "assessment" and run.get("workflow") == "timeline":
             selected["instruction"] += " Use the current task.timeline_context.timeline_model_id; research creates new immutable model versions."
         if selected["kind"] == "model_challenge" and state.get("event_alignment"):
@@ -292,6 +335,8 @@ class Workflow:
         return {"disposition": "actionable", "run_id": run_id, "revision": revision,
                 "task": selected, "submission_schema": SCHEMAS["submit"], "payload_schema": payload_schema,
                 "budget": {"searches_remaining": run["max_searches"] - state["used_searches"],
+                           "search_allocation": state.get("reference_class_design", {}).get("search_allocation"),
+                           "extension": "Ordinary runs: budget --max-searches N --max-extra-tasks N --reason TEXT. Frozen experiments retain their ceilings.",
                            "extra_tasks_remaining": run["max_extra_tasks"] - state["extra_tasks"],
                            "reported_cost_usd": state["cost_usd"], "reported_model_calls": state["model_calls"]},
                 "context": {"run": run, "coverage": state["coverage"], "current_probability": state["probability"],
@@ -304,6 +349,8 @@ class Workflow:
                             "model_map": state.get("model_map"), "model_challenge": state.get("model_challenge"),
                             "concern_resolutions": state.get("concern_resolutions", []),
                             "reference_class": state.get("reference_class"),
+                            "reference_research": reference_research.summary(state),
+                            "research_priorities": reference_research.priorities(state),
                             "model_inputs": state.get("model_inputs", {}),
                             "event_alignment": state.get("event_alignment"),
                             "workflow_requirements": workflow_requirements(run),
@@ -384,10 +431,22 @@ class Workflow:
         v2 = run.get("research_contract") == "structured_v2"
         if kind == "reference_class_design":
             require(p["search_plan"], "Reference-class design needs a concrete search plan.")
+            if reference_research.enabled(run):
+                reference_research.design(p, run, state)
+                state["pending"][1:1] = [task("reference_class_search", class_id=row["id"]) for row in p["classes"]]
             state["reference_class_design"] = p
             return {"population": p["population"], "metric": p["metric"]}
+        if kind == "reference_class_search":
+            return reference_research.record_search(c, p, run, state, selected)
         if kind == "reference_class_analysis":
             require(state.get("reference_class_design"), "Submit reference-class design before analysis.")
+            if reference_research.enabled(run):
+                followups, additions = reference_research.analyze(p, run, state)
+                if followups or additions:
+                    state["pending"][1:1] = [
+                        *[task("reference_class_search", class_id=row["class_id"], action=row["action"]) for row in followups],
+                        *[task("reference_class_search", class_id=row["id"]) for row in additions],
+                        task("reference_class_analysis")]
             if p["status"] == "complete":
                 require(p["case_count"] > 0 and p["independent_episode_count"] > 0,
                         "A completed reference-class analysis needs cases and independent episodes.")
@@ -402,7 +461,10 @@ class Workflow:
             research_model.validate_intake(p)
             state["research_plan"] = p
             state["inquiry_answers"] = {}
-            state["pending"][1:1] = [task("inquiry", inquiry=q) for q in p["unknowns"]]
+            # A new widening design must precede all planned evidence collection.
+            index = 2 if (reference_research.enabled(run) and len(state["pending"]) > 1
+                          and state["pending"][1]["kind"] == "reference_class_design") else 1
+            state["pending"][index:index] = [task("inquiry", inquiry=q) for q in p["unknowns"]]
             return {"research_actions": len(p["unknowns"])}
         if kind == "inquiry":
             q = selected["inquiry"]
@@ -466,7 +528,7 @@ class Workflow:
                         "Deep research requires completed reference-class design and analysis before the prior.")
             if run.get("research_effort", "deep") == "deep" and p["method"] == "judgment":
                 require(bool(p.get("reference_class_exception")),
-                        "Deep research requires an empirical reference class. If none is defensible, provide reference_class_exception describing the searches, rejection criteria, and remaining assumptions.")
+                        "A judgmental deep-research prior needs reference_class_exception describing search coverage, useful partial evidence, and remaining assumptions.")
             observed_research = bool(state["used_searches"] or evidence_refs(p) or
                                      any(a["status"] == "answered" for a in state.get("inquiry_answers", {}).values()))
             after = observed_research or status in ("in_progress", "completed") or declared in ("in_progress", "completed")
@@ -699,6 +761,7 @@ class Workflow:
             forecast = {"question_id": run["question_id"], "question_version": run["question_version"],
                         "question": run["question"], "run_id": run["id"], "forecaster": run["forecaster"],
                         "profile": run["profile"], "workflow_version": run["workflow_version"],
+                        "reference_policy": run.get("reference_policy", "legacy"),
                         "method": run["method"], "mode": run["mode"], "probability": state["probability"],
                         "probability_basis": state["probability_basis"],
                         "assessment_probability": state.get("assessment_probability"),
@@ -711,6 +774,7 @@ class Workflow:
                         "research_plan": state.get("research_plan"), "inquiry_answers": state.get("inquiry_answers", {}),
                         "model_map": state.get("model_map"), "model_challenge": state.get("model_challenge"),
                         "concern_resolutions": state.get("concern_resolutions", []), "reference_class": state.get("reference_class"),
+                        "reference_research": reference_research.summary(state),
                         "parameter_support": state.get("parameter_support", []), "sensitivity": state.get("sensitivity"),
                         "searches": state["used_searches"], "model_calls": state["model_calls"], **p}
             if state.get("timeline_model_id"):

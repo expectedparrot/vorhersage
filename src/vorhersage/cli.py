@@ -141,6 +141,8 @@ def run_options(parser):
     parser.add_argument("--cutoff-policy", choices=("live", "fixed"), help="Prospective defaults to live; frozen research uses fixed")
     parser.add_argument("--research-contract", choices=("structured_v1", "structured_v2"), help="Use structured_v2 for intake, mapping and model challenge")
     parser.add_argument("--research-status", choices=("not_started", "in_progress", "completed", "unspecified"), help="Prior research state (default: not_started)")
+    parser.add_argument("--research-effort", choices=("deep", "standard", "minimal"), help="Deep adds widening reference research")
+    parser.add_argument("--reference-policy", choices=("legacy", "widening_v1"), help="Widening is the default for new ordinary deep runs")
     parser.add_argument("--max-searches", type=int, help="Reported search budget (default: 20)")
     parser.add_argument("--max-extra-tasks", type=int, help="Additional review tasks (default: 2)")
 
@@ -151,15 +153,17 @@ def study_options(parser):
     parser.add_argument("--method", help="Method description (default: declared judgment or declared timeline)")
     parser.add_argument("--research-status", choices=("not_started", "in_progress", "completed", "unspecified"), default="not_started")
     parser.add_argument("--workflow", choices=("standard", "timeline"), default="standard")
-    parser.add_argument("--max-searches", type=int, default=20)
-    parser.add_argument("--max-extra-tasks", type=int, default=2)
+    parser.add_argument("--max-searches", type=int, default=60)
+    parser.add_argument("--max-extra-tasks", type=int, default=8)
+    parser.add_argument("--research-effort", choices=("deep", "standard", "minimal"), default="deep")
 
 
 def study_settings(args):
     return {"forecaster": args.forecaster,
             "method": args.method or ("declared timeline" if args.workflow == "timeline" else "declared judgment"),
             "research_status": args.research_status, "workflow_name": args.workflow,
-            "max_searches": args.max_searches, "max_extra_tasks": args.max_extra_tasks}
+            "max_searches": args.max_searches, "max_extra_tasks": args.max_extra_tasks,
+            "research_effort": args.research_effort}
 
 
 def human_output(args):
@@ -187,6 +191,11 @@ def parser():
     resume.add_argument("--run", help="Explicit portfolio run; omit for the active study")
     resume.add_argument("--live", action="store_true", help="Explicitly upgrade an unfinished ordinary prospective run to live evidence")
     resume.add_argument("--reason", help="Required with --live; recorded in the audit log")
+    budget = commands.add_parser("budget", help="Extend an unfinished ordinary run's research budget")
+    budget.add_argument("--run", help="Explicit portfolio run; omit for active study")
+    budget.add_argument("--max-searches", type=int, help="New total search ceiling, not an increment")
+    budget.add_argument("--max-extra-tasks", type=int, help="New total follow-up task ceiling")
+    budget.add_argument("--reason", required=True)
     revise = commands.add_parser("revise", help="Begin a linked revision after new evidence")
     revise.add_argument("--reason", required=True)
     revise.add_argument("--evidence", action="append", default=[], help="PACKET:RECORD; repeat for multiple findings")
@@ -303,6 +312,7 @@ def parser():
         ap.add_argument("--provider", choices=("exa", "firecrawl"), default=default)
         ap.add_argument("--timeout", type=float, default=60, help="HTTP timeout in seconds (default: 60)")
         ap.add_argument("--question", help="Associate the retrieval with a registered question")
+        ap.add_argument("--snapshot-as-of", help="Exa stored-content cutoff (ISO datetime with timezone); no live fallback")
         if action == "search":
             ap.add_argument("--limit", type=int, default=5)
             ap.add_argument("--include-content", action="store_true", help="Request page text along with search results")
@@ -523,7 +533,8 @@ def dispatch(args):
             return study.start(args.project, question["text"], question, **study_settings(args))
         require(args.question and args.question.strip(), "Enter the question you want to forecast.")
         require(study_settings(args) == {"forecaster": "user", "method": "declared judgment", "research_status": "not_started",
-                                        "workflow_name": "standard", "max_searches": 20, "max_extra_tasks": 2},
+                                        "workflow_name": "standard", "max_searches": 60, "max_extra_tasks": 8,
+                                        "research_effort": "deep"},
                 "Supply outcome rules to use research settings now, or pass the settings to define later.")
         return study.start(args.project, args.question)
     if command == "define":
@@ -538,6 +549,9 @@ def dispatch(args):
         return study.show(s)
     if command == "resume":
         return w.resume(args.run or study.binding(s)["run_id"], live=args.live, reason=args.reason)
+    if command == "budget":
+        return w.extend_budget(args.run or study.binding(s)["run_id"], max_searches=args.max_searches,
+                               max_extra_tasks=args.max_extra_tasks, reason=args.reason)
     if command == "revise":
         return study.revise(w, reason=args.reason, refs=evidence_references(args.evidence), expected_forecast=args.expected_forecast)
     if command == "evidence":
@@ -707,10 +721,11 @@ def dispatch(args):
     if command == "research":
         if args.action == "search":
             return web_research.search(args.project, args.query, provider=args.provider, limit=args.limit,
-                                       include_content=args.include_content, timeout=args.timeout, question=args.question)
+                                       include_content=args.include_content, timeout=args.timeout, question=args.question,
+                                       snapshot_as_of=args.snapshot_as_of)
         if args.action == "fetch":
             return web_research.fetch(args.project, args.url, provider=args.provider,
-                                      timeout=args.timeout, question=args.question)
+                                      timeout=args.timeout, question=args.question, snapshot_as_of=args.snapshot_as_of)
         if args.action == "list":
             return web_research.list_retrievals(args.project)
         if args.action == "show":

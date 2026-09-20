@@ -76,7 +76,8 @@ def initialize(project, name, question):
 
 
 RUN_OPTIONS = ("forecaster", "method", "mode", "information_as_of", "workflow",
-               "research_status", "max_searches", "max_extra_tasks", "research_contract", "cutoff_policy")
+               "research_status", "max_searches", "max_extra_tasks", "research_contract", "cutoff_policy",
+               "research_effort", "reference_policy")
 
 
 def run_input(args, workflow):

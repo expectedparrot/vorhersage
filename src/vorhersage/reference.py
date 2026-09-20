@@ -83,11 +83,24 @@ def query_cases(c, spec):
         reasons.append("dependent_episodes")
     if any(not row["episode_id"] or not row["eligibility"] for row in selected):
         reasons.append("missing_episode_metadata")
+    # Keep incomplete cohorts informative without selecting only known successes.
+    mature_n = len(cases) + len(unascertained)
+    successes = sum(case["outcome"] for case in cases)
+    bounds = ([successes / mature_n, (successes + len(unascertained)) / mature_n]
+              if mature_n and not dependent and "missing_episode_metadata" not in reasons else None)
+    partial = {"mature_cases": mature_n, "observed_successes": successes,
+               "observed_failures": len(cases) - successes, "unknown_outcomes": len(unascertained),
+               "probability_bounds": bounds,
+               "qualification": "Bounds assign every unknown mature outcome first to failure, then to success. "
+                                "They describe this selected cohort, not a confidence interval or target forecast. "
+                                "Use as partial evidence with explicit transfer and missingness assumptions; "
+                                "do not discard the unknown cases."}
     result = {"cases": cases, "censored": censored, "excluded_after_cutoff": excluded,
               "immature": immature, "unascertained_mature": unascertained,
               "estimator": "mature_cohort_frequency.v1", "censoring_policy": "require_complete_mature_cohort",
               "estimand": "Event by trigger_at + horizon_days among selected episodes whose horizon has elapsed at known_as_of.",
               "prior_eligible": not reasons, "prior_ineligibility_reasons": reasons,
+              "partial_identification": partial,
               "mature_cohort_size": len(cases) + len(unascertained),
               "resolved_case_frequency": {"sample_size": len(resolved), "cases": resolved,
                                           "probability": sum(c["outcome"] for c in resolved) / len(resolved) if resolved and not dependent else None},

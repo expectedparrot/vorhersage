@@ -14,7 +14,7 @@ from test_study import challenge, intake, model_map, study_payload, support
 def begin(tmp_path):
     w = Workflow(tmp_path / 'study')
     q = question(kind="real")
-    study.start(w.store.root, q['text'], q)
+    study.start(w.store.root, q['text'], q, research_effort="standard", max_extra_tasks=2)
     refs = [w.import_packet(packet())['records'][0]['evidence_ref']]
     return w, refs
 
