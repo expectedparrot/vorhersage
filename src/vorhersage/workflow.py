@@ -166,6 +166,7 @@ class Workflow:
                 # single-question front end opts into deep research explicitly.
                 "research_effort": spec.get("research_effort", "standard"),
                 "profile": profile, "created_at": now(), "workflow_version": "1", **(protocol or {})}
+        body["evidence_transfer_version"] = spec.get("evidence_transfer_version", int(spec.get("research_contract") == "structured_v2" and not protocol and workflow != "timeline"))
         body["model_semantics_version"] = spec.get("model_semantics_version", int(spec.get("research_contract") == "structured_v2" and not protocol))
         body["reference_policy"] = spec.get("reference_policy", "widening_v1" if
                                            body["research_effort"] == "deep" and not protocol else "legacy")
@@ -318,7 +319,7 @@ class Workflow:
             if extra:
                 payload_schema["required"].append(extra)
             if selected["kind"] == "assessment":
-                selected["instruction"] += " Supply parameter_support for every numeric/model input, linking the intake input IDs. Distinguish what evidence measured from the target and declare transfer assumptions and ranges."
+                selected["instruction"] += " Supply parameter_support for every numeric/model input, linking the intake input IDs. Distinguish what evidence measured from the target and declare transfer assumptions and ranges. With evidence_transfer_version 1, non-assumed inputs need transfer {version:1, source, target, mapping, quantitative_support:direct|calculated|judgment}. Source/target estimands specify quantity, units, population, denominator, outcome, horizon, clock_origin, stage, commitment_term (state unknown/not applicable explicitly). Full-cycle and remaining durations differ; annualized rates do not establish a committed term. Calculated transfers need calculation; mismatch transfers remain extrapolated/assumed. Challenges review source_fidelity, directional_relevance and quantitative_support separately."
             if selected["kind"] == "review":
                 selected["instruction"] += " Inspect context.sensitivity and model_inputs. Address influential assumptions and what obtainable evidence could narrow them in sensitivity_review."
         if run.get("research_contract") == "structured_v2":
@@ -669,7 +670,8 @@ class Workflow:
             if structured or p.get("parameter_support"):
                 plan = state.get("research_plan")
                 require(plan is not None, "Parameter support requires an intake research plan.")
-                research_model.validate_support(p, plan, spec if method == "timeline_model" else None)
+                research_model.validate_support(p, plan, spec if method == "timeline_model" else None,
+                                                transfer_version=run.get("evidence_transfer_version", 0))
             if method == "scenario_mixture" and run.get("model_semantics_version") == 1:
                 require(all(s.get("semantics", {}).get("version") == 1 for s in p["scenarios"]),
                         "New structured mixtures require semantics version 1 for every scenario.")
