@@ -362,12 +362,12 @@ class Workflow:
                             "sensitivity": state.get("sensitivity"),
                             "previous_forecast": Store.artifact(c, run["previous_forecast_id"], "forecast") if run.get("previous_forecast_id") else None}}
 
-    def submit(self, run_id, result):
+    def submit(self, run_id, result, *, check_only=False):
         check(result, "submit")
         with self.store.connect(True) as c:
             retry = Store.receipt(c, run_id, result["idempotency_key"], result)
             if retry:
-                return retry
+                return {"valid": True, "check_only": True, "duplicate": True} if check_only else retry
             run, state, revision = Store.run(c, run_id)
             require(result["expected_revision"] == revision, "Run revision is stale; read next again.", "version_conflict")
             if run["mode"] == "prospective":
@@ -403,6 +403,10 @@ class Workflow:
             state["model_calls"] += usage["model_calls"]
             state["evidence_refs"] = list({canonical(r): r for r in state["evidence_refs"] + refs}.values())
             calculated = self._apply(c, run, state, selected, p)
+            if check_only:
+                c.rollback()
+                return {"valid": True, "check_only": True, "run_id": run_id, "revision": revision,
+                        "qualification": "Checked against current state; real submission revalidates concurrency and time guards."}
             artifact = {"task": selected, "payload": p, "calculation": calculated, "usage": usage,
                         "submitted_at": now(), "information_as_of": run["information_as_of"], "revision": revision + 1}
             artifact_id = Store.put(c, "task_result", artifact, run_id)

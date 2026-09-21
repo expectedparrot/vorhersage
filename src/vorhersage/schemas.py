@@ -2,7 +2,7 @@
 
 import math
 
-from .common import require, time
+from .common import Error, require, time
 
 TEXT = {"type": "string", "minLength": 1}
 TIME = {**TEXT, "format": "date-time"}
@@ -453,7 +453,7 @@ def validate(value, schema, path="$"):
     if kinds:
         require(any(predicates[k](value) for k in kinds), path + ": expected " + "/".join(kinds))
     if isinstance(value, dict):
-        require(all(k in value for k in schema.get("required", [])), path + ": missing required fields " + str(schema.get("required", [])))
+        require(all(k in value for k in schema.get("required", [])), path + ": missing required fields " + str([k for k in schema.get("required", []) if k not in value]))
         props = schema.get("properties", {})
         if schema.get("additionalProperties") is False:
             require(not set(value) - set(props), path + ": unexpected fields " + str(set(value) - set(props)))
@@ -474,6 +474,43 @@ def validate(value, schema, path="$"):
         require(value > schema.get("exclusiveMinimum", -math.inf), path + ": number must exceed exclusive minimum")
 
 
+def violations(value, schema, path="$"):
+    """Collect independent structural failures without guessing repairs."""
+    result = []
+    shallow = dict(schema)
+    shallow['properties'] = {k: {} for k in schema.get('properties', {})}
+    shallow['items'] = {}
+    try:
+        validate(value, shallow, path)
+    except Error as exc:
+        result.append({'path': path, 'message': str(exc), 'expected': {k: schema[k] for k in
+            ('type', 'enum', 'required', 'minimum', 'maximum', 'minItems') if k in schema},
+            'actual_type': type(value).__name__,
+            'missing_fields': [k for k in schema.get('required', []) if isinstance(value, dict) and k not in value]})
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if key in schema.get('properties', {}):
+                result.extend(violations(child, schema['properties'][key], path + '/' + key.replace('~', '~0').replace('/', '~1')))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            result.extend(violations(child, schema.get('items', {}), path + '/' + str(index)))
+    return result
+
+
+def scaffold(schema):
+    """Shape only: unknown values stay null rather than plausible invented answers."""
+    if schema.get('type') == 'object':
+        return {k: scaffold(schema.get('properties', {}).get(k, {})) for k in schema.get('required', [])}
+    if schema.get('type') == 'array':
+        return [scaffold(schema.get('items', {})) for _ in range(schema.get('minItems', 0))]
+    return None
+
+
 def check(value, name):
-    validate(value, SCHEMAS[name])
+    try:
+        validate(value, SCHEMAS[name])
+    except Error as exc:
+        exc.details = violations(value, SCHEMAS[name])
+        exc.schema_name = name
+        raise
     return value
