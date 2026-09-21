@@ -70,7 +70,7 @@ def required_evidence(full, path):
         refs.extend((model.get('assessment') or {}).get('answer', {}).get('evidence_refs', []))
     else:
         parts = path.split('/')
-        for end in range(len(parts) - 1, 1, -1):
+        for end in range(len(parts) - 1, 2, -1):
             parent = pointer(full, '/'.join(parts[:end]))
             if isinstance(parent, dict) and 'evidence_refs' in parent:
                 refs = parent['evidence_refs']
@@ -95,7 +95,7 @@ def cited(evidence_id, record, report):
                 return True
     return False
 
-def check(context_path, report_path, claims_path):
+def read_snapshot(context_path):
     context_path = Path(context_path)
     context = json.loads(context_path.read_text())
     archive_path = Path(context['full_material']['path'])
@@ -104,6 +104,12 @@ def check(context_path, report_path, claims_path):
     full = json.loads(archive_path.read_text())
     require(digest(full) == context['record_sha256'] == context['full_material']['sha256'],
             'Report snapshot hash mismatch.', 'integrity_error')
+    return context, full
+
+
+def check(context_path, report_path, claims_path):
+    from .report_claims import evaluate, coverage
+    context, full = read_snapshot(context_path)
     report = Path(report_path).read_text()
     claims = json.loads(Path(claims_path).read_text())
     issues = []
@@ -117,10 +123,12 @@ def check(context_path, report_path, claims_path):
     if not rows:
         problem('missing_claims', 'Declare recorded numerical/date claims and their exact report passages.')
     seen = set()
-    for row in rows:
+    for index, row in enumerate(rows):
         try:
-            path, passage = row['pointer'], row['text']
-            recorded = pointer(full, path)
+            passage = row['text']
+            path = row.get('pointer', f'derived/{index}')
+            require(not ('pointer' in row and 'expression' in row), 'Declare a recorded pointer or derived expression, not both.')
+            recorded = evaluate(row['expression'], full) if 'expression' in row else pointer(full, path)
             expected = rendered(recorded, row.get('format', 'literal'), precision=row.get('precision'), rounding=row.get('rounding', 'half_even'))
             if not equivalent(row['value'], recorded):
                 problem('value_mismatch', f'Declared value {row["value"]!r} differs from recorded {recorded!r} at {path}; expected display {expected!r}')
@@ -128,7 +136,8 @@ def check(context_path, report_path, claims_path):
                 problem('passage_mismatch', 'Report passage must contain the recorded rendered value: ' + path)
             seen.add(path)
             evidence_ids = row.get('evidence_ids', [])
-            required = required_evidence(full, path)
+            paths = row['expression']['terms'] if 'expression' in row else [path]
+            required = set().union(*(required_evidence(full, p) for p in paths))
             if not path.startswith('/material/prediction/issued/') and not required <= set(evidence_ids):
                 problem('missing_claim_citation', 'Preserve recorded evidence connections for ' + path)
             for eid in set(evidence_ids) | required:
@@ -154,6 +163,18 @@ def check(context_path, report_path, claims_path):
         problem('unsupported_calibration', 'Issuance and deterministic calculation do not establish calibration; cite an actual calibration evaluation.')
     if re.search(r'\bno (?:language model|LLM) was used to generate the probability', report, re.I):
         problem('misleading_attribution', 'Disclose forecaster-supplied weights and inputs; arithmetic does not remove their authorship.')
-    return {'ok': not issues, 'issues': issues, 'claims_checked': len(rows),
+    scope = coverage(report, rows, claims.get('exclusions', []), full)
+    for error in scope['errors']:
+        problem('invalid_exclusion', error)
+    return {'ok': not issues, 'issues': issues, 'claims_checked': len(rows), 'coverage': scope,
+            'derived_checked': sum('expression' in row for row in rows),
             'citation_scope': 'Recorded dependencies and attributed private footnotes; public sources use original links.', 'record_sha256': context['record_sha256'],
             'qualification': 'Checks declared claims, arithmetic and source links. Does not certify source truth, semantic support or an exhaustive claim inventory.'}
+
+
+def suggest(context_path, report_path):
+    from .report_claims import suggestions
+    context, full = read_snapshot(context_path)
+    return {'record_sha256': context['record_sha256'], 'claims': [], 'exclusions': [],
+            'suggestions': suggestions(full, Path(report_path).read_text()),
+            'instruction': 'Review matching passages, fill text, and move justified suggestions into claims. Add derived expressions and explicit exclusions. Matches do not prove semantic support.'}

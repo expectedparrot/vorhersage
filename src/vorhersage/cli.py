@@ -61,7 +61,7 @@ After new evidence arrives, use revise --project FOLDER --reason REASON --eviden
 The forecaster does the research and judgment, directly or with an agent; these commands do not call a model or browse automatically.
 For an agent-authored report, use report context --project FOLDER --output analysis/forecast-report-context.json. Read that bounded evidence and writing handoff; a hash-bound full-material JSON file is saved beside it. Select --run RUN for a portfolio or --case CASE for a workbench; ambiguous runs are rejected. reportability distinguishes a completed forecast from a draft; readiness is not a quality certification. Preserve probabilities, evidence links, assumptions, challenges, and hidden-market boundaries; consult full material for omitted details.
 The calling agent authors the explanation. In ep-agent, load skill:report-authoring, write writeup/report.md, and follow its branding, optional-review, compilation, and checking workflow to produce writeup/report.html. This package does not call another model to narrate results. Its legacy report --project FOLDER HTML/LaTeX exports remain inspection views, not the agent's final narrative.
-Before delivering a forecast report, run report check --context analysis/forecast-report-context.json --report writeup/report.md --claims analysis/report-claims.json. The claims file has record_sha256 and claims [{pointer: /material/..., value: exact recorded scalar, format: literal|percent|date|month_year, text: exact report passage, evidence_ids: [PACKET:RECORD]}]. Pointers select the full-material snapshot. Numerical claims may specify precision (0..12 decimal places) and rounding (half_even default, or half_up); keep value equal to the raw recorded number. Only four ULPs of machine representation noise are tolerated, independently of display precision. Include the issued probability and every substantive reported number/date; link original sources for evidence. Optional arithmetic [{terms: [pointer,...], total: pointer}] checks component totals. These offline checks do not replace reading sources or establish calibration; optional paid review is separate. Disclose forecaster-supplied assumptions and weights.
+Before delivering a forecast report, run report check --context analysis/forecast-report-context.json --report writeup/report.md --claims analysis/report-claims.json. The claims file has record_sha256 and claims [{pointer: /material/..., value: exact recorded scalar, format: literal|percent|date|month_year, text: exact report passage, evidence_ids: [PACKET:RECORD]}]. Pointers select the full-material snapshot. Numerical claims may specify precision (0..12 decimal places) and rounding (half_even default, or half_up); keep value equal to the raw recorded number. Only four ULPs of machine representation noise are tolerated, independently of display precision. Include the issued probability and every substantive reported number/date; link original sources for evidence. Use report claims --context CONTEXT --report REPORT --output INVENTORY to generate raw-value suggestions; review and move justified rows into claims. Claims can use expression {op:sum|product|difference|convert|duration, terms:[pointer,...]} instead of pointer. Duration needs mode elapsed with unit seconds|minutes|hours|days|weeks, or mode calendar_days with timezone and optional inclusive boolean. Convert uses from_unit/to_unit. No business calendar is inferred. Coverage returns unchecked numeric/date tokens; exclusions [{text,reason}] record deliberate exclusions. Optional arithmetic [{terms: [pointer,...], total: pointer}] checks component totals. These offline checks do not replace reading sources or establish calibration; optional paid review is separate. Disclose forecaster-supplied assumptions and weights.
 The commands below support portfolios and explicit low-level control.
 Create a project, register a precise binary question, and start a run.
 Use init PROJECT --question TEXT --deadline TIME --yes CRITERIA --source SOURCE to create a project and question together.
@@ -173,7 +173,7 @@ def human_output(args):
         return True
     if args.command in ("next", "submit"):
         return args.run is None
-    return args.command == "report" and args.report_action not in ("context", "check") and not args.question and args.format not in ("json", "markdown")
+    return args.command == "report" and args.report_action not in ("context", "check", "claims") and not args.question and args.format not in ("json", "markdown")
 
 
 def parser():
@@ -454,7 +454,7 @@ def parser():
         ap = commands.add_parser(name)
         ap.add_argument("--from", dest="input", required=True)
     report = commands.add_parser("report")
-    report.add_argument("report_action", nargs="?", choices=["context", "check"], help="Export evidence or check authored claims against the snapshot")
+    report.add_argument("report_action", nargs="?", choices=["context", "check", "claims"], help="Export evidence or check authored claims against the snapshot")
     report.add_argument("--context", type=Path, help="Context JSON for report check")
     report.add_argument("--report", dest="report_file", type=Path, help="Authored Markdown for report check")
     report.add_argument("--claims", type=Path, help="Recorded claim inventory for report check")
@@ -824,6 +824,13 @@ def dispatch(args):
             return start_case(args.project, load(args.cases), args.case, args.forecaster, args.method)
         return evaluate_replay(s, load(args.cases), load(args.labels), load(args.manifest), load(args.input))
     if command == "report":
+        if args.report_action == "claims":
+            require(args.context and args.report_file, "report claims requires --context and --report.")
+            result = report_check.suggest(args.context, args.report_file)
+            if args.output:
+                with args.output.open('x') as f:
+                    json.dump(result, f, indent=2, allow_nan=False)
+            return result
         if args.report_action == "check":
             require(args.context and args.report_file and args.claims, "report check requires --context, --report and --claims.")
             result = report_check.check(args.context, args.report_file, args.claims)
