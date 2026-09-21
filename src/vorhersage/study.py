@@ -145,12 +145,17 @@ def revise(workflow, *, reason, refs=(), expected_forecast=None):
 def next_task(workflow, output=None, run_id=None):
     result = workflow.next(run_id or binding(workflow.store)["run_id"])
     if result["disposition"] == "actionable":
-        from .schemas import scaffold
+        from .schemas import scaffold, EVIDENCE_TRANSFER
         result["answer_template"] = scaffold(result["payload_schema"])
         for field in ("class_id",):
             if field in result["answer_template"] and field in result["task"]:
                 result["answer_template"][field] = result["task"][field]
-        result["template_instruction"] = "Fill nulls from evidence/judgment, review empty lists, then copy the answer to submission.payload or use --answer. Run submit --check first."
+        if result['task']['kind'] == 'assessment' and result['context']['run'].get('evidence_transfer_version') == 1:
+            for item in result['answer_template'].get('parameter_support', []):
+                item['transfer'] = scaffold(EVIDENCE_TRANSFER)
+            result['conditional_fields'] = [{'path': '/parameter_support/*/transfer',
+                'condition': 'Required when basis is not assumed; for a wholly assumed input with no transfer, remove this optional object. Otherwise fill it completely.'}]
+        result["template_instruction"] = "Follow conditional_fields when present. Fill nulls from evidence/judgment, review empty lists, then copy the answer to submission.payload or use --answer. Run submit --check first."
         result["submission"] = {
             "task_id": result["task"]["id"], "expected_revision": result["revision"],
             "idempotency_key": "study-" + digest([result["run_id"], result["revision"]])[:24],

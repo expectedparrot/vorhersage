@@ -166,9 +166,13 @@ class Workflow:
                 # single-question front end opts into deep research explicitly.
                 "research_effort": spec.get("research_effort", "standard"),
                 "profile": profile, "created_at": now(), "workflow_version": "1", **(protocol or {})}
-        body["inquiry_version"] = spec.get("inquiry_version", int(spec.get("research_contract") == "structured_v2" and not protocol))
-        body["evidence_transfer_version"] = spec.get("evidence_transfer_version", int(spec.get("research_contract") == "structured_v2" and not protocol and workflow != "timeline"))
-        body["model_semantics_version"] = spec.get("model_semantics_version", int(spec.get("research_contract") == "structured_v2" and not protocol))
+        old_run = Store.run(c, old["run_id"])[0] if old else {}
+        for field in ("inquiry_version", "evidence_transfer_version", "model_semantics_version"):
+            default = int(spec.get("research_contract") == "structured_v2" and
+                          (field != "evidence_transfer_version" or workflow != "timeline"))
+            expected = old_run.get(field, 0) if old else default
+            require(spec.get(field, expected) == expected, "New runs cannot downgrade " + field + "; revisions preserve the previous run contract.")
+            body[field] = expected
         body["reference_policy"] = spec.get("reference_policy", "widening_v1" if
                                            body["research_effort"] == "deep" and not protocol else "legacy")
         require(not reference_research.enabled(body) or body["research_effort"] == "deep",
@@ -314,7 +318,13 @@ class Workflow:
             selected["instruction"] += " Use the current task.timeline_context.timeline_model_id; research creates new immutable model versions."
         if selected["kind"] == "model_challenge" and state.get("event_alignment"):
             payload_schema["required"].append("event_alignment")
-            selected["instruction"] += " Supply event_alignment: target, matches_question, rationale, and concern_ids. Compare initial opening with full completion and the exact YES criteria. Challenge mixed funding/delay cases and scenario weights; a cost-or-schedule overrun rate is not a schedule-only probability."
+            selected["instruction"] += " Supply event_alignment: target, matches_question, rationale, and concern_ids. Compare the model target to the exact YES criteria and deadline."
+            if run.get("workflow") == "timeline":
+                selected["instruction"] += " Distinguish initial opening from full completion; challenge mixed funding/delay cases and scenario weights."
+            elif state.get("scenario_ids"):
+                selected["instruction"] += " Test concrete scenario trajectories and their residual gates."
+            else:
+                selected["instruction"] += " For conditional paths compare the final component with the target event. There are no scenario IDs: submit boundary_cases as an empty list."
         if run.get("research_contract") in ("structured_v1", "structured_v2"):
             extra = {"prior": "research_status_at_estimate", "assessment": "parameter_support", "review": "sensitivity_review"}.get(selected["kind"])
             if extra:
@@ -467,8 +477,9 @@ class Workflow:
                 require(p["limitations"], "An incomplete reference-class analysis needs explicit limitations.")
                 if p.get("analysis_path"):
                     from .flyvbjerg_adapter import validate_export
-                    validate_export(p)
+                    state["flyvbjerg_analysis"] = validate_export(p)
                 else:
+                    state.pop("flyvbjerg_analysis", None)
                     require(p.get("artifact_omission_reason"), "Explain the absent artifact with artifact_omission_reason.")
             require(not (p.get("analysis_path") and p.get("artifact_omission_reason")),
                     "Declare either an artifact path or an omission reason, not both.")
@@ -489,13 +500,15 @@ class Workflow:
                 require(p.get("response_state"), "User inquiries require response_state; unknown/declined/deferred are valid outcomes.")
                 if p["response_state"] in ("answered", "partial"):
                     require(p.get("reported_facts"), "Preserve the original reported_facts passages and their evidence references.")
+            if p.get("response_state") == "answered":
+                require(p["status"] == "answered" and not p.get("unresolved_fields"), "Answered response_state requires answered status and no unresolved_fields.")
             if p.get("response_state") and p["response_state"] != "answered":
                 require(p["status"] == "unresolved", "Partial, declined and unknown answers retain unresolved status.")
             if p.get("response_state") == "partial":
                 require(p.get("unresolved_fields"), "Partial answers must name unresolved_fields.")
             for fact in p.get("reported_facts", []):
                 records = verify_refs(c, fact["evidence_refs"], run["information_as_of"])
-                require(any(fact["passage"] == source['excerpt'] for r in records if r['record'].get('claim_type') != 'inference' for source in r['record']['sources']),
+                require(any(research_model.verbatim_statement(fact["passage"], source['excerpt']) for r in records if r['record'].get('claim_type') != 'inference' for source in r['record']['sources']),
                         "Reported fact passage must occur in the original captured source; preserve its qualifiers.")
             for ref in p.get("inferred_evidence_refs", []):
                 records = verify_refs(c, [ref], run["information_as_of"])
@@ -511,6 +524,7 @@ class Workflow:
                 require(coverage["domain"] in run["profile"]["domains"], "Inquiry coverage names an unknown profile domain.")
                 require(run.get("workflow") != "timeline", "Timeline parameter research requires its own assessments.")
                 require(p["status"] != "answered" or p["evidence_refs"], "Assessed coverage needs evidence.")
+                previous_coverage = state["coverage"].get(coverage["domain"])
                 state["coverage"][coverage["domain"]] = {
                     "task_id": selected["id"], "inquiry_id": q["id"], "interpretation": coverage["interpretation"],
                     "disposition": "assessed" if p["status"] == "answered" else "unknown",
@@ -522,7 +536,12 @@ class Workflow:
                                         (t["kind"] == "research" and t["domain"] == coverage["domain"])]
                 else:
                     state["coverage"][coverage["domain"]]["disposition"] = "unknown"
-                    state["coverage"][coverage["domain"]]["unknowns"] = p.get("unresolved_fields") or [p["answer"]]
+                    current = state["coverage"][coverage["domain"]]
+                    current["unknowns"] = p.get("unresolved_fields") or [p["answer"]]
+                    if previous_coverage:
+                        current["previous_coverage"] = previous_coverage
+                        for field in ("evidence_refs", "sources_checked", "conflicts", "unknowns"):
+                            current[field] = previous_coverage.get(field, []) + [v for v in current[field] if v not in previous_coverage.get(field, [])]
             return {"input_ids": q["input_ids"], "status": p["status"]}
         if kind == "timeline_structure":
             spec = self._bind_timeline(c, run, state, p["timeline_model_id"])

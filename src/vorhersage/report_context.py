@@ -222,11 +222,35 @@ def bounded_material(material, omissions):
     return result
 
 
+
+def report_safe(value, path="", redactions=None):
+    """Copy report material, retaining private locators only in the original store."""
+    redactions = [] if redactions is None else redactions
+    if isinstance(value, list):
+        return [report_safe(v, f"{path}/{i}", redactions) for i, v in enumerate(value)]
+    if isinstance(value, dict):
+        hidden = {'message_ref'}
+        if value.get('kind') in ('testimony', 'private_document') or value.get('access') == 'private':
+            hidden |= {'url', 'origin_id'}
+        result = {}
+        for key, item in value.items():
+            child = path + '/' + key.replace('~', '~0').replace('/', '~1')
+            if key in hidden:
+                redactions.append({'path': child, 'reason': 'private_locator'})
+            else:
+                result[key] = report_safe(item, child, redactions)
+        return result
+    return value
+
 def export(store, *, output=None, question_id=None, run_id=None, case_id=None,
            approval_receipts=(), required_approval_scopes=(), approval_verifier=None):
     raw = snapshot(store, question_id=question_id, run_id=run_id, case_id=case_id)
     material, blockers = _run_material(raw) if raw["kind"] == "run" else _case_material(raw)
     full = {"schema_version": "vorhersage.report_material.v1", "snapshot": raw, "material": material}
+    redactions = []
+    full = report_safe(full, redactions=redactions)
+    full["privacy_redactions"] = redactions
+    material = full["material"]
     sha = digest(full)
     omissions = []
     bounded = bounded_material(material, omissions)
@@ -255,7 +279,7 @@ def export(store, *, output=None, question_id=None, run_id=None, case_id=None,
             archive.write_text(json.dumps(full, indent=2, ensure_ascii=False, allow_nan=False) + "\n")
         context["full_material"] = {"path": str(archive), "sha256": sha,
                                     "hash_format": "canonical_json_sha256",
-                                    "instruction": "Read material for omitted details; snapshot preserves exact underlying records."}
+                                    "instruction": "Read material for omitted details; private locators are removed. Original immutable evidence and its hashes remain in the project."}
         path.write_text(json.dumps(context, indent=2, ensure_ascii=False, allow_nan=False) + "\n")
         return {"output": str(path), "full_material": context["full_material"], "record_sha256": sha,
                 "selection": raw["selection"], "reportability": context["reportability"], "omission_count": len(omissions),

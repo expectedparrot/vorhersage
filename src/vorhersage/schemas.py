@@ -477,16 +477,22 @@ def validate(value, schema, path="$"):
 def violations(value, schema, path="$"):
     """Collect independent structural failures without guessing repairs."""
     result = []
-    shallow = dict(schema)
-    shallow['properties'] = {k: {} for k in schema.get('properties', {})}
-    shallow['items'] = {}
-    try:
-        validate(value, shallow, path)
-    except Error as exc:
-        result.append({'path': path, 'message': str(exc), 'expected': {k: schema[k] for k in
-            ('type', 'enum', 'required', 'minimum', 'maximum', 'minItems') if k in schema},
-            'actual_type': type(value).__name__,
-            'missing_fields': [k for k in schema.get('required', []) if isinstance(value, dict) and k not in value]})
+    constraints = []
+    for key in ('type', 'enum', 'required', 'additionalProperties', 'minimum', 'maximum', 'exclusiveMinimum', 'minItems', 'minLength', 'format'):
+        if key in schema:
+            item = {key: schema[key]}
+            if key == 'additionalProperties':
+                item['properties'] = {k: {} for k in schema.get('properties', {})}
+            constraints.append(item)
+    for constraint in constraints:
+        try:
+            validate(value, constraint, path)
+        except Error as exc:
+            result.append({'path': path, 'message': str(exc), 'expected': constraint,
+                'actual_type': type(value).__name__,
+                'missing_fields': [k for k in constraint.get('required', []) if isinstance(value, dict) and k not in value]})
+            if 'type' in constraint:
+                return result
     if isinstance(value, dict):
         for key, child in value.items():
             if key in schema.get('properties', {}):

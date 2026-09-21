@@ -57,3 +57,21 @@ def test_workflow_keeps_qualitative_support_separate_from_numeric_support(tmp_pa
         'disposition': 'retain_assumption', 'rationale': 'No eligible cohort.', 'action': 'Ask for a dated remaining-work schedule.'}]
     submit(w, audit)
     assert study.next_task(w)['context']['model_challenge']['transfers'][0]['quantitative_support'] == 'judgment'
+
+
+def test_extrapolated_input_cannot_claim_direct_support():
+    data = transfer(); data['target'] = dict(data['source']); data['quantitative_support'] = 'direct'
+    with pytest.raises(Error, match='requires measured'):
+        validate_transfer({'basis': 'extrapolated', 'transfer': data})
+
+
+def test_explicitly_weak_source_needs_concern_even_for_direct_transfer(tmp_path):
+    w, refs = begin(tmp_path); t = advance(w, refs, 'assessment')
+    answer = study_payload('assessment', refs, context=t['context'])
+    data = transfer(); data['target'] = dict(data['source']); data['quantitative_support'] = 'direct'
+    answer['parameter_support'][0].update(basis='measured', evidence_refs=refs, transfer=data)
+    submit(w, answer)
+    audit = challenge(study.next_task(w)['context'])
+    audit['transfers'][0].update(source_fidelity='mismatch', directional_relevance='irrelevant', quantitative_support='direct')
+    with pytest.raises(Error, match='needs a concern'):
+        submit(w, audit)

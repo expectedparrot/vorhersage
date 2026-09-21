@@ -6,9 +6,30 @@ their links and calculates their consequences.
 """
 
 import copy
+import re
 
 from .common import Error, require, time
 
+
+
+def verbatim_statement(passage, excerpt):
+    """Allow complete verbatim statements, without dropping a leading qualifier."""
+    if not passage or not passage.strip():
+        return False
+    for match in re.finditer(re.escape(passage), excerpt):
+        prefix, suffix = excerpt[:match.start()], excerpt[match.end():]
+        # Recognize presentation syntax, not arbitrary text before a colon:
+        # dropping "My guess:" would discard a substantive qualifier.
+        formatted_start = re.search(
+            r'(?:\A|\n)[ \t]*(?:>[ \t]*)*(?:(?:[-+*]|\d+[.)])[ \t]+)?'
+            r'(?:\*\*|__)?(?:(?:Statement|Answer|Response):[ \t]*(?:\*\*|__)?[ \t]*)?'
+            r'["\u201c\u2018\']?\Z', prefix, re.I)
+        start = bool(formatted_start or re.search(r'[.!?]\s+\Z', prefix))
+        closing = re.sub(r'\A["\u201d\u2019\']?(?:\*\*|__)?', '', suffix)
+        end = not closing or (passage.endswith(('.', '!', '?')) and closing[0].isspace()) or closing.startswith('\n')
+        if start and end:
+            return True
+    return False
 
 def validate_intake(plan):
     inputs = {r["id"] for r in plan["inputs"]}
@@ -97,6 +118,8 @@ def validate_transfer(row):
                 'A benchmark mismatch cannot provide direct quantitative support.')
     if transfer['quantitative_support'] == 'calculated':
         require(transfer.get('calculation'), 'Calculated transfers need a reproducible calculation description.')
+    if transfer['quantitative_support'] == 'direct':
+        require(row['basis'] == 'measured', 'Direct quantitative support requires measured basis.')
     if row['basis'] == 'measured':
         require(transfer['quantitative_support'] == 'direct', 'Measured inputs need direct quantitative support.')
     if row['basis'] == 'calculated':
@@ -188,6 +211,8 @@ def validate_challenge(payload, state):
     for concern in concerns:
         require(set(concern['model_inputs']) <= paths, 'Concern must link to actual model inputs.')
     mismatches = {r['model_input'] for r in rows if r['verdict'] == 'mismatch'}
+    mismatches |= {r['model_input'] for r in rows if r.get('source_fidelity') in ('mismatch', 'unverified')
+                   or r.get('directional_relevance') in ('uncertain', 'irrelevant')}
     mismatches |= {path for path, item in support.items() if item.get('transfer') and
                    (item['transfer']['source'] != item['transfer']['target'] or
                     item['transfer']['quantitative_support'] == 'judgment')}

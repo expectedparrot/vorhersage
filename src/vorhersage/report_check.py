@@ -24,10 +24,16 @@ def pointer(document, path):
 
 
 def equivalent(actual, recorded):
+    if type(actual) is int and type(recorded) is int:
+        return actual == recorded
     if type(actual) in (int, float) and type(recorded) in (int, float):
-        if not math.isfinite(actual) or not math.isfinite(recorded):
+        if ((type(actual) is float and not math.isfinite(actual)) or
+                (type(recorded) is float and not math.isfinite(recorded))):
             return False
-        return actual == recorded or abs(actual - recorded) <= 4 * max(math.ulp(actual), math.ulp(recorded))
+        try:
+            return actual == recorded or abs(actual - recorded) <= 4 * max(math.ulp(actual), math.ulp(recorded))
+        except OverflowError:
+            return False
     return type(actual) is type(recorded) and actual == recorded
 
 
@@ -37,11 +43,12 @@ def rendered(value, style, *, precision=None, rounding="half_even"):
             "Precision must be an integer from 0 to 12.")
     require(precision is None or style in ("percent", "literal"), "Precision applies only to numbers.")
     if precision is not None:
-        require(type(value) in (int, float) and math.isfinite(value), "Precision requires a finite number.")
+        require((type(value) is int or (type(value) is float and math.isfinite(value))), "Precision requires a finite number.")
         require(style != "percent" or 0 <= value <= 1, "Percent claims require a probability.")
-        number = Decimal(str(value)) * (100 if style == "percent" else 1)
+        number = Decimal(str(value))
         with localcontext() as context:
-            context.prec = max(28, number.adjusted() + precision + 2)
+            context.prec = max(28, len(number.as_tuple().digits) + precision + 4, number.adjusted() + precision + 4)
+            number *= 100 if style == "percent" else 1
             rounded = number.quantize(Decimal(1).scaleb(-precision),
                                      rounding=ROUND_HALF_EVEN if rounding == "half_even" else ROUND_HALF_UP)
         return format(rounded, f".{precision}f") + ("%" if style == "percent" else "")
@@ -144,7 +151,7 @@ def check(context_path, report_path, claims_path):
                 require(eid in sources, 'Unknown evidence ID: ' + eid)
                 if not cited(eid, sources[eid], report):
                     problem('missing_source_link', 'Cite the original source or attributed private footnote for ' + eid)
-        except (KeyError, TypeError, ValueError, IndexError) as exc:
+        except (KeyError, TypeError, ValueError, IndexError, OverflowError) as exc:
             problem('invalid_claim', str(exc))
     issued = material.get('prediction', {}).get('issued')
     if issued and '/material/prediction/issued/probability' not in seen:
@@ -157,7 +164,7 @@ def check(context_path, report_path, claims_path):
             total = pointer(full, row['total'])
             if not all(type(v) in (int, float) for v in [*values, total]) or not math.isclose(math.fsum(values), total, rel_tol=1e-6):
                 problem('arithmetic_mismatch', 'Recorded components do not sum to the reported total: ' + row['total'])
-        except (KeyError, TypeError, ValueError, IndexError) as exc:
+        except (KeyError, TypeError, ValueError, IndexError, OverflowError) as exc:
             problem('invalid_arithmetic', str(exc))
     if re.search(r'\b(?:issued|produced|provides?|is|was) (?:a |an )?(?:well-)?calibrated probability', report, re.I):
         problem('unsupported_calibration', 'Issuance and deterministic calculation do not establish calibration; cite an actual calibration evaluation.')
