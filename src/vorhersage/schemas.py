@@ -41,7 +41,7 @@ RUN = obj({"question_id": TEXT, "question_version": {"type": "integer", "minimum
            "workflow": enum("standard", "timeline"),
            "research_contract": enum("structured_v1", "structured_v2"),
            "research_effort": enum("deep", "standard", "minimal"),
-           "reference_policy": enum("legacy", "widening_v1"),
+           "reference_policy": enum("legacy", "widening_v1"), "model_semantics_version": enum(0, 1),
            "previous_forecast_id": TEXT},
           ["question_id", "forecaster", "method", "mode", "information_as_of", "max_searches", "max_extra_tasks"])
 REFERENCE_QUERY = obj({"tags": array(TEXT, 1), "horizon_days": {"type": "number", "minimum": 0.000001},
@@ -99,7 +99,11 @@ RESEARCH = obj({"disposition": enum("assessed", "unknown"), "interpretation": TE
 COMPONENT = obj({"id": TEXT, "conditional_on": {"type": ["string", "null"]},
                  "probability": PROB, "rationale": TEXT, "evidence_refs": REFS})
 RANGE = array(PROB, 2)
-SCENARIO = obj({"id": TEXT, "description": TEXT, "weight": PROB, "probability": PROB,
+SCENARIO_SEMANTICS = obj({"version": enum(1), "conditioning_event": TEXT,
+    "target_relation": enum("entails_yes", "entails_no", "unresolved"),
+    "residual_event": TEXT, "non_overlap_rationale": TEXT},
+    ["version", "conditioning_event", "target_relation"])
+SCENARIO = obj({"semantics": SCENARIO_SEMANTICS,"id": TEXT, "description": TEXT, "weight": PROB, "probability": PROB,
                 "rationale": TEXT, "evidence_refs": REFS, "unknowns": array(),
                 "weight_range": RANGE, "probability_range": RANGE},
                ["id", "description", "weight", "probability", "rationale", "evidence_refs", "unknowns"])
