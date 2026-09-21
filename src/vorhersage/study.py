@@ -145,6 +145,12 @@ def revise(workflow, *, reason, refs=(), expected_forecast=None):
 def next_task(workflow, output=None, run_id=None):
     result = workflow.next(run_id or binding(workflow.store)["run_id"])
     if result["disposition"] == "actionable":
+        from .schemas import scaffold
+        result["answer_template"] = scaffold(result["payload_schema"])
+        for field in ("class_id",):
+            if field in result["answer_template"] and field in result["task"]:
+                result["answer_template"][field] = result["task"][field]
+        result["template_instruction"] = "Fill nulls from evidence/judgment, review empty lists, then copy the answer to submission.payload or use --answer. Run submit --check first."
         result["submission"] = {
             "task_id": result["task"]["id"], "expected_revision": result["revision"],
             "idempotency_key": "study-" + digest([result["run_id"], result["revision"]])[:24],
@@ -154,6 +160,7 @@ def next_task(workflow, output=None, run_id=None):
     if output:
         require(result["disposition"] == "actionable", "There is no research task to export: " + result["disposition"] + ".")
         # Never destroy an agent's in-progress answer.
+        require(not Path(output).exists(), "Task output already exists; preserve its contents and choose a new --output filename.", "task_output_exists")
         with Path(output).open("x", encoding="utf-8") as f:
             json.dump(result, f, indent=2, allow_nan=False)
             f.write("\n")
@@ -161,7 +168,7 @@ def next_task(workflow, output=None, run_id=None):
     return result
 
 
-def submit(workflow, document, answer=None, usage=None, run_id=None):
+def submit(workflow, document, answer=None, usage=None, run_id=None, *, check_only=False):
     require(isinstance(document, dict), "A task file must contain a JSON object.")
     selected = run_id or binding(workflow.store)["run_id"]
     require(document.get("run_id") == selected, "Task file belongs to a different forecast.")
@@ -172,7 +179,7 @@ def submit(workflow, document, answer=None, usage=None, run_id=None):
         submission["payload"] = answer
     if usage is not None:
         submission["usage"] = usage
-    return workflow.submit(selected, submission)
+    return workflow.submit(selected, submission, check_only=check_only)
 
 
 def show(store):

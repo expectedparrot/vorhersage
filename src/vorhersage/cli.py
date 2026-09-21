@@ -37,7 +37,7 @@ Use show --project FOLDER for readable progress, and next --project FOLDER --out
 Prospective studies, including timelines, accept research captured after start. Timeline schedule_as_of fixes the reference date for durations while information_as_of advances with evidence. Never move the schedule reference date just to admit evidence.
 Resume an existing study with resume --project FOLDER. For an older unfinished prospective study stuck on a fixed cutoff, use resume --project FOLDER --live --reason TEXT, then export a fresh task. This preserves its run, tasks, evidence and research contract. Frozen experiments, historical runs and issued forecasts cannot use this recovery. Do not recreate the project or switch to an unstructured portfolio run to bypass validation.
 All commands accept --json for the same machine-readable envelope. --usage takes a file path, not inline JSON. Portfolio next --run ID --output TASK.json and submit --run ID --task TASK.json --answer ANSWER.json use the same task format and retry guards as studies.
-Fill the task file's submission.payload according to payload_schema; add submission.usage for research/model usage. Preserve its run_id and submission bookkeeping.
+The saved task is a direct JSON document; CLI --json uses an envelope. Check command exit status and envelope status before reading data. next also exports answer_template with null placeholders; fill every unknown deliberately. Use submit --check with the same arguments as submit for a rollback-only preflight; actual submission still revalidates current state. Fill the task file's submission.payload according to payload_schema; add submission.usage for research/model usage. Preserve its run_id and submission bookkeeping.
 Use submit --project FOLDER --from task.json, then next with a new output filename. Exact retries are safe; stale or altered retries fail.
 Alternatively write just the payload to answer.json, then submit --project FOLDER --task task.json --answer answer.json [--usage usage.json]. The exported task retains all identifiers and retry guards.
 New single-question studies begin with intake: name inputs and link unknowns to them. Each unknown specifies ask_user, search, assumption, or unobservable, its importance, and a concrete action. Subsequent inquiry tasks collect answers or explicit unresolved reasons before any initial estimate.
@@ -445,6 +445,7 @@ def parser():
     source.add_argument("--from", dest="input")
     source.add_argument("--task", type=Path, help="Original exported task; supply its answer separately")
     submit.add_argument("--answer", type=Path, help="JSON payload only, with --task")
+    submit.add_argument("--check", action="store_true", help="Validate against current state and roll back without submitting")
     submit.add_argument("--usage", type=Path, help="JSON usage record, with --task")
     for ap in (nxt, submit):
         ap.add_argument("--project", type=Path, default=argparse.SUPPRESS)
@@ -775,12 +776,14 @@ def dispatch(args):
     if command == "submit":
         require(bool(args.task) == bool(args.answer), "Use --task TASK.json together with --answer ANSWER.json.")
         require(args.usage is None or args.task is not None, "--usage accompanies --task and --answer.")
+        if args.usage:
+            require(not str(args.usage).lstrip().startswith(('{', '[')), "--usage expects a JSON file path, not inline JSON; save the object to usage.json.", "expected_file_path")
         if args.task:
-            return study.submit(w, load(args.task), load(args.answer), load(args.usage) if args.usage else None, args.run)
+            return study.submit(w, load(args.task), load(args.answer), load(args.usage) if args.usage else None, args.run, check_only=args.check)
         document = load(args.input)
         if args.run and "submission" not in document:
-            return w.submit(args.run, document)
-        return study.submit(w, document, run_id=args.run)
+            return w.submit(args.run, document, check_only=args.check)
+        return study.submit(w, document, run_id=args.run, check_only=args.check)
     if command == "profile":
         if args.action == "add":
             return w.add_profile(load(args.input))
@@ -880,7 +883,9 @@ def main(argv=None):
             return
         data = dispatch(args)
         if human_output(args):
-            if args.command == "report":
+            if args.command == "submit" and args.check:
+                print("Preflight passed; nothing was submitted. Real submission revalidates the current study.")
+            elif args.command == "report":
                 print("Report saved to " + str(args.output.resolve()))
             else:
                 print(study_text.render(data if args.command in ("start", "define", "show", "revise") else study.show(Store(args.project))))
@@ -919,8 +924,9 @@ def main(argv=None):
             print("Error: " + str(exc), file=sys.stderr)
             raise SystemExit(1)
         print(json.dumps({"schema_version": "1", "status": "error", "data": None,
-                          "errors": [{"code": getattr(exc, "code", "operation_failed"), "message": str(exc)}],
-                          "warnings": [], "next_actions": []}), file=sys.stderr)
+                          "errors": [{"code": getattr(exc, "code", "operation_failed"), "message": str(exc), "violations": getattr(exc, "details", [])}],
+                          "warnings": [], "next_actions": ([{"argv": ["vorhersage", "schema", exc.schema_name], "mutates": False, "network": False}]
+                          if hasattr(exc, "schema_name") else [{"argv": ["vorhersage", "guide"], "mutates": False, "network": False}])}), file=sys.stderr)
         raise SystemExit(1)
 
 
