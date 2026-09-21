@@ -41,7 +41,7 @@ RUN = obj({"question_id": TEXT, "question_version": {"type": "integer", "minimum
            "workflow": enum("standard", "timeline"),
            "research_contract": enum("structured_v1", "structured_v2"),
            "research_effort": enum("deep", "standard", "minimal"),
-           "reference_policy": enum("legacy", "widening_v1"), "model_semantics_version": enum(0, 1),
+           "reference_policy": enum("legacy", "widening_v1"), "model_semantics_version": enum(0, 1), "evidence_transfer_version": enum(0, 1),
            "previous_forecast_id": TEXT},
           ["question_id", "forecaster", "method", "mode", "information_as_of", "max_searches", "max_extra_tasks"])
 REFERENCE_QUERY = obj({"tags": array(TEXT, 1), "horizon_days": {"type": "number", "minimum": 0.000001},
@@ -131,7 +131,11 @@ CONCERN_RESOLUTION = obj({"concern_id": TEXT,
 MODEL_CHALLENGE = obj({"map_version": {"type": "integer", "minimum": 1},
                        "transfers": array(obj({"model_input": TEXT,
                                               "verdict": enum("supported", "assumption", "mismatch"),
-                                              "reason": TEXT, "evidence_refs": REFS}), 1),
+                                              "reason": TEXT, "evidence_refs": REFS,
+                                              "source_fidelity": enum("verified", "unverified", "mismatch"),
+                                              "directional_relevance": enum("relevant", "uncertain", "irrelevant"),
+                                              "quantitative_support": enum("direct", "calculated", "judgment")},
+                                             ["model_input", "verdict", "reason", "evidence_refs"]), 1),
                        "boundary_cases": array(obj({"description": TEXT, "scenario_ids": array(TEXT),
                                                    "reason": TEXT, "concern_ids": array(TEXT)},
                                                   ["description", "scenario_ids", "reason"])),
@@ -139,12 +143,17 @@ MODEL_CHALLENGE = obj({"map_version": {"type": "integer", "minimum": 1},
                        "event_alignment": obj({"target": TEXT, "matches_question": {"type": "boolean"},
                                                "rationale": TEXT, "concern_ids": array(TEXT)})},
                       ["map_version", "transfers", "boundary_cases", "partition_review", "concerns"])
-PARAMETER_SUPPORT = obj({"input_id": TEXT, "model_input": TEXT, "value": {"type": ["number", "string"]},
+ESTIMAND = obj({key: TEXT for key in ("quantity", "units", "population", "denominator", "outcome", "horizon", "clock_origin", "stage", "commitment_term")})
+EVIDENCE_TRANSFER = obj({"version": enum(1), "source": ESTIMAND, "target": ESTIMAND,
+    "mapping": TEXT, "quantitative_support": enum("direct", "calculated", "judgment"),
+    "calculation": TEXT}, ["version", "source", "target", "mapping", "quantitative_support"])
+PARAMETER_SUPPORT = obj({"transfer": EVIDENCE_TRANSFER,"input_id": TEXT, "model_input": TEXT, "value": {"type": ["number", "string"]},
                          "target": TEXT, "evidence_measures": TEXT,
                          "transfer_assumptions": TEXT,
                          "basis": enum("measured", "calculated", "extrapolated", "assumed"),
                          "plausible_range": array({"type": ["number", "string"]}, 2),
                          "evidence_refs": REFS})
+PARAMETER_SUPPORT["required"].remove("transfer")
 LR = {"type": "number", "exclusiveMinimum": 0}
 ODDS_TERM = {"lr": LR, "lr_range": array(LR, 2),
              "direction": enum("supports", "opposes", "neutral"), "rationale": TEXT}

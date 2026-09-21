@@ -49,7 +49,7 @@ def model_inputs(payload, timeline_spec=None):
     return {f"members/{m}/weight": w for m, w in zip(payload["members"], weights)}
 
 
-def validate_support(payload, plan, timeline_spec=None):
+def validate_support(payload, plan, timeline_spec=None, *, transfer_version=0):
     expected = model_inputs(payload, timeline_spec)
     rows = payload.get("parameter_support", [])
     require(len({r["model_input"] for r in rows}) == len(rows) and
@@ -59,6 +59,10 @@ def validate_support(payload, plan, timeline_spec=None):
     ids = {r["id"] for r in plan["inputs"]}
     for row in rows:
         require(row["input_id"] in ids, "Parameter support references an unknown intake input.")
+        if row.get("transfer"):
+            validate_transfer(row)
+        elif transfer_version == 1 and row["basis"] != "assumed":
+            require(False, "Evidence-backed inputs require a versioned transfer with source and target estimands.")
         value = expected[row["model_input"]]
         require(row["value"] == value, "Parameter support value differs from the actual model input: " + row["model_input"])
         bounds = row["plausible_range"]
@@ -80,6 +84,24 @@ def validate_support(payload, plan, timeline_spec=None):
                 "Measured, calculated, or extrapolated inputs require evidence references; use assumed when unsupported.")
     return rows
 
+
+
+def validate_transfer(row):
+    transfer = row['transfer']
+    source, target = transfer['source'], transfer['target']
+    differences = [key for key in source if source[key] != target[key]]
+    if differences:
+        require(row['basis'] in ('extrapolated', 'assumed'),
+                'Different source/target estimands require extrapolated or assumed basis: ' + ', '.join(differences))
+        require(transfer['quantitative_support'] != 'direct',
+                'A benchmark mismatch cannot provide direct quantitative support.')
+    if transfer['quantitative_support'] == 'calculated':
+        require(transfer.get('calculation'), 'Calculated transfers need a reproducible calculation description.')
+    if row['basis'] == 'measured':
+        require(transfer['quantitative_support'] == 'direct', 'Measured inputs need direct quantitative support.')
+    if row['basis'] == 'calculated':
+        require(transfer['quantitative_support'] == 'calculated', 'Calculated inputs need a calculation.')
+    return differences
 
 def mixture(payload):
     """Use the declared support ranges without silently replacing explicit ranges."""
@@ -140,6 +162,16 @@ def validate_challenge(payload, state):
             'Challenge must inspect the evidence transfer for every model input exactly once.')
     support = {r['model_input']: r for r in state['parameter_support']}
     for row in rows:
+        transfer = support[row['model_input']].get('transfer')
+        if transfer:
+            require(all(k in row for k in ('source_fidelity', 'directional_relevance', 'quantitative_support')),
+                    'Review source fidelity, directional relevance and quantitative support separately.')
+            require(row['quantitative_support'] == transfer['quantitative_support'],
+                    'Challenge quantitative support disagrees with the recorded transfer.')
+            if row['verdict'] == 'supported':
+                require(row['source_fidelity'] == 'verified' and row['directional_relevance'] == 'relevant'
+                        and row['quantitative_support'] != 'judgment',
+                        'Qualitative relevance or a judgment transfer cannot be marked quantitatively supported.')
         if row['verdict'] == 'supported':
             require(row['evidence_refs'] and support[row['model_input']]['basis'] != 'assumed',
                     'An assumed or uncited input cannot be marked supported.')
@@ -156,6 +188,10 @@ def validate_challenge(payload, state):
     for concern in concerns:
         require(set(concern['model_inputs']) <= paths, 'Concern must link to actual model inputs.')
     mismatches = {r['model_input'] for r in rows if r['verdict'] == 'mismatch'}
+    mismatches |= {path for path, item in support.items() if item.get('transfer') and
+                   (item['transfer']['source'] != item['transfer']['target'] or
+                    item['transfer']['quantitative_support'] == 'judgment')}
+
     require(mismatches <= {p for c in concerns for p in c['model_inputs']},
             'Each mismatched evidence transfer needs a concern and a disposition.')
     scenarios = state.get('scenario_ids', [])
