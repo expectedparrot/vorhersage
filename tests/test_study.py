@@ -22,6 +22,10 @@ def intake(unknowns=()):
 
 
 def support(answer, spec=None):
+    for scenario in answer.get("scenarios", []):
+        scenario.setdefault("semantics", {"version": 1, "conditioning_event": "Fictional precursor state.",
+            "target_relation": "unresolved", "residual_event": "Qualifying launch before deadline.",
+            "non_overlap_rationale": "Branch weights cover precursor states, not launch success."})
     return [{"input_id": "outcome", "model_input": path, "value": value,
              "target": "Fixture input: " + path, "evidence_measures": "No empirical estimate; synthetic fixture.",
              "transfer_assumptions": "Assume the declared fixture value.", "basis": "assumed",

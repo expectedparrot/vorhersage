@@ -13,7 +13,18 @@ def calculate(spec):
     require(math.isclose(math.fsum(r["weight"] for r in rows), 1, abs_tol=1e-9, rel_tol=0),
             "Scenario weights must sum to one; include remaining possibilities explicitly.")
     bounds = {}
+    gaps = []
     for r in rows:
+        semantics = r.get("semantics")
+        if not semantics:
+            gaps.append(r["id"])
+        elif semantics["target_relation"] in ("entails_yes", "entails_no"):
+            fixed = 1 if semantics["target_relation"] == "entails_yes" else 0
+            require(r["probability"] == fixed and r.get("probability_range", [fixed, fixed]) == [fixed, fixed],
+                    "A scenario that entails YES/NO must have a definitionally fixed conditional probability and range.")
+        else:
+            require(semantics.get("residual_event") and semantics.get("non_overlap_rationale"),
+                    "Unresolved scenarios need residual_event and non_overlap_rationale.")
         for field in ("weight", "probability"):
             interval = r.get(field + "_range", [r[field], r[field]])
             require(len(interval) == 2 and interval[0] <= r[field] <= interval[1],
@@ -50,7 +61,7 @@ def calculate(spec):
             if amount > 0:
                 transfers.append({"from": a["id"], "to": b["id"], "weight_transferred": amount,
                                   "probability_change": amount * (b["probability"] - a["probability"])})
-    return {"probability": p, "contributions": {r["id"]: r["weight"] * r["probability"] for r in rows},
+    return {"semantic_review_gaps": gaps, "probability": p, "contributions": {r["id"]: r["weight"] * r["probability"] for r in rows},
             "bounded_range": [extreme(False)["probability"], extreme(True)["probability"]],
             "extreme_allocations": {"minimum": extreme(False), "maximum": extreme(True)},
             "conditional_sensitivity": sorted(sensitivity, key=lambda r: r["swing"], reverse=True),

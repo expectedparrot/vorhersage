@@ -166,6 +166,7 @@ class Workflow:
                 # single-question front end opts into deep research explicitly.
                 "research_effort": spec.get("research_effort", "standard"),
                 "profile": profile, "created_at": now(), "workflow_version": "1", **(protocol or {})}
+        body["model_semantics_version"] = spec.get("model_semantics_version", int(spec.get("research_contract") == "structured_v2" and not protocol))
         body["reference_policy"] = spec.get("reference_policy", "widening_v1" if
                                            body["research_effort"] == "deep" and not protocol else "legacy")
         require(not reference_research.enabled(body) or body["research_effort"] == "deep",
@@ -294,6 +295,8 @@ class Workflow:
                         "reason": "Experiment forecast cutoff passed."}
         packet_ids = sorted({r["packet_id"] for r in state["evidence_refs"]})
         payload_schema = copy.deepcopy(SCHEMAS[selected["kind"]])
+        if selected["kind"] == "assessment" and run.get("model_semantics_version") == 1:
+            payload_schema["properties"]["scenarios"]["items"]["required"].append("semantics")
         if reference_research.enabled(run):
             if selected["kind"] == "reference_class_design":
                 payload_schema["required"] += ["classes", "search_allocation"]
@@ -325,7 +328,7 @@ class Workflow:
             if selected["kind"] == "inquiry":
                 selected["instruction"] += " Reuse this answer for relevant profile domains through coverage [{domain, interpretation}]; this removes duplicate domain tasks. Mark unresolved gaps honestly."
             if selected["kind"] == "assessment":
-                selected["instruction"] += " Supply a new model_map version, explicitly separating scenario weights from conditional event probabilities. Remap evidence if the model changed; explain changes in rationale. Use context.model_map for previous_version (0 initially)."
+                selected["instruction"] += " Supply a new model_map version, explicitly separating scenario weights from conditional event probabilities. Remap evidence if the model changed; explain changes in rationale. For model_semantics_version 1, every mixture scenario needs semantics {version:1, conditioning_event, target_relation:entails_yes|entails_no|unresolved}. Entailed outcomes have fixed conditional probabilities/ranges; unresolved targets need residual_event and non_overlap_rationale plus parameter support for their conditional probability. Use context.model_map for previous_version (0 initially)."
             if selected["kind"] == "prior":
                 selected["instruction"] += " For an empirical reference_class, register dated reference cases and supply reference_query plus its eligible prior_payload. Maturity is determined independently of outcome at the query cutoff; unresolved mature cases block a prior. resolved_case_frequency is descriptive only. Related proposals belong to one episode. Without a defensible denominator use judgment."
             if selected["kind"] == "review":
@@ -667,6 +670,9 @@ class Workflow:
                 plan = state.get("research_plan")
                 require(plan is not None, "Parameter support requires an intake research plan.")
                 research_model.validate_support(p, plan, spec if method == "timeline_model" else None)
+            if method == "scenario_mixture" and run.get("model_semantics_version") == 1:
+                require(all(s.get("semantics", {}).get("version") == 1 for s in p["scenarios"]),
+                        "New structured mixtures require semantics version 1 for every scenario.")
             if v2:
                 state["model_map"] = research_model.validate_map(p, state["research_plan"], state.get("model_map"),
                                                                spec if method == "timeline_model" else None)
@@ -677,6 +683,9 @@ class Workflow:
             state["model_inputs"] = research_model.model_inputs(p, spec if method == "timeline_model" else None)
             state["parameter_support"] = p.get("parameter_support", [])
             state.pop("event_alignment", None)
+            if method in ("scenario_mixture", "conditional_path") and run.get("model_semantics_version") == 1:
+                state["event_alignment"] = {"target": "question", "yes": run["question"]["yes"],
+                                            "deadline": run["question"]["event_deadline"]}
             state["sensitivity"] = calculation if method == "scenario_mixture" else (
                 {"probability": value, "bounded_range": p["parameter_support"][0]["plausible_range"],
                  "limitations": ["Declared assumption range, not a confidence interval."]}
