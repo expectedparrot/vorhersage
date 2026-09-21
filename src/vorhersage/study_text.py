@@ -116,7 +116,7 @@ def render(data):
             record = item["record"]
             lines.append("  • " + record["claim"])
             for source in record["sources"]:
-                lines.append("    Source: " + source["title"] + " — " + source["url"])
+                lines.append("    Source: " + source["title"] + " — " + source.get("url", source.get("attribution", "Private source")))
         lines.append("")
     # Show the latest submission for each task/topic, retaining its attribution.
     latest = {}

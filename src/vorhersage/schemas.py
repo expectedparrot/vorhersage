@@ -189,14 +189,15 @@ EVALUATION = obj({"question_versions": COHORT, "forecasters": array(TEXT, 1),
                   "mode": enum("prospective", "retrospective", "simulation")})
 REPLAY_EVALUATION = obj({"forecast_ids": array(TEXT), "forecasters": array(TEXT, 1),
                          "experiment": TEXT, "contamination_assessment": TEXT})
-SOURCE = obj({"id": TEXT, "url": TEXT, "title": TEXT, "excerpt": TEXT, "retrieved_at": TIME,
+SOURCE = obj({"kind": enum("public", "testimony", "private_document"), "access": enum("public", "private"),
+              "attribution": TEXT, "message_ref": TEXT, "id": TEXT, "url": TEXT, "title": TEXT, "excerpt": TEXT, "retrieved_at": TIME,
               "published_at": {"type": ["string", "null"]}, "origin_id": TEXT,
               "excerpt_kind": enum("quotation", "paraphrase"),
               "capture": obj({"method": enum("manual", "discovery", "fetched", "epiq", "exa_snapshot"),
                               "snapshot_as_of": TIME,
                               "captured_at": TIME, "content": TEXT, "content_sha256": TEXT,
                               "metadata": {"type": "object"}}, ["method"])},
-             ["id", "url", "title", "excerpt", "retrieved_at"])
+             ["id", "title", "excerpt", "retrieved_at"])
 # A passage supports one finding; inference remains a declared reasoning step.
 CLAIM_SUPPORT = obj({"source_id": TEXT, "passage": TEXT,
                      "relation": enum("direct", "inference"), "rationale": TEXT})

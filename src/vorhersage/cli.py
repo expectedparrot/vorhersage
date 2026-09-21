@@ -45,7 +45,7 @@ When several influential unknowns are facts the human user knows, offer to desig
 For a chosen survey, inspect ep humanize create --help, author an EDSL survey saved as intake-survey.json, and run ep humanize create --survey intake-survey.json --name "Forecast follow-up". Save the returned survey UUID and give the user the respondent link. Link each question name to the intake unknown and input_ids; ask neutral factual questions, allow unknown/not applicable, and avoid showing the current forecast before eliciting facts.
 After the user completes it, fetch ep humanize responses SURVEY_UUID --output intake-responses.json and inspect answers with ep results columns --file intake-responses.json and ep results export intake-responses.json --format json --output intake-answers.json. Preserve original answers and timestamps; capture each relevant self-reported finding with evidence add, citing the survey and question. Answers inform declared judgments; they do not automatically determine scenario weights or establish a population base rate.
 Use the resulting evidence_refs in the active inquiry tasks. If a forecast has already issued, use revise with those references, update the affected parameter_support and scenario assumptions, then complete assessment/review/issue and regenerate the report. Explain which answers changed which inputs, what remained uncertain, and whether the forecast moved. If ep is unavailable, collect the same facts in chat.
-Use evidence add CLAIM --project FOLDER --url URL --title TITLE --excerpt TEXT --claim-type observation to capture a user answer or source finding. This records the current capture time and returns evidence_refs. Keep observations separate from inferences. Never backdate evidence to satisfy a cutoff.
+Use evidence add CLAIM --project FOLDER --url URL --title TITLE --excerpt TEXT --claim-type observation to capture a user answer or source finding. This records the current capture time and returns evidence_refs. For private testimony use --source-kind testimony --attribution TEXT without --url; private documents use private_document. Report private sources with the citation_anchor footnote from report context and its attribution; never publish private message locators. Keep observations separate from inferences. Never backdate evidence to satisfy a cutoff.
 In the prior payload declare research_status_at_estimate. Searches already performed are research, even when the run began with research_status not_started. Report only newly performed searches in usage; reusing a source does not repeat its cost. Never reduce true usage just to pass a budget check.
 Structured assessments require parameter_support for every supplied model input. Separate scenario weight from conditional probability. Each record links input_id from intake, model_input path, value, target, evidence_measures, transfer_assumptions, basis, plausible_range, and evidence_refs. Basis is measured, calculated, extrapolated, or assumed. Unsupported judgments remain assumed.
 New studies use structured_v2. Every assessment supplies model_map {version, previous_version, rationale, inputs:[{model_input, input_ids, target, quantity}]}. Start at version 1 / previous_version 0; subsequent passes increment context.model_map.version. Targets must match parameter_support. Quantity is scenario_weight, conditional_probability, probability, likelihood_ratio, ensemble_weight, or timeline_input. Map each actual input exactly once and explain changes to the research/model mapping.
@@ -217,8 +217,12 @@ def parser():
     sub = evidence.add_subparsers(dest="action", required=True)
     add = sub.add_parser("add")
     add.add_argument("claim")
-    for name in ("url", "title", "excerpt"):
+    for name in ("title", "excerpt"):
         add.add_argument("--" + name, required=True)
+    add.add_argument("--url", help="Required for public sources")
+    add.add_argument("--source-kind", choices=("public", "testimony", "private_document"), default="public")
+    add.add_argument("--attribution", help="Reader-visible attribution for a private source")
+    add.add_argument("--message-ref", help="Optional private original-message locator")
     add.add_argument("--claim-type", choices=("reporting", "official_statement", "observation", "inference", "unknown"), default="reporting")
     add.add_argument("--observed-at", help="Historical observation date; capture/retrieval time is always recorded now")
     add.add_argument("--inference-rationale", help="Required for inference: explain the step from source passage to this claim")
@@ -556,7 +560,8 @@ def dispatch(args):
         return study.revise(w, reason=args.reason, refs=evidence_references(args.evidence), expected_forecast=args.expected_forecast)
     if command == "evidence":
         return w.import_packet(capture_finding(args.claim, url=args.url, title=args.title, excerpt=args.excerpt,
-                                              claim_type=args.claim_type,
+                                              claim_type=args.claim_type, source_kind=args.source_kind,
+                                              attribution=args.attribution, message_ref=args.message_ref,
                                               inference_rationale=args.inference_rationale,
                                               observed_at=setup.timestamp(args.observed_at) if args.observed_at else None))
     if command == "version":

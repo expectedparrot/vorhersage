@@ -10,6 +10,7 @@ from datetime import datetime
 from pathlib import Path
 
 from .common import digest, require, time
+from .evidence import citation_anchor
 
 
 def pointer(document, path):
@@ -33,6 +34,44 @@ def rendered(value, style):
     require(type(value) in (str, int, float, bool), 'Report claims must select scalar recorded values.')
     return str(value)
 
+
+
+def required_evidence(full, path):
+    """Resolve recorded dependencies; the author cannot delete them from a claim."""
+    if path.startswith('/material/evidence/'):
+        return {full['material']['evidence'][int(path.split('/')[3])]['evidence_id']}
+    refs = []
+    if path.startswith('/material/prediction/issued/'):
+        model = full['material'].get('model', {})
+        for support in model.get('parameter_support', []):
+            refs.extend(support.get('evidence_refs', []))
+        refs.extend((model.get('assessment') or {}).get('answer', {}).get('evidence_refs', []))
+    else:
+        parts = path.split('/')
+        for end in range(len(parts) - 1, 1, -1):
+            parent = pointer(full, '/'.join(parts[:end]))
+            if isinstance(parent, dict) and 'evidence_refs' in parent:
+                refs = parent['evidence_refs']
+                break
+        if not refs and path.startswith('/material/model/model_inputs/'):
+            key = path.removeprefix('/material/model/model_inputs/').replace('~1', '/').replace('~0', '~')
+            refs = next((r.get('evidence_refs', []) for r in full['material'].get('model', {}).get('parameter_support', [])
+                         if r['model_input'] == key), [])
+    return {r['packet_id'] + ':' + r['record_id'] for r in refs}
+
+
+def cited(evidence_id, record, report):
+    for source in record['sources']:
+        if source.get('kind', 'public') == 'public':
+            if '](' + source.get('url', '') + ')' in report:
+                return True
+        else:
+            anchor = citation_anchor(evidence_id)
+            definition = re.search(r'^\[\^' + re.escape(anchor) + r'\]: (.+)$', report, re.M)
+            if definition and source.get('attribution') in definition.group(1) and re.search(
+                    r'\[\^' + re.escape(anchor) + r'\](?!:)', report):
+                return True
+    return False
 
 def check(context_path, report_path, claims_path):
     context_path = Path(context_path)
@@ -67,21 +106,19 @@ def check(context_path, report_path, claims_path):
                 problem('passage_mismatch', 'Report passage must contain the recorded rendered value: ' + path)
             seen.add(path)
             evidence_ids = row.get('evidence_ids', [])
-            if '/evidence/' in path:
-                index = int(path.split('/')[3])
-                if material['evidence'][index]['evidence_id'] not in evidence_ids:
-                    problem('missing_claim_citation', 'Evidence claim must cite its selected evidence record: ' + path)
-            for eid in evidence_ids:
+            required = required_evidence(full, path)
+            if not path.startswith('/material/prediction/issued/') and not required <= set(evidence_ids):
+                problem('missing_claim_citation', 'Preserve recorded evidence connections for ' + path)
+            for eid in set(evidence_ids) | required:
                 require(eid in sources, 'Unknown evidence ID: ' + eid)
-                urls = [s['url'] for s in sources[eid]['sources']]
-                if not any('](' + url + ')' in passage or '](' + url + ')' in report for url in urls):
-                    problem('missing_source_link', 'Link an original source for ' + eid)
+                if not cited(eid, sources[eid], report):
+                    problem('missing_source_link', 'Cite the original source or attributed private footnote for ' + eid)
         except (KeyError, TypeError, ValueError, IndexError) as exc:
             problem('invalid_claim', str(exc))
     issued = material.get('prediction', {}).get('issued')
     if issued and '/material/prediction/issued/probability' not in seen:
         problem('missing_forecast', 'Check the issued probability through a recorded claim.')
-    if sources and not any('](' + source['url'] + ')' in report for e in sources.values() for source in e['sources']):
+    if sources and not any(cited(eid, e, report) for eid, e in sources.items()):
         problem('missing_citations', 'The report has evidence but no original source citations.')
     for row in claims.get('arithmetic', []):
         try:
@@ -95,5 +132,6 @@ def check(context_path, report_path, claims_path):
         problem('unsupported_calibration', 'Issuance and deterministic calculation do not establish calibration; cite an actual calibration evaluation.')
     if re.search(r'\bno (?:language model|LLM) was used to generate the probability', report, re.I):
         problem('misleading_attribution', 'Disclose forecaster-supplied weights and inputs; arithmetic does not remove their authorship.')
-    return {'ok': not issues, 'issues': issues, 'claims_checked': len(rows), 'record_sha256': context['record_sha256'],
+    return {'ok': not issues, 'issues': issues, 'claims_checked': len(rows),
+            'citation_scope': 'Recorded dependencies and attributed private footnotes; public sources use original links.', 'record_sha256': context['record_sha256'],
             'qualification': 'Checks declared claims, arithmetic and source links. Does not certify source truth, semantic support or an exhaustive claim inventory.'}

@@ -193,7 +193,7 @@ def _validate_event(c, state, kind, p):
             for ref in refs:
                 packet = Store.artifact(c, ref["packet_id"], "packet")
                 record = next(r for r in packet["records"] if r["id"] == ref["record_id"])
-                require(any(s["url"] == p["url"] for s in record["sources"]), "Read URL does not match evidence source.")
+                require(any(s.get("url") == p["url"] for s in record["sources"]), "Read URL does not match evidence source.")
     elif kind == "assessment":
         require(p["domain"] in spec["execution"]["research"]["domains"], "Unregistered research domain.")
         require(p["disposition"] != "assessed" or refs, "An assessed domain needs cited evidence; use unknown otherwise.")
