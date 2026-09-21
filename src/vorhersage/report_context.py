@@ -7,6 +7,7 @@ explanation, and presentation. Full records accompany the bounded writing view.
 import json
 from pathlib import Path
 
+from . import approval_handoff
 from .evidence import citation_anchor
 from .common import digest, now, require
 from .store import Store
@@ -16,6 +17,7 @@ from .evidence import audit as audit_evidence
 from .workflow import workflow_requirements
 
 WRITING_GUIDANCE = [
+    approval_handoff.GUIDANCE,
     "Preserve reported_facts verbatim and distinguish inferred evidence from testimony. Unknown to a respondent does not mean absent; review participation does not establish exclusive decision authority. Keep response_state and unresolved_fields visible and do not describe partial answers as resolved.",
     "Preserve source versus target estimands and their transfer mapping. A relevant benchmark is not numerical support; distinguish whole-cycle and remaining durations, conditioning populations and committed terms versus annualized rates. Quantitative judgment transfers remain judgments even when their source passage is verified.",
     "Explain each scenario conditioning event, its relationship to the exact YES criteria and any residual failure gate. Entailed outcomes are definitionally fixed, not empirical probabilities. Preserve semantic_review_gaps for legacy models; arithmetic cannot prove a partition.",
@@ -220,7 +222,8 @@ def bounded_material(material, omissions):
     return result
 
 
-def export(store, *, output=None, question_id=None, run_id=None, case_id=None):
+def export(store, *, output=None, question_id=None, run_id=None, case_id=None,
+           approval_receipts=(), required_approval_scopes=(), approval_verifier=None):
     raw = snapshot(store, question_id=question_id, run_id=run_id, case_id=case_id)
     material, blockers = _run_material(raw) if raw["kind"] == "run" else _case_material(raw)
     full = {"schema_version": "vorhersage.report_material.v1", "snapshot": raw, "material": material}
@@ -233,7 +236,9 @@ def export(store, *, output=None, question_id=None, run_id=None, case_id=None):
                                  "blockers": blockers, "qualification": "Readiness checks workflow completion, not evidence quality or forecast accuracy."},
                "material": bounded, "writing_guidance": WRITING_GUIDANCE,
                "omissions": omissions[:60], "omission_count": len(omissions),
-               "authoring": {"source": "writeup/report.md", "deliverable": "writeup/report.html",
+               "authoring": {"approvals": approval_handoff.inspect(sha, approval_receipts,
+                                              required_scopes=required_approval_scopes, verifier=approval_verifier),
+                             "source": "writeup/report.md", "deliverable": "writeup/report.html",
                              "owner": "The author or calling agent; ep-agent uses skill:report-authoring.",
                              "instruction": "Author narrative from this evidence. Use the calling environment's styling, review, compilation and report checks."}}
     if output:
