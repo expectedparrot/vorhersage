@@ -119,3 +119,37 @@ def test_private_source_requires_attribution_and_public_source_requires_url():
         capture_finding('Filed.', title='Testimony', excerpt='Filed.', source_kind='testimony')
     with pytest.raises(Error, match='URL'):
         capture_finding('Filed.', title='Public record', excerpt='Filed.')
+
+
+def test_numeric_equivalence_is_not_display_tolerance():
+    assert report_check.equivalent(.1 + .2, .3)
+    assert not report_check.equivalent(.30001, .3)
+    assert not report_check.equivalent(True, 1)
+    assert not report_check.equivalent(float('nan'), float('nan'))
+    assert not report_check.equivalent(float('inf'), float('inf'))
+    assert report_check.rendered(.37625, 'percent', precision=1) == '37.6%'
+    assert report_check.rendered(.125, 'percent', precision=0) == '12%'
+    assert report_check.rendered(.125, 'percent', precision=0, rounding='half_up') == '13%'
+    assert report_check.rendered(0, 'percent', precision=1) == '0.0%'
+    assert report_check.rendered(1, 'percent', precision=1) == '100.0%'
+    for invalid in (True, -1, 13):
+        with pytest.raises(Error, match='Precision'):
+            report_check.rendered(.3, 'percent', precision=invalid)
+
+
+def test_explicit_report_precision_preserves_snapshot(tmp_path):
+    args = bundle(tmp_path)
+    full = json.loads(args[3].read_text())
+    full['material']['prediction']['issued']['probability'] = .37625
+    args[3].write_text(json.dumps(full)); original = args[3].read_bytes()
+    sha = digest(full)
+    args[0].write_text(json.dumps({'record_sha256': sha, 'full_material': {'path': str(args[3]), 'sha256': sha}}))
+    claims = json.loads(args[2].read_text()); claims['record_sha256'] = sha
+    claims['claims'][0].update(value=.37625, precision=1, text='**37.6% probability**')
+    args[2].write_text(json.dumps(claims))
+    args[1].write_text(args[1].read_text().replace('10%', '37.6%'))
+    assert report_check.check(*args[:3])['ok']
+    assert args[3].read_bytes() == original
+    claims['claims'][0]['value'] = .3763
+    args[2].write_text(json.dumps(claims))
+    assert 'value_mismatch' in {i['code'] for i in report_check.check(*args[:3])['issues']}

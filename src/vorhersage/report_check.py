@@ -7,6 +7,7 @@ import json
 import math
 import re
 from datetime import datetime
+from decimal import Decimal, ROUND_HALF_EVEN, ROUND_HALF_UP, localcontext
 from pathlib import Path
 
 from .common import digest, require, time
@@ -22,7 +23,28 @@ def pointer(document, path):
     return value
 
 
-def rendered(value, style):
+def equivalent(actual, recorded):
+    if type(actual) in (int, float) and type(recorded) in (int, float):
+        if not math.isfinite(actual) or not math.isfinite(recorded):
+            return False
+        return actual == recorded or abs(actual - recorded) <= 4 * max(math.ulp(actual), math.ulp(recorded))
+    return type(actual) is type(recorded) and actual == recorded
+
+
+def rendered(value, style, *, precision=None, rounding="half_even"):
+    require(rounding in ("half_even", "half_up"), "Rounding must be half_even or half_up.")
+    require(precision is None or (type(precision) is int and 0 <= precision <= 12),
+            "Precision must be an integer from 0 to 12.")
+    require(precision is None or style in ("percent", "literal"), "Precision applies only to numbers.")
+    if precision is not None:
+        require(type(value) in (int, float) and math.isfinite(value), "Precision requires a finite number.")
+        require(style != "percent" or 0 <= value <= 1, "Percent claims require a probability.")
+        number = Decimal(str(value)) * (100 if style == "percent" else 1)
+        with localcontext() as context:
+            context.prec = max(28, number.adjusted() + precision + 2)
+            rounded = number.quantize(Decimal(1).scaleb(-precision),
+                                     rounding=ROUND_HALF_EVEN if rounding == "half_even" else ROUND_HALF_UP)
+        return format(rounded, f".{precision}f") + ("%" if style == "percent" else "")
     if style == 'percent':
         require(type(value) in (int, float) and 0 <= value <= 1, 'Percent claims require a probability.')
         return f'{value * 100:g}%'
@@ -99,9 +121,9 @@ def check(context_path, report_path, claims_path):
         try:
             path, passage = row['pointer'], row['text']
             recorded = pointer(full, path)
-            expected = rendered(recorded, row.get('format', 'literal'))
-            if row['value'] != recorded:
-                problem('value_mismatch', 'Declared value differs from the record: ' + path)
+            expected = rendered(recorded, row.get('format', 'literal'), precision=row.get('precision'), rounding=row.get('rounding', 'half_even'))
+            if not equivalent(row['value'], recorded):
+                problem('value_mismatch', f'Declared value {row["value"]!r} differs from recorded {recorded!r} at {path}; expected display {expected!r}')
             if not passage or passage not in report or not re.search(r'(?<![\w.])' + re.escape(expected) + r'(?!\w|[.,]\d|%)', passage):
                 problem('passage_mismatch', 'Report passage must contain the recorded rendered value: ' + path)
             seen.add(path)
