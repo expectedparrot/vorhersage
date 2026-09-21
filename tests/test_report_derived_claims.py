@@ -60,3 +60,19 @@ def test_exclusions_require_reason_and_do_not_hide_fidelity_errors(tmp_path):
     claims['exclusions'][0]['reason'] = ''
     args[2].write_text(json.dumps(claims))
     assert 'invalid_exclusion' in {x['code'] for x in report_check.check(*args[:3])['issues']}
+
+
+def test_overflowing_derived_claim_returns_a_fidelity_issue(tmp_path):
+    args, full, claims = dated(tmp_path)
+    full['material']['question'].update(a=1e308, b=1e308)
+    args[3].write_text(json.dumps(full)); sha = digest(full)
+    args[0].write_text(json.dumps({'record_sha256': sha, 'full_material': {'path': str(args[3]), 'sha256': sha}}))
+    claims['record_sha256'] = sha
+    claims['claims'].append(dict(expression={'op': 'sum', 'terms': ['/material/question/a', '/material/question/b']},
+        value=0, text='The total is 0.'))
+    args[1].write_text(args[1].read_text() + '\nThe total is 0.\n')
+    args[2].write_text(json.dumps(claims))
+    result = report_check.check(*args[:3])
+    assert not result['ok']
+    assert any(issue['code'] == 'invalid_claim' for issue in result['issues'])
+    assert any(token['token'] == '0' for token in result['coverage']['unchecked'])

@@ -57,7 +57,7 @@ def coverage(report, rows, exclusions, full):
             for occurrence in re.finditer(re.escape(passage), report):
                 for token in re.finditer(re.escape(expected), passage):
                     checked.append((occurrence.start() + token.start(), occurrence.start() + token.end()))
-        except (KeyError, TypeError, ValueError, IndexError):
+        except (KeyError, TypeError, ValueError, IndexError, OverflowError):
             continue  # The fidelity checker reports malformed claims.
     for row in exclusions:
         if not row.get('reason', '').strip() or not row.get('text') or row['text'] not in report:

@@ -17,8 +17,16 @@ def verbatim_statement(passage, excerpt):
     if not passage or not passage.strip():
         return False
     for match in re.finditer(re.escape(passage), excerpt):
-        start = match.start() == 0 or bool(re.search(r'(?:[.!?]\s+|\n)\Z', excerpt[:match.start()]))
-        end = match.end() == len(excerpt) or (passage.endswith(('.', '!', '?')) and excerpt[match.end()].isspace()) or excerpt[match.end():match.end()+1] == '\n'
+        prefix, suffix = excerpt[:match.start()], excerpt[match.end():]
+        # Recognize presentation syntax, not arbitrary text before a colon:
+        # dropping "My guess:" would discard a substantive qualifier.
+        formatted_start = re.search(
+            r'(?:\A|\n)[ \t]*(?:>[ \t]*)*(?:(?:[-+*]|\d+[.)])[ \t]+)?'
+            r'(?:\*\*|__)?(?:(?:Statement|Answer|Response):[ \t]*(?:\*\*|__)?[ \t]*)?'
+            r'["\u201c\u2018\']?\Z', prefix, re.I)
+        start = bool(formatted_start or re.search(r'[.!?]\s+\Z', prefix))
+        closing = re.sub(r'\A["\u201d\u2019\']?(?:\*\*|__)?', '', suffix)
+        end = not closing or (passage.endswith(('.', '!', '?')) and closing[0].isspace()) or closing.startswith('\n')
         if start and end:
             return True
     return False

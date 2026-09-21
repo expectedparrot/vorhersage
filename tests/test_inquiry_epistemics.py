@@ -5,9 +5,11 @@ from test_research_v2 import begin, submit
 from test_study import intake
 
 
-def test_original_qualifiers_and_partial_coverage_are_preserved(tmp_path):
+@pytest.mark.parametrize('prefix', ['', 'Statement: ', '- ', '> **Response:** '])
+def test_original_qualifiers_and_partial_coverage_are_preserved(tmp_path, prefix):
     w, _ = begin(tmp_path)
-    text = 'I do not know of any other applicants.'
+    passage = 'I do not know of any other applicants.'
+    text = prefix + passage
     refs = [w.import_packet(evidence.capture_finding(text, title='Testimony', excerpt=text,
         source_kind='testimony', attribution='Museum organizer'))['records'][0]['evidence_ref']]
     q = dict(id='competition', input_ids=['outcome'], question='Other applicants?', route='ask_user',
@@ -18,10 +20,10 @@ def test_original_qualifiers_and_partial_coverage_are_preserved(tmp_path):
         unresolved_fields=['Actual applicant count'], coverage=[dict(domain='current_state', interpretation='Applicant count', completeness='partial')])
     with pytest.raises(Error, match='preserve its qualifiers'):
         submit(w, answer)
-    answer['reported_facts'][0]['passage'] = text
+    answer['reported_facts'][0]['passage'] = passage
     submit(w, answer)
     t = study.next_task(w)
-    assert t['context']['inquiry_answers']['competition']['reported_facts'][0]['passage'] == text
+    assert t['context']['inquiry_answers']['competition']['reported_facts'][0]['passage'] == passage
     assert t['context']['coverage']['current_state']['disposition'] == 'unknown'
     with w.store.connect() as c:
         from vorhersage.store import Store
@@ -44,6 +46,34 @@ def test_whole_statements_can_be_selected_without_losing_qualifiers():
     text = 'The application is filed. I do not know of any other applicants. Review is next.'
     assert verbatim_statement('I do not know of any other applicants.', text)
     assert not verbatim_statement('know of any other applicants.', text)
+
+
+@pytest.mark.parametrize('excerpt', [
+    'Statement: I do not know.',
+    '  Answer: I do not know.',
+    'Response: "I do not know."',
+    '**Statement:** I do not know.',
+    '> I do not know.',
+    '- I do not know.',
+    '1. I do not know.',
+    'Previous statement.\n  - **I do not know.**\nNext statement.',
+    '\u201cI do not know.\u201d',
+])
+def test_formatted_statements_preserve_verbatim_passages(excerpt):
+    from vorhersage.research_model import verbatim_statement
+    assert verbatim_statement('I do not know.', excerpt)
+
+
+@pytest.mark.parametrize('excerpt', [
+    'My guess: the museum will open.',
+    'Statement: I suspect the museum will open.',
+    '- I suspect the museum will open.',
+    'Statement: the museum will open, if the permit is approved.',
+])
+def test_formatting_does_not_allow_clipped_qualifiers(excerpt):
+    from vorhersage.research_model import verbatim_statement
+    assert not verbatim_statement('the museum will open.', excerpt)
+    assert not verbatim_statement('the museum will open', excerpt)
 
 
 def test_answer_state_must_agree_with_status(tmp_path):
