@@ -111,6 +111,8 @@ def summary(state):
             "classes": list(state.get("reference_classes", {}).values()),
             "searches": searches, "candidates": current_candidates(state), "analysis": state.get("reference_class_analysis"),
             "analysis_history": state.get("reference_analysis_history", []),
+            "artifact_status": ("verified_empirical_export" if state.get("flyvbjerg_analysis") else
+                                "no_verified_empirical_export"),
             "candidate_episode_count": len({row["episode_id"] for row in candidates}),
             "qualification": "Candidates and analogies are not automatically an empirical denominator. "
                              "Partial outcomes remain useful input evidence; missing outcomes are not failures."}

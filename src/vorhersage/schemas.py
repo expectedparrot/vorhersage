@@ -60,7 +60,8 @@ REFERENCE_CLASS_ANALYSIS = obj({"status": enum("complete", "blocked"), "analysis
                                 "case_count": {"type": "integer", "minimum": 0},
                                 "independent_episode_count": {"type": "integer", "minimum": 0},
                                 "estimator": TEXT, "result": TEXT, "limitations": array(),
-                                "evidence_refs": REFS, "analysis_path": TEXT})
+                                "evidence_refs": REFS, "analysis_path": TEXT, "artifact_omission_reason": TEXT},
+                               ["status", "analysis_id", "case_count", "independent_episode_count", "result", "limitations", "evidence_refs"])
 # Optional on legacy records; required by the versioned widening workflow.
 REFERENCE_CLASS = obj({"id": TEXT, "population": TEXT,
                        "distance": enum("close", "nearby", "mechanism"),

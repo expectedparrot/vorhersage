@@ -51,7 +51,7 @@ def study_payload(kind, refs, estimate=.6, context=None):
     if kind == "reference_class_analysis":
         return {"status": "search_incomplete", "analysis_id": "fixture", "case_count": 0,
                 "independent_episode_count": 0, "estimator": "None", "result": "Synthetic fixture has no empirical cohort",
-                "limitations": ["No external searches"], "evidence_refs": [], "analysis_path": "No empirical export",
+                "limitations": ["No external searches"], "evidence_refs": [], "artifact_omission_reason": "No empirical export",
                 "class_results": [{"class_id": distance, "assessment": "Not searched in synthetic fixture"} for distance in ("close", "nearby")],
                 "remaining_assumptions": ["All fixture inputs are assumed"]}
     answer = payload(kind, refs, estimate)
