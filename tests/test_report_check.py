@@ -153,3 +153,12 @@ def test_explicit_report_precision_preserves_snapshot(tmp_path):
     claims['claims'][0]['value'] = .3763
     args[2].write_text(json.dumps(claims))
     assert 'value_mismatch' in {i['code'] for i in report_check.check(*args[:3])['issues']}
+
+
+def test_large_integer_equality_and_decimal_scaling_remain_exact():
+    assert not report_check.equivalent(10**20, 10**20 + 1)
+    assert report_check.equivalent(10**400, 10**400)
+    assert not report_check.equivalent(10**400, 1.0)
+    number = 123456789012345678901234567890123456789
+    assert report_check.rendered(number, 'literal', precision=0) == str(number)
+    assert report_check.rendered(10**400, 'literal', precision=1) == str(10**400) + '.0'

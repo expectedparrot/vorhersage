@@ -70,3 +70,15 @@ def test_assessment_preflight_does_not_store_model_or_consume_usage(tmp_path):
     assert study.submit(w, task, answer=answer, usage={'searches': 1, 'model_calls': 1, 'cost_usd': .1}, check_only=True)['valid']
     assert dump(w) == before
     assert study.next_task(w)['task']['kind'] == 'assessment'
+
+
+def test_all_object_constraints_and_conditional_transfer_template(tmp_path):
+    from test_research_v2 import advance
+    from vorhersage.schemas import violations, SCHEMAS
+    failures = violations({'unexpected': True}, SCHEMAS['intake'])
+    assert any(x['missing_fields'] for x in failures)
+    assert any('unexpected fields' in x['message'] for x in failures)
+    w, refs = begin(tmp_path); advance(w, refs, 'assessment')
+    task = study.next_task(w)
+    assert task['answer_template']['parameter_support'][0]['transfer']['source']['stage'] is None
+    assert task['conditional_fields'][0]['path'] == '/parameter_support/*/transfer'

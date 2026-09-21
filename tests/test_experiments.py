@@ -376,6 +376,7 @@ class ArmTests(unittest.TestCase):
         run = ex.start(self.tmp.name, experiment)["trials"][0]["run_id"]
         self.assertEqual(self.w.next(run)["task"]["kind"], "intake")
         self.assertEqual(self.w.next(run)["context"]["run"]["research_contract"], "structured_v2")
+        self.assertEqual(self.w.next(run)["context"]["run"]["model_semantics_version"], 1)
 
     def test_offline_factorial_walkthrough(self):
         project = Path(self.tmp.name) / "factorial"

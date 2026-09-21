@@ -137,3 +137,21 @@ def test_handoff_checks_the_forecast_manifest_before_export(tmp_path):
             report_context.export(w.store)
     with w.store.connect() as c:
         assert Store.artifact(c, result['forecast_id']) == original
+
+
+def test_private_locators_are_removed_from_all_writer_exports_but_not_store(tmp_path):
+    from vorhersage.evidence import capture_finding
+    w, _ = begin(tmp_path)
+    finding = capture_finding('Application filed.', title='Private testimony', excerpt='Application filed.',
+        source_kind='testimony', attribution='Organizer', message_ref='internal-sensitive-message', url='https://private.example/secret')
+    ref = w.import_packet(finding)['records'][0]['evidence_ref']
+    complete(w, [ref])
+    path = tmp_path / 'report-context.json'
+    receipt = report_context.export(w.store, output=path)
+    archive = open(receipt['full_material']['path']).read()
+    for token in ('internal-sensitive-message', 'https://private.example/secret'):
+        assert token not in path.read_text() and token not in archive
+    assert json.loads(archive)['privacy_redactions']
+    with w.store.connect() as c:
+        original = Store.artifact(c, ref['packet_id'])
+    assert original['records'][0]['sources'][0]['message_ref'] == 'internal-sensitive-message'

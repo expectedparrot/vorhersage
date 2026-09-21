@@ -291,3 +291,13 @@ def test_optional_artifact_is_validated_and_complete_requires_one(tmp_path):
     answer.update(status='complete', case_count=1, independent_episode_count=1)
     with pytest.raises(Error, match='requires analysis_path'):
         submit(w, rid, answer)
+
+
+def test_partial_export_retains_verified_metadata(tmp_path):
+    w, rid, refs = begin(tmp_path); searched(w, rid, refs)
+    path = tmp_path / 'analysis.json'
+    path.write_text(json.dumps({'analysis_id': 'partial-fixture', 'n_subjects': 1,
+                               'metric': 'Completion', 'subject_ids': ['museum']}))
+    answer = analyze(); answer.pop('artifact_omission_reason'); answer['analysis_path'] = str(path)
+    submit(w, rid, answer)
+    assert w.next(rid)['context']['reference_research']['artifact_status'] == 'verified_empirical_export'

@@ -6,9 +6,22 @@ their links and calculates their consequences.
 """
 
 import copy
+import re
 
 from .common import Error, require, time
 
+
+
+def verbatim_statement(passage, excerpt):
+    """Allow complete verbatim statements, without dropping a leading qualifier."""
+    if not passage or not passage.strip():
+        return False
+    for match in re.finditer(re.escape(passage), excerpt):
+        start = match.start() == 0 or bool(re.search(r'(?:[.!?]\s+|\n)\Z', excerpt[:match.start()]))
+        end = match.end() == len(excerpt) or (passage.endswith(('.', '!', '?')) and excerpt[match.end()].isspace()) or excerpt[match.end():match.end()+1] == '\n'
+        if start and end:
+            return True
+    return False
 
 def validate_intake(plan):
     inputs = {r["id"] for r in plan["inputs"]}
@@ -97,6 +110,8 @@ def validate_transfer(row):
                 'A benchmark mismatch cannot provide direct quantitative support.')
     if transfer['quantitative_support'] == 'calculated':
         require(transfer.get('calculation'), 'Calculated transfers need a reproducible calculation description.')
+    if transfer['quantitative_support'] == 'direct':
+        require(row['basis'] == 'measured', 'Direct quantitative support requires measured basis.')
     if row['basis'] == 'measured':
         require(transfer['quantitative_support'] == 'direct', 'Measured inputs need direct quantitative support.')
     if row['basis'] == 'calculated':
@@ -188,6 +203,8 @@ def validate_challenge(payload, state):
     for concern in concerns:
         require(set(concern['model_inputs']) <= paths, 'Concern must link to actual model inputs.')
     mismatches = {r['model_input'] for r in rows if r['verdict'] == 'mismatch'}
+    mismatches |= {r['model_input'] for r in rows if r.get('source_fidelity') in ('mismatch', 'unverified')
+                   or r.get('directional_relevance') in ('uncertain', 'irrelevant')}
     mismatches |= {path for path, item in support.items() if item.get('transfer') and
                    (item['transfer']['source'] != item['transfer']['target'] or
                     item['transfer']['quantitative_support'] == 'judgment')}

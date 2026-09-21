@@ -49,3 +49,22 @@ def test_new_workflow_requires_semantics_and_exact_event_review(tmp_path):
     with pytest.raises(Error, match='event_alignment'):
         submit(w, review)
     submit(w, challenge(task['context'], ['opened', 'late']))
+
+
+def test_new_runs_cannot_opt_out_of_semantics(tmp_path):
+    from test_workflow import question, run_spec
+    from vorhersage.workflow import Workflow
+    w = Workflow(tmp_path); w.store.init('Museum'); w.question(question())
+    with pytest.raises(Error, match='cannot downgrade model_semantics_version'):
+        w.start(run_spec(research_contract='structured_v2', model_semantics_version=0))
+
+
+def test_conditional_path_receives_component_guidance(tmp_path):
+    w, refs = begin(tmp_path); t = advance(w, refs, 'assessment')
+    answer = {'method': 'conditional_path', 'rationale': 'Single final event.', 'limitations': [], 'evidence_refs': [],
+        'components': [{'id': 'target', 'conditional_on': None, 'probability': .6, 'rationale': 'Assumed.', 'evidence_refs': []}],
+        'nested_events_justification': 'The only component is the target.'}
+    answer['parameter_support'] = support(answer); answer['model_map'] = model_map(answer, t['context'])
+    submit(w, answer); task = study.next_task(w)
+    assert 'final component' in task['task']['instruction'] and 'funding/delay' not in task['task']['instruction']
+    submit(w, challenge(task['context']))

@@ -138,7 +138,7 @@ def priorities(state):
             swing = high - low
         questions = [q for q in state.get("research_plan", {}).get("unknowns", []) if support['input_id'] in q['input_ids']]
         user_questions = [q for q in questions if q['route'] == 'ask_user']
-        stopped = {'declined', 'unknown_to_user', 'deferred'}
+        stopped = {'declined', 'unknown_to_user', 'deferred', 'inaccessible'}
         obtainable = [q for q in user_questions if state.get('inquiry_answers', {}).get(q['id'], {}).get('response_state') not in stopped]
         result.append({"suggested_route": "ask_user" if obtainable else "search",
                        "inquiry_ids": [q['id'] for q in obtainable], "model_input": path, "input_id": support["input_id"], "basis": support["basis"],
