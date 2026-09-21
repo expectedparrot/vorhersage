@@ -16,6 +16,7 @@ from .evidence import audit as audit_evidence
 from .workflow import workflow_requirements
 
 WRITING_GUIDANCE = [
+    "Preserve reported_facts verbatim and distinguish inferred evidence from testimony. Unknown to a respondent does not mean absent; review participation does not establish exclusive decision authority. Keep response_state and unresolved_fields visible and do not describe partial answers as resolved.",
     "Preserve source versus target estimands and their transfer mapping. A relevant benchmark is not numerical support; distinguish whole-cycle and remaining durations, conditioning populations and committed terms versus annualized rates. Quantitative judgment transfers remain judgments even when their source passage is verified.",
     "Explain each scenario conditioning event, its relationship to the exact YES criteria and any residual failure gate. Entailed outcomes are definitionally fixed, not empirical probabilities. Preserve semantic_review_gaps for legacy models; arithmetic cannot prove a partition.",
     "Private evidence: cite [^citation_anchor] and add a footnote definition [^citation_anchor]: attribution. Use each finding's citation_anchor and source attribution. Do not publish message_ref or private locators. Preserve recorded evidence IDs in parameter claims; forecast dependencies are checked through the model.",
@@ -130,7 +131,7 @@ def _run_material(raw):
                 "prediction": {"status": status, "working_probability": state["probability"],
                                "issued": _prediction(issued, forecast_id) if issued else None,
                                "previous_issued": _prediction(previous, previous_id) if previous else None},
-                "methodology": {**_pick(run, ("forecaster", "mode", "method", "workflow", "workflow_version", "research_contract", "reference_policy", "model_semantics_version", "evidence_transfer_version", "created_at")),
+                "methodology": {**_pick(run, ("forecaster", "mode", "method", "workflow", "workflow_version", "research_contract", "reference_policy", "model_semantics_version", "evidence_transfer_version", "inquiry_version", "created_at")),
                                 **_pick(state, ("information_as_of", "prior_record", "research_plan", "inquiry_answers", "coverage", "reference_class",
                                                "reference_class_design", "reference_classes", "reference_searches", "reference_class_analysis",
                                                "reference_analysis_history", "budget_overrides"))},

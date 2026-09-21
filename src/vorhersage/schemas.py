@@ -41,7 +41,7 @@ RUN = obj({"question_id": TEXT, "question_version": {"type": "integer", "minimum
            "workflow": enum("standard", "timeline"),
            "research_contract": enum("structured_v1", "structured_v2"),
            "research_effort": enum("deep", "standard", "minimal"),
-           "reference_policy": enum("legacy", "widening_v1"), "model_semantics_version": enum(0, 1), "evidence_transfer_version": enum(0, 1),
+           "reference_policy": enum("legacy", "widening_v1"), "model_semantics_version": enum(0, 1), "evidence_transfer_version": enum(0, 1), "inquiry_version": enum(0, 1),
            "previous_forecast_id": TEXT},
           ["question_id", "forecaster", "method", "mode", "information_as_of", "max_searches", "max_extra_tasks"])
 REFERENCE_QUERY = obj({"tags": array(TEXT, 1), "horizon_days": {"type": "number", "minimum": 0.000001},
@@ -113,8 +113,11 @@ INTAKE = obj({"rationale": TEXT,
               "unknowns": array(obj({"id": TEXT, "question": TEXT, "input_ids": array(TEXT, 1),
                                      "route": enum("ask_user", "search", "assumption", "unobservable"),
                                      "why_it_matters": TEXT, "action": TEXT}))})
-INQUIRY = obj({"status": enum("answered", "unresolved"), "answer": TEXT, "evidence_refs": REFS,
-               "coverage": array(obj({"domain": TEXT, "interpretation": TEXT}))},
+INQUIRY = obj({"response_state": enum("answered", "partial", "unknown_to_user", "declined", "deferred", "not_asked", "inaccessible"),
+               "reported_facts": array(obj({"passage": TEXT, "evidence_refs": array(REF, 1)})),
+               "inferred_evidence_refs": REFS, "unresolved_fields": array(TEXT),
+               "status": enum("answered", "unresolved"), "answer": TEXT, "evidence_refs": REFS,
+               "coverage": array(obj({"domain": TEXT, "interpretation": TEXT, "completeness": enum("complete", "partial")}, ["domain", "interpretation"]))},
               ["status", "answer", "evidence_refs"])
 MODEL_MAP = obj({"version": {"type": "integer", "minimum": 1}, "previous_version": COUNT,
                  "rationale": TEXT,

@@ -136,8 +136,14 @@ def priorities(state):
         if swing is None and path == "probability" and sensitivity.get("bounded_range"):
             low, high = sensitivity["bounded_range"]
             swing = high - low
-        result.append({"model_input": path, "input_id": support["input_id"], "basis": support["basis"],
+        questions = [q for q in state.get("research_plan", {}).get("unknowns", []) if support['input_id'] in q['input_ids']]
+        user_questions = [q for q in questions if q['route'] == 'ask_user']
+        stopped = {'declined', 'unknown_to_user', 'deferred'}
+        obtainable = [q for q in user_questions if state.get('inquiry_answers', {}).get(q['id'], {}).get('response_state') not in stopped]
+        result.append({"suggested_route": "ask_user" if obtainable else "search",
+                       "inquiry_ids": [q['id'] for q in obtainable], "model_input": path, "input_id": support["input_id"], "basis": support["basis"],
                        "target": support["target"], "probability_swing": swing,
                        "transfer_assumptions": support["transfer_assumptions"],
-                       "action": "Seek nearby cases or measurements for this input; retain partial evidence and investigate missing outcomes."})
+                       "action": ("Ask a concise factual follow-up; preserve qualifiers and allow unknown/declined." if obtainable else
+                                  "Seek nearby cases or measurements; respect declined or deferred user inquiries.")})
     return sorted(result, key=lambda row: (row["probability_swing"] is None, -(row["probability_swing"] or 0), row["model_input"]))

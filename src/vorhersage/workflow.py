@@ -59,7 +59,7 @@ def evidence_refs(value):
     refs = []
     if isinstance(value, dict):
         for key, child in value.items():
-            if key == "evidence_refs":
+            if key in ("evidence_refs", "inferred_evidence_refs"):
                 refs.extend(child)
             else:
                 refs.extend(evidence_refs(child))
@@ -166,6 +166,7 @@ class Workflow:
                 # single-question front end opts into deep research explicitly.
                 "research_effort": spec.get("research_effort", "standard"),
                 "profile": profile, "created_at": now(), "workflow_version": "1", **(protocol or {})}
+        body["inquiry_version"] = spec.get("inquiry_version", int(spec.get("research_contract") == "structured_v2" and not protocol))
         body["evidence_transfer_version"] = spec.get("evidence_transfer_version", int(spec.get("research_contract") == "structured_v2" and not protocol and workflow != "timeline"))
         body["model_semantics_version"] = spec.get("model_semantics_version", int(spec.get("research_contract") == "structured_v2" and not protocol))
         body["reference_policy"] = spec.get("reference_policy", "widening_v1" if
@@ -327,7 +328,7 @@ class Workflow:
             if extra:
                 payload_schema["required"].append(extra)
             if selected["kind"] == "inquiry":
-                selected["instruction"] += " Reuse this answer for relevant profile domains through coverage [{domain, interpretation}]; this removes duplicate domain tasks. Mark unresolved gaps honestly."
+                selected["instruction"] += " Reuse this answer for relevant profile domains through coverage [{domain, interpretation}]; this removes duplicate domain tasks. Mark unresolved gaps honestly. For ask_user with inquiry_version 1, record response_state (answered, partial, unknown_to_user, declined, deferred, not_asked, inaccessible); answered/partial needs reported_facts [{passage,evidence_refs}] preserving original qualifiers. Store deductions separately as inferred_evidence_refs pointing to inference records. Partial answers name unresolved_fields and stay unresolved. Partial coverage must not suppress further domain research. Public-web unavailability does not mean the user cannot know. Ask concise batched follow-ups about exact thresholds, current stage, remaining gates, authority, schedule, amount versus term, and whether a blocker was actually raised. Respect a preference to proceed with assumptions."
             if selected["kind"] == "assessment":
                 selected["instruction"] += " Supply a new model_map version, explicitly separating scenario weights from conditional event probabilities. Remap evidence if the model changed; explain changes in rationale. For model_semantics_version 1, every mixture scenario needs semantics {version:1, conditioning_event, target_relation:entails_yes|entails_no|unresolved}. Entailed outcomes have fixed conditional probabilities/ranges; unresolved targets need residual_event and non_overlap_rationale plus parameter support for their conditional probability. Use context.model_map for previous_version (0 initially)."
             if selected["kind"] == "prior":
@@ -480,6 +481,21 @@ class Workflow:
             return {"research_actions": len(p["unknowns"])}
         if kind == "inquiry":
             q = selected["inquiry"]
+            if run.get("inquiry_version") == 1 and q["route"] == "ask_user":
+                require(p.get("response_state"), "User inquiries require response_state; unknown/declined/deferred are valid outcomes.")
+                if p["response_state"] in ("answered", "partial"):
+                    require(p.get("reported_facts"), "Preserve the original reported_facts passages and their evidence references.")
+            if p.get("response_state") and p["response_state"] != "answered":
+                require(p["status"] == "unresolved", "Partial, declined and unknown answers retain unresolved status.")
+            if p.get("response_state") == "partial":
+                require(p.get("unresolved_fields"), "Partial answers must name unresolved_fields.")
+            for fact in p.get("reported_facts", []):
+                records = verify_refs(c, fact["evidence_refs"], run["information_as_of"])
+                require(any(fact["passage"] == source['excerpt'] for r in records if r['record'].get('claim_type') != 'inference' for source in r['record']['sources']),
+                        "Reported fact passage must occur in the original captured source; preserve its qualifiers.")
+            for ref in p.get("inferred_evidence_refs", []):
+                records = verify_refs(c, [ref], run["information_as_of"])
+                require(records[0]['record'].get('claim_type') == 'inference', "Inferred claims require an inference evidence record.")
             require(q["route"] != "unobservable" or p["status"] == "unresolved",
                     "An unobservable input remains unresolved; explain the retained uncertainty.")
             require(p["status"] != "answered" or q["route"] not in ("ask_user", "search") or p["evidence_refs"],
@@ -496,8 +512,13 @@ class Workflow:
                     "disposition": "assessed" if p["status"] == "answered" else "unknown",
                     "evidence_refs": p["evidence_refs"], "unknowns": [p["answer"]] if p["status"] == "unresolved" else [],
                     "sources_checked": [], "conflicts": []}
-                state["pending"] = [t for t in state["pending"] if not
-                                    (t["kind"] == "research" and t["domain"] == coverage["domain"])]
+                complete = p["status"] == "answered" and coverage.get("completeness", "complete") == "complete" and not p.get("unresolved_fields")
+                if complete:
+                    state["pending"] = [t for t in state["pending"] if not
+                                        (t["kind"] == "research" and t["domain"] == coverage["domain"])]
+                else:
+                    state["coverage"][coverage["domain"]]["disposition"] = "unknown"
+                    state["coverage"][coverage["domain"]]["unknowns"] = p.get("unresolved_fields") or [p["answer"]]
             return {"input_ids": q["input_ids"], "status": p["status"]}
         if kind == "timeline_structure":
             spec = self._bind_timeline(c, run, state, p["timeline_model_id"])
