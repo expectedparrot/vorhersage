@@ -7,6 +7,7 @@ explanation, and presentation. Full records accompany the bounded writing view.
 import json
 from pathlib import Path
 
+from .evidence import citation_anchor
 from .common import digest, now, require
 from .store import Store
 from . import study, workbench
@@ -15,6 +16,7 @@ from .evidence import audit as audit_evidence
 from .workflow import workflow_requirements
 
 WRITING_GUIDANCE = [
+    "Private evidence: cite [^citation_anchor] and add a footnote definition [^citation_anchor]: attribution. Use each finding's citation_anchor and source attribution. Do not publish message_ref or private locators. Preserve recorded evidence IDs in parameter claims; forecast dependencies are checked through the model.",
     "Write an explanation for the reader, organized around the question and forecast rather than the task log.",
     "Use the selected prediction's probability and status exactly. A working estimate or workbench checkpoint is not an issued forecast.",
     "Explain the event definition, research performed, model mechanism, consequential assumptions, and what would change the forecast.",
@@ -118,7 +120,7 @@ def _run_material(raw):
             for finding in r["record"]["records"]:
                 key = aid + ":" + finding["id"]
                 if key in refs:
-                    evidence.append({"evidence_id": key, **finding})
+                    evidence.append({"evidence_id": key, "citation_anchor": citation_anchor(key), **finding})
     models = {aid: r["record"] for aid, r in records.items()
               if aid == state.get("timeline_model_id")}
     status = "issued" if issued else "revision_in_progress" if previous else "working"
@@ -150,7 +152,7 @@ def _run_material(raw):
         "limitations": (latest.get("assessment") or {}).get("answer", {}).get("limitations", []),
         "event_alignment": state.get("event_alignment"),
         "source_index": [{"evidence_id": e["evidence_id"], "claim": e["claim"],
-                          "sources": [_pick(s, ("id", "title", "url")) for s in e["sources"]]} for e in evidence],
+                          "sources": [_pick(s, ("id", "title", "url", "kind", "access", "attribution")) for s in e["sources"]]} for e in evidence],
         "evidence_audits": {aid: audit_evidence(r["record"]) for aid, r in records.items() if r["kind"] == "packet"},
         "sensitivity": state.get("sensitivity"),
     }

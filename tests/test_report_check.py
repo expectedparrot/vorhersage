@@ -79,3 +79,43 @@ def test_negated_calibration_disclosure_is_allowed(tmp_path):
 def test_date_rendering_preserves_recorded_timezone():
     assert report_check.rendered('2035-12-31T23:59:59-05:00', 'date') == '2035-12-31'
     assert report_check.rendered('2035-12-31T23:59:59-05:00', 'month_year') == 'December 2035'
+
+
+def test_private_testimony_and_dependencies_cannot_be_removed(tmp_path):
+    from vorhersage.evidence import capture_finding, citation_anchor, audit
+    record = capture_finding('Application filed.', title='Participant testimony', excerpt='I filed the application.',
+                             source_kind='testimony', attribution='Museum organizer', message_ref='internal:message-7')['records'][0]
+    assert audit(capture_finding('Filed.', title='Testimony', excerpt='Filed.', source_kind='testimony',
+                                 attribution='Organizer'))['dependence_groups']
+    args = bundle(tmp_path)
+    full = json.loads(args[3].read_text())
+    full['material']['evidence'].append({'evidence_id': 'private:filing', **record})
+    full['material']['model'] = {'parameter_support': [{'model_input': 'probability', 'value': .1,
+        'evidence_refs': [{'packet_id': 'private', 'record_id': 'filing'}]}]}
+    args[3].write_text(json.dumps(full))
+    sha = digest(full)
+    args[0].write_text(json.dumps({'record_sha256': sha, 'full_material': {'path': str(args[3]), 'sha256': sha}}))
+    claims = json.loads(args[2].read_text()); claims['record_sha256'] = sha
+    row = {'pointer': '/material/model/parameter_support/0/value', 'value': .1, 'format': 'percent',
+           'text': '**10% probability**', 'evidence_ids': ['private:filing']}
+    claims['claims'].append(row)
+    args[2].write_text(json.dumps(claims))
+    anchor = citation_anchor('private:filing')
+    args[1].write_text(args[1].read_text() + f'Application filed.[^{anchor}]\n\n[^{anchor}]: Museum organizer, private testimony.\n')
+    assert report_check.check(*args[:3])['ok']
+    assert 'internal:message-7' not in args[1].read_text()
+    row['evidence_ids'] = []
+    args[2].write_text(json.dumps(claims))
+    assert 'missing_claim_citation' in {i['code'] for i in report_check.check(*args[:3])['issues']}
+    # The issued forecast also retains dependencies even with an empty author inventory.
+    claims['claims'].pop(); args[2].write_text(json.dumps(claims))
+    args[1].write_text(args[1].read_text().replace('Museum organizer', 'Someone else'))
+    assert 'missing_source_link' in {i['code'] for i in report_check.check(*args[:3])['issues']}
+
+
+def test_private_source_requires_attribution_and_public_source_requires_url():
+    from vorhersage.evidence import capture_finding
+    with pytest.raises(Error, match='attribution'):
+        capture_finding('Filed.', title='Testimony', excerpt='Filed.', source_kind='testimony')
+    with pytest.raises(Error, match='URL'):
+        capture_finding('Filed.', title='Public record', excerpt='Filed.')

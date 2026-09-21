@@ -13,9 +13,11 @@ from .common import canonical, digest, now, require, time
 from .schemas import check
 
 
-def capture_finding(claim, *, url, title, excerpt, claim_type="reporting", observed_at=None,
-                    inference_rationale=None):
+def capture_finding(claim, *, url=None, title, excerpt, claim_type="reporting", observed_at=None,
+                    inference_rationale=None, source_kind="public", attribution=None, message_ref=None):
     """Capture supplied text now. This does not claim to fetch or verify its source."""
+    source = {"id": "source", "kind": source_kind, "access": "public" if source_kind == "public" else "private"}
+    source.update({k: v for k, v in {"url": url, "attribution": attribution, "message_ref": message_ref}.items() if v is not None})
     captured = now()
     observed = observed_at or captured
     require(time(observed) <= time(captured), "An observation cannot be later than the current capture time.")
@@ -31,7 +33,7 @@ def capture_finding(claim, *, url, title, excerpt, claim_type="reporting", obser
                                                            "rationale": inference_rationale or "Source passage supplied for this single claim."}],
                                         **({"inference_rationale": inference_rationale} if inference_rationale else {}),
                                         "provenance": {"adapter": "vorhersage.evidence_add.v1", "recorded_at": captured},
-                                        "sources": [{"id": "source", "url": url, "title": title,
+                                        "sources": [{**source, "title": title,
                                                      "excerpt": excerpt, "excerpt_kind": "paraphrase",
                                                      "retrieved_at": captured,
                                                      "capture": {"method": "manual", "captured_at": captured}}]}]})
@@ -67,6 +69,12 @@ def validate_packet(value):
         if record.get("claim_support") and record.get("claim_type") == "inference":
             require(record.get("inference_rationale"), "Inference findings need an inference_rationale.")
         for source in record["sources"]:
+            if source.get("kind", "public") == "public":
+                require(source.get("url"), "Public sources require a URL.")
+                require(source.get("access", "public") == "public", "Private sources need an explicit private kind.")
+            else:
+                require(source.get("attribution") and source.get("access") == "private",
+                        "Private sources require attribution and private access.")
             capture = source.get("capture", {})
             if capture.get("method") == "exa_snapshot":
                 require(capture.get("snapshot_as_of") and capture.get("content") and capture.get("captured_at"),
@@ -165,7 +173,7 @@ def audit(packet):
         for s in r["sources"]:
             # Shared URL or explicit original-report ID establishes dependence,
             # not independence between all other sources.
-            for origin in (s["url"], s.get("origin_id")):
+            for origin in (s.get("url"), s.get("origin_id"), s.get("message_ref")):
                 if origin:
                     if origin in origins:
                         join(id, origins[origin])
@@ -305,3 +313,8 @@ class Epiq:
                                     "previous_lineage_sha256": previous_lineage, "current_lineage_sha256": current_lineage})
             return {"changes": changes, "checked_at": now(), "selection": selection,
                     "limitations": ["Checks selected cells only; newly relevant subjects require research or a question-level signal."]}
+
+
+def citation_anchor(evidence_id):
+    """Opaque stable report footnote, without exposing a private locator."""
+    return "evidence-" + hashlib.sha256(evidence_id.encode()).hexdigest()[:16]
