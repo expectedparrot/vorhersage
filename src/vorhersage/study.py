@@ -117,6 +117,7 @@ def revise(workflow, *, reason, refs=(), expected_forecast=None):
                         reference_policy=old_run.get("reference_policy", "legacy"),
                         model_semantics_version=old_run.get("model_semantics_version", 0),
                         evidence_transfer_version=old_run.get("evidence_transfer_version", 0),
+                        inquiry_version=old_run.get("inquiry_version", 0),
                         workflow=old_run.get("workflow", "standard"))
             started = workflow._start(c, spec)
             run_id = started["run_id"]
