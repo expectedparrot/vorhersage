@@ -302,7 +302,7 @@ class Workflow:
                 selected["reference_class"] = state["reference_classes"][selected["class_id"]]
             if selected["kind"] == "reference_class_analysis":
                 payload_schema["required"] += ["class_results", "remaining_assumptions"]
-                selected["instruction"] += " Use continue_research with followups or additional_classes when widening or outcome verification could improve influential inputs. Otherwise distinguish partial, search_incomplete, budget_exhausted, outcomes_unavailable, no_usable_cases_found and complete. Imperfect evidence is usable with explicit transfer assumptions; an incomplete search is not evidence that no useful class exists."
+                selected["instruction"] += " Use continue_research with followups or additional_classes when widening or outcome verification could improve influential inputs. Omit analysis_path when no estimator export exists and give artifact_omission_reason instead; any supplied path is validated. Complete empirical analyses require a real export and estimator. Otherwise distinguish partial, search_incomplete, budget_exhausted, outcomes_unavailable, no_usable_cases_found and complete. Imperfect evidence is usable with explicit transfer assumptions; an incomplete search is not evidence that no useful class exists."
             if selected["kind"] in ("assessment", "timeline_structure", "prior", "review"):
                 selected["instruction"] += " Use context.reference_research, including input analogies and partial outcomes. Explain transfers to model inputs; do not pool incompatible classes or convert missing outcomes to NO. Prefer further targeted research on influential weak assumptions when budget remains; wide ranges alone do not improve evidence."
         if selected["kind"] == "assessment" and run.get("workflow") == "timeline":
@@ -448,13 +448,21 @@ class Workflow:
                         *[task("reference_class_search", class_id=row["id"]) for row in additions],
                         task("reference_class_analysis")]
             if p["status"] == "complete":
+                require(p.get("analysis_path") and p.get("estimator"), "Complete empirical analysis requires analysis_path and estimator.")
                 require(p["case_count"] > 0 and p["independent_episode_count"] > 0,
                         "A completed reference-class analysis needs cases and independent episodes.")
                 require(p["analysis_id"], "Completed reference-class analyses need an analysis_id.")
                 from .flyvbjerg_adapter import validate_export
                 state["flyvbjerg_analysis"] = validate_export(p)
             else:
-                require(p["limitations"], "A blocked reference-class analysis needs explicit limitations.")
+                require(p["limitations"], "An incomplete reference-class analysis needs explicit limitations.")
+                if p.get("analysis_path"):
+                    from .flyvbjerg_adapter import validate_export
+                    validate_export(p)
+                else:
+                    require(p.get("artifact_omission_reason"), "Explain the absent artifact with artifact_omission_reason.")
+            require(not (p.get("analysis_path") and p.get("artifact_omission_reason")),
+                    "Declare either an artifact path or an omission reason, not both.")
             state["reference_class_analysis"] = p
             return {"status": p["status"], "analysis_id": p["analysis_id"]}
         if kind == "intake":

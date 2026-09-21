@@ -57,7 +57,7 @@ def candidate(refs):
 def analyze(status="partial", **extra):
     return {"status": status, "analysis_id": "partial-fixture", "case_count": 0, "independent_episode_count": 0,
             "estimator": "No whole-event rate", "result": "Partial analogies inform input assumptions",
-            "limitations": ["Missing outcomes"], "evidence_refs": [], "analysis_path": "No empirical export",
+            "limitations": ["Missing outcomes"], "evidence_refs": [], "artifact_omission_reason": "No empirical export",
             "class_results": [{"class_id": cid, "assessment": "Partial timing evidence"} for cid in ("close", "nearby")],
             "remaining_assumptions": ["Transfer to this target is judgmental"], **extra}
 
@@ -265,3 +265,29 @@ def test_design_rejects_narrow_or_unusable_plan(tmp_path, problem):
     with pytest.raises(Error):
         submit(w, rid, answer)
     assert w.next(rid)["revision"] == 1
+
+
+def test_missing_estimator_artifact_has_explicit_honest_state(tmp_path):
+    w, rid, refs = begin(tmp_path)
+    searched(w, rid, refs)
+    answer = analyze('outcomes_unavailable')
+    answer.pop('estimator')
+    submit(w, rid, answer)
+    assert w.next(rid)['context']['reference_research']['artifact_status'] == 'no_verified_empirical_export'
+    assert w.next(rid)['context']['reference_research']['analysis']['artifact_omission_reason']
+
+
+def test_optional_artifact_is_validated_and_complete_requires_one(tmp_path):
+    w, rid, refs = begin(tmp_path)
+    searched(w, rid, refs)
+    answer = analyze()
+    answer.pop('artifact_omission_reason')
+    with pytest.raises(Error, match='artifact_omission_reason'):
+        submit(w, rid, answer)
+    answer['analysis_path'] = str(tmp_path / 'nonexistent.json')
+    with pytest.raises(Error, match='export not found'):
+        submit(w, rid, answer)
+    answer.pop('analysis_path')
+    answer.update(status='complete', case_count=1, independent_episode_count=1)
+    with pytest.raises(Error, match='requires analysis_path'):
+        submit(w, rid, answer)
